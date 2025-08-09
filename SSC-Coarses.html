@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Awareness | Courage Library</title>
+    <link rel="icon" href="../images/logo.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer>
+        // Smooth scroll for navigation
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"], button[data-scroll]').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    const id = this.getAttribute('href')?.replace('#', '') || this.getAttribute('data-scroll');
+                    if (id && document.getElementById(id)) {
+                        e.preventDefault();
+                        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+        // Simple fade-in on scroll
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) el.classList.add('opacity-100', 'translate-y-0');
+            });
+        });
+    </script>
+    <style>
+        body {
+            background: #fff;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(200, 200, 255, 0.12);
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            transform: scale(0.5);
+        }
+
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+
+    <script>
+        // Quick check for auth state when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const authState = localStorage.getItem('sb-auth-state');
+            if (authState) {
+                document.querySelectorAll('#loginBtn, #mobileLoginBtn').forEach(btn => {
+                    btn.classList.add('hidden');
+                });
+                document.querySelectorAll('#logoutBtn, #mobileLogoutBtn').forEach(btn => {
+                    btn.classList.remove('hidden');
+                });
+            }
+        });
+    </script>
+</head>
+
+<body class="relative min-h-screen text-gray-900 overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="index.html">
+                <img src="logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
+                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+                <a href="index.html#cta" class="hover:text-blue-600">Get Started</a>
+                <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
+                <a id="loginBtn" href="index.html?openModal=login"
+                    class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
+                </a>
+                <a id="logoutBtn" onclick="logout()"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
+                    Logout
+                </a>
+            </div>
+            <div class="md:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-2 w-48 bg-white rounded shadow-md py-2 z-50">
+                    <a href="#features" class="block px-4 py-2 hover:bg-blue-50">Features</a>
+                    <a href="#courses" class="block px-4 py-2 hover:bg-blue-50">Courses</a>
+                    <a href="#testimonials" class="block px-4 py-2 hover:bg-blue-50">Testimonials</a>
+                    <a href="#cta" class="block px-4 py-2 hover:bg-blue-50">Get Started</a>
+                    <a id="loginBtn" href="index.html?openModal=login"
+                        class="block px-4 py-2 border border-blue-500 text-blue-700 rounded-full text-center mt-2 mb-2 ripple">Login
+                    </a>
+                    <a id="logoutBtn" onclick="logout()"
+                        class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-20 pb-20 px-4 max-w-7xl mx-auto fade-in">
+        <div class="flex items-center mb-12 gap-4 flex justify-center">
+            <h1 class="text-3xl font-bold text-blue-700">General Awareness</h1>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+
+            <!-- Left: About General Awareness -->
+            <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
+                <p class="text-gray-700 mb-6 indent-16 text-base">
+                    General Awareness is not just a section—it’s the backbone of your Tier-I SSC CGL success. With
+                    topics like
+                    current affairs, history, geography, economics, polity, and science, this section rewards consistent
+                    effort and smart
+                    learning.<br> At Courage Library, we help you master it through structured modules, curated notes,
+                    and
+                    active recall strategies
+                    designed to boost your retention and confidence.
+                </p>
+
+                <ul class="space-y-3 text-gray-700 text-base">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-600 mt-1"></i>
+                        Comprehensive coverage of both static and dynamic GK
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-600 mt-1"></i>
+                        Weekly current affairs updates with practice quizzes
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-600 mt-1"></i>
+                        Simplified mind maps and one-liner capsules for fast revision
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-600 mt-1"></i>
+                        Priority coverage of key topics like government schemes, reports, and events
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-600 mt-1"></i>
+                        Strategic study plans to finish the syllabus without stress
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-600 mt-1"></i>
+                        Motivational guidance to keep your preparation consistent and focused
+                    </li>
+                </ul>
+
+                <p class="text-gray-700 mt-6 mb-6 text-base">
+                    Remember: General Awareness can be your high-scoring advantage—if approached smartly. Learn, revise,
+                    and believe. You've got this!
+                </p>
+
+                <p class="text-gray-500 italic mt-4 text-lg font-semibold text-center">
+                    "Success doesn't come from what you do occasionally, it comes from what you do consistently."<br>
+                    <span class="text-gray-500 not-italic text-sm">— Marie Forleo</span>
+                </p>
+            </div>
+
+            <!-- Right: List of Articles -->
+            <div>
+                <a href="History/prehistoric.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-landmark text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">History (Ancient, Medieval, Modern)</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Geography/universe_and_solarsystem.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-globe-asia text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Geography (Indian + World)</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Polity/introduction-to-indian-polity.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-balance-scale text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Indian Polity</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Economy/basic-concepts-of-economics.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-chart-line text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Indian Economics (Basic)</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Science/motion-&-force.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-flask text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Science (Physics, Chemistry, Biology)</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Art and Culture/architecture-and-monuments.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-palette text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Art & Culture</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Environment and Ecology/Introduction-to-Environment-and-Ecology.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fas fa-leaf text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Environment & Ecology</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Sports/National-Sports-in-India.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-futbol text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Sports</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Books And Authors/famous-indian-authors-and-their-works.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-book-open text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Books & Authors</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Government Scheme/types-of-government-schemes.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-university text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Government Schemes</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+
+                <a href="Miscellaneous/first-in-india-man.html"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-star text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Miscellaneous (First in India, etc.)</h3>
+                    </div>
+                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

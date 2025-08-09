@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courage Library</title>
+    <link rel="icon" type="image/png" href="logo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const supaClient = window.supabase.createClient(
+            'https://sgagswxzsxlgcspwiuoh.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4',
+            {
+                auth: {
+                    autoRefreshToken: true,
+                    persistSession: true,
+                    detectSessionInUrl: true
+                }
+            }
+        );
+    </script>
+
+    <script defer>
+        // Smooth scroll for navigation
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"], button[data-scroll]').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    const id = this.getAttribute('href')?.replace('#', '') || this.getAttribute('data-scroll');
+                    if (id && document.getElementById(id)) {
+                        e.preventDefault();
+                        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+        // Simple fade-in on scroll
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) el.classList.add('opacity-100', 'translate-y-0');
+            });
+        });
+    </script>
+    <style>
+        body {
+            background: #fff;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(200, 200, 255, 0.12);
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            transform: scale(0.5);
+        }
+
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+</head>
+
+<body class="relative min-h-screen text-gray-900 overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="index.html">
+                <img src="logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="#courses1" class="hover:text-blue-600">Courses</a>
+                <a href="#features" class="hover:text-blue-600">Features</a>
+                <a href="#testimonials" class="hover:text-blue-600">Reviews</a>
+                <a href="#cta" class="hover:text-blue-600">Get Started</a>
+                <a href="#contact" class="hover:text-blue-600">Contact Us</a>
+                <a id="loginBtn" onclick="openAuthModal('login')"
+                    class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
+                </a>
+                <a id="logoutBtn" onclick="logout()"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
+                    Logout
+                </a>
+
+            </div>
+            <div class="md:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <!-- Features -->
+                    <a href="#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+
+                    <!-- Reviews -->
+                    <a href="#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+
+                    <!-- Get Started -->
+                    <a href="#cta" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z" />
+                        </svg>
+                        Get Started
+                    </a>
+
+                    <!-- Contact Us -->
+                    <a href="#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                    <div class="flex justify-center">
+                        <a id="mobileLoginBtn" onclick="openAuthModal('login')"
+                            class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
+                        </a>
+                        <a id="mobileLogoutBtn" onclick="logout()"
+                            class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+        <div id="modalBox" class="bg-white rounded-xl p-6 w-80 scale-0 transition-transform duration-300">
+            <!-- Header -->
+            <button onclick="toggleModal()"
+                class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+
+            <div class="text-center mb-5">
+                <img src="logo.png" alt="Courage Library Logo" class="w-16 mx-auto rounded-full shadow-sm">
+                <h1 class="text-xl font-bold text-blue-700 mt-2">Courage Library</h1>
+                <p class="text-sm text-gray-500">Your self-paced learning space</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm">
+                <h2 class="text-lg font-semibold text-center text-gray-800 mb-4">Login</h2>
+                <div class="relative mb-4">
+                    <input type="email" id="loginEmail" placeholder="Enter your email"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+
+                </div>
+                <div class="relative">
+                    <input type="password" id="loginPassword" placeholder="Enter your password"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2zm-6-4a3 3 0 013 3v2H9V8a3 3 0 013-3z" />
+                    </svg>
+                    <svg id="toggleLoginPassword" xmlns="http://www.w3.org/2000/svg"
+                        class="absolute right-3 top-3 w-5 h-5 text-gray-400 cursor-pointer" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                    </svg>
+                </div>
+                <!-- Inside your loginForm div -->
+                <p class="mb-2 text-sm text-gray-400 text-right">
+                    <a href="#" onclick="openAuthModal('reset')" class="text-gray-500 hover:underline">
+                        Forgot password?
+                    </a>
+                </p>
+                <button onclick="loginWithEmail()"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium flex justify-center items-center">
+                    Login
+                </button>
+
+                <p class="mt-2 text-sm text-gray-600 text-center">Don’t have an account?
+                    <a href="#" onclick="openAuthModal('signup')" class="text-blue-600 underline">Sign Up</a>
+                </p>
+            </div>
+
+            <!-- Password Reset Form -->
+            <div id="resetForm" class="hidden">
+                <h2 class="text-lg font-semibold text-center text-gray-800 mb-4">Reset Password</h2>
+                <div class="relative mb-4">
+                    <input type="email" id="resetEmail" placeholder="Enter your email"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                </div>
+                <button onclick="sendPasswordReset()"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium">
+                    Send Reset Link
+                </button>
+                <p class="mt-3 text-sm text-gray-600 text-center">
+                    Remember your password?
+                    <a href="#" onclick="openAuthModal('login')" class="text-blue-600 hover:underline">Login</a>
+                </p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="hidden">
+                <h2 class="text-lg font-semibold text-center text-gray-800 mb-4">Sign Up</h2>
+                <div class="relative mb-4">
+                    <input type="email" id="signupEmail" placeholder="Enter your email"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+
+                </div>
+                <div class="relative mb-4">
+                    <input type="password" id="signupPassword" placeholder="Create a password"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2zm-6-4a3 3 0 013 3v2H9V8a3 3 0 013-3z" />
+                    </svg>
+                    <svg id="toggleSignupPassword" xmlns="http://www.w3.org/2000/svg"
+                        class="absolute right-3 top-3 w-5 h-5 text-gray-400 cursor-pointer" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                    </svg>
+                </div>
+                <button onclick="signupWithEmail()"
+                    class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium flex justify-center items-center">
+                    Sign Up
+                </button>
+
+                <p class="mt-2 text-sm text-gray-600 text-center">Already have an account?
+                    <a href="#" onclick="openAuthModal('login')" class="text-blue-600 underline">Login</a>
+                </p>
+            </div>
+
+            <!-- Inside your authModal div, with loginForm and signupForm -->
+            <div id="updatePasswordForm" class="hidden">
+                <h2 class="text-lg font-semibold text-center text-gray-800 mb-4">Set New Password</h2>
+
+                <div class="relative mb-4">
+                    <input type="password" id="newPassword" placeholder="New password"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" />
+                    </svg>
+                </div>
+
+                <div class="relative mb-6">
+                    <input type="password" id="confirmPassword" placeholder="Confirm password"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" />
+                    </svg>
+                </div>
+
+                <button onclick="updatePassword()"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium">
+                    Update Password
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Notification -->
+    <div id="customPopup" class="fixed top-5 right-5 hidden z-[9999]">
+        <div id="popupBox"
+            class="flex items-center gap-3 bg-white shadow-lg rounded-lg px-4 py-3 border-l-4 border-green-500 animate-slideIn">
+            <div id="popupIcon"></div>
+            <div>
+                <p id="popupMessage" class="text-gray-800 font-medium"></p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .transition-transform {
+            transition: transform 0.3s ease;
+        }
+
+        .scale-0 {
+            transform: scale(0);
+        }
+
+        .scale-100 {
+            transform: scale(1);
+        }
+
+
+
+
+        .transition-transform {
+            transition: transform 0.3s ease;
+        }
+
+        .scale-0 {
+            transform: scale(0);
+        }
+
+        .scale-100 {
+            transform: scale(1);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+        }
+
+        .showPopup {
+            animation: slideIn 0.35s ease-out forwards;
+        }
+
+        .hidePopup {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+
+        /* small responsive tweak so popup doesn't overflow on small screens */
+        #customPopup {
+            max-width: 95%;
+            z-index: 9999;
+        }
+
+        .animate-slideIn {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script>
+
+        let authMode = 'login';
+
+        function openAuthModal(mode) {
+            const authModal = document.getElementById('authModal');
+            const modalBox = document.getElementById('modalBox');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const resetForm = document.getElementById('resetForm');
+            const updatePasswordForm = document.getElementById('updatePasswordForm');
+
+            // Hide all forms first (clean slate approach)
+            loginForm.classList.add('hidden');
+            signupForm.classList.add('hidden');
+            resetForm.classList.add('hidden');
+            updatePasswordForm.classList.add('hidden');
+
+            // Show only the requested form
+            switch (mode) {
+                case 'login':
+                    loginForm.classList.remove('hidden');
+                    break;
+                case 'signup':
+                    signupForm.classList.remove('hidden');
+                    break;
+                case 'reset':
+                    resetForm.classList.remove('hidden');
+                    break;
+                case 'update':
+                    updatePasswordForm.classList.remove('hidden');
+                    break;
+                default:
+                    console.warn('Unknown auth mode:', mode);
+                    loginForm.classList.remove('hidden'); // Fallback to login
+            }
+
+            // Handle modal animation
+            authModal.classList.remove('hidden');
+            modalBox.classList.remove('scale-0');
+            modalBox.classList.add('scale-100');
+
+            // Clear previous inputs when switching modes
+            if (mode !== authMode) {
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('signupEmail').value = '';
+                document.getElementById('signupPassword').value = '';
+                document.getElementById('resetEmail').value = '';
+            }
+
+            authMode = mode; // Update current mode
+        }
+
+        async function loginWithEmail() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+
+            try {
+                const { error, data } = await supaClient.auth.signInWithPassword({ email, password });
+                if (error) {
+                    showCustomPopup("Login failed: " + error.message, "error");
+                } else {
+                    showCustomPopup("Login successful!", "success");
+                    // close modal after success
+                    setTimeout(() => toggleModal(), 500);
+                }
+            } catch (err) {
+                showCustomPopup("Login error: " + err.message, "error");
+            }
+
+            if (!error) {
+                currentAuthSession = data.session;
+                updateAllAuthButtons();
+            }
+        }
+
+        async function signupWithEmail() {
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+
+            try {
+                const { data, error } = await supaClient.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        emailRedirectTo: window.location.origin // Optional: For email confirmation
+                    }
+                });
+
+                if (error) {
+                    // Handle specific "email exists" error
+                    if (error.message.includes('already registered')) {
+                        showCustomPopup("User already exists. Please login instead.", "error");
+                    } else {
+                        showCustomPopup("Signup failed: " + error.message, "error");
+                    }
+                } else if (data?.user?.identities?.length === 0) {
+                    // Special case: No identities means user exists but maybe unconfirmed
+                    showCustomPopup("Email already registered. Check your inbox for confirmation link.", "error");
+                } else {
+                    showCustomPopup("Signup successful! Check your email to confirm.", "success");
+                    setTimeout(() => toggleModal(), 800);
+                }
+            } catch (err) {
+                showCustomPopup("Signup error: " + err.message, "error");
+            }
+        }
+
+        async function logout() {
+            try {
+                await supaClient.auth.signOut();
+                currentAuthSession = null; // Force update
+                updateAllAuthButtons();
+                showCustomPopup('Logged out!', 'success');
+            } catch (err) {
+                showCustomPopup('Logout failed: ' + err.message, 'error');
+            }
+        }
+
+        async function sendPasswordReset() {
+            const email = document.getElementById("resetEmail").value;
+
+            try {
+                const { error } = await supaClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/index.html?type=password_reset'
+                    // Using ? instead of #
+                });
+
+                if (error) throw error;
+                showCustomPopup("Reset link sent!", "success");
+            } catch (err) {
+                showCustomPopup("Error: " + err.message, "error");
+            }
+        }
+
+        async function updatePassword() {
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (newPassword !== confirmPassword) {
+                showCustomPopup("Passwords don't match!", "error");
+                return;
+            }
+
+            try {
+                // Get the token from URL or storage
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                const token = hashParams.get('access_token') || sessionStorage.getItem('resetToken');
+
+                if (!token) {
+                    throw new Error("Reset token missing");
+                }
+
+                // Update password directly (no need for verifyOtp)
+                const { error } = await supaClient.auth.updateUser({
+                    password: newPassword
+                });
+
+                if (error) throw error;
+
+                showCustomPopup("Password updated successfully!", "success");
+                sessionStorage.removeItem('resetToken');
+                setTimeout(() => {
+                    toggleModal();
+                    window.location.href = "/"; // Redirect to home
+                }, 1500);
+            } catch (err) {
+                showCustomPopup("Error: " + err.message, "error");
+                console.error("Password update error:", err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.get('type') === 'password_reset') {
+                // Store token from URL if needed
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                sessionStorage.setItem('resetToken', hashParams.get('access_token'));
+
+                // Clean URL
+                history.replaceState({}, '', window.location.pathname);
+
+                // Open modal
+                openAuthModal('update');
+            }
+
+            const modalToOpen = urlParams.get('openModal');
+
+            if (modalToOpen === 'login') {
+                // Clean URL without reloading
+                history.replaceState({}, '', window.location.pathname);
+
+                // Small delay ensures DOM is fully ready
+                setTimeout(() => {
+                    openAuthModal('login');
+                    document.getElementById('loginEmail').focus();
+                }, 50);
+            }
+
+            async function checkAuthStatus() {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                if (urlParams.has('checkAuth')) {
+                    try {
+                        const { data: { session }, error } = await supaClient.auth.getSession();
+
+                        if (error) throw error;
+
+                        if (session?.user) {
+                            showCustomPopup("You're already logged in! Redirecting...", "info");
+                            setTimeout(() => {
+                                window.location.href = "index.html";
+                            }, 2000);
+                        } else {
+                            openAuthModal('login');
+                        }
+
+                        history.replaceState({}, '', window.location.pathname);
+                    } catch (err) {
+                        console.error("Auth check failed:", err);
+                        openAuthModal('login');
+                    }
+                }
+            }
+
+            // Call the async function
+            checkAuthStatus();
+        });
+
+        function checkPasswordReset() {
+            const hash = window.location.hash.substring(1); // Remove the #
+            const params = new URLSearchParams(hash.split('?')[1] || '');
+            const token = params.get('access_token');
+            const type = params.get('type');
+
+            if (type === 'recovery' && token) {
+                // Store the token for later use
+                sessionStorage.setItem('resetToken', token);
+
+                // Clean the URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+
+                // Open the update modal
+                openAuthModal('update');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // updateAuthButtons requires elements with ids loginBtn and logoutBtn on the page
+            if (typeof supaClient !== 'undefined') {
+                const { data: { session } } = await supaClient.auth.getSession();
+                updateAuthButtons(session);
+
+                supaClient.auth.onAuthStateChange((_event, session) => {
+                    updateAuthButtons(session);
+                });
+            } else {
+                console.warn('supaClient not found — create it before this script.');
+            }
+
+            // set up password toggle listeners (guard in case elements not present)
+            const t1 = document.getElementById('toggleLoginPassword');
+            if (t1) t1.addEventListener('click', function () {
+                let passwordInput = document.getElementById('loginPassword');
+                togglePassword(passwordInput, this);
+            });
+            const t2 = document.getElementById('toggleSignupPassword');
+            if (t2) t2.addEventListener('click', function () {
+                let passwordInput = document.getElementById('signupPassword');
+                togglePassword(passwordInput, this);
+            });
+        });
+
+        function updateAuthButtons(session) {
+            // Desktop buttons
+            const desktopLogin = document.getElementById('loginBtn');
+            const desktopLogout = document.getElementById('logoutBtn');
+            // Mobile buttons
+            const mobileLogin = document.getElementById('mobileLoginBtn');
+            const mobileLogout = document.getElementById('mobileLogoutBtn');
+
+            [desktopLogin, mobileLogin].forEach(btn => {
+                if (session?.user) btn?.classList.add('hidden');
+                else btn?.classList.remove('hidden');
+            });
+
+            [desktopLogout, mobileLogout].forEach(btn => {
+                if (session?.user) btn?.classList.remove('hidden');
+                else btn?.classList.add('hidden');
+            });
+        }
+
+        function showCustomPopup(message, type = 'success') {
+            const popup = document.getElementById('customPopup');
+            const popupBox = document.getElementById('popupBox');
+            const popupIcon = document.getElementById('popupIcon');
+            const popupMessage = document.getElementById('popupMessage');
+
+            if (!popup || !popupBox || !popupIcon || !popupMessage) {
+                // fallback to alert so user still sees the message
+                alert(message);
+                return;
+            }
+
+            popupMessage.textContent = message;
+
+            let iconHTML = '';
+            let borderColor = '';
+
+            if (type === 'success') {
+                iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+                        </svg>`;
+                borderColor = 'border-green-500';
+            } else if (type === 'error') {
+                iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                        </svg>`;
+                borderColor = 'border-red-500';
+            } else {
+                // info or neutral
+                iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M11 7h2v2h-2V7zm1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6z"/>
+                        </svg>`;
+                borderColor = 'border-gray-400';
+            }
+
+            popupIcon.innerHTML = iconHTML;
+            popupBox.className = `flex items-center gap-3 bg-white shadow-lg rounded-lg px-4 py-3 border-l-4 ${borderColor}`;
+
+            // show with animation
+            popup.classList.remove('hidden', 'hidePopup');
+            popup.classList.add('showPopup');
+
+            // auto hide logic (clear any existing timeout by storing on element)
+            if (popup._hideTimeout) clearTimeout(popup._hideTimeout);
+            popup._hideTimeout = setTimeout(() => {
+                popup.classList.remove('showPopup');
+                popup.classList.add('hidePopup');
+                // add hidden after animation completes
+                setTimeout(() => popup.classList.add('hidden'), 320);
+                popup._hideTimeout = null;
+            }, 3000);
+        }
+
+        function togglePassword(input, icon) {
+            if (!input || !icon) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                // replace inner content of the *icon SVG* to "eye" — ensure svg wrapper remains
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />`;
+            } else {
+                input.type = 'password';
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />`;
+            }
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('authModal');
+            const box = document.getElementById('modalBox');
+
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => box.classList.remove('scale-0'), 10);
+            } else {
+                box.classList.add('scale-0');
+                setTimeout(() => modal.classList.add('hidden'), 120);
+            }
+        }
+
+        // Add this right after your supabase client initialization
+        let currentAuthSession = null;
+
+        function updateAllAuthButtons() {
+            // Update buttons on ALL pages
+            document.querySelectorAll('#loginBtn, #mobileLoginBtn').forEach(btn => {
+                btn.classList.toggle('hidden', !!currentAuthSession);
+            });
+
+            document.querySelectorAll('#logoutBtn, #mobileLogoutBtn').forEach(btn => {
+                btn.classList.toggle('hidden', !currentAuthSession);
+            });
+        }
+
+        // Initialize auth listener
+        supaClient.auth.onAuthStateChange((event, session) => {
+            currentAuthSession = session;
+            updateAllAuthButtons();
+
+            // Sync across browser tabs
+            localStorage.setItem('sb-auth-state', JSON.stringify(session));
+        });
+
+        // Listen for changes from other tabs
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'sb-auth-state') {
+                currentAuthSession = JSON.parse(event.newValue);
+                updateAllAuthButtons();
+            }
+        });
+
+        // Get initial session
+        supaClient.auth.getSession().then(({ data: { session } }) => {
+            currentAuthSession = session;
+            updateAllAuthButtons();
+        });
+    </script>
+
+
+    <!-- Hero Section -->
+    <section id="hero"
+        class="relative flex flex-col items-center justify-center bg-white text-gray-900 py-10 overflow-hidden">
+        <div class="relative w-full max-w-2xl mx-auto text-center px-4 fade-in">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-700 mb-4 leading-tight">Empower Your <span
+                    class="text-blue-600">Learning</span> Journey</h1>
+            <p class="text-lg md:text-xl mb-8">Unlock success with India’s smartest virtual library.</p>
+            <!-- Search Bar -->
+            <form
+                class="flex items-center bg-white rounded-full shadow-lg px-2 py-2 mb-12 max-w-xl mx-auto border border-gray-200"
+                onsubmit="event.preventDefault(); handleSearch();">
+                <input id="searchInput" type="text" placeholder="Search for courses, topics, or instructors..."
+                    class="flex-1 px-4 py-2 rounded-l-lg bg-transparent text-gray-900 focus:outline-none" />
+                <button type="submit"
+                    class="bg-blue-600 text-white px-2 py-2 rounded-full hover:bg-blue-700 transition flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM8 14a6 6 0 100-12 6 6 0 000 12z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses1" class="relative pb-10 pt-0 fade-in z-10 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Our Popular Courses</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <a href="SSC.html"
+                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
+                    <div
+                        class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="font-bold text-blue-700 text-xl mb-2">SSC CGL</h3>
+                    <p class="text-gray-700 mb-2">Comprehensive preparation material and strategies for SSC CGL
+                        aspirants.</p>
+                    <span
+                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
+                        More</span>
+                </a>
+                <a onclick="openPopup()"
+                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-pink-400">
+                    <div
+                        class="text-4xl mb-4 bg-gradient-to-br from-pink-400 to-red-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="font-bold text-blue-700 text-xl mb-2">Banking Exams</h3>
+                    <p class="text-gray-700 mb-2">All you need to crack IBPS, SBI, and other banking exams in one place.
+                    </p>
+                    <span
+                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
+                        More</span>
+                </a>
+                <a onclick="openPopup()"
+                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-green-400">
+                    <div
+                        class="text-4xl mb-4 bg-gradient-to-br from-green-400 to-blue-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3 class="font-bold text-blue-700 text-xl mb-2">Railway</h3>
+                    <p class="text-gray-700 mb-2">Self-Paced coarse, tips, and practice for Railway Exam recruitment.
+                    </p>
+                    <span
+                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
+                        More</span>
+                </a>
+                <a onclick="openPopup()"
+                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-yellow-400">
+                    <div
+                        class="text-4xl mb-4 bg-gradient-to-br from-yellow-400 to-orange-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="font-bold text-blue-700 text-xl mb-2">NDA Exam</h3>
+                    <p class="text-gray-700 mb-2">Step-by-step NDA exam process, eligibility, and preparation resources.
+                    </p>
+                    <span
+                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
+                        More</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <!-- Popup Modal -->
+        <div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div class="bg-white rounded-xl shadow-xl p-8 text-center max-w-xs w-full">
+                <div class="mx-auto mb-4 w-10 h-10 rounded-full bg-yellow-400 animate-soft-pulse"></div>
+
+                <!-- Message -->
+                <h2 class="text-blue-700 text-xl font-bold mb-2">Coming Soon</h2>
+                <p class="text-gray-600 text-base mb-6">This self-paced course will be launched soon. Please check back
+                    shortly.</p>
+
+                <div class="flex justify-center">
+                    <button onclick="closePopup()"
+                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">
+                        Notify Me Later
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            @keyframes fade-in {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes soft-pulse {
+
+                0%,
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+
+                50% {
+                    transform: scale(1.3);
+                    opacity: 0.4;
+                }
+            }
+
+            .animate-fade-in {
+                animation: fade-in 0.3s ease-out;
+            }
+
+            .animate-soft-pulse {
+                animation: soft-pulse 1.5s ease-in-out infinite;
+            }
+        </style>
+
+        <!-- Script -->
+        <script>
+            function openPopup() {
+                document.getElementById("popupModal").classList.remove("hidden");
+            }
+
+            function closePopup() {
+                document.getElementById("popupModal").classList.add("hidden");
+            }
+        </script>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="relative py-10 fade-in z-10 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">
+                Why Learners Love Self-Paced Courses
+            </h2>
+            <div class="grid md:grid-cols-3 gap-10">
+
+                <!-- Flexible Learning -->
+                <div
+                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-blue-400">
+                    <div class="text-blue-600 text-5xl mb-4"><i class="fas fa-clock"></i></div>
+                    <h3 class="font-bold text-2xl mb-2">Flexible Learning</h3>
+                    <p class="text-gray-700">Study anytime, anywhere — at your own pace and convenience.</p>
+                </div>
+
+                <!-- Lifetime Access -->
+                <div
+                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-green-400">
+                    <div class="text-blue-600 text-5xl mb-4"><i class="fas fa-infinity"></i></div>
+                    <h3 class="font-bold text-2xl mb-2">Lifetime Access</h3>
+                    <p class="text-gray-700">Revisit lessons anytime with lifetime access to course materials.</p>
+                </div>
+
+                <!-- Progress Tracking -->
+                <div
+                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-yellow-400">
+                    <div class="text-blue-600 text-5xl mb-4"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="font-bold text-2xl mb-2">Progress Tracking</h3>
+                    <p class="text-gray-700">Keep track of completed lessons and monitor your improvement step by step.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="relative py-10 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">What Our Users Say</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div
+                    class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                    <img src="/images/ankit.png" alt="User" class="w-20 h-20 rounded-full mr-6 border-4 border-blue-200">
+                    <div>
+                        <p class="mb-4 text-lg text-gray-700">"Courage Library changed the way I study. The content is
+                            well-organized, easy to understand, and truly student-friendly!"</p>
+                        <p class="font-semibold text-blue-700">Ankit Singh</p>
+                        <p class="text-sm text-gray-500">Student</p>
+                    </div>
+                </div>
+                <div
+                    class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-pink-400">
+                    <img src="/images/lakhan.jpg" alt="User" class="w-20 h-20 rounded-full mr-6 border-4 border-blue-200">
+                    <div>
+                        <p class="mb-4 text-lg text-gray-700">"Thanks to Courage Library, The content layout is clean
+                            and logical, making complex topics feel simple. Totally exam focused content!"</p>
+                        <p class="font-semibold text-blue-700">Lakhan</p>
+                        <p class="text-sm text-gray-500">Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creators Section -->
+    <section id="creators" class="relative py-10 fade-in z-10 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Meet the Creators</h2>
+            <div class="grid md:grid-cols-4 gap-10">
+                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-blue-400">
+                    <img src="/images/jan.png" alt="Creator 1" class="w-24 h-24 rounded-full mb-4 border-4 border-blue-200">
+                    <h3 class="font-semibold text-gray-700 text-2xl mb-1">Jan Mohammad</h3>
+                    <p class="text-blue-600 font-medium mb-2">Software Engineer</p>
+                    <p class="text-gray-700">"Driven by a passion for innovation in education, I focused on building a
+                        scalable and seamless platform that enhances the way students learn and stay organized. Be a
+                        Couragian"</p>
+                </div>
+                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-pink-400">
+                    <img src="/images/roopsree.jpg" alt="Creator 2"
+                        class="w-24 h-24 rounded-full mb-4 border-4 border-blue-200">
+                    <h3 class="font-semibold text-gray-700 text-2xl mb-1">Roopsree Challa</h3>
+                    <p class="text-blue-600 font-medium mb-2">Software Engineer</p>
+                    <p class="text-gray-700">"I believe that great design simplifies learning. I crafted user-friendly,
+                        visually engaging interfaces that make every visit to Courage Library feel effortless and
+                        enjoyable."</p>
+                </div>
+                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-green-400">
+                    <img src="/images/parvez.jpg" alt="Creator 3" class="w-24 h-24 rounded-full mb-4 border-4 border-blue-200">
+                    <h3 class="font-semibold text-gray-700 text-2xl mb-1">Md Parvezuddin</h3>
+                    <p class="text-blue-600 font-medium mb-2">Software Engineer</p>
+                    <p class="text-gray-700">"Content is the heart of any learning platform. I worked on curating clear,
+                        engaging material by collaborating closely with educators to ensure the best learning experience
+                        for our users."</p>
+                </div>
+                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-green-400">
+                    <img src="/images/satyam.jpg" alt="Creator 3" class="w-24 h-24 rounded-full mb-4 border-4 border-blue-200">
+                    <h3 class="font-semibold text-gray-700 text-2xl mb-1">Satyam Kumar</h3>
+                    <p class="text-blue-600 font-medium mb-2">Software Engineer</p>
+                    <p class="text-gray-700">"Quality and clarity matter most. I focused on shaping course structures
+                        that are easy to follow, effective, and aligned with the real needs of today’s aspirants."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="offline-unit" class="relative py-10 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Our Learning Center</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Unit Details Card -->
+                <div
+                    class="glass p-6 shadow-lg rounded-xl hover:scale-[1.02] transform transition duration-300 border-t-4 border-blue-400 flex flex-col items-center text-center">
+                    <div class="mb-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mr-1 text-blue-600" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-blue-700 mb-4">Courage Library Ramaipur</h3>
+
+                    <p class="text-gray-600 mb-5 px-2 text-center">
+                        Step into a space where comfort meets focus – perfect conditions for your most productive study
+                        sessions.
+                    </p>
+
+
+                    <div class="grid md:grid-cols-2 gap-6 w-full">
+                        <!-- Left Column - Facilities -->
+                        <div class="space-y-4">
+                            <div class="flex items-start bg-blue-50 p-3 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-800">AC Study Halls</h4>
+                                    <p class="text-sm text-gray-600">Climate-controlled spaces for comfortable studying
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start bg-blue-50 p-3 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Ergonomic Furniture</h4>
+                                    <p class="text-sm text-gray-600">Premium chairs & spacious desks for long sessions
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start bg-blue-50 p-3 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Silent Zones</h4>
+                                    <p class="text-sm text-gray-600">Distraction-free areas for deep concentration</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Contact & Timing -->
+                        <div class="space-y-4 bg-blue-50 p-5 rounded-lg">
+                            <div class="flex flex-col items-center text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600 mb-2"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                                </svg>
+                                <h4 class="font-medium text-gray-800">Contact Us</h4>
+                                <p class="text-gray-600">+91 99360 87414</p>
+                                <p class="text-gray-600 text-sm">team@couragelibrary.in</p>
+                            </div>
+
+                            <div class="flex flex-col items-center text-center pt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600 mb-2"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <h4 class="font-medium text-gray-800">Opening Hours</h4>
+                                <p class="text-gray-600">7:00 AM - 7:00 PM</p>
+                                <p class="text-gray-600 text-sm">Open all days</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed -->
+                <div
+                    class="glass p-1 shadow-lg rounded-xl overflow-hidden hover:scale-[1.02] transform transition duration-300 border-t-4 border-indigo-400 flex flex-col">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3575.4903740452087!2d80.29574807546257!3d26.342996876991293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c450055764329%3A0xd66cfc032bc0b829!2sCourage%20Library!5e0!3m2!1sen!2sin!4v1754647977888!5m2!1sen!2sin"
+                        class="w-full h-full md:h-full border-0 rounded-lg" allowfullscreen loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="p-3 bg-white bg-opacity-50 text-center">
+                        <p class="text-gray-700 text-sm font-medium flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-blue-600"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Bus Stop, Ramaipur, Kanpur Nagar, UP - 209214
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action (Ready to Start Learning) Section -->
+    <section id="cta" class="relative py-10 text-center fade-in z-10 bg-white">
+        <div class="max-w-2xl mx-auto glass p-12 shadow-2xl border-b-4 border-blue-400">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-blue-700">Ready to Start Learning?</h2>
+            <p class="mb-8 text-lg text-gray-700">Sign up now and unlock your potential with our expert-led courses.</p>
+            <a href="#hero"
+                class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:scale-110 transform transition ripple">Join
+                Now</a>
+        </div>
+    </section>
+
+    <section id="contact" class="relative py-10 bg-white fade-in z-10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Contact Us</h2>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Contact Info -->
+                <div class="glass p-8 shadow-xl rounded-xl border-t-4 border-blue-400">
+                    <h3 class="text-2xl font-bold text-blue-700 text-center mb-4">Get in Touch</h3>
+                    <p class="text-gray-700 mb-6">Have questions? We’re here to help you on your learning journey. Reach
+                        out to us through any of the methods below..</p>
+
+                    <ul class="space-y-4 text-gray-700 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-blue-600 text-xl mr-4 mt-1"></i>
+                            <span><strong>Phone:</strong> +91 8102524543</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-message text-blue-600 text-xl mr-4 mt-1"></i>
+                            <span><strong>WhatsApp:</strong> 8467864390</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-blue-600 text-xl mr-4 mt-1"></i>
+                            <span><strong>Email:</strong> team@couragelibrary.in</span>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 mb-6">
+                        Prefer chatting? Message us directly on <span
+                            class="text-blue-700 font-semibold">WhatsApp</span> for quick support and instant replies.
+                    </p>
+
+
+                    <div class="flex justify-center">
+                        <a href="https://wa.me/918467864390" target="_blank"
+                            class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition flex items-center gap-2">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="glass p-8 shadow-xl rounded-xl border-t-4 border-indigo-400">
+                    <h3 class="text-2xl font-bold text-blue-700 text-center mb-6">Send a Query</h3>
+                    <form id="contactForm" action="https://formspree.io/f/mblkpqew" method="POST">
+                        <!-- Form fields (same as before) -->
+                        <div class="mb-4">
+                            <input type="text" name="name" placeholder="Your Name"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" name="email" placeholder="Your Email"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <textarea name="message" rows="5" placeholder="Your Query"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required></textarea>
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit"
+                                class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold px-6 py-3 rounded-full hover:bg-blue-700 transition">
+                                Send Query
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Toast Notification (Top Right) -->
+                <div id="toast" class="fixed top-20 right-5 hidden z-100">
+                    <div class="bg-white shadow-lg rounded-lg border-l-4 px-6 py-4 flex items-center">
+                        <div id="toast-icon" class="mr-4"></div>
+                        <div>
+                            <h3 id="toast-title" class="font-bold text-gray-800"></h3>
+                            <p id="toast-message" class="text-sm text-gray-600"></p>
+                        </div>
+                        <button onclick="hideToast()" class="ml-6 text-gray-400 hover:text-gray-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <script>
+                    const form = document.getElementById('contactForm');
+                    const submitButton = form.querySelector('button[type="submit"]');
+
+                    // Toast functions
+                    function showToast(type, title, message) {
+                        const toast = document.getElementById('toast');
+                        const icon = document.getElementById('toast-icon');
+                        const toastTitle = document.getElementById('toast-title');
+                        const toastMessage = document.getElementById('toast-message');
+
+                        // Set icon and colors based on type
+                        if (type === 'success') {
+                            icon.innerHTML = `
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            `;
+                            toast.querySelector('.border-l-4').classList.add('border-green-500');
+                        } else {
+                            icon.innerHTML = `
+                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            `;
+                            toast.querySelector('.border-l-4').classList.add('border-red-500');
+                        }
+
+                        // Set content
+                        toastTitle.textContent = title;
+                        toastMessage.textContent = message;
+
+                        // Show toast
+                        toast.classList.remove('hidden');
+
+                        // Auto-hide after 5 seconds
+                        setTimeout(hideToast, 5000);
+                    }
+
+                    function hideToast() {
+                        document.getElementById('toast').classList.add('hidden');
+                    }
+
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+
+                        // Show loading state
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = `
+                            <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Sending...
+                        `;
+
+                        try {
+                            const response = await fetch(form.action, {
+                                method: 'POST',
+                                body: new FormData(form),
+                                headers: { 'Accept': 'application/json' }
+                            });
+
+                            if (response.ok) {
+                                showToast('success', 'Success!', 'Your message has been sent successfully.');
+                                form.reset();
+                            } else {
+                                const errorData = await response.json();
+                                throw new Error(errorData.error || 'Form submission failed');
+                            }
+                        } catch (error) {
+                            showToast('error', 'Error!', error.message || 'There was a problem sending your message.');
+                            console.error('Form submission error:', error);
+                        } finally {
+                            // Reset button state
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = 'Send Query';
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleSearch() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll("#courses1 .glass");
+            const resultsDiv = document.getElementById("results");
+
+            let matchCount = 0;
+
+            cards.forEach((card) => {
+                const title = card.querySelector("h3").textContent.toLowerCase();
+                const desc = card.querySelector("p").textContent.toLowerCase();
+
+                if (title.includes(input) || desc.includes(input)) {
+                    card.style.display = "flex";
+                    matchCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            // Optional: Show results summary
+            if (input.trim() === "") {
+                resultsDiv.innerHTML = "";
+            } else if (matchCount === 0) {
+                resultsDiv.innerHTML = `<p class='text-center text-red-500'>No courses found for "<strong>${input}</strong>"</p>`;
+            } else {
+                resultsDiv.innerHTML = `<p class='text-center text-green-600'>Found ${matchCount} course(s) for "<strong>${input}</strong>"</p>`;
+            }
+        }
+        // Optional: Trigger on typing instead of just submit
+        document.getElementById("searchInput").addEventListener("input", handleSearch);
+    </script>
+    <!-- 1. Load Supabase library -->
+
+</body>
+
+</html>

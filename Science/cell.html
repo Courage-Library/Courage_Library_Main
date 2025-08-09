@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="A comprehensive guide to Cell Biology for competitive exams, created by Courage Library. Covers key topics including Tissues, Cell as the Basic Unit of Life, Cell Structure & Organelles, and the differences between Plant and Animal cells, based on NCERT and Lucent GK." />
+    <meta name="keywords"
+        content="Cell Biology, Tissues, Cell Structure, Cell Organelles, Plant Cell, Animal Cell, Nucleus, Mitochondria, Ribosomes, Lysosomes, SSC CGL, NCERT, Lucent GK, Competitive Exams, Courage Library" />
+    <meta name="author" content="Courage Library" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Cell | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../index.html#features"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../index.html#contact"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="flex flex-1 mt-16">
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="General Science Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        General Science
+                    </li>
+
+                    <!-- Physics -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Physics
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="motion-&-force.html" class="nav-link" title="Motion & Force">Motion & Force</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Work-Energy-and-Power.html" class="nav-link" title="Work, Energy and Power">Work,
+                                Energy and Power</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="gravitation.html" class="nav-link" title="Gravitation">Gravitation</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Heat-and-thermodynamics.html" class="nav-link" title="Heat and Thermodynamics">Heat
+                                and Thermodynamics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="light-and-optics.html" class="nav-link" title="Light and Optics">Light and
+                                Optics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="sound.html" class="nav-link" title="Sound">Sound</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="electricity-&-magnetism.html" class="nav-link"
+                                title="Electricity & Magnetism">Electricity & Magnetism</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Modern-Physics-(Basics).html" class="nav-link"
+                                title="Modern Physics (Basics)">Modern Physics (Basics)</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Daily-Life-Applications-of-Physics.html" class="nav-link"
+                                title="Daily Life Applications of Physics">Daily Life Applications of Physics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <!-- Chemistry -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded mt-4">
+                        Chemistry
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Matter-and-Its-Nature.html" class="nav-link" title="Matter and Its Nature">Matter
+                                and Its Nature</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="atomic_structure.html" class="nav-link" title="Atomic Structure">Atomic
+                                Structure</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="chemical-bonding-&-reactions.html" class="nav-link"
+                                title="Chemical Bonding & Reactions">Chemical Bonding & Reactions</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Acids,-Bases,-and-Salts.html" class="nav-link"
+                                title="Acids, Bases and Salts">Acids, Bases and Salts</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="metal-and-non-metal.html" class="nav-link" title="Metals and Non-Metals">Metals and
+                                Non-Metals</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="carbon-and-its-compounds.html" class="nav-link"
+                                title="Carbon and Its Compounds">Carbon and Its Compounds</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="periodic-table.html" class="nav-link" title="Periodic Table">Periodic Table</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="environmental-chemistry.html" class="nav-link"
+                                title="Environmental Chemistry">Environmental Chemistry</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Everyday-Chemistry.html" class="nav-link" title="Everyday Chemistry">Everyday
+                                Chemistry</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <!-- Biology -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded mt-4">
+                        Biology
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="cell.html" class="nav-link" title="Cell">Cell</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="tissues.html" class="nav-link" title="Tissues">Tissues</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="human-digestive-system.html" class="nav-link" title="Human Digestive System">Human
+                                Digestive System</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="circulatory-and-excretory-systems.html" class="nav-link"
+                                title="Circulatory & Excretory Systems">Circulatory & Excretory Systems</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="respiratory-and-nervous-systems.html" class="nav-link"
+                                title="Respiratory & Nervous Systems">Respiratory & Nervous Systems</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="skeletal-and-muscular-systems.html" class="nav-link"
+                                title="Skeletal & Muscular Systems">Skeletal & Muscular Systems</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="reproductive-system.html" class="nav-link" title="Reproductive System">Reproductive
+                                System</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="plant-physiology.html" class="nav-link" title="Plant Physiology">Plant
+                                Physiology</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Diseases-and-Immunity.html" class="nav-link" title="Diseases & Immunity">Diseases &
+                                Immunity</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Genetics-and-Evolution.html" class="nav-link" title="Genetics & Evolution">Genetics
+                                & Evolution</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="environment-and-ecology.html" class="nav-link"
+                                title="Environment & Ecology">Environment & Ecology</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="biology-daily-life.html" class="nav-link" title="Biology in Daily Life">Biology in
+                                Daily Life</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <!-- Miscellaneous -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded mt-4">
+                        Miscellaneous
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="inventions-&-discoveries.html" class="nav-link"
+                                title="Inventions & Discoveries">Inventions & Discoveries</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="units-&-measurements-in-science.html" class="nav-link"
+                                title="Units & Measurements in Science">Units & Measurements in Science</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="SI-Units-and-Their-Applications.html" class="nav-link"
+                                title="SI Units and Their Applications">SI Units and Their Applications</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Important-Scientists-and-Their-Contributions.html" class="nav-link"
+                                title="Important Scientists & Their Contributions">Important Scientists & Their
+                                Contributions</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Basic-Scientific-Instruments-and-Their-Use.html" class="nav-link"
+                                title="Basic Scientific Instruments & Their Use">Basic Scientific Instruments & Their
+                                Use</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-03">03-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">SSC CGL - Detailed Guide 2025</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Self-Paced Course</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <section class="text-center px-4 md:px-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-purple-600 mb-2">Cell - The Basic Unit of Life</h1>
+                <p class="italic text-gray-500">Reference: Lucent GK, NCERT Class 6–12</p>
+            </section>
+
+            <!-- Cell Structure & Organelles Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Cell Structure & Organelles</h2>
+
+                <div class="mb-6">
+                    <p class="text-lg mb-4">Cells are the structural and functional units of all living organisms. They
+                        can be:</p>
+                    <ul class="list-disc list-inside text-lg pl-6 space-y-2 mb-4">
+                        <li><span class="font-medium">Unicellular</span> (e.g., Amoeba)</li>
+                        <li><span class="font-medium">Multicellular</span> (e.g., Humans)</li>
+                    </ul>
+                    <p class="text-lg font-medium">All cells have three main parts: <span class="text-blue-600">Plasma
+                            membrane</span>, <span class="text-blue-600">Cytoplasm</span>, and <span
+                            class="text-blue-600">Nucleus</span>.</p>
+                </div>
+
+                <!-- Cell Structure Overview Table -->
+                <h3 class="text-xl font-semibold text-teal-800 mb-3">Cell Structure Overview</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="table-auto w-full border border-gray-300 text-sm md:text-base">
+                        <thead class="bg-blue-600 text-white">
+                            <tr>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Component</th>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Plasma Membrane</td>
+                                <td class="border border-gray-300 px-3 py-2">Semi-permeable membrane controlling entry
+                                    and exit of substances</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Cytoplasm</td>
+                                <td class="border border-gray-300 px-3 py-2">Gel-like substance containing organelles
+                                    and enzymes for metabolic activities</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Nucleus</td>
+                                <td class="border border-gray-300 px-3 py-2">Control center of the cell; contains DNA,
+                                    chromatin, and nucleolus</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Major Cell Organelles Table -->
+                <h3 class="text-xl font-semibold text-teal-800 mb-3">Major Cell Organelles</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="table-auto w-full border border-gray-300 text-sm md:text-base">
+                        <thead class="bg-blue-600 text-white">
+                            <tr>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Organelle</th>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Structure & Function</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Cell Wall</td>
+                                <td class="border border-gray-300 px-3 py-2">Rigid outer covering in plant cells (made
+                                    of cellulose); provides protection and shape</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Nucleus</td>
+                                <td class="border border-gray-300 px-3 py-2">Double membrane; controls all cell
+                                    activities; contains genetic material</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Mitochondria</td>
+                                <td class="border border-gray-300 px-3 py-2">Double membrane; powerhouse of cell; site
+                                    of ATP production (aerobic respiration)</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Endoplasmic Reticulum</td>
+                                <td class="border border-gray-300 px-3 py-2">Two types: Rough ER (with ribosomes --
+                                    protein synthesis) and Smooth ER (lipid synthesis, detoxification)</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Ribosomes</td>
+                                <td class="border border-gray-300 px-3 py-2">Non-membranous; site of protein synthesis;
+                                    found in cytoplasm or on RER</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Golgi Apparatus</td>
+                                <td class="border border-gray-300 px-3 py-2">Stacked membranes; modifies, packages, and
+                                    transports proteins and lipids</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Lysosomes</td>
+                                <td class="border border-gray-300 px-3 py-2">Membrane-bound sacs with enzymes; digest
+                                    old organelles and foreign substances ("suicidal bags")</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Vacuoles</td>
+                                <td class="border border-gray-300 px-3 py-2">Storage sacs for water, nutrients, and
+                                    waste; large and central in plant cells, small in animal cells</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Plastids</td>
+                                <td class="border border-gray-300 px-3 py-2">Found only in plant cells; types:
+                                    Chloroplast (photosynthesis), Chromoplast (color), Leucoplast (storage)</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Centrosome/ Centrioles</td>
+                                <td class="border border-gray-300 px-3 py-2">Present in animal cells; help in spindle
+                                    formation during cell division</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Cytoskeleton</td>
+                                <td class="border border-gray-300 px-3 py-2">Network of fibers; provides shape, support,
+                                    and helps in intracellular transport</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Plant vs. Animal Cell Table -->
+                <h3 class="text-xl font-semibold text-teal-800 mb-3">Difference between Plant and Animal Cells</h3>
+                <div class="overflow-x-auto mb-6">
+                    <table class="table-auto w-full border border-gray-300 text-xs sm:text-sm md:text-base">
+                        <thead class="bg-blue-600 text-white">
+                            <tr>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Feature</th>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Plant Cell</th>
+                                <th class="border border-gray-300 px-3 py-2 text-left">Animal Cell</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Cell Wall</td>
+                                <td class="border border-gray-300 px-3 py-2">Present (made of cellulose)</td>
+                                <td class="border border-gray-300 px-3 py-2">Absent</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Shape</td>
+                                <td class="border border-gray-300 px-3 py-2">Usually fixed (rectangular)</td>
+                                <td class="border border-gray-300 px-3 py-2">Usually irregular or round</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Plastids</td>
+                                <td class="border border-gray-300 px-3 py-2">Present (e.g., chloroplasts)</td>
+                                <td class="border border-gray-300 px-3 py-2">Absent</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Vacuoles</td>
+                                <td class="border border-gray-300 px-3 py-2">Large central vacuole</td>
+                                <td class="border border-gray-300 px-3 py-2">Small and many (if present)</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Centrioles</td>
+                                <td class="border border-gray-300 px-3 py-2">Absent (except in lower plants)</td>
+                                <td class="border border-gray-300 px-3 py-2">Present</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Lysosomes</td>
+                                <td class="border border-gray-300 px-3 py-2">Rare</td>
+                                <td class="border border-gray-300 px-3 py-2">Common</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Energy Storage</td>
+                                <td class="border border-gray-300 px-3 py-2">Stored as starch</td>
+                                <td class="border border-gray-300 px-3 py-2">Stored as glycogen</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Mode of Nutrition</td>
+                                <td class="border border-gray-300 px-3 py-2">Autotrophic (photosynthesis)</td>
+                                <td class="border border-gray-300 px-3 py-2">Heterotrophic</td>
+                            </tr>
+                            <tr class="even:bg-gray-100">
+                                <td class="border border-gray-300 px-3 py-2 font-medium">Golgi Apparatus</td>
+                                <td class="border border-gray-300 px-3 py-2">Present (scattered units called
+                                    dictyosomes)</td>
+                                <td class="border border-gray-300 px-3 py-2">Present (compact stack)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Update above this line -->
+            <section class="flex justify-between p-4">
+                <a href="Everyday-Chemistry.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="tissues.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Start Your SSC CGL Journey Now!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library to experience disciplined study and expert support.
+                </p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
