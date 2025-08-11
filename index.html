@@ -216,7 +216,7 @@
                 class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
 
             <div class="text-center mb-5">
-                <img src="logo.png" alt="Courage Library Logo" class="w-16 mx-auto rounded-full shadow-sm">
+                <img src="/images/logo.png" alt="Courage Library Logo" class="w-16 mx-auto rounded-full shadow-sm">
                 <h1 class="text-xl font-bold text-blue-700 mt-2">Courage Library</h1>
                 <p class="text-sm text-gray-500">Your self-paced learning space</p>
             </div>
@@ -339,6 +339,13 @@
                         <path
                             d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" />
                     </svg>
+                    <svg id="toggleLoginPassword" xmlns="http://www.w3.org/2000/svg"
+                        class="absolute right-3 top-3 w-5 h-5 text-gray-400 cursor-pointer" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                    </svg>
                 </div>
 
                 <div class="relative mb-6">
@@ -348,6 +355,13 @@
                         fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" />
+                    </svg>
+                    <svg id="toggleLoginPassword" xmlns="http://www.w3.org/2000/svg"
+                        class="absolute right-3 top-3 w-5 h-5 text-gray-400 cursor-pointer" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
                     </svg>
                 </div>
 
@@ -371,21 +385,6 @@
     </div>
 
     <style>
-        .transition-transform {
-            transition: transform 0.3s ease;
-        }
-
-        .scale-0 {
-            transform: scale(0);
-        }
-
-        .scale-100 {
-            transform: scale(1);
-        }
-
-
-
-
         .transition-transform {
             transition: transform 0.3s ease;
         }
@@ -583,7 +582,7 @@
                 });
 
                 if (error) throw error;
-                showCustomPopup("Reset link sent!", "success");
+                showCustomPopup("Reset link sent!, Please check your mail.", "success");
             } catch (err) {
                 showCustomPopup("Error: " + err.message, "error");
             }
