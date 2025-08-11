@@ -98,46 +98,6 @@
 
         gtag('config', 'G-HDZDTH2P22');
     </script>
-
-    <script>
-        // Initialize Supabase (make sure this matches your main page's config)
-        const supabaseUrl = 'https://sgagswxzsxlgcspwiuoh.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-        // Function to update login/logout buttons
-        function updateAuthUI(user) {
-            const isLoggedIn = !!user;
-
-            // Toggle buttons
-            document.querySelectorAll('#loginBtn, #mobileLoginBtn').forEach(btn => {
-                btn.classList.toggle('hidden', isLoggedIn);
-            });
-            document.querySelectorAll('#logoutBtn, #mobileLogoutBtn').forEach(btn => {
-                btn.classList.toggle('hidden', !isLoggedIn);
-            });
-        }
-
-        // Check auth state on page load
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            updateAuthUI(user);
-        });
-
-        // Listen for real-time auth changes (e.g., login/logout in another tab)
-        supabase.auth.onAuthStateChange((event, session) => {
-            updateAuthUI(session?.user);
-        });
-
-        // Logout function (same as your main page)
-        async function logout() {
-            const { error } = await supabase.auth.signOut();
-            if (!error) {
-                updateAuthUI(null); // Immediately update UI
-                window.location.href = "index.html"; // Redirect if needed
-            }
-        }
-    </script>
 </head>
 
 <body class="relative min-h-screen text-gray-900 overflow-x-hidden">
@@ -154,12 +114,9 @@
                 <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
                 <a href="index.html#cta" class="hover:text-blue-600">Get Started</a>
                 <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
-                <a id="loginBtn" href="index.html?openModal=login"
-                    class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
-                </a>
-                <a id="logoutBtn" onclick="logout()"
+                <a href="index.html"
                     class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
-                    Logout
+                    Home
                 </a>
             </div>
             <div class="md:hidden" x-data="{ open: false }">
@@ -176,12 +133,9 @@
                     <a href="index.html#testimonials" class="block px-4 py-2 hover:bg-blue-50">Testimonials</a>
                     <a href="index.html#cta" class="block px-4 py-2 hover:bg-blue-50">Get Started</a>
                     <a href="index.html#contact" class="block px-4 py-2 hover:bg-blue-50">Contact Us</a>
-                    <a id="mobileLoginBtn" href="index.html?openModal=login"
-                        class="block px-4 py-2 border border-blue-500 text-blue-700 rounded-full text-center mt-2 mb-2 ripple">Login
-                    </a>
-                    <a id="mobileLogoutBtn" onclick="logout()"
+                    <a href="index.html"
                         class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
-                        Logout
+                        Home
                     </a>
                 </div>
             </div>

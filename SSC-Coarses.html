@@ -98,21 +98,6 @@
 
         gtag('config', 'G-HDZDTH2P22');
     </script>
-
-    <script>
-        // Quick check for auth state when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            const authState = localStorage.getItem('sb-auth-state');
-            if (authState) {
-                document.querySelectorAll('#loginBtn, #mobileLoginBtn').forEach(btn => {
-                    btn.classList.add('hidden');
-                });
-                document.querySelectorAll('#logoutBtn, #mobileLogoutBtn').forEach(btn => {
-                    btn.classList.remove('hidden');
-                });
-            }
-        });
-    </script>
 </head>
 
 <body class="relative min-h-screen text-gray-900 overflow-x-hidden">
@@ -129,12 +114,9 @@
                 <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
                 <a href="index.html#cta" class="hover:text-blue-600">Get Started</a>
                 <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
-                <a id="loginBtn" href="index.html?openModal=login"
-                    class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
-                </a>
-                <a id="logoutBtn" onclick="logout()"
-                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
-                    Logout
+                <a href="index.html"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
+                    Home
                 </a>
             </div>
             <div class="md:hidden" x-data="{ open: false }">
@@ -150,12 +132,9 @@
                     <a href="#courses" class="block px-4 py-2 hover:bg-blue-50">Courses</a>
                     <a href="#testimonials" class="block px-4 py-2 hover:bg-blue-50">Testimonials</a>
                     <a href="#cta" class="block px-4 py-2 hover:bg-blue-50">Get Started</a>
-                    <a id="loginBtn" href="index.html?openModal=login"
-                        class="block px-4 py-2 border border-blue-500 text-blue-700 rounded-full text-center mt-2 mb-2 ripple">Login
-                    </a>
-                    <a id="logoutBtn" onclick="logout()"
-                        class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
-                        Logout
+                    <a href="index.html"
+                        class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
+                        Home
                     </a>
                 </div>
             </div>
@@ -334,8 +313,8 @@
                         class="fab fa-twitter"></i></a>
                 <a href="https://www.linkedin.com/company/courage-library" target="_blank"
                     class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/couragelibrary1" target="_blank"
-                    class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
