@@ -577,7 +577,7 @@
 
             try {
                 const { error } = await supaClient.auth.resetPasswordForEmail(email, {
-                    redirectTo: window.location.origin + '/index.html?type=password_reset'
+                    redirectTo: window.location.origin //+ '/index.html?type=password_reset'
                     // Using ? instead of #
                 });
 
