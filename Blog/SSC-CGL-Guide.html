@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete SSC CGL 2025 Guide – Courage Library</title>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3B82F6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        secondary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10B981',
+                            600: '#059669',
+                        },
+                        accent: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            500: '#8B5CF6',
+                            600: '#7c3aed',
+                        },
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                        'medium': '0 6px 25px rgba(0, 0, 0, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #E5E7EB, transparent);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-3px);
+        }
+        .topic-card {
+            transition: all 0.3s ease;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        .step-number {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .print\:hidden {
+            display: none;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- Header will be inserted here -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="../index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="../index.html#courses1" class="hover:text-blue-600">Courses</a>
+                <a href="../index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="../index.html#testimonials" class="hover:text-blue-600">Reviews</a>
+                <a href="Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
+            </div>
+            <div class="md:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <!-- Features -->
+                    <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+
+                    <!-- Reviews -->
+                    <a href="../index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+
+                    <!-- Blog -->
+                    <a href="Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+                        </svg>
+                        Blog
+                    </a>
+
+                    <!-- Contact Us -->
+                    <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="gradient-bg text-white rounded-2xl p-8 mb-10 shadow-medium relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-6 -mr-6 opacity-10">
+                <i class="fas fa-graduation-cap text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center text-white text-sm mb-4">
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full">SSC EXAM GUIDE</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Complete SSC CGL 2025 Guide – Eligibility, Exam Pattern, Syllabus, Preparation</h1>
+                <p class="text-white text-opacity-90 max-w-3xl">Your comprehensive roadmap to cracking one of India's most prestigious government exams with confidence and strategy.</p>
+                
+                <div class="flex items-center text-white text-opacity-80 text-sm mt-6">
+                    <span><i class="far fa-calendar-alt mr-2"></i> Published: May 15, 2024</span>
+                    <span class="mx-3">|</span>
+                    <span><i class="far fa-clock mr-2"></i> 10 min read</span>
+                    <span class="mx-3">|</span>
+                    <span><i class="far fa-user mr-2"></i> By Courage Library Experts</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-600 mb-10 flex items-center">
+            <a href="../index.html" class="hover:text-primary-600 transition-colors"><i class="fas fa-home mr-1"></i> Home</a>
+            <i class="fas fa-chevron-right mx-2 text-xs"></i>
+            <a href="Blog.html" class="hover:text-primary-600 transition-colors">Blog</a>
+            <i class="fas fa-chevron-right mx-2 text-xs"></i>
+            <span class="text-gray-800 font-medium">SSC CGL 2025 Guide</span>
+        </nav>
+
+        <!-- Article Content -->
+        <article class="bg-white rounded-2xl shadow-soft overflow-hidden mb-12">
+            <div class="p-6 md:p-10">
+                <!-- Introduction -->
+                <section class="mb-12">
+                    <p class="mb-5 text-lg leading-relaxed">The <strong class="text-primary-600">Staff Selection Commission – Combined Graduate Level (SSC CGL) exam</strong> is one of the most prestigious government exams in India. Every year, lakhs of aspirants apply for SSC CGL to secure posts in ministries, departments, and organizations under the Government of India.</p>
+                    <p class="mb-5 text-lg leading-relaxed">If you are planning to appear for <strong class="text-primary-600">SSC CGL 2025</strong>, this guide will give you a <strong class="text-primary-600">complete roadmap</strong>: from eligibility to exam pattern, detailed syllabus, important dates, and expert preparation tips.</p>
+                    <p class="text-lg leading-relaxed">At <strong class="text-accent-600">Courage Library (couragelibrary.in)</strong>, we specialize in <strong class="text-accent-600">self-paced SSC learning</strong>, structured into <strong class="text-accent-600">Reasoning Ability, Quantitative Aptitude, General Awareness, and English Language</strong>. Let's begin.</p>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- What is SSC CGL? -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                        What is SSC CGL?
+                    </h2>
+                    <p class="mb-6 text-lg">The <strong class="text-primary-600">SSC CGL exam</strong> recruits candidates for Group B and Group C posts such as:</p>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary-500 mr-3"></i> Income Tax Inspector</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary-500 mr-3"></i> Assistant Section Officer</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary-500 mr-3"></i> Sub-Inspector (CBI, NIA)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary-500 mr-3"></i> Auditor (CAG)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-secondary-500 mr-3"></i> Preventive Officer (Customs)</li>
+                    </ul>
+                    
+                    <p class="font-semibold text-lg mb-5 text-dark">It offers:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                        <div class="bg-primary-50 p-5 rounded-xl text-center topic-card border border-primary-100">
+                            <div class="bg-primary-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-shield-alt text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-dark mb-2">Job security</h3>
+                            <p class="text-gray-600 text-sm">Stable career with government benefits</p>
+                        </div>
+                        <div class="bg-secondary-50 p-5 rounded-xl text-center topic-card border border-secondary-100">
+                            <div class="bg-secondary-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-gift text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-dark mb-2">Government perks</h3>
+                            <p class="text-gray-600 text-sm">Allowances, pensions, and other benefits</p>
+                        </div>
+                        <div class="bg-accent-50 p-5 rounded-xl text-center topic-card border border-accent-100">
+                            <div class="bg-accent-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-chart-line text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-dark mb-2">Career growth</h3>
+                            <p class="text-gray-600 text-sm">Promotion opportunities and stability</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Eligibility -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-user-check"></i>
+                        </span>
+                        SSC CGL 2025 Eligibility
+                    </h2>
+                    <p class="mb-6 text-lg">To appear for SSC CGL 2025, candidates must meet the following criteria:</p>
+                    <div class="bg-gray-50 p-6 rounded-xl mb-8">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="bg-primary-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-4 flex-shrink-0 mt-1">
+                                    <i class="fas fa-check text-xs"></i>
+                                </span>
+                                <span><strong class="text-dark">Nationality:</strong> Indian citizen (or as per official SSC rules).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-primary-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-4 flex-shrink-0 mt-1">
+                                    <i class="fas fa-check text-xs"></i>
+                                </span>
+                                <span><strong class="text-dark">Educational Qualification:</strong> Graduation in any discipline from a recognized university.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-primary-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-4 flex-shrink-0 mt-1">
+                                    <i class="fas fa-check text-xs"></i>
+                                </span>
+                                <span><strong class="text-dark">Age Limit:</strong> 18–32 years (with relaxation for SC/ST/OBC/Ex-Servicemen).</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-primary-500 flex items-start">
+                        <div class="bg-primary-500 text-white p-2 rounded-lg mr-4 flex-shrink-0">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <strong class="text-primary-600">Pro Tip:</strong> Always check the <strong class="text-primary-600">official SSC notification</strong> for post-wise qualifications and age limits as they may vary for different positions.
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Exam Pattern -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-clipboard-list"></i>
+                        </span>
+                        SSC CGL 2025 Exam Pattern
+                    </h2>
+                    <p class="mb-6 text-lg">The exam is conducted in <strong class="text-primary-600">two tiers</strong>:</p>
+                    
+                    <div class="overflow-x-auto rounded-xl shadow-soft mb-8">
+                        <table class="min-w-full bg-white">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Tier</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Mode</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Subjects</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Duration</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Marks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-semibold text-primary-600">Tier I</td>
+                                    <td class="py-4 px-6 border-b">Online (CBT)</td>
+                                    <td class="py-4 px-6 border-b">Reasoning, Quantitative Aptitude, General Awareness, English</td>
+                                    <td class="py-4 px-6 border-b">1 hour</td>
+                                    <td class="py-4 px-6 border-b">200</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-semibold text-primary-600">Tier II</td>
+                                    <td class="py-4 px-6 border-b">Online (CBT)</td>
+                                    <td class="py-4 px-6 border-b">Quant, English, Statistics, General Studies (Finance & Economics)</td>
+                                    <td class="py-4 px-6 border-b">Varies</td>
+                                    <td class="py-4 px-6 border-b">400+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-primary-500 flex items-start">
+                        <div class="bg-primary-500 text-white p-2 rounded-lg mr-4 flex-shrink-0">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>
+                            Both tiers are <strong class="text-primary-600">computer-based</strong>. Tier-I is qualifying, while Tier-II is merit-based. The final selection depends on Tier-II performance and document verification.
+                        </div>
+                    </div>
+                </section>
+
+                                <!-- Syllabus -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-book-open"></i>
+                        </span>
+                        SSC CGL 2025 Syllabus
+                    </h2>
+                    <p class="mb-6 text-lg">The SSC CGL syllabus covers <strong class="text-primary-600">four main subjects</strong>. At Courage Library, we have divided them into <strong class="text-primary-600">topic-wise articles</strong> for focused preparation:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <!-- Reasoning Ability -->
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl topic-card border border-blue-100">
+                            <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                                <span class="bg-blue-100 text-blue-600 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-brain"></i>
+                                </span>
+                                1. Reasoning Ability
+                            </h3>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Classification, Analogy, Coding-Decoding</li>
+                                <li>Blood Relations, Directions, Syllogism</li>
+                                <li>Statement & Conclusion, Series, Puzzles</li>
+                                <li>Data Sufficiency, Seating Arrangement</li>
+                            </ul>
+                            <a href="https://couragelibrary.in" class="inline-flex items-center mt-4 text-blue-600 font-medium hover:underline group">
+                                Explore Reasoning Ability Topics <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- Quantitative Aptitude -->
+                        <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-xl topic-card border border-green-100">
+                            <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                                <span class="bg-green-100 text-green-600 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-calculator"></i>
+                                </span>
+                                2. Quantitative Aptitude
+                            </h3>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Number System, Algebra, Trigonometry</li>
+                                <li>Geometry, Mensuration, Probability</li>
+                                <li>Percentage, Ratio & Proportion</li>
+                                <li>Profit & Loss, Time & Work, Speed & Distance</li>
+                                <li>Data Interpretation (Pie chart, Bar graph, Table)</li>
+                            </ul>
+                            <a href="https://couragelibrary.in" class="inline-flex items-center mt-4 text-green-600 font-medium hover:underline group">
+                                Explore Quantitative Aptitude Topics <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- General Awareness -->
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl topic-card border border-purple-100">
+                            <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                                <span class="bg-purple-100 text-purple-600 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-globe-asia"></i>
+                                </span>
+                                3. General Awareness
+                            </h3>
+                            <p class="text-gray-700 mb-3">We break GA into <strong>10 key areas</strong>:</p>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>History (Ancient, Medieval, Modern)</li>
+                                <li>Geography (Indian & World)</li>
+                                <li>Indian Polity & Constitution</li>
+                                <li>Indian Economics (Basics)</li>
+                                <li>Science (Physics, Chemistry, Biology)</li>
+                                <li>Art & Culture, Environment & Ecology</li>
+                                <li>Sports, Books & Authors</li>
+                                <li>Government Schemes & Miscellaneous</li>
+                            </ul>
+                            <a href="https://couragelibrary.in" class="inline-flex items-center mt-4 text-purple-600 font-medium hover:underline group">
+                                Explore General Awareness Topics <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                        
+                        <!-- English Language -->
+                        <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl topic-card border border-red-100">
+                            <h3 class="text-xl font-semibold text-dark mb-4 flex items-center">
+                                <span class="bg-red-100 text-red-600 p-2 rounded-lg mr-3">
+                                    <i class="fas fa-language"></i>
+                                </span>
+                                4. English Language
+                            </h3>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Vocabulary (Synonyms, Antonyms, Idioms)</li>
+                                <li>Grammar (Error Spotting, Sentence Correction)</li>
+                                <li>Reading Comprehension</li>
+                                <li>Cloze Test, Para Jumbles</li>
+                                <li>Active/Passive Voice, Narration</li>
+                            </ul>
+                            <a href="https://couragelibrary.in" class="inline-flex items-center mt-4 text-red-600 font-medium hover:underline group">
+                                Explore English Language Topics <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Important Dates -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="far fa-calendar-check"></i>
+                        </span>
+                        SSC CGL 2025 Important Dates
+                    </h2>
+                    
+                    <div class="overflow-x-auto rounded-xl shadow-soft mb-6">
+                        <table class="min-w-full bg-white">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Event</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Expected Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">Official Notification</td>
+                                    <td class="py-4 px-6 border-b">April/May 2025</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">Online Registration</td>
+                                    <td class="py-4 px-6 border-b">April–May 2025</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">Tier-I Exam</td>
+                                    <td class="py-4 px-6 border-b">July/August 2025</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">Tier-II Exam</td>
+                                    <td class="py-4 px-6 border-b">October/November 2025</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 italic">(Dates will be updated after official SSC notification release.)</p>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Salary & Job Profile -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </span>
+                        SSC CGL 2025 Salary & Job Profile
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-5 rounded-xl text-center topic-card border border-blue-100">
+                            <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-money-bill-alt text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-dark mb-2">Pay Scale</h3>
+                            <p class="text-gray-700"><strong>Level 4–8</strong> (₹25,500 – ₹81,100 basic pay)</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-xl text-center topic-card border border-green-100">
+                            <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-gift text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-dark mb-2">Benefits & Perks</h3>
+                            <p class="text-gray-700">HRA, DA, Medical, and Government allowances</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl text-center topic-card border border-purple-100">
+                            <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-briefcase text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-dark mb-2">Job Profiles</h3>
+                            <p class="text-gray-700">Clerical roles to Inspector & Officer level posts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-500">
+                        <p class="text-blue-800"><strong>Note:</strong> The exact salary structure varies based on the post, location, and pay commission recommendations. Additional benefits include travel allowances, pension schemes, and job security.</p>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Preparation Tips -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-graduation-cap"></i>
+                        </span>
+                        SSC CGL 2025 Preparation Tips
+                    </h2>
+                    <p class="mb-6 text-lg">Here's how you can prepare effectively:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-soft flex items-start hover-lift">
+                            <div class="step-number mr-4">1</div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-dark mb-2">Start with Syllabus & PYQs</h3>
+                                <p class="text-gray-700">Understand the exam demand by analyzing previous year questions and the complete syllabus.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-soft flex items-start hover-lift">
+                            <div class="step-number mr-4">2</div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-dark mb-2">Divide by Subjects</h3>
+                                <p class="text-gray-700">Study Reasoning, Quant, GA, and English systematically with dedicated time for each.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-soft flex items-start hover-lift">
+                            <div class="step-number mr-4">3</div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-dark mb-2">Self-Paced Learning</h3>
+                                <p class="text-gray-700">At <strong class="text-accent-600">Courage Library</strong>, track progress, revisit topics, and learn at your speed.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-soft flex items-start hover-lift">
+                            <div class="step-number mr-4">4</div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-dark mb-2">Daily Practice</h3>
+                                <p class="text-gray-700">Attempt at least one mock test weekly to assess your preparation level.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-soft flex items-start hover-lift md:col-span-2">
+                            <div class="step-number mr-4">5</div>
+                            <div>
+                                <h3 class="font-semibold text-lg text-dark mb-2">Stay Consistent</h3>
+                                <p class="text-gray-700">Even 4 focused hours daily is enough if done regularly without breaks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200">
+                        <h3 class="font-semibold text-lg text-dark mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i> Pro Tip from Toppers
+                        </h3>
+                        <p class="text-gray-700">"Focus on accuracy rather than attempting all questions. In Tier-II, sectional timing makes time management crucial. Practice with previous year papers to understand the exam pattern better." - <strong>Rahul Sharma, AIR 24</strong></p>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Conclusion -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        Conclusion
+                    </h2>
+                    <div class="bg-white p-6 rounded-xl shadow-soft mb-8">
+                        <p class="mb-5 text-lg">The SSC CGL exam opens doors to India's top government jobs. If you are preparing for <strong class="text-primary-600">SSC CGL 2025</strong>, start early, stay consistent, and follow a structured approach.</p>
+                        <p class="text-lg">At <strong class="text-accent-600">Courage Library (couragelibrary.in)</strong>, we provide a <strong>self-paced SSC learning platform</strong> divided into Reasoning, Quant, General Awareness, and English—making exam prep simple and focused.</p>
+                    </div>
+                    
+                    <div class="gradient-bg text-white rounded-2xl p-8 mt-12 text-center">
+                        <h2 class="text-2xl font-bold mb-4">Start Your SSC CGL 2025 Preparation Today</h2>
+                        <p class="mb-6 max-w-2xl mx-auto">Join thousands of successful candidates who have cracked SSC CGL with Courage Library's structured learning approach.</p>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <a href="../index.html" class="bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover-lift shadow-medium">Explore Our Courses</a>
+                            <a href="../SSC.html" class="bg-transparent border border-white text-white font-semibold py-3 px-6 rounded-lg hover-lift">Download Syllabus PDF</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Share Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-between pt-10 mt-12 border-t border-gray-200">
+                    <div class="flex items-center mb-4 sm:mb-0">
+                        <div class="flex space-x-3">
+                            <a href="#" 
+                                aria-label="Share on Facebook"
+                                onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href),'facebook-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-600">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#"
+                                aria-label="Share on Twitter"
+                                onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=Check+this+out%21','twitter-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#"
+                                aria-label="Share on LinkedIn"
+                                onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href),'linkedin-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-700">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#"
+                                aria-label="Share on WhatsApp"
+                                onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(document.title + ' ' + window.location.href),'whatsapp-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-green-100 hover:text-green-600">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 no-print">
+                        <!-- Like Button -->
+                        <div class="flex flex-row items-center">
+                        <button id="likeBtn" class="bg-gray-100 flex items-center text-gray-700 w-10 h-10 rounded-full hover-lift justify-center hover-lift hover:bg-red-100 hover:text-red-600">
+                            <i class="far fa-heart text-red-500"></i>
+                        </button>
+                        <span id="likeCount">142</span>
+                        </div>
+                        <!-- Views Counter -->
+                        <div class="flex items-center text-gray-600">
+                            <i class="far fa-eye mr-2"></i>
+                            <span id="viewCount">2.8K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Author Bio -->
+        <div class="bg-white rounded-2xl shadow-soft p-6 mb-12 flex items-start flex-col sm:flex-row">
+            <div class="bg-gray-200 w-16 h-16 rounded-full mr-5 flex-shrink-0 flex items-center justify-center">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                    <img src="/images/logo.png" alt="Courage Library" class="w-8 h-8 rounded-full">
+                </div>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg text-dark mb-1">Written by Courage Library Experts</h3>
+                <p class="text-gray-600 mb-3">SSC preparation specialists with 10+ years of experience</p>
+                <p class="text-gray-700">Our team of former SSC toppers and subject matter experts create comprehensive guides to help aspirants achieve their dream government jobs through structured learning and strategic preparation.</p>
+            </div>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-dark mb-8 text-center">You might also like</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Strategy</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">SSC CGL Previous Year Cutoff Analysis</h3>
+                        <p class="text-gray-600 text-sm mb-3">Understand the cutoff trends for better preparation strategy.</p>
+                        <a href="Cutoff-Analysis.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Resources</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">Best Books for SSC CGL 2025 Preparation</h3>
+                        <p class="text-gray-600 text-sm mb-3">Recommended books and resources for each subject.</p>
+                        <a href="Book-Recomendations.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Tips</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">Time Management Strategies for SSC CGL</h3>
+                        <p class="text-gray-600 text-sm mb-3">Learn how to maximize your score with proper time management.</p>
+                        <a href="Time-Management.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize like count and view count from localStorage or set defaults
+        let likeCount = localStorage.getItem('articleLikes') || 142;
+        let viewCount = localStorage.getItem('articleViews') || 2850;
+        
+        // Update view count (increment on each page view)
+        viewCount = parseInt(viewCount) + 1;
+        localStorage.setItem('articleViews', viewCount);
+        
+        // Format view count for display (1.5K instead of 1500)
+        const formatCount = (num) => {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num;
+        };
+        
+        // Update DOM elements
+        document.getElementById('likeCount').textContent = formatCount(likeCount);
+        document.getElementById('viewCount').textContent = formatCount(viewCount);
+        
+        // Like button functionality
+        document.getElementById('likeBtn').addEventListener('click', function() {
+            // Check if user has already liked
+            if (!localStorage.getItem('userLiked')) {
+                likeCount = parseInt(likeCount) + 1;
+                localStorage.setItem('articleLikes', likeCount);
+                localStorage.setItem('userLiked', 'true');
+                
+                // Update DOM
+                document.getElementById('likeCount').textContent = formatCount(likeCount);
+                
+                // Change icon to solid heart
+                this.querySelector('i').classList.remove('far');
+                this.querySelector('i').classList.add('fas');
+                
+                // Add animation effect
+                this.classList.add('animate-pulse');
+                setTimeout(() => {
+                    this.classList.remove('animate-pulse');
+                }, 300);
+            } else {
+                // Optional: Show message that user has already liked
+                this.classList.add('bg-red-100');
+                setTimeout(() => {
+                    this.classList.remove('bg-red-100');
+                }, 1000);
+            }
+        });
+        
+        // Check if user already liked and update heart icon
+        if (localStorage.getItem('userLiked')) {
+            document.querySelector('#likeBtn i').classList.remove('far');
+            document.querySelector('#likeBtn i').classList.add('fas');
+        }
+    });
+</script>
+
+<style>
+    .animate-pulse {
+        animation: pulse 0.3s ease-in-out;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+</style>
+</body>
+</html>

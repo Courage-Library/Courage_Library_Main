@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CGL Previous Year Cutoff Analysis – Understand the Cutoff Trends | Courage Library</title>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3B82F6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        secondary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10B981',
+                            600: '#059669',
+                        },
+                        accent: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            500: '#8B5CF6',
+                            600: '#7c3aed',
+                        },
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                        'medium': '0 6px 25px rgba(0, 0, 0, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #E5E7EB, transparent);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-3px);
+        }
+        .topic-card {
+            transition: all 0.3s ease;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        .step-number {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            color: white;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .print\:hidden {
+            display: none;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        .animate-pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .trend-up {
+            color: #10B981;
+        }
+        .trend-down {
+            color: #EF4444;
+        }
+        .trend-same {
+            color: #6B7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- Header will be inserted here -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="../index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="../index.html#courses1" class="hover:text-blue-600">Courses</a>
+                <a href="../index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="../index.html#testimonials" class="hover:text-blue-600">Reviews</a>
+                <a href="Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
+            </div>
+            <div class="md:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <!-- Features -->
+                    <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+
+                    <!-- Reviews -->
+                    <a href="../index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+
+                    <!-- Blog -->
+                    <a href="Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+                        </svg>
+                        Blog
+                    </a>
+
+                    <!-- Contact Us -->
+                    <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav> 
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="gradient-bg text-white rounded-2xl p-8 mb-10 shadow-medium relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-6 -mr-6 opacity-10">
+                <i class="fas fa-chart-line text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center text-white text-sm mb-4">
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full">CUTOFF ANALYSIS</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">SSC CGL Previous Year Cutoff Analysis – Understand the Cutoff Trends</h1>
+                <p class="text-white text-opacity-90 max-w-3xl">Analyze cutoff trends to set realistic preparation goals and build a winning strategy for SSC CGL 2025.</p>
+                
+                <div class="flex items-center text-white text-opacity-80 text-sm mt-6">
+                    <span><i class="far fa-calendar-alt mr-2"></i> Published: May 25, 2024</span>
+                    <span class="mx-3">|</span>
+                    <span><i class="far fa-clock mr-2"></i> 10 min read</span>
+                    <span class="mx-3">|</span>
+                    <span><i class="far fa-user mr-2"></i> By Courage Library Experts</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-600 mb-10 flex items-center">
+            <a href="../index.html" class="hover:text-primary-600 transition-colors"><i class="fas fa-home mr-1"></i> Home</a>
+            <i class="fas fa-chevron-right mx-2 text-xs"></i>
+            <a href="Blog.html" class="hover:text-primary-600 transition-colors">Blog</a>
+            <i class="fas fa-chevron-right mx-2 text-xs"></i>
+            <span class="text-gray-800 font-medium">Cutoff Analysis</span>
+        </nav>
+
+        <!-- Article Content -->
+        <article class="bg-white rounded-2xl shadow-soft overflow-hidden mb-12">
+            <div class="p-6 md:p-10">
+                <!-- Social Engagement Bar -->
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-10 pb-6 border-b border-gray-200">
+                    <div class="flex items-center mb-4 sm:mb-0">
+                        <div class="flex space-x-3">
+                            <a href="#" 
+                                aria-label="Share on Facebook"
+                                onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href),'facebook-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-600">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#"
+                                aria-label="Share on Twitter"
+                                onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=Check+this+out%21','twitter-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#"
+                                aria-label="Share on LinkedIn"
+                                onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href),'linkedin-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-700">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#"
+                                aria-label="Share on WhatsApp"
+                                onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(document.title + ' ' + window.location.href),'whatsapp-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-green-100 hover:text-green-600">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 no-print">
+                        <!-- Like Button -->
+                        <button id="likeBtn" class="flex items-center text-gray-700 font-medium py-2 px-4 rounded-lg hover-lift hover:bg-gray-100 transition-all">
+                            <i class="far fa-heart mr-2 text-red-500"></i>
+                            <span id="likeCount">127</span>
+                        </button>
+                        
+                        <!-- Views Counter -->
+                        <div class="flex items-center text-gray-600">
+                            <i class="far fa-eye mr-2"></i>
+                            <span id="viewCount">3.2K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Introduction -->
+                <section class="mb-12">
+                    <p class="mb-5 text-lg leading-relaxed">Every SSC CGL aspirant wants to know one thing before starting preparation: <em>"What is the safe score to target?"</em> The answer lies in analyzing the <strong class="text-primary-600">SSC CGL previous year cutoffs</strong>. By studying cutoff trends, you not only understand the level of competition but also set realistic preparation goals.</p>
+                    <p class="text-lg leading-relaxed">In this article, we will break down the <strong class="text-primary-600">SSC CGL cutoff trends</strong>, discuss factors affecting them, and explain how you can use this data to <strong class="text-primary-600">build a winning preparation strategy</strong>.</p>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- What is the SSC CGL Cutoff? -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                        What is the SSC CGL Cutoff?
+                    </h2>
+                    <p class="mb-6 text-lg">The <strong class="text-primary-600">cutoff</strong> is the minimum score required to qualify for the next stage of the exam. SSC releases separate cutoffs for different posts, categories, and tiers.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 text-center">
+                            <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-1 text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg text-blue-700 mb-2">Tier-I Cutoff</h3>
+                            <p class="text-gray-700 text-sm">Decides who moves to Tier-II</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-5 rounded-xl border border-green-200 text-center">
+                            <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-2 text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg text-green-700 mb-2">Tier-II Cutoff</h3>
+                            <p class="text-gray-700 text-sm">Post-wise and category-wise shortlisting</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 text-center">
+                            <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-3 text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg text-purple-700 mb-2">Final Cutoff</h3>
+                            <p class="text-gray-700 text-sm">Based on combined marks of all tiers</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-500">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white p-2 rounded-lg mr-4 flex-shrink-0">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                Knowing cutoffs is crucial because it helps you set a <strong class="text-blue-700">score benchmark</strong> rather than preparing blindly.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- SSC CGL Previous Year Cutoff (Tier-I) -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-table"></i>
+                        </span>
+                        SSC CGL Previous Year Cutoff (Tier-I) – General Trend
+                    </h2>
+                    <p class="mb-6 text-lg">Here's a snapshot of the last few years' <strong class="text-primary-600">Tier-I cutoffs</strong> for the <em>General category</em>:</p>
+                    
+                    <div class="overflow-x-auto rounded-xl shadow-soft mb-8">
+                        <table class="min-w-full bg-white">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Year</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Cutoff (General)</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Trend</th>
+                                    <th class="py-4 px-6 text-left font-semibold text-gray-700 border-b">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">2023</td>
+                                    <td class="py-4 px-6 border-b font-semibold">150–155</td>
+                                    <td class="py-4 px-6 border-b trend-up"><i class="fas fa-arrow-up mr-1"></i> High</td>
+                                    <td class="py-4 px-6 border-b">Moderate paper, high competition</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">2022</td>
+                                    <td class="py-4 px-6 border-b font-semibold">130–135</td>
+                                    <td class="py-4 px-6 border-b trend-down"><i class="fas fa-arrow-down mr-1"></i> Low</td>
+                                    <td class="py-4 px-6 border-b">Paper was slightly tougher</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">2021</td>
+                                    <td class="py-4 px-6 border-b font-semibold">147–153</td>
+                                    <td class="py-4 px-6 border-b trend-up"><i class="fas fa-arrow-up mr-1"></i> High</td>
+                                    <td class="py-4 px-6 border-b">Similar to 2023 trend</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">2020</td>
+                                    <td class="py-4 px-6 border-b font-semibold">147</td>
+                                    <td class="py-4 px-6 border-b trend-same"><i class="fas fa-minus mr-1"></i> Stable</td>
+                                    <td class="py-4 px-6 border-b">Post-COVID attempt surge</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="py-4 px-6 border-b font-medium">2019</td>
+                                    <td class="py-4 px-6 border-b font-semibold">147</td>
+                                    <td class="py-4 px-6 border-b trend-same"><i class="fas fa-minus mr-1"></i> Stable</td>
+                                    <td class="py-4 px-6 border-b">Standard difficulty</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-500">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white p-2 rounded-lg mr-4 flex-shrink-0">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <strong class="text-blue-700">Observation:</strong> The cutoff usually stays between <strong class="text-blue-700">130–155 marks</strong> depending on paper difficulty and number of applicants.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Tier-II Cutoff Trends -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-chart-bar"></i>
+                        </span>
+                        Tier-II Cutoff Trends
+                    </h2>
+                    <p class="mb-6 text-lg">Tier-II is the real game-changer because it carries maximum weightage. Some past year highlights:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-blue-700 mb-4 flex items-center">
+                                <i class="fas fa-star mr-2"></i> High Cutoff Posts
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-check text-xs"></i>
+                                    </span>
+                                    <span><strong class="text-dark">AAO & JSO posts</strong> usually have higher cutoff due to specialization</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-check text-xs"></i>
+                                    </span>
+                                    <span>Cutoffs vary widely between <strong class="text-dark">UR, OBC, SC, ST, and EWS categories</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-green-700 mb-4 flex items-center">
+                                <i class="fas fa-chart-line mr-2"></i> Cutoff Examples
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-arrow-right text-xs"></i>
+                                    </span>
+                                    <span>In <strong class="text-dark">SSC CGL 2022</strong>, UR cutoff for most posts was around <strong class="text-dark">510–520</strong> combined marks</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-arrow-right text-xs"></i>
+                                    </span>
+                                    <span>In <strong class="text-dark">SSC CGL 2021</strong>, it was slightly lower, around <strong class="text-dark">480–490</strong> marks</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Factors Affecting SSC CGL Cutoff -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-sliders-h"></i>
+                        </span>
+                        Factors Affecting SSC CGL Cutoff
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-blue-700 mb-4 flex items-center">
+                                <i class="fas fa-users mr-2"></i> Competition Factors
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-arrow-up text-xs"></i>
+                                    </span>
+                                    <span><strong class="text-dark">Number of Applicants</strong> – More applicants → Higher cutoff</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-briefcase text-xs"></i>
+                                    </span>
+                                    <span><strong class="text-dark">Vacancies Released</strong> – More vacancies → Lower cutoff</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-green-700 mb-4 flex items-center">
+                                <i class="fas fa-book mr-2"></i> Exam Factors
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-balance-scale text-xs"></i>
+                                    </span>
+                                    <span><strong class="text-dark">Exam Difficulty</strong> – Tough paper → Lower cutoff, Easy paper → Higher cutoff</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-calculator text-xs"></i>
+                                    </span>
+                                    <span><strong class="text-dark">Normalization Process</strong> – Marks are normalized across multiple shifts</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-500">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white p-2 rounded-lg mr-4 flex-shrink-0">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <strong class="text-blue-700">Example:</strong> If Tier-I is tough, cutoff can drop by <strong class="text-blue-700">10–15 marks</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- How to Use Cutoff Analysis in Preparation -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-brain"></i>
+                        </span>
+                        How to Use Cutoff Analysis in Preparation
+                    </h2>
+                    <p class="mb-6 text-lg">Instead of randomly aiming for high scores, use cutoffs to <strong class="text-primary-600">set practical goals</strong>:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-blue-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye mr-2"></i> Tier-I Strategy
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-flag text-xs"></i>
+                                    </span>
+                                    <span>Always aim for <strong class="text-dark">20–30 marks above</strong> the expected cutoff</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-calculator text-xs"></i>
+                                    </span>
+                                    <span>If cutoff is 140, target <strong class="text-dark">160–170</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-green-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye mr-2"></i> Tier-II Strategy
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-tachometer-alt text-xs"></i>
+                                    </span>
+                                    <span>Focus on strong accuracy in <strong class="text-dark">Quant & English</strong></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-bullseye text-xs"></i>
+                                    </span>
+                                    <span>Set a goal of <strong class="text-dark">550+ combined marks</strong> to stay safe</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-purple-700 mb-4 flex items-center">
+                                <i class="fas fa-clock mr-2"></i> Time Management
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-balance-scale text-xs"></i>
+                                    </span>
+                                    <span>Balance subjects according to <strong class="text-dark">weightage</strong></span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                            <h3 class="font-semibold text-lg text-red-700 mb-4 flex items-center">
+                                <i class="fas fa-vial mr-2"></i> Mock Tests
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                                        <i class="fas fa-chart-line text-xs"></i>
+                                    </span>
+                                    <span>Compare your scores with <strong class="text-dark">previous year cutoffs</strong> to measure readiness</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Safe Score to Target for SSC CGL 2025 -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-bullseye"></i>
+                        </span>
+                        Safe Score to Target for SSC CGL 2025
+                    </h2>
+                    <p class="mb-6 text-lg">Based on past data and increasing competition:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-blue-50 p-5 rounded-xl border border-blue-200 text-center">
+                            <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-1 text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg text-blue-700 mb-2">Tier-I</h3>
+                            <p class="text-gray-700">Target <strong class="text-blue-700">160+ marks</strong></p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-5 rounded-xl border border-green-200 text-center">
+                            <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-2 text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg text-green-700 mb-2">Tier-II</h3>
+                            <p class="text-gray-700">Aim for <strong class="text-green-700">370–380+ marks</strong></p>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 text-center">
+                            <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-3 text-xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-lg text-purple-700 mb-2">Overall</h3>
+                            <p class="text-gray-700"><strong class="text-purple-700">550–570+ marks</strong> for UR candidates</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-500">
+                        <div class="flex items-start">
+                            <div class="bg-blue-500 text-white p-2 rounded-lg mr-4 flex-shrink-0">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                Remember, cutoffs for reserved categories will be slightly lower, but targeting higher ensures safety.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Conclusion -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-flag-checkered"></i>
+                        </span>
+                        Conclusion
+                    </h2>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-soft mb-8">
+                        <p class="mb-5 text-lg">The <strong class="text-primary-600">SSC CGL cutoff analysis</strong> proves that while the competition is tough, having a clear <strong class="text-primary-600">score benchmark</strong> makes preparation much more effective. Don't prepare blindly—analyze trends, set realistic targets, and stick to your plan.</p>
+                        <p class="text-lg">At <strong class="text-accent-600">Courage Library</strong>, we provide <strong class="text-accent-600">topic-wise practice, previous year question analysis, and mock tests</strong> to help aspirants stay ahead of cutoff demands.</p>
+                    </div>
+                    
+                    <div class="gradient-bg text-white rounded-2xl p-8 mt-12 text-center">
+                    <h2 class="text-2xl font-bold mb-4">Start Your SSC Preparation Today</h2>
+                    <p class="mb-6 max-w-2xl mx-auto">Join thousands of successful candidates who have cracked SSC exams with Courage Library's structured learning approach.</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="../index.html" class="bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover-lift shadow-medium">Explore Our Courses</a>
+                        <a href="../SSC.html" class="bg-transparent border border-white text-white font-semibold py-3 px-6 rounded-lg hover-lift">Download Study Plan</a>
+                    </div>
+                </div>
+                </section>
+
+                <!-- Author Bio -->
+                <div class="bg-gray-50 rounded-2xl p-6 mt-12 flex items-start flex-col md:flex-row">
+                    <div class="bg-gray-200 w-16 h-16 rounded-full mr-5 flex-shrink-0 flex items-center justify-center">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                            <img src="/images/logo.png" alt="Courage Library" class="w-8 h-8 rounded-full">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-dark mb-1">Written by Courage Library Experts</h3>
+                        <p class="text-gray-600 mb-3">SSC preparation specialists with 10+ years of experience</p>
+                        <p class="text-gray-700">Our team of former SSC toppers and subject matter experts create comprehensive guides to help aspirants achieve their dream government jobs through structured learning and strategic preparation.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Articles -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-dark mb-8 text-center">You might also like</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Comparison</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">SSC CGL vs CHSL – Which One Should You Prepare For?</h3>
+                        <p class="text-gray-600 text-sm mb-3">Detailed comparison to help you choose the right SSC exam.</p>
+                        <a href="SSC-CGL-vs-CHSL.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Strategy</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">Best SSC Preparation Strategy for Beginners</h3>
+                        <p class="text-gray-600 text-sm mb-3">Complete roadmap to start your SSC journey with confidence.</p>
+                        <a href="Beginner-Strategy.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Tips</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">Time Management Strategies for SSC Exams</h3>
+                        <p class="text-gray-600 text-sm mb-3">Learn how to maximize your score with proper time management.</p>
+                        <a href="Time-Management.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize like count and view count from localStorage or set defaults
+            let likeCount = localStorage.getItem('articleLikes3') || 127;
+            let viewCount = localStorage.getItem('articleViews3') || 3250;
+            
+            // Update view count (increment on each page view)
+            viewCount = parseInt(viewCount) + 1;
+            localStorage.setItem('articleViews3', viewCount);
+            
+            // Format view count for display (3.2K instead of 3200)
+            const formatCount = (num) => {
+                if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                }
+                return num;
+            };
+            
+            // Update DOM elements
+            document.getElementById('likeCount').textContent = formatCount(likeCount);
+            document.getElementById('viewCount').textContent = formatCount(viewCount);
+            
+            // Like button functionality
+            document.getElementById('likeBtn').addEventListener('click', function() {
+                // Check if user has already liked
+                if (!localStorage.getItem('userLiked3')) {
+                    likeCount = parseInt(likeCount) + 1;
+                    localStorage.setItem('articleLikes3', likeCount);
+                    localStorage.setItem('userLiked3', 'true');
+                    
+                    // Update DOM
+                    document.getElementById('likeCount').textContent = formatCount(likeCount);
+                    
+                    // Change icon to solid heart
+                    this.querySelector('i').classList.remove('far');
+                    this.querySelector('i').classList.add('fas');
+                    
+                    // Add animation effect
+                    this.classList.add('animate-pulse');
+                    setTimeout(() => {
+                        this.classList.remove('animate-pulse');
+                    }, 300);
+                } else {
+                    // Optional: Show message that user has already liked
+                    this.classList.add('bg-red-100');
+                    setTimeout(() => {
+                        this.classList.remove('bg-red-100');
+                    }, 1000);
+                }
+            });
+            
+            // Check if user already liked and update heart icon
+            if (localStorage.getItem('userLiked3')) {
+                document.querySelector('#likeBtn i').classList.remove('far');
+                document.querySelector('#likeBtn i').classList.add('fas');
+            }
+        });
+    </script>
+</body>
+</html>
