@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Books for Railway Exams | Courage Library</title>
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3B82F6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        secondary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10B981',
+                            600: '#059669',
+                        },
+                        accent: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            500: '#8B5CF6',
+                            600: '#7c3aed',
+                        },
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+                        'medium': '0 6px 25px rgba(0, 0, 0, 0.07)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+        }
+        .railway-bg {
+            background: linear-gradient(135deg, #0e5cad 0%, #3B82F6 100%);
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #E5E7EB, transparent);
+        }
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-3px);
+        }
+        .topic-card {
+            transition: all 0.3s ease;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+        .animate-pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .book-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .book-table th, .book-table td {
+            border: 1px solid #E5E7EB;
+            padding: 12px;
+            text-align: left;
+        }
+        .book-table th {
+            background-color: #F3F4F6;
+            font-weight: 600;
+        }
+        .book-table tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+    <!-- Header will be inserted here -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="../index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="../index.html#courses1" class="hover:text-blue-600">Courses</a>
+                <a href="../index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="../index.html#testimonials" class="hover:text-blue-600">Reviews</a>
+                <a href="Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
+            </div>
+            <div class="md:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <!-- Features -->
+                    <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+
+                    <!-- Reviews -->
+                    <a href="../index.html#testimonials"
+                        class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+
+                    <!-- Blog -->
+                    <a href="Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+                        </svg>
+                        Blog
+                    </a>
+
+                    <!-- Contact Us -->
+                    <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <div class="railway-bg text-white rounded-2xl p-8 mb-10 shadow-medium relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-6 -mr-6 opacity-10">
+                <i class="fas fa-train text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex items-center text-white text-sm mb-4">
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full">RAILWAY EXAM GUIDE</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Best Books for Railway Exams</h1>
+                <p class="text-white text-opacity-90 max-w-3xl">Recommended resources for each section of railway exams like RRB NTPC, Group D, ALP, and JE.</p>
+                
+                <div class="flex items-center text-white text-opacity-80 text-sm mt-6">
+                    <span><i class="far fa-clock mr-2"></i> 10 min read</span>
+                    <span class="mx-3">|</span>
+                    <span><i class="far fa-eye mr-2"></i> 1.8K views</span>
+                    <span class="mx-3">|</span>
+                    <span><i class="far fa-user mr-2"></i> By Railway Experts</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-600 mb-10 flex items-center">
+            <a href="../index.html" class="hover:text-primary-600 transition-colors"><i class="fas fa-home mr-1"></i> Home</a>
+            <i class="fas fa-chevron-right mx-2 text-xs"></i>
+            <a href="Blog.html" class="hover:text-primary-600 transition-colors">Blog</a>
+            <i class="fas fa-chevron-right mx-2 text-xs"></i>
+            <span class="text-gray-800 font-medium">Books & Resources</span>
+        </nav>
+
+        <!-- Article Content -->
+        <article class="bg-white rounded-2xl shadow-soft overflow-hidden mb-12">
+            <div class="p-6 md:p-10">
+                <!-- Social Engagement Bar -->
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-10 pb-6 border-b border-gray-200">
+                    <div class="flex items-center mb-4 sm:mb-0">
+                        <div class="flex space-x-3">
+                            <a href="#" aria-label="Share on Facebook"
+                                onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href),'facebook-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-600">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" aria-label="Share on Twitter"
+                                onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=Check+this+out%21','twitter-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-400">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" aria-label="Share on LinkedIn"
+                                onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href),'linkedin-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-blue-100 hover:text-blue-700">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" aria-label="Share on WhatsApp"
+                                onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(document.title + ' ' + window.location.href),'whatsapp-share','width=600,height=400'); return false;"
+                                class="bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover-lift hover:bg-green-100 hover:text-green-600">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 no-print">
+                        <!-- Like Button -->
+                        <button id="likeBtn" class="flex items-center text-gray-700 font-medium py-2 px-4 rounded-lg hover-lift hover:bg-gray-100 transition-all">
+                            <i class="far fa-heart mr-2 text-red-500"></i>
+                            <span id="likeCount">64</span>
+                        </button>
+                        
+                        <!-- Views Counter -->
+                        <div class="flex items-center text-gray-600">
+                            <i class="far fa-eye mr-2"></i>
+                            <span id="viewCount">1.8K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Introduction -->
+                <section class="mb-12">
+                    <p class="mb-5 text-lg leading-relaxed">Preparing for <strong class="text-primary-600">Railway exams like RRB NTPC, RRB Group D, ALP, and JE</strong> requires not just hard work but also the right resources. With lakhs of candidates applying every year, the competition is intense.</p>
+                    <p class="text-lg leading-relaxed">The key to success lies in choosing a <strong class="text-primary-600">few high-quality books</strong> and revising them multiple times instead of wasting time on too many sources. This article lists the best books for Railway exams, subject-wise, to help you prepare smarter.</p>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Mathematics Books -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-calculator"></i>
+                        </span>
+                        1. Best Books for Mathematics
+                    </h2>
+                    <p class="mb-6 text-lg">Mathematics plays a major role in <strong class="text-primary-600">RRB NTPC, RRB Group D, ALP, and JE</strong> exams. Strong basics with good speed are crucial.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Quantitative Aptitude</h3>
+                                <p class="text-gray-700 text-sm">R.S. Aggarwal</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Fast Track Objective Arithmetic</h3>
+                                <p class="text-gray-700 text-sm">Rajesh Verma</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">NCERT Mathematics</h3>
+                                <p class="text-gray-700 text-sm">Class 6-10</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-yellow-700"><strong>Tip:</strong> Start with NCERTs for basics, then move to Aggarwal for practice, and Verma for shortcuts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Reasoning Books -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-brain"></i>
+                        </span>
+                        2. Best Books for General Intelligence & Reasoning
+                    </h2>
+                    <p class="mb-6 text-lg">Reasoning is a scoring subject since it doesn't involve lengthy calculations. Regular practice helps in accuracy.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Verbal & Non-Verbal Reasoning</h3>
+                                <p class="text-gray-700 text-sm">R.S. Aggarwal</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Analytical Reasoning</h3>
+                                <p class="text-gray-700 text-sm">M.K. Pandey</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">PYQ Compilations</h3>
+                                <p class="text-gray-700 text-sm">Kiran/Arihant</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-yellow-700"><strong>Tip:</strong> Focus more on puzzles, seating arrangements, and coding-decoding as they are frequently repeated.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- General Science Books -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-flask"></i>
+                        </span>
+                        3. Best Books for General Science
+                    </h2>
+                    <p class="mb-6 text-lg">Railway exams test candidates on <strong class="text-primary-600">Physics, Chemistry, and Biology (10th standard level)</strong>.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Lucent's General Science</h3>
+                                <p class="text-gray-700 text-sm">Compact book covering all basics</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">NCERT Science</h3>
+                                <p class="text-gray-700 text-sm">Class 6-10 for conceptual clarity</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-yellow-700"><strong>Tip:</strong> Don't try to study advanced topics; focus only on NCERT-level basics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- General Awareness Books -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-globe"></i>
+                        </span>
+                        4. Best Books for General Awareness (GA/GK)
+                    </h2>
+                    <p class="mb-6 text-lg">General Awareness carries high weightage in Railway exams, especially NTPC & Group D.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Lucent's General Knowledge</h3>
+                                <p class="text-gray-700 text-sm">Covers History, Polity, Geography, Economy</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Manorama Yearbook</h3>
+                                <p class="text-gray-700 text-sm">For general knowledge & static awareness</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-newspaper text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Newspapers</h3>
+                                <p class="text-gray-700 text-sm">The Hindu/Indian Express for current affairs</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-yellow-700"><strong>Tip:</strong> Revise the last 6–8 months of current affairs thoroughly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Technical Books -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-cogs"></i>
+                        </span>
+                        5. Best Books for Technical Subjects (For RRB JE & ALP)
+                    </h2>
+                    <p class="mb-6 text-lg">Technical subjects require specialized knowledge for RRB JE and ALP exams.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-bolt text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Objective Electrical Engineering</h3>
+                                <p class="text-gray-700 text-sm">V.K. Mehta</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-cog text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Objective Mechanical Engineering</h3>
+                                <p class="text-gray-700 text-sm">R.K. Jain</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-microchip text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Basic Electronics</h3>
+                                <p class="text-gray-700 text-sm">B.L. Theraja</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-yellow-700"><strong>Tip:</strong> For JE and ALP, rely more on diploma-level standard books + PYQ practice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Current Affairs Books -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-newspaper"></i>
+                        </span>
+                        6. Best Resources for Current Affairs
+                    </h2>
+                    <p class="mb-6 text-lg">Staying updated with current affairs is crucial for scoring well in Railway exams.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book-open text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Pratiyogita Darpan</h3>
+                                <p class="text-gray-700 text-sm">Monthly magazine</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-file-pdf text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Monthly Current Affairs PDFs</h3>
+                                <p class="text-gray-700 text-sm">Vision IAS, Gradeup, etc.</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-purple-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-newspaper text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Daily Newspaper Reading</h3>
+                                <p class="text-gray-700 text-sm">National & Railway-specific updates</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Practice Resources -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-pen-fancy"></i>
+                        </span>
+                        7. Practice & Mock Test Resources
+                    </h2>
+                    <p class="mb-6 text-lg">Regular practice with mock tests and previous year papers is essential for success.</p>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Previous Year Papers</h3>
+                                <p class="text-gray-700 text-sm">Kiran Publications, Arihant</p>
+                            </div>
+                            
+                            <div class="bg-white p-5 rounded-lg shadow-soft text-center">
+                                <div class="bg-green-500 text-white p-3 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-laptop text-xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-dark mb-2">Online Mock Test Series</h3>
+                                <p class="text-gray-700 text-sm">Courage Library, Testbook, Gradeup</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-yellow-700"><strong>Tip:</strong> Attempt at least 2–3 full-length mock tests per week to build exam temperament.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Summary Table -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-table"></i>
+                        </span>
+                        Quick Summary – Best Railway Exam Books
+                    </h2>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl mb-8">
+                        <div class="overflow-x-auto">
+                            <table class="book-table">
+                                <thead>
+                                    <tr>
+                                        <th>Section</th>
+                                        <th>Recommended Books</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mathematics</td>
+                                        <td>R.S. Aggarwal, Rajesh Verma, NCERTs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reasoning</td>
+                                        <td>R.S. Aggarwal, M.K. Pandey, PYQs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>General Science</td>
+                                        <td>Lucent's Science, NCERTs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>General Awareness</td>
+                                        <td>Lucent's GK, Manorama Yearbook, Newspapers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Technical (JE/ALP)</td>
+                                        <td>V.K. Mehta, R.K. Jain, B.L. Theraja</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Current Affairs</td>
+                                        <td>Pratiyogita Darpan, Monthly PDFs, Newspapers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mock Tests & PYQs</td>
+                                        <td>Kiran, Arihant, Online Test Series</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Preparation Tips -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-lightbulb"></i>
+                        </span>
+                        Final Preparation Tips
+                    </h2>
+                    
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-soft">
+                        <ol class="text-gray-700 space-y-4 list-decimal list-inside">
+                            <li class="pl-2"><strong>Stick to one book per subject</strong>—avoid multiple sources.</li>
+                            <li class="pl-2">Revise regularly and focus on <strong>short notes</strong> for quick revision.</li>
+                            <li class="pl-2">Give equal importance to <strong>mock tests and PYQs</strong>.</li>
+                            <li class="pl-2">Dedicate daily time to <strong>current affairs</strong>.</li>
+                            <li class="pl-2">Maintain balance—don't ignore PET preparation for RRB Group D.</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <div class="section-divider my-12"></div>
+
+                <!-- Conclusion -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center">
+                        <span class="bg-primary-100 text-primary-600 p-2 rounded-lg mr-3">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        Conclusion
+                    </h2>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <p class="mb-4 text-lg">Choosing the <strong class="text-primary-600">best books for Railway exams</strong> is the first step toward success. The right mix of NCERT basics, Lucent for GK, and PYQs for practice will maximize your score.</p>
+                        <p class="text-lg">At <strong class="text-primary-600">Courage Library</strong>, we provide <strong class="text-primary-600">topic-wise resources, PYQ analysis, and mock test practice</strong> designed for Railway aspirants. Our <strong class="text-primary-600">self-paced platform</strong> ensures you stay consistent and exam-ready.</p>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <div class="gradient-bg text-white rounded-2xl p-8 mt-12 text-center">
+                    <h2 class="text-2xl font-bold mb-4">Start Your Railway Exam Preparation Today</h2>
+                    <p class="mb-6 opacity-90">Join thousands of successful candidates who have cracked railway exams with Courage Library's structured learning approach.</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#" class="bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover-lift shadow-medium">Explore Railway Courses</a>
+                        <a href="#" class="bg-transparent border border-white text-white font-semibold py-3 px-6 rounded-lg hover-lift">Download Book List PDF</a>
+                    </div>
+                </div>
+
+                <!-- Author Bio -->
+                <div class="bg-gray-50 rounded-2xl p-6 mt-12 flex items-start flex-col sm:flex-row">
+                    <div class="bg-gray-200 w-16 h-16 rounded-full mr-5 flex-shrink-0 flex items-center justify-center">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100">
+                            <img src="/images/logo.png" alt="Courage Library" class="w-8 h-8 rounded-full">
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-dark mb-1">Written by Railway Experts</h3>
+                        <p class="text-gray-600 mb-3">Former RRB officers and subject matter specialists</p>
+                        <p class="text-gray-700">Our team includes former railway employees and exam toppers who understand exactly what it takes to crack competitive railway exams.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Related Content -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-dark mb-8 text-center">You might also like</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Railway</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">RRB NTPC 2025 Preparation Guide</h3>
+                        <p class="text-gray-600 text-sm mb-3">Exam pattern, syllabus, and preparation strategy for RRB
+                            NTPC.</p>
+                        <a href="RRB-NTPC-Guide.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Resources</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">Best Books for Railway Exams</h3>
+                        <p class="text-gray-600 text-sm mb-3">Recommended resources for each section of railway exams.
+                        </p>
+                        <a href="Railway-best-book.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-soft overflow-hidden hover-lift">
+                    <div class="h-40 bg-gray-200"></div>
+                    <div class="p-5">
+                        <span class="text-xs font-semibold text-primary-600 uppercase tracking-wider">Railway</span>
+                        <h3 class="font-bold text-lg text-dark mb-2 mt-1">RRB Group D 2025 Complete Guide</h3>
+                        <p class="text-gray-600 text-sm mb-3">Exam pattern, syllabus, and preparation strategy for RRB
+                            Group D.</p>
+                        <a href="RRB-Group-D.html" class="text-primary-600 text-sm font-medium hover:underline flex items-center">
+                            Read More <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer will be inserted here -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize like count and view count from localStorage or set defaults
+            let likeCount = localStorage.getItem('articleLikes6') || 86;
+            let viewCount = localStorage.getItem('articleViews6') || 2700;
+
+            // Update view count (increment on each page view)
+            viewCount = parseInt(viewCount) + 1;
+            localStorage.setItem('articleViews6', viewCount);
+
+            // Format view count for display (2.7K instead of 2700)
+            const formatCount = (num) => {
+                if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                }
+                return num;
+            };
+
+            // Update DOM elements
+            document.getElementById('likeCount').textContent = formatCount(likeCount);
+            document.getElementById('viewCount').textContent = formatCount(viewCount);
+
+            // Like button functionality
+            document.getElementById('likeBtn').addEventListener('click', function () {
+                // Check if user has already liked
+                if (!localStorage.getItem('userLiked6')) {
+                    likeCount = parseInt(likeCount) + 1;
+                    localStorage.setItem('articleLikes6', likeCount);
+                    localStorage.setItem('userLiked6', 'true');
+
+                    // Update DOM
+                    document.getElementById('likeCount').textContent = formatCount(likeCount);
+
+                    // Change icon to solid heart
+                    this.querySelector('i').classList.remove('far');
+                    this.querySelector('i').classList.add('fas');
+
+                    // Add animation effect
+                    this.classList.add('animate-pulse');
+                    setTimeout(() => {
+                        this.classList.remove('animate-pulse');
+                    }, 300);
+                } else {
+                    // Optional: Show message that user has already liked
+                    this.classList.add('bg-red-100');
+                    setTimeout(() => {
+                        this.classList.remove('bg-red-100');
+                    }, 1000);
+                }
+            });
+
+            // Check if user already liked and update heart icon
+            if (localStorage.getItem('userLiked6')) {
+                document.querySelector('#likeBtn i').classList.remove('far');
+                document.querySelector('#likeBtn i').classList.add('fas');
+            }
+        });
+    </script>
+</body>
+
+</html>
