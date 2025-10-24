@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Mensuration concepts for Delhi Police and SSC exams with our complete guide. Learn formulas, shortcuts, and practice with exam-style questions." />
+    <meta name="keywords"
+        content="Mensuration, Geometry, Delhi Police Exam, SSC Exam, Area Volume, Math Formulas, Exam Preparation, Courage Library" />
+    <meta name="author" content="Courage Library" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Mensuration | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../index.html" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a></li>
+                <li><a href="../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Numerical Ability Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Numerical Ability
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="simplification.html" class="nav-link" title="Simplification">Simplification</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="ratio-and-proportion.html" class="nav-link" title="Ratio and Proportion">Ratio &
+                                Proportion</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="percentage.html" class="nav-link" title="Percentage">Percentage</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="average.html" class="nav-link" title="Average">Average</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="time-speed-and-distance.html" class="nav-link"
+                                title="Time, Speed and Distance">Time, Speed & Distance</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="time-and-work.html" class="nav-link" title="Time and Work">Time & Work</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="simple-and-compound-interest.html" class="nav-link"
+                                title="Simple and Compound Interest">Simple & Compound Interest</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="profit-and-loss.html" class="nav-link" title="Profit and Loss">Profit & Loss</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="mensuration.html" class="nav-link" title="Mensuration">Mensuration</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="number-system.html" class="nav-link" title="Number System">Number System</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="data-interpretation.html" class="nav-link" title="Data Interpretation">Data
+                                Interpretation</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Mensuration</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police Exam</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What is Mensuration Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is Mensuration?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>Mensuration</strong> is the branch of mathematics that deals with measuring geometric
+                        figures — their length, area, and volume.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mt-4">
+                        In exams like Delhi Police, Mensuration questions usually involve 2D shapes (plane figures) and
+                        3D solids.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">2D Shapes - Plane Figures</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">3D Solids - Spatial Figures</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Simple Definition:</h3>
+                        <p class="text-lg text-gray-700">Mensuration = Calculating Perimeter, Area, Surface Area, or
+                            Volume of geometric shapes.</p>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Examples:</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-700">
+                                <thead class="text-xs text-gray-700 uppercase bg-yellow-100">
+                                    <tr>
+                                        <th class="px-4 py-3">Shape</th>
+                                        <th class="px-4 py-3">Quantity Measured</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <td class="px-4 py-3 font-medium">Square</td>
+                                        <td class="px-4 py-3">Area, Perimeter</td>
+                                    </tr>
+                                    <tr class="bg-yellow-50 border-b">
+                                        <td class="px-4 py-3 font-medium">Rectangle</td>
+                                        <td class="px-4 py-3">Area, Perimeter</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <td class="px-4 py-3 font-medium">Circle</td>
+                                        <td class="px-4 py-3">Area, Circumference</td>
+                                    </tr>
+                                    <tr class="bg-yellow-50 border-b">
+                                        <td class="px-4 py-3 font-medium">Triangle</td>
+                                        <td class="px-4 py-3">Area, Perimeter</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <td class="px-4 py-3 font-medium">Cylinder</td>
+                                        <td class="px-4 py-3">Surface Area, Volume</td>
+                                    </tr>
+                                    <tr class="bg-yellow-50 border-b">
+                                        <td class="px-4 py-3 font-medium">Sphere</td>
+                                        <td class="px-4 py-3">Surface Area, Volume</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <td class="px-4 py-3 font-medium">Cone</td>
+                                        <td class="px-4 py-3">Surface Area, Volume</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Formulas for 2D Figures -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Basic Formulas for 2D Figures</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Shape</th>
+                                    <th class="px-4 py-3">Perimeter</th>
+                                    <th class="px-4 py-3">Area</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Square</td>
+                                    <td class="px-4 py-3">4a</td>
+                                    <td class="px-4 py-3">a²</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Rectangle</td>
+                                    <td class="px-4 py-3">2(l + b)</td>
+                                    <td class="px-4 py-3">l × b</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Triangle</td>
+                                    <td class="px-4 py-3">a + b + c</td>
+                                    <td class="px-4 py-3">√[s(s–a)(s–b)(s–c)]<br>s = (a+b+c)/2</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Circle</td>
+                                    <td class="px-4 py-3">2πr</td>
+                                    <td class="px-4 py-3">πr²</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Parallelogram</td>
+                                    <td class="px-4 py-3">2(a+b)</td>
+                                    <td class="px-4 py-3">b × h</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Trapezium</td>
+                                    <td class="px-4 py-3">a + b + c + d</td>
+                                    <td class="px-4 py-3">½ × (sum of parallel sides) × height</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Shortcuts:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-gray-700"><strong>Perimeter</strong> → Sum of all sides</p>
+                                <p class="text-gray-700"><strong>Area</strong> → Base × Height (for rectangle, triangle,
+                                    parallelogram)</p>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-gray-700"><strong>Circle</strong> → Use π ≈ 3.14 or 22/7</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Formulas for 3D Solids -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Basic Formulas for 3D Solids</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Solid</th>
+                                    <th class="px-4 py-3">Surface Area</th>
+                                    <th class="px-4 py-3">Volume</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Cube</td>
+                                    <td class="px-4 py-3">6a²</td>
+                                    <td class="px-4 py-3">a³</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Cuboid</td>
+                                    <td class="px-4 py-3">2(lb + bh + hl)</td>
+                                    <td class="px-4 py-3">l × b × h</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Sphere</td>
+                                    <td class="px-4 py-3">4πr²</td>
+                                    <td class="px-4 py-3">4/3 πr³</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Hemisphere</td>
+                                    <td class="px-4 py-3">3πr²</td>
+                                    <td class="px-4 py-3">2/3 πr³</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Cylinder</td>
+                                    <td class="px-4 py-3">2πr(h + r)</td>
+                                    <td class="px-4 py-3">πr²h</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Cone</td>
+                                    <td class="px-4 py-3">πr(l + r)</td>
+                                    <td class="px-4 py-3">1/3 πr²h</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Concepts & Tricks -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Key Concepts & Tricks</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Concept</th>
+                                    <th class="px-4 py-3">Trick / Shortcut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Diagonal of square</td>
+                                    <td class="px-4 py-3">d = a√2</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Diagonal of rectangle</td>
+                                    <td class="px-4 py-3">d = √(l² + b²)</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Volume of cube/cuboid</td>
+                                    <td class="px-4 py-3">Product of dimensions</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Surface area</td>
+                                    <td class="px-4 py-3">Sum of all faces (cube/cuboid) or curved + base
+                                        (cylinder/cone)</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Sphere radius from volume</td>
+                                    <td class="px-4 py-3">r = (3V/4π)<sup>1/3</sup></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conversion & Units -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Conversion & Units</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="text-lg font-bold text-blue-800 mb-2">Length</h4>
+                                <p class="text-gray-700">m, cm, mm, km</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="text-lg font-bold text-green-800 mb-2">Area</h4>
+                                <p class="text-gray-700">m², cm², mm²</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h4 class="text-lg font-bold text-purple-800 mb-2">Volume</h4>
+                                <p class="text-gray-700">m³, cm³, litres</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Important Conversions:</h3>
+                        <p class="text-gray-700 font-medium">1 m³ = 1000 litres</p>
+                        <p class="text-gray-700 font-medium">1 litre = 1000 cm³</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-Life Analogy -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Real-Life Analogy</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Area</h4>
+                            <p class="text-gray-700">Carpet needed for a floor</p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Perimeter</h4>
+                            <p class="text-gray-700">Fencing around a garden</p>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
+                            <h4 class="text-lg font-bold text-purple-800 mb-2">Volume</h4>
+                            <p class="text-gray-700">Water a tank can hold</p>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 text-center">
+                            <h4 class="text-lg font-bold text-yellow-800 mb-2">Surface Area</h4>
+                            <p class="text-gray-700">Paint needed for a wall or box</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Common Delhi Police / SSC Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Focus on quick formulas and approximation</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Most frequent figures: Square, Rectangle, Circle,
+                                    Cylinder, Cube, Sphere, Cone</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Always check units — convert to same unit before
+                                    calculation</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Questions often combine 2D and 3D shapes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Practice Questions (Exam-Type)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">No.</th>
+                                    <th class="px-4 py-3">Question</th>
+                                    <th class="px-4 py-3">Solution</th>
+                                    <th class="px-4 py-3">Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">1</td>
+                                    <td class="px-4 py-3">Area of rectangle 10×5</td>
+                                    <td class="px-4 py-3">10×5 = 50</td>
+                                    <td class="px-4 py-3">50</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">2</td>
+                                    <td class="px-4 py-3">Perimeter of square side 6</td>
+                                    <td class="px-4 py-3">4×6 = 24</td>
+                                    <td class="px-4 py-3">24</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">3</td>
+                                    <td class="px-4 py-3">Volume of cube side 4</td>
+                                    <td class="px-4 py-3">4³ = 64</td>
+                                    <td class="px-4 py-3">64</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">4</td>
+                                    <td class="px-4 py-3">Curved surface area of cylinder r=7, h=10</td>
+                                    <td class="px-4 py-3">2πrh = 2×22/7×7×10 = 440</td>
+                                    <td class="px-4 py-3">440</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">5</td>
+                                    <td class="px-4 py-3">Surface area of sphere r=5</td>
+                                    <td class="px-4 py-3">4πr² = 4×3.14×25 = 314</td>
+                                    <td class="px-4 py-3">314</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Concept</th>
+                                <th class="px-4 py-3">Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Area</td>
+                                <td class="px-4 py-3">Space inside 2D figure</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Perimeter</td>
+                                <td class="px-4 py-3">Boundary length of 2D figure</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Surface Area</td>
+                                <td class="px-4 py-3">Total area of 3D solid faces</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Volume</td>
+                                <td class="px-4 py-3">Space occupied by 3D solid</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Key Formulas</td>
+                                <td class="px-4 py-3">Cube, Cuboid, Cylinder, Cone, Sphere</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Shortcut</td>
+                                <td class="px-4 py-3">Diagonals, curved surfaces, base areas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Mensuration Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Remember the key formulas for area, perimeter,
+                            surface area, and volume. Practice unit conversions and focus on frequently asked shapes
+                            like cubes, cylinders, and spheres for Delhi Police exams.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="profit-and-loss.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">Previous</a>
+                <div class="text-center text-xs italic text-gray-600 flex items-center">
+                    Developed By Satyam Kumar
+                </div>
+                <a href="number-system.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Mathematics for Delhi Police Exam!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

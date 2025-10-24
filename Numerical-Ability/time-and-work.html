@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Time and Work concepts for competitive exams like Delhi Police and SSC. Learn formulas, shortcuts, and problem-solving techniques for work efficiency, combined work, and pipes and cisterns." />
+    <meta name="keywords"
+        content="Time and Work, work efficiency, combined work, pipes and cisterns, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Time and Work | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Numerical Ability Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Numerical Ability
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="simplification.html" class="nav-link" title="Simplification">Simplification</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="ratio-and-proportion.html" class="nav-link" title="Ratio and Proportion">Ratio &
+                                Proportion</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="percentage.html" class="nav-link" title="Percentage">Percentage</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="average.html" class="nav-link" title="Average">Average</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="time-speed-and-distance.html" class="nav-link"
+                                title="Time, Speed and Distance">Time, Speed & Distance</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="time-and-work.html" class="nav-link" title="Time and Work">Time & Work</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="simple-and-compound-interest.html" class="nav-link"
+                                title="Simple and Compound Interest">Simple & Compound Interest</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="profit-and-loss.html" class="nav-link" title="Profit and Loss">Profit & Loss</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="mensuration.html" class="nav-link" title="Mensuration">Mensuration</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="number-system.html" class="nav-link" title="Number System">Number System</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="data-interpretation.html" class="nav-link" title="Data Interpretation">Data
+                                Interpretation</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-24">24-10-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Time and Work</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police Exam</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What is Time & Work Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is Time & Work?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>Time and Work</strong> is a very important topic in Quantitative Aptitude.
+                        It deals with how much time a person (or a group) takes to complete a certain amount of work.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Work: Task or job to be completed</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Time: Duration to complete work</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Efficiency: Rate of completing work</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Basic Relationship: Work = Time × Efficiency</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 mt-4">
+                        <strong>Simple Definition:</strong> If someone is more efficient, they take less time to finish
+                        the same work.
+                    </p>
+
+                    <div class="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Examples:</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-700">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-3">Person</th>
+                                        <th class="px-4 py-3">Work Done</th>
+                                        <th class="px-4 py-3">Time Taken</th>
+                                        <th class="px-4 py-3">Efficiency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <td class="px-4 py-3 font-medium">A</td>
+                                        <td class="px-4 py-3">Completes 1 work</td>
+                                        <td class="px-4 py-3">in 5 days</td>
+                                        <td class="px-4 py-3">1/5 work per day</td>
+                                    </tr>
+                                    <tr class="bg-gray-50 border-b">
+                                        <td class="px-4 py-3 font-medium">B</td>
+                                        <td class="px-4 py-3">Completes 1 work</td>
+                                        <td class="px-4 py-3">in 10 days</td>
+                                        <td class="px-4 py-3">1/10 work per day</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Basic Formulas</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Formula</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Work = Time × Rate</td>
+                                    <td class="px-4 py-3">Rate = Efficiency</td>
+                                    <td class="px-4 py-3">A does 1/5 work/day → 5 days for 1 work</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Time = Work / Rate</td>
+                                    <td class="px-4 py-3">To find time taken</td>
+                                    <td class="px-4 py-3">1 ÷ (1/5) = 5 days</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Efficiency ∝ 1/Time</td>
+                                    <td class="px-4 py-3">More efficiency → Less time</td>
+                                    <td class="px-4 py-3">If A is twice efficient, time halves</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1 Day's Work Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Concept of "1 Day's Work"</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Definition</h3>
+                            <p class="text-gray-700">If A completes a work in N days, then A's 1 day's work = 1/N of the
+                                total work.</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Example</h3>
+                            <p class="text-gray-700">If A finishes a job in 8 days, then in one day A completes 1/8 of
+                                the work.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Combined Work Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Combined Work</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When two or more people work together:
+                    </p>
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-4">
+                        <p class="text-center font-medium text-gray-700">
+                            Combined 1 Day's Work = (A's 1 Day's Work) + (B's 1 Day's Work)
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Example:</h3>
+                        <p class="text-gray-700">
+                            A can do a work in 10 days, B in 15 days.<br>
+                            Their 1-day work = 1/10 + 1/15 = 1/6<br>
+                            → Together, they'll finish in 6 days.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Efficiency Ratio Method Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Efficiency Ratio Method</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 mb-4">
+                        <p class="text-center font-medium text-gray-700">
+                            If A : B = 2 : 3 (Efficiency Ratio) then their Time Ratio = 3 : 2
+                        </p>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Efficiency ∝ 1/Time
+                    </p>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Example:</h3>
+                        <p class="text-gray-700">
+                            A and B together can complete a job in 12 days.<br>
+                            If A alone can do it in 30 days,<br>
+                            then B's efficiency = 12 × (1/12 – 1/30) = 20 days.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alternate Working Days Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Alternate Working Days</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="font-medium text-gray-800">Find each person's 1 day's work</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p class="font-medium text-gray-800">Add 2 days' work (A + B)</p>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="font-medium text-gray-800">Divide total work accordingly</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Example:</h3>
+                        <p class="text-gray-700">
+                            A can do a work in 4 days, B in 6 days.<br>
+                            In 2 days, they complete (1/4 + 1/6) = 5/12 work.<br>
+                            Work done in 4 days = 10/12 = 5/6<br>
+                            Left = 1/6 → done by A (in 1/4 day)<br>
+                            Total time = 4 + ¼ = 4.25 days
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work and Wages Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Work and Wages</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-4">
+                        <p class="text-center font-medium text-gray-700">
+                            If the amount of work done is directly proportional to wages: Wages ∝ Work Done
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Example:</h3>
+                        <p class="text-gray-700">
+                            A and B complete a work together for ₹600.<br>
+                            A works 6 days, B works 4 days.<br>
+                            If their efficiency ratio = 3:2,<br>
+                            Total work ratio = (6×3):(4×2) = 18:8 = 9:4<br>
+                            A:B wages = ₹400 : ₹200.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pipes and Cisterns Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Pipes and Cisterns (Related Concept)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Pipes problems are based on Time & Work logic.
+                    </p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Formula / Trick</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Inlet pipe fills a tank</td>
+                                    <td class="px-4 py-3">+ Work</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Outlet pipe empties a tank</td>
+                                    <td class="px-4 py-3">– Work</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Together effect</td>
+                                    <td class="px-4 py-3">Add or subtract 1/day work accordingly</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Example:</h3>
+                        <p class="text-gray-700">
+                            A pipe fills tank in 10 min, outlet empties in 15 min.<br>
+                            Net 1 min work = (1/10 – 1/15) = 1/30 → Fills in 30 min
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Short Tricks & Ratios Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Short Tricks & Ratios</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Concept</th>
+                                    <th class="px-4 py-3">Shortcut / Relation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">If A can do work in x days, B in y days</td>
+                                    <td class="px-4 py-3">Together = (xy)/(x+y) days</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">If efficiency ratio = a : b</td>
+                                    <td class="px-4 py-3">Time ratio = b : a</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Total work</td>
+                                    <td class="px-4 py-3">LCM of time of all workers</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Combined work</td>
+                                    <td class="px-4 py-3">Add their 1-day works</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real-Life Analogy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Real-Life Analogy</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Think of Time & Work like two people
+                            painting a wall</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Fast Worker</h4>
+                            <p class="text-gray-700">A paints fast (high efficiency)</p>
+                            <p class="text-sm text-gray-600">finishes sooner</p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Slow Worker</h4>
+                            <p class="text-gray-700">B paints slowly</p>
+                            <p class="text-sm text-gray-600">takes longer</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            If both paint together, they finish quicker! It's just like teamwork in real life — the more
+                            people, the faster the job (if they're efficient).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">11. Common Delhi Police / SSC Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">A's 1 day's work = 1 / (days taken by A)</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Work = Time × Efficiency</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Together work formula = (xy)/(x + y)</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Efficiency ∝ 1/Time</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="font-medium text-gray-800">If A:B = 3:4 (Efficiency), then Time = 4:3</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <p class="font-medium text-gray-800">Pipes & Cisterns use same formula logic</p>
+                            </div>
+                            <div class="p-3 bg-pink-50 rounded-lg border border-pink-200">
+                                <p class="font-medium text-gray-800">Wages ∝ Work Done</p>
+                            </div>
+                            <div class="p-3 bg-teal-50 rounded-lg border border-teal-200">
+                                <p class="font-medium text-gray-800">Alternate day working questions are common</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">12. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Concept</th>
+                                <th class="px-4 py-3">Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Work</td>
+                                <td class="px-4 py-3">Task to be completed</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Time</td>
+                                <td class="px-4 py-3">Duration required to complete work</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Efficiency</td>
+                                <td class="px-4 py-3">Ability to do work faster</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Combined Work</td>
+                                <td class="px-4 py-3">Sum of individual 1-day works</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Ratio Relation</td>
+                                <td class="px-4 py-3">Efficiency ∝ 1/Time</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Pipes & Cisterns</td>
+                                <td class="px-4 py-3">Same logic as Time & Work</td>
+                            </tr>
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Wages</td>
+                                <td class="px-4 py-3">∝ Work done</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Time and Work Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice time and work problems regularly, focusing
+                            on different types like combined work, efficiency ratios, and pipes and cisterns. Remember
+                            the key formulas and relationships between efficiency and time to solve problems quickly in
+                            exams.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="time-speed-and-distance.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Satyam Kumar
+                </div>
+                <a href="simple-and-compound-intrest.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Time and Work for Competitive
+                    Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
