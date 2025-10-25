@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC | Courage Library</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+        // Smooth scroll for navigation
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"], button[data-scroll]').forEach(el => {
+                el.addEventListener('click', function (e) {
+                    const id = this.getAttribute('href')?.replace('#', '') || this.getAttribute('data-scroll');
+                    if (id && document.getElementById(id)) {
+                        e.preventDefault();
+                        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+        // Simple fade-in on scroll
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) el.classList.add('opacity-100', 'translate-y-0');
+            });
+        });
+    </script>
+    <style>
+        body {
+            background: #fff;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(200, 200, 255, 0.12);
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            transform: scale(0.5);
+        }
+
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+</head>
+
+<body class="relative min-h-screen text-gray-900 overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
+                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
+                <a href="index.html"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
+                    Home
+                </a>
+            </div>
+            <div class="md:hidden" x-data="{ open: false }">
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <!-- Features -->
+                    <a href="index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+
+                    <!-- Reviews -->
+                    <a href="index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+
+                    <!-- Blog -->
+                    <a href="/Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+                        </svg>
+                        Blog
+                    </a>
+
+                    <!-- Contact Us -->
+                    <a href="index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                    <a href="index.html"
+                        class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
+                        Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="railway-courses" class="max-w-7xl mx-auto px-4 py-12 fade-in">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-blue-700 mb-10">
+        Railway Examination Courses
+    </h2>
+
+    <!-- Courses Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- RRB Group D -->
+        <div class="glass p-6 text-center hover:scale-105 transform transition duration-300 shadow-lg border-b-4 border-green-400">
+            <div class="bg-gradient-to-br from-green-500 to-green-700 w-16 h-16 flex items-center justify-center rounded-full text-white text-3xl mx-auto mb-4 shadow-lg">
+                <i class="fas fa-train"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-green-700 mb-2">RRB Group D</h3>
+            <p class="text-gray-600 mb-4 text-sm">For level 1 posts including track maintainers, helpers, and assistants in Indian Railways.</p>
+            <a href="rrb-groupd-courses.html" class="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View Courses</a>
+        </div>
+
+        <!-- RRB NTPC -->
+        <div class="glass p-6 text-center hover:scale-105 transform transition duration-300 shadow-lg border-b-4 border-blue-400">
+            <div class="bg-gradient-to-br from-blue-500 to-indigo-700 w-16 h-16 flex items-center justify-center rounded-full text-white text-3xl mx-auto mb-4 shadow-lg">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-blue-700 mb-2">RRB NTPC</h3>
+            <p class="text-gray-600 mb-4 text-sm">Non-Technical Popular Categories for clerical, commercial, and traffic positions.</p>
+            <a href="rrb-ntpc-courses.html" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View Courses</a>
+        </div>
+
+        <!-- RRB ALP -->
+        <div class="glass p-6 text-center hover:scale-105 transform transition duration-300 shadow-lg border-b-4 border-purple-400">
+            <div class="bg-gradient-to-br from-purple-500 to-purple-700 w-16 h-16 flex items-center justify-center rounded-full text-white text-3xl mx-auto mb-4 shadow-lg">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-purple-700 mb-2">RRB ALP</h3>
+            <p class="text-gray-600 mb-4 text-sm">Assistant Loco Pilot exam preparation for operational roles in trains.</p>
+            <a href="rrb-alp-courses.html" class="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View Courses</a>
+        </div>
+
+        <!-- RRB JE -->
+        <div class="glass p-6 text-center hover:scale-105 transform transition duration-300 shadow-lg border-b-4 border-red-400">
+            <div class="bg-gradient-to-br from-red-500 to-rose-600 w-16 h-16 flex items-center justify-center rounded-full text-white text-3xl mx-auto mb-4 shadow-lg">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-red-700 mb-2">RRB JE</h3>
+            <p class="text-gray-600 mb-4 text-sm">Junior Engineer posts in various departments like electrical, mechanical, and civil.</p>
+            <a href="rrb-je-courses.html" class="px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View Courses</a>
+        </div>
+
+        <!-- RRB Traffic Apprentice -->
+        <div class="glass p-6 text-center hover:scale-105 transform transition duration-300 shadow-lg border-b-4 border-yellow-400">
+            <div class="bg-gradient-to-br from-yellow-400 to-orange-500 w-16 h-16 flex items-center justify-center rounded-full text-white text-3xl mx-auto mb-4 shadow-lg">
+                <i class="fas fa-route"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-yellow-700 mb-2">RRB Traffic Apprentice</h3>
+            <p class="text-gray-600 mb-4 text-sm">Apprenticeship for operational and station management posts in Indian Railways.</p>
+            <a href="rrb-traffic-courses.html" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View Courses</a>
+        </div>
+
+        <!-- RRB Sr. Section Engineer -->
+        <div class="glass p-6 text-center hover:scale-105 transform transition duration-300 shadow-lg border-b-4 border-cyan-400">
+            <div class="bg-gradient-to-br from-cyan-400 to-sky-500 w-16 h-16 flex items-center justify-center rounded-full text-white text-3xl mx-auto mb-4 shadow-lg">
+                <i class="fas fa-hard-hat"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-cyan-700 mb-2">RRB Sr. Section Engineer</h3>
+            <p class="text-gray-600 mb-4 text-sm">Senior engineering roles in track maintenance, signaling, and electrical systems.</p>
+            <a href="rrb-sse-courses.html" class="px-4 py-2 bg-gradient-to-r from-cyan-400 to-sky-500 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View Courses</a>
+        </div>
+    </div>
+</section>
+
+<!-- Highlights Section -->
+<section class="bg-blue-50 py-12 fade-in">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+        <h3 class="text-2xl font-bold text-blue-700 mb-6">Why Choose Courage Library for Railway Exam Preparation?</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass p-6 shadow-md">
+                <i class="fas fa-book-reader text-3xl text-blue-600 mb-3"></i>
+                <h4 class="font-semibold text-lg mb-2">Comprehensive Study Material</h4>
+                <p class="text-gray-600 text-sm">Detailed notes, previous year papers, and mock tests designed by railway exam experts.</p>
+            </div>
+            <div class="glass p-6 shadow-md">
+                <i class="fas fa-bullseye text-3xl text-blue-600 mb-3"></i>
+                <h4 class="font-semibold text-lg mb-2">Focused Guidance</h4>
+                <p class="text-gray-600 text-sm">Strategy sessions to help students understand exam patterns and maximize scores.</p>
+            </div>
+            <div class="glass p-6 shadow-md">
+                <i class="fas fa-laptop-code text-3xl text-blue-600 mb-3"></i>
+                <h4 class="font-semibold text-lg mb-2">Digital Access</h4>
+                <p class="text-gray-600 text-sm">Access courses online, join discussion rooms, and practice anytime for better results.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Exam Info -->
+<section class="max-w-6xl mx-auto px-4 py-12 fade-in">
+    <h3 class="text-2xl font-bold text-center text-blue-700 mb-8">Understanding Railway Exam Structure</h3>
+    <div class="grid md:grid-cols-3 gap-6 text-center">
+        <div class="glass p-6 shadow-md">
+            <h4 class="font-bold text-blue-600 mb-2">Stage 1 / Prelims</h4>
+            <p class="text-gray-600 text-sm">Objective-type test covering General Awareness, Arithmetic, and Reasoning.</p>
+        </div>
+        <div class="glass p-6 shadow-md">
+            <h4 class="font-bold text-blue-600 mb-2">Stage 2 / Mains</h4>
+            <p class="text-gray-600 text-sm">Detailed test including technical or professional knowledge depending on the post.</p>
+        </div>
+        <div class="glass p-6 shadow-md">
+            <h4 class="font-bold text-blue-600 mb-2">Stage 3 / Interview / Document Verification</h4>
+            <p class="text-gray-600 text-sm">Assessment of personality, skill verification, and document checking for eligibility.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="bg-gray-50 py-12 fade-in">
+    <div class="max-w-4xl mx-auto px-4">
+        <h3 class="text-2xl font-bold text-center text-blue-700 mb-8">Frequently Asked Questions</h3>
+
+        <div x-data="{ open: null }" class="space-y-4">
+            <!-- What is Courage Library? -->
+            <div class="glass p-4 shadow-md">
+                <button @click="open = open === 1 ? null : 1" class="w-full text-left font-semibold text-blue-600">
+                    What is Courage Library?
+                </button>
+                <p x-show="open === 1" class="mt-2 text-gray-600 text-sm">
+                    Courage Library is a self-paced online platform offering structured courses for railway exams, helping students prepare efficiently at their own pace.
+                </p>
+            </div>
+
+            <!-- How does the railway course model work? -->
+            <div class="glass p-4 shadow-md">
+                <button @click="open = open === 2 ? null : 2" class="w-full text-left font-semibold text-blue-600">
+                    How does the railway course model work?
+                </button>
+                <p x-show="open === 2" class="mt-2 text-gray-600 text-sm">
+                    Learners can access course materials online anytime, progress through lessons at their speed, attempt mock tests, and revisit topics as needed.
+                </p>
+            </div>
+
+            <!-- Which railway exams are covered? -->
+            <div class="glass p-4 shadow-md">
+                <button @click="open = open === 3 ? null : 3" class="w-full text-left font-semibold text-blue-600">
+                    Which railway exams are covered?
+                </button>
+                <p x-show="open === 3" class="mt-2 text-gray-600 text-sm">
+                    RRB Group D, RRB NTPC, RRB ALP, RRB JE, RRB Traffic Apprentice, RRB Sr. Section Engineer, and other technical & non-technical railway exams.
+                </p>
+            </div>
+
+            <!-- Is there live support or doubt clearing? -->
+            <div class="glass p-4 shadow-md">
+                <button @click="open = open === 4 ? null : 4" class="w-full text-left font-semibold text-blue-600">
+                    Is there live support or doubt clearing?
+                </button>
+                <p x-show="open === 4" class="mt-2 text-gray-600 text-sm">
+                    Yes! Students can join discussion rooms, interact with mentors, and clarify doubts online anytime.
+                </p>
+            </div>
+
+            <!-- How to contact for railway courses? -->
+            <div class="glass p-4 shadow-md">
+                <button @click="open = open === 5 ? null : 5" class="w-full text-left font-semibold text-blue-600">
+                    How to contact Courage Library for railway courses?
+                </button>
+                <p x-show="open === 5" class="mt-2 text-gray-600 text-sm">
+                    Reach out via phone +91 8102524543, WhatsApp 8467864390, or email team@couragelibrary.in.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courage Library</title>
     <link rel="icon" type="image/png" href="/images/logo.png" />
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
         const supaClient = window.supabase.createClient(
@@ -906,68 +907,540 @@
     </section>
 
     <!-- Courses Section -->
-    <section id="courses1" class="relative pb-10 pt-0 fade-in z-10 bg-white">
+    <section id="courses1" class="relative pb-10 pt-0 fade-in z-10 bg-white overflow-visible">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Our Popular Courses</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Pick Your Path</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-                <a href="SSC.html"
-                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
-                    <div
-                        class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                        <i class="fas fa-book"></i>
+                <!-- Main Topic Card -->
+                <div id="page-wrapper">
+                    <div id="main-content" class="transition-all duration-300">
+                        <a
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
+                            <div
+                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 class="font-bold text-blue-700 text-xl mb-2">SSC</h3>
+                            <p class="text-gray-700 mb-2">Staff Selection Commission - Complete preparation material and
+                                strategies for all SSC examinations.</p>
+                            <button id="toggle-ssc-courses-btn"
+                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
+                                Courses
+                            </button>
+                        </a>
                     </div>
-                    <h3 class="font-bold text-blue-700 text-xl mb-2">SSC CGL</h3>
-                    <p class="text-gray-700 mb-2">Comprehensive preparation material and strategies for SSC CGL
-                        aspirants.</p>
-                    <span
-                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
-                        More</span>
-                </a>
-                <a onclick="openPopup()"
-                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-pink-400">
-                    <div
-                        class="text-4xl mb-4 bg-gradient-to-br from-pink-400 to-red-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                        <i class="fas fa-university"></i>
+
+                    <!-- Popup Overlay -->
+                    <div id="ssc-courses"
+                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto mt-12">
+
+                        <!-- Popup Content -->
+                        <div
+                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
+                            <!-- Close Button -->
+                            <button id="close-ssc-courses-btn"
+                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <!-- Header -->
+                            <div class="text-center mb-6">
+                                <h3 class="font-bold text-blue-600 text-lg mb-2">SSC Examination Courses</h3>
+                                <p class="text-blue-500 text-sm">Choose from our specialized preparation courses</p>
+                            </div>
+
+                            <!-- Courses Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                <!-- SSC CGL -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SSC CGL</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Combined Graduate Level</p>
+                                    <a href="SSC.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">View
+                                        Courses</a>
+                                </div>
+
+                                <!-- SSC GD -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-green-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-green-300 to-green-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-green-600 text-base mb-2">SSC GD</h3>
+                                    <p class="text-gray-600 text-xs mb-3">General Duty Constable</p>
+                                    <a href="ssc-gd-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-center font-medium text-xs hover:from-green-500 hover:to-green-600 transition duration-300">View
+                                        Courses</a>
+                                </div>
+
+                                <!-- SSC MTS -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-yellow-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-tasks"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-yellow-600 text-base mb-2">SSC MTS</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Multi-Tasking Staff</p>
+                                    <a href="ssc-mts-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full text-center font-medium text-xs hover:from-yellow-500 hover:to-yellow-600 transition duration-300">View
+                                        Courses</a>
+                                </div>
+
+                                <!-- Delhi Police -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-user-shield"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-red-600 text-base mb-2">Delhi Police</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Police Constable</p>
+                                    <a href="Delhi-Police.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">View
+                                        Courses</a>
+                                </div>
+
+                                <!-- All Courses -->
+                                <a href="SSC-Main.html"
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-blue-700 text-xl mb-2">Banking Exams</h3>
-                    <p class="text-gray-700 mb-2">All you need to crack IBPS, SBI, and other banking exams in one place.
-                    </p>
-                    <span
-                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
-                        More</span>
-                </a>
-                <a onclick="openPopup()"
-                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-green-400">
-                    <div
-                        class="text-4xl mb-4 bg-gradient-to-br from-green-400 to-blue-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                        <i class="fas fa-train"></i>
+
+                    <script>
+                        const openBtn = document.getElementById('toggle-ssc-courses-btn');
+                        const closeBtn = document.getElementById('close-ssc-courses-btn');
+                        const popup = document.getElementById('ssc-courses');
+                        const pageWrapper = document.getElementById('page-wrapper');
+
+                        openBtn.addEventListener('click', () => {
+                            popup.classList.remove('hidden');
+                            // document.body.style.overflow = 'hidden'; // Prevent scrolling behind popup
+                        });
+
+                        closeBtn.addEventListener('click', () => {
+                            popup.classList.add('hidden');
+                            // document.body.style.overflow = ''; // Enable scrolling again
+                        });
+                    </script>
+                </div>
+
+
+                <div id="page-wrapper">
+                    <div id="main-content" class="transition-all duration-300">
+                        <a
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-pink-400">
+                            <div
+                                class="text-4xl mb-4 bg-gradient-to-br from-pink-400 to-red-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h3 class="font-bold text-pink-700 text-xl mb-2">Banking Exams</h3>
+                            <p class="text-gray-700 mb-2">
+                                All you need to crack IBPS, SBI, RBI and other banking exams in one place.
+                            </p>
+                            <button id="toggle-banking-courses-btn"
+                                class="block px-4 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full text-center font-semibold ripple hover:from-pink-600 hover:to-red-600 transition duration-300">
+                                Courses
+                            </button>
+                        </a>
                     </div>
-                    <h3 class="font-bold text-blue-700 text-xl mb-2">Railway</h3>
-                    <p class="text-gray-700 mb-2">Self-Paced coarse, tips, and practice for Railway Exam recruitment.
-                    </p>
-                    <span
-                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
-                        More</span>
-                </a>
-                <a onclick="openPopup()"
-                    class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-yellow-400">
-                    <div
-                        class="text-4xl mb-4 bg-gradient-to-br from-yellow-400 to-orange-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                        <i class="fas fa-user-shield"></i>
+
+                    <!-- Banking Popup Overlay -->
+                    <div id="banking-courses"
+                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+
+                        <!-- Popup Content -->
+                        <div
+                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
+                            <!-- Close Button -->
+                            <button id="close-banking-courses-btn"
+                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-500 text-2xl transition duration-300">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <!-- Header -->
+                            <div class="text-center mb-6">
+                                <h3 class="font-bold text-blue-600 text-2xl mb-2">Banking Examination Courses</h3>
+                                <p class="text-blue-500 text-md">Choose from our specialized banking preparation courses
+                                </p>
+                            </div>
+
+                            <!-- Courses Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                <!-- IBPS Clerk -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">IBPS Clerk</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Clerical Cadre</p>
+                                    <a href="ibps-clerk-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- IBPS PO -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-green-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-green-300 to-green-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-green-600 text-base mb-2">IBPS PO</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Probationary Officer</p>
+                                    <a href="ibps-po-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-center font-medium text-xs hover:from-green-500 hover:to-green-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- SBI PO -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-landmark"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-red-600 text-base mb-2">SBI PO</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Probationary Officer</p>
+                                    <a href="sbi-po-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- RBI Grade B -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-purple-600 text-base mb-2">RBI Grade B</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Officer Grade B</p>
+                                    <a href="rbi-gradeb-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-full text-center font-medium text-xs hover:from-purple-500 hover:to-purple-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+                                <a href="Banking-Main.html"
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-blue-700 text-xl mb-2">NDA Exam</h3>
-                    <p class="text-gray-700 mb-2">Step-by-step NDA exam process, eligibility, and preparation resources.
-                    </p>
-                    <span
-                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">Know
-                        More</span>
-                </a>
+
+                    <script>
+                        const openBankingBtn = document.getElementById('toggle-banking-courses-btn');
+                        const closeBankingBtn = document.getElementById('close-banking-courses-btn');
+                        const bankingPopup = document.getElementById('banking-courses');
+                        const pagesWrapper = document.getElementById('page-wrapper');
+
+                        openBankingBtn.addEventListener('click', () => {
+                            bankingPopup.classList.remove('hidden');
+                            // document.body.style.overflow = 'hidden'; // Lock background scroll
+                        });
+
+                        closeBankingBtn.addEventListener('click', () => {
+                            bankingPopup.classList.add('hidden');
+                            // document.body.style.overflow = ''; // Restore scroll
+                        });
+                    </script>
+                </div>
+
+                <div id="page-wrapper">
+                    <div id="main-content" class="transition-all duration-300">
+                        <a
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-green-400">
+                            <div
+                                class="text-4xl mb-4 bg-gradient-to-br from-green-400 to-green-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                <i class="fas fa-train"></i>
+                            </div>
+                            <h3 class="font-bold text-green-700 text-xl mb-2">Railway Exams</h3>
+                            <p class="text-gray-700 mb-2">Self-paced courses, tips, and practice for Railway Exam
+                                recruitment.</p>
+                            <button id="toggle-rrb-courses-btn"
+                                class="block px-4 py-2 bg-gradient-to-r from-green-500 to-green-500 text-white rounded-full text-center font-semibold ripple hover:from-green-600 hover:to-green-600 transition duration-300">
+                                Courses
+                            </button>
+                        </a>
+                    </div>
+
+                    <!-- Railway Popup Overlay -->
+                    <div id="rrb-courses"
+                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+
+                        <!-- Popup Content -->
+                        <div
+                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
+                            <!-- Close Button -->
+                            <button id="close-rrb-courses-btn"
+                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl transition duration-300">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <!-- Header -->
+                            <div class="text-center mb-6">
+                                <h3 class="font-bold text-blue-600 text-2xl mb-2">RRB Examination Courses</h3>
+                                <p class="text-blue-500 text-md">Choose from our specialized railway preparation
+                                    courses</p>
+                            </div>
+
+                            <!-- Courses Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                <!-- RRB Group D -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-green-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-green-300 to-green-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-hard-hat"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-green-600 text-base mb-2">RRB Group D</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Level 1 Posts</p>
+                                    <a href="rrb-groupd-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-center font-medium text-xs hover:from-green-500 hover:to-green-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- RRB NTPC -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB NTPC</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Non-Technical Popular Categories</p>
+                                    <a href="rrb-ntpc-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- RRB ALP -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-yellow-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-cogs"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-yellow-600 text-base mb-2">RRB ALP</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Assistant Loco Pilot</p>
+                                    <a href="rrb-alp-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full text-center font-medium text-xs hover:from-yellow-500 hover:to-yellow-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- RRB JE -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-red-600 text-base mb-2">RRB JE</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Junior Engineer</p>
+                                    <a href="rrb-je-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <a href="Railway-Main.html"
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        const openRrbBtn = document.getElementById('toggle-rrb-courses-btn');
+                        const closeRrbBtn = document.getElementById('close-rrb-courses-btn');
+                        const rrbPopup = document.getElementById('rrb-courses');
+                        const pagessWrapper = document.getElementById('page-wrapper');
+
+                        openRrbBtn.addEventListener('click', () => {
+                            rrbPopup.classList.remove('hidden');
+                            // document.body.style.overflow = 'hidden'; // Lock background scroll
+                        });
+
+                        closeRrbBtn.addEventListener('click', () => {
+                            rrbPopup.classList.add('hidden');
+                            // document.body.style.overflow = ''; // Restore scroll
+                        });
+                    </script>
+                </div>
+
+                <div id="page-wrapper">
+                    <div id="main-content" class="transition-all duration-300">
+                        <!-- Defence Main Card -->
+                        <a
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-red-400">
+                            <div
+                                class="text-4xl mb-4 bg-gradient-to-br from-red-400 to-orange-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="font-bold text-red-700 text-xl mb-2">Defence Exams</h3>
+                            <p class="text-gray-700 mb-2">Complete preparation for Indian Army, Navy, Air Force and NDA
+                                examinations.</p>
+                            <button id="toggle-defence-courses-btn"
+                                class="block px-4 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full text-center font-semibold ripple hover:from-red-600 hover:to-orange-600 transition duration-300">
+                                Courses
+                            </button>
+                        </a>
+                    </div>
+
+                    <!-- Defence Popup Overlay -->
+                    <div id="defence-courses"
+                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto mt-12">
+
+                        <!-- Popup Content -->
+                        <div
+                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
+                            <!-- Close Button -->
+                            <button id="close-defence-courses-btn"
+                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl transition duration-300">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <!-- Section Header -->
+                            <div class="text-center mb-6">
+                                <h3 class="font-bold text-blue-600 text-2xl mb-2">Defence Examination Courses</h3>
+                                <p class="text-blue-500 text-md">Choose from our specialized defence preparation courses
+                                </p>
+                            </div>
+
+                            <!-- Courses Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                <!-- Indian Army -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-red-600 text-base mb-2">Indian Army</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Army Recruitment</p>
+                                    <a href="indian-army-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- Indian Air Force -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-fighter-jet"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Air Force</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Air Force Recruitment</p>
+                                    <a href="indian-airforce-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- Indian Navy -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-indigo-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-600 to-blue-700 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-ship"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-blue-700 text-base mb-2">Indian Navy</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Navy Recruitment</p>
+                                    <a href="indian-navy-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full text-center font-medium text-xs hover:from-blue-700 hover:to-blue-800 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <!-- NDA -->
+                                <div
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-purple-600 text-base mb-2">NDA</h3>
+                                    <p class="text-gray-600 text-xs mb-3">National Defence Academy</p>
+                                    <a href="nda-courses.html"
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-full text-center font-medium text-xs hover:from-purple-500 hover:to-purple-600 transition duration-300">
+                                        View Courses
+                                    </a>
+                                </div>
+
+                                <a href="Defence-Main.html"
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    <div
+                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        const openDefenceBtn = document.getElementById('toggle-defence-courses-btn');
+                        const closeDefenceBtn = document.getElementById('close-defence-courses-btn');
+                        const defencePopup = document.getElementById('defence-courses');
+                        const pageesWrapper = document.getElementById('page-wrapper');
+
+                        openDefenceBtn.addEventListener('click', () => {
+                            defencePopup.classList.remove('hidden');
+                            // document.body.style.overflow = 'hidden'; // Lock background scroll
+                        });
+
+                        closeDefenceBtn.addEventListener('click', () => {
+                            defencePopup.classList.add('hidden');
+                            // document.body.style.overflow = ''; // Restore scroll
+                        });
+                    </script>
+                </div>
+
             </div>
         </div>
     </section>
 
 
     <section>
+        <!-- onclick="openPopup()" -->
         <!-- Popup Modal -->
         <div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
             <div class="bg-white rounded-xl shadow-xl p-8 text-center max-w-xs w-full">
@@ -1036,10 +1509,10 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="relative py-10 fade-in z-10 bg-white">
+    <section id="features" class="relative py-10 fade-in bg-white">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">
-                Why Learners Love Self-Paced Courses
+                Study Smarter, Achieve More
             </h2>
             <div class="grid md:grid-cols-3 gap-10">
 
@@ -1076,7 +1549,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="relative py-10 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10">
         <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">What Our Users Say</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Hear From Our Learners</h2>
             <div class="grid md:grid-cols-2 gap-10">
                 <div
                     class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
@@ -1265,7 +1738,7 @@
 
     <section id="contact" class="relative py-10 bg-white fade-in z-10">
         <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Contact Us</h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">We’re Here to Help</h2>
 
             <div class="grid md:grid-cols-2 gap-10">
                 <!-- Contact Info -->
