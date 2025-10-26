@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn about firewalls for Delhi Police Exam with Courage Library. Understand definition, types, functions, and purpose of hardware, software, and next-generation firewalls. Includes PYQs, memory tricks, and exam-focused explanations for computer awareness preparation." />
+    <meta name="keywords"
+        content="Delhi Police Exam, Firewall, Network Security, Hardware Firewall, Software Firewall, NGFW, Cybersecurity, Network Protection, Windows Firewall, Courage Library, Delhi Police Computer Awareness" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Firewall | Delhi Police Exam | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Virus, Firewall & Security Concepts Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Article 9 — Virus, Firewall & Security Concepts -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Virus, Firewall & Security Concepts
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="computer-virus.html" class="nav-link" title="What is a Computer Virus?">What is a
+                                Computer Virus?</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="symptoms-of-virus-infection.html" class="nav-link"
+                                title="Symptoms of Virus Infection">Symptoms
+                                of Virus Infection</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="antivirus-software.html" class="nav-link"
+                                title="Antivirus Software and Examples">Antivirus Software and Examples</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="firewall.html" class="nav-link" title="Firewall – meaning and purpose">Firewall –
+                                meaning and purpose</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="internet-security.html" class="nav-link"
+                                title="Internet Security, Strong Passwords, and Safe Browsing">Internet Security, Strong
+                                Passwords, and Safe Browsing</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="cybercrime.html" class="nav-link" title="Cybercrime & Common Threats">Cybercrime &
+                                Common Threats</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="practice-section.html" class="nav-link" title="Practice Section">Practice
+                                Section</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Firewall</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police
+                    Exam</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                Understanding <strong>firewalls</strong> is crucial for both the Delhi Police exam and
+                                real-world cybersecurity. This topic frequently appears in computer awareness sections
+                                with questions on <strong>definition, types, and functions</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What is a Firewall Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is a Firewall?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-gray-700 mb-4">
+                        A <strong>firewall</strong> is a <strong>network security system</strong> that <strong>monitors
+                            and controls incoming and outgoing network traffic</strong> based on predetermined security
+                        rules.
+                    </p>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mt-4 mb-4">
+                        <h3 class="text-lg font-semibold text-blue-700 mb-2">📝 Exam-Focused Definition:</h3>
+                        <p class="text-gray-700 italic">
+                            "A firewall acts as a barrier between a trusted network and an untrusted network (like the
+                            internet) to prevent unauthorized access."
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <h4 class="text-lg font-semibold text-green-700 mb-3">Purpose:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Block unauthorized access</li>
+                                <li>Allow safe communication</li>
+                                <li>Prevent malware and hackers from entering the system</li>
+                            </ul>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                            <h4 class="text-lg font-semibold text-orange-700 mb-2">💡 Simple Trick:</h4>
+                            <p class="text-gray-700 italic">
+                                "Think of a firewall as a 'security guard' for your computer or network."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Firewalls Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2️. Types of Firewalls</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Example / Use</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">Hardware Firewall</td>
+                                    <td class="px-4 py-3">Physical device between network & internet</td>
+                                    <td class="px-4 py-3">Routers with built-in firewall</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium text-green-600">Software Firewall</td>
+                                    <td class="px-4 py-3">Installed on computer to monitor traffic</td>
+                                    <td class="px-4 py-3">Windows Firewall, ZoneAlarm</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-purple-600">Packet Filtering Firewall</td>
+                                    <td class="px-4 py-3">Checks each data packet</td>
+                                    <td class="px-4 py-3">Simple & fast, basic security</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium text-red-600">Proxy Firewall</td>
+                                    <td class="px-4 py-3">Acts as an intermediary</td>
+                                    <td class="px-4 py-3">Filters requests, hides IP</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-3 font-medium text-teal-600">Next-Generation Firewall (NGFW)</td>
+                                    <td class="px-4 py-3">Advanced, includes malware detection & application control
+                                    </td>
+                                    <td class="px-4 py-3">Enterprise networks</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-purple-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> Remember <strong>HW = Physical</strong>, <strong>SW =
+                                    Software</strong>, <strong>NGFW = Smart & New Generation</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Functions of Firewall Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3️. Functions of a Firewall</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex items-start p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                🔒
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-blue-700 mb-2">Traffic Filtering</h4>
+                                <p class="text-gray-700">Blocks suspicious data packets</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 bg-green-50 rounded-lg border border-green-200">
+                            <div
+                                class="bg-green-100 border border-green-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                👥
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-green-700 mb-2">Access Control</h4>
+                                <p class="text-gray-700">Permits only authorized users</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <div
+                                class="bg-purple-100 border border-purple-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                📊
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-purple-700 mb-2">Monitoring & Logging</h4>
+                                <p class="text-gray-700">Keeps record of all network activities</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 bg-red-50 rounded-lg border border-red-200">
+                            <div
+                                class="bg-red-100 border border-red-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                🛡️
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-red-700 mb-2">Protection against Malware</h4>
+                                <p class="text-gray-700">Prevents viruses, worms, ransomware from spreading</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MCQ Practice Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4️. Delhi Police PYQ Style Questions</h2>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">A firewall is used to:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Edit documents (b) Protect network from
+                                    unauthorized access (c) Increase RAM (d) Speed up CPU</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Firewall Purpose</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Protect network from unauthorized access</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which of the following is a
+                                    software firewall?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Windows Firewall (b) Cisco Hardware Firewall
+                                    (c) Router (d) Switch</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Firewall Types</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Windows Firewall</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which type of firewall filters each
+                                    data packet individually?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Proxy (b) Packet Filtering (c)
+                                    Next-Generation (d) Hardware</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Firewall Types</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Packet Filtering</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Next-Generation Firewall (NGFW)
+                                    includes which extra feature?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Printing (b) Malware detection & Application
+                                    control (c) Disk cleanup (d) File compression</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Advanced Firewalls</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Malware detection & Application control</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">A firewall acts as a:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Network barrier (b) Virus (c) Cloud storage
+                                    (d) Email client</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Firewall Function</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Network barrier</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Short Answer Task Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Short Answer Task</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Question:</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                            <p class="text-lg text-gray-700 text-center">
+                                Explain in <strong>50 words</strong> the <strong>purpose of a firewall</strong> and list
+                                <strong>two types</strong> commonly used in home computers.
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-lg font-semibold text-green-700 mb-3">Answer Guidelines:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                                        <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <p class="text-gray-700">Use keywords like <strong>software firewall, hardware
+                                                firewall, network protection</strong></p>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                        <svg class="w-5 h-5 text-yellow-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <p class="text-gray-700">Make your answer concise — around <strong>50
+                                                words</strong> as specified</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-purple-700 mb-3">Sample Answer Structure:</h4>
+                                <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="text-sm text-gray-700">
+                                        A firewall is a network security system that monitors and controls
+                                        incoming/outgoing traffic based on security rules. Its purpose is to block
+                                        unauthorized access while allowing safe communication. Two common types used in
+                                        home computers are software firewalls (like Windows Firewall) and hardware
+                                        firewalls (built into routers).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5️. Quick Recap / Memory Tricks</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3">Feature</th>
+                                    <th class="px-4 py-3">Trick to Remember</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium">Firewall</td>
+                                    <td class="px-4 py-3">"Security guard of network"</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium">Hardware Firewall</td>
+                                    <td class="px-4 py-3">Physical device at network entry</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium">Software Firewall</td>
+                                    <td class="px-4 py-3">Installed on PC, monitors traffic</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">NGFW</td>
+                                    <td class="px-4 py-3">Smart firewall with malware detection</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-6 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800 text-center">
+                                <strong>Exam Tip:</strong> Delhi Police often asks <strong>definition + main
+                                    types</strong>. Memorizing 3–4 types and purpose covers most PYQs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="antivirus-software.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="internet-security.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Cyber Security for Delhi Police
+                    Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-100 text-blue-600 font-bold border border-blue-200 text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn Cybercrime for Delhi Police Exam with Courage Library. Understand phishing, malware, ransomware, hacking, spyware, and prevention measures. Includes PYQs, memory tricks, and exam-focused explanations for computer awareness preparation." />
+    <meta name="keywords"
+        content="Delhi Police Exam, Cybercrime, Phishing, Malware, Ransomware, Hacking, Spyware, Prevention, Computer Awareness, Online Security, Courage Library" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Cybercrime & Threats | Delhi Police Exam | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Virus, Firewall & Security Concepts Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Article 9 — Virus, Firewall & Security Concepts -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Virus, Firewall & Security Concepts
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="computer-virus.html" class="nav-link" title="What is a Computer Virus?">What is a
+                                Computer Virus?</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="symptoms-of-virus-infection.html" class="nav-link"
+                                title="Symptoms of Virus Infection">Symptoms
+                                of Virus Infection</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="antivirus-software.html" class="nav-link"
+                                title="Antivirus Software and Examples">Antivirus Software and Examples</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="firewall.html" class="nav-link" title="Firewall – meaning and purpose">Firewall –
+                                meaning and purpose</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="internet-security.html" class="nav-link"
+                                title="Internet Security, Strong Passwords, and Safe Browsing">Internet Security, Strong
+                                Passwords, and Safe Browsing</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="cybercrime.html" class="nav-link" title="Cybercrime & Common Threats">Cybercrime &
+                                Common Threats</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="practice-section.html" class="nav-link" title="Practice Section">Practice
+                                Section</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Cybercrime</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police
+                    Exam</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 p-3 rounded-lg mr-4">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                Cybercrime awareness is essential for <strong>Delhi Police Computer Awareness</strong>
+                                exams. This topic covers <strong>common threats like phishing and malware</strong> along
+                                with <strong>prevention measures</strong> that frequently appear in competitive exams.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What is Cybercrime Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1️. What is Cybercrime?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-gray-700 mb-4">
+                        <strong>Cybercrime</strong> refers to <strong>criminal activities that involve computers,
+                            networks, or the internet</strong>. It includes <strong>unauthorized access, data theft,
+                            online fraud, hacking, and spreading malware</strong>.
+                    </p>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mt-4">
+                        <h3 class="text-lg font-semibold text-blue-700 mb-2">Exam-Focused Definition:</h3>
+                        <p class="text-gray-700 italic">
+                            "Cybercrime = illegal activities in cyberspace targeting individuals, organizations, or
+                            governments."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Cyber Threats Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2️. Common Cyber Threats</h2>
+
+                <!-- Phishing -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <div class="flex items-start mb-4">
+                        <div
+                            class="bg-red-100 text-red-600 font-bold border border-red-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                            1
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Phishing</h3>
+                            <p class="text-gray-700 mb-3">
+                                Fraudulent attempts to <strong>obtain sensitive information</strong> like passwords,
+                                bank details, or credit card numbers by pretending to be a trustworthy entity.
+                            </p>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-3">
+                                <p class="text-sm text-gray-600"><strong>Example:</strong> Fake emails from "banks"
+                                    asking for login details.</p>
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+                                <p class="text-sm text-red-700"><strong>💡 Exam Trick:</strong> <em>If it asks for
+                                        personal info in email or link → Phishing.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Malware -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <div class="flex items-start mb-4">
+                        <div
+                            class="bg-orange-100 text-orange-600 font-bold border border-orange-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                            2
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Malware</h3>
+                            <p class="text-gray-700 mb-3">
+                                Malicious software designed to <strong>harm, exploit, or steal data</strong> from
+                                computers.
+                            </p>
+
+                            <div class="grid md:grid-cols-2 gap-4 mb-3">
+                                <div class="p-3 bg-orange-50 rounded-lg border border-orange-200">
+                                    <h4 class="font-semibold text-orange-700 mb-2">Virus</h4>
+                                    <p class="text-sm text-gray-700">Infects files and programs</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <h4 class="font-semibold text-green-700 mb-2">Worm</h4>
+                                    <p class="text-sm text-gray-700">Spreads automatically across networks</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <h4 class="font-semibold text-purple-700 mb-2">Trojan</h4>
+                                    <p class="text-sm text-gray-700">Appears legitimate but has hidden malicious
+                                        functions</p>
+                                </div>
+                                <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                    <h4 class="font-semibold text-red-700 mb-2">Ransomware</h4>
+                                    <p class="text-sm text-gray-700">Encrypts data and demands ransom</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 p-3 rounded-lg border border-orange-200">
+                                <p class="text-sm text-orange-700"><strong>💡 Exam Trick:</strong> <em>Malware = All
+                                        harmful software.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Threats -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="flex items-start mb-4">
+                        <div
+                            class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                            3
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Other Threats</h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <h4 class="font-semibold text-blue-700 mb-2">Hacking</h4>
+                                    <p class="text-sm text-gray-700">Unauthorized access to systems</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <h4 class="font-semibold text-green-700 mb-2">Identity Theft</h4>
+                                    <p class="text-sm text-gray-700">Stealing personal information</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <h4 class="font-semibold text-purple-700 mb-2">Denial of Service (DoS)</h4>
+                                    <p class="text-sm text-gray-700">Overloads systems to make them unavailable</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prevention Measures Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3️. Prevention Measures</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                            <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-gray-700"><strong>Do not click</strong> suspicious links or attachments</p>
+                        </div>
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                            <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-gray-700"><strong>Use updated antivirus software</strong></p>
+                        </div>
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                            <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-gray-700"><strong>Strong passwords & 2FA</strong></p>
+                        </div>
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                            <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-gray-700"><strong>Verify sender's email address</strong> before sharing info
+                            </p>
+                        </div>
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                            <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-gray-700"><strong>Backup important files</strong></p>
+                        </div>
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                            <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-gray-700"><strong>Avoid public Wi-Fi</strong> for sensitive transactions</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MCQ Practice Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4️. Delhi Police PYQ Style Questions</h2>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Phishing attacks are aimed at:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Stealing sensitive information (b) Speeding
+                                    up internet (c) Formatting hard drive (d) Installing games</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Phishing Attacks</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Stealing sensitive information</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which of the following is not a
+                                    type of malware?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Virus (b) Worm (c) Trojan (d) VPN</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Malware Types</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">VPN</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Ransomware primarily:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Encrypts files and demands payment (b)
+                                    Deletes the OS (c) Speeds up PC (d) Prints documents automatically</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Ransomware</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Encrypts files and demands payment</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Spyware is used to:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Track user activities secretly (b) Improve
+                                    system speed (c) Backup files (d) Format drives</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Spyware</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Track user activities secretly</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The best way to avoid phishing
+                                    attacks is to:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Open all emails quickly (b) Verify sender and
+                                    links before clicking (c) Disable antivirus (d) Use weak passwords</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Prevention</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Verify sender and links before clicking</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Short Answer Task Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Short Answer Task</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Question:</h3>
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                            <p class="text-lg text-gray-700 text-center">
+                                Write <strong>3 major types of cyber threats</strong> and <strong>2 preventive
+                                    measures</strong> in 50 words or less.
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-lg font-semibold text-green-700 mb-3">Answer Guidelines:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start p-3 bg-green-50 rounded-lg border border-green-200">
+                                        <svg class="w-5 h-5 text-green-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <p class="text-gray-700">Use keywords like <strong>phishing, malware,
+                                                ransomware, strong passwords, antivirus</strong></p>
+                                    </div>
+                                    <div class="flex items-start p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                        <svg class="w-5 h-5 text-yellow-600 mr-3 mt-1 flex-shrink-0" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <p class="text-gray-700">Keep your answer concise — <strong>50 words or
+                                                less</strong> as specified</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-purple-700 mb-3">Sample Answer Structure:</h4>
+                                <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="text-sm text-gray-700">
+                                        Three major cyber threats are: 1) Phishing - fake emails stealing information,
+                                        2) Malware - harmful software like viruses and ransomware, 3) Hacking -
+                                        unauthorized system access. Preventive measures include using strong passwords
+                                        with 2FA and installing updated antivirus software to detect and block threats.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5️. Quick Recap / Memory Tricks</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3">Threat</th>
+                                    <th class="px-4 py-3">Trick to Remember</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium">Phishing</td>
+                                    <td class="px-4 py-3">"Hooked by fake emails"</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium">Virus/Worm/Trojan</td>
+                                    <td class="px-4 py-3">"Malware army"</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium">Ransomware</td>
+                                    <td class="px-4 py-3">"Files locked = ransom asked"</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium">Spyware</td>
+                                    <td class="px-4 py-3">"Secretly spying"</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-3 font-medium">Prevention</td>
+                                    <td class="px-4 py-3">"Think before you click + antivirus"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-6 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-center">
+                            <svg class="w-5 h-5 text-purple-600 mr-2" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800 text-center">
+                                <strong>Exam Tip:</strong> Delhi Police exams commonly ask <strong>types of malware,
+                                    phishing definition, and basic prevention methods</strong>. Memorizing the table
+                                covers most MCQs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="internet-security.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="practice-section.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Cyber Security for Delhi Police
+                    Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-100 text-blue-600 font-bold border border-blue-200 text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

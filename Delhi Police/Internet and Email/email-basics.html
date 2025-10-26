@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn Email basics for Delhi Police and SSC exams. Understand how to compose, send, CC/BCC, attach files, and follow email etiquette. Includes common questions and examples for computer awareness." />
+    <meta name="keywords"
+        content="Email, CC, BCC, attachments, Gmail, Outlook, Yahoo Mail, compose email, electronic mail, Delhi Police exam, SSC computer awareness" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Email Basics (Composing, Sending, CC/BCC, Attachments) | Courage Library</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Internet Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Internet
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="what-is-internet.html" class="nav-link"
+                                title="What is Internet? ISP, IP Address, Domain, URL">
+                                What is Internet? ISP, IP Address, Domain, URL
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="search-engines-google-bing-etc.html" class="nav-link"
+                                title="Search Engines (Google, Bing, etc.)">
+                                Search Engines (Google, Bing, etc.)
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="web-browsers-and-their-functions.html" class="nav-link"
+                                title="Web Browsers and Their Functions">
+                                Web Browsers and Their Functions
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="email-basics.html" class="nav-link"
+                                title="Email Basics – composing, sending, CC/BCC, attachments">
+                                Email Basics – composing, sending, CC/BCC, attachments
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="common-email-terms.html" class="nav-link"
+                                title="Common Email Terms (Inbox, Spam, Draft, Signature)">
+                                Common Email Terms (Inbox, Spam, Draft, Signature)
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="netiquette-internet-etiquette.html" class="nav-link"
+                                title="Netiquette (Internet Etiquette)">
+                                Netiquette (Internet Etiquette)
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="practice-ques.html" class="nav-link" title="Practice Section & Tricks">
+                                Practice Section & Tricks
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Email Basics (Composing, Sending, CC/BCC,
+                    Attachments)</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police Exam - Computer Knowledge</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Email (Electronic Mail)</strong> is a method of sending and receiving messages instantly
+                        over the Internet.
+                        It is one of the most commonly used tools for <strong>official, personal, and professional
+                            communication</strong>.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-gray-700 font-medium">
+                                <strong>Simple Definition:</strong> <strong>Email</strong> is a digital message sent
+                                from one person to another using the Internet.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <p class="text-gray-700 font-medium">
+                                <strong>Full Form:</strong> <em>Electronic Mail</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Components Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Basic Components of an Email</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Part</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">To</td>
+                                    <td class="px-4 py-3">Main recipient of the email</td>
+                                    <td class="px-4 py-3 text-blue-600">example@gmail.com</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">CC (Carbon Copy)</td>
+                                    <td class="px-4 py-3">Sends a copy to other recipients (visible to all)</td>
+                                    <td class="px-4 py-3 text-blue-600">colleague@gmail.com</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">BCC (Blind Carbon Copy)</td>
+                                    <td class="px-4 py-3">Sends a copy secretly (others cannot see)</td>
+                                    <td class="px-4 py-3 text-blue-600">manager@gmail.com</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Subject</td>
+                                    <td class="px-4 py-3">Brief description of the email topic</td>
+                                    <td class="px-4 py-3">"Meeting Schedule for Monday"</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Body</td>
+                                    <td class="px-4 py-3">Main content of the email</td>
+                                    <td class="px-4 py-3">The actual message text</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Attachments</td>
+                                    <td class="px-4 py-3">Files added to an email</td>
+                                    <td class="px-4 py-3">PDF, Image, Word file</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Signature</td>
+                                    <td class="px-4 py-3">Sender's name and contact details</td>
+                                    <td class="px-4 py-3">Regards, Rohan Mehta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">💡</span>
+                            <strong>Tip:</strong> Always write a <strong>clear subject line</strong> — it helps the
+                            receiver understand the purpose of the email.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Steps Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Steps to Compose and Send an Email</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Step</th>
+                                    <th class="px-4 py-3">Action</th>
+                                    <th class="px-4 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">1</td>
+                                    <td class="px-4 py-3">Open your email service</td>
+                                    <td class="px-4 py-3">Gmail, Outlook, Yahoo Mail, etc.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">2</td>
+                                    <td class="px-4 py-3">Click on "Compose"</td>
+                                    <td class="px-4 py-3">Opens a new message window</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">3</td>
+                                    <td class="px-4 py-3">Enter recipient's address in "To" field</td>
+                                    <td class="px-4 py-3 text-blue-600">example@gmail.com</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">4</td>
+                                    <td class="px-4 py-3">Add CC/BCC (if needed)</td>
+                                    <td class="px-4 py-3">Optional</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">5</td>
+                                    <td class="px-4 py-3">Type subject</td>
+                                    <td class="px-4 py-3">"Project Submission Update"</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">6</td>
+                                    <td class="px-4 py-3">Write your message in the body</td>
+                                    <td class="px-4 py-3">Include proper greetings and closing</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">7</td>
+                                    <td class="px-4 py-3">Attach any files (if required)</td>
+                                    <td class="px-4 py-3">Use the 📎 paperclip icon</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">8</td>
+                                    <td class="px-4 py-3">Click "Send"</td>
+                                    <td class="px-4 py-3">Email is delivered instantly</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">💡</span>
+                            <strong>Tip:</strong> You can send an email to <strong>multiple people at once</strong>
+                            using commas between addresses.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CC BCC Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Understanding CC and BCC</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Term</th>
+                                    <th class="px-4 py-3">Full Form</th>
+                                    <th class="px-4 py-3">Visibility</th>
+                                    <th class="px-4 py-3">Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">CC</td>
+                                    <td class="px-4 py-3">Carbon Copy</td>
+                                    <td class="px-4 py-3">Visible to all recipients</td>
+                                    <td class="px-4 py-3">For people who need to be informed</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">BCC</td>
+                                    <td class="px-4 py-3">Blind Carbon Copy</td>
+                                    <td class="px-4 py-3">Hidden from others</td>
+                                    <td class="px-4 py-3">For sending private copies</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-gray-700 font-medium flex items-start">
+                            <span class="text-lg mr-2">📋</span>
+                            <span>
+                                <strong>Example:</strong> If you're sending an email to your
+                                <strong>supervisor</strong>,<br>
+                                • Add <strong>team members in CC</strong> (so they are informed)<br>
+                                • Add <strong>HR in BCC</strong> (so others don't see HR's email)
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attachments Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Email Attachments</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Type of File</th>
+                                    <th class="px-4 py-3">Example</th>
+                                    <th class="px-4 py-3">Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Documents</td>
+                                    <td class="px-4 py-3">Word, PDF</td>
+                                    <td class="px-4 py-3">Reports, assignments</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Images</td>
+                                    <td class="px-4 py-3">JPEG, PNG</td>
+                                    <td class="px-4 py-3">Photos, screenshots</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Spreadsheets</td>
+                                    <td class="px-4 py-3">Excel files</td>
+                                    <td class="px-4 py-3">Data sharing</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Presentations</td>
+                                    <td class="px-4 py-3">PPT files</td>
+                                    <td class="px-4 py-3">Project slides</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Compressed Files</td>
+                                    <td class="px-4 py-3">ZIP, RAR</td>
+                                    <td class="px-4 py-3">Bundled documents</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">💡</span>
+                            <strong>Tip:</strong> Most email services allow attachments up to <strong>25 MB</strong>.
+                            For larger files, use <strong>Google Drive, OneDrive, or Dropbox links</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Email Services Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Common Email Services</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Service</th>
+                                    <th class="px-4 py-3">Developed By</th>
+                                    <th class="px-4 py-3">Website</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Gmail</td>
+                                    <td class="px-4 py-3">Google</td>
+                                    <td class="px-4 py-3 text-blue-600">mail.google.com</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Outlook Mail</td>
+                                    <td class="px-4 py-3">Microsoft</td>
+                                    <td class="px-4 py-3 text-blue-600">outlook.com</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Yahoo Mail</td>
+                                    <td class="px-4 py-3">Yahoo</td>
+                                    <td class="px-4 py-3 text-blue-600">mail.yahoo.com</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Rediff Mail</td>
+                                    <td class="px-4 py-3">Rediff.com</td>
+                                    <td class="px-4 py-3 text-blue-600">rediffmail.com</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">ProtonMail</td>
+                                    <td class="px-4 py-3">Proton Technologies</td>
+                                    <td class="px-4 py-3 text-blue-600">proton.me</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">🏆</span>
+                            <strong>Exam Tip:</strong> <strong>Gmail</strong> is the most widely used email service
+                            worldwide.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Etiquette Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Email Etiquette (Good Practices)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Rule</th>
+                                    <th class="px-4 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Use a clear subject line</td>
+                                    <td class="px-4 py-3">Helps the reader understand the purpose.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Keep your message short and polite</td>
+                                    <td class="px-4 py-3">Avoid unnecessary details.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Use greetings and closings</td>
+                                    <td class="px-4 py-3">Example: "Dear Sir/Ma'am" / "Regards".</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Check for spelling and grammar</td>
+                                    <td class="px-4 py-3">Avoid unprofessional mistakes.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Don't overuse CC/BCC</td>
+                                    <td class="px-4 py-3">Use only when necessary.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Attach files before sending</td>
+                                    <td class="px-4 py-3">Avoid sending "forgot attachment" emails.</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Avoid ALL CAPS</td>
+                                    <td class="px-4 py-3">It looks like shouting!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">💼</span>
+                            <strong>Professional Tip:</strong> Professional emails should always use <strong>formal
+                                language</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analogy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Real-Life Analogy</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Think of Email like a digital postal
+                            system:</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="text-lg font-bold text-blue-800 mb-2">Email</h4>
+                                <p class="text-gray-700">Digital letter</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="text-lg font-bold text-green-800 mb-2">To</h4>
+                                <p class="text-gray-700">Main receiver's address</p>
+                            </div>
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h4 class="text-lg font-bold text-purple-800 mb-2">CC/BCC</h4>
+                                <p class="text-gray-700">Copies sent to others</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h4 class="text-lg font-bold text-yellow-800 mb-2">Attachment</h4>
+                                <p class="text-gray-700">Enclosed documents</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h4 class="text-lg font-bold text-red-800 mb-2">Send Button</h4>
+                                <p class="text-gray-700">Posting the letter</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            <span class="text-lg mr-2">💡</span>
+                            Just like you can't send a letter without an address,
+                            you <strong>can't send an email without the recipient's email ID</strong>!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Common Delhi Police / SSC Exam Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Question</th>
+                                    <th class="px-4 py-3">Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Full form of Email</td>
+                                    <td class="px-4 py-3">Electronic Mail</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Full form of CC</td>
+                                    <td class="px-4 py-3">Carbon Copy</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Full form of BCC</td>
+                                    <td class="px-4 py-3">Blind Carbon Copy</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Maximum size of Gmail attachment</td>
+                                    <td class="px-4 py-3">25 MB</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Example of Email service</td>
+                                    <td class="px-4 py-3">Gmail, Outlook, Yahoo Mail</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">What is Subject in Email?</td>
+                                    <td class="px-4 py-3">Title of the message</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">What is Attachment?</td>
+                                    <td class="px-4 py-3">File sent with email</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Who developed Gmail?</td>
+                                    <td class="px-4 py-3">Google</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">What is the use of BCC?</td>
+                                    <td class="px-4 py-3">To hide recipient addresses</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">What is "Compose"?</td>
+                                    <td class="px-4 py-3">To create a new email</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Concept</th>
+                                <th class="px-4 py-3">Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Email</td>
+                                <td class="px-4 py-3">Electronic method of sending messages</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Compose</td>
+                                <td class="px-4 py-3">Create a new email</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">To</td>
+                                <td class="px-4 py-3">Main recipient</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">CC/BCC</td>
+                                <td class="px-4 py-3">Copies to others (visible/hidden)</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Attachment</td>
+                                <td class="px-4 py-3">File sent with an email</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Subject</td>
+                                <td class="px-4 py-3">Brief title of the message</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Common Services</td>
+                                <td class="px-4 py-3">Gmail, Yahoo, Outlook</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Max Attachment Size</td>
+                                <td class="px-4 py-3">25 MB</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+                    <p class="text-gray-700 font-medium flex items-center">
+                        <span class="text-lg mr-2">✅</span>
+                        <strong>Exam Tip:</strong> Remember —<br>
+                        <strong>To → Main Receiver</strong> &nbsp;|&nbsp;
+                        <strong>CC → Inform Others</strong> &nbsp;|&nbsp;
+                        <strong>BCC → Hide Recipients</strong> &nbsp;|&nbsp;
+                        <strong>Attachment → Add Files</strong><br>
+                        These basics are <strong>frequently asked in Delhi Police, SSC, and other competitive
+                            exams!</strong>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Email Basics Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice composing emails with different scenarios
+                            to understand when to use CC vs BCC. Remember the key email components and their purposes,
+                            as these are commonly tested in computer knowledge exams. Focus on email etiquette for
+                            professional communication.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="web-browsers-and-their-functions.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="common-email-terms.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Email Basics for Competitive Exams!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

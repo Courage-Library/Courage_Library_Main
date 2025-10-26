@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn about Search Engines like Google, Bing, and Yahoo for Delhi Police and SSC exams. Understand how search engines work — crawling, indexing, and ranking — along with key differences from browsers." />
+    <meta name="keywords"
+        content="Search Engine, Google, Bing, Yahoo, DuckDuckGo, SEO, crawling, indexing, ranking, browser vs search engine, Delhi Police exam, SSC computer awareness" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Search Engines (Google, Bing, etc.) | Courage Library</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Internet Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Internet
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="what-is-internet.html" class="nav-link"
+                                title="What is Internet? ISP, IP Address, Domain, URL">
+                                What is Internet? ISP, IP Address, Domain, URL
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="search-engines-google-bing-etc.html" class="nav-link"
+                                title="Search Engines (Google, Bing, etc.)">
+                                Search Engines (Google, Bing, etc.)
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="web-browsers-and-their-functions.html" class="nav-link"
+                                title="Web Browsers and Their Functions">
+                                Web Browsers and Their Functions
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="email-basics.html" class="nav-link"
+                                title="Email Basics – composing, sending, CC/BCC, attachments">
+                                Email Basics – composing, sending, CC/BCC, attachments
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="common-email-terms.html" class="nav-link"
+                                title="Common Email Terms (Inbox, Spam, Draft, Signature)">
+                                Common Email Terms (Inbox, Spam, Draft, Signature)
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="netiquette-internet-etiquette.html" class="nav-link"
+                                title="Netiquette (Internet Etiquette)">
+                                Netiquette (Internet Etiquette)
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="practice-ques.html" class="nav-link" title="Practice Section & Tricks">
+                                Practice Section & Tricks
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-25">25-10-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Search Engines (Google, Bing, etc.)</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police Exam - Computer Knowledge</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        A <strong>Search Engine</strong> is a <strong>software program</strong> that helps users
+                        <strong>find information on the Internet</strong>.
+                        It searches millions of web pages and shows results based on the words or phrases (called
+                        <em>keywords</em>) entered by the user.
+                    </p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-700 font-medium">
+                            <strong>Simple Definition:</strong> A Search Engine is a <strong>tool that locates
+                                information</strong> on the Internet using keywords and displays relevant results.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How Search Engines Work Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. How Does a Search Engine Work?</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-gray-700 font-medium">
+                            A search engine performs <strong>three main tasks</strong>:
+                        </p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Step</th>
+                                    <th class="px-4 py-3">Function</th>
+                                    <th class="px-4 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">1. Crawling</td>
+                                    <td class="px-4 py-3">Data Collection</td>
+                                    <td class="px-4 py-3">The search engine visits web pages using <em>bots</em> or
+                                        <em>spiders</em> to collect information.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">2. Indexing</td>
+                                    <td class="px-4 py-3">Data Storage</td>
+                                    <td class="px-4 py-3">The collected data is organized in a database (index) for
+                                        quick access.</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">3. Searching & Ranking</td>
+                                    <td class="px-4 py-3">Result Display</td>
+                                    <td class="px-4 py-3">When a user searches, it shows the most relevant results based
+                                        on ranking algorithms.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">💡</span>
+                            <strong>Tip:</strong> The process of improving a website's visibility on search engines is
+                            called <strong>SEO (Search Engine Optimization)</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Search Engines Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Examples of Popular Search Engines</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Search Engine</th>
+                                    <th class="px-4 py-3">Developed By</th>
+                                    <th class="px-4 py-3">Key Features</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Google</td>
+                                    <td class="px-4 py-3">Google Inc.</td>
+                                    <td class="px-4 py-3">Most popular; uses AI-based algorithms and personalized
+                                        results.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Bing</td>
+                                    <td class="px-4 py-3">Microsoft</td>
+                                    <td class="px-4 py-3">Provides image, video, and map search; integrates with
+                                        Microsoft Edge.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Yahoo!</td>
+                                    <td class="px-4 py-3">Yahoo Corporation</td>
+                                    <td class="px-4 py-3">One of the earliest search engines; offers email and news
+                                        services too.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">DuckDuckGo</td>
+                                    <td class="px-4 py-3">DuckDuckGo Inc.</td>
+                                    <td class="px-4 py-3">Focuses on privacy and doesn't track users.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Baidu</td>
+                                    <td class="px-4 py-3">Baidu, China</td>
+                                    <td class="px-4 py-3">Leading search engine in China.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Yandex</td>
+                                    <td class="px-4 py-3">Yandex, Russia</td>
+                                    <td class="px-4 py-3">Popular search engine in Russia.</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Ask.com</td>
+                                    <td class="px-4 py-3">Ask Media Group</td>
+                                    <td class="px-4 py-3">Provides answers to user questions.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">🏆</span>
+                            <strong>Exam Tip:</strong> <strong>Google</strong> is the <strong>most widely used search
+                                engine</strong> in the world.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Components Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Basic Components of a Search Engine</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Component</th>
+                                    <th class="px-4 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Crawler (Spider)</td>
+                                    <td class="px-4 py-3">Program that scans and collects website data.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Indexer</td>
+                                    <td class="px-4 py-3">Organizes and stores data for quick retrieval.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Database</td>
+                                    <td class="px-4 py-3">Stores the indexed web pages.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Ranker/Algorithm</td>
+                                    <td class="px-4 py-3">Determines which pages appear first.</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">User Interface</td>
+                                    <td class="px-4 py-3">The search box and results page seen by users.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">💡</span>
+                            <strong>Tip:</strong> Search engines use <strong>ranking algorithms</strong> to decide which
+                            result appears at the top.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Search Engine Features</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Feature</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Keyword Search</td>
+                                    <td class="px-4 py-3">Finds web pages containing specific keywords</td>
+                                    <td class="px-4 py-3">"Delhi Police Exam Syllabus"</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Voice Search</td>
+                                    <td class="px-4 py-3">Allows searching by speaking</td>
+                                    <td class="px-4 py-3">"Hey Google, what is hardware?"</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Image Search</td>
+                                    <td class="px-4 py-3">Finds visually similar images</td>
+                                    <td class="px-4 py-3">Uploading a photo on Google Images</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Video Search</td>
+                                    <td class="px-4 py-3">Searches for videos across platforms</td>
+                                    <td class="px-4 py-3">YouTube, Bing Video</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">News Search</td>
+                                    <td class="px-4 py-3">Shows recent news updates</td>
+                                    <td class="px-4 py-3">Google News, Bing News</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Maps & Local Search</td>
+                                    <td class="px-4 py-3">Displays nearby locations</td>
+                                    <td class="px-4 py-3">"Police stations near me"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analogy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Real-Life Analogy</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Think of the Internet as a massive library
+                            📚 and a Search Engine as the librarian who helps you find the right book</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="text-lg font-bold text-blue-800 mb-2">Internet</h4>
+                                <p class="text-gray-700">Library full of information</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="text-lg font-bold text-green-800 mb-2">Search Engine</h4>
+                                <p class="text-gray-700">Librarian who knows where everything is</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h4 class="text-lg font-bold text-purple-800 mb-2">Keywords</h4>
+                                <p class="text-gray-700">The topic you're asking about</p>
+                            </div>
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h4 class="text-lg font-bold text-yellow-800 mb-2">Results</h4>
+                                <p class="text-gray-700">Books or resources matching your query</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Browser vs Search Engine Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Difference Between Browser and Search Engine
+                </h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Basis</th>
+                                    <th class="px-4 py-3">Browser</th>
+                                    <th class="px-4 py-3">Search Engine</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Meaning</td>
+                                    <td class="px-4 py-3">Software to access web pages</td>
+                                    <td class="px-4 py-3">Tool to find web pages</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Examples</td>
+                                    <td class="px-4 py-3">Chrome, Firefox, Edge</td>
+                                    <td class="px-4 py-3">Google, Bing, Yahoo</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Function</td>
+                                    <td class="px-4 py-3">Displays websites</td>
+                                    <td class="px-4 py-3">Helps locate websites</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Dependency</td>
+                                    <td class="px-4 py-3">Needs a search engine for search</td>
+                                    <td class="px-4 py-3">Needs a browser to open</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Storage</td>
+                                    <td class="px-4 py-3">Saves bookmarks, history</td>
+                                    <td class="px-4 py-3">Stores indexed web data</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-4 bg-red-50 rounded-lg border border-red-200">
+                        <p class="text-gray-700 font-medium flex items-center">
+                            <span class="text-lg mr-2">⚠️</span>
+                            <strong>Important:</strong> <strong>Google Chrome</strong> is a <strong>browser</strong>,
+                            while <strong>Google Search</strong> is a <strong>search engine</strong> — don't confuse
+                            them in exams!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Common Delhi Police / SSC Exam Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Question</th>
+                                    <th class="px-4 py-3">Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">What is a Search Engine?</td>
+                                    <td class="px-4 py-3">A program that finds information on the Internet.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Example of Search Engine</td>
+                                    <td class="px-4 py-3">Google, Bing, Yahoo</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Example of Web Browser</td>
+                                    <td class="px-4 py-3">Chrome, Edge, Firefox</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">What is Crawling?</td>
+                                    <td class="px-4 py-3">Process of collecting data from websites.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">What is Indexing?</td>
+                                    <td class="px-4 py-3">Organizing and storing collected data.</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">What is SEO?</td>
+                                    <td class="px-4 py-3">Search Engine Optimization.</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Who developed Bing?</td>
+                                    <td class="px-4 py-3">Microsoft</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Who developed Google?</td>
+                                    <td class="px-4 py-3">Larry Page & Sergey Brin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Concept</th>
+                                <th class="px-4 py-3">Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Search Engine</td>
+                                <td class="px-4 py-3">Software to find online information</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Examples</td>
+                                <td class="px-4 py-3">Google, Bing, Yahoo</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Main Steps</td>
+                                <td class="px-4 py-3">Crawling → Indexing → Searching</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">SEO</td>
+                                <td class="px-4 py-3">Improves website visibility</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Browser vs Search Engine</td>
+                                <td class="px-4 py-3">Browser opens sites; Search engine finds them</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Top Search Engine (India)</td>
+                                <td class="px-4 py-3">Google</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+                    <p class="text-gray-700 font-medium flex items-center">
+                        <span class="text-lg mr-2">✅</span>
+                        <strong>Exam Tip:</strong> Remember the 3 golden steps — <strong>Crawling → Indexing →
+                            Ranking</strong>
+                        These always appear in competitive exam questions!
+                    </p>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Search Engines Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice identifying the differences between
+                            browsers and search engines, and remember the three-step process of how search engines work.
+                            Focus on key terms like crawling, indexing, SEO, and the major search engine companies as
+                            these are frequently tested in computer knowledge exams.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="what-is-internet.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="web-browsers-and-their-functions.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Search Engines for Competitive
+                    Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

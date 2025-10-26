@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn about the Windows Interface for Delhi Police Exam with Courage Library. Understand Desktop, Taskbar, Start Menu, File Explorer, Control Panel, shortcuts, and accessibility features with PYQs and practical tips for quick revision." />
+    <meta name="keywords"
+        content="Delhi Police Exam, Windows Interface, Desktop, Taskbar, Start Menu, File Explorer, Control Panel, Settings, Shortcut Keys, GUI, Accessibility Features, Multitasking, Computer Awareness, Delhi Police Computer Knowledge, Courage Library Practice Sets" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Windows Interface & Features - Delhi Police Exam | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Operating Systems Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Article 8 — Operating Systems -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Operating Systems
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="operating-system.html" class="nav-link" title="What is an Operating System?">What
+                                is an Operating System?</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="functions-of-os.html" class="nav-link" title="Functions of OS">Functions of OS</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="types-of-os.html" class="nav-link" title="Types of OS">Types of OS</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="windows-interface.html" class="nav-link"
+                                title="Windows Interface and Features">Windows Interface and Features</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="basic-commands.html" class="nav-link" title="Basic Commands">Basic Commands</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="mobile-os.html" class="nav-link" title="Mobile OS">Mobile OS</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="practice-section.html" class="nav-link" title="Practice Section">Practice
+                                Section</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Windows Interface</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police Exam</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Introduction to Windows Interface</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        The <strong>Windows Interface</strong> is a <strong>frequent topic in Delhi Police Computer
+                            Awareness exams</strong>.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Questions often cover <strong>components, shortcuts, taskbar, and basic navigation</strong>.
+                    </p>
+
+                    <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="font-medium text-gray-800">
+                            <strong>Exam Insight:</strong> Windows is a Graphical User Interface (GUI)-based OS
+                            developed by Microsoft that provides a user-friendly environment to interact with hardware
+                            and software.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Windows Components Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Main Components of Windows Interface</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Component 1 -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-semibold text-blue-800 mb-2">1. Desktop</h3>
+                            <p class="text-gray-700">The main screen where icons, files, and folders appear</p>
+                        </div>
+
+                        <!-- Component 2 -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-semibold text-green-800 mb-2">2. Taskbar</h3>
+                            <p class="text-gray-700">Located at the bottom; shows Start menu, running programs, system
+                                tray, clock</p>
+                        </div>
+
+                        <!-- Component 3 -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-semibold text-purple-800 mb-2">3. Start Menu</h3>
+                            <p class="text-gray-700">Provides access to applications, settings, and power options</p>
+                        </div>
+
+                        <!-- Component 4 -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-semibold text-yellow-800 mb-2">4. Icons</h3>
+                            <p class="text-gray-700">Represent files, folders, and applications; double-click to open
+                            </p>
+                        </div>
+
+                        <!-- Component 5 -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-semibold text-red-800 mb-2">5. Windows / Frames</h3>
+                            <p class="text-gray-700">Individual program windows with title bar, minimize/maximize/close
+                                buttons</p>
+                        </div>
+
+                        <!-- Component 6 -->
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <h3 class="text-lg font-semibold text-indigo-800 mb-2">6. Control Panel / Settings</h3>
+                            <p class="text-gray-700">Allows configuration of system settings, hardware, and software</p>
+                        </div>
+
+                        <!-- Component 7 -->
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="text-lg font-semibold text-teal-800 mb-2">7. File Explorer</h3>
+                            <p class="text-gray-700">Manages files, folders, and drives efficiently</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-red-50 rounded-lg border border-red-200">
+                        <p class="font-medium text-gray-800 text-center">
+                            <strong>Exam Tip:</strong> Delhi Police often asks components of Windows Interface, their
+                            functions, and shortcut keys.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Key Features of Windows</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-blue-50">
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-bold text-blue-800">
+                                        Feature</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-bold text-blue-800">
+                                        Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-medium">Multitasking</td>
+                                    <td class="border border-gray-300 px-4 py-2">Run multiple programs simultaneously
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-medium">User-Friendly GUI</td>
+                                    <td class="border border-gray-300 px-4 py-2">Icons, buttons, windows for easy
+                                        interaction</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-medium">Taskbar & Start Menu</td>
+                                    <td class="border border-gray-300 px-4 py-2">Quick access to programs,
+                                        notifications, and settings</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-medium">File Management</td>
+                                    <td class="border border-gray-300 px-4 py-2">Organize files, folders, and drives
+                                        efficiently</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-medium">Security</td>
+                                    <td class="border border-gray-300 px-4 py-2">Windows Defender, User Account Control,
+                                        Firewall</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2 font-medium">Accessibility Tools</td>
+                                    <td class="border border-gray-300 px-4 py-2">Magnifier, Narrator, On-Screen Keyboard
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                        <p class="font-medium text-gray-800">
+                            <strong>Memory Trick:</strong> Remember GUI + Multitasking + Taskbar = Core Windows
+                            Features.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Practice Questions (Delhi Police PYQ-style)
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The main screen where icons, files,
+                                    and folders appear is called:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Taskbar (b) Desktop (c) Start Menu (d) File
+                                    Explorer</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Desktop</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which feature allows running
+                                    multiple programs at the same time?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) GUI (b) Taskbar (c) Multitasking (d) Start
+                                    Menu</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Multitasking</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which Windows component provides
+                                    quick access to applications and settings?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Control Panel (b) File Explorer (c) Start
+                                    Menu (d) Desktop</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Start Menu</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Where can you configure system
+                                    settings and hardware devices in Windows?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Taskbar (b) Control Panel / Settings (c)
+                                    Desktop (d) Start Menu</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Control Panel / Settings</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which Windows feature protects the
+                                    system from malware and unauthorized access?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Taskbar (b) Windows Defender & Firewall (c)
+                                    File Explorer (d) Start Menu</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Windows Defender & Firewall</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                6
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">File Explorer in Windows is used
+                                    for:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Running applications (b) Managing files and
+                                    folders (c) Multitasking programs (d) Accessing Start Menu</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Managing files and folders</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                7
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The section at the bottom of the
+                                    screen showing running programs and system notifications is called:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Start Menu (b) Desktop (c) Taskbar (d)
+                                    Control Panel</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Taskbar</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 8 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                8
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Double-clicking an icon on the
+                                    desktop will:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Delete the file (b) Open the program or file
+                                    (c) Move the file (d) Rename the file</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Open the program or file</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 9 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                9
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which of these is an accessibility
+                                    feature in Windows?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Magnifier (b) Taskbar (c) Desktop (d) File
+                                    Explorer</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Magnifier</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 10 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                10
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The buttons to minimize, maximize,
+                                    and close a window are located on the:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Taskbar (b) Title Bar (c) Start Menu (d)
+                                    Desktop</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Title Bar</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practical Task Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Mini Practical Task: Explore Windows Interface
+                </h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Task Instructions: Explore Windows
+                            Interface Components</h3>
+                        <p class="text-gray-700">Get hands-on experience by exploring different Windows interface
+                            components on your computer.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Open your computer and <strong>identify all desktop
+                                        icons</strong></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-green-100 text-green-600 font-bold border border-green-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Explore the <strong>Taskbar</strong>: Start Menu,
+                                    running apps, and system tray</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-purple-100 text-purple-600 font-bold border border-purple-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Open <strong>Control Panel / Settings</strong> and
+                                    note at least <strong>3 configurable options</strong></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-yellow-100 text-yellow-600 font-bold border border-yellow-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Open <strong>File Explorer</strong> and create a
+                                    folder named <strong>DelhiPolicePractice</strong></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-red-100 text-red-600 font-bold border border-red-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Screenshot the <strong>desktop, taskbar, and open
+                                        window</strong> to visualize the interface</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                        <p class="font-medium text-gray-800">
+                            <strong>Exam Tip:</strong> Questions often combine interface components with their
+                            functions. Recognizing icons and taskbar layout helps answer MCQs confidently.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Quick Recap & Memory Tricks</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800"><strong>Desktop</strong> → Main screen for icons
+                                </p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800"><strong>Taskbar</strong> → Shows running apps &
+                                    system tray</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800"><strong>Start Menu</strong> → Access programs and
+                                    settings</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800"><strong>File Explorer</strong> → File & folder
+                                    management</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="font-medium text-gray-800"><strong>Multitasking</strong> → Run multiple
+                                    programs simultaneously</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <p class="font-medium text-gray-800"><strong>Security</strong> → Windows Defender,
+                                    Firewall</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-red-50 rounded-lg border border-red-200">
+                        <p class="font-medium text-gray-800 text-center">
+                            <strong>Memory Trick:</strong> "Desktop shows, Taskbar flows, Start Menu goes, File Explorer
+                            knows, Multitask shows, Security protects."
+                        </p>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="font-medium text-gray-800 text-center">
+                            <strong>Exam Tip:</strong> Focus on basic components, their functions, and accessibility
+                            features; these are frequent in Delhi Police PYQs.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Windows Interface and
+                        Features!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Windows interface knowledge is essential for Delhi
+                            Police exams as it forms the basis of computer operation understanding. Remember that
+                            Windows provides a GUI environment with key components like Desktop, Taskbar, Start Menu,
+                            and File Explorer. Focus on practical understanding of how these components work together.
+                            The memory tricks will help you quickly recall key features during exams. Practice
+                            identifying these components on an actual Windows system to reinforce your learning.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="types-of-os.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="basic-commands.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Windows Interface for Delhi Police
+                    Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-100 text-blue-600 font-bold border border-blue-200 text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

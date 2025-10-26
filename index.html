@@ -308,7 +308,7 @@
                 <h2 class="text-lg font-semibold text-center text-gray-800 mb-4">Sign Up</h2>
                 <div class="relative mb-4">
                     <input type="email" id="signupEmail" placeholder="Enter your email"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
                         fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -318,7 +318,7 @@
                 </div>
                 <div class="relative mb-4">
                     <input type="password" id="signupPassword" placeholder="Create a password"
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
                         fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -333,7 +333,7 @@
                     </svg>
                 </div>
                 <button onclick="signupWithEmail()"
-                    class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium flex justify-center items-center">
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium flex justify-center items-center">
                     Sign Up
                 </button>
 
@@ -391,7 +391,7 @@
     <!-- Custom Notification -->
     <div id="customPopup" class="fixed top-5 right-5 hidden z-[9999]">
         <div id="popupBox"
-            class="flex items-center gap-3 bg-white shadow-lg rounded-lg px-4 py-3 border-l-4 border-green-500 animate-slideIn">
+            class="flex items-center gap-3 bg-white shadow-lg rounded-lg px-4 py-3 border-l-4 border-blue-500 animate-slideIn">
             <div id="popupIcon"></div>
             <div>
                 <p id="popupMessage" class="text-gray-800 font-medium"></p>
@@ -553,20 +553,20 @@
                     email,
                     password,
                     options: {
-                        emailRedirectTo: window.location.origin // Optional: For email confirmation
+                        emailblueirectTo: window.location.origin // Optional: For email confirmation
                     }
                 });
 
                 if (error) {
                     // Handle specific "email exists" error
-                    if (error.message.includes('already registered')) {
+                    if (error.message.includes('already registeblue')) {
                         showCustomPopup("User already exists. Please login instead.", "error");
                     } else {
                         showCustomPopup("Signup failed: " + error.message, "error");
                     }
                 } else if (data?.user?.identities?.length === 0) {
                     // Special case: No identities means user exists but maybe unconfirmed
-                    showCustomPopup("Email already registered. Check your inbox for confirmation link.", "error");
+                    showCustomPopup("Email already registeblue. Check your inbox for confirmation link.", "error");
                 } else {
                     showCustomPopup("Signup successful! Check your email to confirm.", "success");
                     setTimeout(() => toggleModal(), 800);
@@ -592,7 +592,7 @@
 
             try {
                 const { error } = await supaClient.auth.resetPasswordForEmail(email, {
-                    redirectTo: window.location.origin + '/index.html?type=password_reset'
+                    blueirectTo: window.location.origin + '/index.html?type=password_reset'
                     // Using ? instead of #
                 });
 
@@ -632,7 +632,7 @@
                 sessionStorage.removeItem('resetToken');
                 setTimeout(() => {
                     toggleModal();
-                    window.location.href = "/"; // Redirect to home
+                    window.location.href = "/"; // blueirect to home
                 }, 1500);
             } catch (err) {
                 showCustomPopup("Error: " + err.message, "error");
@@ -678,7 +678,7 @@
                         if (error) throw error;
 
                         if (session?.user) {
-                            showCustomPopup("You're already logged in! Redirecting...", "info");
+                            showCustomPopup("You're already logged in! blueirecting...", "info");
                             setTimeout(() => {
                                 window.location.href = "index.html";
                             }, 2000);
@@ -782,12 +782,12 @@
                 iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                           <path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
                         </svg>`;
-                borderColor = 'border-green-500';
+                borderColor = 'border-blue-500';
             } else if (type === 'error') {
                 iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                           <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
                         </svg>`;
-                borderColor = 'border-red-500';
+                borderColor = 'border-blue-500';
             } else {
                 // info or neutral
                 iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -955,66 +955,66 @@
                                 <div
                                     class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-graduation-cap"></i>
                                     </div>
                                     <h3 class="font-semibold text-blue-600 text-base mb-2">SSC CGL</h3>
                                     <p class="text-gray-600 text-xs mb-3">Combined Graduate Level</p>
                                     <a href="SSC.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">View
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
                                         Courses</a>
                                 </div>
 
                                 <!-- SSC GD -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-green-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-green-300 to-green-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-shield-alt"></i>
                                     </div>
-                                    <h3 class="font-semibold text-green-600 text-base mb-2">SSC GD</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SSC GD</h3>
                                     <p class="text-gray-600 text-xs mb-3">General Duty Constable</p>
                                     <a href="ssc-gd-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-center font-medium text-xs hover:from-green-500 hover:to-green-600 transition duration-300">View
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
                                         Courses</a>
                                 </div>
 
                                 <!-- SSC MTS -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-yellow-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-400 to-indigo-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-tasks"></i>
                                     </div>
-                                    <h3 class="font-semibold text-yellow-600 text-base mb-2">SSC MTS</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SSC MTS</h3>
                                     <p class="text-gray-600 text-xs mb-3">Multi-Tasking Staff</p>
                                     <a href="ssc-mts-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full text-center font-medium text-xs hover:from-yellow-500 hover:to-yellow-600 transition duration-300">View
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
                                         Courses</a>
                                 </div>
 
                                 <!-- Delhi Police -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-user-shield"></i>
                                     </div>
-                                    <h3 class="font-semibold text-red-600 text-base mb-2">Delhi Police</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Delhi Police</h3>
                                     <p class="text-gray-600 text-xs mb-3">Police Constable</p>
                                     <a href="Delhi-Police.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">View
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
                                         Courses</a>
                                 </div>
 
                                 <!-- All Courses -->
                                 <a href="SSC-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-arrow-right"></i>
                                     </div>
-                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
                                     <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
                                 </a>
                             </div>
@@ -1043,17 +1043,17 @@
                 <div id="page-wrapper">
                     <div id="main-content" class="transition-all duration-300">
                         <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-pink-400">
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
                             <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-pink-400 to-red-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-blue-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
                                 <i class="fas fa-university"></i>
                             </div>
-                            <h3 class="font-bold text-pink-700 text-xl mb-2">Banking Exams</h3>
+                            <h3 class="font-bold text-blue-700 text-xl mb-2">Banking Exams</h3>
                             <p class="text-gray-700 mb-2">
                                 All you need to crack IBPS, SBI, RBI and other banking exams in one place.
                             </p>
                             <button id="toggle-banking-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full text-center font-semibold ripple hover:from-pink-600 hover:to-red-600 transition duration-300">
+                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
                                 Courses
                             </button>
                         </a>
@@ -1085,68 +1085,68 @@
                                 <div
                                     class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-file-invoice-dollar"></i>
                                     </div>
                                     <h3 class="font-semibold text-blue-600 text-base mb-2">IBPS Clerk</h3>
                                     <p class="text-gray-600 text-xs mb-3">Clerical Cadre</p>
                                     <a href="ibps-clerk-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- IBPS PO -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-green-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-green-300 to-green-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-user-tie"></i>
                                     </div>
-                                    <h3 class="font-semibold text-green-600 text-base mb-2">IBPS PO</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">IBPS PO</h3>
                                     <p class="text-gray-600 text-xs mb-3">Probationary Officer</p>
                                     <a href="ibps-po-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-center font-medium text-xs hover:from-green-500 hover:to-green-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- SBI PO -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-landmark"></i>
                                     </div>
-                                    <h3 class="font-semibold text-red-600 text-base mb-2">SBI PO</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SBI PO</h3>
                                     <p class="text-gray-600 text-xs mb-3">Probationary Officer</p>
                                     <a href="sbi-po-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- RBI Grade B -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-chart-line"></i>
                                     </div>
-                                    <h3 class="font-semibold text-purple-600 text-base mb-2">RBI Grade B</h3>
+                                    <h3 class="font-semibold text-indigo-600 text-base mb-2">RBI Grade B</h3>
                                     <p class="text-gray-600 text-xs mb-3">Officer Grade B</p>
                                     <a href="rbi-gradeb-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-full text-center font-medium text-xs hover:from-purple-500 hover:to-purple-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
                                 <a href="Banking-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-arrow-right"></i>
                                     </div>
-                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
                                     <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
                                 </a>
                             </div>
@@ -1174,16 +1174,16 @@
                 <div id="page-wrapper">
                     <div id="main-content" class="transition-all duration-300">
                         <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-green-400">
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
                             <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-green-400 to-green-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
                                 <i class="fas fa-train"></i>
                             </div>
-                            <h3 class="font-bold text-green-700 text-xl mb-2">Railway Exams</h3>
+                            <h3 class="font-bold text-blue-700 text-xl mb-2">Railway Exams</h3>
                             <p class="text-gray-700 mb-2">Self-paced courses, tips, and practice for Railway Exam
                                 recruitment.</p>
                             <button id="toggle-rrb-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-green-500 to-green-500 text-white rounded-full text-center font-semibold ripple hover:from-green-600 hover:to-green-600 transition duration-300">
+                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
                                 Courses
                             </button>
                         </a>
@@ -1213,15 +1213,15 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                                 <!-- RRB Group D -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-green-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-green-300 to-green-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-hard-hat"></i>
                                     </div>
-                                    <h3 class="font-semibold text-green-600 text-base mb-2">RRB Group D</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB Group D</h3>
                                     <p class="text-gray-600 text-xs mb-3">Level 1 Posts</p>
                                     <a href="rrb-groupd-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-center font-medium text-xs hover:from-green-500 hover:to-green-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
@@ -1230,54 +1230,54 @@
                                 <div
                                     class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-user-tie"></i>
                                     </div>
                                     <h3 class="font-semibold text-blue-600 text-base mb-2">RRB NTPC</h3>
                                     <p class="text-gray-600 text-xs mb-3">Non-Technical Popular Categories</p>
                                     <a href="rrb-ntpc-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- RRB ALP -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-yellow-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-yellow-400 to-yellow-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-400 to-indigo-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-cogs"></i>
                                     </div>
-                                    <h3 class="font-semibold text-yellow-600 text-base mb-2">RRB ALP</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB ALP</h3>
                                     <p class="text-gray-600 text-xs mb-3">Assistant Loco Pilot</p>
                                     <a href="rrb-alp-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full text-center font-medium text-xs hover:from-yellow-500 hover:to-yellow-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- RRB JE -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-tools"></i>
                                     </div>
-                                    <h3 class="font-semibold text-red-600 text-base mb-2">RRB JE</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB JE</h3>
                                     <p class="text-gray-600 text-xs mb-3">Junior Engineer</p>
                                     <a href="rrb-je-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <a href="Railway-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-arrow-right"></i>
                                     </div>
-                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
                                     <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
                                 </a>
                             </div>
@@ -1306,16 +1306,16 @@
                     <div id="main-content" class="transition-all duration-300">
                         <!-- Defence Main Card -->
                         <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-red-400">
+                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
                             <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-red-400 to-orange-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
                                 <i class="fas fa-shield-alt"></i>
                             </div>
-                            <h3 class="font-bold text-red-700 text-xl mb-2">Defence Exams</h3>
+                            <h3 class="font-bold text-blue-700 text-xl mb-2">Defence Exams</h3>
                             <p class="text-gray-700 mb-2">Complete preparation for Indian Army, Navy, Air Force and NDA
                                 examinations.</p>
                             <button id="toggle-defence-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-red-500 to-orange-500 text-white rounded-full text-center font-semibold ripple hover:from-red-600 hover:to-orange-600 transition duration-300">
+                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
                                 Courses
                             </button>
                         </a>
@@ -1345,15 +1345,15 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                                 <!-- Indian Army -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-red-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-red-300 to-red-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-medal"></i>
                                     </div>
-                                    <h3 class="font-semibold text-red-600 text-base mb-2">Indian Army</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Army</h3>
                                     <p class="text-gray-600 text-xs mb-3">Army Recruitment</p>
                                     <a href="indian-army-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-full text-center font-medium text-xs hover:from-red-500 hover:to-red-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
@@ -1362,54 +1362,54 @@
                                 <div
                                     class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-fighter-jet"></i>
                                     </div>
                                     <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Air Force</h3>
                                     <p class="text-gray-600 text-xs mb-3">Air Force Recruitment</p>
                                     <a href="indian-airforce-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- Indian Navy -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-indigo-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-600 to-blue-700 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-ship"></i>
                                     </div>
-                                    <h3 class="font-semibold text-blue-700 text-base mb-2">Indian Navy</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Navy</h3>
                                     <p class="text-gray-600 text-xs mb-3">Navy Recruitment</p>
                                     <a href="indian-navy-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full text-center font-medium text-xs hover:from-blue-700 hover:to-blue-800 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <!-- NDA -->
                                 <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-star"></i>
                                     </div>
-                                    <h3 class="font-semibold text-purple-600 text-base mb-2">NDA</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">NDA</h3>
                                     <p class="text-gray-600 text-xs mb-3">National Defence Academy</p>
                                     <a href="nda-courses.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-full text-center font-medium text-xs hover:from-purple-500 hover:to-purple-600 transition duration-300">
+                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
                                         View Courses
                                     </a>
                                 </div>
 
                                 <a href="Defence-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-purple-300 bg-white/60">
+                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
                                     <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-purple-300 to-purple-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
                                         <i class="fas fa-arrow-right"></i>
                                     </div>
-                                    <h3 class="font-semibold text-purple-600 text-base mb-2">All Courses</h3>
+                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
                                     <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
                                 </a>
                             </div>
@@ -1444,7 +1444,7 @@
         <!-- Popup Modal -->
         <div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
             <div class="bg-white rounded-xl shadow-xl p-8 text-center max-w-xs w-full">
-                <div class="mx-auto mb-4 w-10 h-10 rounded-full bg-yellow-400 animate-soft-pulse"></div>
+                <div class="mx-auto mb-4 w-10 h-10 rounded-full bg-blue-400 animate-soft-pulse"></div>
 
                 <!-- Message -->
                 <h2 class="text-blue-700 text-xl font-bold mb-2">Coming Soon</h2>
@@ -1526,7 +1526,7 @@
 
                 <!-- Lifetime Access -->
                 <div
-                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-green-400">
+                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-blue-400">
                     <div class="text-blue-600 text-5xl mb-4"><i class="fas fa-infinity"></i></div>
                     <h3 class="font-bold text-2xl mb-2">Lifetime Access</h3>
                     <p class="text-gray-700">Revisit lessons anytime with lifetime access to course materials.</p>
@@ -1534,7 +1534,7 @@
 
                 <!-- Progress Tracking -->
                 <div
-                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-yellow-400">
+                    class="glass p-8 flex flex-col items-center text-center shadow-xl hover:scale-110 transform transition duration-300 cursor-pointer border-t-4 border-blue-400">
                     <div class="text-blue-600 text-5xl mb-4"><i class="fas fa-chart-line"></i></div>
                     <h3 class="font-bold text-2xl mb-2">Progress Tracking</h3>
                     <p class="text-gray-700">Keep track of completed lessons and monitor your improvement step by step.
@@ -1563,7 +1563,7 @@
                     </div>
                 </div>
                 <div
-                    class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-pink-400">
+                    class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
                     <img src="/images/lakhan.jpg" alt="User"
                         class="w-20 h-20 rounded-full mr-6 border-4 border-blue-200">
                     <div>
@@ -1600,7 +1600,7 @@
                         visually engaging interfaces that make every visit to Courage Library feel effortless and
                         enjoyable."</p>
                 </div>
-                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-green-400">
+                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-blue-400">
                     <img src="/images/parvez.jpg" alt="Creator 3"
                         class="w-24 h-24 rounded-full mb-4 border-4 border-blue-200">
                     <h3 class="font-semibold text-gray-700 text-2xl mb-1">Md Parvezuddin</h3>
@@ -1609,7 +1609,7 @@
                         engaging material by collaborating closely with educators to ensure the best learning experience
                         for our users."</p>
                 </div>
-                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-green-400">
+                <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-blue-400">
                     <img src="/images/satyam.jpg" alt="Creator 3"
                         class="w-24 h-24 rounded-full mb-4 border-4 border-blue-200">
                     <h3 class="font-semibold text-gray-700 text-2xl mb-1">Satyam Kumar</h3>
@@ -1784,17 +1784,17 @@
                         <div class="mb-4">
                             <input type="text" name="name" placeholder="Your Name"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required>
+                                requiblue>
                         </div>
                         <div class="mb-4">
                             <input type="email" name="email" placeholder="Your Email"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required>
+                                requiblue>
                         </div>
                         <div class="mb-4">
                             <textarea name="message" rows="5" placeholder="Your Query"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                required></textarea>
+                                requiblue></textarea>
                         </div>
                         <div class="flex justify-center">
                             <button type="submit"
@@ -1838,22 +1838,22 @@
                         // Set icon and colors based on type
                         if (type === 'success') {
                             icon.innerHTML = `
-                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             `;
-                            toast.querySelector('.border-l-4').classList.add('border-green-500');
+                            toast.querySelector('.border-l-4').classList.add('border-blue-500');
                         } else {
                             icon.innerHTML = `
-                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             `;
-                            toast.querySelector('.border-l-4').classList.add('border-red-500');
+                            toast.querySelector('.border-l-4').classList.add('border-blue-500');
                         }
 
                         // Set content
@@ -1953,9 +1953,9 @@
             if (input.trim() === "") {
                 resultsDiv.innerHTML = "";
             } else if (matchCount === 0) {
-                resultsDiv.innerHTML = `<p class='text-center text-red-500'>No courses found for "<strong>${input}</strong>"</p>`;
+                resultsDiv.innerHTML = `<p class='text-center text-blue-500'>No courses found for "<strong>${input}</strong>"</p>`;
             } else {
-                resultsDiv.innerHTML = `<p class='text-center text-green-600'>Found ${matchCount} course(s) for "<strong>${input}</strong>"</p>`;
+                resultsDiv.innerHTML = `<p class='text-center text-blue-600'>Found ${matchCount} course(s) for "<strong>${input}</strong>"</p>`;
             }
         }
         // Optional: Trigger on typing instead of just submit

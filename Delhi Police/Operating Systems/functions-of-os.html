@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn the Functions of an Operating System (OS) for Delhi Police Exam with Courage Library. Understand Memory Management, Process Management, File Management, Device Management, and additional functions with examples. Includes PYQs, practical tasks, and quick recap for smart revision." />
+    <meta name="keywords"
+        content="Delhi Police Exam, Operating System Functions, Memory Management, Process Management, File Management, Device Management, Security, User Interface, Error Handling, Computer Awareness, System Software, Delhi Police Computer Knowledge, Courage Library Practice Sets" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Functions of Operating System (OS) - Delhi Police Exam | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Operating Systems Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Article 8 — Operating Systems -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Operating Systems
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="operating-system.html" class="nav-link" title="What is an Operating System?">What
+                                is an Operating System?</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="functions-of-os.html" class="nav-link" title="Functions of OS">Functions of OS</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="types-of-os.html" class="nav-link" title="Types of OS">Types of OS</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="windows-interface.html" class="nav-link"
+                                title="Windows Interface and Features">Windows Interface and Features</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="basic-commands.html" class="nav-link" title="Basic Commands">Basic Commands</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="mobile-os.html" class="nav-link" title="Mobile OS">Mobile OS</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="practice-section.html" class="nav-link" title="Practice Section">Practice
+                                Section</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Functions of Operating System</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police Exam</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Introduction to OS Functions</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        Understanding the <strong>functions of an Operating System (OS)</strong> is <strong>key for
+                            Delhi Police Computer Awareness exams</strong>.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Questions often target <strong>specific functions, their examples, or related concepts</strong>.
+                    </p>
+
+                    <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="font-medium text-gray-800">
+                            <strong>Exam Insight:</strong> Focus on understanding each function's purpose and real-world
+                            examples as Delhi Police frequently tests application-based knowledge.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Functions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Main Functions of an Operating System</h2>
+
+                <div class="space-y-6">
+                    <!-- Memory Management -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">Memory Management</h3>
+                                <ul class="list-disc ml-5 text-gray-700 space-y-2">
+                                    <li>Allocates <strong>RAM</strong> to running programs</li>
+                                    <li>Keeps track of <strong>used and free memory</strong></li>
+                                    <li>Ensures no program interferes with another</li>
+                                </ul>
+                                <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="text-blue-700 font-medium"><strong>Example:</strong> Virtual memory usage
+                                        in Windows</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Process Management -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-green-100 text-green-600 font-bold border border-green-200 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">Process Management</h3>
+                                <ul class="list-disc ml-5 text-gray-700 space-y-2">
+                                    <li>Manages execution of programs (<strong>processes</strong>)</li>
+                                    <li>Handles <strong>CPU scheduling, multitasking, and process coordination</strong>
+                                    </li>
+                                </ul>
+                                <div class="mt-3 p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium"><strong>Example:</strong> Task Manager in
+                                        Windows shows running processes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Management -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-purple-100 text-purple-600 font-bold border border-purple-200 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">File Management</h3>
+                                <ul class="list-disc ml-5 text-gray-700 space-y-2">
+                                    <li>Organizes <strong>files and folders</strong> on storage devices</li>
+                                    <li>Handles <strong>read/write operations, file creation, deletion, and access
+                                            rights</strong></li>
+                                </ul>
+                                <div class="mt-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="text-purple-700 font-medium"><strong>Example:</strong> File Explorer in
+                                        Windows or Finder in macOS</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Device Management -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-yellow-100 text-yellow-600 font-bold border border-yellow-200 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">Device Management</h3>
+                                <ul class="list-disc ml-5 text-gray-700 space-y-2">
+                                    <li>Manages <strong>input/output devices</strong> like keyboard, mouse, printer,
+                                        scanner</li>
+                                    <li>Ensures <strong>proper communication between devices and CPU</strong></li>
+                                </ul>
+                                <div class="mt-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                    <p class="text-yellow-700 font-medium"><strong>Example:</strong> Printer driver
+                                        handling print commands</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Functions -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-red-100 text-red-600 font-bold border border-red-200 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">Additional Functions (Optional but
+                                    Useful for MCQs)</h3>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                        <h4 class="font-semibold text-red-800 mb-2">Security & Access Control</h4>
+                                        <p class="text-gray-700">Protects data from unauthorized access</p>
+                                    </div>
+                                    <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                        <h4 class="font-semibold text-indigo-800 mb-2">User Interface</h4>
+                                        <p class="text-gray-700">GUI or CLI for user interaction</p>
+                                    </div>
+                                    <div class="p-3 bg-teal-50 rounded-lg border border-teal-200">
+                                        <h4 class="font-semibold text-teal-800 mb-2">Error Detection & Handling</h4>
+                                        <p class="text-gray-700">Identifies and corrects errors during processing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Practice Questions (Delhi Police PYQ-style)
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which OS function allocates RAM to
+                                    running programs?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) File Management (b) Memory Management (c)
+                                    Device Management (d) Process Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Memory Management</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">CPU scheduling is handled by which
+                                    OS function?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Memory Management (b) Process Management (c)
+                                    File Management (d) Device Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Process Management</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which function of OS organizes
+                                    files and directories?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Memory Management (b) Process Management (c)
+                                    File Management (d) Device Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">File Management</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which OS function ensures proper
+                                    communication between keyboard, monitor, and printer?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Memory Management (b) Device Management (c)
+                                    File Management (d) Process Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Device Management</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Example of process management in
+                                    Windows is:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) File Explorer (b) Task Manager (c) Printer
+                                    Driver (d) Control Panel</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Task Manager</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                6
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Virtual memory is part of which OS
+                                    function?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Device Management (b) File Management (c)
+                                    Memory Management (d) Process Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Memory Management</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                7
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which function protects data from
+                                    unauthorized access?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Security & Access Control (b) Device
+                                    Management (c) Process Management (d) File Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Security & Access Control</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 8 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                8
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Creating and deleting files is
+                                    handled by:</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) File Management (b) Process Management (c)
+                                    Device Management (d) Memory Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">File Management</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 9 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                9
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Which OS function resolves errors
+                                    during execution?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Error Detection & Handling (b) File
+                                    Management (c) Memory Management (d) Device Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Error Detection & Handling</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 10 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                10
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">GUI and CLI interfaces belong to
+                                    which OS function?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Memory Management (b) User Interface (c) File
+                                    Management (d) Device Management</p>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                View Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">User Interface</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practical Task Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Mini Practical Task: Explore OS Functions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Task Instructions: Explore Operating System
+                            Functions</h3>
+                        <p class="text-gray-700">Get hands-on experience by exploring different OS functions on your
+                            computer.</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Open <strong>Task Manager / Activity
+                                        Monitor</strong> on your computer</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-green-100 text-green-600 font-bold border border-green-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Observe <strong>CPU, Memory, and Processes</strong>
+                                    running</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-purple-100 text-purple-600 font-bold border border-purple-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Open <strong>File Explorer / Finder</strong> to see
+                                    file management in action</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-yellow-100 text-yellow-600 font-bold border border-yellow-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Check <strong>Device Manager / System
+                                        Preferences</strong> to explore device management</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="bg-red-100 text-red-600 font-bold border border-red-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5</div>
+                            <div>
+                                <p class="font-medium text-gray-800">Create a small <strong>table showing OS functions
+                                        and examples</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                        <p class="font-medium text-gray-800">
+                            <strong>Pro Tip:</strong> Delhi Police may ask function-related one-liners, matching
+                            columns, or diagram-based questions. Practical experience helps in better understanding.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Quick Recap & Memory Tricks</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800"><strong>Memory Management</strong> → RAM allocation
+                                </p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800"><strong>Process Management</strong> → CPU
+                                    scheduling, multitasking</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800"><strong>File Management</strong> → Organizes files
+                                    & folders</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800"><strong>Device Management</strong> → Handles
+                                    input/output devices</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="font-medium text-gray-800"><strong>Memory Trick:</strong> "Memory → RAM,
+                                    Process → CPU, File → Folders, Device → Peripherals"</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <p class="font-medium text-gray-800"><strong>Additional Functions:</strong> Security,
+                                    User Interface, Error Handling</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-red-50 rounded-lg border border-red-200">
+                        <p class="font-medium text-gray-800 text-center">
+                            <strong>Exam Tip:</strong> Focus on examples of each function; questions often appear as
+                            direct MCQs or scenario-based. Practice matching functions with their real-world examples.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed OS Functions!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Remember that an Operating System acts as an
+                            interface between the user and computer hardware, managing all resources efficiently. The
+                            four main functions - Memory, Process, File, and Device Management - work together to ensure
+                            smooth computer operation. Focus on understanding the practical examples of each function as
+                            Delhi Police exams often test application-based knowledge. Regular practice with the memory
+                            trick will help you recall these functions quickly during exams.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="operating-system.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="types-of-os.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master OS Functions for Delhi Police Exam!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-100 text-blue-600 font-bold border border-blue-200 text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
