@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn Latitude, Longitude, and Time Zones for Delhi Police & SSC Exams. Understand Earth's grid system, Prime Meridian, Equator, IST, GMT difference, and time calculations with formulas, tricks, and PYQs from Courage Library." />
+    <meta name="keywords"
+        content="Latitude and Longitude, Time Zones, Earth Grid System, Prime Meridian, Equator, Indian Standard Time, Greenwich Mean Time, Delhi Police Geography Notes, SSC CGL Exam Preparation, Courage Library" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../../images/logo.png" />
+    <title>Latitude, Longitude, and Time Zones – Delhi Police & SSC Exams | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../../../../index.html" class="flex items-center gap-2">
+                <img src="../../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Geography Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Geography – Complete Syllabus Breakdown -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Physical Geography
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="the-earth.html" class="nav-link" title="The Earth: Shape, Size, and Structure">The
+                                Earth: Shape, Size, and Structure</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="latitude-longitude-time-zones.html" class="nav-link"
+                                title="Latitude, Longitude, and Time Zones">Latitude, Longitude, and Time Zones</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="motion-of-the-earth.html" class="nav-link"
+                                title="Motions of the Earth – Rotation and Revolution">Motions of the Earth – Rotation
+                                and Revolution</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="solar-system-planet.html" class="nav-link"
+                                title="Solar System and Planets Overview">Solar System and Planets Overview</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="earth-layers.html" class="nav-link"
+                                title="Earth’s Layers – Crust, Mantle, Core">Earth’s Layers – Crust, Mantle, Core</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="rocks-and-minralls.html" class="nav-link"
+                                title="Rocks and Minerals – Types & Formation">Rocks and Minerals – Types &
+                                Formation</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="volcanos-and-earthquakes.html" class="nav-link"
+                                title="Volcanoes and Earthquakes – Causes and Effects">Volcanoes and Earthquakes –
+                                Causes and Effects</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="mountains-plateaus-and-plains.html" class="nav-link"
+                                title="Mountains, Plateaus, and Plains">Mountains, Plateaus, and Plains</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="weathering-and-erosion-processes.html" class="nav-link"
+                                title="Weathering and Erosion Processes">Weathering and Erosion Processes</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="major-landforms-of-the-world.html" class="nav-link"
+                                title="Major Landforms of the World">Major Landforms of the World</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-29">29-10-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm border border-gray-200 relative z-10">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Latitude, Longitude, and Time Zones</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Delhi Police & SSC Exams Preparation</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        To locate any place on Earth accurately, geographers use an <strong>imaginary grid</strong> made
+                        up of <strong>latitude</strong> and <strong>longitude</strong> lines.
+                        These help in determining <strong>exact location, time zones</strong>, and <strong>distance
+                            between places</strong>.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Key Concepts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Latitude:</strong> Horizontal lines measuring distance from Equator</li>
+                                <li><strong>Longitude:</strong> Vertical lines measuring distance from Prime Meridian
+                                </li>
+                                <li><strong>Time Zones:</strong> Based on longitudinal divisions</li>
+                                <li><strong>Grid System:</strong> Intersection of latitude and longitude</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Significance:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700">Fundamental for navigation, time calculation, and geographical
+                                    positioning</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "Lati is Flat, Long is Tall" → Latitude = Horizontal,
+                                Longitude = Vertical
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Latitudes Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Latitudes</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Key Facts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Definition:</strong> Imaginary horizontal lines parallel to Equator</li>
+                                <li><strong>Equator:</strong> 0° latitude, divides Earth into Northern & Southern
+                                    Hemispheres</li>
+                                <li><strong>Poles:</strong> 90°N (North Pole) and 90°S (South Pole)</li>
+                                <li><strong>Total:</strong> 90 latitudes in each hemisphere (180 total excluding
+                                    Equator)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Importance:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700">Determines climate zones and seasonal variations</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "E-T-T-A-A-N-S" → Equator, Tropic of Cancer, Tropic of
+                                Capricorn, Arctic, Antarctic, North, South
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Parallels Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Important Parallels of Latitude</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3">Latitude</th>
+                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">Significance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">0°</td>
+                                    <td class="px-4 py-3">Equator</td>
+                                    <td class="px-4 py-3">Divides Earth into two equal halves</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">23½° N</td>
+                                    <td class="px-4 py-3">Tropic of Cancer</td>
+                                    <td class="px-4 py-3">Northern limit of Sun's vertical rays</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">23½° S</td>
+                                    <td class="px-4 py-3">Tropic of Capricorn</td>
+                                    <td class="px-4 py-3">Southern limit of Sun's vertical rays</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">66½° N</td>
+                                    <td class="px-4 py-3">Arctic Circle</td>
+                                    <td class="px-4 py-3">Northern polar boundary</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">66½° S</td>
+                                    <td class="px-4 py-3">Antarctic Circle</td>
+                                    <td class="px-4 py-3">Southern polar boundary</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 font-medium text-blue-600">90° N/S</td>
+                                    <td class="px-4 py-3">North/South Pole</td>
+                                    <td class="px-4 py-3">Extreme north/south points</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Longitudes Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Longitudes</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Key Facts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Definition:</strong> Imaginary vertical lines from North to South Pole</li>
+                                <li><strong>Prime Meridian:</strong> 0° longitude through Greenwich, London</li>
+                                <li><strong>Total:</strong> 360 longitudes (180° East & 180° West)</li>
+                                <li><strong>Meeting Point:</strong> All longitudes meet at poles</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Importance:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700">Determines time zones and helps in navigation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "Long lines meet at poles"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grid System Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Grid System</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">How It Works:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Intersection:</strong> Latitude and longitude lines form grid</li>
+                                <li><strong>Coordinates:</strong> Used to determine exact position</li>
+                                <li><strong>Example:</strong> Delhi's location: 28.6° N latitude, 77.2° E longitude</li>
+                                <li><strong>Accuracy:</strong> Provides precise geographical positioning</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Applications:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700">Essential for GPS, navigation systems, and mapping</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Longitude and Time Relationship Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Longitude and Time Relationship</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Key Principles:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Earth Rotation:</strong> 360° in 24 hours = 15° per hour</li>
+                                <li><strong>Time Difference:</strong> 15° longitude = 1-hour time difference</li>
+                                <li><strong>Rotation Direction:</strong> West to east</li>
+                                <li><strong>Time Calculation:</strong> Time increases eastward, decreases westward</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Formula:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700 font-mono">Time difference (minutes) = Longitude difference × 4
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "4 minutes for 1° move, East = Add, West = Remove"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Standard Time and Time Zones Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Standard Time and Time Zones</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Key Concepts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Standard Time:</strong> Uniform time within a country/region</li>
+                                <li><strong>Indian Standard Time (IST):</strong> Based on 82½° E longitude</li>
+                                <li><strong>IST Difference:</strong> 5 hours 30 minutes ahead of GMT</li>
+                                <li><strong>Global Time Zones:</strong> 24 time zones worldwide</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Purpose:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700">Avoids confusion and maintains uniform time within regions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Standard Times Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Important Standard Times</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3">Country/Time Zone</th>
+                                    <th class="px-4 py-3">Standard Meridian</th>
+                                    <th class="px-4 py-3">Time Difference from GMT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">India (IST)</td>
+                                    <td class="px-4 py-3">82°30′ E</td>
+                                    <td class="px-4 py-3">+5:30 hours</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">UK (GMT)</td>
+                                    <td class="px-4 py-3">0°</td>
+                                    <td class="px-4 py-3">0 hours</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">Japan (JST)</td>
+                                    <td class="px-4 py-3">135° E</td>
+                                    <td class="px-4 py-3">+9 hours</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium text-blue-600">USA (EST)</td>
+                                    <td class="px-4 py-3">75° W</td>
+                                    <td class="px-4 py-3">-5 hours</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-3 font-medium text-blue-600">Australia (AEST)</td>
+                                    <td class="px-4 py-3">150° E</td>
+                                    <td class="px-4 py-3">+10 hours</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "East is plus, West is minus — Time flies eastward"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- International Date Line Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. International Date Line (IDL)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Key Facts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><strong>Location:</strong> 180° longitude, opposite Prime Meridian</li>
+                                <li><strong>Function:</strong> Separates two consecutive calendar days</li>
+                                <li><strong>West to East:</strong> Subtract one day when crossing</li>
+                                <li><strong>East to West:</strong> Add one day when crossing</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-700 mb-3">Significance:</h3>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-700">Maintains consistent date calculation globally</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "180° — where today meets tomorrow"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Comparison Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Quick Comparison – Latitude vs Longitude</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-3">Feature</th>
+                                    <th class="px-4 py-3">Latitude</th>
+                                    <th class="px-4 py-3">Longitude</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium">Direction</td>
+                                    <td class="px-4 py-3">East–West</td>
+                                    <td class="px-4 py-3">North–South</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium">Parallel Lines</td>
+                                    <td class="px-4 py-3">Yes</td>
+                                    <td class="px-4 py-3">No</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-4 py-3 font-medium">Max Value</td>
+                                    <td class="px-4 py-3">90°</td>
+                                    <td class="px-4 py-3">180°</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-4 py-3 font-medium">Determines</td>
+                                    <td class="px-4 py-3">Climate</td>
+                                    <td class="px-4 py-3">Time</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-3 font-medium">Example</td>
+                                    <td class="px-4 py-3">Equator, Tropic of Cancer</td>
+                                    <td class="px-4 py-3">Prime Meridian, IDL</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <p class="font-medium text-gray-800">
+                                <strong>Exam Trick:</strong> "Flat → Climate, Tall → Time"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PYQs Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">PYQs (Delhi Police + SSC + State Exams)</h2>
+
+                <div class="space-y-6 grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The latitude which divides the
+                                    Earth into two equal halves is —</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Tropic of Cancer (b) Equator (c) Tropic of
+                                    Capricorn (d) Prime Meridian</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Basic Concepts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Equator</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The Prime Meridian passes through —
+                                </h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Paris (b) New York (c) Greenwich (d) Tokyo
+                                </p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Longitudes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">Greenwich</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The Earth's rotation of 1°
+                                    corresponds to a time difference of —</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) 2 minutes (b) 4 minutes (c) 6 minutes (d) 8
+                                    minutes</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Time Calculation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">4 minutes</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                4
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Indian Standard Time (IST) is ahead
+                                    of Greenwich Mean Time (GMT) by —</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) 4 hours 30 minutes (b) 5 hours 30 minutes (c)
+                                    6 hours (d) 6 hours 30 minutes</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Time Zones</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">5 hours 30 minutes</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                5
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The Standard Meridian of India
+                                    passes through —</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) 82°30′ E (b) 90° E (c) 75° E (d) 66°30′ E</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Indian Geography</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">82°30′ E</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                6
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">How many time zones are there in
+                                    the world?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) 12 (b) 24 (c) 36 (d) 48</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Global Time</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">24</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                7
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The line opposite to the Prime
+                                    Meridian is —</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Arctic Circle (b) Equator (c) International
+                                    Date Line (d) Tropic of Capricorn</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Longitudes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">International Date Line</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 8 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                8
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">If it is 12 noon at Greenwich, what
+                                    will be the time at 82°30′ E (India)?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) 4:30 AM (b) 5:30 AM (c) 5:30 PM (d) 10:30 PM
+                                </p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Time Calculation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">5:30 PM</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 9 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                9
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The Tropic of Cancer passes through
+                                    which of the following states of India?</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) Rajasthan (b) Tripura (c) Gujarat (d) All of
+                                    these</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Indian Geography</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">All of these</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 10 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="flex items-start mb-4">
+                            <div
+                                class="bg-blue-100 text-blue-600 font-bold border border-blue-200 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                                10
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">The longitude which determines
+                                    Indian Standard Time is —</h3>
+                                <p class="text-gray-600 mb-3">Options: (a) 80° E (b) 82°30′ E (c) 90° E (d) 75° E</p>
+                                <div class="bg-gray-50 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600"><strong>Category:</strong> Time Zones</p>
+                                </div>
+                            </div>
+                        </div>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-1 px-3 rounded-lg transition-colors text-sm inline-block">
+                                Show Answer</summary>
+                            <div class="mt-2 p-3 bg-green-50 rounded-lg border border-green-300">
+                                <p class="text-green-700 font-medium">82°30′ E</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Exam Tip Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-blue-100 border border-blue-200 p-6 rounded-lg shadow-lg">
+                    <div class="flex items-start">
+                        <div class="bg-blue-600 text-white p-3 rounded-lg mr-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-600 mb-3">Final Exam Tip</h3>
+                            <p class="text-lg leading-relaxed text-blue-800">
+                                Focus on <strong class="font-bold">angles, direction, and IST-GMT difference</strong>.
+                                Remember <strong class="font-bold">4 minutes per degree</strong> and <strong
+                                    class="font-bold">15° = 1 hour</strong> rule.
+                                <strong class="font-bold">82½° E = IST</strong> is one of the <strong
+                                    class="font-bold">most repeated PYQs</strong> in Delhi Police exams.
+                                Practice map-based MCQs — at least one question is guaranteed from this topic!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="the-earth.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="motion-of-the-earth.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md border border-gray-200 relative z-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Geography for Delhi Police Exam!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-100 text-blue-600 font-bold border border-blue-200 text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
