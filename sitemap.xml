@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlset [
+    <!ENTITY _Bahmani_Kingdoms.html "entity-value">
+]>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <!-- Root Pages -->
@@ -75,7 +78,7 @@
         <loc>https://www.couragelibrary.in/History/Delhi_sultanat.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/History/Vijayanagara_&_Bahmani_Kingdoms.html</loc>
+        <loc>https://www.couragelibrary.in/History/Vijayanagara_&_Bahmani_Kingdoms.html;</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/History/bhaktimovement.html</loc>
@@ -99,7 +102,7 @@
         <loc>https://www.couragelibrary.in/History/Revoltof1857.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/History/social-&-religious-meform-movements-in-india.html</loc>
+        <loc>https://www.couragelibrary.in/History/social-&amp;-religious-meform-movements-in-india.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/History/indian_national.html</loc>
@@ -137,7 +140,7 @@
         <loc>https://www.couragelibrary.in/Geography/oceanography.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Geography/india-location-&-structure.html</loc>
+        <loc>https://www.couragelibrary.in/Geography/india-location-&amp;-structure.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Geography/physical-features-of-india.html</loc>
@@ -149,7 +152,7 @@
         <loc>https://www.couragelibrary.in/Geography/Climate of India.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Geography/natural-vegetation-&-wildlife.html</loc>
+        <loc>https://www.couragelibrary.in/Geography/natural-vegetation-&amp;-wildlife.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Geography/soils-of-india.html</loc>
@@ -158,7 +161,7 @@
         <loc>https://www.couragelibrary.in/Geography/Agriculture_in_India.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Geography/mineral-&-energy-resources-of-India.html</loc>
+        <loc>https://www.couragelibrary.in/Geography/mineral-&amp;-energy-resources-of-India.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Geography/industries-of-india.html</loc>
@@ -184,7 +187,7 @@
         <loc>https://www.couragelibrary.in/Polity/salient-features-of-indian-constitution.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Polity/Fundamental_Rights_&_Duties.html</loc>
+        <loc>https://www.couragelibrary.in/Polity/Fundamental_Rights_&amp;_Duties.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Polity/Directive-Principles-of-State-Policy.html</loc>
@@ -211,7 +214,7 @@
         <loc>https://www.couragelibrary.in/Polity/Local-Self-Government.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Polity/constitutional-&-non-constitutional-bodies.html</loc>
+        <loc>https://www.couragelibrary.in/Polity/constitutional-&amp;-non-constitutional-bodies.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Polity/Miscellaneous_Topics_in_Indian_Polity.html</loc>
@@ -237,7 +240,7 @@
         <loc>https://www.couragelibrary.in/Economics/Agriculture-and-Allied-Sectors.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Economics/industry-&-infrastructure.html</loc>
+        <loc>https://www.couragelibrary.in/Economics/industry-&amp;-infrastructure.html</loc>
     </url>
     <url>
         <loc>
@@ -252,7 +255,7 @@
 
     <!--SCIENCE-->
     <url>
-        <loc>https://www.couragelibrary.in/Science/motion-&-force.html</loc>
+        <loc>https://www.couragelibrary.in/Science/motion-&amp;-force.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Science/Work-Energy-and-Power.html</loc>
@@ -270,7 +273,7 @@
         <loc>https://www.couragelibrary.in/Science/sound.html</loc>
     </url>
     <url>
-        <loc>https://www.couragelibrary.in/Science/electricity-&-magnetism.html</loc>
+        <loc>https://www.couragelibrary.in/Science/electricity-&amp;-magnetism.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Science/Modern-Physics-(Basics).html</loc>
@@ -287,7 +290,7 @@
     </url>
     <url>
         <loc>
-            https://www.couragelibrary.in/Science/chemical-bonding-&-reactions.html</loc>
+            https://www.couragelibrary.in/Science/chemical-bonding-&amp;-reactions.html</loc>
     </url>
     <url>
         <loc>https://www.couragelibrary.in/Science/Acids,-Bases,-and-Salts.html</loc>
@@ -348,11 +351,11 @@
     </url>
     <url>
         <loc>
-            https://www.couragelibrary.in/Science/inventions-&-discoveries.html</loc>
+            https://www.couragelibrary.in/Science/inventions-&amp;-discoveries.html</loc>
     </url>
     <url>
         <loc>
-            https://www.couragelibrary.in/Science/units-&-measurements-in-science.html</loc>
+            https://www.couragelibrary.in/Science/units-&amp;-measurements-in-science.html</loc>
     </url>
     <url>
         <loc>
