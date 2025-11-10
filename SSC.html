@@ -12,6 +12,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script defer>
         // Smooth scroll for navigation
         document.addEventListener('DOMContentLoaded', function () {
@@ -276,7 +277,7 @@
             </a>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
         const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
@@ -286,48 +287,77 @@
         const subjectLinks = document.querySelectorAll('.glass[href$=".html"], .glass a[href$=".html"]');
         const notPopup = document.getElementById("notEnrolledPopup");
 
-        // Verify user and enrollment
-        (async () => {
-            const { data: session } = await supabase.auth.getSession();
-            if (!session.session) return; // not logged in
+        async function checkEnrollment() {
+            try {
+                // 1️⃣ Check user login session
+                const { data: sessionData } = await supabase.auth.getSession();
+                const session = sessionData.session;
 
-            const email = session.session.user.email;
-            const { data, error } = await supabase
-                .from("student_enrollments")
-                .select("*")
-                .eq("user_email", email)
-                .eq("payment_status", "paid")
-                .maybeSingle();
+                if (!session || !session.user) {
+                    console.log("User not logged in.");
+                    return showNotEnrolled();
+                }
 
-            if (data) {
-                // ✅ Enrolled user — enable subjects
-                enrollBtn.textContent = "Start with Courage";
-                enrollBtn.href = "#"; // or keep as link to dashboard if you want
-                enrollBtn.classList.replace("from-blue-600", "from-green-600");
-                enrollBtn.classList.replace("to-indigo-600", "to-green-700");
-                enrollBtn.classList.add("cursor-default");
-                enrollBtn.classList.add("bg-green-600");
+                const userEmail = session.user.email;
+                console.log("Logged-in user:", userEmail);
 
-                subjectLinks.forEach(link => {
-                    link.addEventListener("click", () => true); // allow normal click
-                });
-            } else {
-                // 🚫 Not enrolled — show popup on click
-                subjectLinks.forEach(link => {
-                    link.addEventListener("click", e => {
-                        e.preventDefault();
-                        notPopup.classList.remove("hidden");
-                        notPopup.classList.add("flex");
-                    });
-                });
+                // 2️⃣ Query enrollment table
+                const { data: enrollments, error } = await supabase
+                    .from("student_enrollments")
+                    .select("*")
+                    .eq("user_email", userEmail)
+                    .eq("payment_status", "paid");
 
-                // Hide popup when clicking outside
-                notPopup.addEventListener("click", e => {
-                    if (e.target === notPopup) notPopup.classList.add("hidden");
-                });
+                if (error) {
+                    console.error("Supabase error:", error);
+                    return showNotEnrolled();
+                }
+
+                // 3️⃣ Validate enrollment found
+                if (enrollments && enrollments.length > 0) {
+                    console.log("Enrollment found ✅", enrollments);
+                    showEnrolled();
+                } else {
+                    console.log("No enrollment found ❌");
+                    showNotEnrolled();
+                }
+            } catch (err) {
+                console.error("Error verifying enrollment:", err);
+                showNotEnrolled();
             }
-        })();
+        }
+
+        // 🟩 User is enrolled → Enable access
+        function showEnrolled() {
+            enrollBtn.textContent = "Start with Courage";
+            enrollBtn.href = "#";
+            enrollBtn.classList.remove("from-blue-600", "to-indigo-600");
+            enrollBtn.classList.add("from-green-600", "to-green-700");
+            enrollBtn.classList.add("bg-green-600", "cursor-default");
+
+            subjectLinks.forEach(link => {
+                link.addEventListener("click", () => true);
+            });
+        }
+
+        // 🟥 Not enrolled → Show popup
+        function showNotEnrolled() {
+            subjectLinks.forEach(link => {
+                link.addEventListener("click", e => {
+                    e.preventDefault();
+                    notPopup.classList.remove("hidden");
+                    notPopup.classList.add("flex");
+                });
+            });
+
+            notPopup.addEventListener("click", e => {
+                if (e.target === notPopup) notPopup.classList.add("hidden");
+            });
+        }
+
+        checkEnrollment();
     </script>
+
 
 
     <!-- Footer -->
