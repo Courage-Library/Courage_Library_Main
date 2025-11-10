@@ -229,6 +229,10 @@
           transform: scale(1);
         }
       }
+
+      .animate-fadeIn {
+        animation: fadeIn 0.4s ease-out;
+      }
     </style>
   </main>
 
@@ -305,18 +309,31 @@
           const popup = document.getElementById("successPopup");
           const popupMsg = document.getElementById("popupMessage");
 
-          popupMsg.textContent = `Congratulations ${data.full_name}! 🎉 You’ve successfully enrolled in the ${data.course_name} course.`;
+          popupMsg.textContent = `🎉 Congratulations ${data.full_name}! You’ve successfully enrolled in the ${data.course_name} course.`;
+
+          // Force repaint before making visible
           popup.classList.remove("hidden");
-          popup.classList.add("flex");
+          void popup.offsetHeight; // triggers reflow (important)
+          popup.classList.add("flex", "animate-fadeIn");
 
           payBtn.textContent = "Successfully Enrolled";
           payBtn.classList.add("bg-green-600");
 
-          // Auto redirect after 5 seconds
+          // Smooth fade-in animation
+          popup.style.opacity = "0";
           setTimeout(() => {
-            popup.classList.add("hidden");
-            window.history.back(); // or window.location.href = "SSC.html";
+            popup.style.opacity = "1";
+          }, 50);
+
+          // Redirect after 5 seconds
+          setTimeout(() => {
+            popup.style.opacity = "0";
+            setTimeout(() => {
+              popup.classList.add("hidden");
+              window.history.back(); // or window.location.href = "SSC.html";
+            }, 300);
           }, 5000);
+
 
         },
         prefill: {
