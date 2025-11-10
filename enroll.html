@@ -266,7 +266,7 @@
       const { data: session } = await supabase.auth.getSession();
       if (!session.session) {
         alert("⚠️ Please login first.");
-        window.location.href = "index.html";
+        window.location.href = "index.html?checkAuth=1";
         return null;
       }
       return session.session.user;
