@@ -277,7 +277,63 @@
             </a>
         </div>
     </div>
-    
+
+    <!-- Courage Promise Popup -->
+    <div id="couragePopup"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50 px-4 sm:px-0 overflow-y-auto sm:overflow-hidden">
+        <div
+            class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl text-center w-full max-w-md sm:max-w-lg relative my-8 sm:my-0 mt-60 sm:mt-0">
+            <!-- Close Button -->
+            <button id="closeCouragePopup"
+                class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl sm:text-3xl">&times;</button>
+
+            <!-- Logo Icon -->
+            <div class="flex justify-center mb-4">
+                <div class="flex justify-center">
+                    <div
+                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-white to-white rounded-full flex items-center justify-center shadow-lg">
+                        <h2 class="text-4xl sm:text-5xl font-extrabold text-blue-700 leading-none">💙</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heading -->
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-blue-700 mb-3"> A Message from Courage Library</h2>
+            <!-- Message Body -->
+            <div
+                class="text-gray-700 leading-relaxed text-sm sm:text-base space-y-4 mb-6 px-1 sm:px-0 text-left sm:text-center">
+                <p>
+                    Dear <span class="font-semibold text-blue-600" id="userName">Aspirant</span>,
+                </p>
+                <p>
+                    Welcome to <span class="font-semibold text-blue-700">Courage Library</span> — a space built for
+                    dreamers like you who refuse to settle for average.
+                </p>
+                <p>
+                    Here, every article, every topic, and every moment you spend is a step toward the life you imagine.
+                    We believe that *real growth doesn’t come from pressure, but from purpose.*
+                </p>
+                <p>
+                    Stay consistent. Stay curious. And whenever you feel lost, remember —
+                    <span class="font-semibold text-blue-600">Courage means showing up even when it’s hard.</span>
+                </p>
+                <p>
+                    We’re not just a library. We’re your silent companion — cheering for you in every late-night study
+                    and every small win.
+                    You’ve got this. 🌟
+                </p>
+            </div>
+            <!-- Signature -->
+            <p class="text-sm text-gray-500 italic mb-6">— With Strength & Belief, <br> The Courage Library Team 💙</p>
+            <!-- Button -->
+            <button id="agreeCourage"
+                class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 sm:py-2 rounded-full shadow hover:scale-105 transition font-semibold text-sm sm:text-base">
+                Begin with Courage
+            </button>
+        </div>
+    </div>
+
+
     <script>
         const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
@@ -328,17 +384,34 @@
         }
 
         // 🟩 User is enrolled → Enable access
+        // 🟦 User is enrolled — enable Start with Courage button
         function showEnrolled() {
             enrollBtn.textContent = "Start with Courage";
             enrollBtn.href = "#";
             enrollBtn.classList.remove("from-blue-600", "to-indigo-600");
-            enrollBtn.classList.add("from-green-600", "to-green-700");
-            enrollBtn.classList.add("bg-green-600", "cursor-default");
+            enrollBtn.classList.add("from-blue-600", "to-blue-700", "bg-blue-600", "cursor-pointer");
 
-            subjectLinks.forEach(link => {
-                link.addEventListener("click", () => true);
+            const couragePopup = document.getElementById("couragePopup");
+            const closePopup = document.getElementById("closeCouragePopup");
+            const agreeBtn = document.getElementById("agreeCourage");
+
+            // When aspirant clicks Start with Courage → open oath popup
+            enrollBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                couragePopup.classList.remove("hidden");
+                couragePopup.classList.add("flex");
+            });
+
+            // Close on "I Promise" or ×
+            agreeBtn.addEventListener("click", () => {
+                couragePopup.classList.add("hidden");
+            });
+
+            closePopup.addEventListener("click", () => {
+                couragePopup.classList.add("hidden");
             });
         }
+
 
         // 🟥 Not enrolled → Show popup
         function showNotEnrolled() {
