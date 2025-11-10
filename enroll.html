@@ -47,46 +47,44 @@
 
         <!-- Course Dropdown -->
         <div x-data="{ open: false, selected: '' }" class="relative">
-          <label class="block text-sm font-medium text-gray-600 mb-1">Select Course<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Select Course<span class="text-blue-600">
+              *</span></label>
           <button type="button" @click="open = !open"
             class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white flex justify-between items-center hover:shadow focus:ring-2 focus:ring-blue-400">
             <span x-text="selected || 'Choose a Course'" class="text-gray-700"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 transform"
-              :class="{ 'rotate-180': open }">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor" class="w-4 h-4 text-blue-600 transform" :class="{ 'rotate-180': open }">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
           <div x-show="open" @click.outside="open=false"
             class="absolute mt-2 w-full bg-white border rounded-lg shadow-lg z-10">
-            <div @click="selected='SSC CGL'; open=false"
-              class="px-4 py-2 hover:bg-blue-50 cursor-pointer">SSC CGL</div>
-            <div @click="selected='SSC MTS'; open=false"
-              class="px-4 py-2 hover:bg-blue-50 cursor-pointer">SSC MTS</div>
-            <div @click="selected='SSC GD'; open=false"
-              class="px-4 py-2 hover:bg-blue-50 cursor-pointer">SSC GD</div>
-            <div @click="selected='Delhi Police'; open=false"
-              class="px-4 py-2 hover:bg-blue-50 cursor-pointer">Delhi Police</div>
+            <div @click="selected='SSC CGL'; open=false" class="px-4 py-2 hover:bg-blue-50 cursor-pointer">SSC CGL</div>
+            <div @click="selected='SSC MTS'; open=false" class="px-4 py-2 hover:bg-blue-50 cursor-pointer">SSC MTS</div>
+            <div @click="selected='SSC GD'; open=false" class="px-4 py-2 hover:bg-blue-50 cursor-pointer">SSC GD</div>
+            <div @click="selected='Delhi Police'; open=false" class="px-4 py-2 hover:bg-blue-50 cursor-pointer">Delhi
+              Police</div>
           </div>
           <input type="hidden" name="course_name" :value="selected">
         </div>
 
         <!-- Full Name -->
         <div>
-          <label class="block text-sm font-medium text-gray-600 mb-1">Full Name<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Full Name<span class="text-blue-600">
+              *</span></label>
           <input type="text" name="full_name" required
             class="w-full border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400">
         </div>
 
         <!-- Gender Dropdown -->
         <div x-data="{ open: false, selected: '' }" class="relative">
-          <label class="block text-sm font-medium text-gray-600 mb-1">Gender<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Gender<span class="text-blue-600">
+              *</span></label>
           <button type="button" @click="open = !open"
             class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white flex justify-between items-center hover:shadow focus:ring-2 focus:ring-blue-400">
             <span x-text="selected || 'Select Gender'" class="text-gray-700"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 transform"
-              :class="{ 'rotate-180': open }">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+              stroke="currentColor" class="w-4 h-4 text-blue-600 transform" :class="{ 'rotate-180': open }">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
@@ -101,24 +99,23 @@
 
         <!-- DOB Dropdown (Day, Month, Year) -->
         <div x-data="{ day:'', month:'', year:'', openDay:false, openMonth:false, openYear:false }">
-          <label class="block text-sm font-medium text-gray-600 mb-2">Date of Birth<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-2">Date of Birth<span class="text-blue-600">
+              *</span></label>
           <div class="grid grid-cols-3 gap-2">
             <!-- Day -->
             <div class="relative">
               <button type="button" @click="openDay=!openDay"
                 class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white flex justify-between items-center hover:shadow focus:ring-2 focus:ring-blue-400">
                 <span x-text="day || 'Day'" class="text-gray-700"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 transform"
-                  :class="{ 'rotate-180': openDay }">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor" class="w-4 h-4 text-blue-600 transform" :class="{ 'rotate-180': openDay }">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <div x-show="openDay" @click.outside="openDay=false"
                 class="absolute mt-2 w-full max-h-40 overflow-y-auto bg-white border rounded-lg shadow-lg z-10">
                 <template x-for="d in 31" :key="d">
-                  <div @click="day=d;openDay=false"
-                    class="px-3 py-1 hover:bg-blue-50 cursor-pointer" x-text="d"></div>
+                  <div @click="day=d;openDay=false" class="px-3 py-1 hover:bg-blue-50 cursor-pointer" x-text="d"></div>
                 </template>
               </div>
             </div>
@@ -128,17 +125,17 @@
               <button type="button" @click="openMonth=!openMonth"
                 class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white flex justify-between items-center hover:shadow focus:ring-2 focus:ring-blue-400">
                 <span x-text="month || 'Month'" class="text-gray-700"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 transform"
-                  :class="{ 'rotate-180': openMonth }">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor" class="w-4 h-4 text-blue-600 transform" :class="{ 'rotate-180': openMonth }">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <div x-show="openMonth" @click.outside="openMonth=false"
                 class="absolute mt-2 w-full bg-white border rounded-lg shadow-lg z-10">
-                <template x-for="m in ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']" :key="m">
-                  <div @click="month=m;openMonth=false"
-                    class="px-3 py-1 hover:bg-blue-50 cursor-pointer" x-text="m"></div>
+                <template x-for="m in ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']"
+                  :key="m">
+                  <div @click="month=m;openMonth=false" class="px-3 py-1 hover:bg-blue-50 cursor-pointer" x-text="m">
+                  </div>
                 </template>
               </div>
             </div>
@@ -148,17 +145,16 @@
               <button type="button" @click="openYear=!openYear"
                 class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white flex justify-between items-center hover:shadow focus:ring-2 focus:ring-blue-400">
                 <span x-text="year || 'Year'" class="text-gray-700"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 transform"
-                  :class="{ 'rotate-180': openYear }">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor" class="w-4 h-4 text-blue-600 transform" :class="{ 'rotate-180': openYear }">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <div x-show="openYear" @click.outside="openYear=false"
                 class="absolute mt-2 w-full max-h-40 overflow-y-auto bg-white border rounded-lg shadow-lg z-10">
                 <template x-for="y in Array.from({length:70},(_,i)=>new Date().getFullYear()-i)" :key="y">
-                  <div @click="year=y;openYear=false"
-                    class="px-3 py-1 hover:bg-blue-50 cursor-pointer" x-text="y"></div>
+                  <div @click="year=y;openYear=false" class="px-3 py-1 hover:bg-blue-50 cursor-pointer" x-text="y">
+                  </div>
                 </template>
               </div>
             </div>
@@ -168,21 +164,24 @@
 
         <!-- Phone -->
         <div>
-          <label class="block text-sm font-medium text-gray-600 mb-1">Phone Number<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Phone Number<span class="text-blue-600">
+              *</span></label>
           <input type="text" name="phone" required
             class="w-full border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400">
         </div>
 
         <!-- Qualification -->
         <div>
-          <label class="block text-sm font-medium text-gray-600 mb-1">Qualification<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Qualification<span class="text-blue-600">
+              *</span></label>
           <input type="text" name="qualification" required
             class="w-full border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400">
         </div>
 
         <!-- Address -->
         <div>
-          <label class="block text-sm font-medium text-gray-600 mb-1">Address<span class="text-blue-600"> *</span></label>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Address<span class="text-blue-600">
+              *</span></label>
           <textarea name="address" required
             class="w-full border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400"></textarea>
         </div>
@@ -193,9 +192,29 @@
           Pay Now ₹2
         </button>
 
-        <p id="successMsg" class="hidden text-green-600 text-center font-semibold mt-3">✅ Successfully Enrolled!</p>
+        <p id="successMsg" class="hidden text-green-600 text-center font-semibold mt-3">Successfully Enrolled!</p>
       </form>
     </div>
+
+    <!-- Success Popup Modal -->
+    <div id="successPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50"
+      x-data="{ visible: false }" x-show="visible" x-transition>
+      <div class="bg-white rounded-2xl p-8 text-center shadow-2xl max-w-sm w-full transform transition-all scale-100">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-green-500" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2l4-4m5 2a9 9 0 11-18 0a9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-green-600 mb-2">🎉 Congratulations!</h2>
+        <p id="popupMessage" class="text-gray-700 mb-4">
+          You have successfully enrolled!
+        </p>
+        <p class="text-sm text-gray-500">Redirecting you in 5 seconds...</p>
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer -->
@@ -205,12 +224,12 @@
       <div class="flex space-x-6">
         <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank"
           class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://x.com/CourageLibrary" target="_blank"
-          class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.linkedin.com/company/courage-library" target="_blank"
-          class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.instagram.com/couragelibrary1" target="_blank"
-          class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+            class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/courage-library" target="_blank" class="hover:text-white text-2xl"><i
+            class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i
+            class="fab fa-instagram"></i></a>
       </div>
     </div>
   </footer>
@@ -236,60 +255,74 @@
     }
 
     payBtn.addEventListener("click", async () => {
-    payBtn.textContent = "Processing...";
-    payBtn.disabled = true;
+      payBtn.textContent = "Processing...";
+      payBtn.disabled = true;
 
-    const user = await getCurrentUser();
-    if (!user) return;
+      const user = await getCurrentUser();
+      if (!user) return;
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    data.user_email = user.email;
-    data.payment_status = "paid";
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      data.user_email = user.email;
+      data.payment_status = "paid";
 
-    // --- Razorpay Integration ---
-    const options = {
-      key: "rzp_live_RdymXUT2ibglux", // ⚠️ Replace with your own Razorpay Test Key
-      amount: 2 * 100, // amount in paise (₹999)
-      currency: "INR",
-      name: "Courage Library",
-      description: data.course_name + " Enrollment",
-      image: "/images/logo.png",
-      handler: async function (response) {
-        // On successful payment
-        data.payment_id = response.razorpay_payment_id;
+      // --- Razorpay Integration ---
+      const options = {
+        key: "rzp_live_RdymXUT2ibglux", // ⚠️ Replace with your own Razorpay Test Key
+        amount: 2 * 100, // amount in paise (₹999)
+        currency: "INR",
+        name: "Courage Library",
+        description: data.course_name + " Enrollment",
+        image: "/images/logo.png",
+        handler: async function (response) {
+          // On successful payment
+          data.payment_id = response.razorpay_payment_id;
 
-        const { error } = await supabase.from("student_enrollments").insert([data]);
-        if (error) {
-          alert("❌ Error saving enrollment: " + error.message);
-          payBtn.textContent = "Pay Now ₹999";
-          payBtn.disabled = false;
-          return;
+          const { error } = await supabase.from("student_enrollments").insert([data]);
+          if (error) {
+            alert("❌ Error saving enrollment: " + error.message);
+            payBtn.textContent = "Pay Now ₹999";
+            payBtn.disabled = false;
+            return;
+          }
+
+          // Personalized popup success
+          const popup = document.getElementById("successPopup");
+          const popupMsg = document.getElementById("popupMessage");
+
+          popupMsg.textContent = `Congratulations ${data.full_name}! 🎉 You’ve successfully enrolled in the ${data.course_name} course.`;
+          popup.classList.remove("hidden");
+          popup.classList.add("flex");
+
+          payBtn.textContent = "Successfully Enrolled";
+          payBtn.classList.add("bg-green-600");
+
+          // Auto redirect after 5 seconds
+          setTimeout(() => {
+            popup.classList.add("hidden");
+            window.history.back(); // or window.location.href = "SSC.html";
+          }, 5000);
+
+        },
+        prefill: {
+          name: data.full_name,
+          email: user.email,
+          contact: data.phone
+        },
+        theme: {
+          color: "#2563eb" // Tailwind blue-600
         }
+      };
 
-        successMsg.classList.remove("hidden");
-        payBtn.textContent = "✅ Successfully Enrolled";
-        payBtn.classList.add("bg-green-600");
-      },
-      prefill: {
-        name: data.full_name,
-        email: user.email,
-        contact: data.phone
-      },
-      theme: {
-        color: "#2563eb" // Tailwind blue-600
-      }
-    };
+      const rzp = new Razorpay(options);
+      rzp.open();
 
-    const rzp = new Razorpay(options);
-    rzp.open();
-
-    rzp.on("payment.failed", function (response) {
-      alert("❌ Payment Failed: " + response.error.description);
-      payBtn.textContent = "Pay Now ₹2";
-      payBtn.disabled = false;
+      rzp.on("payment.failed", function (response) {
+        alert("❌ Payment Failed: " + response.error.description);
+        payBtn.textContent = "Pay Now ₹2";
+        payBtn.disabled = false;
+      });
     });
-  });
   </script>
 </body>
 
