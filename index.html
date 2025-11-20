@@ -149,8 +149,15 @@
                     class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
                 </a>
                 <a id="logoutBtn" onclick="logout()"
-                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
-                    Logout
+                    class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                    <!-- Shine Effect -->
+                    <span
+                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                    <!-- Button Content -->
+                    <span class="relative">
+                        Logout
+                    </span>
                 </a>
 
             </div>
@@ -214,8 +221,15 @@
                             class="bg-white border border-blue-500 text-blue-700 px-5 py-2 rounded-full shadow hover:bg-blue-50 hover:scale-110 transform transition font-semibold mr-2 ripple">Login
                         </a>
                         <a id="mobileLogoutBtn" onclick="logout()"
-                            class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
-                            Logout
+                            class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                            <!-- Shine Effect -->
+                            <span
+                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                            <!-- Button Content -->
+                            <span class="relative">
+                                Logout
+                            </span>
                         </a>
                     </div>
                 </div>
@@ -885,9 +899,12 @@
     <section id="hero"
         class="relative flex flex-col items-center justify-center bg-white text-gray-900 py-10 overflow-hidden">
         <div class="relative w-full max-w-2xl mx-auto text-center px-4 fade-in">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-700 mb-4 leading-tight">Empower Your <span
-                    class="text-blue-600">Learning</span> Journey</h1>
-            <p class="text-lg md:text-xl mb-8">Unlock success with India’s smartest virtual library.</p>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-700 mb-4 leading-tight">Empower Your
+                <span class="text-blue-600">Learning</span> Journey
+            </h1>
+            <p class="text-lg md:text-xl text-gray-500 mb-8 font-medium drop-shadow-sm">
+                Unlock success with India's smartest virtual library
+            </p>
             <!-- Search Bar -->
             <form
                 class="flex items-center bg-white rounded-full shadow-lg px-2 py-2 mb-12 max-w-xl mx-auto border border-gray-200"
@@ -909,7 +926,8 @@
     <!-- Courses Section -->
     <section id="courses1" class="relative pb-10 pt-0 fade-in z-10 bg-white overflow-visible">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Pick Your Path</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Pick
+                Your Path</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                 <!-- Main Topic Card -->
                 <div id="page-wrapper">
@@ -922,10 +940,17 @@
                             </div>
                             <h3 class="font-bold text-blue-700 text-xl mb-2">SSC</h3>
                             <p class="text-gray-700 mb-2">Staff Selection Commission - Complete preparation material and
-                                strategies for all SSC examinations.</p>
+                                strategies for all SSC Exams.</p>
                             <button id="toggle-ssc-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
-                                Courses
+                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                                <!-- Shine Effect -->
+                                <span
+                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                                <!-- Button Content -->
+                                <span class="relative">
+                                    Courses
+                                </span>
                             </button>
                         </a>
                     </div>
@@ -1053,8 +1078,15 @@
                                 All you need to crack IBPS, SBI, RBI and other banking exams in one place.
                             </p>
                             <button id="toggle-banking-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
-                                Courses
+                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                                <!-- Shine Effect -->
+                                <span
+                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                                <!-- Button Content -->
+                                <span class="relative">
+                                    Courses
+                                </span>
                             </button>
                         </a>
                     </div>
@@ -1183,8 +1215,15 @@
                             <p class="text-gray-700 mb-2">Self-paced courses, tips, and practice for Railway Exam
                                 recruitment.</p>
                             <button id="toggle-rrb-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
-                                Courses
+                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                                <!-- Shine Effect -->
+                                <span
+                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                                <!-- Button Content -->
+                                <span class="relative">
+                                    Courses
+                                </span>
                             </button>
                         </a>
                     </div>
@@ -1315,8 +1354,15 @@
                             <p class="text-gray-700 mb-2">Complete preparation for Indian Army, Navy, Air Force and NDA
                                 examinations.</p>
                             <button id="toggle-defence-courses-btn"
-                                class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple hover:from-blue-600 hover:to-indigo-600 transition duration-300">
-                                Courses
+                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                                <!-- Shine Effect -->
+                                <span
+                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                                <!-- Button Content -->
+                                <span class="relative">
+                                    Courses
+                                </span>
                             </button>
                         </a>
                     </div>
@@ -1511,7 +1557,7 @@
     <!-- Features Section -->
     <section id="features" class="relative py-10 fade-in bg-white">
         <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">
                 Study Smarter, Achieve More
             </h2>
             <div class="grid md:grid-cols-3 gap-10">
@@ -1546,41 +1592,403 @@
     </section>
 
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="relative py-10 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Hear From Our Learners</h2>
-            <div class="grid md:grid-cols-2 gap-10">
-                <div
-                    class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
-                    <img src="/images/ankit.png" alt="User"
-                        class="w-20 h-20 rounded-full mr-6 border-4 border-blue-200">
-                    <div>
-                        <p class="mb-4 text-lg text-gray-700">"Courage Library changed the way I study. The content is
-                            well-organized, easy to understand, and truly student-friendly!"</p>
-                        <p class="font-semibold text-blue-700">Ankit Singh</p>
-                        <p class="text-sm text-gray-500">Student</p>
+    <section id="testimonials"
+        class="relative py-12 md:py-16 bg-gradient-to-r from-blue-50 to-indigo-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Hear
+                From Our Learners</h2>
+
+            <!-- Testimonials Container -->
+            <div class="relative">
+                <!-- Scrolling Testimonials -->
+                <div class="testimonials-scroll-container flex overflow-x-hidden py-4 md:py-6">
+                    <div class="testimonials-track flex">
+                        <!-- Testimonial 1 -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">AS</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Ankit Singh</p>
+                                    <p class="text-xs md:text-sm text-gray-500">Army Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"Courage Library changed the way I study. The
+                                content is well-organized, easy to understand, and truly student-friendly!"</p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">LK</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Lakhan</p>
+                                    <p class="text-xs md:text-sm text-gray-500">SSC GD Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"Thanks to Courage Library, The content layout
+                                is clean and logical, making complex topics feel simple. Totally exam focused content!"
+                            </p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">PK</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Priya Kumari</p>
+                                    <p class="text-xs md:text-sm text-gray-500">UPSC Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"The study materials are incredibly
+                                comprehensive yet concise. I've improved my grades significantly since using Courage
+                                Library!"</p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 4 -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">RS</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Rahul Sharma</p>
+                                    <p class="text-xs md:text-sm text-gray-500">SSC MTS Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"The video explanations paired with notes make
+                                learning so much easier. I can revisit difficult concepts anytime!"</p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 5 -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">NM</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Neha Mehta</p>
+                                    <p class="text-xs md:text-sm text-gray-500">SSC CGL Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"I love how the content is broken down into
+                                bite-sized pieces. It's perfect for quick revisions before exams!"</p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 6 -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">VJ</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Vikram Joshi</p>
+                                    <p class="text-xs md:text-sm text-gray-500">UPSC Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"The quality of content is exceptional. It's
+                                like having a personal tutor available 24/7. Highly recommended!"</p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Duplicate testimonials for seamless loop -->
+                        <!-- Testimonial 1 (Duplicate) -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">AS</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Ashifa Siddiqui</p>
+                                    <p class="text-xs md:text-sm text-gray-500">Delhi Police Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"Courage Library changed the way I study. The
+                                content is well-organized, easy to understand, and truly student-friendly!"</p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 (Duplicate) -->
+                        <div
+                            class="testimonial-card glass p-6 md:p-8 shadow-xl flex-shrink-0 w-[280px] sm:w-80 mx-3 md:mx-4 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
+                            <div class="flex items-center mb-4">
+                                <div
+                                    class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center mr-3 md:mr-4">
+                                    <span class="text-blue-600 font-bold text-sm md:text-base">LY</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-700 text-sm md:text-base">Lalu Yadav</p>
+                                    <p class="text-xs md:text-sm text-gray-500">SSC Aspirant</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 text-sm md:text-base">"Thanks to Courage Library, The content layout
+                                is clean and logical, making complex topics feel simple. Totally exam focused content!"
+                            </p>
+                            <div class="flex mt-3 md:mt-4 text-yellow-400 text-sm md:text-base">
+                                ★★★★★
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div
-                    class="glass p-8 shadow-xl flex flex-col md:flex-row items-center hover:scale-105 transform transition duration-300 cursor-pointer border-l-4 border-blue-400">
-                    <img src="/images/lakhan.jpg" alt="User"
-                        class="w-20 h-20 rounded-full mr-6 border-4 border-blue-200">
-                    <div>
-                        <p class="mb-4 text-lg text-gray-700">"Thanks to Courage Library, The content layout is clean
-                            and logical, making complex topics feel simple. Totally exam focused content!"</p>
-                        <p class="font-semibold text-blue-700">Lakhan</p>
-                        <p class="text-sm text-gray-500">Student</p>
-                    </div>
+
+                <!-- Navigation Dots -->
+                <div class="flex justify-center mt-6 md:mt-8 space-x-2">
+                    <button class="testimonial-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-300"
+                        data-index="0"></button>
+                    <button class="testimonial-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-300"
+                        data-index="1"></button>
+                    <button class="testimonial-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-300"
+                        data-index="2"></button>
+                    <button class="testimonial-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-300"
+                        data-index="3"></button>
+                    <button class="testimonial-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-300"
+                        data-index="4"></button>
+                    <button class="testimonial-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-blue-300"
+                        data-index="5"></button>
                 </div>
             </div>
         </div>
+
+        <!-- Fade effects on sides -->
+        <div class="absolute left-0 top-0 bottom-0 w-10 md:w-20 bg-gradient-to-r from-blue-50 to-transparent z-20">
+        </div>
+        <div class="absolute right-0 top-0 bottom-0 w-10 md:w-20 bg-gradient-to-l from-indigo-50 to-transparent z-20">
+        </div>
     </section>
+
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+        }
+
+        .testimonials-scroll-container {
+            mask-image: linear-gradient(to right,
+                    transparent,
+                    black 5%,
+                    black 95%,
+                    transparent);
+        }
+
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .testimonial-dot.active {
+            background-color: #3b82f6;
+            transform: scale(1.2);
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 640px) {
+            .testimonials-scroll-container {
+                mask-image: linear-gradient(to right,
+                        transparent,
+                        black 3%,
+                        black 97%,
+                        transparent);
+            }
+        }
+
+        /* Touch-friendly interactions */
+        @media (hover: none) {
+            .testimonial-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const testimonialsTrack = document.querySelector('.testimonials-track');
+            const dots = document.querySelectorAll('.testimonial-dot');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            const container = document.querySelector('.testimonials-scroll-container');
+
+            let currentIndex = 0;
+            let isPausedByUser = false;
+            let animationId;
+            let position = 0;
+            const speed = 0.5; // pixels per frame
+            const cardWidth = 320; // approximate card width including margin
+
+            // Initialize animation
+            function initAnimation() {
+                // Clone testimonials for seamless loop
+                const originalTestimonials = testimonialsTrack.innerHTML;
+                testimonialsTrack.innerHTML += originalTestimonials;
+
+                startAnimation();
+            }
+
+            // Animation function using requestAnimationFrame
+            function startAnimation() {
+                function animate() {
+                    if (!isPausedByUser) {
+                        position -= speed;
+
+                        // Reset position when we've scrolled through one set of testimonials
+                        if (Math.abs(position) >= testimonialsTrack.scrollWidth / 2) {
+                            position = 0;
+                        }
+
+                        testimonialsTrack.style.transform = `translateX(${position}px)`;
+                    }
+
+                    animationId = requestAnimationFrame(animate);
+                }
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            // Pause animation
+            function pauseAnimation() {
+                isPausedByUser = true;
+            }
+
+            // Resume animation
+            function resumeAnimation() {
+                isPausedByUser = false;
+            }
+
+            // Temporary pause with auto-resume
+            function temporaryPause(duration = 2000) {
+                pauseAnimation();
+                setTimeout(() => {
+                    resumeAnimation();
+                }, duration);
+            }
+
+            // Event listeners for hover
+            container.addEventListener('mouseenter', () => {
+                pauseAnimation();
+            });
+
+            container.addEventListener('mouseleave', () => {
+                resumeAnimation();
+            });
+
+            // Event listeners for touch
+            let touchStartX = 0;
+            let touchStartTime = 0;
+
+            container.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartTime = Date.now();
+                pauseAnimation();
+            });
+
+            container.addEventListener('touchend', (e) => {
+                const touchEndTime = Date.now();
+                const touchDuration = touchEndTime - touchStartTime;
+
+                // Only resume if it was a quick tap (not a swipe)
+                if (touchDuration < 300) {
+                    temporaryPause(2000);
+                } else {
+                    resumeAnimation();
+                }
+            });
+
+            // Handle card clicks
+            testimonialCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    temporaryPause(1500);
+
+                    // Visual feedback
+                    card.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        card.style.transform = '';
+                    }, 300);
+                });
+            });
+
+            // Handle dot clicks
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentIndex = index;
+                    updateActiveDot();
+                    temporaryPause(1000);
+                });
+            });
+
+            // Update active dot
+            function updateActiveDot() {
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+
+                // Calculate next dot based on position
+                const cardsScrolled = Math.floor(Math.abs(position) / cardWidth);
+                currentIndex = (cardsScrolled) % dots.length;
+            }
+
+            // Update dots periodically
+            setInterval(updateActiveDot, 1000);
+
+            // Initialize
+            initAnimation();
+            updateActiveDot();
+
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', () => {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+            });
+        });
+    </script>
 
     <!-- Creators Section 
     <section id="creators" class="relative py-10 fade-in z-10 bg-white">
         <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Meet the Creators</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Meet the Creators</h2>
             <div class="grid md:grid-cols-4 gap-10">
                 <div class="glass p-8 flex flex-col items-center text-center shadow-xl border-t-4 border-blue-400">
                     <img src="/images/jan.png" alt="Creator 1"
@@ -1624,7 +2032,8 @@
 
     <section id="offline-unit" class="relative py-10 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10">
         <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">Our Learning Center</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Our
+                Learning Center</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Unit Details Card -->
                 <div
@@ -1730,15 +2139,40 @@
         <div class="max-w-2xl mx-auto glass p-12 shadow-2xl border-b-4 border-blue-400">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-blue-700">Ready to Start Learning?</h2>
             <p class="mb-8 text-lg text-gray-700">Sign up now and unlock your potential with our expert-led courses.</p>
-            <a href="#hero"
-                class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:scale-110 transform transition ripple">Join
-                Now</a>
+            <div class="pt-4">
+                <a href="#hero"
+                    class="group relative inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden">
+                    <!-- Shine Effect -->
+                    <span
+                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+
+                    <!-- Button Content -->
+                    <span class="relative flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Start Learning Free
+                    </span>
+                </a>
+
+                <!-- Trust Indicators -->
+                <p class="text-xs text-gray-500 mt-3 flex items-center justify-center gap-2">
+                    <svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    No credit card required • 7-day free trial
+                </p>
+            </div>
         </div>
     </section>
 
     <section id="contact" class="relative py-10 bg-white fade-in z-10">
         <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-blue-700">We’re Here to Help</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">We’re
+                Here to Help</h2>
 
             <div class="grid md:grid-cols-2 gap-10">
                 <!-- Contact Info -->
