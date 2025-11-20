@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Motion Physics concepts for competitive exams like Delhi Police and SSC. Learn about types of motion, Newton's laws, speed, velocity, acceleration, and energy." />
+    <meta name="keywords"
+        content="Motion Physics, Newton's Laws, speed, velocity, acceleration, force, energy, work, power, competitive exam physics, Delhi Police exam, SSC preparation" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Motion Physics | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Physics Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Physics
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="motion-physics.html" class="nav-link" title="Motion Physics">Motion Physics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="work-energy-power.html" class="nav-link" title="Work, Energy and Power">Work, Energy and Power</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="force-laws.html" class="nav-link" title="Force and Newton's Laws">Force and Newton's Laws</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="gravity-friction.html" class="nav-link" title="Gravity and Friction">Gravity and Friction</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Motion Physics</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for SSC GD Exams</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction to Motion</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Motion is the change in the position of an object with time.
+                    </p>
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Simple Definition:</h3>
+                        <p class="text-gray-700">
+                            An object is said to be in motion if it changes its position over time.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Motion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Motion</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Linear Motion -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Linear Motion</h3>
+                            <p class="text-gray-700">Motion in a straight line.</p>
+                            <p class="text-sm text-gray-600 mt-1">Example: A train moving on a straight track.</p>
+                        </div>
+
+                        <!-- Circular Motion -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Circular Motion</h3>
+                            <p class="text-gray-700">Motion in a circular path.</p>
+                            <p class="text-sm text-gray-600 mt-1">Example: Movement of a fan blade.</p>
+                        </div>
+
+                        <!-- Rotational Motion -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Rotational Motion</h3>
+                            <p class="text-gray-700">The object rotates on its own axis.</p>
+                            <p class="text-sm text-gray-600 mt-1">Example: Earth rotating on its axis.</p>
+                        </div>
+
+                        <!-- Periodic Motion -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Periodic Motion</h3>
+                            <p class="text-gray-700">Motion that repeats at regular intervals.</p>
+                            <p class="text-sm text-gray-600 mt-1">Example: Pendulum of a clock.</p>
+                        </div>
+
+                        <!-- Oscillatory Motion -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Oscillatory Motion</h3>
+                            <p class="text-gray-700">Back and forth motion around a central point.</p>
+                            <p class="text-sm text-gray-600 mt-1">Example: Swing, tuning fork vibration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Speed, Velocity, and Acceleration Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Speed, Velocity, and Acceleration</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    
+                    <!-- Speed -->
+                    <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Speed</h3>
+                        <p class="text-gray-700 mb-3">
+                            Distance travelled per unit time.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Formula:</h4>
+                                <p class="text-gray-700">Speed = Distance / Time</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                                <p class="text-gray-700">metre per second (m/s)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Velocity -->
+                    <div class="mb-8 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Velocity</h3>
+                        <p class="text-gray-700 mb-3">
+                            Speed in a specific direction.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Type:</h4>
+                                <p class="text-gray-700">Vector quantity</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                                <p class="text-gray-700">metre per second (m/s)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acceleration -->
+                    <div class="mb-8 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <h3 class="text-xl font-bold text-purple-800 mb-3">Acceleration</h3>
+                        <p class="text-gray-700 mb-3">
+                            Rate of change of velocity.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Formula:</h4>
+                                <p class="text-gray-700">Acceleration = Change in velocity / Time</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                                <p class="text-gray-700">metre per second square (m/s²)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Uniform and Non-uniform Motion -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Uniform Motion</h3>
+                            <p class="text-gray-700">Velocity remains constant.</p>
+                        </div>
+
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Non-uniform Motion</h3>
+                            <p class="text-gray-700">Velocity changes with time.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Distance and Displacement Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Distance and Displacement</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Distance -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Distance</h3>
+                            <p class="text-gray-700">Total path covered (scalar quantity).</p>
+                        </div>
+
+                        <!-- Displacement -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Displacement</h3>
+                            <p class="text-gray-700">Shortest path between initial and final position (vector quantity).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newton's Laws of Motion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Newton's Laws of Motion</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Sir Isaac Newton formulated three laws describing motion and force.
+                    </p>
+
+                    <!-- First Law -->
+                    <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">First Law</h3>
+                        <p class="text-gray-700 mb-3">
+                            A body continues to be in its state of rest or uniform motion unless acted upon by an external force.
+                        </p>
+                        <div class="mt-3 p-3 bg-white rounded border">
+                            <h4 class="font-semibold text-gray-800 mb-2">Known as:</h4>
+                            <p class="text-gray-700">Law of Inertia</p>
+                        </div>
+                    </div>
+
+                    <!-- Second Law -->
+                    <div class="mb-8 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Second Law</h3>
+                        <p class="text-gray-700 mb-3">
+                            Force = Mass × Acceleration
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Formula:</h4>
+                                <p class="text-gray-700">F = m × a</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-2">SI Unit of Force:</h4>
+                                <p class="text-gray-700">Newton (N)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Third Law -->
+                    <div class="mb-8 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <h3 class="text-xl font-bold text-purple-800 mb-3">Third Law</h3>
+                        <p class="text-gray-700 mb-3">
+                            For every action, there is an equal and opposite reaction.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inertia Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Inertia</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Inertia is the property of a body to resist change in its state of motion.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Inertia of Rest</h3>
+                            <p class="text-gray-700">Tendency to remain at rest</p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Inertia of Motion</h3>
+                            <p class="text-gray-700">Tendency to remain in motion</p>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Inertia of Direction</h3>
+                            <p class="text-gray-700">Tendency to maintain direction</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Force Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Force</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        A force is a push or pull acting on an object.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                            <p class="text-gray-700">Newton (N)</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Types of Forces:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Contact forces: friction, muscular force</li>
+                                <li>Non-contact forces: gravitational, magnetic, electrostatic</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Friction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Friction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Friction is a force that opposes motion.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Types of Friction:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Static friction</li>
+                                <li>Sliding friction</li>
+                            </ul>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Rolling friction</li>
+                                <li>Fluid friction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Advantages:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Helps walking, writing, braking</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Disadvantages:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Produces heat</li>
+                                <li>Causes wear and tear</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gravity Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Gravity</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Gravity is the force that attracts objects towards the Earth.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Value of g (acceleration due to gravity):</h4>
+                            <p class="text-gray-700">9.8 m/s²</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Factors affecting gravity:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Maximum at poles</li>
+                                <li>Minimum at equator</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mass and Weight Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Mass and Weight</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Mass -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Mass</h3>
+                            <p class="text-gray-700">Amount of matter in a body.</p>
+                            <div class="mt-2">
+                                <h4 class="font-semibold text-gray-800 mb-1">SI Unit:</h4>
+                                <p class="text-gray-700">kilogram (kg)</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Mass is constant everywhere.</p>
+                        </div>
+
+                        <!-- Weight -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Weight</h3>
+                            <p class="text-gray-700">Force with which Earth pulls an object.</p>
+                            <div class="mt-2">
+                                <h4 class="font-semibold text-gray-800 mb-1">Formula:</h4>
+                                <p class="text-gray-700">W = m × g</p>
+                            </div>
+                            <div class="mt-2">
+                                <h4 class="font-semibold text-gray-800 mb-1">SI Unit:</h4>
+                                <p class="text-gray-700">Newton (N)</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Weight changes with gravity.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">11. Work</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When a force moves an object in the direction of force, work is done.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Formula:</h4>
+                            <p class="text-gray-700">Work = Force × Displacement</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                            <p class="text-gray-700">Joule (J)</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-yellow-50 rounded border border-yellow-200">
+                        <p class="text-gray-700">If displacement is zero, work done is zero.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Energy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">12. Energy</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Energy is the ability to do work.
+                    </p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                        <p class="text-gray-700">Joule (J)</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">Main Forms of Energy:</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Kinetic Energy -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Kinetic Energy</h3>
+                            <p class="text-gray-700">Energy due to motion</p>
+                            <div class="mt-2">
+                                <h4 class="font-semibold text-gray-800 mb-1">Formula:</h4>
+                                <p class="text-gray-700">KE = 1/2 × m × v²</p>
+                            </div>
+                        </div>
+
+                        <!-- Potential Energy -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Potential Energy</h3>
+                            <p class="text-gray-700">Energy due to position or height</p>
+                            <div class="mt-2">
+                                <h4 class="font-semibold text-gray-800 mb-1">Formula:</h4>
+                                <p class="text-gray-700">PE = m × g × h</p>
+                            </div>
+                        </div>
+
+                        <!-- Mechanical Energy -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Mechanical Energy</h3>
+                            <p class="text-gray-700">Sum of kinetic and potential energy.</p>
+                        </div>
+
+                        <!-- Heat Energy -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Heat Energy</h3>
+                            <p class="text-gray-700">Due to temperature.</p>
+                        </div>
+
+                        <!-- Chemical Energy -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Chemical Energy</h3>
+                            <p class="text-gray-700">Stored in fuels and batteries.</p>
+                        </div>
+
+                        <!-- Electrical Energy -->
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <h3 class="text-lg font-bold text-indigo-800 mb-2">Electrical Energy</h3>
+                            <p class="text-gray-700">Produced by electric current.</p>
+                        </div>
+
+                        <!-- Nuclear Energy -->
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <h3 class="text-lg font-bold text-pink-800 mb-2">Nuclear Energy</h3>
+                            <p class="text-gray-700">Released during nuclear reactions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Power Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">13. Power</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Power is the rate of doing work.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Formula:</h4>
+                            <p class="text-gray-700">Power = Work / Time</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">SI Unit:</h4>
+                            <p class="text-gray-700">Watt (W)</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Conversions:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>1 kilowatt (kW) = 1000 Watts</li>
+                                <li>1 horsepower (hp) = 746 Watts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Law of Conservation of Energy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">14. Law of Conservation of Energy</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Energy can neither be created nor destroyed. It only changes from one form to another.
+                    </p>
+                    <div class="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                        <h4 class="font-semibold text-gray-800 mb-2">Example:</h4>
+                        <p class="text-gray-700">When a ball falls, potential energy converts into kinetic energy.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Simple Machines Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">15. Simple Machines</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Simple machines make work easier.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Examples:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Lever</li>
+                                <li>Pulley</li>
+                                <li>Wheel and axle</li>
+                            </ul>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Inclined plane</li>
+                                <li>Screw</li>
+                                <li>Wedge</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Mechanical Advantage</h3>
+                        <p class="text-gray-700">Efficiency of a machine in multiplying force.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important SSC GD Points Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">16. Important SSC GD Points (Frequently Asked)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Newton's first law is law of inertia</li>
+                            <li>Force unit = Newton</li>
+                            <li>Energy unit = Joule</li>
+                            <li>Power unit = Watt</li>
+                            <li>Acceleration = m/s²</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Weight = mass × gravity</li>
+                            <li>g = 9.8 m/s²</li>
+                            <li>Kinetic energy depends on velocity</li>
+                            <li>Potential energy depends on height</li>
+                            <li>Friction opposes motion</li>
+                            <li>Work done = zero if displacement is zero</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Revision Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">17. Quick Revision Table</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Concept</th>
+                                    <th class="px-4 py-3">Key Point</th>
+                                    <th class="px-4 py-3">SI Unit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Speed</td>
+                                    <td class="px-4 py-3">Distance per time</td>
+                                    <td class="px-4 py-3">m/s</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Velocity</td>
+                                    <td class="px-4 py-3">Speed with direction</td>
+                                    <td class="px-4 py-3">m/s</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Acceleration</td>
+                                    <td class="px-4 py-3">Rate of change of velocity</td>
+                                    <td class="px-4 py-3">m/s²</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Force</td>
+                                    <td class="px-4 py-3">Push or pull</td>
+                                    <td class="px-4 py-3">Newton</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Work</td>
+                                    <td class="px-4 py-3">Force × displacement</td>
+                                    <td class="px-4 py-3">Joule</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Energy</td>
+                                    <td class="px-4 py-3">Ability to do work</td>
+                                    <td class="px-4 py-3">Joule</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Power</td>
+                                    <td class="px-4 py-3">Work/time</td>
+                                    <td class="px-4 py-3">Watt</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Gravity</td>
+                                    <td class="px-4 py-3">9.8 m/s²</td>
+                                    <td class="px-4 py-3">m/s²</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">18. Memory Tricks for SSC GD</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Force formula:</h3>
+                            <p class="text-gray-700">F = m × a</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Energy formulas:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>KE = 1/2 m v²</li>
+                                <li>PE = m g h</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Units:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Work → Joule</li>
+                                <li>Power → Watt</li>
+                                <li>Force → Newton</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Newton's three laws:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Inertia</li>
+                                <li>F = ma</li>
+                                <li>Action = Reaction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="number-system.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Satyam kumar
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Motion Physics for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../../../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

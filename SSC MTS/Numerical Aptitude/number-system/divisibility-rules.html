@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Divisibility Rules for competitive exams like Delhi Police and SSC. Learn quick methods to check divisibility from 1 to 25 with examples and applications." />
+    <meta name="keywords"
+        content="Divisibility Rules, number divisibility, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Divisibility Rules | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Divisibility Rules Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Divisibility Rules
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="divisibility-basics.html" class="nav-link" title="Divisibility Basics">Divisibility Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="divisibility-1-10.html" class="nav-link" title="Divisibility 1-10">Divisibility Rules 1-10</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="divisibility-11-20.html" class="nav-link" title="Divisibility 11-20">Divisibility Rules 11-20</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="divisibility-21-25.html" class="nav-link" title="Divisibility 21-25">Divisibility Rules 21-25</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Divisibility Rules</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Divisibility rules help you quickly check whether one number is divisible by another without actual division.
+                        They are extremely useful for simplification, factorization, HCF-LCM, and number system questions in SSC MTS and other competitive exams.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Basic Idea Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Basic Idea</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        If a number divides another number exactly (i.e., without leaving any remainder), then the second number is said to be divisible by the first.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Divisible Example</h3>
+                            <p class="text-gray-700">36 ÷ 9 = 4 (no remainder)</p>
+                            <p class="text-sm text-gray-600">36 is divisible by 9</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Not Divisible Example</h3>
+                            <p class="text-gray-700">37 ÷ 9 = 4 remainder 1</p>
+                            <p class="text-sm text-gray-600">37 is not divisible by 9</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Divisibility Rules 1-10 Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Divisibility Rules (1 to 10)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Rule 1 -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">1. Divisibility by 1</h3>
+                            <p class="text-gray-700 mb-2">Every number is divisible by 1.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 65 ÷ 1 = 65</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 2 -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">2. Divisibility by 2</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 2 if its last digit is even (0, 2, 4, 6, 8).</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 124 → last digit 4 → divisible by 2</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 237 → last digit 7 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 3 -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">3. Divisibility by 3</h3>
+                            <p class="text-gray-700 mb-2">If the sum of all digits of a number is divisible by 3, then the number is divisible by 3.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 243 → 2 + 4 + 3 = 9 → 9 ÷ 3 = 3 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 247 → 2 + 4 + 7 = 13 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 4 -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-3">4. Divisibility by 4</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 4 if the last two digits form a number divisible by 4.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 3,416 → last two digits = 16 → 16 ÷ 4 = 4 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 8,513 → last two digits = 13 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 5 -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-xl font-bold text-red-800 mb-3">5. Divisibility by 5</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 5 if its last digit is 0 or 5.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 105 → ends with 5 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 123 → ends with 3 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 6 -->
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <h3 class="text-xl font-bold text-indigo-800 mb-3">6. Divisibility by 6</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 6 if it is divisible by both 2 and 3.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 132 → even, sum of digits = 6 → divisible by 3 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 135 → sum of digits = 9 → divisible by 3 but not even → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 7 -->
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <h3 class="text-xl font-bold text-pink-800 mb-3">7. Divisibility by 7</h3>
+                            <p class="text-gray-700 mb-2">Multiply the last digit by 2 and subtract it from the remaining number. If the result is divisible by 7 (including 0), then the number is divisible by 7.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 203 → last digit = 3 → 20 − (3×2) = 20 − 6 = 14 → divisible by 7</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 206 → last digit = 6 → 20 − 12 = 8 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 8 -->
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="text-xl font-bold text-teal-800 mb-3">8. Divisibility by 8</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 8 if the last three digits form a number divisible by 8.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 10,624 → last three digits = 624 → 624 ÷ 8 = 78 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 12,362 → 362 ÷ 8 = 45.25 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 9 -->
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <h3 class="text-xl font-bold text-orange-800 mb-3">9. Divisibility by 9</h3>
+                            <p class="text-gray-700 mb-2">If the sum of all digits is divisible by 9, then the number is divisible by 9.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 4,131 → 4+1+3+1=9 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 1,456 → 1+4+5+6=16 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 10 -->
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">10. Divisibility by 10</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 10 if its last digit is 0.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 540 → ends with 0 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 245 → ends with 5 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Divisibility Rules 11-20 Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Divisibility Rules (11 to 20)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Rule 11 -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">11. Divisibility by 11</h3>
+                            <p class="text-gray-700 mb-2">If the difference between the sum of digits at odd and even places is 0 or divisible by 11, then the number is divisible by 11.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 2,035 → (2+3) − (0+5) = 5 − 5 = 0 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 4,715 → (4+1) − (7+5) = 5 − 12 = -7 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 12 -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">12. Divisibility by 12</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 12 if it is divisible by both 3 and 4.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 3,312 → last two digits = 12 → divisible by 4, sum of digits = 9 → divisible by 3 → divisible by 12</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 13 -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">13. Divisibility by 13</h3>
+                            <p class="text-gray-700 mb-2">Multiply the last digit by 9 and add it to the remaining number. If the result is divisible by 13, then the original number is divisible by 13.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 351 → last digit 1 × 9 = 9 → 35 + 9 = 44 → 44 ÷ 13 = 3.38 → not divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 1,053 → last digit 3 × 9 = 27 → 105 + 27 = 132 → 132 ÷ 13 = 10.15 → divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 14 -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-3">14. Divisibility by 14</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 14 if it is divisible by both 2 and 7.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 196 → even, 196 ÷ 7 = 28 → divisible by 14</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 105 → not even → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 15 -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-xl font-bold text-red-800 mb-3">15. Divisibility by 15</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 15 if it is divisible by both 3 and 5.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 450 → ends with 0 → divisible by 5, sum = 9 → divisible by 3 → divisible by 15</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 16 -->
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <h3 class="text-xl font-bold text-indigo-800 mb-3">16. Divisibility by 16</h3>
+                            <p class="text-gray-700 mb-2">If the last four digits form a number divisible by 16, the whole number is divisible by 16.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 65,552 → last four digits = 5552 → 5552 ÷ 16 = 347 → divisible</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 17 -->
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <h3 class="text-xl font-bold text-pink-800 mb-3">17. Divisibility by 17</h3>
+                            <p class="text-gray-700 mb-2">Multiply the last digit by 5, then subtract it from the remaining number. If the result is divisible by 17, then the number is divisible by 17.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 221 → 22 − (1×5) = 17 → divisible</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 18 -->
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="text-xl font-bold text-teal-800 mb-3">18. Divisibility by 18</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 18 if it is divisible by both 2 and 9.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 234 → even, sum = 9 → divisible by 9 → divisible by 18</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 19 -->
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <h3 class="text-xl font-bold text-orange-800 mb-3">19. Divisibility by 19</h3>
+                            <p class="text-gray-700 mb-2">Multiply the last digit by 2, add it to the rest of the number. If result divisible by 19, then the number is divisible.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 1,026 → last digit 6 × 2 = 12 → 102 + 12 = 114 → 114 ÷ 19 = 6 → divisible</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 20 -->
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">20. Divisibility by 20</h3>
+                            <p class="text-gray-700 mb-2">If the last digit is 0 and the tens digit is even, the number is divisible by 20. (Or simply: last two digits must be 00, 20, 40, 60, or 80.)</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 1,340 → last two digits = 40 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 2,160 → last two digits = 60 → divisible</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Divisibility Rules 21-25 Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Divisibility Rules (21 to 25)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Rule 21 -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">21. Divisibility by 21</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 21 if it is divisible by both 3 and 7.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 1,323 → sum of digits = 9 → divisible by 3, last digit 3×2=6 → 132−6=126 → divisible by 7 → divisible by 21</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 22 -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">22. Divisibility by 22</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 22 if it is divisible by both 2 and 11.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 1,254 → even, (1+5) − (2+4) = 6 − 6 = 0 → divisible by 11 → divisible by 22</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 23 -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">23. Divisibility by 23</h3>
+                            <p class="text-gray-700 mb-2">Multiply the last digit by 7, add it to the rest. If result divisible by 23 → original number is divisible.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 2,530 → last digit 0×7=0 → 253+0=253 → 253÷23=11 → divisible</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 24 -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-3">24. Divisibility by 24</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 24 if it is divisible by both 3 and 8.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> 9,312 → last three digits = 312 ÷ 8 = 39, sum of digits = 15 ÷ 3 = 5 → divisible by 24</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule 25 -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-xl font-bold text-red-800 mb-3">25. Divisibility by 25</h3>
+                            <p class="text-gray-700 mb-2">A number is divisible by 25 if its last two digits are 00, 25, 50, or 75.</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 325 → ends with 25 → divisible</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example:</span> 785 → ends with 85 → not divisible</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Divisibility Rules!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice divisibility rules regularly, focusing on the most commonly used ones (2, 3, 4, 5, 6, 8, 9, 10, 11). Remember that composite numbers can be broken down into their prime factors for easier divisibility checks.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="number-system.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Divisibility Rules for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

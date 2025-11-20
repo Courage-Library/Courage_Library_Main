@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Diseases & Nutrition concepts for competitive exams like Delhi Police and SSC. Learn about pathogens, deficiency disorders, nutrients, immunity, vaccination, and important health facts." />
+    <meta name="keywords"
+        content="Diseases, Nutrition, Pathogens, Deficiency Disorders, Vitamins, Minerals, Immunity, Vaccination, SSC GD, Competitive Exams" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Diseases & Nutrition | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Biology Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Biology Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Biology
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="diseases-nutrition.html" class="nav-link" title="Diseases & Nutrition">Diseases & Nutrition</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="human-physiology.html" class="nav-link" title="Human Physiology">Human Physiology</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="plant-biology.html" class="nav-link" title="Plant Biology">Plant Biology</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="genetics-evolution.html" class="nav-link" title="Genetics & Evolution">Genetics & Evolution</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Diseases & Nutrition</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Complete SSC GD Syllabus Coverage</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What Is Disease?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        A disease is any condition that disturbs the normal functioning of the body.
+                    </p>
+                    <div class="mt-4 grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Communicable Diseases</h3>
+                            <p class="text-gray-700">Spread from person to person</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Non-communicable Diseases</h3>
+                            <p class="text-gray-700">Do not spread</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Communicable Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Communicable Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Caused by microorganisms (pathogens).
+                    </p>
+                    
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Main types of pathogens:</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-blue-50 rounded border border-blue-200 text-center">
+                            <p class="font-semibold text-blue-800">Viruses</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded border border-green-200 text-center">
+                            <p class="font-semibold text-green-800">Bacteria</p>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded border border-purple-200 text-center">
+                            <p class="font-semibold text-purple-800">Protozoa</p>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded border border-yellow-200 text-center">
+                            <p class="font-semibold text-yellow-800">Fungi</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Worms</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Viral Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Viral Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Caused by viruses.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Examples:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Common cold</li>
+                                <li>Influenza (flu)</li>
+                                <li>Measles</li>
+                                <li>Chickenpox</li>
+                            </ul>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Polio</li>
+                                <li>Dengue</li>
+                                <li>COVID-19</li>
+                                <li>Hepatitis A, B, C</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Key Points:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Viruses are smallest pathogens</li>
+                            <li>Antibiotics do not work on viruses</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bacterial Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Bacterial Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Examples:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Cholera</li>
+                                <li>Typhoid</li>
+                                <li>Tuberculosis (TB)</li>
+                            </ul>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Pneumonia</li>
+                                <li>Tetanus</li>
+                                <li>Leprosy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Key Points:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Treated using antibiotics</li>
+                            <li>Bacteria are larger than viruses</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Protozoan Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Protozoan Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Caused by single-celled organisms.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Malaria</h3>
+                            <p class="text-gray-700">Caused by Plasmodium</p>
+                            <p class="text-sm text-gray-600 mt-1">Spread by female Anopheles mosquito</p>
+                        </div>
+                        
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Other Examples:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Kala-azar – Leishmania</li>
+                                <li>Amoebiasis – Entamoeba histolytica</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fungal Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Fungal Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold text-yellow-800 mb-3">Examples:</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200 text-center">
+                                <p class="font-semibold text-yellow-800">Ringworm</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200 text-center">
+                                <p class="font-semibold text-yellow-800">Athlete's foot</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded border border-yellow-200 text-center">
+                                <p class="font-semibold text-yellow-800">Skin infections</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Worm-Related Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Worm-Related Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold text-red-800 mb-3">Examples:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Tapeworm infection</li>
+                                <li>Roundworm infection</li>
+                            </ul>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Filariasis – elephantiasis</li>
+                                <li>Spread by Culex mosquito</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Non-Communicable Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Non-Communicable Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        These do not spread by contact.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Diabetes</li>
+                            <li>Cancer</li>
+                            <li>Heart attack</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Hypertension</li>
+                            <li>Asthma</li>
+                            <li>Arthritis</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deficiency Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Deficiency Diseases (Due to Lack of Nutrients)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Deficiency of vitamins and minerals leads to specific diseases.
+                    </p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Nutrient</th>
+                                    <th class="px-4 py-3">Deficiency Disease</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Vitamin A</td>
+                                    <td class="px-4 py-3">Night blindness</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Vitamin B1</td>
+                                    <td class="px-4 py-3">Beri-Beri</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Vitamin B12</td>
+                                    <td class="px-4 py-3">Anemia</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Vitamin C</td>
+                                    <td class="px-4 py-3">Scurvy</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Vitamin D</td>
+                                    <td class="px-4 py-3">Rickets</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Vitamin K</td>
+                                    <td class="px-4 py-3">Bleeding disorders</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Iron</td>
+                                    <td class="px-4 py-3">Anemia</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Iodine</td>
+                                    <td class="px-4 py-3">Goiter</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Calcium</td>
+                                    <td class="px-4 py-3">Weak bones, muscle cramps</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nutrition Basics Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Nutrition Basics</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Nutrients are substances needed by the body for growth and energy.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Types of Nutrients:</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-blue-50 rounded border border-blue-200 text-center">
+                            <p class="font-semibold text-blue-800">Carbohydrates</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded border border-green-200 text-center">
+                            <p class="font-semibold text-green-800">Proteins</p>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded border border-purple-200 text-center">
+                            <p class="font-semibold text-purple-800">Fats</p>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded border border-yellow-200 text-center">
+                            <p class="font-semibold text-yellow-800">Vitamins</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Minerals</p>
+                        </div>
+                        <div class="p-3 bg-indigo-50 rounded border border-indigo-200 text-center">
+                            <p class="font-semibold text-indigo-800">Water & Fibers</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Carbohydrates Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">11. Carbohydrates</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Main source of energy.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Examples:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Rice</li>
+                                <li>Wheat</li>
+                                <li>Potatoes</li>
+                                <li>Sugar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proteins Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">12. Proteins</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Body-building food.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Examples:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Pulses</li>
+                                <li>Eggs</li>
+                                <li>Milk</li>
+                                <li>Fish</li>
+                                <li>Meat</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Protein deficiency:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Kwashiorkor</li>
+                                <li>Marasmus (in children)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fats Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">13. Fats</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Provide stored energy.
+                    </p>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold text-purple-800 mb-2">Examples:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Ghee</li>
+                            <li>Oil</li>
+                            <li>Butter</li>
+                            <li>Nuts</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vitamins Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">14. Vitamins</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Required in small amounts. Prevent deficiency diseases.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Fat-soluble:</h3>
+                            <p class="text-gray-700">A, D, E, K</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Water-soluble:</h3>
+                            <p class="text-gray-700">B, C</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Minerals Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">15. Minerals</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-red-800 mb-4">Important minerals:</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Iron</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Calcium</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Potassium</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Iodine</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Zinc</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Sodium</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Balanced Diet Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">16. Balanced Diet</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        A diet containing all nutrients in correct proportion.
+                    </p>
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-gray-700">Important for growth, immunity, and health.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Immunity Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">17. Immunity</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Immunity is the ability of the body to fight diseases.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Natural Immunity</h3>
+                            <p class="text-gray-700">Present from birth</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Acquired Immunity</h3>
+                            <p class="text-gray-700">Developed after vaccination or infection</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vaccination Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">18. Vaccination</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        Vaccines help the body develop immunity.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Polio vaccine</li>
+                            <li>BCG (for TB)</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>MMR (measles)</li>
+                            <li>Hepatitis vaccine</li>
+                            <li>COVID-19 vaccines</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- First Aid Basics Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">19. First Aid Basics</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Fractures</h3>
+                            <p class="text-gray-700">Immobilize the limb</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Burns</h3>
+                            <p class="text-gray-700">Wash with cold water</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Snakebite</h3>
+                            <p class="text-gray-700">Keep patient still</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Bleeding</h3>
+                            <p class="text-gray-700">Apply pressure</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Health Terms Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">20. Common Health Terms</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><span class="font-semibold">Pathogen:</span> Disease-causing organism</li>
+                                <li><span class="font-semibold">Antibiotic:</span> Medicine for bacterial diseases</li>
+                                <li><span class="font-semibold">Antiseptic:</span> Prevents infection</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li><span class="font-semibold">Analgesic:</span> Pain reliever</li>
+                                <li><span class="font-semibold">Antipyretic:</span> Reduces fever</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Human Blood Groups Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">21. Human Blood Groups</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        A, B, AB, O<br>
+                        Positive and negative (Rh factor)
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">O negative</h3>
+                            <p class="text-gray-700">Universal donor</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">AB positive</h3>
+                            <p class="text-gray-700">Universal recipient</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Diseases and Their Causes Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">22. Important Diseases and Their Causes (SSC GD Focus)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Disease</th>
+                                    <th class="px-4 py-3">Cause</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Malaria</td>
+                                    <td class="px-4 py-3">Protozoa (Plasmodium)</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Dengue</td>
+                                    <td class="px-4 py-3">Virus (Aedes mosquito)</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Tuberculosis</td>
+                                    <td class="px-4 py-3">Bacteria</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Pneumonia</td>
+                                    <td class="px-4 py-3">Bacteria</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Cholera</td>
+                                    <td class="px-4 py-3">Bacteria</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Polio</td>
+                                    <td class="px-4 py-3">Virus</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Measles</td>
+                                    <td class="px-4 py-3">Virus</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Cancer</td>
+                                    <td class="px-4 py-3">Uncontrolled cell growth</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Goiter</td>
+                                    <td class="px-4 py-3">Iodine deficiency</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Rickets</td>
+                                    <td class="px-4 py-3">Vitamin D deficiency</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diseases Spread by Mosquitoes Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">23. Diseases Spread by Mosquitoes</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Female Anopheles</h3>
+                            <p class="text-gray-700">Malaria</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Aedes</h3>
+                            <p class="text-gray-700">Dengue, Chikungunya, Zika</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Culex</h3>
+                            <p class="text-gray-700">Filariasis</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Water-Borne Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">24. Water-Borne Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Typhoid</li>
+                            <li>Cholera</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Hepatitis A</li>
+                            <li>Dysentery</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Air-Borne Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">25. Air-Borne Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Common cold</li>
+                            <li>TB</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Measles</li>
+                            <li>Influenza</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lifestyle Diseases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">26. Lifestyle Diseases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Obesity</li>
+                            <li>Hypertension</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Diabetes</li>
+                            <li>Heart disease</li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 p-3 bg-yellow-50 rounded border border-yellow-200">
+                        <p class="text-gray-700">Caused by unhealthy diet, lack of exercise, stress.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Food Preservation Methods Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">27. Food Preservation Methods</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-blue-50 rounded border border-blue-200 text-center">
+                            <p class="font-semibold text-blue-800">Refrigeration</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded border border-green-200 text-center">
+                            <p class="font-semibold text-green-800">Dehydration</p>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded border border-purple-200 text-center">
+                            <p class="font-semibold text-purple-800">Canning</p>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded border border-yellow-200 text-center">
+                            <p class="font-semibold text-yellow-800">Pasteurization</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded border border-red-200 text-center">
+                            <p class="font-semibold text-red-800">Salting</p>
+                        </div>
+                        <div class="p-3 bg-indigo-50 rounded border border-indigo-200 text-center">
+                            <p class="font-semibold text-indigo-800">Pickling</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Revision Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">28. Quick Revision Table</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Topic</th>
+                                    <th class="px-4 py-3">Key Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Malaria</td>
+                                    <td class="px-4 py-3">Protozoa</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Dengue</td>
+                                    <td class="px-4 py-3">Virus</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">TB</td>
+                                    <td class="px-4 py-3">Bacteria</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Ringworm</td>
+                                    <td class="px-4 py-3">Fungi</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Night blindness</td>
+                                    <td class="px-4 py-3">Vitamin A deficiency</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Scurvy</td>
+                                    <td class="px-4 py-3">Vitamin C deficiency</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Rickets</td>
+                                    <td class="px-4 py-3">Vitamin D deficiency</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Goiter</td>
+                                    <td class="px-4 py-3">Iodine deficiency</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Kwashiorkor</td>
+                                    <td class="px-4 py-3">Protein deficiency</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Balanced diet</td>
+                                    <td class="px-4 py-3">Contains all nutrients</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Vaccine</td>
+                                    <td class="px-4 py-3">Gives immunity</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Bacteria treated with</td>
+                                    <td class="px-4 py-3">Antibiotics</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">29. Memory Tricks for SSC GD</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Vitamin Associations:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Vitamin A = Eyes</li>
+                                <li>Vitamin C = Cuts and wounds</li>
+                                <li>Vitamin D = Bones</li>
+                                <li>Vitamin K = Clotting</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Blood Groups:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>O negative = Donor</li>
+                                <li>AB positive = Receiver</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Disease Mnemonics:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Malaria: M → Mosquito (Anopheles)</li>
+                                <li>Dengue: D → Day-biting Aedes mosquito</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="motion-physics.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Satyam kumar
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Diseases & Nutrition for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../../../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

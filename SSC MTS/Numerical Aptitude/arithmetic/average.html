@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Average concepts for competitive exams like Delhi Police and SSC. Learn average formulas, weighted average, missing term problems, and shortcut techniques." />
+    <meta name="keywords"
+        content="Average, weighted average, arithmetic mean, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Average | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Average Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Average
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="average-basics.html" class="nav-link" title="Average Basics">Average Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="weighted-average.html" class="nav-link" title="Weighted Average">Weighted Average</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="missing-term-problems.html" class="nav-link" title="Missing Term Problems">Missing Term Problems</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="average-shortcuts.html" class="nav-link" title="Average Shortcuts">Average Shortcuts</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Average</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Definition Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Definition</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        An average is the value that represents a group of numbers by their central or middle value.
+                        It shows equal distribution of total quantity among all members.
+                    </p>
+                    
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mt-4">
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Basic Formula:</h3>
+                        <p class="text-center font-medium text-gray-700 text-lg">
+                            Average = Sum of all quantities / Number of quantities
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example 1:</h3>
+                        <p class="text-gray-700 mb-3">Find the average of 5, 10, 15, 20, and 25.</p>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">Average = (5 + 10 + 15 + 20 + 25) / 5 = 75 / 5 = 15</p>
+                            <p class="text-gray-700 font-semibold">Answer = 15</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Points Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Important Points</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="font-medium text-gray-800">If all the numbers are equal, their average is the same number.</p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Addition/Subtraction Effect:</h3>
+                            <p class="text-gray-700 mb-2">If the same number is added or subtracted from all terms, the average changes by the same number.</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> Average of 10, 20, 30 is 20.</p>
+                                <p class="text-gray-700">Add 5 to each → 15, 25, 35 → New average = 25.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Multiplication/Division Effect:</h3>
+                            <p class="text-gray-700 mb-2">If all the terms are multiplied or divided by the same number, the average also changes accordingly.</p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700">Multiply by 2 → Average × 2</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700">Divide by 2 → Average ÷ 2</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Special Averages:</h3>
+                            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="font-semibold text-gray-800">First n natural numbers</p>
+                                    <p class="text-gray-700">(n + 1) / 2</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="font-semibold text-gray-800">First n even numbers</p>
+                                    <p class="text-gray-700">(n + 1)</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="font-semibold text-gray-800">First n odd numbers</p>
+                                    <p class="text-gray-700">n</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weighted Average Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Weighted Average</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When different quantities carry different importance or weights, we use weighted average instead of simple average.
+                    </p>
+                    
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Formula:</h3>
+                        <p class="text-center font-medium text-gray-700">
+                            Weighted Average = ∑(wᵢ × xᵢ) / ∑wᵢ
+                        </p>
+                        <p class="text-center text-gray-600 mt-2">where xᵢ = value of each item, wᵢ = corresponding weight</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example 2:</h3>
+                        <p class="text-gray-700 mb-3">Find the average marks of a student who scored:</p>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3 text-sm">
+                            <div class="bg-white p-3 rounded border text-center">
+                                <p class="font-semibold text-gray-800">Maths</p>
+                                <p class="text-gray-700">80 (weight 3)</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border text-center">
+                                <p class="font-semibold text-gray-800">Science</p>
+                                <p class="text-gray-700">70 (weight 2)</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border text-center">
+                                <p class="font-semibold text-gray-800">English</p>
+                                <p class="text-gray-700">60 (weight 1)</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">Weighted Average = (80×3 + 70×2 + 60×1) / (3+2+1)</p>
+                            <p class="text-gray-700">= (240 + 140 + 60) / 6 = 440 / 6 = 73.33</p>
+                            <p class="text-green-600 font-semibold">Weighted average = 73.33</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-3">Shortcut Example:</h3>
+                        <p class="text-gray-700 mb-3">When two items are mixed in the ratio a : b, their average value = (ax₁ + bx₂) / (a + b)</p>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example 3:</h4>
+                            <p class="text-gray-700 mb-3">The average age of 25 men is 30 years and of 15 women is 20 years. Find the average age of the group.</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-gray-700">Average age = (25×30 + 15×20) / (25+15)</p>
+                                <p class="text-gray-700">= (750 + 300) / 40 = 1050 / 40 = 26.25</p>
+                                <p class="text-green-600 font-semibold">Average age = 26.25 years</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Missing Term Problems Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Missing Term Problems</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        These are problems where one or more values are missing, but the average and other values are given.
+                    </p>
+
+                    <!-- Type 1 -->
+                    <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Type 1: Finding Missing Value</h3>
+                        <div class="space-y-3 mb-4">
+                            <p class="text-gray-700">If average of n numbers is A, then Sum of all numbers = A × n</p>
+                            <p class="text-gray-700 font-medium">Hence, Missing number = Required Sum − Sum of known numbers</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example 4:</h4>
+                            <p class="text-gray-700 mb-3">Average of 5 numbers is 40. Four numbers are 45, 35, 25, 55. Find the missing number.</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-gray-700">Sum of all = 40 × 5 = 200</p>
+                                <p class="text-gray-700">Sum of known = 45 + 35 + 25 + 55 = 160</p>
+                                <p class="text-gray-700">Missing number = 200 – 160 = 40</p>
+                                <p class="text-green-600 font-semibold">Answer: 40</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Type 2 -->
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Type 2: When One Term is Replaced</h3>
+                        <div class="space-y-3 mb-4">
+                            <p class="text-gray-700 font-medium">
+                                (New average − Old average) × Number of terms = New term − Old term
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example 5:</h4>
+                            <p class="text-gray-700 mb-3">The average of 10 numbers is 40. If one number 60 is replaced by 30, find the new average.</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-gray-700">Change = (New - Old) ÷ n = (30 - 60) ÷ 10 = -30 ÷ 10 = -3</p>
+                                <p class="text-gray-700">New average = 40 - 3 = 37</p>
+                                <p class="text-green-600 font-semibold">Answer: New average = 37</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example 6:</h4>
+                            <p class="text-gray-700 mb-3">The average of 5 consecutive even numbers is 20. Find the largest number.</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-gray-700">Let numbers be: (20 - 4), (20 - 2), 20, (20 + 2), (20 + 4)</p>
+                                <p class="text-gray-700">Largest number = 24</p>
+                                <p class="text-green-600 font-semibold">Answer: 24</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Tips Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Key Tips for SSC MTS</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Convert every "average" question into a sum-based equation</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">For mixture or group questions, use weighted average</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">For missing term problems, use the sum of n × average concept</p>
+                            </div>
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">For consecutive numbers, middle term = average</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-red-50 rounded-lg border border-red-200">
+                        <h3 class="text-lg font-bold text-red-800 mb-2">Quick Revision Formulas:</h3>
+                        <div class="grid md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Basic Average</p>
+                                <p class="text-gray-700">Sum / Number of terms</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Weighted Average</p>
+                                <p class="text-gray-700">∑(wᵢ × xᵢ) / ∑wᵢ</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Missing Number</p>
+                                <p class="text-gray-700">(n × Average) - Sum of known</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Practice Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-700 font-medium">1. The average of 6 numbers is 25. If one number is excluded, the average becomes 20. Find the excluded number.</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-gray-700 font-medium">2. The average weight of 10 students is 45 kg. When a new student joins, the average becomes 46 kg. Find the weight of the new student.</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="text-gray-700 font-medium">3. Find the average of first 15 natural numbers.</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <p class="text-gray-700 font-medium">4. The average of 8 numbers is 12. If each number is multiplied by 3, find the new average.</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <p class="text-gray-700 font-medium">5. In a class of 30 students, average marks are 60. If 5 students with average 40 leave, find the new average.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Average Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice average problems regularly, focusing on different types like weighted averages, missing term problems, and consecutive numbers. Remember to convert average problems into sum-based equations and use the key formulas for quick calculations in exams.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="percentage.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Average for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

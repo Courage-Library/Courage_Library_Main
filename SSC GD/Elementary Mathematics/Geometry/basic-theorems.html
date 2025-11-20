@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description"
+    content="Learn Geometry Basic Theorems: Triangles, Quadrilaterals & Circles with key formulas, properties, and 15 practice questions with answers. Covers Pythagoras Theorem, Triangle Angle Sum, Exterior Angle, Midpoint, Parallelogram, Rectangle, Square, Rhombus, Kite, Circle angle & tangent theorems for SSC, Banking & competitive exams." />
+
+<meta name="keywords"
+    content="Geometry Theorems, Triangles, Quadrilaterals, Circles, Pythagoras Theorem, Triangle Angle Sum, Exterior Angle Theorem, Midpoint Theorem, Parallelogram Properties, Rectangle, Square, Rhombus, Kite, Circle Theorems, Tangent, Cyclic Quadrilateral, Competitive Exams, SSC, Banking" />
+
+<meta name="author" content="Courage Library" />
+
+<meta name="theme-color" content="#2563eb" />
+<link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+<title>Geometry: Basic Theorems – Triangles, Quadrilaterals & Circles | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+          <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+    aria-label="Geometry Navigation">
+    <ul class="text-base text-gray-700 space-y-4">
+        <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+            K. Geometry
+        </li>
+
+        <li>
+            <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                <a href="lines-angles-triangles.html" class="nav-link" title="Lines, Angles, Triangles">
+                    Lines, Angles, Triangles
+                </a>
+                <p class="last-updated">Last Updated:
+                    <time datetime="2025-11-02">02-11-2025</time>
+                </p>
+            </div>
+        </li>
+
+        <li>
+            <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                <a href="circles-quadrilaterals.html" class="nav-link" title="Circles, Quadrilaterals">
+                    Circles, Quadrilaterals
+                </a>
+                <p class="last-updated">Last Updated:
+                    <time datetime="2025-11-02">02-11-2025</time>
+                </p>
+            </div>
+        </li>
+
+        <li>
+            <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                <a href="basic-theorems.html" class="nav-link" title="Basic Theorems">
+                    Basic Theorems
+                </a>
+                <p class="last-updated">Last Updated:
+                    <time datetime="2025-11-02">02-11-2025</time>
+                </p>
+            </div>
+        </li>
+
+    </ul>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+    <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+    <!-- Hero Section -->
+    <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+        <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">📐 Geometry: Basic Theorems</h1>
+        <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam Preparation - Quantitative Aptitude</p>
+    </section>
+    <img src="../../../images/logo.png" alt="Courage Library Logo"
+        class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+    <!-- Introduction Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Basic theorems form the foundation for solving <strong>lines, angles, triangles, and quadrilaterals</strong> problems in competitive exams. Focus is on <strong>key properties, proofs, and problem-solving</strong>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Triangle Theorems Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 1. Triangle Theorems</h2>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <!-- Pythagoras Theorem -->
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                <h4 class="text-lg font-bold text-blue-800 mb-2">1. Pythagoras Theorem</h4>
+                <p class="text-gray-700 mb-3">In a right-angled triangle:</p>
+                <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                    <p class="text-xl font-mono text-purple-800">(Hypotenuse)² = (Base)² + (Perpendicular)²</p>
+                </div>
+            </div>
+
+            <!-- Triangle Angle Sum -->
+            <div class="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
+                <h4 class="text-lg font-bold text-green-800 mb-2">2. Triangle Angle Sum</h4>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                    <p class="text-xl font-mono text-green-700">Sum of angles in a triangle = 180°</p>
+                </div>
+            </div>
+
+            <!-- Exterior Angle Theorem -->
+            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mb-6">
+                <h4 class="text-lg font-bold text-yellow-800 mb-2">3. Exterior Angle Theorem</h4>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                    <p class="text-xl font-mono text-yellow-700">Exterior angle = Sum of opposite interior angles</p>
+                </div>
+            </div>
+
+            <!-- Midpoint Theorem -->
+            <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                <h4 class="text-lg font-bold text-red-800 mb-2">4. Midpoint Theorem</h4>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                    <p class="text-xl font-mono text-red-700">Line joining midpoints of two sides is parallel to third side and half its length</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quadrilateral Theorems Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 2. Quadrilateral Theorems</h2>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <!-- Parallelogram Properties -->
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                <h4 class="text-lg font-bold text-blue-800 mb-2">1. Parallelogram Properties</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Opposite sides are equal</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Opposite angles are equal</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Diagonals bisect each other</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rectangle & Square -->
+            <div class="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
+                <h4 class="text-lg font-bold text-green-800 mb-2">2. Rectangle & Square</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">All angles = 90°</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Diagonals are equal</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Diagonals bisect each other</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rhombus & Kite -->
+            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                <h4 class="text-lg font-bold text-yellow-800 mb-2">3. Rhombus & Kite</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Diagonals are perpendicular</p>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                        <p class="text-green-700 font-mono">Diagonals bisect opposite angles (rhombus)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Circle Theorems Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 3. Circle Theorems</h2>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <!-- Angle at Centre -->
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                <h4 class="text-lg font-bold text-blue-800 mb-2">1. Angle at Centre</h4>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                    <p class="text-xl font-mono text-blue-700">Angle at center = 2 × angle at circumference</p>
+                </div>
+            </div>
+
+            <!-- Tangent Theorem -->
+            <div class="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
+                <h4 class="text-lg font-bold text-green-800 mb-2">2. Tangent Theorem</h4>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                    <p class="text-xl font-mono text-green-700">Tangent ⊥ radius at point of contact</p>
+                </div>
+            </div>
+
+            <!-- Cyclic Quadrilateral -->
+            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                <h4 class="text-lg font-bold text-yellow-800 mb-2">3. Cyclic Quadrilateral</h4>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                    <p class="text-xl font-mono text-yellow-700">Opposite angles sum to 180°</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Questions Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <h2 class="text-2xl font-semibold text-teal-800 mb-4">🧠 Practice Section: 15 Questions (With Answers)</h2>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+            <p class="text-lg text-gray-700 mb-6">Each Q followed by its Answer (SSC style). Click on "View Answer" to check your understanding.</p>
+            
+            <div class="space-y-6">
+                <!-- Question 1 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. A right-angled triangle has base 6 cm and height 8 cm. Find hypotenuse.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">c² = 6² + 8² = 36 + 64 = 100 ⇒ c = 10 cm</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. Sum of angles of a triangle?</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">180°</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. One angle of a triangle is 70° and another is 50°. Find the third angle.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">180 - (70 + 50) = 60°</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Exterior angle of a triangle is 120°, find sum of opposite interior angles.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">120° (Exterior = Sum of opposite interior angles)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. Line joins midpoints of two sides of triangle; third side = 10 cm. Find line length.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">5 cm (Half of third side, parallel)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. Opposite sides of parallelogram = 12 cm & 8 cm. Find perimeter.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">2(12 + 8) = 40 cm</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. Diagonals of rectangle = 13 cm. Find each side if length = 5 cm.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">Width = √(13² - 5²) = √(169 - 25) = √144 = 12 cm</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. Diagonals of rhombus = 10 cm & 24 cm. Find area.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">A = ½ × d₁ × d₂ = ½ × 10 × 24 = 120 cm²</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. Opposite angles of cyclic quadrilateral = 70°. Find other angles.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">180 - 70 = 110°</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. Angle at center = 100°, find angle at circumference on same arc.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">100/2 = 50°</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. Tangent meets radius at point. Angle between them?</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">90°</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. Square with side 6 cm. Find diagonal.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">d = a√2 = 6√2 ≈ 8.49 cm</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. Diagonal of rectangle bisect each other. True or False?</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">True</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. In parallelogram, one angle = 70°. Find adjacent angle.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">110° (Sum of adjacent angles = 180°)</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. Rhombus diagonals = 12 cm & 16 cm. Find length of one side.</h3>
+                    <details class="mt-4 cursor-pointer">
+                        <summary class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer
+                        </summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">Side = √((12/2)² + (16/2)²) = √(36 + 64) = √100 = 10 cm</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exam Strategy Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ SSC GD Exam Strategy</h2>
+            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                <div class="space-y-3">
+                    <p class="text-gray-700 flex items-start">
+                        <span class="text-green-600 font-bold mr-2">🟢</span>
+                        Memorize all <strong>triangle theorems</strong> (Pythagoras, angle sum, exterior angle)
+                    </p>
+                    <p class="text-gray-700 flex items-start">
+                        <span class="text-green-600 font-bold mr-2">🟢</span>
+                        Practice <strong>quadrilateral properties</strong> for quick identification
+                    </p>
+                    <p class="text-gray-700 flex items-start">
+                        <span class="text-green-600 font-bold mr-2">🟢</span>
+                        Master <strong>circle theorems</strong> for angle calculations
+                    </p>
+                    <p class="text-gray-700 flex items-start">
+                        <span class="text-green-600 font-bold mr-2">🟢</span>
+                        Learn to apply <strong>midpoint theorem</strong> in triangle problems
+                    </p>
+                    <p class="text-gray-700 flex items-start">
+                        <span class="text-green-600 font-bold mr-2">🟢</span>
+                        Time yourself - aim for <strong>20-35 seconds per theorem problem</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="mb-12 px-4 md:px-8">
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Geometry: Basic Theorems!</h2>
+            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                <p class="text-gray-600 italic">SSC GD Tip: Mastering basic geometry theorems is crucial for solving complex problems efficiently. Remember that theorems provide the logical foundation for geometric proofs and calculations. Regular practice with previous year SSC GD questions will help you recognize which theorem to apply in different scenarios. Pay special attention to Pythagoras theorem, angle properties, and quadrilateral characteristics as they frequently appear in exams. Understanding these theorems will not only help you solve problems faster but also build a strong foundation for advanced geometry concepts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <section class="flex justify-between p-4">
+        <a href="circles-quadrilaterals.html"
+            class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+        <div class="text-center text-xs italic text-gray-600">
+            Developed By Himanshu Srivastava
+        </div>
+        <a href="#"
+            class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Geometry Theorems for SSC GD Exam!</h2>
+        <p class="text-gray-700 mb-6">Join Courage Library for comprehensive SSC GD study materials and expert guidance.</p>
+        <a href="../../../index.html?checkAuth=1"
+            class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+            Start Your SSC GD Preparation!
+        </a>
+    </section>
+</main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html> 

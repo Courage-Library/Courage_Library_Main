@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Cyber Security and Computer Viruses for the Delhi Police Exam with Courage Library. Learn definitions, types of malware, cyber threats, virus examples, and essential protection techniques." />
+    <meta name="keywords"
+        content="Cyber Security, Computer Viruses, Malware, Cyber Threats, Delhi Police Exam, Phishing, Ransomware, Worms, Courage Library" />
+    <meta name="author" content="Courage Library" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+    <title>Cyber Security & Viruses | Courage Library</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../../index.html" class="flex items-center gap-2">
+                <img src="../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="#" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Computer Awareness Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Computer Awareness -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Computer Awareness
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="introduction-to-computer.html" class="nav-link" title="Introduction To Computer">
+                                Introduction To Computer
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Input_and_Output_Devices.html" class="nav-link" title="Input Output Devices">
+                                Input Output Devices
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Storage Devices.html" class="nav-link" title="Storage Devices">
+                                Storage Devices
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="MS Office.html" class="nav-link" title="MS Office">
+                                MS Office
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Internet Basics and Web Browsers.html" class="nav-link"
+                                title="Internet Basics & Web Browsers">
+                                Internet Basics & Web Browsers
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Email and Cloud Concepts.html" class="nav-link" title="Email & Cloud Concepts">
+                                Email & Cloud Concepts
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Cyber Security and Viruses.html" class="nav-link" title="Cyber Security & Viruses">
+                                Cyber Security & Viruses
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Cyber Security & Viruses </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600"> SSC MTS Exam</p>
+            </section>
+            <img src="../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What is Cyber Security Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is Cyber Security?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>Cyber Security</strong> refers to the practice of protecting computers, servers, mobile
+                        devices,
+                        electronic systems, networks, and data from malicious attacks, damage, or unauthorized access.
+                        It's also known as <strong>information technology security</strong>.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Protection</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Prevention</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Detection</p>
+                            </div>
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Response</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+                        <p class="text-lg text-gray-700">
+                            <strong>Simple Definition:</strong> Cyber Security is the <strong>practice of defending
+                                computers and networks</strong> from digital attacks.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Cyber Security Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Cyber Security</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Major Cyber Security Domains</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-blue-700">Network Security</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Firewalls</p>
+                                    <p class="text-sm text-gray-600">Network traffic control</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">VPN</p>
+                                    <p class="text-sm text-gray-600">Secure remote access</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Intrusion Detection</p>
+                                    <p class="text-sm text-gray-600">Monitor suspicious activity</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-green-700">Application Security</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Secure Coding</p>
+                                    <p class="text-sm text-gray-600">Develop safe applications</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Testing</p>
+                                    <p class="text-sm text-gray-600">Vulnerability assessment</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Authentication</p>
+                                    <p class="text-sm text-gray-600">User verification</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-purple-700">Information Security</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="font-medium text-gray-800">Data Protection</p>
+                                    <p class="text-sm text-gray-600">Encrypt sensitive data</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="font-medium text-gray-800">Access Control</p>
+                                    <p class="text-sm text-gray-600">Permission management</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="font-medium text-gray-800">Backup</p>
+                                    <p class="text-sm text-gray-600">Data recovery plans</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Cyber Threats Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Common Cyber Threats</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Major Cyber Threats</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-red-50 rounded-lg border text-center hover:bg-red-100 transition-colors">
+                            <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Malware</p>
+                            <p class="text-xs text-gray-600">Malicious software</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded-lg border text-center hover:bg-red-100 transition-colors">
+                            <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Phishing</p>
+                            <p class="text-xs text-gray-600">Fake emails/websites</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded-lg border text-center hover:bg-red-100 transition-colors">
+                            <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Ransomware</p>
+                            <p class="text-xs text-gray-600">Data encryption attack</p>
+                        </div>
+                        <div class="p-3 bg-red-50 rounded-lg border text-center hover:bg-red-100 transition-colors">
+                            <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">DDoS</p>
+                            <p class="text-xs text-gray-600">Overload servers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Cyber Threat Comparison</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Threat</th>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Purpose</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Malware</td>
+                                    <td class="px-4 py-3">Software</td>
+                                    <td class="px-4 py-3">Damage or gain unauthorized access</td>
+                                    <td class="px-4 py-3">Viruses, Trojans</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Phishing</td>
+                                    <td class="px-4 py-3">Social Engineering</td>
+                                    <td class="px-4 py-3">Steal sensitive information</td>
+                                    <td class="px-4 py-3">Fake login pages</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Ransomware</td>
+                                    <td class="px-4 py-3">Malware</td>
+                                    <td class="px-4 py-3">Encrypt data for ransom</td>
+                                    <td class="px-4 py-3">WannaCry</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">DDoS</td>
+                                    <td class="px-4 py-3">Network Attack</td>
+                                    <td class="px-4 py-3">Overwhelm servers with traffic</td>
+                                    <td class="px-4 py-3">Botnet attacks</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Man-in-Middle</td>
+                                    <td class="px-4 py-3">Eavesdropping</td>
+                                    <td class="px-4 py-3">Intercept communication</td>
+                                    <td class="px-4 py-3">Public Wi-Fi attacks</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Computer Viruses Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. What are Computer Viruses?</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Computer Virus Definition</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-orange-50 rounded-lg border border-orange-200">
+                            <div
+                                class="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">🦠</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Malicious Code</p>
+                                <p class="text-sm text-gray-600">Self-replicating program that infects computers</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-orange-100 rounded-lg border border-orange-300">
+                            <div
+                                class="w-8 h-8 bg-orange-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">⚡</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Self-Replication</p>
+                                <p class="text-sm text-gray-600">Copies itself to other files/programs</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-red-50 rounded-lg border border-red-200">
+                            <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">💀</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Damage System</p>
+                                <p class="text-sm text-gray-600">Corrupts files, steals data, damages hardware</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-red-100 rounded-lg border border-red-300">
+                            <div class="w-8 h-8 bg-red-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">🔄</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Spreads Automatically</p>
+                                <p class="text-sm text-gray-600">Spreads through networks, email, USB drives</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Computer Viruses Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Types of Computer Viruses</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Common Virus Types</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Boot Sector</p>
+                            <p class="text-xs text-gray-600">Infects boot sector</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">File Infector</p>
+                            <p class="text-xs text-gray-600">Attaches to files</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Macro Virus</p>
+                            <p class="text-xs text-gray-600">Infects documents</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Polymorphic</p>
+                            <p class="text-xs text-gray-600">Changes code</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Multipartite</p>
+                            <p class="text-xs text-gray-600">Multiple infection</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Resident</p>
+                            <p class="text-xs text-gray-600">Lives in memory</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Web Scripting</p>
+                            <p class="text-xs text-gray-600">Browser-based</p>
+                        </div>
+                        <div
+                            class="p-3 bg-purple-50 rounded-lg border text-center hover:bg-purple-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Worm</p>
+                            <p class="text-xs text-gray-600">Self-replicating</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Virus Type Comparison</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Virus Type</th>
+                                    <th class="px-4 py-3">Infection Method</th>
+                                    <th class="px-4 py-3">Damage</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Boot Sector Virus</td>
+                                    <td class="px-4 py-3">Boot sector of storage</td>
+                                    <td class="px-4 py-3">Prevents system boot</td>
+                                    <td class="px-4 py-3">Stoned, Michelangelo</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">File Infector</td>
+                                    <td class="px-4 py-3">Executable files</td>
+                                    <td class="px-4 py-3">Corrupts programs</td>
+                                    <td class="px-4 py-3">Cascade, Jerusalem</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Macro Virus</td>
+                                    <td class="px-4 py-3">Document macros</td>
+                                    <td class="px-4 py-3">Damages documents</td>
+                                    <td class="px-4 py-3">Melissa, Concept</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Polymorphic</td>
+                                    <td class="px-4 py-3">Changes signature</td>
+                                    <td class="px-4 py-3">Hard to detect</td>
+                                    <td class="px-4 py-3">Satan Bug, Marburg</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Worm</td>
+                                    <td class="px-4 py-3">Network replication</td>
+                                    <td class="px-4 py-3">Network congestion</td>
+                                    <td class="px-4 py-3">ILOVEYOU, Conficker</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Malware Types Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Types of Malware</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Malware Classification</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-red-800 mb-2">Trojan Horse</h4>
+                            <p class="text-gray-700 font-medium">Disguised as legitimate software</p>
+                            <p class="text-sm text-gray-600 mt-2">Creates backdoors, steals data</p>
+                            <p class="text-xs text-gray-500 mt-2">Example: Zeus, Emotet</p>
+                        </div>
+
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-orange-800 mb-2">Ransomware</h4>
+                            <p class="text-gray-700 font-medium">Encrypts files for ransom</p>
+                            <p class="text-sm text-gray-600 mt-2">Demands payment to restore access</p>
+                            <p class="text-xs text-gray-500 mt-2">Example: WannaCry, Petya</p>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-purple-800 mb-2">Spyware</h4>
+                            <p class="text-gray-700 font-medium">Secretly monitors activity</p>
+                            <p class="text-sm text-gray-600 mt-2">Collects personal information</p>
+                            <p class="text-xs text-gray-500 mt-2">Example: Keyloggers, Adware</p>
+                        </div>
+
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-indigo-800 mb-2">Adware</h4>
+                            <p class="text-gray-700 font-medium">Displays unwanted ads</p>
+                            <p class="text-sm text-gray-600 mt-2">Generates revenue for attackers</p>
+                            <p class="text-xs text-gray-500 mt-2">Example: Fireball, Gator</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            Malware (Malicious Software) includes viruses, worms, trojans, ransomware, spyware, and
+                            adware - all designed to damage or gain unauthorized access to computer systems.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Protection Measures Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Cyber Security Protection</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Essential Protection Measures</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Antivirus Software → <strong>Detects & removes
+                                        malware</strong></p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Firewall → <strong>Blocks unauthorized
+                                        access</strong></p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Strong Passwords → <strong>Prevents unauthorized
+                                        access</strong></p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Regular Updates → <strong>Patches security
+                                        holes</strong></p>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Backup Data → <strong>Recovery from
+                                        attacks</strong></p>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Encryption → <strong>Protects sensitive
+                                        data</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Famous Cyber Attacks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Famous Cyber Attacks</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Notable Cyber Security Incidents</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Attack</th>
+                                    <th class="px-4 py-3">Year</th>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">WannaCry Ransomware</td>
+                                    <td class="px-4 py-3">2017</td>
+                                    <td class="px-4 py-3">Ransomware</td>
+                                    <td class="px-4 py-3">200,000+ computers in 150 countries</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">ILOVEYOU Virus</td>
+                                    <td class="px-4 py-3">2000</td>
+                                    <td class="px-4 py-3">Computer Worm</td>
+                                    <td class="px-4 py-3">$15 billion damage worldwide</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">MyDoom</td>
+                                    <td class="px-4 py-3">2004</td>
+                                    <td class="px-4 py-3">Email Worm</td>
+                                    <td class="px-4 py-3">Fastest-spreading email worm</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Conficker</td>
+                                    <td class="px-4 py-3">2008</td>
+                                    <td class="px-4 py-3">Computer Worm</td>
+                                    <td class="px-4 py-3">Infected 15 million computers</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Stuxnet</td>
+                                    <td class="px-4 py-3">2010</td>
+                                    <td class="px-4 py-3">Computer Worm</td>
+                                    <td class="px-4 py-3">Targeted Iranian nuclear facilities</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Common Delhi Police / SSC Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Virus → <strong>Self-replicating malware</strong>
+                                </p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Worm → <strong>Spreads without user action</strong>
+                                </p>
+                            </div>
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Trojan → <strong>Disguised as legitimate</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ransomware → <strong>Encrypts files for
+                                        ransom</strong></p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Phishing → <strong>Fake emails for data
+                                        theft</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-indigo-50 rounded-lg border border-indigo-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Firewall → <strong>Network security system</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Term</th>
+                                <th class="px-4 py-3">Type</th>
+                                <th class="px-4 py-3">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Virus</td>
+                                <td class="px-4 py-3">Malware</td>
+                                <td class="px-4 py-3">Self-replicating, needs host file</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Worm</td>
+                                <td class="px-4 py-3">Malware</td>
+                                <td class="px-4 py-3">Self-replicating, spreads independently</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Trojan</td>
+                                <td class="px-4 py-3">Malware</td>
+                                <td class="px-4 py-3">Disguised as legitimate software</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Ransomware</td>
+                                <td class="px-4 py-3">Malware</td>
+                                <td class="px-4 py-3">Encrypts files for ransom money</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Spyware</td>
+                                <td class="px-4 py-3">Malware</td>
+                                <td class="px-4 py-3">Secretly monitors user activity</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Phishing</td>
+                                <td class="px-4 py-3">Social Engineering</td>
+                                <td class="px-4 py-3">Fake emails to steal information</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Cyber Security & Viruses!
+                    </h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Remember that viruses need a host file to spread,
+                            while worms can spread independently. Trojans disguise themselves as legitimate software,
+                            and ransomware encrypts files for ransom. Always use antivirus software, keep systems
+                            updated, and be cautious of suspicious emails and links to stay protected.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="Email and Cloud Concepts.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Previous
+                </a>
+                <div class="text-center text-xs italic text-gray-600 flex items-center">
+                    Developed By Md Parvez
+                </div>
+                <a href="#"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Next
+                </a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Computer Fundamentals for SSC MTS Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

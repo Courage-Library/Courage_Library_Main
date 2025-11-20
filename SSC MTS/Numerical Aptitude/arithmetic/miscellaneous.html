@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Miscellaneous Topics for competitive exams like Delhi Police and SSC. Learn algebraic simplification, probability, permutation & combination with examples." />
+    <meta name="keywords"
+        content="Algebraic Simplification, Probability, Permutation Combination, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Miscellaneous Topics | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Miscellaneous Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Miscellaneous Topics
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="algebraic-simplification.html" class="nav-link" title="Algebraic Simplification">Algebraic Simplification</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="probability.html" class="nav-link" title="Probability">Probability</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="permutation-combination.html" class="nav-link" title="Permutation & Combination">Permutation & Combination</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Miscellaneous Topics</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Algebraic Simplification Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Algebraic Simplification</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Definition</h3>
+                            <p class="text-gray-700">
+                                Algebraic simplification means reducing an algebraic expression to its simplest form by using basic algebraic identities and operations.
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Basic Concepts</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded border">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Algebraic Expression</h4>
+                                    <p class="text-gray-700">Combination of constants, variables, and mathematical operators (+, −, ×, ÷).</p>
+                                    <p class="text-gray-700 font-semibold">Example: 3x + 2y − 5</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Like Terms</h4>
+                                    <p class="text-gray-700">Terms with the same variables and powers.</p>
+                                    <p class="text-gray-700 font-semibold">Example: 3x, −5x are like terms.</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Unlike Terms</h4>
+                                    <p class="text-gray-700">Terms with different variables or powers.</p>
+                                    <p class="text-gray-700 font-semibold">Example: 2x, 3y are unlike terms.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">Common Algebraic Identities</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-lg font-semibold text-center">(a + b)² = a² + 2ab + b²</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-lg font-semibold text-center">(a - b)² = a² - 2ab + b²</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-lg font-semibold text-center">(a + b)(a - b) = a² - b²</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-lg font-semibold text-center">(a + b + c)² = a² + b² + c² + 2(ab + bc + ca)</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-lg font-semibold text-center">(a - b)³ = a³ - b³ - 3ab(a - b)</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <p class="text-lg font-semibold text-center">(a + b)³ = a³ + b³ + 3ab(a + b)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-3">Tips</h3>
+                            <ul class="list-disc ml-5 space-y-2 text-gray-700">
+                                <li>Combine like terms.</li>
+                                <li>Apply identities wherever possible.</li>
+                                <li>Simplify brackets using BODMAS rule.</li>
+                                <li>Substitute values if variables are given.</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Example</h3>
+                            <p class="text-gray-700 mb-2">Simplify: (x + 2)² − (x − 3)²</p>
+                            <div class="bg-white p-4 rounded border">
+                                <p class="text-gray-700">⇒ [x² + 4x + 4] − [x² − 6x + 9]</p>
+                                <p class="text-gray-700">⇒ 4x + 6x + 4 − 9 = 10x − 5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Probability Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Probability (Basic)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Definition</h3>
+                            <p class="text-gray-700">
+                                Probability measures the likelihood of an event happening.
+                            </p>
+                            <div class="bg-white p-4 rounded border mt-3 text-center">
+                                <p class="text-xl font-semibold">Probability (P) = Favourable Outcomes / Total Possible Outcomes</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Important Points</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded border">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Range</h4>
+                                    <p class="text-gray-700">0 ≤ P(E) ≤ 1</p>
+                                    <p class="text-gray-700">P(E) = 0: Impossible event</p>
+                                    <p class="text-gray-700">P(E) = 1: Certain event</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Complementary Events</h4>
+                                    <p class="text-gray-700">P(E) + P(not E) = 1</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border md:col-span-2">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Equally Likely Events</h4>
+                                    <p class="text-gray-700">All outcomes have equal chances.</p>
+                                    <p class="text-gray-700 font-semibold">Example: Tossing a fair coin → {H, T}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">Common Examples</h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded border text-center">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Coin</h4>
+                                    <p class="text-gray-700">2 outcomes</p>
+                                    <p class="text-gray-700">P(Head) = 1/2</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border text-center">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Dice</h4>
+                                    <p class="text-gray-700">6 outcomes</p>
+                                    <p class="text-gray-700">P(odd number) = 3/6 = 1/2</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border text-center">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Cards (52 cards)</h4>
+                                    <p class="text-gray-700">P(ace) = 4/52 = 1/13</p>
+                                    <p class="text-gray-700">P(king or queen) = 8/52 = 2/13</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Example</h3>
+                            <p class="text-gray-700 mb-2">Find the probability of drawing a red card from a deck of 52 cards.</p>
+                            <div class="bg-white p-4 rounded border">
+                                <p class="text-gray-700">Red cards = 26</p>
+                                <p class="text-gray-700">P = 26/52 = 1/2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permutation & Combination Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Permutation & Combination (Basic)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Permutation -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Permutation</h3>
+                            <p class="text-gray-700 mb-3">
+                                Arrangement of objects in a particular order.
+                            </p>
+                            <div class="bg-white p-4 rounded border mb-3 text-center">
+                                <p class="text-xl font-semibold">nPr = n! / (n - r)!</p>
+                            </div>
+                            <div class="bg-white p-4 rounded border">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">Example</h4>
+                                <p class="text-gray-700">How many ways can 3 students be seated in 3 chairs?</p>
+                                <p class="text-gray-700">3P3 = 3! = 6 ways</p>
+                            </div>
+                        </div>
+
+                        <!-- Combination -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Combination</h3>
+                            <p class="text-gray-700 mb-3">
+                                Selection of objects without considering order.
+                            </p>
+                            <div class="bg-white p-4 rounded border mb-3 text-center">
+                                <p class="text-xl font-semibold">nCr = n! / [r! × (n - r)!]</p>
+                            </div>
+                            <div class="bg-white p-4 rounded border">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">Example</h4>
+                                <p class="text-gray-700">How many ways can 2 students be chosen from 4?</p>
+                                <p class="text-gray-700">4C2 = 4! / (2! × 2!) = 6</p>
+                            </div>
+                        </div>
+
+                        <!-- Key Differences -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">Key Differences</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-purple-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Concept</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Order Matters?</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">Permutation</td>
+                                            <td class="border border-gray-300 px-4 py-2">Yes</td>
+                                            <td class="border border-gray-300 px-4 py-2">nPr = n! / (n - r)!</td>
+                                            <td class="border border-gray-300 px-4 py-2">Arranging 3 people in a line</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">Combination</td>
+                                            <td class="border border-gray-300 px-4 py-2">No</td>
+                                            <td class="border border-gray-300 px-4 py-2">nCr = n! / [r! × (n - r)!]</td>
+                                            <td class="border border-gray-300 px-4 py-2">Selecting 3 players for a team</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Revision Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Quick Revision Table</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-blue-100">
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Topic</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula / Concept</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Probability</td>
+                                    <td class="border border-gray-300 px-4 py-2">Favourable / Total outcomes</td>
+                                    <td class="border border-gray-300 px-4 py-2">P(get 6 on dice) = 1/6</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">Permutation</td>
+                                    <td class="border border-gray-300 px-4 py-2">nPr = n! / (n - r)!</td>
+                                    <td class="border border-gray-300 px-4 py-2">3P2 = 6</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Combination</td>
+                                    <td class="border border-gray-300 px-4 py-2">nCr = n! / [r! × (n - r)!]</td>
+                                    <td class="border border-gray-300 px-4 py-2">4C2 = 6</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">Algebraic Simplification</td>
+                                    <td class="border border-gray-300 px-4 py-2">Apply identities, combine like terms</td>
+                                    <td class="border border-gray-300 px-4 py-2">(a+b)² = a²+2ab+b²</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Tips Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Exam Tips for SSC MTS</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <ul class="list-disc ml-5 space-y-2 text-gray-700">
+                        <li>Practice simplification of algebraic expressions regularly.</li>
+                        <li>Revise factorial and basic probability questions from previous years.</li>
+                        <li>Understand when order matters (Permutation) and when it doesn't (Combination).</li>
+                        <li>Focus on simple real-life based problems (coins, dice, cards).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Miscellaneous Topics!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Regular practice of these miscellaneous topics will help you score valuable marks in SSC MTS exams. Focus on understanding the fundamental concepts rather than memorizing formulas. Apply logical reasoning to solve probability and permutation-combination problems quickly.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="data-interpretation.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Miscellaneous Topics for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Trains, Boats & Streams – Complete formulas, concepts, shortcuts, and 15 solved practice questions for SSC GD, SSC MTS, SSC CGL, CHSL, Delhi Police, and other competitive exams. Covers train crossing, relative speed, upstream–downstream, and boat-stream formulas." />
+
+    <meta name="keywords"
+        content="Trains Boats and Streams, train crossing formulas, boat and stream problems, upstream downstream speed, SSC maths, Delhi Police maths, Railway maths, aptitude speed distance time, competitive exam maths, Courage Library" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Trains, Boats & Streams – Formulas, Concepts & Practice Questions | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Time Speed and Distance Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        G. Time, Speed and Distance
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="basic-formulae.html" class="nav-link" title="Basic Formulae">
+                                Basic Formulae
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="relative-speed.html" class="nav-link" title="Relative Speed">
+                                Relative Speed
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="trains-boats-streams.html" class="nav-link" title="Trains, Boats, and Streams">
+                                Trains, Boats, and Streams
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">🚆 Trains, Boats & Streams – Complete
+                    Notes</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam Preparation - Quantitative
+                    Aptitude</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- PART 1: TRAINS Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">PART–1: TRAINS</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <!-- Basic Formulas -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">1️⃣ Basic Formulas</h3>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Speed Formula</h4>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-xl font-mono text-purple-800">Speed = Distance / Time</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Train Crossing a Pole -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">2️⃣ Train Crossing a Pole</h3>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-gray-700 mb-3">A pole has <strong>no length</strong>, so train must cover
+                                <strong>its own length</strong>.</p>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-xl font-mono text-purple-800">Time = Length of Train / Speed</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Train Crossing a Platform -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-purple-800 mb-4">3️⃣ Train Crossing a Platform</h3>
+                        <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                            <p class="text-gray-700 mb-3">Must cover its own length + platform length.</p>
+                            <div class="bg-purple-100 p-4 rounded-lg border border-purple-300 text-center">
+                                <p class="text-xl font-mono text-purple-800">Time = (Train Length + Platform Length) /
+                                    Speed</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Two Trains Crossing -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">4️⃣ Two Trains Crossing Each Other</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Opposite Direction -->
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h4 class="text-lg font-bold text-red-800 mb-2">⦿ Opposite Direction</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">Relative Speed = S₁ + S₂</p>
+                                    </div>
+                                    <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">Time = (L₁ + L₂) / (S₁ + S₂)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Same Direction -->
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="text-lg font-bold text-blue-800 mb-2">⦿ Same Direction</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">Relative Speed = S₁ - S₂</p>
+                                    </div>
+                                    <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">Time = (L₁ + L₂) / (S₁ - S₂)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PART 2: BOATS & STREAMS Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">PART–2: BOATS & STREAMS</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <!-- Basic Terms -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">5️⃣ Basic Terms</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <ul class="text-gray-700 space-y-2">
+                                    <li>• <strong>Still Water Speed (Boat speed) = B</strong></li>
+                                    <li>• <strong>Stream Speed = S</strong></li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <ul class="text-gray-700 space-y-2">
+                                    <li>• <strong>Downstream = (B + S)</strong></li>
+                                    <li>• <strong>Upstream = (B – S)</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulas -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-green-800 mb-4">6️⃣ Formulas</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Downstream & Upstream -->
+                            <div class="space-y-4">
+                                <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                    <h4 class="text-lg font-bold text-blue-800 mb-2">Downstream:</h4>
+                                    <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">Speed_D = B + S</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <h4 class="text-lg font-bold text-green-800 mb-2">Upstream:</h4>
+                                    <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">Speed_U = B - S</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Boat & Stream Speed -->
+                            <div class="space-y-4">
+                                <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                    <h4 class="text-lg font-bold text-purple-800 mb-2">Finding Boat Speed (B):</h4>
+                                    <div class="bg-purple-100 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">B = (U + D) / 2</p>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                    <h4 class="text-lg font-bold text-yellow-800 mb-2">Finding Stream Speed (S):</h4>
+                                    <div class="bg-purple-100 p-3 rounded-lg text-center">
+                                        <p class="text-purple-800 font-mono">S = (D - U) / 2</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PART 3: Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🧠 PART–3: Practice Questions (15 with Answers)
+                </h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Test your trains, boats & streams concepts with these SSC GD
+                        level practice questions. Click on "View Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. A train 150 m long crosses a pole
+                                in 15 sec. Find its speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Speed = 150/15 = 10 m/s = 36 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. A 300 m train crosses a 200 m
+                                platform in 25 sec. Find speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Distance = 300 + 200 = 500 m, Speed = 500/25 =
+                                        20 m/s = 72 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Train A (200 m) and Train B (300 m)
+                                run in opposite directions at 54 km/h and 36 km/h. Time to cross?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative speed = 54+36 = 90 km/h = 25 m/s,
+                                        Distance = 200+300 = 500 m, Time = 500/25 = 20 sec</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Two trains (150 m & 250 m) in same
+                                direction at 60 km/h & 42 km/h. Crossing time?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative speed = 18 km/h = 5 m/s, Distance =
+                                        150+250 = 400 m, Time = 400/5 = 80 sec</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. A boat travels 30 km downstream in
+                                3 hours. Find downstream speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Speed = 30/3 = 10 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. Upstream speed = 6 km/h, downstream
+                                speed = 10 km/h. Find boat speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">B = (6+10)/2 = 8 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. Upstream = 8 km/h, Stream speed = 2
+                                km/h. Find boat speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">B = U + S = 8 + 2 = 10 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. Boat speed = 12 km/h, stream = 3
+                                km/h. Find upstream speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">U = B − S = 12 − 3 = 9 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. A boat covers 20 km upstream in 4
+                                hours. Find upstream speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">U = 20/4 = 5 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. A train running at 72 km/h crosses
+                                a pole in 10 sec. Find length.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">72 km/h = 20 m/s, Length = 20 × 10 = 200 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 11 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. A 240 m train crosses a man in 12
+                                sec. Find speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Speed = 240/12 = 20 m/s = 72 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 12 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. Upstream speed = 4 km/h,
+                                downstream = 16 km/h. Find stream speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">S = (16 − 4)/2 = 6 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 13 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. A boat takes 2 hours for 20 km
+                                downstream. Find downstream speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">D = 20/2 = 10 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 14 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. If boat speed = 15 km/h and
+                                downstream speed = 20 km/h, find stream speed.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">S = D − B = 20 − 15 = 5 km/h</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 15 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. Train A (120 m) crosses Train B
+                                (180 m) in 12 sec. Relative speed = 25 m/s. Find direction.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Distance = 300 m, Speed = 300/12 = 25 m/s,
+                                        Matches given relative speed = opposite direction.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ SSC GD Exam Strategy</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Remember <strong>train length calculations</strong> for poles vs platforms
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Practice <strong>relative speed formulas</strong> for train crossings
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Master <strong>boats & streams formulas</strong> (B = (U+D)/2, S = (D-U)/2)
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Learn to quickly convert between <strong>km/h and m/s</strong>
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Time yourself - aim for <strong>45-60 seconds per question</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Trains, Boats & Streams
+                        Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">SSC GD Tip: Trains, Boats & Streams are high-scoring topics in
+                            the quantitative section. Focus on mastering the key formulas - for trains remember to add
+                            lengths when crossing platforms or other trains, and for boats remember the relationships
+                            between upstream, downstream, boat speed, and stream speed. Practice unit conversions and
+                            relative speed calculations as they frequently appear in exams. Regular practice with
+                            previous year SSC GD questions will build your speed and accuracy in solving these problems
+                            efficiently.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="previous-topic.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="next-topic.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Trains, Boats & Streams for SSC GD
+                    Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive SSC GD study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Start Your SSC GD Preparation!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

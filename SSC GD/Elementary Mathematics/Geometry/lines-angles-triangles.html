@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Geometry basics: Lines, Angles, and Triangles explained with types, properties, formulas, and 15 practice questions with answers. Learn perimeter, area, Pythagoras theorem, Heron's formula, and key angle rules for SSC, Banking & competitive exams." />
+
+    <meta name="keywords"
+        content="Geometry, Lines, Angles, Triangles, Types of triangles, Angle properties, Pythagoras theorem, Heron's formula, Triangle area, Triangle perimeter, Parallel lines, Perpendicular lines, Competitive exam maths, SSC, Banking" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Geometry: Lines, Angles & Triangles – Formulas, Properties & Practice Questions | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Geometry Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        K. Geometry
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="lines-angles-triangles.html" class="nav-link" title="Lines, Angles, Triangles">
+                                Lines, Angles, Triangles
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="circles-quadrilaterals.html" class="nav-link" title="Circles, Quadrilaterals">
+                                Circles, Quadrilaterals
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="basic-theorems.html" class="nav-link" title="Basic Theorems">
+                                Basic Theorems
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">📐 Geometry: Lines, Angles & Triangles
+                </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam Preparation - Quantitative
+                    Aptitude</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        Geometry is a branch of mathematics that deals with <strong>shapes, sizes, and properties of
+                            figures</strong>. In competitive exams, questions often focus on <strong>basic properties,
+                            formulas, and simple problem-solving</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Lines Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 1. Lines</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Types of Lines:</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Parallel Lines</p>
+                                <p class="text-gray-600 text-sm">Never meet, same direction</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Perpendicular Lines</p>
+                                <p class="text-gray-600 text-sm">Intersect at 90°</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Intersecting Lines</p>
+                                <p class="text-gray-600 text-sm">Cross at any angle except 90°</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h4 class="text-lg font-bold text-green-800 mb-2">Properties:</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Sum of angles on a straight line = 180°</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Vertically opposite angles are equal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Angles Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 2. Angles</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Types of Angles:</h4>
+                        <div class="grid md:grid-cols-4 gap-4 text-center">
+                            <div class="p-3 bg-white rounded border border-gray-200">
+                                <p class="text-gray-800 font-semibold">Acute Angle</p>
+                                <p class="text-gray-600">&lt; 90°</p>
+                            </div>
+                            <div class="p-3 bg-white rounded border border-gray-200">
+                                <p class="text-gray-800 font-semibold">Right Angle</p>
+                                <p class="text-gray-600">= 90°</p>
+                            </div>
+                            <div class="p-3 bg-white rounded border border-gray-200">
+                                <p class="text-gray-800 font-semibold">Obtuse Angle</p>
+                                <p class="text-gray-600">&gt; 90°</p>
+                            </div>
+                            <div class="p-3 bg-white rounded border border-gray-200">
+                                <p class="text-gray-800 font-semibold">Straight Angle</p>
+                                <p class="text-gray-600">= 180°</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h4 class="text-lg font-bold text-green-800 mb-2">Key Angle Rules:</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Sum of angles at a point = 360°</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Sum of angles on a straight line = 180°</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Sum of angles in a triangle = 180°</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Sum of angles in a quadrilateral = 360°</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Triangles Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 3. Triangles</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <!-- Types by Sides -->
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Types of Triangles (By Sides):</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Equilateral</p>
+                                <p class="text-gray-600">All sides equal</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Isosceles</p>
+                                <p class="text-gray-600">Two sides equal</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Scalene</p>
+                                <p class="text-gray-600">All sides unequal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Types by Angles -->
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Types of Triangles (By Angles):</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Acute</p>
+                                <p class="text-gray-600">All angles &lt; 90°</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Right</p>
+                                <p class="text-gray-600">One angle = 90°</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Obtuse</p>
+                                <p class="text-gray-600">One angle &gt; 90°</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulas -->
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200 mb-6">
+                        <h4 class="text-lg font-bold text-green-800 mb-2">Key Formulas:</h4>
+                        <div class="space-y-4">
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Perimeter of Triangle: P = a + b + c</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Area (Heron's Formula): s = (a+b+c)/2, Area =
+                                    √[s(s-a)(s-b)(s-c)]</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Area (base × height): ½ × base × height</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Properties -->
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <h4 class="text-lg font-bold text-yellow-800 mb-2">Important Properties:</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Sum of angles = 180°</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                <p class="text-green-700 font-mono">Pythagoras Theorem: a² + b² = c² (Right Triangle)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🧠 Practice Section: 15 Questions (With Answers)
+                </h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Each Q followed by its Answer (SSC style). Click on "View
+                        Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. Find the 3rd angle of a triangle if
+                                two angles are 50° and 60°</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">180 - (50 + 60) = 70°</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. A triangle has sides 3, 4, 5. Is it
+                                right-angled?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Yes, 3² + 4² = 5² ⇒ 9 + 16 = 25</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Sum of angles on a straight line =
+                                ?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">180°</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Vertically opposite angles are:
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Equal</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. If one angle of a triangle is 90°
+                                and another is 30°, find the 3rd angle</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">180 - 90 - 30 = 60°</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. Length of hypotenuse in a right
+                                triangle with sides 6 and 8</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">√(6² + 8²) = √(36 + 64) = √100 = 10</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. Area of triangle with base 10 and
+                                height 6</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">½ × 10 × 6 = 30</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. Sum of angles in a quadrilateral
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">360°</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. Two parallel lines are cut by a
+                                transversal. Alternate angles are:</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Equal</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. Perimeter of triangle with sides
+                                5, 7, 8</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">5 + 7 + 8 = 20</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 11 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. Area of triangle using Heron's
+                                formula with sides 3, 4, 5</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">s = (3+4+5)/2 = 6, Area = √[6(6-3)(6-4)(6-5)]
+                                        = √[6×3×2×1] = √36 = 6</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 12 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. Type of triangle with angles 60°,
+                                60°, 60°</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Equilateral & Acute</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 13 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. Find missing angle if angles are
+                                in ratio 2:3:4</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Sum = 180, let angles = 2x,3x,4x → 9x=180 →
+                                        x=20 → angles = 40°, 60°, 80°</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 14 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. If a triangle has sides 7, 24, 25,
+                                is it right-angled?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Yes, 7² + 24² = 49 + 576 = 625 = 25²</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 15 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. In a right triangle, if one angle
+                                is 45°, find the other acute angle</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">90 - 45 = 45°</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ SSC GD Exam Strategy</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Memorize all <strong>angle properties and triangle types</strong>
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Practice <strong>Pythagoras theorem</strong> applications
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Master <strong>Heron's formula</strong> for area calculations
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Learn to identify <strong>triangle types</strong> quickly
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Time yourself - aim for <strong>30-45 seconds per geometry problem</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Geometry: Lines, Angles &
+                        Triangles!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">SSC GD Tip: Mastering basic geometry concepts is essential for
+                            solving spatial reasoning problems efficiently. Remember the fundamental angle properties,
+                            triangle classifications, and key formulas like Pythagoras theorem and Heron's formula.
+                            Regular practice with previous year SSC GD questions will build your speed and accuracy. Pay
+                            special attention to right triangles and angle calculation problems as they frequently
+                            appear in exams. Visualizing the geometric figures can help you solve problems faster and
+                            more accurately.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="#"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="circles-quadrilaterals.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Geometry for SSC GD Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive SSC GD study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Start Your SSC GD Preparation!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

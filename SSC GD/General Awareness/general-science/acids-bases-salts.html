@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Comprehensive notes on Acids, Bases, and Salts for SSC GD GK preparation. Learn about chemical properties, reactions, pH scale, and important compounds for competitive exams." />
+    <meta name="keywords"
+        content="Acids, Bases, Salts, Chemistry, SSC GD GK, Science, competitive exams, Delhi Police exam, SSC preparation" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Acids, Bases, Salts | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="General Knowledge Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Science Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Science & Chemistry
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="physics-basics.html" class="nav-link" title="Physics Basics">Physics Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="electricity-light-sound.html" class="nav-link" title="Electricity, Light, Sound">Electricity, Light, Sound</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="acids-bases-salts.html" class="nav-link" title="Acids, Bases, Salts">Acids, Bases, Salts</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="biology-basics.html" class="nav-link" title="Biology Basics">Biology Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Acids, Bases, Salts</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Complete SSC GD Syllabus Coverage</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Acids, bases, and salts are among the most important Chemistry topics asked in SSC GD, SSC CGL, CHSL, Railways, and state-level exams.
+                        This article covers definitions, properties, examples, reactions, uses, and common questions.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 1. Acids Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What Are Acids?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <p class="text-gray-700 font-medium">Acids are substances that produce hydrogen ions (H⁺) in water.</p>
+                        </div>
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <p class="text-gray-700 font-medium">Simple Definition: Acids are sour substances that turn blue litmus paper red.</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-red-100 rounded-lg">
+                            <p class="text-gray-700 font-semibold">Taste: Sour</p>
+                        </div>
+                        <div class="p-3 bg-red-100 rounded-lg">
+                            <p class="text-gray-700 font-semibold">Ions produced: H⁺ ions</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Types of Acids Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Acids</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <h3 class="text-lg font-bold text-orange-800 mb-2">Mineral (Inorganic) Acids</h3>
+                            <p class="text-gray-700 font-semibold mb-2">Examples:</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Hydrochloric acid (HCl)</li>
+                                <li>Sulphuric acid (H₂SO₄)</li>
+                                <li>Nitric acid (HNO₃)</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Organic Acids</h3>
+                            <p class="text-gray-700 font-semibold mb-2">Examples:</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Acetic acid (vinegar)</li>
+                                <li>Citric acid (lemons)</li>
+                                <li>Lactic acid (curd)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Daily Life Acids Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Examples of Acids in Daily Life</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Lemon juice → Citric acid</li>
+                                <li>Vinegar → Acetic acid</li>
+                                <li>Curd → Lactic acid</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Ant sting → Formic acid</li>
+                                <li>Tamarind → Tartaric acid</li>
+                                <li>Apple → Malic acid</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Properties of Acids Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Properties of Acids</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Sour in taste</li>
+                                <li>Turn blue litmus red</li>
+                                <li>React with metals to produce hydrogen gas</li>
+                                <li>Conduct electricity in solution</li>
+                                <li>Corrosive in nature (especially mineral acids)</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <h3 class="text-lg font-bold text-orange-800 mb-2">Example Reaction:</h3>
+                            <p class="text-gray-700 text-xl font-mono bg-white p-3 rounded border">Zn + 2HCl → ZnCl₂ + H₂</p>
+                            <p class="text-gray-700 mt-2">(Zinc + Hydrochloric acid → Zinc chloride + Hydrogen gas)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Bases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. What Are Bases?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-700 font-medium">Bases are substances that produce hydroxide ions (OH⁻) in water.</p>
+                        </div>
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <p class="text-gray-700 font-medium">Simple Definition: Bases are bitter substances that turn red litmus paper blue.</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-blue-100 rounded-lg">
+                            <p class="text-gray-700 font-semibold">Taste: Bitter</p>
+                        </div>
+                        <div class="p-3 bg-blue-100 rounded-lg">
+                            <p class="text-gray-700 font-semibold">Touch: Slippery (soapy)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Types of Bases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Types of Bases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Soluble bases → Alkalis</h3>
+                            <p class="text-gray-700 font-semibold mb-2">Examples:</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Sodium hydroxide (NaOH)</li>
+                                <li>Potassium hydroxide (KOH)</li>
+                                <li>Calcium hydroxide (lime water) Ca(OH)₂</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                            <h3 class="text-lg font-bold text-indigo-800 mb-2">Insoluble bases</h3>
+                            <p class="text-gray-700 font-semibold mb-2">Examples:</p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Iron hydroxide</li>
+                                <li>Copper hydroxide</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Daily Life Bases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Examples of Bases in Daily Life</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Soap → Sodium or potassium salts</li>
+                                <li>Toothpaste → Mild bases</li>
+                                <li>Milk of magnesia → Magnesium hydroxide</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Lime water → Calcium hydroxide</li>
+                                <li>Bleaching powder → Contains Ca(OH)₂</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Properties of Bases Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Properties of Bases</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Bitter in taste</li>
+                            <li>Turn red litmus blue</li>
+                            <li>React with acids to form salt and water</li>
+                            <li>Caustic (burning) in nature</li>
+                            <li>Conduct electricity</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Salts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. What Are Salts?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-gray-700 font-medium">A salt is formed when an acid reacts with a base.</p>
+                            <p class="text-gray-700 mt-2 font-bold">Salt = Acid + Base Reaction</p>
+                            <p class="text-gray-700">This reaction is called Neutralization.</p>
+                        </div>
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="text-lg font-bold text-teal-800 mb-2">Example:</h3>
+                            <p class="text-gray-700 text-xl font-mono bg-white p-3 rounded border">HCl + NaOH → NaCl + H₂O</p>
+                            <p class="text-gray-700 mt-2">(Hydrochloric acid + Sodium hydroxide → Sodium chloride + Water)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Types of Salts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Types of Salts</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Normal Salt</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Formed by complete neutralization</li>
+                                <li>Example: NaCl, KCl</li>
+                            </ul>
+
+                            <h3 class="text-lg font-bold text-green-800 mt-4 mb-2">Acidic Salt</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Formed when base is not fully replaced</li>
+                                <li>Example: NaHSO₄</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="text-lg font-bold text-teal-800 mb-2">Basic Salt</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Formed when acid is not fully replaced</li>
+                                <li>Example: MgClOH</li>
+                            </ul>
+
+                            <h3 class="text-lg font-bold text-teal-800 mt-4 mb-2">Double Salt</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Contains more than one basic or acidic radical</li>
+                                <li>Example: Alum</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-gray-700 font-medium">(SSC GD usually asks Normal and Common Salts)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. Common Salts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">11. Examples of Common Salts</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Table salt → Sodium chloride (NaCl)</li>
+                                <li>Baking soda → Sodium bicarbonate (NaHCO₃)</li>
+                                <li>Washing soda → Sodium carbonate (Na₂CO₃·10H₂O)</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Bleaching powder → CaOCl₂</li>
+                                <li>Gypsum → CaSO₄·2H₂O</li>
+                                <li>Plaster of Paris → CaSO₄·0.5H₂O</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. Important Compounds Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">12. Important Chemical Compounds Asked in SSC GD</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h3 class="text-lg font-bold text-yellow-800 mb-2">Baking Soda</h3>
+                                <p class="text-gray-700 font-mono">NaHCO₃</p>
+                                <p class="text-gray-700">Used in cooking, antacid</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h3 class="text-lg font-bold text-green-800 mb-2">Washing Soda</h3>
+                                <p class="text-gray-700 font-mono">Na₂CO₃·10H₂O</p>
+                                <p class="text-gray-700">Used in washing clothes, softening water</p>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h3 class="text-lg font-bold text-blue-800 mb-2">Bleaching Powder</h3>
+                                <p class="text-gray-700 font-mono">CaOCl₂</p>
+                                <p class="text-gray-700">Used in disinfecting water</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h3 class="text-lg font-bold text-red-800 mb-2">Vinegar</h3>
+                                <p class="text-gray-700 font-mono">CH₃COOH (Acetic acid)</p>
+                            </div>
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h3 class="text-lg font-bold text-purple-800 mb-2">Lime Water</h3>
+                                <p class="text-gray-700 font-mono">Ca(OH)₂</p>
+                                <p class="text-gray-700">Turns milky with CO₂</p>
+                            </div>
+                            <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <h3 class="text-lg font-bold text-indigo-800 mb-2">Plaster of Paris (POP)</h3>
+                                <p class="text-gray-700 font-mono">CaSO₄·0.5H₂O</p>
+                                <p class="text-gray-700">Used for casts, statues</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. Indicators Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">13. Indicators</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">Indicators show whether a substance is acid or base.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <h3 class="text-lg font-bold text-pink-800 mb-2">Natural Indicators:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Litmus (from lichens)</li>
+                                <li>Red cabbage juice</li>
+                                <li>Turmeric</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Chemical Indicators:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Phenolphthalein</li>
+                                <li>Methyl orange</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">Litmus</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Acid → red</li>
+                                <li>Base → blue</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Turmeric</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Acid → yellow</li>
+                                <li>Base → red or brown</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <h3 class="text-lg font-bold text-pink-800 mb-2">Phenolphthalein</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Acid → colorless</li>
+                                <li>Base → pink</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. pH Scale Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">14. pH Scale</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-gradient-to-r from-red-400 via-green-400 to-blue-400 rounded-lg text-white">
+                            <h3 class="text-lg font-bold mb-2">pH measures the acidity or basicity of a solution.</h3>
+                            <p class="text-xl font-bold">Range: 0 to 14</p>
+                            <div class="mt-4 space-y-2">
+                                <p class="font-semibold">pH < 7 → Acid</p>
+                                <p class="font-semibold">pH = 7 → Neutral</p>
+                                <p class="font-semibold">pH > 7 → Base</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">Examples:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Lemon juice → pH 2</li>
+                                <li>Milk → pH 6.5</li>
+                                <li>Water → pH 7</li>
+                                <li>Soap → pH 10</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 15. Neutralization Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">15. Neutralization Reaction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-gray-700 text-xl font-mono text-center">Acid + Base → Salt + Water</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Examples:</h3>
+                            <p class="text-gray-700 font-mono mb-2">HCl + NaOH → NaCl + H₂O</p>
+                            <p class="text-gray-700 font-mono">H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">Applications:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Treatment of ant bites (use base)</li>
+                                <li>Acid indigestion (use antacid)</li>
+                                <li>Soil treatment in agriculture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 16. Hard and Soft Water Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">16. Hard and Soft Water</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Hard Water</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Contains calcium and magnesium salts</li>
+                                <li>Forms less lather with soap</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Soft Water</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Contains no calcium or magnesium</li>
+                                <li>Forms lather easily</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <h3 class="text-lg font-bold text-yellow-800 mb-2">Hardness Removal:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Boiling</li>
+                            <li>Adding washing soda</li>
+                            <li>Ion exchange method</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 17. Important Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">17. Important Chemistry Questions for SSC GD</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Acid turns blue litmus → red</li>
+                                <li>Base turns red litmus → blue</li>
+                                <li>Baking soda formula → NaHCO₃</li>
+                                <li>Washing soda formula → Na₂CO₃·10H₂O</li>
+                                <li>Bleaching powder → CaOCl₂</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>POP → CaSO₄·0.5H₂O</li>
+                                <li>Gypsum → CaSO₄·2H₂O</li>
+                                <li>Ant bite contains → Formic acid</li>
+                                <li>Vinegar contains → Acetic acid</li>
+                                <li>Neutralization → Acid + base reaction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="electricity-light-sound.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Satyam kumar
+                </div>
+                <a href="biology-basics.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Chemistry for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../../../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

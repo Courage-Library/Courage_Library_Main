@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Difference between Simple Interest (SI) and Compound Interest (CI) with formulas, examples, growth comparison, key differences table, and 10 solved practice questions. Perfect for SSC, Banking, Railway, Defence & all competitive exams." />
+
+    <meta name="keywords"
+        content="Simple Interest vs Compound Interest, SI and CI difference, SI CI formulas, CI yearly compounding, SI vs CI table, aptitude maths, SSC maths notes, exam preparation, Courage Library" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Difference Between Simple & Compound Interest (SI vs CI) – Formulas, Examples & Questions | Courage Library
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Simple and Compound Interest Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        H. Simple & Compound Interest
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="basic-formulas.html" class="nav-link" title="Basic Formulas">
+                                Basic Formulas
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="difference-between-si-ci.html" class="nav-link"
+                                title="Difference Between SI and CI">
+                                Difference Between SI and CI
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="annual-half-yearly.html" class="nav-link"
+                                title="Annual & Half-Yearly Calculations">
+                                Annual & Half-Yearly Calculations
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">⭐ Difference Between Simple Interest (SI)
+                    and Compound Interest (CI)</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam Preparation - Quantitative
+                    Aptitude</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Basic Definition Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 1. Basic Definition</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Simple Interest -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Simple Interest (SI)</h4>
+                            <p class="text-gray-700">Interest is calculated <strong>only on the principal</strong>
+                                throughout the time period.</p>
+                        </div>
+
+                        <!-- Compound Interest -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Compound Interest (CI)</h4>
+                            <p class="text-gray-700">Interest is calculated on <strong>principal + accumulated
+                                    interest</strong> (i.e., interest on interest).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Formula Comparison Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 2. Formula Comparison</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Interest Type</th>
+                                    <th class="px-4 py-3">Formula</th>
+                                    <th class="px-4 py-3">Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium text-blue-800">Simple Interest (SI)</td>
+                                    <td class="px-4 py-3 font-mono">SI = (P × R × T) / 100</td>
+                                    <td class="px-4 py-3">Interest remains constant every year</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium text-green-800">Compound Interest (CI)</td>
+                                    <td class="px-4 py-3 font-mono">A = P(1 + R/100)<sup>T</sup><br>CI = A - P</td>
+                                    <td class="px-4 py-3">Interest increases every year due to compounding</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How Interest Grows Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 3. How Interest Grows?</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- SI Growth -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">SI:</h4>
+                            <p class="text-gray-700 mb-3">Interest <strong>does not change</strong> every year.</p>
+                            <div class="bg-blue-100 p-3 rounded-lg">
+                                <p class="text-blue-800 font-semibold">Example:</p>
+                                <p class="text-blue-700">On ₹1000 at 10% → Interest every year = ₹100</p>
+                            </div>
+                        </div>
+
+                        <!-- CI Growth -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">CI:</h4>
+                            <p class="text-gray-700 mb-3">Interest <strong>keeps increasing</strong> every year.</p>
+                            <div class="bg-green-100 p-3 rounded-lg">
+                                <p class="text-green-800 font-semibold">Example:</p>
+                                <p class="text-green-700">On ₹1000 at 10%:</p>
+                                <ul class="text-green-700 text-sm mt-2 space-y-1">
+                                    <li>• Year 1: ₹100</li>
+                                    <li>• Year 2: Interest on ₹1100 = ₹110</li>
+                                    <li>• Year 3: Interest on ₹1210 = ₹121</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Differences Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 4. Key Differences (Easy Table)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Basis</th>
+                                    <th class="px-4 py-3">Simple Interest (SI)</th>
+                                    <th class="px-4 py-3">Compound Interest (CI)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Calculation</td>
+                                    <td class="px-4 py-3">Only on principal</td>
+                                    <td class="px-4 py-3">On principal + interest</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Interest per year</td>
+                                    <td class="px-4 py-3">Same every year</td>
+                                    <td class="px-4 py-3">Increases every year</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Total Amount</td>
+                                    <td class="px-4 py-3 font-mono">A = P + SI</td>
+                                    <td class="px-4 py-3 font-mono">A = P(1 + R/100)<sup>T</sup></td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Growth</td>
+                                    <td class="px-4 py-3">Linear</td>
+                                    <td class="px-4 py-3">Exponential</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Return</td>
+                                    <td class="px-4 py-3">Lower</td>
+                                    <td class="px-4 py-3">Higher</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Used in</td>
+                                    <td class="px-4 py-3">Loans, EMI, bank deposits</td>
+                                    <td class="px-4 py-3">Investments, credit cards, business loans</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Example Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 5. Small Example to Show the Difference</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6 text-center">If P = ₹1000, R = 10%, T = 2 years:</p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Simple Interest Example -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Simple Interest</h4>
+                            <div class="space-y-2">
+                                <p class="text-gray-700">SI = (1000×10×2)/100 = <strong>₹200</strong></p>
+                                <p class="text-gray-700">Amount = 1000 + 200 = <strong>₹1200</strong></p>
+                            </div>
+                        </div>
+
+                        <!-- Compound Interest Example -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Compound Interest</h4>
+                            <div class="space-y-2">
+                                <p class="text-gray-700">A = 1000(1.10)² = 1000 × 1.21 = <strong>₹1210</strong></p>
+                                <p class="text-gray-700">CI = 1210 − 1000 = <strong>₹210</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-6 text-center">
+                        <p class="text-yellow-800 font-semibold text-lg">👉 Difference = 210 − 200 = ₹10</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🧠 Practice Section: 10 Practice Questions (With
+                    Answers)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Test your understanding of SI vs CI with these SSC GD level
+                        practice questions. Click on "View Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. SI on ₹5000 at 8% for 2 years = ?
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">800</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. CI on ₹5000 at 8% for 2 years = ?
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">866 (Using A = 5000 × 1.1664)</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Find difference between CI and SI
+                                on ₹4000 at 10% for 2 years.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Difference = P(R/100)² = 4000(0.1²) = ₹40</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. CI on ₹2000 at 5% for 1 year = ?
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">100 (A = 2000 × 1.05 = 2100 → CI=100)</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. SI on ₹3000 at 6% for 3 years = ?
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">540</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. CI on ₹3000 at 6% for 3 years
+                                (yearly compounding) = ?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">A = 3000 × (1.06)³ = 3000 × 1.191016 =
+                                        ₹3573.05, CI = 573.05</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. If SI for 2 years is ₹500 at 5%,
+                                find P.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">SI = PRT/100, P = 500×100 / (5×2) = ₹5000</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. If CI for 2 years on ₹2500 at 10%
+                                is ₹525, find amount.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Amount = 2500 + 525 = ₹3025</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. If Principal = ₹1500, CI = ₹93.15
+                                for 1 year (compounded half-yearly). Find rate per half-year.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">A = 1500 + 93.15 = 1593.15, 1593.15 =
+                                        1500(1+R/100)², R = 3% per half-year (≈6% yearly)</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. SI for 3 years at 4% is ₹480. Find
+                                amount.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">SI = 480, Principal = SI ×100 / (4×3) =
+                                        480×100/12 = 4000, Amount = 4000 + 480 = ₹4480</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ SSC GD Exam Strategy</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Understand the <strong>fundamental difference</strong> between SI and CI
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Remember <strong>CI grows faster</strong> due to compounding effect
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Master the <strong>CI-SI difference formula</strong> for quick calculations
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Practice <strong>identifying when to use SI vs CI</strong> in problems
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Time yourself - aim for <strong>30-45 seconds per comparison question</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed SI vs CI Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">SSC GD Tip: Understanding the difference between Simple and
+                            Compound Interest is crucial for quantitative aptitude. Remember that SI gives linear growth
+                            while CI gives exponential growth. The key difference comes from the "interest on interest"
+                            effect in compound interest. Practice the CI-SI difference formulas and understand when each
+                            type is typically used in real-life scenarios. Regular practice with previous year SSC GD
+                            questions will help you quickly identify and solve SI vs CI problems efficiently.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="basic-formulas.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="annual-half-yearly.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master SI & CI Differences for SSC GD
+                    Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive SSC GD study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Start Your SSC GD Preparation!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

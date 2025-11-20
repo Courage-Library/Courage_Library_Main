@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | Courage Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .heatmap-cell {
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+        }
+        
+        .subject-card {
+            transition: all 0.3s ease;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .article-item {
+            transition: background-color 0.2s ease;
+        }
+        
+        .article-item:hover {
+            background-color: #f8fafc;
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .heatmap-grid {
+                grid-template-rows: repeat(7, 10px) !important;
+            }
+            
+            .heatmap-cell {
+                width: 10px !important;
+                height: 10px !important;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .heatmap-grid {
+                grid-template-rows: repeat(7, 8px) !important;
+            }
+            
+            .heatmap-cell {
+                width: 8px !important;
+                height: 8px !important;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            transform: scale(0.5);
+        }
+        
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">CL</div>
+                        <span class="ml-2 text-xl font-bold text-blue-700">Courage Library</span>
+                    </div>
+                    <div class="hidden md:block ml-10">
+                        <div class="flex space-x-8">
+                            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Dashboard</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Articles</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Subjects</a>
+                            <a href="#" class="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-medium">Progress</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium ripple">
+                            My Profile
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="mobile-menu text-gray-600 text-xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6" x-data="dashboardData()">
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-4 md:p-6 mb-6 text-white shadow-lg fade-in">
+            <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold mb-2">Welcome back, <span x-text="studentName"></span>!</h1>
+                    <p class="text-blue-100 text-sm md:text-base">Continue your government exam preparation with our comprehensive articles.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <button class="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold text-sm md:text-base ripple">
+                        Continue Learning
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Sidebar -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Profile Card -->
+                <div class="dashboard-card p-5 fade-in">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                            R
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800" x-text="studentName"></h2>
+                            <p class="text-sm text-gray-500">Government Exam Aspirant</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between py-2 border-t border-gray-100">
+                            <span class="text-sm text-gray-600">Rank</span>
+                            <span class="text-sm font-semibold text-gray-800">1,234</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 border-t border-gray-100">
+                            <span class="text-sm text-gray-600">Articles Read</span>
+                            <span class="text-sm font-semibold text-gray-800" x-text="stats.totalArticlesRead"></span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 border-t border-gray-100">
+                            <span class="text-sm text-gray-600">Quizzes Taken</span>
+                            <span class="text-sm font-semibold text-gray-800">89</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 border-t border-gray-100">
+                            <span class="text-sm text-gray-600">Accuracy</span>
+                            <span class="text-sm font-semibold text-gray-800">78%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subjects Progress -->
+                <div class="dashboard-card p-5 fade-in">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Subjects Progress</h3>
+                    <div class="space-y-4">
+                        <template x-for="subject in subjects" :key="subject.id">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-700 font-medium" x-text="subject.name"></span>
+                                    <span class="text-gray-600" x-text="subject.progress + '%'"></span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" :style="'width: ' + subject.progress + '%'"></div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Recently Read Articles -->
+                <div class="dashboard-card p-5 fade-in">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Recently Read Articles</h3>
+                    <div class="space-y-3">
+                        <template x-for="article in recentArticles" :key="article.id">
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-2 h-2 rounded-full mt-2 bg-blue-500"></div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-gray-800" x-text="article.title"></h4>
+                                    <p class="text-xs text-gray-500" x-text="article.subject + ' • ' + article.time"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Articles Progress -->
+                <div class="dashboard-card p-5 md:p-6 fade-in">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800">Articles Progress</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Total Circle -->
+                        <div class="flex flex-col items-center">
+                            <div class="relative w-32 h-32 mb-4">
+                                <svg class="progress-ring w-32 h-32" width="120" height="120">
+                                    <circle class="text-gray-200" stroke-width="8" stroke="currentColor" fill="transparent" r="52" cx="60" cy="60"/>
+                                    <circle class="progress-ring-circle text-blue-500" stroke-width="8" stroke-dasharray="326.56" 
+                                            :stroke-dashoffset="326.56 - (326.56 * stats.totalArticlesRead / 500)" 
+                                            stroke-linecap="round" stroke="currentColor" fill="transparent" r="52" cx="60" cy="60"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <div class="text-3xl font-bold text-gray-800" x-text="stats.totalArticlesRead"></div>
+                                    <div class="text-sm text-gray-500">Articles</div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-sm font-semibold text-gray-700">Total Read</div>
+                                <div class="text-xs text-gray-500">out of 500</div>
+                            </div>
+                        </div>
+
+                        <!-- Subject Breakdown -->
+                        <div class="col-span-1 md:col-span-2 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-semibold text-gray-700">Mathematics</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-gray-800" x-text="stats.mathArticlesRead"></span>
+                                    <span class="text-gray-500 text-sm">/120</span>
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" :style="'width: ' + (stats.mathArticlesRead / 120 * 100) + '%'"></div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-semibold text-gray-700">Reasoning</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-gray-800" x-text="stats.reasoningArticlesRead"></span>
+                                    <span class="text-gray-500 text-sm">/100</span>
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" :style="'width: ' + (stats.reasoningArticlesRead / 100 * 100) + '%'"></div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-semibold text-gray-700">General Knowledge</span>
+                                </div>
+                                <div>
+                                    <span class="font-semibold text-gray-800" x-text="stats.gkArticlesRead"></span>
+                                    <span class="text-gray-500 text-sm">/150</span>
+                                </div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full" :style="'width: ' + (stats.gkArticlesRead / 150 * 100) + '%'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Streak Heatmap -->
+                <div class="dashboard-card p-5 md:p-6 fade-in">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                        <h2 class="text-xl font-semibold text-gray-800">
+                            <span x-text="stats.studyStreak"></span> day streak
+                        </h2>
+                        <div class="flex items-center space-x-2 text-sm text-gray-600">
+                            <span class="hidden md:inline">Less</span>
+                            <div class="w-3 h-3 bg-gray-200 rounded-sm"></div>
+                            <div class="w-3 h-3 bg-green-200 rounded-sm"></div>
+                            <div class="w-3 h-3 bg-green-400 rounded-sm"></div>
+                            <div class="w-3 h-3 bg-green-600 rounded-sm"></div>
+                            <div class="w-3 h-3 bg-green-800 rounded-sm"></div>
+                            <span class="hidden md:inline">More</span>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto pb-2">
+                        <div class="flex items-start gap-2 min-w-max">
+                            <!-- Month labels -->
+                            <div class="flex flex-col justify-between text-xs text-gray-500 pt-4" style="height: 85px;">
+                                <span>Mon</span>
+                                <span>Wed</span>
+                                <span>Fri</span>
+                            </div>
+                            
+                            <!-- Heatmap grid -->
+                            <div class="flex-1">
+                                <div class="heatmap-grid grid grid-flow-col grid-rows-7 gap-1" style="grid-auto-columns: 10px;">
+                                    <template x-for="cell in heatmapData" :key="cell.id">
+                                        <div 
+                                            class="heatmap-cell cursor-pointer"
+                                            :class="cell.level === 0 ? 'bg-gray-200' : 
+                                                    cell.level === 1 ? 'bg-green-200' : 
+                                                    cell.level === 2 ? 'bg-green-400' : 
+                                                    cell.level === 3 ? 'bg-green-600' : 'bg-green-800'"
+                                            :title="cell.date + ': ' + cell.count + ' articles'">
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-2 text-sm text-gray-600">
+                        <span x-text="stats.totalArticlesRead"></span> articles read in the last year
+                    </div>
+                </div>
+
+                <!-- Subjects -->
+                <div class="dashboard-card p-5 md:p-6 fade-in">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Subjects</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <template x-for="subject in subjects" :key="subject.id">
+                            <div class="subject-card bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-800" x-text="subject.name"></h3>
+                                        <p class="text-sm text-gray-500 mt-1" x-text="subject.articlesCompleted + ' of ' + subject.totalArticles + ' articles completed'"></p>
+                                    </div>
+                                    <div class="text-3xl text-blue-500" x-text="subject.icon"></div>
+                                </div>
+                                
+                                <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+                                    <div class="bg-blue-500 h-2 rounded-full" :style="'width: ' + subject.progress + '%'"></div>
+                                </div>
+                                
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600" x-text="subject.progress + '% completed'"></span>
+                                    <button class="text-sm bg-blue-500 text-white px-3 py-1 rounded ripple">
+                                        Continue
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card p-5 md:p-6 fade-in">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h2>
+                    
+                    <div class="space-y-4">
+                        <template x-for="activity in recentActivity" :key="activity.id">
+                            <div class="flex items-start space-x-4 pb-4 border-b border-gray-100 last:border-0">
+                                <div class="flex-shrink-0 w-2 h-2 rounded-full mt-2"
+                                     :class="activity.type === 'article' ? 'bg-blue-500' : activity.type === 'quiz' ? 'bg-green-500' : 'bg-yellow-500'">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-1">
+                                        <h3 class="text-base font-medium text-gray-800" x-text="activity.title"></h3>
+                                        <span class="text-xs text-gray-500" x-text="activity.time"></span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        <span x-text="activity.subject"></span>
+                                        • <span x-text="activity.type === 'article' ? 'Article Read' : activity.type === 'quiz' ? 'Quiz Completed' : 'Note Added'"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Recommended Articles -->
+                <div class="dashboard-card p-5 md:p-6 fade-in">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Recommended Articles</h2>
+                    
+                    <div class="space-y-3">
+                        <template x-for="article in recommendedArticles" :key="article.id">
+                            <div class="article-item border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex-1">
+                                        <h3 class="text-base font-medium text-gray-800" x-text="article.title"></h3>
+                                        <div class="flex flex-wrap items-center gap-2 mt-2">
+                                            <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded" x-text="article.subject"></span>
+                                            <span class="text-xs text-gray-500" x-text="article.duration"></span>
+                                            <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded" x-text="article.difficulty"></span>
+                                        </div>
+                                    </div>
+                                    <button class="ml-3 text-sm bg-blue-500 text-white px-3 py-1 rounded ripple">
+                                        Read
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-8 mt-10 fade-in">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="mb-4 md:mb-0 text-sm md:text-base">&copy; 2025 Courage Library. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white text-xl"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function dashboardData() {
+            return {
+                studentName: 'Rahul Kumar',
+                stats: {
+                    studyStreak: 15,
+                    totalArticlesRead: 128,
+                    mathArticlesRead: 52,
+                    reasoningArticlesRead: 48,
+                    gkArticlesRead: 28
+                },
+                subjects: [
+                    { id: 1, name: 'Mathematics', articlesCompleted: 52, totalArticles: 120, progress: 43, icon: '🧮' },
+                    { id: 2, name: 'Reasoning', articlesCompleted: 48, totalArticles: 100, progress: 48, icon: '🧠' },
+                    { id: 3, name: 'General Knowledge', articlesCompleted: 28, totalArticles: 150, progress: 19, icon: '📚' },
+                    { id: 4, name: 'English Language', articlesCompleted: 20, totalArticles: 80, progress: 25, icon: '🔤' }
+                ],
+                recentArticles: [
+                    { id: 1, title: 'Time and Work Concepts', subject: 'Mathematics', time: '2 hours ago' },
+                    { id: 2, title: 'Blood Relations in Reasoning', subject: 'Reasoning', time: '5 hours ago' },
+                    { id: 3, title: 'Indian Constitution Overview', subject: 'General Knowledge', time: '1 day ago' }
+                ],
+                recentActivity: [
+                    { id: 1, title: 'Time and Work Concepts', type: 'article', subject: 'Mathematics', time: '2 hours ago' },
+                    { id: 2, title: 'Blood Relations Quiz', type: 'quiz', subject: 'Reasoning', time: '5 hours ago' },
+                    { id: 3, title: 'Added notes on Indian Constitution', type: 'note', subject: 'General Knowledge', time: '1 day ago' },
+                    { id: 4, title: 'Reading Comprehension Techniques', type: 'article', subject: 'English Language', time: '1 day ago' },
+                    { id: 5, title: 'Geometry Basics Quiz', type: 'quiz', subject: 'Mathematics', time: '2 days ago' }
+                ],
+                recommendedArticles: [
+                    { id: 1, title: 'Profit and Loss Advanced Concepts', subject: 'Mathematics', duration: '15 min read', difficulty: 'Medium' },
+                    { id: 2, title: 'Syllogism in Logical Reasoning', subject: 'Reasoning', duration: '12 min read', difficulty: 'Easy' },
+                    { id: 3, title: 'Indian Economy Overview', subject: 'General Knowledge', duration: '20 min read', difficulty: 'Medium' }
+                ],
+                heatmapData: [],
+                
+                init() {
+                    this.generateHeatmap();
+                },
+                
+                generateHeatmap() {
+                    // Generate 52 weeks * 7 days = 364 days of heatmap data
+                    const days = 364;
+                    for (let i = 0; i < days; i++) {
+                        const random = Math.random();
+                        let level = 0;
+                        let count = 0;
+                        
+                        if (random > 0.7) {
+                            level = Math.floor(Math.random() * 4) + 1;
+                            count = level * 3;
+                        }
+                        
+                        const date = new Date();
+                        date.setDate(date.getDate() - (days - i));
+                        
+                        this.heatmapData.push({
+                            id: i,
+                            date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                            level: level,
+                            count: count
+                        });
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

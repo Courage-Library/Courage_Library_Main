@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Phrasal Verbs with Courage Library. Learn definitions, meanings, examples, and usage tips to strengthen your English grammar and vocabulary for SSC and competitive exams." />
+    <meta name="keywords"
+        content="Phrasal Verbs, English Grammar, Vocabulary, SSC Exam, Competitive Exams, English Usage, Grammar Rules, Courage Library" />
+    <meta name="author" content="Courage Library" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+    <title>Phrasal Verbs | Courage Library</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Computer Awareness Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Computer Awareness -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Computer Awareness
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="introduction-to-computer.html" class="nav-link" title="Introduction To Computer">
+                                Introduction To Computer
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Input_and_Output_Devices.html" class="nav-link" title="Input Output Devices">
+                                Input Output Devices
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Storage Devices.html" class="nav-link" title="Storage Devices">
+                                Storage Devices
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="MS Office.html" class="nav-link" title="MS Office">
+                                MS Office
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Internet Basics and Web Browsers.html" class="nav-link"
+                                title="Internet Basics & Web Browsers">
+                                Internet Basics & Web Browsers
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Email and Cloud Concepts.html" class="nav-link" title="Email & Cloud Concepts">
+                                Email & Cloud Concepts
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Cyber Security and Viruses.html" class="nav-link" title="Cyber Security & Viruses">
+                                Cyber Security & Viruses
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Introduction to Computers
+                </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC MTS
+                    Exams</p>
+            </section>
+            <img src="../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What is Computer Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is a Computer?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        A <strong>computer</strong> is an <strong>electronic device</strong> that processes data
+                        according to a set of <strong>instructions</strong> to produce meaningful information.
+                        It can <strong>store, process, and retrieve</strong> data quickly and accurately.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Electronic Device</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Processes Data</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Follows Instructions</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Produces Information</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+                        <p class="text-lg text-gray-700">
+                            <strong>Simple Definition:</strong> A <strong>computer</strong> is an <strong>electronic
+                                machine</strong> that takes input, processes it, and gives output.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IPO Cycle Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">IPO Cycle - Fundamental Concept</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Input → Process → Output</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Input</h4>
+                            <p class="text-gray-700">Data given to computer</p>
+                            <p class="text-sm text-gray-600 mt-1">Keyboard, Mouse, Scanner</p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Process</h4>
+                            <p class="text-gray-700">Converting data to information</p>
+                            <p class="text-sm text-gray-600 mt-1">CPU Operations</p>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-purple-800 mb-2">Output</h4>
+                            <p class="text-gray-700">Final result displayed</p>
+                            <p class="text-sm text-gray-600 mt-1">Monitor, Printer, Speaker</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            Trick to Remember: <strong>I-P-O Rule</strong> → Input → Process → Output
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Characteristics Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Characteristics of a Computer</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Feature</th>
+                                    <th class="px-4 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Speed</td>
+                                    <td class="px-4 py-3">Performs tasks much faster than humans</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Accuracy</td>
+                                    <td class="px-4 py-3">Very few chances of errors</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Storage</td>
+                                    <td class="px-4 py-3">Can store a large amount of data</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Automation</td>
+                                    <td class="px-4 py-3">Works automatically after giving instructions</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Diligence</td>
+                                    <td class="px-4 py-3">Never gets tired or bored</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Versatility</td>
+                                    <td class="px-4 py-3">Can perform multiple tasks</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Connectivity</td>
+                                    <td class="px-4 py-3">Can connect globally through networks</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Trick:</strong> <strong>SAS-DVC</strong> → Speed, Accuracy, Storage, Diligence,
+                            Versatility, Connectivity
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Terms Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Basic Terms in Computers</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Term</th>
+                                    <th class="px-4 py-3">Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Data</td>
+                                    <td class="px-4 py-3">Raw facts and figures</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Information</td>
+                                    <td class="px-4 py-3">Processed and meaningful data</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Input</td>
+                                    <td class="px-4 py-3">Data given to the computer</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Processing</td>
+                                    <td class="px-4 py-3">Converting data into useful information</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Output</td>
+                                    <td class="px-4 py-3">Final result displayed to the user</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Storage</td>
+                                    <td class="px-4 py-3">Saving data permanently or temporarily</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Example:</strong> Typing marks in MS Excel → <strong>Data</strong><br>
+                            After calculating total marks → <strong>Information</strong>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Functional Units Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Functional Units of Computer</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Unit</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Examples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Input Unit</td>
+                                    <td class="px-4 py-3">Feeds data to computer</td>
+                                    <td class="px-4 py-3">Keyboard, Mouse</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Processing Unit (CPU)</td>
+                                    <td class="px-4 py-3">Brain of computer</td>
+                                    <td class="px-4 py-3">ALU, CU, Registers</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Memory / Storage Unit</td>
+                                    <td class="px-4 py-3">Saves data & programs</td>
+                                    <td class="px-4 py-3">RAM, Hard Disk</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Output Unit</td>
+                                    <td class="px-4 py-3">Shows results</td>
+                                    <td class="px-4 py-3">Monitor, Printer</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Trick:</strong> <strong>I – P – O – S</strong> → Input, Process, Output, Storage
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Computers Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Types of Computers</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3">Examples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Microcomputer</td>
+                                    <td class="px-4 py-3">For personal use</td>
+                                    <td class="px-4 py-3">Laptop, Desktop</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Minicomputer</td>
+                                    <td class="px-4 py-3">For small businesses</td>
+                                    <td class="px-4 py-3">Server systems</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Mainframe</td>
+                                    <td class="px-4 py-3">Handles huge data</td>
+                                    <td class="px-4 py-3">Banking systems</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Supercomputer</td>
+                                    <td class="px-4 py-3">Highest speed & power</td>
+                                    <td class="px-4 py-3">PARAM, Cray</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Trick:</strong> <strong>M³S</strong> → Micro, Mini, Mainframe, Supercomputer
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Components Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Components of a Computer System</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Component</th>
+                                    <th class="px-4 py-3">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Hardware</td>
+                                    <td class="px-4 py-3">Physical parts like monitor, CPU, keyboard</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Software</td>
+                                    <td class="px-4 py-3">Set of programs/instructions</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">User</td>
+                                    <td class="px-4 py-3">Person operating the computer</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Data</td>
+                                    <td class="px-4 py-3">Raw input for processing</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-red-50 rounded-lg border border-red-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Trick:</strong> <strong>H + S + U + D</strong> → Hardware, Software, User, Data
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Applications of Computers</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Field</th>
+                                    <th class="px-4 py-3">Usage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Education</td>
+                                    <td class="px-4 py-3">Online learning, exams</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Banking</td>
+                                    <td class="px-4 py-3">ATM, online transactions</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Business</td>
+                                    <td class="px-4 py-3">Payroll, billing</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Medicine</td>
+                                    <td class="px-4 py-3">Diagnosis, research</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Government</td>
+                                    <td class="px-4 py-3">Record keeping, e-Governance</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Defence</td>
+                                    <td class="px-4 py-3">Radar, missile control</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Trick to Remember Fields:</strong> <strong>E-B-B-M-G-D</strong> → Education,
+                            Banking, Business, Medicine, Government, Defence
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advantages & Limitations Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Advantages and Limitations</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-green-700 mb-3">Advantages</h3>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">High Speed</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Accuracy</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Storage</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Multitasking</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-red-700 mb-3">Limitations</h3>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                    <p class="font-medium text-gray-800">No IQ (needs instructions)</p>
+                                </div>
+                                <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                    <p class="font-medium text-gray-800">Can't decide by itself</p>
+                                </div>
+                                <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                    <p class="font-medium text-gray-800">Needs electricity</p>
+                                </div>
+                                <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                    <p class="font-medium text-gray-800">Can be hacked or fail</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm text-gray-700">
+                            <strong>Trick:</strong> <strong>HAS-M</strong> → High Speed, Accuracy, Storage, Multitasking
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analogy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Real-Life Analogy</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">A <span
+                                class="text-orange-600">computer</span> is like a <span
+                                class="text-orange-600">kitchen</span>:</h3>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                                <h4 class="text-lg font-bold text-orange-800 mb-2">Input</h4>
+                                <p class="text-gray-700">→ Raw vegetables</p>
+                                <p class="text-sm text-gray-600">(Data)</p>
+                            </div>
+                            <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                                <h4 class="text-lg font-bold text-orange-800 mb-2">Process</h4>
+                                <p class="text-gray-700">→ Cooking</p>
+                                <p class="text-sm text-gray-600">(CPU operations)</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                                <h4 class="text-lg font-bold text-orange-800 mb-2">Output</h4>
+                                <p class="text-gray-700">→ Cooked food</p>
+                                <p class="text-sm text-gray-600">(Information)</p>
+                            </div>
+                            <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                                <h4 class="text-lg font-bold text-orange-800 mb-2">Storage</h4>
+                                <p class="text-gray-700">→ Refrigerator</p>
+                                <p class="text-sm text-gray-600">(Memory)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Common SSC & Delhi Police Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">A computer is an <strong>electronic
+                                        device</strong>, not mechanical</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800"><strong>CPU</strong> → Brain of Computer</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800"><strong>Input → Process → Output</strong> is the
+                                    basic working cycle</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800"><strong>ALU</strong> = Performs calculations</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="font-medium text-gray-800"><strong>CU</strong> = Controls instructions</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <p class="font-medium text-gray-800"><strong>Supercomputer of India</strong> → PARAM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">11. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Concept</th>
+                                <th class="px-4 py-3">Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Computer</td>
+                                <td class="px-4 py-3">Electronic device that processes data</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">IPO Cycle</td>
+                                <td class="px-4 py-3">Input → Process → Output</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">CPU</td>
+                                <td class="px-4 py-3">Brain of computer (ALU + CU)</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Hardware</td>
+                                <td class="px-4 py-3">Physical components</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Software</td>
+                                <td class="px-4 py-3">Instructions for hardware</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Applications</td>
+                                <td class="px-4 py-3">Used in education, banking, business, etc.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200">
+                    <p class="text-sm text-gray-700">
+                        <strong>Final Trick to Remember Core Concepts:</strong> <strong>C-IPO-HS</strong> → Computer,
+                        Input, Process, Output, Hardware, Software
+                    </p>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Introduction to Computers!
+                    </h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Master the IPO cycle and computer characteristics
+                            as they form the foundation for all computer knowledge needed in Delhi Police and SSC exams.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="#"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Md Parvez
+                </div>
+                <a href="Input_and_Output_Devices.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Computer Fundamentals for
+                    SSC MTS Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

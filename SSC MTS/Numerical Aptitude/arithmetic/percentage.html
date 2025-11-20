@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Percentage concepts for competitive exams like Delhi Police and SSC. Learn percentage formulas, successive changes, conversion tricks, and problem-solving techniques." />
+    <meta name="keywords"
+        content="Percentage, percentage formulas, successive percentage, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Percentage | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Percentage Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Percentage
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="percentage-basics.html" class="nav-link" title="Percentage Basics">Percentage Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="percentage-formulas.html" class="nav-link" title="Percentage Formulas">Percentage Formulas</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="successive-percentage.html" class="nav-link" title="Successive Percentage">Successive Percentage</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="percentage-applications.html" class="nav-link" title="Percentage Applications">Percentage Applications</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Percentage</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        The Percentage chapter is one of the most important topics in SSC MTS, CHSL, and CGL exams.
+                        Almost every arithmetic topic — like Profit & Loss, Simple Interest, Time & Work, and Data Interpretation — uses the concept of percentage.
+                    </p>
+                    <p class="text-lg text-gray-700 mt-4 font-medium">
+                        Let's learn all the key concepts, formulae, and tricks you need for full marks.
+                    </p>
+                </div>
+            </section>
+
+            <!-- What is Percentage Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. What is a Percentage?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        The word 'percent' means 'per hundred'. It represents a number as a fraction of 100.
+                    </p>
+                    
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                        <p class="text-center font-medium text-gray-700 text-lg">
+                            Percentage = (Value / Total Value) × 100
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">If a student scores 45 marks out of 60, then</p>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">Percentage = (45/60) × 100 = 75%</p>
+                            <p class="text-gray-700 font-semibold">So, the student got 75% marks.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conversion Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Conversion Table (For Quick Calculation)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Fraction</th>
+                                    <th class="px-4 py-3">Percentage</th>
+                                    <th class="px-4 py-3">Fraction</th>
+                                    <th class="px-4 py-3">Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">1/2</td>
+                                    <td class="px-4 py-3">50%</td>
+                                    <td class="px-4 py-3 font-medium">1/8</td>
+                                    <td class="px-4 py-3">12.5%</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">1/3</td>
+                                    <td class="px-4 py-3">33.33%</td>
+                                    <td class="px-4 py-3 font-medium">3/8</td>
+                                    <td class="px-4 py-3">37.5%</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">1/4</td>
+                                    <td class="px-4 py-3">25%</td>
+                                    <td class="px-4 py-3 font-medium">5/8</td>
+                                    <td class="px-4 py-3">62.5%</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">1/5</td>
+                                    <td class="px-4 py-3">20%</td>
+                                    <td class="px-4 py-3 font-medium">3/4</td>
+                                    <td class="px-4 py-3">75%</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">1/6</td>
+                                    <td class="px-4 py-3">16.66%</td>
+                                    <td class="px-4 py-3 font-medium">7/8</td>
+                                    <td class="px-4 py-3">87.5%</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">1/10</td>
+                                    <td class="px-4 py-3">10%</td>
+                                    <td class="px-4 py-3 font-medium">9/10</td>
+                                    <td class="px-4 py-3">90%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center font-medium text-gray-700">
+                            Tip: Memorizing these helps you solve problems faster in the exam.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Formulae Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Basic Formulae of Percentage</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Formula A -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">(a) To find percentage of a number:</h3>
+                            <div class="p-4 bg-white rounded border mb-3">
+                                <p class="text-center font-medium text-gray-700">
+                                    Required Value = (Given % / 100) × Total Value
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> Find 20% of 250</p>
+                                <p class="text-gray-700 mt-1">→ (20/100) × 250 = 50</p>
+                            </div>
+                        </div>
+
+                        <!-- Formula B -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">(b) To find what percent one number is of another:</h3>
+                            <div class="p-4 bg-white rounded border mb-3">
+                                <p class="text-center font-medium text-gray-700">
+                                    Percentage = (Part / Whole) × 100
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> What percent of 50 is 20?</p>
+                                <p class="text-gray-700 mt-1">→ (20/50) × 100 = 40%</p>
+                            </div>
+                        </div>
+
+                        <!-- Formula C -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">(c) Increase or Decrease in Quantity:</h3>
+                            <div class="grid md:grid-cols-2 gap-4 mb-3">
+                                <div class="p-3 bg-white rounded border">
+                                    <p class="font-semibold text-gray-800">If a number increases by x%:</p>
+                                    <p class="text-gray-700 text-sm mt-1">New value = Original value × (1 + x/100)</p>
+                                </div>
+                                <div class="p-3 bg-white rounded border">
+                                    <p class="font-semibold text-gray-800">If a number decreases by x%:</p>
+                                    <p class="text-gray-700 text-sm mt-1">New value = Original value × (1 - x/100)</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> If a salary of ₹10,000 is increased by 20%</p>
+                                <p class="text-gray-700 mt-1">→ New salary = 10,000 × (1 + 0.2) = ₹12,000</p>
+                            </div>
+                        </div>
+
+                        <!-- Formula D -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-3">(d) To find % Increase or Decrease between two values:</h3>
+                            <div class="p-4 bg-white rounded border mb-3">
+                                <p class="text-center font-medium text-gray-700">
+                                    % Change = (Difference / Original Value) × 100
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border">
+                                <p class="text-gray-700"><span class="font-semibold">Example:</span> Price increases from ₹200 to ₹250</p>
+                                <p class="text-gray-700 mt-1">→ Change = 50</p>
+                                <p class="text-gray-700">→ % Change = (50/200) × 100 = 25% increase</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Successive Percentage Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Successive Percentage Change</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When a quantity changes two or more times by different percentages (increase or decrease), we use the Successive Percentage Formula:
+                    </p>
+                    
+                    <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 mb-6">
+                        <p class="text-center font-medium text-gray-700 text-lg">
+                            Net Change = x + y + (xy)/100
+                        </p>
+                        <p class="text-center text-gray-600 mt-2">Where x and y are the percentage changes. Use '+' for increase and '−' for decrease.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Example 1 -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-3">Example 1: Both Increases</h3>
+                            <p class="text-gray-700 mb-2">A price is increased by 10% and then again by 20%. Find the net % increase.</p>
+                            <div class="space-y-1 text-sm">
+                                <p class="text-gray-700">→ Net % = 10 + 20 + (10 × 20)/100</p>
+                                <p class="text-gray-700">→ 30 + 2 = 32% increase</p>
+                            </div>
+                        </div>
+
+                        <!-- Example 2 -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-3">Example 2: One Increase, One Decrease</h3>
+                            <p class="text-gray-700 mb-2">Price increases by 20% and then decreases by 10%.</p>
+                            <div class="space-y-1 text-sm">
+                                <p class="text-gray-700">→ Net % = 20 – 10 – (20 × 10)/100</p>
+                                <p class="text-gray-700">→ 10 – 2 = 8% increase</p>
+                            </div>
+                        </div>
+
+                        <!-- Example 3 -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-3">Example 3: Both Decreases</h3>
+                            <p class="text-gray-700 mb-2">Value decreases by 10% and 20%.</p>
+                            <div class="space-y-1 text-sm">
+                                <p class="text-gray-700">→ Net % = –10 – 20 + (–10 × –20)/100</p>
+                                <p class="text-gray-700">→ –30 + 2 = –28% decrease</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shortcut Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Shortcut for Successive Change (Multiplicative Formula)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-4">
+                        <p class="text-center font-medium text-gray-700 text-lg">
+                            Final Value = Initial Value × (1 + x/100) × (1 + y/100)
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">A salary of ₹2000 is increased by 10% and then 20%.</p>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">→ Final = 2000 × 1.10 × 1.20 = ₹2640</p>
+                            <p class="text-gray-700">Net increase = 640 → (640/2000) × 100 = 32%</p>
+                            <p class="text-green-600 font-semibold">Verified</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reversal Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Important Concept: Reversal of Percentage Change</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When a value increases by x% and then decreases to reach the original value,
+                        the decrease % required is not x%, but slightly more.
+                    </p>
+                    
+                    <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 mb-4">
+                        <p class="text-center font-medium text-gray-700 text-lg">
+                            Decrease % = (x × 100) / (100 + x)
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">If price increases by 25%, what % decrease will bring it back to the original?</p>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">→ (25 × 100) / (100 + 25) = 2500 / 125 = 20%</p>
+                            <p class="text-gray-700 font-semibold">So, 20% decrease is required to return to original price.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Common Type of SSC MTS Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Type 1 -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-3">1. Find % Value:</h3>
+                            <p class="text-gray-700 mb-2">What is 25% of 480?</p>
+                            <p class="text-gray-700 font-semibold">→ (25/100) × 480 = 120</p>
+                        </div>
+
+                        <!-- Type 2 -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-3">2. Find Base Value:</h3>
+                            <p class="text-gray-700 mb-2">40% of what number is 120?</p>
+                            <p class="text-gray-700">→ 120 = (40/100) × x</p>
+                            <p class="text-gray-700 font-semibold">→ x = (120 × 100)/40 = 300</p>
+                        </div>
+
+                        <!-- Type 3 -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-3">3. Find Increase/Decrease:</h3>
+                            <p class="text-gray-700 mb-2">Value increases from 400 to 460</p>
+                            <p class="text-gray-700 font-semibold">→ (460−400)/400 × 100 = 15% increase</p>
+                        </div>
+
+                        <!-- Type 4 -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-3">4. Successive Change:</h3>
+                            <p class="text-gray-700 mb-2">A number increases by 10% and 20% successively. Find net change.</p>
+                            <p class="text-gray-700 font-semibold">→ 10 + 20 + (10×20)/100 = 32%</p>
+                        </div>
+
+                        <!-- Type 5 -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-3">5. Reverse Change:</h3>
+                            <p class="text-gray-700 mb-2">If price increases by 20%, what % decrease returns to old price?</p>
+                            <p class="text-gray-700 font-semibold">→ (20×100)/(120) = 16.67%</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Practice Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-700 font-medium">1. What is 12.5% of 240?</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-gray-700 font-medium">2. A number is increased by 10% and then decreased by 20%. Find the net % change.</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="text-gray-700 font-medium">3. If 45 is 15% of a number, find the number.</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <p class="text-gray-700 font-medium">4. If a number is first decreased by 10% and then increased by 10%, what is the net % change?</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <p class="text-gray-700 font-medium">5. The price of a shirt increased by 25% and then decreased by 20%. Find the final change.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Takeaways Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Key Takeaways</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Percentage = (Value / Total) × 100</p>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Increase/Decrease Formula: New = Old × (1 ± x/100)</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Successive Change Formula: x + y + (xy/100)</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Reverse Change Formula: (x×100)/(100 + x)</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="font-medium text-gray-800">Memorize fraction-percent conversions for speed</p>
+                            </div>
+                            <div class="p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <p class="font-medium text-gray-800">Practice all types of percentage problems regularly</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Percentage Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice percentage problems regularly, focusing on different types like basic calculations, successive changes, and reverse percentages. Memorize the fraction-percentage conversion table and key formulas to solve problems quickly in exams. Remember that percentage is used in almost every arithmetic topic.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="simplification-bodmas.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Percentage for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

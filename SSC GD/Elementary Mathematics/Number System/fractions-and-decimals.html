@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn Divisibility Rules for SSC, Delhi Police, and other competitive exams. Includes easy rules for numbers 2 to 100, examples, tricks, and 15 solved practice questions for quick maths preparation, SSC GD (Staff Selection Commission – General Duty)." />
+
+    <meta name="keywords"
+        content="Divisibility Rules, divisibility by 2 3 4 5 6 8 9 10 11, maths shortcuts, SSC maths, Delhi Police exam, number system, aptitude tricks, divisibility tests, competitive exams, Courage Library" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Divisibility Rules – Tricks, Examples & Practice Questions | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Number System Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        A. Number System
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="natural-and-whole-numbers.html" class="nav-link" title="Natural & Whole Numbers">
+                                Natural & Whole Numbers
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="lcm-and-hcf.html" class="nav-link" title="LCM & HCF">
+                                LCM & HCF
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="divisibility-rules.html" class="nav-link" title="Divisibility Rules">
+                                Divisibility Rules
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="fractions-and-decimals.html" class="nav-link" title="Fractions & Decimals">
+                                Fractions & Decimals
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Fractions & Decimals (Quantitative
+                    Aptitude)</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD (Staff Selection Commission – General
+                    Duty)</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Fractions Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is a Fraction?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        A <strong>fraction</strong> represents a part of a whole.
+                        It is written as:
+                    </p>
+                    <div class="bg-purple-50 p-6 rounded-lg border border-purple-200 text-center mb-6">
+                        <p class="text-2xl font-mono text-purple-800">Fraction = Numerator / Denominator</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Example: 3/4</h4>
+                            <p class="text-gray-700">means <strong>3 parts out of 4</strong> equal parts</p>
+                            <p class="text-gray-600 text-sm mt-2">Numerator → 3<br>Denominator → 4</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Visual Representation</h4>
+                            <div class="flex justify-center space-x-1">
+                                <div class="w-6 h-6 bg-blue-500 rounded"></div>
+                                <div class="w-6 h-6 bg-blue-500 rounded"></div>
+                                <div class="w-6 h-6 bg-blue-500 rounded"></div>
+                                <div class="w-6 h-6 bg-gray-300 rounded"></div>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-2">3 colored out of 4 parts</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Fractions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Fractions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Definition</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Proper Fraction</td>
+                                    <td class="px-4 py-3">Numerator < Denominator</td>
+                                    <td class="px-4 py-3">3/5</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Improper Fraction</td>
+                                    <td class="px-4 py-3">Numerator ≥ Denominator</td>
+                                    <td class="px-4 py-3">7/4</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Mixed Fraction</td>
+                                    <td class="px-4 py-3">Combination of whole number and fraction</td>
+                                    <td class="px-4 py-3">2 ½</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Like Fractions</td>
+                                    <td class="px-4 py-3">Same denominators</td>
+                                    <td class="px-4 py-3">3/8, 5/8</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Unlike Fractions</td>
+                                    <td class="px-4 py-3">Different denominators</td>
+                                    <td class="px-4 py-3">2/3, 5/7</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Unit Fraction</td>
+                                    <td class="px-4 py-3">Numerator = 1</td>
+                                    <td class="px-4 py-3">1/9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conversion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Conversion Between Mixed & Improper Fractions
+                </h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Mixed → Improper</h4>
+                            <div class="bg-purple-50 p-3 rounded border border-purple-200 mb-3">
+                                <p class="text-purple-800 font-mono text-center">a b/c = (a × c) + b / c</p>
+                            </div>
+                            <p class="text-gray-700">Example: 3½ = (3×2)+1 / 2 = 7/2</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Improper → Mixed</h4>
+                            <p class="text-gray-700 mb-3">Divide numerator by denominator</p>
+                            <p class="text-gray-700">Example: 11/4 = 2¾</p>
+                            <p class="text-gray-600 text-sm mt-2">11 ÷ 4 = 2 remainder 3</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Operations Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Operations on Fractions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Operation</th>
+                                    <th class="px-4 py-3">Rule</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Addition</td>
+                                    <td class="px-4 py-3">Make denominators same</td>
+                                    <td class="px-4 py-3">½ + ⅓ = (3+2)/6 = 5/6</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Subtraction</td>
+                                    <td class="px-4 py-3">Make denominators same</td>
+                                    <td class="px-4 py-3">¾ – ⅖ = (15–8)/20 = 7/20</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Multiplication</td>
+                                    <td class="px-4 py-3">Multiply numerators and denominators</td>
+                                    <td class="px-4 py-3">⅔ × ¾ = 6/12 = ½</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Division</td>
+                                    <td class="px-4 py-3">Multiply by the reciprocal</td>
+                                    <td class="px-4 py-3">¾ ÷ ⅖ = ¾ × 5/2 = 15/8</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Decimals Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. What is a Decimal?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        A <strong>decimal</strong> is another way to represent fractions using powers of 10.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
+                            <p class="text-2xl font-bold text-blue-800">0.5</p>
+                            <p class="text-gray-600">= ½</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <p class="text-2xl font-bold text-green-800">0.25</p>
+                            <p class="text-gray-600">= ¼</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
+                            <p class="text-2xl font-bold text-purple-800">0.75</p>
+                            <p class="text-gray-600">= ¾</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Decimals Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Types of Decimals</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Definition</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Terminating Decimal</td>
+                                    <td class="px-4 py-3">Ends after some digits</td>
+                                    <td class="px-4 py-3">0.5, 2.75</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Non-Terminating Repeating Decimal</td>
+                                    <td class="px-4 py-3">Digits repeat infinitely</td>
+                                    <td class="px-4 py-3">0.333…, 2.1212…</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Non-Terminating Non-Repeating</td>
+                                    <td class="px-4 py-3">Digits never repeat (Irrational)</td>
+                                    <td class="px-4 py-3">√2 = 1.4142…</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conversion Between Fractions & Decimals Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Conversion Between Fractions & Decimals</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Fraction → Decimal</h4>
+                            <p class="text-gray-700 mb-3">Divide numerator by denominator</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700 font-mono">Example: 3/4 = 3 ÷ 4 = 0.75</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Decimal → Fraction</h4>
+                            <p class="text-gray-700 mb-3">Write as per place value</p>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700 font-mono">Example: 0.25 = 25/100 = 1/4</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparing Fractions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Comparing Fractions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mb-4">
+                        <p class="text-yellow-800 font-medium">
+                            <strong>Method:</strong> Make denominators same, then compare numerators
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Example: Compare ⅗ and ¾</h4>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">⅗ = 12/20</p>
+                            <p class="text-gray-700">¾ = 15/20</p>
+                            <p class="text-green-600 font-bold">Since 12/20 < 15/20 → ¾ is greater</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Quick Recap - Key Points</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="text-lg font-bold text-blue-800 mb-2">Fractions</h4>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Proper: Numerator < Denominator</li>
+                                    <li>• Improper: Numerator ≥ Denominator</li>
+                                    <li>• Mixed: Whole number + Fraction</li>
+                                    <li>• Like: Same denominators</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="text-lg font-bold text-green-800 mb-2">Decimals</h4>
+                                <ul class="text-gray-700 space-y-2 text-sm">
+                                    <li>• Terminating: Ends (0.5, 2.75)</li>
+                                    <li>• Repeating: Digits repeat (0.333…)</li>
+                                    <li>• Non-repeating: Irrational numbers</li>
+                                    <li>• Conversion: Divide for fraction→decimal</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Practice Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Test your knowledge with these practice questions. Click on
+                        "View Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. Convert 3/4 into decimal.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">3 ÷ 4 = 0.75 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. Convert 0.6 into fraction.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">0.6 = 6/10 = 3/5 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Add 1/2 + 1/3.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(3+2)/6 = 5/6 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Subtract 5/8 – 3/8.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(5–3)/8 = 2/8 = 1/4 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. Multiply 2/3 × 3/4.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(2×3)/(3×4) = 6/12 = 1/2 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. Divide 3/5 ÷ 9/10.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">3/5 × 10/9 = 30/45 = 2/3 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. Convert 2⅔ into improper fraction.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(2×3)+2 = 8/3 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. Convert 11/4 into mixed fraction.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">2¾ ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. Which is greater: 3/5 or 4/7?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">3/5 = 0.6; 4/7 ≈ 0.571 → 3/5 is greater ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. Simplify: ½ + ¼ + ⅛.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 4/8 + 2/8 + 1/8 = 7/8 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 11 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. Convert 0.125 into fraction.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">125/1000 = 1/8 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 12 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. If 2/5 of a number = 16, find the
+                                number.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Number = (16×5)/2 = 40 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 13 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. Convert 0.75 into simplest
+                                fraction.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">75/100 = 3/4 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 14 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. Find reciprocal of 5/8.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Reciprocal = 8/5 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 15 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. Express ⅗ as a percentage.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(3/5)×100 = 60% ✅</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ Exam Strategy Tip</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Practice <strong>LCM calculation</strong> for adding/subtracting fractions quickly
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Memorize common fraction-decimal conversions (½=0.5, ¼=0.25, ¾=0.75)
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                For division, remember to <strong>multiply by reciprocal</strong>
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Use cross-multiplication for comparing fractions quickly
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Fractions & Decimals
+                        Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Mastering fractions and decimals is fundamental for
+                            quantitative aptitude. Practice converting between different forms and performing operations
+                            quickly. Remember that fractions represent parts of a whole while decimals provide an
+                            alternative representation using powers of 10. Regular practice with real-world problems
+                            will help you apply these concepts effectively in competitive exams.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="divisibility-rules.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="#"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Fractions & Decimals for
+                    Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

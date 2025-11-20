@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn Heights and Distances using Trigonometry: Angles of Elevation & Depression, right-angled triangle formulas, key concepts, and 15 practice questions with answers. Ideal for SSC, Railway, and Police exam preparation." />
+
+    <meta name="keywords"
+        content="Heights and Distances, Angle of Elevation, Angle of Depression, Right-Angled Triangle, Trigonometry, Height of Object, Distance Calculation, Tan θ, Trigonometry Questions, SSC Exam, Railway Exam, Police Exam" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Heights and Distances – Trigonometry Formulas & Practice Questions | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Trigonometry Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Trigonometry (Basic)
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="trigonometric-ratios.html" class="nav-link" title="Trigonometric Ratios">
+                                Trigonometric Ratios
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="heights-and-distances.html" class="nav-link" title="Heights and Distances">
+                                Heights and Distances
+                            </a>
+                            <p class="last-updated">Last Updated:
+                                <time datetime="2025-11-02">02-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">🏗️ Heights and Distances</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam Preparation - Quantitative
+                    Aptitude</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        Heights and Distances problems are based on <strong>trigonometry</strong>, mainly using
+                        <strong>angles of elevation, depression, and right-angled triangles</strong>. These questions
+                        frequently appear in <strong>SSC, Railway, and Police exams</strong>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Key Concepts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 1. Key Concepts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Angle of Elevation -->
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">1. Angle of Elevation</h4>
+                            <p class="text-gray-700">The angle formed <strong>above the horizontal</strong> when an
+                                observer looks <strong>upwards</strong> at an object.</p>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 mt-2 text-center">
+                                <p class="text-green-700 font-mono">Looking UP → Angle ABOVE horizontal</p>
+                            </div>
+                        </div>
+
+                        <!-- Angle of Depression -->
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">2. Angle of Depression</h4>
+                            <p class="text-gray-700">The angle formed <strong>below the horizontal</strong> when an
+                                observer looks <strong>downwards</strong> at an object.</p>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 mt-2 text-center">
+                                <p class="text-green-700 font-mono">Looking DOWN → Angle BELOW horizontal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right-Angled Triangle -->
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-6">
+                        <h4 class="text-lg font-bold text-yellow-800 mb-2">3. Right-Angled Triangle in Heights &
+                            Distances</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Hypotenuse</p>
+                                <p class="text-gray-600">Line of sight</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Opposite side</p>
+                                <p class="text-gray-600">Height difference</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg border border-gray-200 text-center">
+                                <p class="text-gray-800 font-semibold">Adjacent side</p>
+                                <p class="text-gray-600">Horizontal distance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trigonometric Ratios Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 2. Trigonometric Ratios Used</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Ratio</th>
+                                    <th class="px-4 py-3">Formula</th>
+                                    <th class="px-4 py-3">Application</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">sin θ</td>
+                                    <td class="px-4 py-3 font-mono">Opposite / Hypotenuse</td>
+                                    <td class="px-4 py-3">When line of sight is known</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">cos θ</td>
+                                    <td class="px-4 py-3 font-mono">Adjacent / Hypotenuse</td>
+                                    <td class="px-4 py-3">When horizontal distance is part of line of sight</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">tan θ</td>
+                                    <td class="px-4 py-3 font-mono">Opposite / Adjacent</td>
+                                    <td class="px-4 py-3"><strong>Most common</strong> - height/distance problems</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 mt-4 text-center">
+                        <p class="text-lg font-mono text-purple-800">Most problems use <strong>tan θ = height /
+                                distance</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 3. Important Formulas</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">1. Height of Object</h4>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-xl font-mono text-blue-700">Height = Distance × tan θ</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">2. Distance from Object</h4>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-xl font-mono text-green-700">Distance = Height / tan θ</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <h4 class="text-lg font-bold text-yellow-800 mb-2">3. Two Points Formula</h4>
+                            <p class="text-gray-700 mb-2">When angles of elevation from two points are given:</p>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200 text-center">
+                                <p class="text-lg font-mono text-yellow-700">Distance = Height difference / (tan θ₁ -
+                                    tan θ₂)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Tips Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🔹 4. Quick Tips for Solving</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="text-green-600 font-bold mr-2">1.</span>
+                                <p class="text-gray-700">Draw a <strong>diagram</strong> for visualization</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 font-bold mr-2">2.</span>
+                                <p class="text-gray-700">Identify <strong>right-angled triangles</strong></p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 font-bold mr-2">3.</span>
+                                <p class="text-gray-700">Label <strong>height, distance, angles</strong> clearly</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="text-green-600 font-bold mr-2">4.</span>
+                                <p class="text-gray-700">Use <strong>tan θ</strong> for most calculations</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 font-bold mr-2">5.</span>
+                                <p class="text-gray-700">Check <strong>units</strong> (meters, km) carefully</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 font-bold mr-2">6.</span>
+                                <p class="text-gray-700">Remember <strong>observer height</strong> when given</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🧠 Practice Section: 15 Questions (With Answers)
+                </h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Each Q followed by its Answer (SSC style). Click on "View
+                        Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. The angle of elevation of the top
+                                of a building from a point 50 m away is 30°. Find the height of the building.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 50 × tan 30° = 50 × 1/√3 ≈ 28.87 m
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. A tower is 40 m high. Find the
+                                angle of elevation from a point 30 m away.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">θ = tan⁻¹(height / distance) = tan⁻¹(40/30) =
+                                        tan⁻¹(4/3) ≈ 53.13°</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. The top of a pole is seen at an
+                                angle of 45° from a distance of 20 m. Find the height.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 20 × tan 45° = 20 × 1 = 20 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. A man 1.8 m tall sees the top of a
+                                building at 60°. Find the building's height if he is 10 m away from the base.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height of building = 10 × tan 60° + 1.8 = 10 ×
+                                        √3 + 1.8 ≈ 18.48 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. The angle of elevation of a tower
+                                from two points 30 m apart on the same line is 30° and 60°. Find the height of the
+                                tower.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 30 × tan 30° × tan 60° / (tan 60° –
+                                        tan 30°) = 30 × (1/√3 × √3) / (√3 – 1/√3) ≈ 15 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. The angle of elevation of a tree
+                                from a point 50 m away is 45°. Find the height of the tree.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 50 × tan 45° = 50 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. A person is standing 10 m from a
+                                pole. The angle of elevation of the top is 30°. Find the height of the pole.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 10 × tan 30° ≈ 5.77 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. From the top of a 20 m high
+                                building, the angle of depression of a car is 30°. Find the distance of the car from the
+                                building.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Distance = 20 / tan 30° = 20 × √3 ≈ 34.64 m
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. The angle of elevation of the top
+                                of a building from a point 40 m away is 60°. Find the height.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 40 × tan 60° = 40 × √3 ≈ 69.28 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. A balloon rises vertically and the
+                                angle of elevation changes from 30° to 60° over 50 m distance. Find the height of the
+                                balloon.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 50 × (tan 60° × tan 30°) / (tan 60° –
+                                        tan 30°) ≈ 21.65 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 11 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. A tree's top is seen at an angle
+                                of 30° from 15 m away. Find its height.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 15 × tan 30° ≈ 8.66 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 12 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. From a point 20 m away from a
+                                building, the angle of elevation is 45°. Height of the building?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 20 × tan 45° = 20 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 13 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. A man is 50 m from a building.
+                                Angle of elevation to the top is 60°. Find height.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 50 × tan 60° = 50 × √3 ≈ 86.60 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 14 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. A 1.5 m tall person sees the top
+                                of a building at 30° from 20 m away. Height of building?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Height = 20 × tan 30° + 1.5 ≈ 13.08 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 15 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. Angle of depression of a boat from
+                                a 25 m high cliff is 45°. Find distance of the boat.</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Distance = 25 / tan 45° = 25 m</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ SSC GD Exam Strategy</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Always draw a <strong>rough diagram</strong> to visualize the problem
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Remember the difference between <strong>elevation and depression</strong>
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Use <strong>tan θ = height/distance</strong> for most problems
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Don't forget to add <strong>observer height</strong> when applicable
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Time yourself - aim for <strong>45-60 seconds per height-distance problem</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Heights and Distances!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">SSC GD Tip: Mastering heights and distances problems requires
+                            strong visualization skills and quick application of trigonometric ratios. Remember that
+                            angle of elevation is measured upward from horizontal, while angle of depression is measured
+                            downward. Always identify the right triangle in the problem and use the appropriate
+                            trigonometric ratio. Practice drawing quick diagrams and labeling the known values. Regular
+                            practice with previous year SSC GD questions will build your speed and accuracy in solving
+                            these problems efficiently.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="trigonometric-ratios.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="#"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Heights & Distances for SSC GD
+                    Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive SSC GD study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Start Your SSC GD Preparation!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Relative Speed explained with formulas, cases (same direction, opposite direction, chasing), unit conversions, and 15 solved practice questions. Ideal for SSC GD, SSC MTS, SSC CGL, CHSL, Delhi Police, Railway, and all competitive exams." />
+
+    <meta name="keywords"
+        content="Relative Speed, same direction speed, opposite direction speed, chasing problems, speed distance time, SSC maths, Delhi Police exam maths, Railway maths, quantitative aptitude, Courage Library" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Relative Speed – Concepts, Formulas & Practice Questions | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Time Speed and Distance Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        G. Time, Speed and Distance
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="basic-formulae.html" class="nav-link" title="Basic Formulae">
+                                Basic Formulae
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="relative-speed.html" class="nav-link" title="Relative Speed">
+                                Relative Speed
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="trains-boats-streams.html" class="nav-link" title="Trains, Boats, and Streams">
+                                Trains, Boats, and Streams
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">🚦 Relative Speed – Complete Notes</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam Preparation - Quantitative
+                    Aptitude</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        Relative Speed is used when <strong>two objects move towards or away from each other</strong>.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center">
+                        <p class="text-xl font-semibold text-blue-800">It helps in solving problems related to
+                            <strong>trains, cars, walking persons, boats, etc.</strong></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What is Relative Speed Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1️⃣ What is Relative Speed?</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        Relative speed = <strong>difference or sum of speeds of two moving objects</strong>, depending
+                        on their direction.
+                    </p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h4 class="text-lg font-bold text-green-800 mb-2">Used when:</h4>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• Two objects move <strong>in the same direction</strong></li>
+                            <li>• Two objects move <strong>towards each other (opposite direction)</strong></li>
+                            <li>• One object is <strong>chasing</strong> another</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cases of Relative Speed Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2️⃣ Cases of Relative Speed</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Case 1: Same Direction -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">✔ Case 1: Same Direction</h4>
+                            <p class="text-gray-700 mb-3">When two objects move in <strong>same direction</strong>:</p>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-xl font-mono text-purple-800">Relative Speed = Faster speed - Slower
+                                    speed</p>
+                            </div>
+                            <p class="text-gray-700 mt-3 text-center">👉 Because the faster one is <em>catching up</em>
+                                slowly.</p>
+                        </div>
+
+                        <!-- Case 2: Opposite Direction -->
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h4 class="text-lg font-bold text-red-800 mb-2">✔ Case 2: Opposite Direction</h4>
+                            <p class="text-gray-700 mb-3">When two objects move in <strong>opposite direction</strong>:
+                            </p>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-xl font-mono text-purple-800">Relative Speed = Speed 1 + Speed 2</p>
+                            </div>
+                            <p class="text-gray-700 mt-3 text-center">👉 Because the distance between them reduces
+                                quickly.</p>
+                        </div>
+
+                        <!-- Case 3: Chasing -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">✔ Case 3: One Chasing Another</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                    <p class="text-purple-800 font-mono">Same direction → difference of speeds</p>
+                                </div>
+                                <div class="bg-purple-50 p-3 rounded-lg text-center">
+                                    <p class="text-purple-800 font-mono">Opposite direction → sum of speeds</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Formulae Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3️⃣ Formulae Used</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Time Formula -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">➡ Time Taken to Catch or Meet</h4>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-xl font-mono text-purple-800">Time = Distance / Relative Speed</p>
+                            </div>
+                        </div>
+
+                        <!-- Distance Formula -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">➡ Distance Covered During Meeting</h4>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-xl font-mono text-purple-800">Distance = Relative Speed × Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit Conversion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4️⃣ Unit Conversion (Very Important)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- km/hr to m/s -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">✔ km/hr → m/s</h4>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-2xl font-mono text-purple-800">Multiply by 5/18</p>
+                            </div>
+                        </div>
+
+                        <!-- m/s to km/hr -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">✔ m/s → km/hr</h4>
+                            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                                <p class="text-2xl font-mono text-purple-800">Multiply by 18/5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">🧠 15 Practice Questions (With Answers)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Test your relative speed concepts with these SSC GD level
+                        practice questions. Click on "View Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. Two cars run in the same direction
+                                at 60 km/hr and 40 km/hr. Relative speed = ?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 60 − 40 = 20 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. Two trains approach each other at
+                                50 km/hr and 30 km/hr. Relative speed = ?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 50 + 30 = 80 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. A car moving at 70 km/hr chases
+                                another at 50 km/hr. Relative speed?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 70 − 50 = 20 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Two persons walk towards each other
+                                at 4 km/hr and 3 km/hr. When will they meet if distance = 14 km?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative speed = 7 km/hr, Time = 14/7 = 2
+                                        hours</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. Two bikes move away from each other
+                                at 40 km/hr and 20 km/hr. How fast is distance increasing?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 40 + 20 = 60 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. A train (60 km/hr) meets another
+                                (40 km/hr). Time to meet if distance = 50 km?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative = 100 km/hr, Time = 50/100 = 0.5 hr
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. A man runs at 10 km/hr chasing
+                                another at 6 km/hr. How long to catch if lead = 400 m?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative speed = 4 km/hr = 4000 m/hr, Time =
+                                        400/4000 = 0.1 hr = 6 min</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. Two cars opposite directions at 90
+                                km/hr & 60 km/hr. Relative speed = ?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 150 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. A car (72 km/hr) moves behind a bus
+                                (54 km/hr). Relative speed?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 72 − 54 = 18 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. Person A walks at 5 km/hr, B at 3
+                                km/hr same direction. Time to meet if gap = 2 km?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative = 2 km/hr, Time = 2/2 = 1 hour</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 11 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. A train (20 m/s) meets another
+                                train (10 m/s). Relative speed?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 20 + 10 = 30 m/s</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 12 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. Two trains running opposite
+                                direction at 50 km/hr & 25 km/hr take 10 sec to cross. Distance covered?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative = 75 km/hr = 75 × 5/18 = 20.83 m/s,
+                                        Distance = 20.83 × 10 = 208.3 m</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 13 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. A scooter 60 km/hr and a cycle 20
+                                km/hr. Same direction. Relative speed?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">= 40 km/hr</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 14 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. Two trains approach at 36 km/hr &
+                                72 km/hr. Relative speed in m/s?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(36 + 72) × 5/18 = 108 × 5/18 = 30 m/s</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 15 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. A car at 80 km/hr meets another at
+                                20 km/hr. Time to meet if distance = 50 km?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Relative = 100 km/hr, Time = 50/100 = 0.5 hr =
+                                        30 min</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ SSC GD Exam Strategy</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Remember <strong>same direction = difference, opposite direction = sum</strong>
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Practice <strong>unit conversions quickly</strong> for speed calculations
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Master <strong>time and distance formulas</strong> with relative speed
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Learn to identify <strong>direction of movement</strong> correctly
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Time yourself - aim for <strong>45-60 seconds per relative speed question</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Relative Speed Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">SSC GD Tip: Relative speed problems are very common in
+                            competitive exams. Focus on mastering the direction-based formulas - same direction uses
+                            difference of speeds, while opposite direction uses sum of speeds. Remember to convert units
+                            consistently (km/hr to m/s when needed). Practice different scenarios like trains meeting,
+                            persons chasing, and vehicles moving in different directions. Regular practice with previous
+                            year SSC GD questions will build your speed and accuracy in solving relative speed problems
+                            efficiently.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="basic-formulae.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="trains-boats-and-streams.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Relative Speed for SSC GD Exam!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive SSC GD study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Start Your SSC GD Preparation!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

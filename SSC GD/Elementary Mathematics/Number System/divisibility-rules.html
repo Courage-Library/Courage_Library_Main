@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Learn Divisibility Rules for SSC, Delhi Police, and other competitive exams. Includes easy rules for numbers 2 to 100, examples, tricks, and 15 solved practice questions for quick maths preparation, SSC GD (Staff Selection Commission – General Duty)." />
+
+    <meta name="keywords"
+        content="Divisibility Rules, divisibility by 2 3 4 5 6 8 9 10 11, maths shortcuts, SSC maths, Delhi Police exam, number system, aptitude tricks, divisibility tests, competitive exams, Courage Library" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+
+    <title>Divisibility Rules – Tricks, Examples & Practice Questions | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Number System Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        A. Number System
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="natural-and-whole-numbers.html" class="nav-link" title="Natural & Whole Numbers">
+                                Natural & Whole Numbers
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="lcm-and-hcf.html" class="nav-link" title="LCM & HCF">
+                                LCM & HCF
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="divisibility-rules.html" class="nav-link" title="Divisibility Rules">
+                                Divisibility Rules
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="fractions-and-decimals.html" class="nav-link" title="Fractions & Decimals">
+                                Fractions & Decimals
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-02">02-11-2025</time></p>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Divisibility Rules (Quantitative Aptitude)
+                </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD (Staff Selection Commission – General
+                    Duty)</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction to Divisibility Rules</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        Divisibility rules help us determine whether a given number is divisible by another number
+                        <strong>without performing full division</strong>.
+                        These shortcuts are useful for finding <strong>factors</strong>, <strong>LCM</strong>,
+                        <strong>HCF</strong>, and for <strong>simplifying arithmetic problems</strong> quickly.
+                    </p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-700 font-medium">
+                            <strong>Key Benefit:</strong><br>
+                            Save time in competitive exams by quickly identifying factors and multiples without lengthy
+                            calculations.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Basic Rules Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Basic Divisibility Rules</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Number</th>
+                                    <th class="px-4 py-3">Divisibility Rule</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">2</td>
+                                    <td class="px-4 py-3">Last digit is even (0, 2, 4, 6, 8)</td>
+                                    <td class="px-4 py-3">128 → ✅ (ends with 8)</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">3</td>
+                                    <td class="px-4 py-3">Sum of digits is divisible by 3</td>
+                                    <td class="px-4 py-3">258 → 2+5+8=15 → ✅</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">4</td>
+                                    <td class="px-4 py-3">Last two digits form a number divisible by 4</td>
+                                    <td class="px-4 py-3">312 → 12 ÷ 4 = 3 → ✅</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">5</td>
+                                    <td class="px-4 py-3">Last digit is 0 or 5</td>
+                                    <td class="px-4 py-3">465 → ✅ (ends with 5)</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">6</td>
+                                    <td class="px-4 py-3">Divisible by both 2 and 3</td>
+                                    <td class="px-4 py-3">132 → even and 1+3+2=6 → ✅</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">8</td>
+                                    <td class="px-4 py-3">Last three digits form a number divisible by 8</td>
+                                    <td class="px-4 py-3">3128 → 128 ÷ 8 = 16 → ✅</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">9</td>
+                                    <td class="px-4 py-3">Sum of digits is divisible by 9</td>
+                                    <td class="px-4 py-3">837 → 8+3+7=18 → ✅</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">10</td>
+                                    <td class="px-4 py-3">Last digit is 0</td>
+                                    <td class="px-4 py-3">450 → ✅</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">11</td>
+                                    <td class="px-4 py-3">Difference between sum of alternate digits is 0 or divisible
+                                        by 11</td>
+                                    <td class="px-4 py-3">506 → (5+6)–0=11 → ✅</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">12</td>
+                                    <td class="px-4 py-3">Divisible by both 3 and 4</td>
+                                    <td class="px-4 py-3">324 → 3+2+4=9 & 24÷4=6 → ✅</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">15</td>
+                                    <td class="px-4 py-3">Divisible by both 3 and 5</td>
+                                    <td class="px-4 py-3">345 → ✅</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">25</td>
+                                    <td class="px-4 py-3">Last two digits form a number divisible by 25</td>
+                                    <td class="px-4 py-3">825 → ✅ (25×33)</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">50</td>
+                                    <td class="px-4 py-3">Last two digits are 00 or 50</td>
+                                    <td class="px-4 py-3">450 → ✅</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">100</td>
+                                    <td class="px-4 py-3">Last two digits are 00</td>
+                                    <td class="px-4 py-3">700 → ✅</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Rules Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Special Divisibility Rules</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Rule for 7</h4>
+                            <p class="text-gray-700 mb-3">Double the last digit and subtract from the remaining number.
+                            </p>
+                            <p class="text-sm text-gray-600">Example: 462 → 46 - (2×2) = 42 → divisible by 7 ✅</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Rule for 11</h4>
+                            <p class="text-gray-700 mb-3">(Sum of odd-place digits) - (Sum of even-place digits) = 0 or
+                                multiple of 11</p>
+                            <p class="text-sm text-gray-600">Example: 121 → (1+1) - 2 = 0 → divisible by 11 ✅</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h4 class="text-lg font-bold text-purple-800 mb-2">Rule for 13</h4>
+                            <p class="text-gray-700 mb-3">Multiply last digit by 4 and add to remaining number.</p>
+                            <p class="text-sm text-gray-600">Example: 169 → 16 + (9×4) = 52 → divisible by 13 ✅</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h4 class="text-lg font-bold text-yellow-800 mb-2">Composite Numbers</h4>
+                            <p class="text-gray-700 mb-3">For composite numbers, check divisibility by their prime
+                                factors</p>
+                            <p class="text-sm text-gray-600">Example: 18 = 2×3×3 → check divisibility by 2 and 9</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memory Tips Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Memory Tips & Tricks</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start">
+                            <span class="text-green-600 font-bold mr-2">✅</span>
+                            <p class="font-medium text-gray-800"><strong>Last Digit Rules:</strong> 2, 5, 10 - check
+                                only last digit</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start">
+                            <span class="text-green-600 font-bold mr-2">✅</span>
+                            <p class="font-medium text-gray-800"><strong>Sum Rules:</strong> 3, 9 - check sum of all
+                                digits</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start">
+                            <span class="text-green-600 font-bold mr-2">✅</span>
+                            <p class="font-medium text-gray-800"><strong>Last 2/3 Digits:</strong> 4, 8, 25, 50, 100 -
+                                check last few digits</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start">
+                            <span class="text-green-600 font-bold mr-2">✅</span>
+                            <p class="font-medium text-gray-800"><strong>Combination Rules:</strong> 6, 12, 15 - check
+                                multiple conditions</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Quick Reference Pattern</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                            <div class="text-center p-2 bg-white rounded border">
+                                <p class="font-bold">2, 5, 10</p>
+                                <p class="text-gray-600">Last digit only</p>
+                            </div>
+                            <div class="text-center p-2 bg-white rounded border">
+                                <p class="font-bold">3, 9</p>
+                                <p class="text-gray-600">Sum of digits</p>
+                            </div>
+                            <div class="text-center p-2 bg-white rounded border">
+                                <p class="font-bold">4, 8, 25</p>
+                                <p class="text-gray-600">Last 2-3 digits</p>
+                            </div>
+                            <div class="text-center p-2 bg-white rounded border">
+                                <p class="font-bold">6, 12, 15</p>
+                                <p class="text-gray-600">Multiple rules</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Application Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Exam Application Tips</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h4 class="text-lg font-bold text-blue-800 mb-2">Quick Factor Identification</h4>
+                                <p class="text-gray-700">Use divisibility rules to quickly identify factors in LCM/HCF
+                                    problems</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h4 class="text-lg font-bold text-green-800 mb-2">Number System Questions</h4>
+                                <p class="text-gray-700">Essential for questions about multiples, factors, and prime
+                                    numbers</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h4 class="text-lg font-bold text-purple-800 mb-2">Simplification</h4>
+                                <p class="text-gray-700">Simplify fractions quickly by identifying common factors</p>
+                            </div>
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h4 class="text-lg font-bold text-yellow-800 mb-2">Time Saving</h4>
+                                <p class="text-gray-700">Save 30-60 seconds per question by avoiding long division</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Quick Recap - Most Important Rules</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Number</th>
+                                    <th class="px-4 py-3">Rule</th>
+                                    <th class="px-4 py-3">Priority</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">2, 5, 10</td>
+                                    <td class="px-4 py-3">Check last digit</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-green-100 text-green-800 px-2 py-1 rounded">High</span></td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">3, 9</td>
+                                    <td class="px-4 py-3">Sum of digits</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-green-100 text-green-800 px-2 py-1 rounded">High</span></td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">4, 8, 25</td>
+                                    <td class="px-4 py-3">Last 2-3 digits</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Medium</span></td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">6, 12, 15</td>
+                                    <td class="px-4 py-3">Multiple conditions</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Medium</span></td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">7, 11, 13</td>
+                                    <td class="px-4 py-3">Special rules</td>
+                                    <td class="px-4 py-3"><span
+                                            class="bg-red-100 text-red-800 px-2 py-1 rounded">Low</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Practice Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">Test your knowledge with these practice questions. Click on
+                        "View Answer" to check your understanding.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. Is 246 divisible by 2?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Yes, last digit is 6 (even).</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. Is 375 divisible by 5?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Yes, ends with 5.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Check if 216 is divisible by 3.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Sum = 2+1+6=9 → divisible by 3 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 4 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Check if 924 is divisible by 4.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Last two digits 24 → 24 ÷ 4 = 6 → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 5 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. Is 450 divisible by 6?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Divisible by 2 (even) and 3 (4+5+0=9) → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 6 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. Check if 1032 is divisible by 8.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Last 3 digits 032 → 32 ÷ 8 = 4 → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 7 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. Is 639 divisible by 9?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Sum = 6+3+9=18 → divisible by 9 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 8 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q8. Check if 121 is divisible by 11.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">(1+1)–2=0 → divisible by 11 ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 9 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q9. Is 500 divisible by 25?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Last two digits 00 → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 10 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q10. Is 1250 divisible by 50?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Last two digits 50 → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 11 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q11. Check divisibility of 360 by 12.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Divisible by 3 (3+6+0=9) and 4 (60 ÷ 4 = 15) →
+                                        ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 12 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q12. Check if 105 is divisible by 15.
+                            </h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Divisible by 3 (sum=6) and 5 (ends in 5) → ✅
+                                    </p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 13 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q13. Is 273 divisible by 3?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">Sum=2+7+3=12 → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 14 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q14. Is 462 divisible by 7?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">46 – 2×2 = 42 → 42 ÷ 7 = 6 → ✅</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Question 15 -->
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-3">Q15. Which of the following numbers is
+                                divisible by 9: 1458, 1234, 5673?</h3>
+                            <details class="mt-4 cursor-pointer">
+                                <summary
+                                    class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                    View Answer
+                                </summary>
+                                <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="text-green-700 font-medium">1458 (sum=18 → ✅), 1234 (sum=10 ❌), 5673
+                                        (sum=21 → ✅)</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">✅ Exam Strategy Tip</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Start with <strong>2, 5, 10 rules</strong> first - they're the quickest to check
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                For composite numbers, check <strong>divisibility by prime factors</strong>
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Practice mental calculation of <strong>digit sums</strong> for 3 and 9
+                            </p>
+                            <p class="text-gray-700 flex items-start">
+                                <span class="text-green-600 font-bold mr-2">🟢</span>
+                                Remember patterns: <strong>4/8/25</strong> check last digits, <strong>6/12/15</strong>
+                                check combinations
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Divisibility Rules Concepts!
+                    </h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Regular practice with divisibility rules will
+                            significantly improve your speed in number system questions. Focus on mastering the most
+                            frequently tested rules (2, 3, 5, 9, 10, 11) first, then move to less common ones. Create
+                            flashcards for quick revision and practice applying these rules in LCM/HCF problems to build
+                            comprehensive understanding.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="lcm-and-hcf.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Himanshu Srivastava
+                </div>
+                <a href="fractions-and-decimals.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Divisibility Rules for Competitive
+                    Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

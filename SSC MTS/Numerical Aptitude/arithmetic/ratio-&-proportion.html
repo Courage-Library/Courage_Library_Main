@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Ratio & Proportion for competitive exams like Delhi Police and SSC. Learn direct proportion, inverse proportion, and partnership concepts with examples and applications." />
+    <meta name="keywords"
+        content="Ratio and Proportion, direct proportion, inverse proportion, partnership, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Ratio & Proportion | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Ratio & Proportion Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Ratio & Proportion
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="ratio-basics.html" class="nav-link" title="Ratio Basics">Ratio Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="direct-proportion.html" class="nav-link" title="Direct Proportion">Direct Proportion</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="inverse-proportion.html" class="nav-link" title="Inverse Proportion">Inverse Proportion</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="partnership.html" class="nav-link" title="Partnership">Partnership</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Ratio & Proportion</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        The chapter Ratio & Proportion is one of the most scoring topics in SSC MTS, CHSL, and other competitive exams.
+                        It forms the base for many other chapters like Partnership, Time & Work, Time & Distance, and Ages.
+                    </p>
+                </div>
+            </section>
+
+            <!-- What is Ratio Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">What is a Ratio?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        A ratio is the comparison of two quantities of the same kind by division.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4">
+                        <p class="text-lg font-semibold text-blue-800 text-center">
+                            Ratio = First Quantity / Second Quantity
+                        </p>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        It is written as a : b, where a and b are quantities of the same unit.
+                    </p>
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Example</h3>
+                        <p class="text-gray-700">If the age of Ram is 10 years and Shyam is 15 years,</p>
+                        <p class="text-gray-700">then ratio of their ages = 10 : 15 = 2 : 3</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Properties of Ratios Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Key Properties of Ratios</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">1. Ratios have no units</h3>
+                            <p class="text-gray-700">Both quantities must have the same unit.</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">2. Multiplying or dividing both terms by the same number doesn't change the ratio</h3>
+                            <p class="text-gray-700">Example: 2 : 3 = 4 : 6 = 6 : 9</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">3. If a : b = c : d, then a, b, c, d are said to be in proportion</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What is Proportion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">What is Proportion?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When two ratios are equal, we say they are in proportion.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4">
+                        <p class="text-lg font-semibold text-blue-800 text-center">
+                            a : b :: c : d or a/b = c/d
+                        </p>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Here, b and c are called means, and a and d are called extremes.
+                    </p>
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200 mb-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Product of means = Product of extremes</h3>
+                        <p class="text-lg font-semibold text-center">b × c = a × d</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <h3 class="text-lg font-bold text-yellow-800 mb-2">Example</h3>
+                        <p class="text-gray-700">If 2 : 3 :: 8 : 12 → (2×12 = 3×8) → both equal 24 → proportional</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Proportion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Types of Proportion</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Direct Proportion -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">(A) Direct Proportion</h3>
+                            <p class="text-gray-700 mb-2">
+                                If increase in one quantity causes an increase in the other, or decrease causes decrease,
+                                then the two quantities are said to be in Direct Proportion.
+                            </p>
+                            <div class="bg-white p-3 rounded border mb-4">
+                                <p class="text-lg font-semibold text-center">x₁/x₂ = y₁/y₂</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Examples:</span></p>
+                                    <ul class="list-disc ml-5 text-gray-700">
+                                        <li>More men → more work</li>
+                                        <li>More money → more goods</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example Question:</span></p>
+                                    <p class="text-gray-700">If ₹200 gives 5 pens, how many pens for ₹400?</p>
+                                    <p class="text-gray-700">5/? = 200/400 → ? = 10 pens</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inverse Proportion -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">(B) Inverse Proportion</h3>
+                            <p class="text-gray-700 mb-2">
+                                If increase in one quantity causes a decrease in the other (and vice versa),
+                                then they are in Inverse Proportion.
+                            </p>
+                            <div class="bg-white p-3 rounded border mb-4">
+                                <p class="text-lg font-semibold text-center">x₁ × y₁ = x₂ × y₂</p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Examples:</span></p>
+                                    <ul class="list-disc ml-5 text-gray-700">
+                                        <li>More workers → Less days to complete work</li>
+                                        <li>More speed → Less time to cover distance</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-gray-700"><span class="font-semibold">Example Question:</span></p>
+                                    <p class="text-gray-700">If 6 men can complete a work in 15 days, how many days will 10 men take?</p>
+                                    <p class="text-gray-700">6 × 15 = 10 × x → x = (6×15)/10 = 9 days</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Compound Ratio Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Compound Ratio</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        When multiple ratios are multiplied together:
+                    </p>
+                    <p class="text-lg text-gray-700 mb-4">
+                        If a : b, b : c, and c : d, then Compound Ratio = a : d.
+                    </p>
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Example</h3>
+                        <p class="text-gray-700">a : b = 2 : 3, b : c = 4 : 5</p>
+                        <p class="text-gray-700">→ Compound ratio = (2×4) : (3×5) = 8 : 15</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Continued Proportion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Continued Proportion</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-4">
+                        If a : b = b : c, then a, b, c are in continued proportion.
+                    </p>
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                        <p class="text-lg font-semibold text-blue-800 text-center">b² = a × c</p>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Example</h3>
+                        <p class="text-gray-700">If a : b = 2 : 4 and b : c = 4 : 8</p>
+                        <p class="text-gray-700">→ a : b : c = 2 : 4 : 8</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Important Formulas for Ratio & Proportion</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm overflow-x-auto">
+                    <table class="min-w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-blue-50">
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Concept</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Ratio</td>
+                                <td class="border border-gray-300 px-4 py-2">a : b = a/b</td>
+                                <td class="border border-gray-300 px-4 py-2">2 : 3</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">a : b :: c : d → a/b = c/d</td>
+                                <td class="border border-gray-300 px-4 py-2">4/8 = 1/2</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Direct Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">x₁/x₂ = y₁/y₂</td>
+                                <td class="border border-gray-300 px-4 py-2">Speed ↑ → Distance ↑</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">Inverse Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">x₁×y₁ = x₂×y₂</td>
+                                <td class="border border-gray-300 px-4 py-2">Speed ↑ → Time ↓</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Mean Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">b² = a×c</td>
+                                <td class="border border-gray-300 px-4 py-2">b = √(a×c)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Partnership Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Partnership</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Definition</h3>
+                            <p class="text-gray-700">
+                                When two or more persons invest money in a business and share the profit or loss, it is called a Partnership.
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Types of Partnership</h3>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">(a) Simple Partnership</h4>
+                                <p class="text-gray-700 mb-2">All partners invest their money for the same period of time.</p>
+                                <p class="text-gray-700 mb-2">Profit or loss is shared in the ratio of their capitals.</p>
+                                <div class="bg-white p-3 rounded border mb-2">
+                                    <p class="text-lg font-semibold text-center">Profit Ratio = Capital Ratio</p>
+                                </div>
+                                <div class="p-3 bg-white rounded border">
+                                    <h5 class="font-semibold text-gray-800 mb-1">Example:</h5>
+                                    <p class="text-gray-700">A invests ₹10,000 and B invests ₹20,000</p>
+                                    <p class="text-gray-700">→ Profit Ratio = 10,000 : 20,000 = 1 : 2</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">(b) Time Partnership</h4>
+                                <p class="text-gray-700 mb-2">When capitals are invested for different time periods, profits are shared according to (Capital × Time).</p>
+                                <div class="bg-white p-3 rounded border mb-2">
+                                    <p class="text-lg font-semibold text-center">Profit Ratio = (Capital × Time)</p>
+                                </div>
+                                <div class="p-3 bg-white rounded border">
+                                    <h5 class="font-semibold text-gray-800 mb-1">Example:</h5>
+                                    <p class="text-gray-700">A invests ₹5,000 for 12 months and B invests ₹8,000 for 6 months.</p>
+                                    <p class="text-gray-700">→ Ratio = (5000×12) : (8000×6) = 60,000 : 48,000 = 5 : 4</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">(c) Sleeping Partner</h4>
+                                <p class="text-gray-700">A partner who invests capital but does not take part in day-to-day business activities.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">Admission or Retirement of a Partner</h3>
+                            <p class="text-gray-700">
+                                If a new partner joins, he gets profit according to his investment and time.
+                                If a partner leaves, his profit share stops from that point.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Partnership Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Important Partnership Formulas</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm overflow-x-auto">
+                    <table class="min-w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-blue-50">
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Case</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Profit Sharing</td>
+                                <td class="border border-gray-300 px-4 py-2">Profit ∝ Capital × Time</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">Equal Time</td>
+                                <td class="border border-gray-300 px-4 py-2">Profit ∝ Capital</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Equal Capital</td>
+                                <td class="border border-gray-300 px-4 py-2">Profit ∝ Time</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">Partner's share</td>
+                                <td class="border border-gray-300 px-4 py-2">(Capital × Time) / Sum of all (Capital × Time) × Total Profit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Example Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Example Questions (SSC MTS Level)</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">1. Direct Proportion</h3>
+                            <p class="text-gray-700">If 3 pencils cost ₹9, find the cost of 5 pencils.</p>
+                            <p class="text-gray-700 font-semibold">→ (3/5) = (9/x) → x = 15</p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">2. Inverse Proportion</h3>
+                            <p class="text-gray-700">8 workers can finish a job in 12 days. How many days will 6 workers take?</p>
+                            <p class="text-gray-700 font-semibold">→ 8×12 = 6×x → x = 16 days</p>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">3. Partnership (Simple)</h3>
+                            <p class="text-gray-700">A & B invest ₹12,000 and ₹8,000 respectively. Find profit ratio.</p>
+                            <p class="text-gray-700 font-semibold">→ 12,000 : 8,000 = 3 : 2</p>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">4. Partnership (Time)</h3>
+                            <p class="text-gray-700">A invests ₹6,000 for 12 months and B invests ₹9,000 for 8 months.</p>
+                            <p class="text-gray-700 font-semibold">→ (6000×12) : (9000×8) = 72,000 : 72,000 = 1 : 1</p>
+                        </div>
+
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <h3 class="text-lg font-bold text-red-800 mb-2">5. Profit Share</h3>
+                            <p class="text-gray-700">A & B invest ₹10,000 and ₹20,000 for 6 and 3 months respectively. Total profit = ₹9000</p>
+                            <p class="text-gray-700 font-semibold">→ A : B = (10,000×6) : (20,000×3) = 60,000 : 60,000 = 1 : 1</p>
+                            <p class="text-gray-700 font-semibold">→ Each gets ₹4500</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips for SSC MTS Exam Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Tips for SSC MTS Exam</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <ul class="list-disc ml-5 space-y-2 text-gray-700">
+                        <li>Always check if it's Direct or Inverse proportion.</li>
+                        <li>Multiply capital and time for partnership problems.</li>
+                        <li>Simplify ratios fully (reduce to smallest numbers).</li>
+                        <li>Convert all months/years into the same unit.</li>
+                        <li>Memorize base formulas — it saves time in the exam.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Quick Recap Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Quick Recap Table</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm overflow-x-auto">
+                    <table class="min-w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-blue-50">
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Topic</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Key Formula</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Remember</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Ratio</td>
+                                <td class="border border-gray-300 px-4 py-2">a : b = a/b</td>
+                                <td class="border border-gray-300 px-4 py-2">No units</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">a/b = c/d</td>
+                                <td class="border border-gray-300 px-4 py-2">Cross multiply</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Direct Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">x₁/x₂ = y₁/y₂</td>
+                                <td class="border border-gray-300 px-4 py-2">Both increase or decrease</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2">Inverse Proportion</td>
+                                <td class="border border-gray-300 px-4 py-2">x₁×y₁ = x₂×y₂</td>
+                                <td class="border border-gray-300 px-4 py-2">One increases, other decreases</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2">Partnership</td>
+                                <td class="border border-gray-300 px-4 py-2">Profit ∝ Capital×Time</td>
+                                <td class="border border-gray-300 px-4 py-2">Equalize units</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Ratio & Proportion!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice ratio and proportion problems regularly, focusing on identifying whether a relationship is direct or inverse. For partnership problems, always remember to multiply capital by time when periods are different.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="divisibility-rules.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Ratio & Proportion for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Phrasal Verbs with Courage Library. Learn definitions, meanings, examples, and correct usage to boost your English grammar and vocabulary for SSC and competitive exams." />
+    <meta name="keywords"
+        content="Phrasal Verbs, English Grammar, Vocabulary, SSC Exam, Competitive Exams, English Usage, Verb Phrases, Courage Library" />
+    <meta name="author" content="Courage Library" />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+    <title>Phrasal Verbs | Courage Library</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../index.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Computer Awareness Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Computer Awareness -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Computer Awareness
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="introduction-to-computer.html" class="nav-link" title="Introduction To Computer">
+                                Introduction To Computer
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Input_and_Output_Devices.html" class="nav-link" title="Input Output Devices">
+                                Input Output Devices
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Storage Devices.html" class="nav-link" title="Storage Devices">
+                                Storage Devices
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="MS Office.html" class="nav-link" title="MS Office">
+                                MS Office
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Internet Basics and Web Browsers.html" class="nav-link"
+                                title="Internet Basics & Web Browsers">
+                                Internet Basics & Web Browsers
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Email and Cloud Concepts.html" class="nav-link" title="Email & Cloud Concepts">
+                                Email & Cloud Concepts
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Cyber Security and Viruses.html" class="nav-link" title="Cyber Security & Viruses">
+                                Cyber Security & Viruses
+                            </a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-11-16">16-11-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Internet Basics & Web Browsers </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC MTS Exam</p>
+            </section>
+            <img src="../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What is Internet Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is the Internet?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        The <strong>Internet</strong> is a global network of interconnected computers that communicate
+                        using standardized protocols. It is often called the <strong>"Network of Networks"</strong>
+                        because it connects millions of smaller networks worldwide.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Global Network</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">TCP/IP Protocols</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Information Sharing</p>
+                            </div>
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Decentralized System</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+                        <p class="text-lg text-gray-700">
+                            <strong>Simple Definition:</strong> The Internet is a <strong>worldwide system of computer
+                                networks</strong> that allows users to share information and communicate.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How Internet Works Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. How the Internet Works</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Basic Internet Components</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-blue-700">Clients & Servers</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Client</p>
+                                    <p class="text-sm text-gray-600">Requests information</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Server</p>
+                                    <p class="text-sm text-gray-600">Provides information</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Protocols</p>
+                                    <p class="text-sm text-gray-600">Rules for communication</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-green-700">Data Transmission</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Packets</p>
+                                    <p class="text-sm text-gray-600">Small data units</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Routers</p>
+                                    <p class="text-sm text-gray-600">Direct data packets</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">IP Address</p>
+                                    <p class="text-sm text-gray-600">Unique identifier</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-purple-700">Key Technologies</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="font-medium text-gray-800">TCP/IP</p>
+                                    <p class="text-sm text-gray-600">Core protocol suite</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="font-medium text-gray-800">DNS</p>
+                                    <p class="text-sm text-gray-600">Domain Name System</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                    <p class="font-medium text-gray-800">HTTP/HTTPS</p>
+                                    <p class="text-sm text-gray-600">Web protocols</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Web Browsers Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. What are Web Browsers?</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Web Browser Functions</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Display Web Pages</p>
+                            <p class="text-xs text-gray-600">Render HTML/CSS</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Navigate URLs</p>
+                            <p class="text-xs text-gray-600">Address bar</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Bookmarks</p>
+                            <p class="text-xs text-gray-600">Save pages</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">History</p>
+                            <p class="text-xs text-gray-600">Track browsing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Browser Components</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Component</th>
+                                    <th class="px-4 py-3">Function</th>
+                                    <th class="px-4 py-3">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Address Bar</td>
+                                    <td class="px-4 py-3">Enter website URLs</td>
+                                    <td class="px-4 py-3">URL input field</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Rendering Engine</td>
+                                    <td class="px-4 py-3">Display web pages</td>
+                                    <td class="px-4 py-3">Blink, Gecko</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Tabs</td>
+                                    <td class="px-4 py-3">Multiple pages</td>
+                                    <td class="px-4 py-3">Tabbed browsing</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Bookmarks</td>
+                                    <td class="px-4 py-3">Save favorite sites</td>
+                                    <td class="px-4 py-3">Favorites list</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Extensions</td>
+                                    <td class="px-4 py-3">Add functionality</td>
+                                    <td class="px-4 py-3">Ad blockers</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Cache</td>
+                                    <td class="px-4 py-3">Store temporary files</td>
+                                    <td class="px-4 py-3">Faster loading</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Web Browsers Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Popular Web Browsers</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Common Web Browsers</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Google Chrome</p>
+                            <p class="text-xs text-gray-600">Most popular</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Mozilla Firefox</p>
+                            <p class="text-xs text-gray-600">Open source</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Microsoft Edge</p>
+                            <p class="text-xs text-gray-600">Windows default</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Safari</p>
+                            <p class="text-xs text-gray-600">Apple devices</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Opera</p>
+                            <p class="text-xs text-gray-600">Built-in VPN</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Internet Explorer</p>
+                            <p class="text-xs text-gray-600">Legacy browser</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Brave</p>
+                            <p class="text-xs text-gray-600">Privacy focused</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">UC Browser</p>
+                            <p class="text-xs text-gray-600">Mobile focused</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Browser Comparison</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Browser</th>
+                                    <th class="px-4 py-3">Developer</th>
+                                    <th class="px-4 py-3">Rendering Engine</th>
+                                    <th class="px-4 py-3">Platform</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Google Chrome</td>
+                                    <td class="px-4 py-3">Google</td>
+                                    <td class="px-4 py-3">Blink</td>
+                                    <td class="px-4 py-3">Cross-platform</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Mozilla Firefox</td>
+                                    <td class="px-4 py-3">Mozilla</td>
+                                    <td class="px-4 py-3">Gecko</td>
+                                    <td class="px-4 py-3">Cross-platform</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Microsoft Edge</td>
+                                    <td class="px-4 py-3">Microsoft</td>
+                                    <td class="px-4 py-3">Blink</td>
+                                    <td class="px-4 py-3">Cross-platform</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Safari</td>
+                                    <td class="px-4 py-3">Apple</td>
+                                    <td class="px-4 py-3">WebKit</td>
+                                    <td class="px-4 py-3">Apple devices</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Opera</td>
+                                    <td class="px-4 py-3">Opera Software</td>
+                                    <td class="px-4 py-3">Blink</td>
+                                    <td class="px-4 py-3">Cross-platform</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Internet Protocols Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Internet Protocols & Terms</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Internet Protocols</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div
+                                class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">TCP/IP</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Transmission Control Protocol/Internet Protocol</p>
+                                <p class="text-sm text-gray-600">Foundation of internet communication</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+                            <div
+                                class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">HTTP</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">HyperText Transfer Protocol</p>
+                                <p class="text-sm text-gray-600">Web page transfer (unsecured)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">HTTPS</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">HTTP Secure</p>
+                                <p class="text-sm text-gray-600">Encrypted web communication</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-100 rounded-lg border border-green-300">
+                            <div
+                                class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">FTP</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">File Transfer Protocol</p>
+                                <p class="text-sm text-gray-600">File transfers between computers</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <div
+                                class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">DNS</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Domain Name System</p>
+                                <p class="text-sm text-gray-600">Translates domain names to IP addresses</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- URL Structure Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. URL Structure</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Understanding a Web Address</h3>
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 text-center">
+                            <p class="text-lg font-mono text-gray-800 bg-white p-3 rounded border">
+                                <span class="text-blue-600">https://</span>
+                                <span class="text-green-600">www.example.com</span>
+                                <span class="text-purple-600">:443</span>
+                                <span class="text-red-600">/path/to/page.html</span>
+                                <span class="text-orange-600">?query=string</span>
+                                <span class="text-teal-600">#section</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-blue-800 mb-2">Protocol (https://)</h4>
+                            <p class="text-gray-700">→ How data is transferred</p>
+                            <p class="text-sm text-gray-600">(Secure HTTP protocol)</p>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <div
+                                class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9m0 9c-5 0-9-4-9-9s4-9 9-9" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-green-800 mb-2">Domain (www.example.com)</h4>
+                            <p class="text-gray-700">→ Website address</p>
+                            <p class="text-sm text-gray-600">(Human-readable IP address)</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            A URL (Uniform Resource Locator) is the complete web address that tells your browser exactly
+                            where to find a specific resource on the internet.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Browser Shortcuts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Essential Browser Shortcuts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Common Browser Keyboard Shortcuts</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ctrl + T → <strong>New Tab</strong></p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ctrl + W → <strong>Close Tab</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ctrl + R → <strong>Refresh Page</strong></p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ctrl + D → <strong>Bookmark Page</strong></p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ctrl + H → <strong>View History</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-indigo-50 rounded-lg border border-indigo-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Ctrl + L → <strong>Focus Address Bar</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Common Delhi Police / SSC Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Internet → <strong>Network of Networks</strong></p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">TCP/IP → <strong>Internet Protocol Suite</strong>
+                                </p>
+                            </div>
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">HTTPS → <strong>Secure HTTP</strong></p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">DNS → <strong>Domain Name System</strong></p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">URL → <strong>Web Address</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-indigo-50 rounded-lg border border-indigo-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Google Chrome → <strong>Most Popular
+                                        Browser</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Term</th>
+                                <th class="px-4 py-3">Full Form</th>
+                                <th class="px-4 py-3">Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Internet</td>
+                                <td class="px-4 py-3">Interconnected Network</td>
+                                <td class="px-4 py-3">Global network of computers</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">TCP/IP</td>
+                                <td class="px-4 py-3">Transmission Control Protocol/Internet Protocol</td>
+                                <td class="px-4 py-3">Internet communication standard</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">HTTP</td>
+                                <td class="px-4 py-3">HyperText Transfer Protocol</td>
+                                <td class="px-4 py-3">Web page transfer protocol</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">HTTPS</td>
+                                <td class="px-4 py-3">HTTP Secure</td>
+                                <td class="px-4 py-3">Encrypted web communication</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">URL</td>
+                                <td class="px-4 py-3">Uniform Resource Locator</td>
+                                <td class="px-4 py-3">Web address</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">DNS</td>
+                                <td class="px-4 py-3">Domain Name System</td>
+                                <td class="px-4 py-3">Translates domain names to IP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Internet Basics & Web
+                        Browsers!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Remember that the Internet is a global network
+                            using TCP/IP protocols. Web browsers like Chrome, Firefox, and Edge help you access
+                            websites. HTTP is for regular web traffic, while HTTPS provides secure encrypted
+                            connections. DNS translates domain names to IP addresses.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="MS Office.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Previous
+                </a>
+                <div class="text-center text-xs italic text-gray-600 flex items-center">
+                    Developed By Md Parvez
+                </div>
+                <a href="Email and Cloud Concepts.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Next
+                </a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Computer Fundamentals for SSC MTS Exam!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

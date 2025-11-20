@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Data Interpretation for competitive exams like Delhi Police and SSC. Learn tables, bar graphs, line graphs with examples and calculation techniques." />
+    <meta name="keywords"
+        content="Data Interpretation, tables, bar graphs, line graphs, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>Data Interpretation | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Data Interpretation Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Data Interpretation
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="di-basics.html" class="nav-link" title="DI Basics">Basic Concepts</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="tables-di.html" class="nav-link" title="Tables DI">Tables</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="bar-graphs.html" class="nav-link" title="Bar Graphs">Bar Graphs</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="line-graphs.html" class="nav-link" title="Line Graphs">Line Graphs</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Data Interpretation (DI)</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Data Interpretation (DI) is one of the most scoring topics in SSC MTS and other competitive exams.
+                        It tests your ability to understand, analyze, and interpret data given in various forms — such as Tables, Bar Graphs, and Line Graphs.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Basic Concepts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Basic Concepts</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-6">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">What is Data Interpretation?</h3>
+                        <p class="text-gray-700 mb-4">
+                            Data Interpretation means extracting meaningful information from given numerical data and answering questions based on it.
+                        </p>
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">You must:</h4>
+                            <ul class="list-disc ml-5 space-y-1 text-gray-700">
+                                <li>Read data carefully</li>
+                                <li>Understand units and categories</li>
+                                <li>Use basic arithmetic (%, ratio, average, etc.)</li>
+                                <li>Apply logical reasoning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Data Presentation Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Data Presentation</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    
+                    <!-- Tables -->
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200 mb-8">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">A. Tables</h3>
+                        <p class="text-gray-700 mb-4">
+                            Data is presented in rows and columns — similar to a spreadsheet.
+                        </p>
+                        
+                        <div class="bg-white p-4 rounded border mb-6">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example:</h4>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-blue-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Year</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Company A (in ₹ Lakhs)</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Company B (in ₹ Lakhs)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">2019</td>
+                                            <td class="border border-gray-300 px-4 py-2">120</td>
+                                            <td class="border border-gray-300 px-4 py-2">100</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">2020</td>
+                                            <td class="border border-gray-300 px-4 py-2">150</td>
+                                            <td class="border border-gray-300 px-4 py-2">120</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">2021</td>
+                                            <td class="border border-gray-300 px-4 py-2">180</td>
+                                            <td class="border border-gray-300 px-4 py-2">160</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">2022</td>
+                                            <td class="border border-gray-300 px-4 py-2">210</td>
+                                            <td class="border border-gray-300 px-4 py-2">190</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded border mb-4">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Questions Based on the Table:</h4>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">1. What is the total income of Company A from 2019 to 2022?</p>
+                                    <p class="text-gray-700">= 120 + 150 + 180 + 210 = 660 lakhs</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">2. In which year did Company B earn maximum income?</p>
+                                    <p class="text-gray-700">→ 2022 (₹190 lakhs)</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">3. What is the ratio of total income of A to B over the years?</p>
+                                    <p class="text-gray-700">A : B = 660 : (100 + 120 + 160 + 190 = 570)</p>
+                                    <p class="text-gray-700">= 660 : 570 = 22 : 19</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">4. What is the percentage increase in A's income from 2019 to 2022?</p>
+                                    <p class="text-gray-700">= ((210 – 120)/120) × 100 = 75%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded border">
+                            <h4 class="text-lg font-semibold text-yellow-800 mb-2">Tips for Table DI:</h4>
+                            <ul class="list-disc ml-5 space-y-1 text-gray-700">
+                                <li>Add or compare row/column values quickly.</li>
+                                <li>Focus on difference, ratio, and percentage change.</li>
+                                <li>Avoid calculation mistakes — approximate where possible.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bar Graphs -->
+                    <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 mb-8">
+                        <h3 class="text-xl font-bold text-purple-800 mb-3">B. Bar Graphs</h3>
+                        <p class="text-gray-700 mb-4">
+                            Bar graphs represent data using rectangular bars — either vertical or horizontal.
+                            The length of the bar represents the value of the quantity.
+                        </p>
+                        
+                        <div class="bg-white p-4 rounded border mb-6">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example:</h4>
+                            <p class="text-gray-700 mb-3">The bar graph shows the number of students (in hundreds) enrolled in different courses of a college.</p>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-purple-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Course</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Students (in hundreds)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">Science</td>
+                                            <td class="border border-gray-300 px-4 py-2">6</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">Arts</td>
+                                            <td class="border border-gray-300 px-4 py-2">4</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">Commerce</td>
+                                            <td class="border border-gray-300 px-4 py-2">5</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">Law</td>
+                                            <td class="border border-gray-300 px-4 py-2">3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded border mb-4">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Questions:</h4>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">1. Total students</p>
+                                    <p class="text-gray-700">= (6 + 4 + 5 + 3) × 100 = 1800 students</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">2. Ratio of Science to Arts</p>
+                                    <p class="text-gray-700">= 6 : 4 = 3 : 2</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">3. Percentage of Commerce students</p>
+                                    <p class="text-gray-700">= (5/18) × 100 = 27.78%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded border">
+                            <h4 class="text-lg font-semibold text-yellow-800 mb-2">Tips for Bar Graphs:</h4>
+                            <ul class="list-disc ml-5 space-y-1 text-gray-700">
+                                <li>Identify what each axis represents (x = category, y = value).</li>
+                                <li>Note the scale carefully (e.g. 1 bar = 100 students).</li>
+                                <li>For comparison questions, observe bar height differences.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Line Graphs -->
+                    <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                        <h3 class="text-xl font-bold text-red-800 mb-3">C. Line Graphs</h3>
+                        <p class="text-gray-700 mb-4">
+                            A line graph represents data points connected by lines.
+                            It shows trends or changes over time — e.g. increase or decrease in production, sales, population, etc.
+                        </p>
+                        
+                        <div class="bg-white p-4 rounded border mb-6">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Example:</h4>
+                            <p class="text-gray-700 mb-3">The line graph shows the production (in tons) of a factory from 2018 to 2022.</p>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-red-100">
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Year</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Production (tons)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">2018</td>
+                                            <td class="border border-gray-300 px-4 py-2">200</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">2019</td>
+                                            <td class="border border-gray-300 px-4 py-2">240</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">2020</td>
+                                            <td class="border border-gray-300 px-4 py-2">300</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-4 py-2">2021</td>
+                                            <td class="border border-gray-300 px-4 py-2">270</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-4 py-2">2022</td>
+                                            <td class="border border-gray-300 px-4 py-2">330</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded border mb-4">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3">Questions:</h4>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">1. In which year was the production highest?</p>
+                                    <p class="text-gray-700">→ 2022 (330 tons)</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">2. What was the percentage increase from 2018 to 2020?</p>
+                                    <p class="text-gray-700">= ((300 – 200)/200) × 100 = 50%</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">3. What is the average production for 5 years?</p>
+                                    <p class="text-gray-700">= (200 + 240 + 300 + 270 + 330) / 5 = 268 tons</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold">4. In which year did the production fall compared to the previous year?</p>
+                                    <p class="text-gray-700">→ 2021 (from 300 → 270)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 rounded border">
+                            <h4 class="text-lg font-semibold text-yellow-800 mb-2">Tips for Line Graphs:</h4>
+                            <ul class="list-disc ml-5 space-y-1 text-gray-700">
+                                <li>Observe upward (increase) or downward (decrease) trends.</li>
+                                <li>Use slope comparison for quick difference estimation.</li>
+                                <li>Focus on points where lines intersect — often used in questions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Calculations Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Common Calculations Used in DI</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-blue-100">
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Concept</th>
+                                    <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Percentage</td>
+                                    <td class="border border-gray-300 px-4 py-2">(Value / Total) × 100</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">Ratio</td>
+                                    <td class="border border-gray-300 px-4 py-2">Value₁ : Value₂</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Average</td>
+                                    <td class="border border-gray-300 px-4 py-2">Sum of Values / Number of Values</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">Difference</td>
+                                    <td class="border border-gray-300 px-4 py-2">Larger – Smaller</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">Growth Rate</td>
+                                    <td class="border border-gray-300 px-4 py-2">((New – Old) / Old) × 100</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Key Tricks to Score in SSC MTS</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <ul class="list-disc ml-5 space-y-2 text-gray-700">
+                        <li>Read question carefully before calculating.</li>
+                        <li>Round off large numbers for approximation.</li>
+                        <li>Focus on percentage & ratio comparisons.</li>
+                        <li>If a question seems lengthy — skip temporarily and revisit later.</li>
+                        <li>Always verify units (e.g. ₹, %, 1000s, Lakhs).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Data Interpretation!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice different types of DI questions regularly, focusing on quick calculations and pattern recognition. Always start by understanding the data structure and units before attempting calculations. Time management is crucial in DI sections.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="time-speed-distance.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Data Interpretation for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

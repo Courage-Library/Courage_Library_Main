@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Plants & Animals concepts for competitive exams like Delhi Police and SSC. Learn about classification, plant parts, animal groups, cells, nutrition, and reproduction." />
+    <meta name="keywords"
+        content="Plants, Animals, Biology, SSC GD Science, competitive exam preparation, Delhi Police exam" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Plants & Animals | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Science Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Science Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Science
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="plants-animals.html" class="nav-link" title="Plants & Animals">Plants & Animals</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="matter-elements.html" class="nav-link" title="Matter, Elements, Compounds">Matter, Elements, Compounds</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="human-body.html" class="nav-link" title="Human Body">Human Body</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="physics-basics.html" class="nav-link" title="Physics Basics">Physics Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Plants & Animals</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Complete SSC GD Syllabus Coverage</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        This topic includes classification of living organisms, plant parts and functions, animal groups, cell basics, nutrition, reproduction, adaptation, and other concepts frequently asked in SSC GD, SSC CGL, CHSL, Police exams, and State-level exams.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed mt-4 font-semibold">
+                        This article covers all required content in simple language.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 1. Classification of Living Organisms Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Classification of Living Organisms</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Living organisms are classified into major kingdoms:
+                    </p>
+                    
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-6">
+                        <h3 class="text-lg font-bold text-yellow-800 mb-2">Five-Kingdom Classification (by R.H. Whittaker):</h3>
+                        <div class="grid md:grid-cols-3 gap-3 mt-3">
+                            <div class="p-3 bg-white rounded border text-center">Monera</div>
+                            <div class="p-3 bg-white rounded border text-center">Protista</div>
+                            <div class="p-3 bg-white rounded border text-center">Fungi</div>
+                            <div class="p-3 bg-white rounded border text-center">Plantae</div>
+                            <div class="p-3 bg-white rounded border text-center">Animalia</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-gray-700">SSC GD mainly asks basic differences between plants and animals and common examples.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Cell – Basic Unit of Life Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Cell – Basic Unit of Life</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-6">
+                        <h3 class="text-lg font-bold text-yellow-800 mb-2">Definition:</h3>
+                        <p class="text-gray-700">All living organisms are made of cells.</p>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Types of Cells:</h3>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Prokaryotic Cells</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Simple cells, no nucleus</li>
+                                <li>Example: bacteria</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Eukaryotic Cells</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Have a true nucleus</li>
+                                <li>Examples: plants, animals</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Plant Cell vs Animal Cell</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Feature</th>
+                                    <th class="px-4 py-3">Plant Cell</th>
+                                    <th class="px-4 py-3">Animal Cell</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Cell Wall</td>
+                                    <td class="px-4 py-3">Present</td>
+                                    <td class="px-4 py-3">Absent</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Chloroplast</td>
+                                    <td class="px-4 py-3">Present</td>
+                                    <td class="px-4 py-3">Absent</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Vacuoles</td>
+                                    <td class="px-4 py-3">Large</td>
+                                    <td class="px-4 py-3">Small</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Shape</td>
+                                    <td class="px-4 py-3">Fixed shape</td>
+                                    <td class="px-4 py-3">Irregular</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Tissues Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Tissues</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Plant Tissues:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Meristematic tissue – for growth</li>
+                                <li>Permanent tissue – support and transport</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Animal Tissues:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Epithelial tissue – lining</li>
+                                <li>Connective tissue – bone, blood</li>
+                                <li>Muscular tissue – movement</li>
+                                <li>Nervous tissue – impulse</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Plants – Structure and Functions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Plants – Structure and Functions</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Plants have four main parts:
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <h3 class="text-lg font-bold text-green-800">Roots</h3>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <h3 class="text-lg font-bold text-green-800">Stem</h3>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <h3 class="text-lg font-bold text-green-800">Leaves</h3>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+                            <h3 class="text-lg font-bold text-green-800">Flowers</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Roots Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Roots</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Functions:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Absorb water and minerals</li>
+                                <li>Anchor plant</li>
+                                <li>Store food (in some plants)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Types:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Tap root (mustard, mango)</li>
+                                <li>Fibrous root (wheat, rice)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Stem Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Stem</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-green-800 mb-3">Functions:</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Supports plant</li>
+                        <li>Transports water and food</li>
+                        <li>Stores food (sugarcane, potato is a stem tuber)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. Leaves Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Leaves</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-6">
+                        <p class="text-gray-700">Leaves are the site of photosynthesis.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Functions:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Prepare food</li>
+                                <li>Exchange gases</li>
+                                <li>Transpiration (loss of water vapor)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Photosynthesis Details:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Green pigment present: Chlorophyll</li>
+                                <li>Process: Photosynthesis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-6">
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Equation (simple):</h3>
+                        <p class="text-gray-700 font-mono">Carbon dioxide + Water → Glucose + Oxygen</p>
+                    </div>
+                    
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Factors needed:</h3>
+                        <p class="text-gray-700">Sunlight, chlorophyll, water, CO₂</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Flower Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Flower</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-6">
+                        <p class="text-gray-700">Reproductive part of the plant.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Main parts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Sepals</li>
+                                <li>Petals</li>
+                                <li>Stamens (male part)</li>
+                                <li>Pistil/Carpel (female part)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Reproductive Parts:</h3>
+                            <div class="space-y-4">
+                                <div class="p-3 bg-blue-50 rounded border">
+                                    <h4 class="font-semibold text-blue-800">Male part: Stamen</h4>
+                                    <p class="text-sm text-gray-600">Contains anther, pollen grains</p>
+                                </div>
+                                <div class="p-3 bg-pink-50 rounded border">
+                                    <h4 class="font-semibold text-pink-800">Female part: Pistil</h4>
+                                    <p class="text-sm text-gray-600">Contains stigma, style, ovary</p>
+                                    <p class="text-xs text-gray-500">Ovary contains ovules</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Pollination:</h3>
+                            <p class="text-gray-700 mb-2">Transfer of pollen to stigma</p>
+                            <h4 class="font-semibold text-gray-800 mb-2">Types:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Self-pollination</li>
+                                <li>Cross-pollination</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Key Processes:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Fertilization: fusion of male and female gametes</li>
+                                <li>Fruit forms from: Ovary</li>
+                                <li>Seed forms from: Ovule</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Plant Nutrition Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Plant Nutrition</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Autotrophs</h3>
+                            <p class="text-gray-700">Prepare their own food (plants)</p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Heterotrophs</h3>
+                            <p class="text-gray-700">Depend on others (animals)</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-green-800 mb-3">Types of plant nutrition:</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-green-50 rounded border">Autotrophic</div>
+                        <div class="p-3 bg-red-50 rounded border">Parasites (cuscuta)</div>
+                        <div class="p-3 bg-yellow-50 rounded border">Saprophytes (fungi)</div>
+                        <div class="p-3 bg-purple-50 rounded border">Insectivorous plants (pitcher plant, venus flytrap)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Transport System in Plants Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Transport System in Plants</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Xylem</h3>
+                            <p class="text-gray-700">Transports water</p>
+                            <p class="text-sm text-gray-600 mt-2">Upward transport</p>
+                        </div>
+                        
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Phloem</h3>
+                            <p class="text-gray-700">Transports food</p>
+                            <p class="text-sm text-gray-600 mt-2">Both directions transport</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. Respiration in Plants Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">11. Respiration in Plants</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700">
+                        Plants take oxygen and release CO₂ during respiration.
+                        Photosynthesis produces oxygen.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 12. Adaptations in Plants Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">12. Adaptations in Plants</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">Desert plants</h3>
+                            <p class="text-gray-700">Thick stems, spines (cactus)</p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-bold text-blue-800 mb-2">Aquatic plants</h3>
+                            <p class="text-gray-700">Air cavities (lotus)</p>
+                        </div>
+                        
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-bold text-green-800 mb-2">Mountain plants</h3>
+                            <p class="text-gray-700">Cone shape, needle leaves (pine)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. Animals – Classification Basics Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">13. Animals – Classification Basics</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Vertebrates</h3>
+                            <p class="text-gray-700 mb-2">Animals with backbone</p>
+                            <p class="text-sm text-gray-600">Examples: fish, amphibians, reptiles, birds, mammals</p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Invertebrates</h3>
+                            <p class="text-gray-700 mb-2">Animals without backbone</p>
+                            <p class="text-sm text-gray-600">Examples: insects, worms, jellyfish, octopus</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. Vertebrates – Main Groups and Features Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">14. Vertebrates – Main Groups and Features</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-6">
+                        <!-- Fish -->
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Fish</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Live in water</li>
+                                <li>Breathe through gills</li>
+                                <li>Cold-blooded</li>
+                                <li>Lay eggs</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Amphibians -->
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Amphibians</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Live on land and water</li>
+                                <li>Breathe through lungs and skin</li>
+                                <li>Example: Frog</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Reptiles -->
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-3">Reptiles</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Cold-blooded</li>
+                                <li>Lay eggs</li>
+                                <li>Scaly skin</li>
+                                <li>Examples: Snake, lizard, tortoise</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Birds -->
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-xl font-bold text-purple-800 mb-3">Birds</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Warm-blooded</li>
+                                <li>Feathers and wings</li>
+                                <li>Lay eggs</li>
+                                <li>Hollow bones</li>
+                                <li>Examples: Crow, pigeon, eagle</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Mammals -->
+                        <div class="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                            <h3 class="text-xl font-bold text-pink-800 mb-3">Mammals</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Warm-blooded</li>
+                                <li>Give birth to young ones</li>
+                                <li>Mammary glands produce milk</li>
+                                <li>Have hair on body</li>
+                                <li>Examples: Humans, dogs, cows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 15. Invertebrates – Overview Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">15. Invertebrates – Overview</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">Major groups:</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-blue-50 rounded border">Insects (butterfly, ant)</div>
+                        <div class="p-3 bg-blue-50 rounded border">Worms (earthworm)</div>
+                        <div class="p-3 bg-blue-50 rounded border">Mollusks (snail, octopus)</div>
+                        <div class="p-3 bg-blue-50 rounded border">Arthropods (spider, crab)</div>
+                        <div class="p-3 bg-blue-50 rounded border">Cnidarians (jellyfish)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 16. Animal Nutrition Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">16. Animal Nutrition</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-green-50 rounded border">Herbivores – eat plants</div>
+                        <div class="p-3 bg-red-50 rounded border">Carnivores – eat animals</div>
+                        <div class="p-3 bg-yellow-50 rounded border">Omnivores – eat plants and animals</div>
+                        <div class="p-3 bg-purple-50 rounded border">Parasites – feed on host</div>
+                        <div class="p-3 bg-gray-50 rounded border">Scavengers – eat dead animals (vulture)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 17. Animal Reproduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">17. Animal Reproduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Oviparous</h3>
+                            <p class="text-gray-700">Lay eggs</p>
+                            <p class="text-sm text-gray-600 mt-2">Examples: birds, reptiles, fish</p>
+                        </div>
+                        
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Viviparous</h3>
+                            <p class="text-gray-700">Give birth to young ones</p>
+                            <p class="text-sm text-gray-600 mt-2">Examples: mammals</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 18. Animal Adaptation Examples Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">18. Animal Adaptation Examples</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-yellow-50 rounded border">Camels store fat in hump for desert</div>
+                        <div class="p-3 bg-blue-50 rounded border">Polar bear has thick fur for cold</div>
+                        <div class="p-3 bg-green-50 rounded border">Chameleon changes color</div>
+                        <div class="p-3 bg-purple-50 rounded border">Birds have hollow bones for flight</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 19. Common Diseases in Plants and Animals Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">19. Common Diseases in Plants and Animals</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Plant Diseases:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Rust (fungal)</li>
+                                <li>Blight (fungal)</li>
+                                <li>Citrus canker (bacterial)</li>
+                                <li>Red rot (sugarcane disease)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-red-800 mb-3">Animal Diseases:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Foot and mouth disease</li>
+                                <li>Rabies</li>
+                                <li>Anthrax</li>
+                                <li>Bird flu</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 20. Important Biology Points Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">20. Important Biology Points Asked in SSC GD</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Plants make food by photosynthesis</li>
+                            <li>Chlorophyll gives green color</li>
+                            <li>Xylem transports water</li>
+                            <li>Phloem transports food</li>
+                            <li>Fruit develops from ovary</li>
+                            <li>Seed develops from ovule</li>
+                        </ul>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Insectivorous plants eat insects</li>
+                            <li>Vertebrates have backbone</li>
+                            <li>Mammals give birth and produce milk</li>
+                            <li>Bird bones are hollow</li>
+                            <li>Reptiles are cold-blooded</li>
+                            <li>Fish breathe through gills</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 21. Quick Revision Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">21. Quick Revision Table</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Topic</th>
+                                    <th class="px-4 py-3">Key Point</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Plant food</td>
+                                    <td class="px-4 py-3">Made in leaves</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Green pigment</td>
+                                    <td class="px-4 py-3">Chlorophyll</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Transport tissues</td>
+                                    <td class="px-4 py-3">Xylem, phloem</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Reproductive part</td>
+                                    <td class="px-4 py-3">Flower</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Pollination</td>
+                                    <td class="px-4 py-3">Pollen transfer</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Vertebrates</td>
+                                    <td class="px-4 py-3">Backbone present</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Mammals</td>
+                                    <td class="px-4 py-3">Milk production</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Birds</td>
+                                    <td class="px-4 py-3">Lay eggs, feathers</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Fish</td>
+                                    <td class="px-4 py-3">Gills for breathing</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Amphibians</td>
+                                    <td class="px-4 py-3">Lives on land and water</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 22. Memory Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">22. Memory Tricks for SSC GD</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-green-800 mb-3">Flower parts:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Male → Stamen</li>
+                                <li>Female → Pistil</li>
+                            </ul>
+                            
+                            <h3 class="text-xl font-bold text-green-800 mb-3 mt-4">Seed formation:</h3>
+                            <p class="text-gray-700">Ovule → seed</p>
+                            
+                            <h3 class="text-xl font-bold text-green-800 mb-3 mt-4">Plant transport:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Xylem → water</li>
+                                <li>Phloem → food</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-800 mb-3">Animal groups:</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Fish → gills</li>
+                                <li>Birds → feathers</li>
+                                <li>Mammals → milk</li>
+                                <li>Reptiles → scales</li>
+                                <li>Amphibians → water + land</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="matter-elements.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Satyam kumar
+                </div>
+                <a href="human-body.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Biology for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../../../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

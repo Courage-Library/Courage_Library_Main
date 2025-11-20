@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master LCM and HCF concepts for competitive exams like Delhi Police and SSC. Learn methods to find Least Common Multiple and Highest Common Factor with examples and shortcuts." />
+    <meta name="keywords"
+        content="LCM, HCF, Least Common Multiple, Highest Common Factor, competitive exam math, Delhi Police exam, SSC preparation, quantitative aptitude" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../images/logo.png" />
+    <title>LCM & HCF | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="/index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="/about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="/contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Quantitative Aptitude Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- LCM & HCF Section -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        LCM & HCF
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="lcm-hcf-basics.html" class="nav-link" title="LCM & HCF Basics">LCM & HCF Basics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="prime-factorization.html" class="nav-link" title="Prime Factorization">Prime Factorization Method</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="division-method.html" class="nav-link" title="Division Method">Division Method</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="fractions-decimals.html" class="nav-link" title="Fractions & Decimals">Fractions & Decimals</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-07-01">01-07-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">LCM & HCF</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">Essential Concepts for Delhi Police & SSC Exams</p>
+            </section>
+            <img src="../images/logo.png" alt="Courage Library Logo" class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        In arithmetic and number system topics, LCM (Least Common Multiple) and HCF (Highest Common Factor) are two of the most important concepts.
+                        They are used to solve problems related to time, work, speed, and fractions in SSC and other government exams.
+                    </p>
+                    <p class="text-lg text-gray-700 mt-4">
+                        Let's understand them one by one with easy examples.
+                    </p>
+                </div>
+            </section>
+
+            <!-- What is HCF Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. What is HCF (Highest Common Factor)?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Definition:</h3>
+                        <p class="text-gray-700">
+                            The HCF (also called GCD - Greatest Common Divisor) of two or more numbers is the largest number that divides all of them exactly (without leaving any remainder).
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">Find the HCF of 12 and 16.</p>
+                        <div class="grid md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Factors of 12</p>
+                                <p class="text-gray-700">1, 2, 3, 4, 6, 12</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Factors of 16</p>
+                                <p class="text-gray-700">1, 2, 4, 8, 16</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Common factors</p>
+                                <p class="text-gray-700">1, 2, 4</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mt-3 font-semibold">HCF = 4</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What is LCM Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. What is LCM (Least Common Multiple)?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200 mb-4">
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Definition:</h3>
+                        <p class="text-gray-700">
+                            The LCM of two or more numbers is the smallest number that is exactly divisible by all of them.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">Find the LCM of 12 and 16.</p>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Multiples of 12</p>
+                                <p class="text-gray-700">12, 24, 36, 48, 60, 72...</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">Multiples of 16</p>
+                                <p class="text-gray-700">16, 32, 48, 64...</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mt-3 font-semibold">LCM = 48</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Relationship Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Relationship Between LCM and HCF</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="p-4 bg-purple-50 rounded-lg border border-purple-200 mb-4">
+                        <p class="text-center font-medium text-gray-700 text-lg">
+                            For any two numbers a and b: LCM × HCF = a × b
+                        </p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-2">For 12 and 16:</p>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700">HCF = 4, LCM = 48</p>
+                                <p class="text-gray-700 mt-1">LCM × HCF = 48 × 4 = 192</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="text-gray-700">Product of numbers = 12 × 16 = 192</p>
+                                <p class="text-green-600 font-semibold mt-1">Verified</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Methods Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Methods to Find HCF and LCM</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <!-- Prime Factorization Method -->
+                    <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">(a) Prime Factorization Method</h3>
+                        <div class="space-y-3 mb-4">
+                            <p class="text-gray-700">Write each number as a product of prime factors.</p>
+                            <p class="text-gray-700">For HCF, take the lowest powers of common prime factors.</p>
+                            <p class="text-gray-700">For LCM, take the highest powers of all prime factors.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">Example:</h4>
+                            <p class="text-gray-700 mb-3">Find HCF and LCM of 18 and 24.</p>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="font-semibold text-gray-800">18 = 2 × 3²</p>
+                                    <p class="font-semibold text-gray-800">24 = 2³ × 3¹</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded">
+                                    <p class="text-gray-700">HCF = 2¹ × 3¹ = 6</p>
+                                    <p class="text-gray-700">LCM = 2³ × 3² = 72</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Division Method -->
+                    <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">(b) Division Method (For HCF)</h3>
+                        <div class="space-y-3 mb-4">
+                            <p class="text-gray-700">Divide the larger number by the smaller number.</p>
+                            <p class="text-gray-700">Then divide the divisor by the remainder.</p>
+                            <p class="text-gray-700">Repeat until the remainder is 0.</p>
+                            <p class="text-gray-700">The last divisor is the HCF.</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">Example:</h4>
+                            <p class="text-gray-700 mb-3">Find HCF of 36 and 60.</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-gray-700">60 ÷ 36 = remainder 24</p>
+                                <p class="text-gray-700">36 ÷ 24 = remainder 12</p>
+                                <p class="text-gray-700">24 ÷ 12 = remainder 0</p>
+                                <p class="text-gray-700 font-semibold">So, HCF = 12</p>
+                            </div>
+                            <div class="mt-3 p-3 bg-yellow-50 rounded border">
+                                <p class="text-gray-700">Then, using relation:</p>
+                                <p class="text-gray-700 font-medium">LCM = (a × b) / HCF = (36 × 60) / 12 = 180</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fractions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. LCM and HCF of Fractions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-bold text-purple-800 mb-2">HCF of Fractions</h3>
+                            <p class="text-center font-medium text-gray-700">
+                                HCF of Numerators / LCM of Denominators
+                            </p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <h3 class="text-lg font-bold text-yellow-800 mb-2">LCM of Fractions</h3>
+                            <p class="text-center font-medium text-gray-700">
+                                LCM of Numerators / HCF of Denominators
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">Find HCF and LCM of 2/3, 4/5, and 6/7.</p>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">HCF Calculation:</p>
+                                <p class="text-gray-700">HCF of numerators (2, 4, 6) = 2</p>
+                                <p class="text-gray-700">LCM of denominators (3, 5, 7) = 105</p>
+                                <p class="text-gray-700 font-semibold mt-1">HCF = 2 / 105</p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <p class="font-semibold text-gray-800">LCM Calculation:</p>
+                                <p class="text-gray-700">LCM of numerators (2, 4, 6) = 12</p>
+                                <p class="text-gray-700">HCF of denominators (3, 5, 7) = 1</p>
+                                <p class="text-gray-700 font-semibold mt-1">LCM = 12 / 1 = 12</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Decimals Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. LCM and HCF of Decimals</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-3 mb-4">
+                        <p class="text-gray-700">Convert decimals into whole numbers by removing the decimal point.</p>
+                        <p class="text-gray-700">Find the LCM or HCF as usual.</p>
+                        <p class="text-gray-700">Put the decimal point back according to the smallest decimal place.</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Example:</h3>
+                        <p class="text-gray-700 mb-3">Find LCM of 0.6, 1.2, and 1.8</p>
+                        <div class="space-y-2 text-sm">
+                            <p class="text-gray-700">Convert to whole numbers (multiply by 10): 6, 12, 18</p>
+                            <p class="text-gray-700">LCM of 6, 12, 18 = 36</p>
+                            <p class="text-gray-700 font-semibold">Now divide by 10 → 3.6</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shortcuts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Important Shortcuts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Case</th>
+                                    <th class="px-4 py-3">Shortcut Formula</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Two numbers given</td>
+                                    <td class="px-4 py-3">LCM × HCF = Product of numbers</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Three numbers</td>
+                                    <td class="px-4 py-3">Product of numbers = HCF × LCM × (Product of unique common factors)</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Fractions</td>
+                                    <td class="px-4 py-3">As given above</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Decimals</td>
+                                    <td class="px-4 py-3">Remove decimal → Find LCM/HCF → Reinsert decimal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Practice Questions (for SSC MTS)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-700 font-medium">1. Find LCM and HCF of 15, 20, and 30.</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-gray-700 font-medium">2. The HCF and LCM of two numbers are 8 and 120 respectively. If one number is 24, find the other.</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="text-gray-700 font-medium">3. Find the smallest number which when divided by 12, 18, 24 leaves a remainder of 9 each time.</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <p class="text-gray-700 font-medium">4. Find the HCF and LCM of 1.5, 2.5, and 3.5.</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                            <p class="text-gray-700 font-medium">5. Find the LCM of ¾, ⅖, and ⅗.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Takeaways Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">10. Key Takeaways</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">HCF = Greatest number that divides all</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">LCM = Smallest number divisible by all</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Formula: LCM × HCF = Product of the numbers</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Useful for problems on time, work, and ratio questions in SSC MTS, CHSL, and CGL exams</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed LCM & HCF Concepts!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Practice LCM and HCF problems regularly, focusing on different types like prime factorization, division method, fractions, and decimals. Remember the key relationship LCM × HCF = Product of numbers and practice applying it in various scenarios.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="divisibility-rules.html" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a id="finalNextButton" class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master LCM & HCF for Competitive Exams!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert guidance.</p>
+                <a href="../index.html?checkAuth=1" class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+        </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,11 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computer Knowledge | Courage Library</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
+    <title>General Intelligence & Reasoning | Courage Library</title>
+    <link rel="icon" href="../../../images/logo.png" type="image/png">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
         crossorigin="anonymous"></script>
@@ -105,16 +107,16 @@
     <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <a class="flex items-center space-x-2" href="index.html">
-                <img src="images/logo.png" alt="Logo" class="w-8 h-8">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8">
                 <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
             </a>
             <div class="space-x-6 hidden md:flex items-center">
-                <a href="/index.html#features" class="hover:text-blue-600">Features</a>
-                <a href="/index.html#courses" class="hover:text-blue-600">Courses</a>
-                <a href="/index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
-                <a href="/Blog/Blog.html" class="hover:text-blue-600">Blog</a>
-                <a href="/index.html#contact" class="hover:text-blue-600">Contact Us</a>
-                <a href="/index.html"
+                <a href="../../../index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="../../../index.html#courses" class="hover:text-blue-600">Courses</a>
+                <a href="../../../index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+                <a href="../../../Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="../../../index.html#contact" class="hover:text-blue-600">Contact Us</a>
+                <a href="../../../index.html"
                     class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
                     Home
                 </a>
@@ -128,14 +130,15 @@
                 </button>
                 <div x-show="open" @click.away="open = false"
                     class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
-                    <a href="/index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                    <a href="../../../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
                             fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
                         </svg>
                         Courses
                     </a>
-                    <a href="/index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                    <!-- Features -->
+                    <a href="../../../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
                             fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -144,7 +147,8 @@
                         Features
                     </a>
 
-                    <a href="/index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                    <!-- Reviews -->
+                    <a href="../../../index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
                             fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -153,7 +157,8 @@
                         Reviews
                     </a>
 
-                    <a href="../Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                    <!-- Blog -->
+                    <a href="../../../Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
                             fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -162,7 +167,8 @@
                         Blog
                     </a>
 
-                    <a href="/index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                    <!-- Contact Us -->
+                    <a href="../../../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
                         <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-gray-400"
                             fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -170,7 +176,7 @@
                         </svg>
                         Contact Us
                     </a>
-                    <a href="/index.html"
+                    <a href="../../../index.html"
                         class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
                         Home
                     </a>
@@ -181,144 +187,100 @@
 
     <section class="py-10 px-4 max-w-7xl mx-auto fade-in">
         <div class="flex items-center mb-12 gap-4 flex justify-center">
-            <h1 class="text-3xl font-bold text-blue-700">Computer Knowledge</h1>
+            <h1 class="text-3xl font-bold text-blue-700">General Intelligence & Reasoning</h1>
         </div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
 
-            <!-- Left: About Computer Knowledge -->
+            <!-- Left: About General Intelligence & Reasoning -->
             <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
                 <p class="text-gray-700 mb-6 indent-16 text-base">
-                    Computer Knowledge is an important section in the Delhi Police exam that assesses your understanding
-                    of basic computer concepts, software, hardware, internet usage, and common IT terms.
-                    At Courage Library, we provide focused study materials, practice exercises, and expert guidance to
-                    help you build speed, accuracy, and confidence to excel in this section.
+                    The English Language section is an important scoring area in the SSC GD Examination. 
+                    At Courage Library, we provide smart short modules, concept-wise breakdowns, and exam specialized tricks to help you understand solve questions faster in the SSC GD exam.
                 </p>
 
                 <ul class="space-y-3 text-gray-700 text-base">
+                    <ul class="space-y-3 mt-4">
+                <ul class="space-y-3 mt-4">
                     <li class="flex items-start gap-2">
                         <i class="fas fa-check-circle text-blue-600 mt-1"></i>
-                        Basics of computers, hardware and software fundamentals
+                        Complete coverage of Grammar, Vocabulary, Reading Comprehension & Error Detection topics asked in SSC exams
                     </li>
                     <li class="flex items-start gap-2">
                         <i class="fas fa-check-circle text-blue-600 mt-1"></i>
-                        Practical skills in MS Word, Excel, and PowerPoint
+                        Concept-based learning with easy rules, practical examples, and exam-focused shortcuts for accuracy
                     </li>
                     <li class="flex items-start gap-2">
                         <i class="fas fa-check-circle text-blue-600 mt-1"></i>
-                        Internet, email, and networking basics
+                        Topic-wise explanation of Tenses, Voice, Narration, Parts of Speech, Cloze Test & Sentence Improvement 
                     </li>
                     <li class="flex items-start gap-2">
                         <i class="fas fa-check-circle text-blue-600 mt-1"></i>
-                        Computer abbreviations, input/output devices, and operating systems
+                        PYQs and MCQs created strictly as per latest SSC exam pattern & difficulty level
                     </li>
                     <li class="flex items-start gap-2">
                         <i class="fas fa-check-circle text-blue-600 mt-1"></i>
-                        Virus, firewall, security concepts, and revision with mock tests
+                        Rapid revision notes to boost performance and help you score maximum in minimum time
                     </li>
                 </ul>
 
-                <p class="text-gray-700 mt-6 mb-6 text-base">
-                    Remember: Computer Knowledge is about understanding concepts and practical usage. Regular practice
-                    and revision can help you achieve a strong command over this section.
+                <p class="text-gray-500 italic mt-4 text-lg font-semibold text-center">
+                    "The limits of your language are the limits of your world."
+                    <br>
+                    <span class="text-gray-500 not-italic text-sm">— Ludwig Wittgenstein</span>
                 </p>
 
-                <p class="text-gray-500 italic mt-4 text-lg font-semibold text-center">
-                    "The computer was born to solve problems that did not exist before."<br>
-                    <span class="text-gray-500 not-italic text-sm">— Bill Gates</span>
-                </p>
+
+
+
             </div>
 
             <!-- Right: List of Articles -->
             <div>
-                <a href="Computer knowledge/Basics of Computers/what-is-computer.html"
+                <a href="synonyms-antonyms.html"
                     class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <i class="fas fa-desktop text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Basics of Computers</h3>
+                        <i class="fas fa-book text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Vocabulary</h3>
                     </div>
                     <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
                 </a>
 
-                <a href="Computer knowledge/MS Word/introduction-to-ms-word-interface.html"
+                <a href="parts-of-speech.html"
                     class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <i class="fas fa-file-word text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">MS Word</h3>
+                        <i class="fas fa-language text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Grammar</h3>
                     </div>
                     <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
                 </a>
 
-                <a href="Computer knowledge/MS Excel/excel-interface-and-cell-basics.html"
+                <a href="short-passages.html"
                     class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <i class="fas fa-file-excel text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">MS Excel</h3>
+                        <i class="fas fa-language text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Reading Comprehension</h3>
                     </div>
                     <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
                 </a>
 
-                <a href="Computer knowledge/MS Powerpoint/powerpoint-interface.html"
+                <a href="subject-verb-agreement.html"
                     class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <i class="fas fa-file-powerpoint text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">MS PowerPoint</h3>
+                        <i class="fas fa-language text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Error Detection</h3>
                     </div>
                     <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
                 </a>
 
-                <a href="Computer knowledge/Internet and Email/common-email-terms.html"
+                <a href="fill-in-the-blanks.html"
                     class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <i class="fas fa-globe text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Internet & Email</h3>
+                        <i class="fas fa-language text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Cloze-text</h3>
                     </div>
                     <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
                 </a>
 
-                <a href="Computer knowledge/Computer Abbreviations/common-computer-acronyms.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-code text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Computer Abbreviations</h3>
-                    </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <a href="Computer knowledge/Input Output Devices/input-device.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-keyboard text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Input/Output Devices</h3>
-                    </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <a href="Computer knowledge/Operating Systems/operating-system.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-cogs text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Operating Systems</h3>
-                    </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <a href="Computer knowledge/Virus Firewall and Security Concepts/computer-virus.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-shield-virus text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Virus, Firewall & Security Concepts</h3>
-                    </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <a href="Computer knowledge/Revision and Mock Test/quick-revision-notes.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-edit text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Revision & Mock Test</h3>
-                    </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
-                </a>
             </div>
         </div>
     </section>
