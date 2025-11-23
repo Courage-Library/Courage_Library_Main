@@ -293,6 +293,7 @@
         name: "Courage Library",
         description: data.course_name + " Enrollment",
         image: "/images/logo.png",
+        order_id: "order_Rj9C9kPHqWZobW", 
         handler: async function (response) {
           // On successful payment
           data.payment_id = response.razorpay_payment_id;
@@ -300,7 +301,7 @@
           const { error } = await supabase.from("student_enrollments").insert([data]);
           if (error) {
             alert("❌ Error saving enrollment: " + error.message);
-            payBtn.textContent = "Pay Now ₹999";
+            payBtn.textContent = "Pay Now ₹200";
             payBtn.disabled = false;
             return;
           }
