@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order & Ranking – SSC GD Reasoning | Position, Ranking & Mixed Problems | Courage Library</title>
+
+    <meta name="description"
+        content="Order & Ranking for SSC GD Reasoning: complete guide to position-in-row, group ranking, mixed ranking and interchange problems. Learn key formulas (L+R-1), solved examples, shortcuts, diagram methods and exam-focused strategies to solve ranking questions fast and accurately." />
+
+    <meta name="keywords"
+        content="Order and Ranking SSC GD, position in a row, ranking problems, L+R-1 formula, mixed ranking, interchange problems, SSC GD reasoning, Delhi Police reasoning, ranking shortcuts" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta property="og:title" content="Order & Ranking – SSC GD Reasoning | Position, Ranking & Mixed Problems" />
+
+    <meta property="og:description"
+        content="Master Order & Ranking for SSC GD: position formulas, people-between calculations, mixed ranking techniques, and diagram-based solutions with examples and quick tips." />
+
+    <meta property="og:image" content="https://couragelibrary.in/images/logo.png">
+
+    <meta property="og:url" content="https://www.couragelibrary.in/SSC-GD/Reasoning/order-ranking.html">
+
+    <meta property="og:type" content="website">
+
+    <meta name="theme-color" content="#2563eb" />
+
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Reasoning Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Reasoning -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Reasoning
+                    </li>
+
+                    <!-- A. Analogy -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="analogy.html" class="nav-link" title="Analogy">
+                                A. Analogy
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- B. Classification -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="classification.html" class="nav-link"
+                                title="Classification (Odd One Out)">
+                                B. Classification (Odd One Out)
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- C. Series -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="series.html" class="nav-link" title="Series">
+                                C. Series
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- D. Coding Decoding -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="coding-decoding.html" class="nav-link" title="Coding Decoding">
+                                D. Coding-Decoding
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- E. Blood Relation -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="blood-relation.html" class="nav-link" title="Blood Relation">
+                                E. Blood Relation
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- F. Direction Sense Test -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="direction-sense-test.html" class="nav-link" title="Direction Sense">
+                                F. Direction Sense Test
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- G. Order and Ranking -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="order-and-ranking.html" class="nav-link" title="Order and Ranking">
+                                G. Order and Ranking
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- H. Syllogism -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="syllogism.html" class="nav-link" title="Syllogism">
+                                H. Syllogism
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- I. Venn Diagram Problems -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="venn-diagram-problems.html" class="nav-link" title="Venn Diagram">
+                                I. Venn Diagram Problems
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- J. Non-Verbal Reasoning -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="non-verbal-reasoning.html" class="nav-link" title="Non Verbal Reasoning">
+                                J. Non-Verbal Reasoning
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Order and Ranking </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam</p>
+            </section>
+            <img src="../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What is Order & Ranking Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What is Order and Ranking?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>Order and Ranking</strong> is a logical reasoning topic that deals with
+                        <strong>arranging items or people in a specific sequence</strong> based on given conditions. It
+                        involves determining <strong>positions, ranks, and order</strong> from different perspectives.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Position Determination</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Rank Analysis</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Sequence Arrangement</p>
+                            </div>
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Comparative Analysis</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+                        <p class="text-lg text-gray-700">
+                            <strong>Simple Definition:</strong> Order and Ranking involves <strong>arranging elements in
+                                sequence</strong> and determining their <strong>positions from different
+                                viewpoints</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Order & Ranking Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Order and Ranking</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Major Categories of Order and Ranking</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-blue-700">Based on Structure</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Position in a Row</p>
+                                    <p class="text-sm text-gray-600">Linear arrangement problems</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Ranking among Groups</p>
+                                    <p class="text-sm text-gray-600">Comparative ranking analysis</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Mixed Rankings</p>
+                                    <p class="text-sm text-gray-600">Combination of different types</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-green-700">Based on Complexity</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Simple Ranking</p>
+                                    <p class="text-sm text-gray-600">Direct position finding</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Comparative Ranking</p>
+                                    <p class="text-sm text-gray-600">Using comparison statements</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Condition-based Ranking</p>
+                                    <p class="text-sm text-gray-600">Multiple conditions and rules</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Position in a Row Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Position in a Row</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Concepts for Linear Arrangement</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Total Positions</p>
+                            <p class="text-xs text-gray-600">Number of people/items</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">From Left/Right</p>
+                            <p class="text-xs text-gray-600">Position counting methods</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Position Formula</p>
+                            <p class="text-xs text-gray-600">L + R - 1 = Total</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Middle Position</p>
+                            <p class="text-xs text-gray-600">Central position calculation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Position in a Row Examples</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Problem Type</th>
+                                    <th class="px-4 py-3">Given Information</th>
+                                    <th class="px-4 py-3">Question</th>
+                                    <th class="px-4 py-3">Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Basic Position</td>
+                                    <td class="px-4 py-3">A is 15th from left, 20th from right</td>
+                                    <td class="px-4 py-3">Total people in row?</td>
+                                    <td class="px-4 py-3">15 + 20 - 1 = 34</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Position Change</td>
+                                    <td class="px-4 py-3">B is 10th from left, 4 people left</td>
+                                    <td class="px-4 py-3">Position from right?</td>
+                                    <td class="px-4 py-3">Total - (10 - 4) + 1</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Between Positions</td>
+                                    <td class="px-4 py-3">C is 8th from left, D is 12th from right</td>
+                                    <td class="px-4 py-3">People between them?</td>
+                                    <td class="px-4 py-3">Total - (8 + 12)</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Interchange</td>
+                                    <td class="px-4 py-3">After interchange, position changes</td>
+                                    <td class="px-4 py-3">Find new positions</td>
+                                    <td class="px-4 py-3">Use position difference</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ranking among Groups Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Ranking among Groups</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Group Ranking Concepts</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Top/Bottom Rank</p>
+                            <p class="text-xs text-gray-600">Highest/lowest positions</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Comparative Rank</p>
+                            <p class="text-xs text-gray-600">Better/worse than others</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Rank Difference</p>
+                            <p class="text-xs text-gray-600">Position gap calculation</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Group Total</p>
+                            <p class="text-xs text-gray-600">Total members in group</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Group Ranking Examples</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Problem Type</th>
+                                    <th class="px-4 py-3">Given Information</th>
+                                    <th class="px-4 py-3">Question</th>
+                                    <th class="px-4 py-3">Solution Approach</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Class Ranking</td>
+                                    <td class="px-4 py-3">A is 5th from top, 8th from bottom</td>
+                                    <td class="px-4 py-3">Total students?</td>
+                                    <td class="px-4 py-3">5 + 8 - 1 = 12 students</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Comparative Rank</td>
+                                    <td class="px-4 py-3">A > B, B > C, C > D</td>
+                                    <td class="px-4 py-3">Who is highest?</td>
+                                    <td class="px-4 py-3">A > B > C > D (A is highest)</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Rank Difference</td>
+                                    <td class="px-4 py-3">A is 8th, B is 15th from top</td>
+                                    <td class="px-4 py-3">People between them?</td>
+                                    <td class="px-4 py-3">15 - 8 - 1 = 6 people</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Multiple Groups</td>
+                                    <td class="px-4 py-3">Rank in class + rank in school</td>
+                                    <td class="px-4 py-3">Find overall position</td>
+                                    <td class="px-4 py-3">Use combined ranking formula</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mixed Rankings Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Mixed Rankings</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Complex Ranking Scenarios</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div
+                                class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Multiple Conditions</p>
+                                <p class="text-sm text-gray-600">Combining different ranking types</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+                            <div
+                                class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Interchange Problems</p>
+                                <p class="text-sm text-gray-600">Positions change after swapping</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Height/Weight Ranking</p>
+                                <p class="text-sm text-gray-600">Comparative physical attributes</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-100 rounded-lg border border-green-300">
+                            <div
+                                class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">4</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Multi-dimensional</p>
+                                <p class="text-sm text-gray-600">Ranking in different categories</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mt-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Mixed Ranking Examples</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Scenario Type</th>
+                                    <th class="px-4 py-3">Given Information</th>
+                                    <th class="px-4 py-3">Complexity</th>
+                                    <th class="px-4 py-3">Solving Strategy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Height + Rank</td>
+                                    <td class="px-4 py-3">Tallest is 2nd in class, shortest is 8th</td>
+                                    <td class="px-4 py-3">Medium</td>
+                                    <td class="px-4 py-3">Combine height order with academic rank</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Interchange</td>
+                                    <td class="px-4 py-3">A and B swap positions, ranks change</td>
+                                    <td class="px-4 py-3">Hard</td>
+                                    <td class="px-4 py-3">Calculate position difference</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Multiple Attributes</td>
+                                    <td class="px-4 py-3">Rank by height, weight, and marks</td>
+                                    <td class="px-4 py-3">Very Hard</td>
+                                    <td class="px-4 py-3">Create comparison tables</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Condition-based</td>
+                                    <td class="px-4 py-3">If A > B and C > D, but B > C</td>
+                                    <td class="px-4 py-3">Hard</td>
+                                    <td class="px-4 py-3">Create complete order sequence</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Important Formulas & Rules</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Formulas for Order and Ranking</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-blue-700">Position Formulas</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Total = L + R - 1</p>
+                                    <p class="text-sm text-gray-600">When position from left and right is known</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Between = Total - (P1 + P2)</p>
+                                    <p class="text-sm text-gray-600">People between two positions</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Middle = (Total + 1) ÷ 2</p>
+                                    <p class="text-sm text-gray-600">Middle position for odd total</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-green-700">Ranking Rules</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Rank Difference = P2 - P1 - 1</p>
+                                    <p class="text-sm text-gray-600">People between two ranks</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Interchange Effect</p>
+                                    <p class="text-sm text-gray-600">Sum of positions remains same</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Comparative Order</p>
+                                    <p class="text-sm text-gray-600">A > B > C implies A > C</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            Always verify your answer by checking if it satisfies all given conditions!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solving Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. How to Solve Order & Ranking Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Step-by-Step Approach:</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div
+                                class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Read Carefully</p>
+                                <p class="text-sm text-gray-600">Understand all positions and ranks given</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+                            <div
+                                class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Draw Diagram</p>
+                                <p class="text-sm text-gray-600">Sketch positions and relationships</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Apply Formulas</p>
+                                <p class="text-sm text-gray-600">Use appropriate formulas for calculations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-100 rounded-lg border border-green-300">
+                            <div
+                                class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">4</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Verify Solution</p>
+                                <p class="text-sm text-gray-600">Check if answer satisfies all conditions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            For complex problems, always create a visual representation or table to track positions and
+                            relationships!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Common Delhi Police / SSC Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Position Problems → <strong>Most Common</strong>
+                                </p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Formula L+R-1 → <strong>Key Formula</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Time Limit → <strong>45-60 seconds per
+                                        question</strong></p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Diagram Method → <strong>Best Approach</strong></p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Practice → <strong>Essential for Speed</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-indigo-50 rounded-lg border border-indigo-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Mixed Rankings → <strong>Higher Difficulty</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Topic</th>
+                                <th class="px-4 py-3">Key Focus</th>
+                                <th class="px-4 py-3">Important Formulas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Position in a Row</td>
+                                <td class="px-4 py-3">Linear Arrangement</td>
+                                <td class="px-4 py-3">Total = L + R - 1, Between = Total - (P1 + P2)</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Ranking among Groups</td>
+                                <td class="px-4 py-3">Comparative Analysis</td>
+                                <td class="px-4 py-3">Rank Difference = P2 - P1 - 1</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Mixed Rankings</td>
+                                <td class="px-4 py-3">Complex Scenarios</td>
+                                <td class="px-4 py-3">Visual diagrams, Comparison tables</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Problem Solving</td>
+                                <td class="px-4 py-3">Step-by-step Approach</td>
+                                <td class="px-4 py-3">Read → Draw → Calculate → Verify</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Order and Ranking!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Remember the key formula L + R - 1 = Total, always
+                            draw diagrams for complex problems, and practice different types of ranking questions to
+                            improve your speed and accuracy in exams.</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="direction-sense-test.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Previous
+                </a>
+                <div class="text-center text-xs italic text-gray-600 flex items-center">
+                    Developed By Md Parvez
+                </div>
+                <a href="syllogism.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Next
+                </a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Reasoning for SSC GD Exam!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

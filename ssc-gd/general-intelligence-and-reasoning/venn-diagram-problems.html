@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Venn Diagram Problems – SSC GD Reasoning | Set Theory, Overlaps & Logical Relations | Courage Library</title>
+
+    <meta name="description"
+        content="Venn Diagram Problems for SSC GD Reasoning: Learn 2-set & 3-set diagrams, set operations, union/intersection formulas, profession & family-based Venn problems, 'only', 'neither', multi-attribute logic, and step-by-step diagram solving with exam-focused shortcuts." />
+
+    <meta name="keywords"
+        content="Venn Diagram SSC GD, Venn diagram reasoning, set theory problems, A∪B formula, intersection formula, 3-circle Venn, profession Venn diagrams, family Venn problems, SSC GD reasoning syllabus, Delhi Police reasoning" />
+
+    <meta name="author" content="Courage Library" />
+
+    <meta property="og:title" content="Venn Diagram Problems – SSC GD Reasoning | Set Theory & Logical Relations" />
+
+    <meta property="og:description"
+        content="Master Venn Diagrams for SSC GD: Learn 2-set & 3-set problems, union/intersection formulas, family-profession diagrams, 'only' & 'neither' cases, and inside-out solving techniques." />
+
+    <meta property="og:image" content="https://couragelibrary.in/images/logo.png">
+
+    <meta property="og:url" content="https://www.couragelibrary.in/SSC-GD/Reasoning/venn-diagram.html">
+
+    <meta property="og:type" content="website">
+
+    <meta name="theme-color" content="#2563eb" />
+
+    <link rel="icon" type="image/png" href="../../images/logo.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="" class="flex items-center gap-2">
+                <img src="../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <a href="" aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </a>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200" aria-label="Reasoning Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Reasoning -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Reasoning
+                    </li>
+
+                    <!-- A. Analogy -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="analogy.html" class="nav-link" title="Analogy">
+                                A. Analogy
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- B. Classification -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="classification.html" class="nav-link"
+                                title="Classification (Odd One Out)">
+                                B. Classification (Odd One Out)
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- C. Series -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="series.html" class="nav-link" title="Series">
+                                C. Series
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- D. Coding Decoding -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="coding-decoding.html" class="nav-link" title="Coding Decoding">
+                                D. Coding-Decoding
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- E. Blood Relation -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="blood-relation.html" class="nav-link" title="Blood Relation">
+                                E. Blood Relation
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- F. Direction Sense Test -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="direction-sense-test.html" class="nav-link" title="Direction Sense">
+                                F. Direction Sense Test
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- G. Order and Ranking -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="order-and-ranking.html" class="nav-link" title="Order and Ranking">
+                                G. Order and Ranking
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- H. Syllogism -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="syllogism.html" class="nav-link" title="Syllogism">
+                                H. Syllogism
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- I. Venn Diagram Problems -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="venn-diagram-problems.html" class="nav-link" title="Venn Diagram">
+                                I. Venn Diagram Problems
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                    <!-- J. Non-Verbal Reasoning -->
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="non-verbal-reasoning.html" class="nav-link" title="Non Verbal Reasoning">
+                                J. Non-Verbal Reasoning
+                            </a>
+                            <p class="last-updated">
+                                Last Updated:
+                                <time datetime="2025-11-16">16-11-2025</time>
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Venn Diagram Problems </h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC GD Exam</p>
+            </section>
+            <img src="../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- What are Venn Diagrams Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. What are Venn Diagrams?</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        <strong>Venn Diagrams</strong> are visual representations used to show <strong>logical
+                            relationships</strong> between different sets or groups. They use overlapping circles to
+                        illustrate how elements are distributed among various categories.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Set Relationships</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Visual Representation</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Overlap Analysis</p>
+                            </div>
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Problem Solving</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+                        <p class="text-lg text-gray-700">
+                            <strong>Simple Definition:</strong> Venn Diagrams are <strong>circle-based diagrams</strong>
+                            that show <strong>relationships between different groups</strong> through overlapping areas.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Venn Diagram Problems Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Types of Venn Diagram Problems</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Major Categories of Venn Diagram Problems</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-blue-700">Based on Content</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Set-based Problems</p>
+                                    <p class="text-sm text-gray-600">Mathematical set operations</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Family & Profession Type</p>
+                                    <p class="text-sm text-gray-600">People with multiple attributes</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Logical Relationship Type</p>
+                                    <p class="text-sm text-gray-600">Based on given conditions</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-green-700">Based on Complexity</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">2-Set Problems</p>
+                                    <p class="text-sm text-gray-600">Two overlapping circles</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">3-Set Problems</p>
+                                    <p class="text-sm text-gray-600">Three overlapping circles</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Complex Problems</p>
+                                    <p class="text-sm text-gray-600">Multiple conditions and sets</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Set-based Problems Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Set-based Problems</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Set Operations & Formulas</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Union (A∪B)</p>
+                            <p class="text-xs text-gray-600">All elements in A or B</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Intersection (A∩B)</p>
+                            <p class="text-xs text-gray-600">Common elements in A and B</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Only A / Only B</p>
+                            <p class="text-xs text-gray-600">Elements in one set only</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border text-center hover:bg-blue-100 transition-colors">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Neither A nor B</p>
+                            <p class="text-xs text-gray-600">Elements outside both sets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Set-based Problem Examples</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Problem Type</th>
+                                    <th class="px-4 py-3">Given Information</th>
+                                    <th class="px-4 py-3">Question</th>
+                                    <th class="px-4 py-3">Solution Approach</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">2-Set Basic</td>
+                                    <td class="px-4 py-3">n(A)=40, n(B)=30, n(A∩B)=10</td>
+                                    <td class="px-4 py-3">Find n(A∪B)</td>
+                                    <td class="px-4 py-3">n(A∪B) = n(A) + n(B) - n(A∩B) = 40+30-10=60</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">3-Set Basic</td>
+                                    <td class="px-4 py-3">n(A)=50, n(B)=40, n(C)=30, intersections given</td>
+                                    <td class="px-4 py-3">Find union of all three</td>
+                                    <td class="px-4 py-3">Use 3-set union formula</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Complement</td>
+                                    <td class="px-4 py-3">Total=100, n(A)=60, n(B)=40, n(A∩B)=20</td>
+                                    <td class="px-4 py-3">Find neither A nor B</td>
+                                    <td class="px-4 py-3">Total - n(A∪B) = 100 - (60+40-20)=20</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Only One Set</td>
+                                    <td class="px-4 py-3">n(A)=25, n(B)=35, n(A∩B)=5</td>
+                                    <td class="px-4 py-3">Find only A</td>
+                                    <td class="px-4 py-3">n(A) - n(A∩B) = 25-5=20</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Family & Profession Type Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Family & Profession Type</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Common Categories in Family & Profession
+                        Problems</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Profession Based</p>
+                            <p class="text-xs text-gray-600">Doctors, Engineers, Teachers</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Family Relations</p>
+                            <p class="text-xs text-gray-600">Fathers, Mothers, Sons</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Hobby Based</p>
+                            <p class="text-xs text-gray-600">Sports, Music, Reading</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border text-center hover:bg-green-100 transition-colors">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="font-medium text-gray-800">Mixed Categories</p>
+                            <p class="text-xs text-gray-600">Combination of attributes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Family & Profession Examples</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Problem Type</th>
+                                    <th class="px-4 py-3">Given Information</th>
+                                    <th class="px-4 py-3">Typical Question</th>
+                                    <th class="px-4 py-3">Solving Strategy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Profession Overlap</td>
+                                    <td class="px-4 py-3">Doctors who are Engineers, Teachers who are Doctors</td>
+                                    <td class="px-4 py-3">Find people with only one profession</td>
+                                    <td class="px-4 py-3">Use overlapping circles for each profession</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Family Relations</td>
+                                    <td class="px-4 py-3">Fathers who are Doctors, Mothers who are Teachers</td>
+                                    <td class="px-4 py-3">Find family members with specific combinations</td>
+                                    <td class="px-4 py-3">Use separate circles for relations and professions</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Multiple Attributes</td>
+                                    <td class="px-4 py-3">People who play Cricket, Football, Hockey</td>
+                                    <td class="px-4 py-3">Find players with specific sport combinations</td>
+                                    <td class="px-4 py-3">Use 3-circle Venn diagram</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Complex Relationships</td>
+                                    <td class="px-4 py-3">Doctors who are Fathers and play Cricket</td>
+                                    <td class="px-4 py-3">Find intersection of all three categories</td>
+                                    <td class="px-4 py-3">Use central overlapping region in 3-circle diagram</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. Important Formulas & Rules</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Key Formulas for Venn Diagrams</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div
+                                class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">n(A∪B) = n(A) + n(B) - n(A∩B)</p>
+                                <p class="text-sm text-gray-600">Union of two sets formula</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+                            <div
+                                class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">n(A∪B∪C) = n(A)+n(B)+n(C) - n(A∩B) - n(B∩C) -
+                                    n(A∩C) + n(A∩B∩C)</p>
+                                <p class="text-sm text-gray-600">Union of three sets formula</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">O</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Only A = n(A) - n(A∩B) - n(A∩C) + n(A∩B∩C)</p>
+                                <p class="text-sm text-gray-600">Elements exclusively in set A</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-100 rounded-lg border border-green-300">
+                            <div
+                                class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">N</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Neither = Total - n(A∪B∪C)</p>
+                                <p class="text-sm text-gray-600">Elements not in any set</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mt-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Venn Diagram Regions</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Diagram Type</th>
+                                    <th class="px-4 py-3">Regions</th>
+                                    <th class="px-4 py-3">Key Areas</th>
+                                    <th class="px-4 py-3">Application</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">2-Set Diagram</td>
+                                    <td class="px-4 py-3">4 Regions</td>
+                                    <td class="px-4 py-3">Only A, Only B, A∩B, Neither</td>
+                                    <td class="px-4 py-3">Basic set problems, simple categories</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">3-Set Diagram</td>
+                                    <td class="px-4 py-3">8 Regions</td>
+                                    <td class="px-4 py-3">7 inside regions + 1 outside</td>
+                                    <td class="px-4 py-3">Complex problems, multiple attributes</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">Special Cases</td>
+                                    <td class="px-4 py-3">Variable</td>
+                                    <td class="px-4 py-3">Nested circles, separate circles</td>
+                                    <td class="px-4 py-3">When sets are subsets or disjoint</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">Complex Diagrams</td>
+                                    <td class="px-4 py-3">Multiple</td>
+                                    <td class="px-4 py-3">Combination of different relationships</td>
+                                    <td class="px-4 py-3">Advanced logical reasoning problems</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solving Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. How to Solve Venn Diagram Problems</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Step-by-Step Approach:</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div
+                                class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Identify Sets & Categories</p>
+                                <p class="text-sm text-gray-600">Determine what each circle represents</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-blue-100 rounded-lg border border-blue-300">
+                            <div
+                                class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Draw the Diagram</p>
+                                <p class="text-sm text-gray-600">Sketch circles with proper overlaps</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div
+                                class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Fill from Inside Out</p>
+                                <p class="text-sm text-gray-600">Start with intersection areas first</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 p-3 bg-green-100 rounded-lg border border-green-300">
+                            <div
+                                class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span class="text-white text-sm font-bold">4</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-800">Calculate Remaining Areas</p>
+                                <p class="text-sm text-gray-600">Use formulas to find missing values</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-center text-gray-700 font-medium">
+                            Always start with the intersection of all sets (triple overlap in 3-set problems) as it's
+                            the most specific area!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Problem Types Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Common Problem Types</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Frequently Asked Venn Diagram Problems</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-blue-700">Examination Based</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Percentage Problems</p>
+                                    <p class="text-sm text-gray-600">Given percentages in different regions</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Ratio Problems</p>
+                                    <p class="text-sm text-gray-600">Ratios between different regions</p>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <p class="font-medium text-gray-800">Minimum-Maximum Problems</p>
+                                    <p class="text-sm text-gray-600">Finding range of possible values</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-green-700">Logical Reasoning</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Either-Or Problems</p>
+                                    <p class="text-sm text-gray-600">People who like either A or B but not both</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">At Least One Problems</p>
+                                    <p class="text-sm text-gray-600">People who like at least one of the options</p>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <p class="font-medium text-gray-800">Exactly Two Problems</p>
+                                    <p class="text-sm text-gray-600">People who like exactly two options</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exam Facts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">8. Common Delhi Police / SSC Exam Facts</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">2-Set Problems → <strong>Most Common</strong></p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Family & Profession → <strong>Frequent</strong></p>
+                            </div>
+                            <div
+                                class="p-3 bg-purple-50 rounded-lg border border-purple-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Time Limit → <strong>60-90 seconds per
+                                        question</strong></p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="p-3 bg-yellow-50 rounded-lg border border-yellow-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Diagram Method → <strong>Key Solving
+                                        Technique</strong></p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">Practice → <strong>Essential for Accuracy</strong>
+                                </p>
+                            </div>
+                            <div
+                                class="p-3 bg-indigo-50 rounded-lg border border-indigo-200 flex items-start space-x-3">
+                                <div
+                                    class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <p class="font-medium text-gray-800">3-Set Problems → <strong>Higher Difficulty</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">9. Quick Recap</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Topic</th>
+                                <th class="px-4 py-3">Key Focus</th>
+                                <th class="px-4 py-3">Important Formulas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Set-based Problems</td>
+                                <td class="px-4 py-3">Mathematical Sets</td>
+                                <td class="px-4 py-3">n(A∪B)=n(A)+n(B)-n(A∩B), 3-set union formula</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Family & Profession</td>
+                                <td class="px-4 py-3">Multiple Attributes</td>
+                                <td class="px-4 py-3">Use overlapping circles for different categories</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Diagram Types</td>
+                                <td class="px-4 py-3">Visual Representation</td>
+                                <td class="px-4 py-3">2-set (4 regions), 3-set (8 regions)</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Solving Strategy</td>
+                                <td class="px-4 py-3">Step-by-step Approach</td>
+                                <td class="px-4 py-3">Identify → Draw → Fill inside-out → Calculate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Venn Diagram Problems!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Remember to always start with the intersection
+                            areas when filling Venn diagrams, use the key formulas for set calculations, and practice
+                            different types of Venn diagram problems to master visual reasoning for exams.</p>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="syllogism.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Previous
+                </a>
+                <div class="text-center text-xs italic text-gray-600 flex items-center">
+                    Developed By Md Parvez
+                </div>
+                <a href="non-verbal-reasoning.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10 flex items-center justify-center">
+                    Next
+                </a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Master Reasoning for SSC GD Exam!
+                </h2>
+                <p class="text-gray-700 mb-6">Join Courage Library for comprehensive study materials and expert
+                    guidance.</p>
+                <a href="../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2025 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
