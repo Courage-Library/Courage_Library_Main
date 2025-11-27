@@ -1,3 +1,6 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.wait": 300,
+    "liveServer.settings.NoBrowser": true,
+    "liveServer.settings.fullReload": true
 }

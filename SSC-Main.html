@@ -243,7 +243,7 @@
                 </div>
                 <h3 class="text-xl font-semibold text-blue-700 mb-2">SSC GD Constable</h3>
                 <p class="text-gray-600 mb-4 text-sm">General Duty Constable exam for CAPF, NIA, SSF, and Rifleman.</p>
-                <a href="ssc-gd-courses.html"
+                <a href="/ssc-gd/SSC-GD-Syllabus.html"
                     class="px-4 py-2 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full font-semibold text-sm hover:scale-105 transform transition ripple">View
                     Courses</a>
             </div>
@@ -331,62 +331,68 @@
 
     <!-- FAQ Section -->
     <section class="bg-gray-50 py-12 fade-in">
-    <div class="max-w-4xl mx-auto px-4">
-        <h3 class="text-2xl font-bold text-center text-blue-700 mb-8">Frequently Asked Questions</h3>
+        <div class="max-w-4xl mx-auto px-4">
+            <h3 class="text-2xl font-bold text-center text-blue-700 mb-8">Frequently Asked Questions</h3>
 
-        <div x-data="{ open: null }" class="space-y-4">
-            <!-- What is Courage Library? -->
-            <div class="glass p-4 shadow-md">
-                <button @click="open = open === 1 ? null : 1" class="w-full text-left font-semibold text-blue-600">
-                    What is Courage Library?
-                </button>
-                <p x-show="open === 1" class="mt-2 text-gray-600 text-sm">
-                    Courage Library is a self-paced online learning platform offering structublue courses and resources for various competitive exams, aiming to empower students with the tools needed for success.
-                </p>
-            </div>
+            <div x-data="{ open: null }" class="space-y-4">
+                <!-- What is Courage Library? -->
+                <div class="glass p-4 shadow-md">
+                    <button @click="open = open === 1 ? null : 1" class="w-full text-left font-semibold text-blue-600">
+                        What is Courage Library?
+                    </button>
+                    <p x-show="open === 1" class="mt-2 text-gray-600 text-sm">
+                        Courage Library is a self-paced online learning platform offering structublue courses and
+                        resources for various competitive exams, aiming to empower students with the tools needed for
+                        success.
+                    </p>
+                </div>
 
-            <!-- How does the self-paced learning model work? -->
-            <div class="glass p-4 shadow-md">
-                <button @click="open = open === 2 ? null : 2" class="w-full text-left font-semibold text-blue-600">
-                    How does the self-paced learning model work?
-                </button>
-                <p x-show="open === 2" class="mt-2 text-gray-600 text-sm">
-                    The self-paced model allows learners to access course materials anytime and anywhere, progressing through lessons at their own speed for a personalized learning experience.
-                </p>
-            </div>
+                <!-- How does the self-paced learning model work? -->
+                <div class="glass p-4 shadow-md">
+                    <button @click="open = open === 2 ? null : 2" class="w-full text-left font-semibold text-blue-600">
+                        How does the self-paced learning model work?
+                    </button>
+                    <p x-show="open === 2" class="mt-2 text-gray-600 text-sm">
+                        The self-paced model allows learners to access course materials anytime and anywhere,
+                        progressing through lessons at their own speed for a personalized learning experience.
+                    </p>
+                </div>
 
-            <!-- What courses are available on Courage Library? -->
-            <div class="glass p-4 shadow-md">
-                <button @click="open = open === 3 ? null : 3" class="w-full text-left font-semibold text-blue-600">
-                    What courses are available on Courage Library?
-                </button>
-                <p x-show="open === 3" class="mt-2 text-gray-600 text-sm">
-                    Courage Library offers courses for SSC CGL, Banking Exams (IBPS, SBI, etc.), Railway Recruitment, and NDA Exam, each with tailoblue preparation materials and practice tests.
-                </p>
-            </div>
+                <!-- What courses are available on Courage Library? -->
+                <div class="glass p-4 shadow-md">
+                    <button @click="open = open === 3 ? null : 3" class="w-full text-left font-semibold text-blue-600">
+                        What courses are available on Courage Library?
+                    </button>
+                    <p x-show="open === 3" class="mt-2 text-gray-600 text-sm">
+                        Courage Library offers courses for SSC CGL, Banking Exams (IBPS, SBI, etc.), Railway
+                        Recruitment, and NDA Exam, each with tailoblue preparation materials and practice tests.
+                    </p>
+                </div>
 
-            <!-- Is there a physical learning center? -->
-            <div class="glass p-4 shadow-md">
-                <button @click="open = open === 4 ? null : 4" class="w-full text-left font-semibold text-blue-600">
-                    Is there a physical learning center?
-                </button>
-                <p x-show="open === 4" class="mt-2 text-gray-600 text-sm">
-                    Yes, Courage Library operates a learning center in Ramaipur, Kanpur Nagar, Uttar Pradesh, featuring AC study halls, ergonomic furniture, and silent zones for focused study.
-                </p>
-            </div>
+                <!-- Is there a physical learning center? -->
+                <div class="glass p-4 shadow-md">
+                    <button @click="open = open === 4 ? null : 4" class="w-full text-left font-semibold text-blue-600">
+                        Is there a physical learning center?
+                    </button>
+                    <p x-show="open === 4" class="mt-2 text-gray-600 text-sm">
+                        Yes, Courage Library operates a learning center in Ramaipur, Kanpur Nagar, Uttar Pradesh,
+                        featuring AC study halls, ergonomic furniture, and silent zones for focused study.
+                    </p>
+                </div>
 
-            <!-- How can I contact Courage Library? -->
-            <div class="glass p-4 shadow-md">
-                <button @click="open = open === 5 ? null : 5" class="w-full text-left font-semibold text-blue-600">
-                    How can I contact Courage Library?
-                </button>
-                <p x-show="open === 5" class="mt-2 text-gray-600 text-sm">
-                    You can contact Courage Library via phone at +91 8102524543, WhatsApp at 8467864390, or email at team@couragelibrary.in.
-                </p>
+                <!-- How can I contact Courage Library? -->
+                <div class="glass p-4 shadow-md">
+                    <button @click="open = open === 5 ? null : 5" class="w-full text-left font-semibold text-blue-600">
+                        How can I contact Courage Library?
+                    </button>
+                    <p x-show="open === 5" class="mt-2 text-gray-600 text-sm">
+                        You can contact Courage Library via phone at +91 8102524543, WhatsApp at 8467864390, or email at
+                        team@couragelibrary.in.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <!-- Footer -->
