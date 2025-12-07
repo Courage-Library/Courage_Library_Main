@@ -634,18 +634,26 @@
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
         async function handleRecoveryLink() {
-            const hash = window.location.hash.substring(1);
-            if (!hash) return;
+            let fullHash = window.location.hash.replace('#', '');
 
-            const params = new URLSearchParams(hash);
+            if (!fullHash) return;
+
+            // Convert #a=b#c=d → a=b&c=d
+            fullHash = fullHash.replace(/#/g, '&');
+
+            const params = new URLSearchParams(fullHash);
+
             const type = params.get("type");
-            const access = params.get("access_token");
+            const accessToken = params.get("access_token");
 
-            if (type === "recovery" && access) {
-                sessionStorage.setItem("resetToken", access);
+            console.log("Parsed TYPE:", type);
+            console.log("Parsed TOKEN:", accessToken);
 
-                // Let Supabase process the token first
-                await new Promise(r => setTimeout(r, 500));
+            if (type === "recovery" && accessToken) {
+                sessionStorage.setItem("resetToken", accessToken);
+
+                // Allow Supabase to initialize session
+                await new Promise(r => setTimeout(r, 300));
 
                 openAuthModal("update");
 
@@ -653,6 +661,11 @@
                 history.replaceState({}, "", window.location.pathname);
             }
         }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await handleRecoveryLink();
+        });
+
 
         /* -------------------------------------------------------------
         PASSWORD TOGGLE (eye)
