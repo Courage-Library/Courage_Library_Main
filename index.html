@@ -634,8 +634,20 @@
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
         async function handleRecoveryLink() {
-            let raw = window.location.hash.substring(1);
-            if (!raw) return;
+            let hashData = window.location.hash;
+            let queryData = window.location.search;
+
+            let raw = "";
+
+            if (hashData && hashData.includes("access_token")) {
+                raw = hashData.substring(1);
+            } 
+            else if (queryData && queryData.includes("access_token")) {
+                raw = queryData.substring(1);
+            } 
+            else {
+                return;
+            }
 
             raw = raw.replace(/#/g, '&');
             const params = new URLSearchParams(raw);
@@ -643,21 +655,20 @@
             const type = params.get("type");
             const token = params.get("access_token");
 
-            if (type === "recovery" && token) {
-                console.log("🔐 Recovery token found!", token);
+            console.log("Parsed TYPE:", type);
+            console.log("Parsed TOKEN:", token);
 
-                // Wait for Supabase to process the session internally
-                await new Promise(r => setTimeout(r, 800));
+            if (token) {
+                // Supabase automatically uses this token to create a session
+                await new Promise(res => setTimeout(res, 500));
 
-                // Check if Supabase created a session
                 const { data: { session } } = await supaClient.auth.getSession();
-                console.log("Session after delay:", session);
+
+                console.log("Supabase SESSION:", session);
 
                 if (!session) {
-                    console.warn("⚠️ Session still missing, retrying…");
-
-                    // Retry once more after a delay
-                    await new Promise(r => setTimeout(r, 800));
+                    console.warn("Session missing, retrying...");
+                    await new Promise(res => setTimeout(res, 600));
                 }
 
                 openAuthModal("update");
