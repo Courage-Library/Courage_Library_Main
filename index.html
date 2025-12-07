@@ -368,7 +368,7 @@
                         <path
                             d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" />
                     </svg>
-                    <svg id="toggleLoginPassword" xmlns="http://www.w3.org/2000/svg"
+                    <svg id="toggleNewPassword" xmlns="http://www.w3.org/2000/svg"
                         class="absolute right-3 top-3 w-5 h-5 text-gray-400 cursor-pointer" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -385,7 +385,7 @@
                         <path
                             d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-8h-1V7a5 5 0 00-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2z" />
                     </svg>
-                    <svg id="toggleLoginPassword" xmlns="http://www.w3.org/2000/svg"
+                    <svg id="toggleConfirmPassword" xmlns="http://www.w3.org/2000/svg"
                         class="absolute right-3 top-3 w-5 h-5 text-gray-400 cursor-pointer" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -856,6 +856,18 @@
                 setTimeout(() => modal.classList.add('hidden'), 120);
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tNew = document.getElementById('toggleNewPassword');
+            if (tNew) tNew.addEventListener('click', function () {
+                togglePassword(document.getElementById('newPassword'), this);
+            });
+
+            const tConfirm = document.getElementById('toggleConfirmPassword');
+            if (tConfirm) tConfirm.addEventListener('click', function () {
+                togglePassword(document.getElementById('confirmPassword'), this);
+            });
+        });
 
         // Add this right after your supabase client initialization
         let currentAuthSession = null;
