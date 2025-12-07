@@ -655,36 +655,37 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
 
-            if (urlParams.get('type') === 'password_reset') {
-                // Store token from URL if needed
-                const hashParams = new URLSearchParams(window.location.hash.substring(1));
-                sessionStorage.setItem('resetToken', hashParams.get('access_token'));
+            // FIRST extract hash params (this is what Supabase uses)
+            const hashParams = new URLSearchParams(window.location.hash.substring(1));
+            const type = hashParams.get("type");
 
-                // Clean URL
-                history.replaceState({}, '', window.location.pathname);
+            if (type === "recovery") {
+                const token = hashParams.get("access_token");
+                sessionStorage.setItem("resetToken", token);
 
-                // Open modal
+                // Clean URL hash
+                window.location.hash = "";
+
+                // Open Update Password modal
                 openAuthModal('update');
             }
 
+            // Now handle normal ?openModal=login
+            const urlParams = new URLSearchParams(window.location.search);
             const modalToOpen = urlParams.get('openModal');
 
             if (modalToOpen === 'login') {
-                // Clean URL without reloading
                 history.replaceState({}, '', window.location.pathname);
 
-                // Small delay ensures DOM is fully ready
                 setTimeout(() => {
                     openAuthModal('login');
                     document.getElementById('loginEmail').focus();
                 }, 50);
             }
 
+            // Check auth status logic remains same
             async function checkAuthStatus() {
-                const urlParams = new URLSearchParams(window.location.search);
-
                 if (urlParams.has('checkAuth')) {
                     try {
                         const { data: { session }, error } = await supaClient.auth.getSession();
@@ -692,7 +693,7 @@
                         if (error) throw error;
 
                         if (session?.user) {
-                            showCustomPopup("You're already logged in! blueirecting...", "info");
+                            showCustomPopup("You're already logged in! Redirecting...", "info");
                             setTimeout(() => {
                                 window.location.href = "index.html";
                             }, 2000);
@@ -708,9 +709,9 @@
                 }
             }
 
-            // Call the async function
             checkAuthStatus();
         });
+
 
         function checkPasswordReset() {
             const hash = window.location.hash.substring(1); // Remove the #
@@ -924,7 +925,7 @@
     </section>
 
     <!-- Courses Section -->
-    <section id="courses1" class="relative pb-10 pt-0 fade-in z-10 bg-white overflow-visible">
+    <section id="courses1" class="relative pb-10 pt-20 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10 bg-white overflow-visible">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Pick
                 Your Path</h2>
