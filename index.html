@@ -482,417 +482,266 @@
     </style>
 
     <script>
-
-        let authMode = 'login';
-
-        function openAuthModal(mode) {
+        /* -------------------------------------------------------------
+        MODAL OPEN/CLOSE
+        ------------------------------------------------------------- */
+        function toggleModal() {
             const authModal = document.getElementById('authModal');
             const modalBox = document.getElementById('modalBox');
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const resetForm = document.getElementById('resetForm');
-            const updatePasswordForm = document.getElementById('updatePasswordForm');
 
-            // Hide all forms first (clean slate approach)
-            loginForm.classList.add('hidden');
-            signupForm.classList.add('hidden');
-            resetForm.classList.add('hidden');
-            updatePasswordForm.classList.add('hidden');
+            if (!authModal || !modalBox) return;
 
-            // Show only the requested form
-            switch (mode) {
-                case 'login':
-                    loginForm.classList.remove('hidden');
-                    break;
-                case 'signup':
-                    signupForm.classList.remove('hidden');
-                    break;
-                case 'reset':
-                    resetForm.classList.remove('hidden');
-                    break;
-                case 'update':
-                    updatePasswordForm.classList.remove('hidden');
-                    break;
-                default:
-                    console.warn('Unknown auth mode:', mode);
-                    loginForm.classList.remove('hidden'); // Fallback to login
+            if (authModal.classList.contains('hidden')) {
+                authModal.classList.remove('hidden');
+                modalBox.classList.remove('scale-0');
+                modalBox.classList.add('scale-100');
+            } else {
+                modalBox.classList.remove('scale-100');
+                modalBox.classList.add('scale-0');
+                setTimeout(() => authModal.classList.add('hidden'), 250);
             }
+        }
 
-            // Handle modal animation
-            authModal.classList.remove('hidden');
+        /* -------------------------------------------------------------
+        OPEN AUTH MODAL IN A GIVEN MODE
+        ------------------------------------------------------------- */
+        let authMode = "login";
+
+        function openAuthModal(mode) {
+            const forms = {
+                login: document.getElementById('loginForm'),
+                signup: document.getElementById('signupForm'),
+                reset: document.getElementById('resetForm'),
+                update: document.getElementById('updatePasswordForm')
+            };
+
+            // Hide all forms
+            Object.values(forms).forEach(f => f.classList.add('hidden'));
+
+            // Show selected
+            if (forms[mode]) forms[mode].classList.remove('hidden');
+            else forms.login.classList.remove('hidden');
+
+            // Open modal
+            document.getElementById('authModal').classList.remove('hidden');
+            const modalBox = document.getElementById('modalBox');
             modalBox.classList.remove('scale-0');
             modalBox.classList.add('scale-100');
 
-            // Clear previous inputs when switching modes
-            if (mode !== authMode) {
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-                document.getElementById('signupEmail').value = '';
-                document.getElementById('signupPassword').value = '';
-                document.getElementById('resetEmail').value = '';
-            }
-
-            authMode = mode; // Update current mode
+            authMode = mode;
         }
 
+        /* -------------------------------------------------------------
+        LOGIN
+        ------------------------------------------------------------- */
         async function loginWithEmail() {
-            const email = document.getElementById("loginEmail").value;
-            const password = document.getElementById("loginPassword").value;
+            const email = loginEmail.value;
+            const password = loginPassword.value;
 
             try {
-                const { error, data } = await supaClient.auth.signInWithPassword({ email, password });
-                if (error) {
-                    showCustomPopup("Login failed: " + error.message, "error");
-                } else {
-                    showCustomPopup("Login successful!", "success");
-                    // close modal after success
-                    setTimeout(() => toggleModal(), 500);
-                }
-            } catch (err) {
-                showCustomPopup("Login error: " + err.message, "error");
-            }
+                const { data, error } = await supaClient.auth.signInWithPassword({ email, password });
+                if (error) return showCustomPopup(error.message, "error");
 
-            if (!error) {
-                currentAuthSession = data.session;
-                updateAllAuthButtons();
+                showCustomPopup("Login successful!", "success");
+                setTimeout(() => toggleModal(), 700);
+
+            } catch (err) {
+                showCustomPopup(err.message, "error");
             }
         }
 
+        /* -------------------------------------------------------------
+        SIGNUP
+        ------------------------------------------------------------- */
         async function signupWithEmail() {
-            const email = document.getElementById("signupEmail").value;
-            const password = document.getElementById("signupPassword").value;
+            const email = signupEmail.value;
+            const password = signupPassword.value;
 
             try {
                 const { data, error } = await supaClient.auth.signUp({
                     email,
                     password,
-                    options: {
-                        emailblueirectTo: window.location.origin // Optional: For email confirmation
-                    }
+                    options: { redirectTo: window.location.origin }
                 });
 
-                if (error) {
-                    // Handle specific "email exists" error
-                    if (error.message.includes('already registeblue')) {
-                        showCustomPopup("User already exists. Please login instead.", "error");
-                    } else {
-                        showCustomPopup("Signup failed: " + error.message, "error");
-                    }
-                } else if (data?.user?.identities?.length === 0) {
-                    // Special case: No identities means user exists but maybe unconfirmed
-                    showCustomPopup("Email already registeblue. Check your inbox for confirmation link.", "error");
-                } else {
-                    showCustomPopup("Signup successful! Check your email to confirm.", "success");
-                    setTimeout(() => toggleModal(), 800);
-                }
+                if (error) return showCustomPopup(error.message, "error");
+
+                showCustomPopup("Account created! Check your email for confirmation.", "success");
+                setTimeout(() => toggleModal(), 700);
+
             } catch (err) {
-                showCustomPopup("Signup error: " + err.message, "error");
+                showCustomPopup(err.message, "error");
             }
         }
 
+        /* -------------------------------------------------------------
+        LOGOUT
+        ------------------------------------------------------------- */
         async function logout() {
-            try {
-                await supaClient.auth.signOut();
-                currentAuthSession = null; // Force update
-                updateAllAuthButtons();
-                showCustomPopup('Logged out!', 'success');
-            } catch (err) {
-                showCustomPopup('Logout failed: ' + err.message, 'error');
-            }
+            await supaClient.auth.signOut();
+            currentAuthSession = null;
+            updateAuthButtons();
+            showCustomPopup("Logged out!", "success");
         }
 
+        /* -------------------------------------------------------------
+        SEND PASSWORD RESET EMAIL
+        ------------------------------------------------------------- */
         async function sendPasswordReset() {
-            const email = document.getElementById("resetEmail").value;
+            const email = resetEmail.value;
 
             try {
                 const { error } = await supaClient.auth.resetPasswordForEmail(email, {
-                    blueirectTo: window.location.origin + '/index.html?type=password_reset'
-                    // Using ? instead of #
+                    redirectTo: window.location.origin + "/index.html"
                 });
 
                 if (error) throw error;
-                showCustomPopup("Reset link sent!, Please check your mail.", "success");
+
+                showCustomPopup("Reset link sent! Check your email.", "success");
+
             } catch (err) {
-                showCustomPopup("Error: " + err.message, "error");
+                showCustomPopup(err.message, "error");
             }
         }
 
+        /* -------------------------------------------------------------
+        UPDATE PASSWORD AFTER EMAIL LINK
+        ------------------------------------------------------------- */
         async function updatePassword() {
-            const newPassword = document.getElementById("newPassword").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
+            const newPass = newPassword.value;
+            const confirm = confirmPassword.value;
 
-            if (newPassword !== confirmPassword) {
-                showCustomPopup("Passwords don't match!", "error");
-                return;
-            }
+            if (newPass !== confirm) return showCustomPopup("Passwords do not match!", "error");
 
             try {
-                // Get the token from URL or storage
-                const hashParams = new URLSearchParams(window.location.hash.substring(1));
-                const token = hashParams.get('access_token') || sessionStorage.getItem('resetToken');
-
-                if (!token) {
-                    throw new Error("Reset token missing");
-                }
-
-                // Update password directly (no need for verifyOtp)
-                const { error } = await supaClient.auth.updateUser({
-                    password: newPassword
-                });
-
+                const { error } = await supaClient.auth.updateUser({ password: newPass });
                 if (error) throw error;
 
                 showCustomPopup("Password updated successfully!", "success");
-                sessionStorage.removeItem('resetToken');
+                sessionStorage.removeItem("resetToken");
+
                 setTimeout(() => {
                     toggleModal();
-                    window.location.href = "/"; // blueirect to home
-                }, 1500);
+                    window.location.href = "/";
+                }, 1200);
+
             } catch (err) {
-                showCustomPopup("Error: " + err.message, "error");
-                console.error("Password update error:", err);
+                showCustomPopup(err.message, "error");
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
+        /* -------------------------------------------------------------
+        HANDLE SUPABASE RECOVERY LINK (#access_token)
+        ------------------------------------------------------------- */
+        async function handleRecoveryLink() {
+            const hash = window.location.hash.substring(1);
+            if (!hash) return;
 
-            // FIRST extract hash params (this is what Supabase uses)
-            const hashParams = new URLSearchParams(window.location.hash.substring(1));
-            const type = hashParams.get("type");
+            const params = new URLSearchParams(hash);
+            const type = params.get("type");
+            const access = params.get("access_token");
 
-            if (type === "recovery") {
-                const token = hashParams.get("access_token");
-                sessionStorage.setItem("resetToken", token);
+            if (type === "recovery" && access) {
+                sessionStorage.setItem("resetToken", access);
 
-                // Clean URL hash
-                window.location.hash = "";
+                // Let Supabase process the token first
+                await new Promise(r => setTimeout(r, 500));
 
-                // Open Update Password modal
-                openAuthModal('update');
-            }
+                openAuthModal("update");
 
-            // Now handle normal ?openModal=login
-            const urlParams = new URLSearchParams(window.location.search);
-            const modalToOpen = urlParams.get('openModal');
-
-            if (modalToOpen === 'login') {
-                history.replaceState({}, '', window.location.pathname);
-
-                setTimeout(() => {
-                    openAuthModal('login');
-                    document.getElementById('loginEmail').focus();
-                }, 50);
-            }
-
-            // Check auth status logic remains same
-            async function checkAuthStatus() {
-                if (urlParams.has('checkAuth')) {
-                    try {
-                        const { data: { session }, error } = await supaClient.auth.getSession();
-
-                        if (error) throw error;
-
-                        if (session?.user) {
-                            showCustomPopup("You're already logged in! Redirecting...", "info");
-                            setTimeout(() => {
-                                window.location.href = "index.html";
-                            }, 2000);
-                        } else {
-                            openAuthModal('login');
-                        }
-
-                        history.replaceState({}, '', window.location.pathname);
-                    } catch (err) {
-                        console.error("Auth check failed:", err);
-                        openAuthModal('login');
-                    }
-                }
-            }
-
-            checkAuthStatus();
-        });
-
-
-        function checkPasswordReset() {
-            const hash = window.location.hash.substring(1); // Remove the #
-            const params = new URLSearchParams(hash.split('?')[1] || '');
-            const token = params.get('access_token');
-            const type = params.get('type');
-
-            if (type === 'recovery' && token) {
-                // Store the token for later use
-                sessionStorage.setItem('resetToken', token);
-
-                // Clean the URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-
-                // Open the update modal
-                openAuthModal('update');
+                // Clean URL
+                history.replaceState({}, "", window.location.pathname);
             }
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            // updateAuthButtons requires elements with ids loginBtn and logoutBtn on the page
-            if (typeof supaClient !== 'undefined') {
-                const { data: { session } } = await supaClient.auth.getSession();
-                updateAuthButtons(session);
-
-                supaClient.auth.onAuthStateChange((_event, session) => {
-                    updateAuthButtons(session);
-                });
-            } else {
-                console.warn('supaClient not found — create it before this script.');
-            }
-
-            // set up password toggle listeners (guard in case elements not present)
-            const t1 = document.getElementById('toggleLoginPassword');
-            if (t1) t1.addEventListener('click', function () {
-                let passwordInput = document.getElementById('loginPassword');
-                togglePassword(passwordInput, this);
-            });
-            const t2 = document.getElementById('toggleSignupPassword');
-            if (t2) t2.addEventListener('click', function () {
-                let passwordInput = document.getElementById('signupPassword');
-                togglePassword(passwordInput, this);
-            });
-        });
-
-        function updateAuthButtons(session) {
-            // Desktop buttons
-            const desktopLogin = document.getElementById('loginBtn');
-            const desktopLogout = document.getElementById('logoutBtn');
-            // Mobile buttons
-            const mobileLogin = document.getElementById('mobileLoginBtn');
-            const mobileLogout = document.getElementById('mobileLogoutBtn');
-
-            [desktopLogin, mobileLogin].forEach(btn => {
-                if (session?.user) btn?.classList.add('hidden');
-                else btn?.classList.remove('hidden');
-            });
-
-            [desktopLogout, mobileLogout].forEach(btn => {
-                if (session?.user) btn?.classList.remove('hidden');
-                else btn?.classList.add('hidden');
-            });
-        }
-
-        function showCustomPopup(message, type = 'success') {
-            const popup = document.getElementById('customPopup');
-            const popupBox = document.getElementById('popupBox');
-            const popupIcon = document.getElementById('popupIcon');
-            const popupMessage = document.getElementById('popupMessage');
-
-            if (!popup || !popupBox || !popupIcon || !popupMessage) {
-                // fallback to alert so user still sees the message
-                alert(message);
-                return;
-            }
-
-            popupMessage.textContent = message;
-
-            let iconHTML = '';
-            let borderColor = '';
-
-            if (type === 'success') {
-                iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                          <path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
-                        </svg>`;
-                borderColor = 'border-blue-500';
-            } else if (type === 'error') {
-                iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
-                        </svg>`;
-                borderColor = 'border-blue-500';
-            } else {
-                // info or neutral
-                iconHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="M11 7h2v2h-2V7zm1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6z"/>
-                        </svg>`;
-                borderColor = 'border-gray-400';
-            }
-
-            popupIcon.innerHTML = iconHTML;
-            popupBox.className = `flex items-center gap-3 bg-white shadow-lg rounded-lg px-4 py-3 border-l-4 ${borderColor}`;
-
-            // show with animation
-            popup.classList.remove('hidden', 'hidePopup');
-            popup.classList.add('showPopup');
-
-            // auto hide logic (clear any existing timeout by storing on element)
-            if (popup._hideTimeout) clearTimeout(popup._hideTimeout);
-            popup._hideTimeout = setTimeout(() => {
-                popup.classList.remove('showPopup');
-                popup.classList.add('hidePopup');
-                // add hidden after animation completes
-                setTimeout(() => popup.classList.add('hidden'), 320);
-                popup._hideTimeout = null;
-            }, 3000);
-        }
-
+        /* -------------------------------------------------------------
+        PASSWORD TOGGLE (eye)
+        ------------------------------------------------------------- */
         function togglePassword(input, icon) {
-            if (!input || !icon) return;
-            if (input.type === 'password') {
-                input.type = 'text';
-                // replace inner content of the *icon SVG* to "eye" — ensure svg wrapper remains
+            if (input.type === "password") {
+                input.type = "text";
                 icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z" />`;
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.478 0-8.268-2.943-9.542-7z"/>`;
             } else {
-                input.type = 'password';
+                input.type = "password";
                 icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />`;
+                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.658-2.858"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M6.99 6.99A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.96 9.96 0 01-4.243 5.093"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18"/>`;
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const tNew = document.getElementById('toggleNewPassword');
-            if (tNew) tNew.addEventListener('click', function () {
-                togglePassword(document.getElementById('newPassword'), this);
+        /* -------------------------------------------------------------
+        INITIALIZATION — ON PAGE LOAD
+        ------------------------------------------------------------- */
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            /* Password eye listeners */
+            [
+                ["toggleLoginPassword", "loginPassword"],
+                ["toggleSignupPassword", "signupPassword"],
+                ["toggleNewPassword", "newPassword"],
+                ["toggleConfirmPassword", "confirmPassword"]
+            ].forEach(([iconId, inputId]) => {
+                const icon = document.getElementById(iconId);
+                if (icon) icon.addEventListener("click", () =>
+                    togglePassword(document.getElementById(inputId), icon)
+                );
             });
 
-            const tConfirm = document.getElementById('toggleConfirmPassword');
-            if (tConfirm) tConfirm.addEventListener('click', function () {
-                togglePassword(document.getElementById('confirmPassword'), this);
+            /* handle password recovery email link */
+            await handleRecoveryLink();
+
+            /* Update login buttons everywhere */
+            const { data: { session } } = await supaClient.auth.getSession();
+            currentAuthSession = session;
+            updateAuthButtons();
+
+            supaClient.auth.onAuthStateChange((_e, session) => {
+                currentAuthSession = session;
+                updateAuthButtons();
             });
         });
 
-        // Add this right after your supabase client initialization
+        /* -------------------------------------------------------------
+        UPDATE LOGIN/LOGOUT BUTTONS SITE-WIDE
+        ------------------------------------------------------------- */
         let currentAuthSession = null;
 
-        function updateAllAuthButtons() {
-            // Update buttons on ALL pages
-            document.querySelectorAll('#loginBtn, #mobileLoginBtn').forEach(btn => {
-                btn.classList.toggle('hidden', !!currentAuthSession);
-            });
+        function updateAuthButtons() {
+            const showLogin = !currentAuthSession;
 
-            document.querySelectorAll('#logoutBtn, #mobileLogoutBtn').forEach(btn => {
-                btn.classList.toggle('hidden', !currentAuthSession);
-            });
+            document.querySelectorAll("#loginBtn, #mobileLoginBtn").forEach(btn =>
+                btn.classList.toggle("hidden", !showLogin)
+            );
+
+            document.querySelectorAll("#logoutBtn, #mobileLogoutBtn").forEach(btn =>
+                btn.classList.toggle("hidden", showLogin)
+            );
         }
 
-        // Initialize auth listener
-        supaClient.auth.onAuthStateChange((event, session) => {
-            currentAuthSession = session;
-            updateAllAuthButtons();
+        /* -------------------------------------------------------------
+        POPUP NOTIFICATION SYSTEM
+        ------------------------------------------------------------- */
+        function showCustomPopup(message, type = "success") {
+            const popup = document.getElementById("customPopup");
+            const box = document.getElementById("popupBox");
+            const msg = document.getElementById("popupMessage");
 
-            // Sync across browser tabs
-            localStorage.setItem('sb-auth-state', JSON.stringify(session));
-        });
+            msg.textContent = message;
+            popup.classList.remove("hidden");
 
-        // Listen for changes from other tabs
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'sb-auth-state') {
-                currentAuthSession = JSON.parse(event.newValue);
-                updateAllAuthButtons();
-            }
-        });
+            popup.classList.add("showPopup");
+            popup.classList.remove("hidePopup");
 
-        // Get initial session
-        supaClient.auth.getSession().then(({ data: { session } }) => {
-            currentAuthSession = session;
-            updateAllAuthButtons();
-        });
+            setTimeout(() => {
+                popup.classList.remove("showPopup");
+                popup.classList.add("hidePopup");
+                setTimeout(() => popup.classList.add("hidden"), 300);
+            }, 2700);
+        }
     </script>
+
 
 
     <!-- Hero Section -->
