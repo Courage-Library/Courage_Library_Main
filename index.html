@@ -633,53 +633,32 @@
         /* -------------------------------------------------------------
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
-        async function handleRecoveryLink() {
-    console.log("handleRecoveryLink: starting");
+        async function updatePassword() {
+    const newPass = newPassword.value;
+    const confirm = confirmPassword.value;
 
-    // Let Supabase auto-handle the URL token
-    const { data, error } = await supaClient.auth.getSession();
+    if (newPass !== confirm) return showCustomPopup("Passwords do not match!", "error");
 
-    console.log("Supabase session after redirect:", data?.session);
+    try {
+        // Update password
+        const { error } = await supaClient.auth.updateUser({ password: newPass });
+        if (error) throw error;
 
-    // If no session → recovery token was not processed
-    if (!data.session) {
-        console.warn("❌ No session found yet, trying to recover manually...");
+        showCustomPopup("Password updated successfully!", "success");
 
-        const hash = window.location.hash.substring(1);
-        console.log("HASH:", hash);
+        // IMPORTANT: End recovery session
+        await supaClient.auth.signOut();
 
-        if (!hash) return;
+        // Close modal and go to login
+        setTimeout(() => {
+            toggleModal();
+            openAuthModal("login");  // Show login modal
+            history.replaceState({}, "", "/"); // Remove any leftover hash
+        }, 1200);
 
-        const params = new URLSearchParams(hash);
-        const access = params.get("access_token");
-        const refresh = params.get("refresh_token");
-        const type = params.get("type");
-
-        console.log("Parsed:", { type, access, refresh });
-
-        if (type !== "recovery" || !access) return;
-
-        // Manually set session
-        const { data: newSession, error: sessionError } =
-            await supaClient.auth.setSession({
-                access_token: access,
-                refresh_token: refresh
-            });
-
-        console.log("Manual session set:", newSession);
-
-        if (sessionError) {
-            console.error("❌ Could not set session:", sessionError);
-            return;
-        }
+    } catch (err) {
+        showCustomPopup(err.message, "error");
     }
-
-    // If session now exists → open modal
-    console.log("🎉 Recovery session active → open change-password modal");
-    openAuthModal("update");
-
-    // Clean URL
-    history.replaceState({}, "", "/");
 }
 
 
