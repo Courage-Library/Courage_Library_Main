@@ -592,7 +592,7 @@
 
             try {
                 const { error } = await supaClient.auth.resetPasswordForEmail(email, {
-                    redirectTo: "https://www.couragelibrary.in/index.html"
+                    redirectTo: "https://www.couragelibrary.in/#/"
                 });
 
                 if (error) throw error;
