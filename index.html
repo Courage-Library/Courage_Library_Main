@@ -608,32 +608,6 @@
         UPDATE PASSWORD AFTER EMAIL LINK
         ------------------------------------------------------------- */
         async function updatePassword() {
-            const newPass = newPassword.value;
-            const confirm = confirmPassword.value;
-
-            if (newPass !== confirm) return showCustomPopup("Passwords do not match!", "error");
-
-            try {
-                const { error } = await supaClient.auth.updateUser({ password: newPass });
-                if (error) throw error;
-
-                showCustomPopup("Password updated successfully!", "success");
-                sessionStorage.removeItem("resetToken");
-
-                setTimeout(() => {
-                    toggleModal();
-                    window.location.href = "/";
-                }, 1200);
-
-            } catch (err) {
-                showCustomPopup(err.message, "error");
-            }
-        }
-
-        /* -------------------------------------------------------------
-        HANDLE SUPABASE RECOVERY LINK (#access_token)
-        ------------------------------------------------------------- */
-        async function updatePassword() {
     const newPass = newPassword.value;
     const confirm = confirmPassword.value;
 
@@ -661,6 +635,58 @@
     }
 }
 
+
+        /* -------------------------------------------------------------
+        HANDLE SUPABASE RECOVERY LINK (#access_token)
+        ------------------------------------------------------------- */
+        async function handleRecoveryLink() {
+    console.log("handleRecoveryLink: starting");
+
+    // Let Supabase auto-handle the URL token
+    const { data, error } = await supaClient.auth.getSession();
+
+    console.log("Supabase session after redirect:", data?.session);
+
+    // If no session → recovery token was not processed
+    if (!data.session) {
+        console.warn("❌ No session found yet, trying to recover manually...");
+
+        const hash = window.location.hash.substring(1);
+        console.log("HASH:", hash);
+
+        if (!hash) return;
+
+        const params = new URLSearchParams(hash);
+        const access = params.get("access_token");
+        const refresh = params.get("refresh_token");
+        const type = params.get("type");
+
+        console.log("Parsed:", { type, access, refresh });
+
+        if (type !== "recovery" || !access) return;
+
+        // Manually set session
+        const { data: newSession, error: sessionError } =
+            await supaClient.auth.setSession({
+                access_token: access,
+                refresh_token: refresh
+            });
+
+        console.log("Manual session set:", newSession);
+
+        if (sessionError) {
+            console.error("❌ Could not set session:", sessionError);
+            return;
+        }
+    }
+
+    // If session now exists → open modal
+    console.log("🎉 Recovery session active → open change-password modal");
+    openAuthModal("update");
+
+    // Clean URL
+    history.replaceState({}, "", "/");
+}
 
         /* -------------------------------------------------------------
         PASSWORD TOGGLE (eye)
