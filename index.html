@@ -642,49 +642,40 @@
         async function handleRecoveryLink() {
     console.log("handleRecoveryLink: starting");
 
-    // Let Supabase auto-handle the URL token
-    const { data, error } = await supaClient.auth.getSession();
+    const hash = window.location.hash.substring(1);
 
-    console.log("Supabase session after redirect:", data?.session);
-
-    // If no session → recovery token was not processed
-    if (!data.session) {
-        console.warn("❌ No session found yet, trying to recover manually...");
-
-        const hash = window.location.hash.substring(1);
-        console.log("HASH:", hash);
-
-        if (!hash) return;
-
-        const params = new URLSearchParams(hash);
-        const access = params.get("access_token");
-        const refresh = params.get("refresh_token");
-        const type = params.get("type");
-
-        console.log("Parsed:", { type, access, refresh });
-
-        if (type !== "recovery" || !access) return;
-
-        // Manually set session
-        const { data: newSession, error: sessionError } =
-            await supaClient.auth.setSession({
-                access_token: access,
-                refresh_token: refresh
-            });
-
-        console.log("Manual session set:", newSession);
-
-        if (sessionError) {
-            console.error("❌ Could not set session:", sessionError);
-            return;
-        }
+    // If NO recovery params → DO NOT open modal
+    if (!hash.includes("type=recovery")) {
+        console.log("No recovery hash → stop here.");
+        return;
     }
 
-    // If session now exists → open modal
-    console.log("🎉 Recovery session active → open change-password modal");
+    const params = new URLSearchParams(hash);
+    const type = params.get("type");
+    const access = params.get("access_token");
+    const refresh = params.get("refresh_token");
+
+    // If it's NOT recovery → stop
+    if (type !== "recovery" || !access) {
+        console.log("Not a recovery link → stop");
+        return;
+    }
+
+    // Set Supabase session manually
+    const { data: sessionData, error: sessionError } = await supaClient.auth.setSession({
+        access_token: access,
+        refresh_token: refresh
+    });
+
+    if (sessionError) {
+        console.error("Session error:", sessionError);
+        return;
+    }
+
+    console.log("🎉 Valid recovery link → opening modal once");
     openAuthModal("update");
 
-    // Clean URL
+    // Clean URL so it does NOT trigger again on refresh
     history.replaceState({}, "", "/");
 }
 
