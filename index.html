@@ -844,19 +844,6 @@
             }
         }
 
-        function toggleModal() {
-            const modal = document.getElementById('authModal');
-            const box = document.getElementById('modalBox');
-
-            if (modal.classList.contains('hidden')) {
-                modal.classList.remove('hidden');
-                setTimeout(() => box.classList.remove('scale-0'), 10);
-            } else {
-                box.classList.add('scale-0');
-                setTimeout(() => modal.classList.add('hidden'), 120);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             const tNew = document.getElementById('toggleNewPassword');
             if (tNew) tNew.addEventListener('click', function () {
