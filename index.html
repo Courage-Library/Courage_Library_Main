@@ -634,47 +634,34 @@
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
         async function handleRecoveryLink() {
-            let hashData = window.location.hash;
-            let queryData = window.location.search;
+            const hash = window.location.hash.substring(1);
 
-            let raw = "";
+            if (!hash) return;
 
-            if (hashData && hashData.includes("access_token")) {
-                raw = hashData.substring(1);
-            } 
-            else if (queryData && queryData.includes("access_token")) {
-                raw = queryData.substring(1);
-            } 
-            else {
-                return;
-            }
-
-            raw = raw.replace(/#/g, '&');
-            const params = new URLSearchParams(raw);
+            // Convert format: access_token=xxx&type=recovery
+            const params = new URLSearchParams(hash);
 
             const type = params.get("type");
             const token = params.get("access_token");
+            const refresh = params.get("refresh_token");
 
-            console.log("Parsed TYPE:", type);
-            console.log("Parsed TOKEN:", token);
+            console.log("TYPE:", type, "TOKEN:", token);
 
-            if (token) {
-                // Supabase automatically uses this token to create a session
-                await new Promise(res => setTimeout(res, 500));
+            if (type === "recovery" && token) {
 
-                const { data: { session } } = await supaClient.auth.getSession();
+                const { data, error } = await supaClient.auth.setSession({
+                    access_token: token,
+                    refresh_token: refresh
+                });
 
-                console.log("Supabase SESSION:", session);
-
-                if (!session) {
-                    console.warn("Session missing, retrying...");
-                    await new Promise(res => setTimeout(res, 600));
+                if (error) {
+                    console.error("Session error:", error);
+                    showCustomPopup("Auth session missing!", "error");
+                    return;
                 }
 
                 openAuthModal("update");
-
-                // Clean URL
-                history.replaceState({}, "", window.location.pathname);
+                history.replaceState({}, "", "/");
             }
         }
 
