@@ -608,33 +608,27 @@
         UPDATE PASSWORD AFTER EMAIL LINK
         ------------------------------------------------------------- */
         async function updatePassword() {
-    const newPass = newPassword.value;
-    const confirm = confirmPassword.value;
+            const newPass = newPassword.value;
+            const confirm = confirmPassword.value;
 
-    if (newPass !== confirm) return showCustomPopup("Passwords do not match!", "error");
+            if (newPass !== confirm) return showCustomPopup("Passwords do not match!", "error");
 
-    try {
-        // Update password
-        const { error } = await supaClient.auth.updateUser({ password: newPass });
-        if (error) throw error;
+            try {
+                const { error } = await supaClient.auth.updateUser({ password: newPass });
+                if (error) throw error;
 
-        showCustomPopup("Password updated successfully!", "success");
+                showCustomPopup("Password updated successfully!", "success");
+                sessionStorage.removeItem("resetToken");
 
-        // IMPORTANT: End recovery session
-        await supaClient.auth.signOut();
+                setTimeout(() => {
+                    toggleModal();
+                    window.location.href = "/";
+                }, 1200);
 
-        // Close modal and go to login
-        setTimeout(() => {
-            toggleModal();
-            openAuthModal("login");  // Show login modal
-            history.replaceState({}, "", "/"); // Remove any leftover hash
-        }, 1200);
-
-    } catch (err) {
-        showCustomPopup(err.message, "error");
-    }
-}
-
+            } catch (err) {
+                showCustomPopup(err.message, "error");
+            }
+        }
 
         /* -------------------------------------------------------------
         HANDLE SUPABASE RECOVERY LINK (#access_token)
