@@ -634,34 +634,38 @@
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
         async function handleRecoveryLink() {
-            const hash = window.location.hash;
+            let raw = window.location.hash.substring(1);
+            if (!raw) return;
 
-            if (!hash.includes("type=recovery")) return;
+            raw = raw.replace(/#/g, '&');
+            const params = new URLSearchParams(raw);
 
-            // Convert Supabase style hash to query-like format
-            const cleaned = hash.replace(/^#/, "").replace(/#/g, "&");
-
-            const params = new URLSearchParams(cleaned);
             const type = params.get("type");
-            const accessToken = params.get("access_token");
+            const token = params.get("access_token");
 
-            if (type === "recovery" && accessToken) {
-                console.log("Recovery detected!");
+            if (type === "recovery" && token) {
+                console.log("🔐 Recovery token found!", token);
 
-                sessionStorage.setItem("resetToken", accessToken);
+                // Wait for Supabase to process the session internally
+                await new Promise(r => setTimeout(r, 800));
 
-                // Give Supabase time to set session
-                await new Promise(r => setTimeout(r, 600));
+                // Check if Supabase created a session
+                const { data: { session } } = await supaClient.auth.getSession();
+                console.log("Session after delay:", session);
+
+                if (!session) {
+                    console.warn("⚠️ Session still missing, retrying…");
+
+                    // Retry once more after a delay
+                    await new Promise(r => setTimeout(r, 800));
+                }
 
                 openAuthModal("update");
 
-                // DO NOT CLEAN URL IMMEDIATELY — delay prevents modal closing
-                setTimeout(() => {
-                    history.replaceState({}, "", window.location.pathname);
-                }, 1500);
+                // Clean URL
+                history.replaceState({}, "", window.location.pathname);
             }
         }
-
 
         /* -------------------------------------------------------------
         PASSWORD TOGGLE (eye)
