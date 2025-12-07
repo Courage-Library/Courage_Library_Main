@@ -633,50 +633,173 @@
         /* -------------------------------------------------------------
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
-        async function handleRecoveryLink() {
-            let hashData = window.location.hash;
-            let queryData = window.location.search;
+        /* -------------------------------------------------------------
+  MORE-ROBUST SUPABASE RECOVERY LINK HANDLER
+  - Parses hash, query, double-hash, #/..., even encoded fragments
+  - Waits for supaClient to create a session (listens to onAuthStateChange)
+  - Opens update modal only after session exists (or shows helpful error)
+------------------------------------------------------------- */
+async function handleRecoveryLink() {
+  console.log("handleRecoveryLink: starting");
 
-            let raw = "";
+  // helper: build param string from many possible places
+  function collectRawParams() {
+    const parts = [];
 
-            if (hashData && hashData.includes("access_token")) {
-                raw = hashData.substring(1);
-            } 
-            else if (queryData && queryData.includes("access_token")) {
-                raw = queryData.substring(1);
-            } 
-            else {
-                return;
-            }
+    // 1) location.hash (after '#')
+    if (window.location.hash && window.location.hash.length > 1) {
+      // strip leading '#'
+      parts.push(window.location.hash.substring(1));
+    }
 
-            raw = raw.replace(/#/g, '&');
-            const params = new URLSearchParams(raw);
+    // 2) location.search (after '?')
+    if (window.location.search && window.location.search.length > 1) {
+      // strip leading '?'
+      parts.push(window.location.search.substring(1));
+    }
 
-            const type = params.get("type");
-            const token = params.get("access_token");
+    // 3) entire href in case of weird encodings or duplicate hashes like /#/...
+    const href = window.location.href;
+    // take substring after the first occurrence of '#' if present
+    const hashIndex = href.indexOf('#');
+    if (hashIndex !== -1) {
+      const afterHash = href.substring(hashIndex + 1);
+      if (afterHash) parts.push(afterHash);
+    }
 
-            console.log("Parsed TYPE:", type);
-            console.log("Parsed TOKEN:", token);
+    // 4) if there are multiple '#' we want to flatten them -> replace with &
+    const combined = parts.join('&').replace(/#/g, '&');
+    // Also decode common encodings (safe attempt)
+    const decoded = decodeURIComponent(combined || "");
+    return decoded;
+  }
 
-            if (token) {
-                // Supabase automatically uses this token to create a session
-                await new Promise(res => setTimeout(res, 500));
+  const raw = collectRawParams();
+  if (!raw) {
+    console.log("handleRecoveryLink: no raw params found");
+    return;
+  }
 
-                const { data: { session } } = await supaClient.auth.getSession();
+  console.log("handleRecoveryLink: raw params:", raw);
 
-                console.log("Supabase SESSION:", session);
+  // convert raw string into URLSearchParams
+  const normalized = raw.replace(/\?+/g, '&').replace(/^&+|&+$/g, ''); // clean leading/trailing &
+  const params = new URLSearchParams(normalized);
 
-                if (!session) {
-                    console.warn("Session missing, retrying...");
-                    await new Promise(res => setTimeout(res, 600));
-                }
+  // attempt to read tokens and type
+  const type = params.get('type') || params.get('action') || null;
+  const access_token = params.get('access_token') || params.get('accessToken') || params.get('token') || null;
+  const refresh_token = params.get('refresh_token') || params.get('refreshToken') || null;
 
-                openAuthModal("update");
+  console.log("handleRecoveryLink: parsed type=", type, "access_token exists=", !!access_token);
 
-                // Clean URL
-                history.replaceState({}, "", window.location.pathname);
-            }
+  if (!access_token) {
+    console.warn("handleRecoveryLink: no access_token found in any parsed location");
+    return;
+  }
+
+  // Save token (so updatePassword can use it if needed)
+  sessionStorage.setItem('resetToken', access_token);
+  if (refresh_token) sessionStorage.setItem('resetRefresh', refresh_token);
+
+  // Give Supabase a little time to process the link and create a client session
+  // We'll wait for onAuthStateChange OR poll getSession for up to timeoutMs ms
+  const timeoutMs = 5000;
+  let resolved = false;
+
+  console.log("handleRecoveryLink: waiting for supaClient session... (timeout " + timeoutMs + "ms)");
+
+  // helper: wait for session via event + immediate check
+  const waitForSession = () => new Promise((resolve) => {
+    // first immediate check
+    (async () => {
+      try {
+        if (!supaClient || !supaClient.auth) {
+          console.error("handleRecoveryLink: supaClient or supaClient.auth is not available");
+        } else {
+          const { data: { session } } = await supaClient.auth.getSession();
+          console.log("handleRecoveryLink: immediate getSession ->", session);
+          if (session && session.user) {
+            resolved = true;
+            return resolve(session);
+          }
         }
+      } catch (err) {
+        console.warn("handleRecoveryLink: getSession error", err);
+      }
+    })();
+
+    // subscribe to auth state changes (fires if supabase sets session)
+    let unsub = null;
+    try {
+      unsub = supaClient.auth.onAuthStateChange((event, session) => {
+        console.log("handleRecoveryLink: onAuthStateChange event:", event, "session:", session);
+        if (session && session.user) {
+          resolved = true;
+          if (typeof unsub === 'function') unsub();
+          return resolve(session);
+        }
+      });
+    } catch (err) {
+      console.warn("handleRecoveryLink: onAuthStateChange failed", err);
+    }
+
+    // fallback polling until timeout
+    const start = Date.now();
+    const interval = setInterval(async () => {
+      if (resolved) {
+        clearInterval(interval);
+        return;
+      }
+      try {
+        const { data: { session } } = await supaClient.auth.getSession();
+        if (session && session.user) {
+          resolved = true;
+          clearInterval(interval);
+          if (typeof unsub === 'function') unsub();
+          return resolve(session);
+        }
+      } catch (err) {
+        console.warn("handleRecoveryLink: polling getSession error", err);
+      }
+      if (Date.now() - start > timeoutMs) {
+        clearInterval(interval);
+        if (typeof unsub === 'function') unsub();
+        console.warn("handleRecoveryLink: timeout waiting for session");
+        return resolve(null);
+      }
+    }, 400);
+  });
+
+  const session = await waitForSession();
+  console.log("handleRecoveryLink: finished waitForSession ->", session);
+
+  // If Supabase created the session, open the modal to let user change password
+  if (session && session.user) {
+    console.log("handleRecoveryLink: session present, opening update modal");
+    openAuthModal('update');
+
+    // clean URL (remove tokens)
+    try {
+      history.replaceState({}, "", window.location.pathname);
+    } catch (e) {
+      console.warn("handleRecoveryLink: replaceState failed", e);
+    }
+    return;
+  }
+
+  // If session is missing, still open update modal but inform user
+  console.warn("handleRecoveryLink: session missing after wait — opening modal anyway to allow manual flow");
+  openAuthModal('update');
+
+  // show a helpful popup to the user (and log hints)
+  showCustomPopup("Auth session missing. If update fails, please open the link you received exactly as in the email (do not modify). Check console for debugging.", "error");
+
+  console.log("handleRecoveryLink: debug tips:");
+  console.log(" - Ensure the redirect URL you configured in Supabase EXACTLY matches your domain (including https and trailing slash variants).");
+  console.log(" - Copy the full browser address (location.href) and paste it here if it still fails.");
+}
+
 
         /* -------------------------------------------------------------
         PASSWORD TOGGLE (eye)
