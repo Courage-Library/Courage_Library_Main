@@ -639,58 +639,42 @@
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
         async function handleRecoveryLink() {
-            console.log("handleRecoveryLink: starting");
+    console.log("handleRecoveryLink: starting");
 
-            // Let Supabase auto-handle the URL token
-            const { data, error } = await supaClient.auth.getSession();
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const type = params.get("type");
 
-            console.log("Supabase session after redirect:", data?.session);
+    // Only process if this is actually a recovery link
+    if (type !== "recovery") {
+        console.log("No recovery link detected.");
+        return;
+    }
 
-            // If no session → recovery token was not processed
-            if (!data.session) {
-                console.warn("❌ No session found yet, trying to recover manually...");
+    console.log("Recovery link detected:", hash);
 
-                const hash = window.location.hash.substring(1);
-                console.log("HASH:", hash);
+    // Let Supabase attempt to load the session
+    let { data } = await supaClient.auth.getSession();
 
-                if (!hash) return;
+    if (!data.session) {
+        // Attempt manual session restore
+        const access = params.get("access_token");
+        const refresh = params.get("refresh_token");
 
-                const params = new URLSearchParams(hash);
-                const access = params.get("access_token");
-                const refresh = params.get("refresh_token");
-                const type = params.get("type");
-
-                console.log("Parsed:", { type, access, refresh });
-
-                if (type !== "recovery" || !access) return;
-
-                // Manually set session
-                const { data: newSession, error: sessionError } =
-                    await supaClient.auth.setSession({
-                        access_token: access,
-                        refresh_token: refresh
-                    });
-
-                console.log("Manual session set:", newSession);
-
-                if (sessionError) {
-                    console.error("❌ Could not set session:", sessionError);
-                    return;
-                }
-            }
-
-            // Only open modal if URL contained a recovery token
-            if (window.location.hash.includes("type=recovery")) {
-                console.log("🎉 Recovery session active → open change-password modal");
-                openAuthModal("update");
-
-                // Clean URL
-                history.replaceState({}, "", "/");
-            }
-
-            // Clean URL
-            history.replaceState({}, "", "/");
+        if (access && refresh) {
+            await supaClient.auth.setSession({
+                access_token: access,
+                refresh_token: refresh
+            });
         }
+    }
+
+    console.log("Recovery session active → opening update modal");
+    openAuthModal("update");
+
+    // Clean URL after opening modal
+    history.replaceState({}, "", "/");
+}
 
         /* -------------------------------------------------------------
         PASSWORD TOGGLE (eye)
