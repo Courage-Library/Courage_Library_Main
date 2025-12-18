@@ -257,14 +257,14 @@
   <script>
     const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const payBtn = document.getElementById("payBtn");
     const successMsg = document.getElementById("successMsg");
     const form = document.getElementById("enrollForm");
 
     async function getCurrentUser() {
-      const { data: session } = await supabase.auth.getSession();
+      const { data: session } = await supabaseClient.auth.getSession();
       if (!session.session) {
         alert("⚠️ Please login first.");
         window.location.href = "index.html?checkAuth=1";
@@ -298,7 +298,7 @@
           // On successful payment
           data.payment_id = response.razorpay_payment_id;
 
-          const { error } = await supabase.from("student_enrollments").insert([data]);
+          const { error } = await supabaseClient.from("student_enrollments").insert([data]);
           if (error) {
             alert("❌ Error saving enrollment: " + error.message);
             payBtn.textContent = "Pay Now ₹200";
