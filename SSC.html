@@ -344,44 +344,58 @@
         const notPopup = document.getElementById("notEnrolledPopup");
 
         async function checkEnrollment() {
-            try {
-                // 1️⃣ Check user login session
-                const { data: sessionData } = await supabase.auth.getSession();
-                const session = sessionData.session;
+  try {
+    // 1️⃣ Check user login session
+    const { data: sessionData } = await supabase.auth.getSession();
+    const session = sessionData.session;
 
-                if (!session || !session.user) {
-                    console.log("User not logged in.");
-                    return showNotEnrolled();
-                }
+    if (!session || !session.user) {
+      console.log("User not logged in.");
+      return showNotEnrolled();
+    }
 
-                const userEmail = session.user.email;
-                console.log("Logged-in user:", userEmail);
+    const userEmail = session.user.email;
+    console.log("Logged-in user:", userEmail);
 
-                // 2️⃣ Query enrollment table
-                const { data: enrollments, error } = await supabase
-                    .from("student_enrollments")
-                    .select("*")
-                    .eq("user_email", userEmail)
-                    .eq("payment_status", "paid");
+    // 2️⃣ Fetch latest paid enrollment
+    const { data: enrollments, error } = await supabase
+      .from("student_enrollments")
+      .select("valid_till")
+      .eq("user_email", userEmail)
+      .eq("payment_status", "paid")
+      .order("valid_till", { ascending: false })
+      .limit(1);
 
-                if (error) {
-                    console.error("Supabase error:", error);
-                    return showNotEnrolled();
-                }
+    if (error) {
+      console.error("Supabase error:", error);
+      return showNotEnrolled();
+    }
 
-                // 3️⃣ Validate enrollment found
-                if (enrollments && enrollments.length > 0) {
-                    console.log("Enrollment found ✅", enrollments);
-                    showEnrolled();
-                } else {
-                    console.log("No enrollment found ❌");
-                    showNotEnrolled();
-                }
-            } catch (err) {
-                console.error("Error verifying enrollment:", err);
-                showNotEnrolled();
-            }
-        }
+    if (!enrollments || enrollments.length === 0) {
+      console.log("No enrollment found ❌");
+      return showNotEnrolled();
+    }
+
+    // 3️⃣ Compare dates (IMPORTANT)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const validTill = new Date(enrollments[0].valid_till);
+    validTill.setHours(0, 0, 0, 0);
+
+    if (today <= validTill) {
+      console.log("Enrollment active ✅");
+      showEnrolled();
+    } else {
+      console.log("Enrollment expired ❌");
+      showNotEnrolled();
+    }
+
+  } catch (err) {
+    console.error("Error verifying enrollment:", err);
+    showNotEnrolled();
+  }
+}
 
         // 🟩 User is enrolled → Enable access
         // 🟦 User is enrolled — enable Start with Courage button
