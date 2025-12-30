@@ -218,23 +218,24 @@
 
             <!-- Right: Subject Links as Standalone Divs -->
             <div class="pt-8">
-                <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                <a href="SSC-ReasoningAbility.html" class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <i class="fas fa-brain text-blue-500 text-2xl"></i>
                         <h3 class="text-xl font-bold text-blue-700">Reasoning Ability</h3>
                     </div>
-                    <a href="SSC-ReasoningAbility.html" class="text-blue-600 text-xl"><i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
+                    <span class="text-blue-600 text-xl"><i
+                            class="fas fa-arrow-right"></i></span>
+                </a>
 
-                <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                <a href="SSC-Quantitative-aptitude.html" 
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
                     <div class="flex items-center gap-4">
                         <i class="fas fa-calculator text-blue-500 text-2xl"></i>
                         <h3 class="text-xl font-bold text-blue-700">Quantitative Aptitude</h3>
                     </div>
-                    <a href="SSC-Quantitative-aptitude.html" class="text-blue-600 text-xl"><i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
+                    <span class="text-blue-600 text-xl"><i
+                            class="fas fa-arrow-right"></i></span>
+                </a>
 
                 <a href="SSC-Coarses.html"
                     class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
@@ -334,117 +335,132 @@
     </div>
 
 
-    <script>
-        const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+
+/* ==========================
+   SUPABASE SETUP
+========================== */
+const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const enrollBtn = document.querySelector('a[href="enroll.html"]');
-        const subjectLinks = document.querySelectorAll('.glass[href$=".html"], .glass a[href$=".html"]');
-        const notPopup = document.getElementById("notEnrolledPopup");
+/* ==========================
+   GLOBAL ACCESS FLAG
+========================== */
+let hasAccess = false;
 
-        async function checkEnrollment() {
-  try {
-    // 1️⃣ Check user login session
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
+/* ==========================
+   GLOBAL NAVIGATION LOCK
+========================== */
+document.addEventListener("click", function (e) {
+  const link = e.target.closest("a");
+  if (!link) return;
 
-    if (!session || !session.user) {
-      console.log("User not logged in.");
-      return showNotEnrolled();
+  const href = link.getAttribute("href");
+
+  // Allowed links
+  if (
+    !href ||
+    href.startsWith("#") ||
+    href === "index.html" ||
+    href === "enroll.html"
+  ) return;
+
+  // 🔒 Block protected pages
+  if (!hasAccess && href.endsWith(".html")) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const popup = document.getElementById("notEnrolledPopup");
+    if (popup) {
+      popup.classList.remove("hidden");
+      popup.classList.add("flex");
     }
-
-    const userEmail = session.user.email;
-    console.log("Logged-in user:", userEmail);
-
-    // 2️⃣ Fetch latest paid enrollment
-    const { data: enrollments, error } = await supabase
-      .from("student_enrollments")
-      .select("valid_till")
-      .eq("user_email", userEmail)
-      .eq("payment_status", "paid")
-      .order("valid_till", { ascending: false })
-      .limit(1);
-
-    if (error) {
-      console.error("Supabase error:", error);
-      return showNotEnrolled();
-    }
-
-    if (!enrollments || enrollments.length === 0) {
-      console.log("No enrollment found ❌");
-      return showNotEnrolled();
-    }
-
-    // 3️⃣ Compare dates (IMPORTANT)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const validTill = new Date(enrollments[0].valid_till);
-    validTill.setHours(0, 0, 0, 0);
-
-    if (today <= validTill) {
-      console.log("Enrollment active ✅");
-      showEnrolled();
-    } else {
-      console.log("Enrollment expired ❌");
-      showNotEnrolled();
-    }
-
-  } catch (err) {
-    console.error("Error verifying enrollment:", err);
-    showNotEnrolled();
   }
+}, true);
+
+/* ==========================
+   ENROLLED UI
+========================== */
+function activateEnrolledUI() {
+  const enrollBtn = document.querySelector('a[href="enroll.html"]');
+  if (!enrollBtn) return;
+
+  enrollBtn.textContent = "Start with Courage";
+  enrollBtn.href = "#";
+
+  enrollBtn.onclick = e => {
+    e.preventDefault();
+    const popup = document.getElementById("couragePopup");
+    popup?.classList.remove("hidden");
+    popup?.classList.add("flex");
+  };
+
+  document.getElementById("agreeCourage")?.addEventListener("click", () => {
+    document.getElementById("couragePopup")?.classList.add("hidden");
+  });
+
+  document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
+    document.getElementById("couragePopup")?.classList.add("hidden");
+  });
 }
 
-        // 🟩 User is enrolled → Enable access
-        // 🟦 User is enrolled — enable Start with Courage button
-        function showEnrolled() {
-            enrollBtn.textContent = "Start with Courage";
-            enrollBtn.href = "#";
-            enrollBtn.classList.remove("from-blue-600", "to-indigo-600");
-            enrollBtn.classList.add("from-blue-600", "to-blue-700", "bg-blue-600", "cursor-pointer");
+/* ==========================
+   ACCESS VALIDATION
+========================== */
+async function checkEnrollment() {
+  const { data: sessionData } = await supabaseClient.auth.getSession();
+  const session = sessionData?.session;
 
-            const couragePopup = document.getElementById("couragePopup");
-            const closePopup = document.getElementById("closeCouragePopup");
-            const agreeBtn = document.getElementById("agreeCourage");
+  console.log("SESSION:", session);
 
-            // When aspirant clicks Start with Courage → open oath popup
-            enrollBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                couragePopup.classList.remove("hidden");
-                couragePopup.classList.add("flex");
-            });
+  if (!session?.user) {
+    hasAccess = false;
+    return;
+  }
 
-            // Close on "I Promise" or ×
-            agreeBtn.addEventListener("click", () => {
-                couragePopup.classList.add("hidden");
-            });
+  const { data, error } = await supabaseClient
+    .from("student_enrollments")
+    .select("valid_till")
+    .eq("user_email", session.user.email)
+    .eq("payment_status", "paid")
+    .order("valid_till", { ascending: false })
+    .limit(1);
 
-            closePopup.addEventListener("click", () => {
-                couragePopup.classList.add("hidden");
-            });
-        }
+  console.log("ENROLLMENT:", data, error);
 
+  if (error || !data?.length) {
+    hasAccess = false;
+    return;
+  }
 
-        // 🟥 Not enrolled → Show popup
-        function showNotEnrolled() {
-            subjectLinks.forEach(link => {
-                link.addEventListener("click", e => {
-                    e.preventDefault();
-                    notPopup.classList.remove("hidden");
-                    notPopup.classList.add("flex");
-                });
-            });
+  const today = new Date(); today.setHours(0,0,0,0);
+  const validTill = new Date(data[0].valid_till); validTill.setHours(0,0,0,0);
 
-            notPopup.addEventListener("click", e => {
-                if (e.target === notPopup) notPopup.classList.add("hidden");
-            });
-        }
+  hasAccess = today <= validTill;
 
-        checkEnrollment();
-    </script>
+  if (hasAccess) activateEnrolledUI();
+}
 
+/* ==========================
+   INIT
+========================== */
+await checkEnrollment();
+
+/* ==========================
+   POPUP CLOSE
+========================== */
+document.getElementById("notEnrolledPopup")?.addEventListener("click", e => {
+  if (e.target.id === "notEnrolledPopup") {
+    e.target.classList.add("hidden");
+  }
+});
+
+console.log("✅ SSC access control loaded");
+
+});
+</script>
 
 
     <!-- Footer -->
