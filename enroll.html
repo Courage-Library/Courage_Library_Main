@@ -408,29 +408,33 @@
             return;
           }
 
-          // ✅ SEND ENROLLMENT CONFIRMATION EMAIL (FIXED)
-          try {
-            const res = await fetch(
-              "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  "apikey": SUPABASE_KEY   // 🔥 THIS WAS MISSING
-                },
-                body: JSON.stringify({
-                  email: user.email,
-                  name: data.full_name,
-                  course: data.course_name,
-                  validTill: data.valid_till
-                })
-              }
-            );
+          // 1️⃣ Save enrollment
+          const { error } = await supabaseClient
+            .from("student_enrollments")
+            .insert([data]);
 
-            console.log("Email response:", await res.json());
-          } catch (e) {
-            console.error("Email sending failed", e);
+          if (error) {
+            alert("Enrollment failed");
+            return;
           }
+
+          // 2️⃣ CALL EMAIL FUNCTION (ONLY THIS)
+          await fetch(
+            "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${(await supabaseClient.auth.getSession()).data.session.access_token}`
+              },
+              body: JSON.stringify({
+                email: data.user_email,
+                name: data.full_name,
+                course: data.course_name,
+                validTill: data.valid_till
+              })
+            }
+          );
 
           const popup = document.getElementById("successPopup");
           const popupMsg = document.getElementById("popupMessage");
