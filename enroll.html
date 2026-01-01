@@ -17,9 +17,9 @@
   <!-- Navbar -->
   <nav class="bg-white/90 backdrop-blur-lg shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="flex items-center space-x-2">
+      <a class="flex items-center space-x-2" href="index.html">
         <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
-        <span class="text-2xl font-bold text-blue-700">Courage Library</span>
+        <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
       </a>
       <div class="hidden md:flex space-x-6">
         <a href="index.html#features" class="hover:text-blue-600">Features</a>
@@ -187,92 +187,86 @@
         </div>
 
         <!-- Plan Selection -->
-<!-- Plan Selection -->
-<div x-data="{ selectedPlan: null }" class="space-y-3">
+        <!-- Plan Selection -->
+        <div x-data="{ selectedPlan: null }" class="space-y-3">
 
-  <label class="block text-sm font-medium text-gray-600">
-    Select Plan <span class="text-blue-600">*</span>
-  </label>
+          <label class="block text-sm font-medium text-gray-600">
+            Select Plan <span class="text-blue-600">*</span>
+          </label>
 
-  <!-- GRID -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- GRID -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-    <template x-for="plan in [
+            <template x-for="plan in [
       { code:'STARTER', name:'Strong Start Plan', duration:'1 Month', price:1, days:30 },
       { code:'FOCUS', name:'Focused Preparation Plan', duration:'3 Months', price:349, days:90, save:'22%' },
       { code:'HUSTLE', name:'Consistent Growth Plan', duration:'6 Months', price:649, days:180, popular:true, save:'28%' },
       { code:'SELECTION', name:'Final Selection Plan', duration:'12 Months', price:1199, days:365, best:true, save:'44%' }
     ]" :key="plan.code">
 
-      <!-- CARD -->
-      <div
-        @click="selectedPlan = plan"
-        :class="selectedPlan?.code === plan.code
+              <!-- CARD -->
+              <div @click="selectedPlan = plan" :class="selectedPlan?.code === plan.code
           ? 'border-blue-600 ring-1 ring-blue-300 bg-blue-50'
-          : 'border-gray-200 bg-white'"
-        class="relative border rounded-xl p-4 cursor-pointer
+          : 'border-gray-200 bg-white'" class="relative border rounded-xl p-4 cursor-pointer
                transition hover:shadow-sm">
 
-        <!-- BADGE ROW (FIXED POSITION) -->
-        <div class="absolute -top-2 right-2 flex gap-1">
-          <template x-if="plan.popular">
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-white font-semibold">
-              Popular
-            </span>
-          </template>
+                <!-- BADGE ROW (FIXED POSITION) -->
+                <div class="absolute -top-2 right-2 flex gap-1">
+                  <template x-if="plan.popular">
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-white font-semibold">
+                      Popular
+                    </span>
+                  </template>
 
-          <template x-if="plan.best">
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-600 text-white font-semibold">
-              Best Value
-            </span>
-          </template>
-        </div>
+                  <template x-if="plan.best">
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-600 text-white font-semibold">
+                      Best Value
+                    </span>
+                  </template>
+                </div>
 
-        <!-- CONTENT -->
-        <div class="flex flex-col gap-3">
+                <!-- CONTENT -->
+                <div class="flex flex-col gap-3">
 
-          <!-- PLAN TITLES -->
-          <div>
-            <h3 class="text-base font-semibold text-gray-800 leading-tight"
-                x-text="plan.code"></h3>
+                  <!-- PLAN TITLES -->
+                  <div>
+                    <h3 class="text-base font-semibold text-gray-800 leading-tight" x-text="plan.code"></h3>
 
-            <p class="text-xs text-gray-500 leading-snug"
-               x-text="plan.name"></p>
+                    <p class="text-xs text-gray-500 leading-snug" x-text="plan.name"></p>
+                  </div>
+
+                  <!-- PRICE ROW -->
+                  <div class="flex items-end justify-between">
+                    <p class="text-xs text-gray-600" x-text="plan.duration"></p>
+
+                    <div class="text-right">
+                      <p class="text-lg font-bold text-blue-700 leading-none">
+                        ₹<span x-text="plan.price"></span>
+                      </p>
+
+                      <!-- SAVE % -->
+                      <template x-if="plan.save">
+                        <p class="text-[11px] text-green-600 font-medium">
+                          Save <span x-text="plan.save"></span>
+                        </p>
+                      </template>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </template>
+
           </div>
 
-          <!-- PRICE ROW -->
-          <div class="flex items-end justify-between">
-            <p class="text-xs text-gray-600"
-               x-text="plan.duration"></p>
-
-            <div class="text-right">
-              <p class="text-lg font-bold text-blue-700 leading-none">
-                ₹<span x-text="plan.price"></span>
-              </p>
-
-              <!-- SAVE % -->
-              <template x-if="plan.save">
-                <p class="text-[11px] text-green-600 font-medium">
-                  Save <span x-text="plan.save"></span>
-                </p>
-              </template>
-            </div>
-          </div>
+          <!-- HIDDEN INPUTS -->
+          <input type="hidden" name="plan_code" :value="selectedPlan?.code">
+          <input type="hidden" name="plan_name" :value="selectedPlan?.name">
+          <input type="hidden" name="plan_duration" :value="selectedPlan?.duration">
+          <input type="hidden" name="plan_price" :value="selectedPlan?.price">
+          <input type="hidden" name="plan_days" :value="selectedPlan?.days">
 
         </div>
-      </div>
-    </template>
-
-  </div>
-
-  <!-- HIDDEN INPUTS -->
-  <input type="hidden" name="plan_code" :value="selectedPlan?.code">
-  <input type="hidden" name="plan_name" :value="selectedPlan?.name">
-  <input type="hidden" name="plan_duration" :value="selectedPlan?.duration">
-  <input type="hidden" name="plan_price" :value="selectedPlan?.price">
-  <input type="hidden" name="plan_days" :value="selectedPlan?.days">
-
-</div>
 
         <!-- Pay Button -->
         <button id="payBtn" type="button"
@@ -362,102 +356,102 @@
     }
 
     function resetPayButton() {
-  payBtn.textContent = "Pay Now";
-  payBtn.disabled = false;
-}
-
-  payBtn.addEventListener("click", async () => {
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-
-    // ❌ Plan not selected
-    if (!data.plan_code) {
-      alert("⚠️ Please select a plan first.");
-      return;
+      payBtn.textContent = "Pay Now";
+      payBtn.disabled = false;
     }
 
-    payBtn.textContent = "Processing...";
-    payBtn.disabled = true;
+    payBtn.addEventListener("click", async () => {
 
-    const user = await getCurrentUser();
-    if (!user) return;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
-    // Calculate valid_till
-    const today = new Date();
-    const validTill = new Date(today);
-    validTill.setDate(validTill.getDate() + parseInt(data.plan_days));
+      // ❌ Plan not selected
+      if (!data.plan_code) {
+        alert("⚠️ Please select a plan first.");
+        return;
+      }
 
-    data.user_email = user.email;
-    data.payment_status = "paid";
-    data.valid_till = validTill.toISOString().split("T")[0];
+      payBtn.textContent = "Processing...";
+      payBtn.disabled = true;
 
-    // Razorpay Options
-    const options = {
-  key: "rzp_live_RdymXUT2ibglux",
-  amount: parseInt(data.plan_price) * 100,
-  currency: "INR",
-  name: "Courage Library",
-  description: `${data.plan_name} - ${data.course_name}`,
-  image: "/images/logo.png",
+      const user = await getCurrentUser();
+      if (!user) return;
 
-  handler: async function (response) {
-    data.payment_id = response.razorpay_payment_id;
+      // Calculate valid_till
+      const today = new Date();
+      const validTill = new Date(today);
+      validTill.setDate(validTill.getDate() + parseInt(data.plan_days));
 
-    const { error } = await supabaseClient
-      .from("student_enrollments")
-      .insert([data]);
+      data.user_email = user.email;
+      data.payment_status = "paid";
+      data.valid_till = validTill.toISOString().split("T")[0];
 
-    if (error) {
-      alert("❌ Enrollment failed: " + error.message);
-      resetPayButton();
-      return;
-    }
+      // Razorpay Options
+      const options = {
+        key: "rzp_live_RdymXUT2ibglux",
+        amount: parseInt(data.plan_price) * 100,
+        currency: "INR",
+        name: "Courage Library",
+        description: `${data.plan_name} - ${data.course_name}`,
+        image: "/images/logo.png",
 
-    const popup = document.getElementById("successPopup");
-    const popupMsg = document.getElementById("popupMessage");
+        handler: async function (response) {
+          data.payment_id = response.razorpay_payment_id;
 
-    popupMsg.textContent =
-      `Congratulations ${data.full_name}! 
+          const { error } = await supabaseClient
+            .from("student_enrollments")
+            .insert([data]);
+
+          if (error) {
+            alert("❌ Enrollment failed: " + error.message);
+            resetPayButton();
+            return;
+          }
+
+          const popup = document.getElementById("successPopup");
+          const popupMsg = document.getElementById("popupMessage");
+
+          popupMsg.textContent =
+            `Congratulations ${data.full_name}! 
        You are enrolled in ${data.plan_name}. 
        Valid till ${data.valid_till}.`;
 
-    popup.classList.remove("hidden");
-    popup.classList.add("flex", "animate-fadeIn");
+          popup.classList.remove("hidden");
+          popup.classList.add("flex", "animate-fadeIn");
 
-    setTimeout(() => {
-      window.history.back();
-    }, 3000);
-  },
+          setTimeout(() => {
+            window.history.back();
+          }, 3000);
+        },
 
-  modal: {
-    ondismiss: function () {
-      // ✅ USER CLOSED PAYMENT WINDOW
-      alert("⚠️ Payment was not completed.");
-      resetPayButton();
-    }
-  },
+        modal: {
+          ondismiss: function () {
+            // ✅ USER CLOSED PAYMENT WINDOW
+            alert("⚠️ Payment was not completed.");
+            resetPayButton();
+          }
+        },
 
-  prefill: {
-    name: data.full_name,
-    email: user.email,
-    contact: data.phone
-  },
+        prefill: {
+          name: data.full_name,
+          email: user.email,
+          contact: data.phone
+        },
 
-  theme: { color: "#2563eb" }
-};
+        theme: { color: "#2563eb" }
+      };
 
 
-    const rzp = new Razorpay(options);
-    rzp.open();
+      const rzp = new Razorpay(options);
+      rzp.open();
 
-    rzp.on("payment.failed", function () {
-      alert("❌ Payment Failed");
-      payBtn.textContent = "Pay Now";
-      payBtn.disabled = false;
+      rzp.on("payment.failed", function () {
+        alert("❌ Payment Failed");
+        payBtn.textContent = "Pay Now";
+        payBtn.disabled = false;
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 
