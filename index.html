@@ -639,42 +639,42 @@
         HANDLE SUPABASE RECOVERY LINK (#access_token)
         ------------------------------------------------------------- */
         async function handleRecoveryLink() {
-    console.log("handleRecoveryLink: starting");
+            console.log("handleRecoveryLink: starting");
 
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const type = params.get("type");
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const type = params.get("type");
 
-    // Only process if this is actually a recovery link
-    if (type !== "recovery") {
-        console.log("No recovery link detected.");
-        return;
-    }
+            // Only process if this is actually a recovery link
+            if (type !== "recovery") {
+                console.log("No recovery link detected.");
+                return;
+            }
 
-    console.log("Recovery link detected:", hash);
+            console.log("Recovery link detected:", hash);
 
-    // Let Supabase attempt to load the session
-    let { data } = await supaClient.auth.getSession();
+            // Let Supabase attempt to load the session
+            let { data } = await supaClient.auth.getSession();
 
-    if (!data.session) {
-        // Attempt manual session restore
-        const access = params.get("access_token");
-        const refresh = params.get("refresh_token");
+            if (!data.session) {
+                // Attempt manual session restore
+                const access = params.get("access_token");
+                const refresh = params.get("refresh_token");
 
-        if (access && refresh) {
-            await supaClient.auth.setSession({
-                access_token: access,
-                refresh_token: refresh
-            });
+                if (access && refresh) {
+                    await supaClient.auth.setSession({
+                        access_token: access,
+                        refresh_token: refresh
+                    });
+                }
+            }
+
+            console.log("Recovery session active → opening update modal");
+            openAuthModal("update");
+
+            // Clean URL after opening modal
+            history.replaceState({}, "", "/");
         }
-    }
-
-    console.log("Recovery session active → opening update modal");
-    openAuthModal("update");
-
-    // Clean URL after opening modal
-    history.replaceState({}, "", "/");
-}
 
         /* -------------------------------------------------------------
         PASSWORD TOGGLE (eye)
@@ -795,7 +795,8 @@
     </section>
 
     <!-- Courses Section -->
-    <section id="courses1" class="relative pb-10 pt-20 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10 bg-white overflow-visible">
+    <section id="courses1"
+        class="relative pb-10 pt-20 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10 bg-white overflow-visible">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Pick
                 Your Path</h2>
@@ -2314,11 +2315,67 @@
                 z-index: 99999;
                 border: 0;
                 transition: transform .12s ease, box-shadow .12s ease;
+                animation: clFloat 3.2s ease-in-out infinite;
             }
+
             #cl-chat-button svg {
                 width: 28px;
                 height: 28px;
             }
+
+            /* Soft floating effect */
+            @keyframes clFloat {
+                0% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-4px);
+                }
+
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+            /* Pulse ring */
+            #cl-chat-button::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: rgba(29, 78, 216, 0.35);
+                animation: clPulse 2.6s ease-out infinite;
+                z-index: -1;
+            }
+
+            @keyframes clPulse {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.6;
+                }
+
+                100% {
+                    transform: scale(1.9);
+                    opacity: 0;
+                }
+            }
+
+            /* Stop animation when chat is open */
+            #cl-chat-button.active {
+                animation: none;
+            }
+
+            #cl-chat-button.active::after {
+                display: none;
+            }
+
+            /* Hover refinement */
+            #cl-chat-button:hover {
+                box-shadow: 0 12px 32px rgba(13, 42, 99, 0.28);
+                transform: scale(1.05);
+            }
+
 
             #cl-chat-window {
                 position: fixed;
@@ -2355,8 +2412,15 @@
             }
 
             @keyframes clSlideUp {
-                from { opacity: 0; transform: translateY(12px) scale(.995); }
-                to { opacity: 1; transform: translateY(0) scale(1); }
+                from {
+                    opacity: 0;
+                    transform: translateY(12px) scale(.995);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
             }
 
             @media (max-width: 640px) {
@@ -2375,7 +2439,12 @@
 
             btn.addEventListener('click', () => {
                 const isOpen = win.style.display === 'block';
+
                 win.style.display = isOpen ? 'none' : 'block';
+
+                // Toggle animation state
+                btn.classList.toggle('active', !isOpen);
+
                 btn.style.transform = 'scale(.95)';
                 setTimeout(() => btn.style.transform = '', 140);
             });
@@ -2386,6 +2455,7 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && win.style.display === 'block') {
                     win.style.display = 'none';
+                    btn.classList.remove('active');
                 }
             });
         </script>
