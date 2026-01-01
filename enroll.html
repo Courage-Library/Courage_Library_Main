@@ -409,13 +409,12 @@
           }
 
           // 2️⃣ CALL EMAIL FUNCTION (ONLY THIS)
-          await fetch(
+          fetch(
             "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
             {
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${(await supabaseClient.auth.getSession()).data.session.access_token}`
+                "Content-Type": "application/json"
               },
               body: JSON.stringify({
                 email: data.user_email,
@@ -424,10 +423,10 @@
                 validTill: data.valid_till
               })
             }
-          );
-
-          const popup = document.getElementById("successPopup");
-          const popupMsg = document.getElementById("popupMessage");
+          )
+            .then(res => res.json())
+            .then(d => console.log("📧 Email response:", d))
+            .catch(err => console.error("📧 Email failed:", err));
 
           popupMsg.textContent =
             `Congratulations ${data.full_name}! 
@@ -436,6 +435,8 @@
 
           popup.classList.remove("hidden");
           popup.classList.add("flex", "animate-fadeIn");
+
+          resetPayButton();
 
           setTimeout(() => {
             window.history.back();
