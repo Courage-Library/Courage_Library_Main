@@ -450,6 +450,8 @@
 
         const order = await orderRes.json();
 
+        data.final_amount = order.final_amount;
+
         /* 📅 VALID TILL (FROM SERVER DAYS) */
         const today = new Date();
         const validTill = new Date(today);
