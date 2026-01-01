@@ -408,6 +408,27 @@
             return;
           }
 
+          // ✅ SEND ENROLLMENT CONFIRMATION EMAIL
+          try {
+            await fetch(
+              "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  email: user.email,
+                  name: data.full_name,
+                  course: data.course_name,
+                  validTill: data.valid_till
+                })
+              }
+            );
+          } catch (e) {
+            console.error("Email sending failed", e);
+          }
+
           const popup = document.getElementById("successPopup");
           const popupMsg = document.getElementById("popupMessage");
 
