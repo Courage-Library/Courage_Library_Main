@@ -436,9 +436,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const { data, error } = await supabaseClient
       .from("student_enrollments")
-      .select("valid_till")
+      .select("valid_till, course_name")
       .eq("user_email", session.user.email)
       .eq("payment_status", "paid")
+      .eq("course_name", "SSC CGL")        // 🔥 IMPORTANT
+      .not("valid_till", "is", null)       // 🔥 CRITICAL FIX
+      .gte("valid_till", new Date().toISOString())
       .order("valid_till", { ascending: false })
       .limit(1);
 
