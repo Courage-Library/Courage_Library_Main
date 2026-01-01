@@ -2382,13 +2382,6 @@
 
             closeBtnn.addEventListener('click', () => win.style.display = 'none');
 
-            // Auto-open on page load
-            window.addEventListener("load", () => {
-                setTimeout(() => {
-                    win.style.display = "block";
-                }, 1500);
-            });
-
             // Close on ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && win.style.display === 'block') {
