@@ -408,16 +408,6 @@
             return;
           }
 
-          // 1️⃣ Save enrollment
-          const { error } = await supabaseClient
-            .from("student_enrollments")
-            .insert([data]);
-
-          if (error) {
-            alert("Enrollment failed");
-            return;
-          }
-
           // 2️⃣ CALL EMAIL FUNCTION (ONLY THIS)
           await fetch(
             "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
