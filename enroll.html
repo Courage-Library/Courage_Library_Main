@@ -361,6 +361,8 @@
     }
 
     payBtn.addEventListener("click", async () => {
+      const popup = document.getElementById("successPopup");
+      const popupMsg = document.getElementById("popupMessage");
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
@@ -396,51 +398,57 @@
         image: "/images/logo.png",
 
         handler: async function (response) {
-          data.payment_id = response.razorpay_payment_id;
+          try {
+            data.payment_id = response.razorpay_payment_id;
 
-          const { error } = await supabaseClient
-            .from("student_enrollments")
-            .insert([data]);
+            const { error } = await supabaseClient
+              .from("student_enrollments")
+              .insert([data]);
 
-          if (error) {
-            alert("❌ Enrollment failed: " + error.message);
-            resetPayButton();
-            return;
-          }
-
-          // 2️⃣ CALL EMAIL FUNCTION (ONLY THIS)
-          fetch(
-            "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                email: data.user_email,
-                name: data.full_name,
-                course: data.course_name,
-                validTill: data.valid_till
-              })
+            if (error) {
+              alert("❌ Enrollment failed: " + error.message);
+              resetPayButton();
+              return;
             }
-          )
-            .then(res => res.json())
-            .then(d => console.log("📧 Email response:", d))
-            .catch(err => console.error("📧 Email failed:", err));
 
-          popupMsg.textContent =
-            `Congratulations ${data.full_name}! 
-       You are enrolled in ${data.plan_name}. 
-       Valid till ${data.valid_till}.`;
+            // 📧 SEND EMAIL (NON-BLOCKING)
+            fetch(
+              "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  email: data.user_email,
+                  name: data.full_name,
+                  course: data.course_name,
+                  validTill: data.valid_till
+                })
+              }
+            )
+              .then(res => res.json())
+              .then(d => console.log("📧 Email response:", d))
+              .catch(err => console.error("📧 Email failed:", err));
 
-          popup.classList.remove("hidden");
-          popup.classList.add("flex", "animate-fadeIn");
+            // ✅ SHOW SUCCESS POPUP
+            popupMsg.textContent =
+              `Congratulations ${data.full_name}!
+You are enrolled in ${data.plan_name}.
+Valid till ${data.valid_till}.`;
 
-          resetPayButton();
+            popup.classList.remove("hidden");
+            popup.classList.add("flex", "animate-fadeIn");
 
-          setTimeout(() => {
-            window.history.back();
-          }, 3000);
+            resetPayButton();
+
+            setTimeout(() => {
+              window.history.back();
+            }, 3000);
+
+          } catch (err) {
+            console.error(err);
+            alert("Something went wrong after payment.");
+            resetPayButton();
+          }
         },
 
         modal: {
