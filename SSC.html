@@ -338,129 +338,146 @@
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
-/* ==========================
-   SUPABASE SETUP
-========================== */
-const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+  /* ==========================
+     SUPABASE SETUP
+  ========================== */
+  const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-/* ==========================
-   GLOBAL ACCESS FLAG
-========================== */
-let hasAccess = false;
+  /* ==========================
+     GLOBAL FLAGS
+  ========================== */
+  let hasAccess = false;
+  let authChecked = false;
 
-/* ==========================
-   GLOBAL NAVIGATION LOCK
-========================== */
-document.addEventListener("click", function (e) {
-  const link = e.target.closest("a");
-  if (!link) return;
+  /* ==========================
+     PROTECTED PAGES ONLY
+     (VERY IMPORTANT)
+  ========================== */
+  const protectedPages = [
+    "SSC-ReasoningAbility.html",
+    "SSC-Quantitative-aptitude.html",
+    "SSC-Coarses.html",
+    "SSC-English.html"
+  ];
 
-  const href = link.getAttribute("href");
+  /* ==========================
+     GLOBAL NAVIGATION GUARD
+  ========================== */
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest("a");
+    if (!link) return;
 
-  // Allowed links
-  if (
-    !href ||
-    href.startsWith("#") ||
-    href === "index.html" ||
-    href === "enroll.html"
-  ) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#")) return;
 
-  // 🔒 Block protected pages
-  if (!hasAccess && href.endsWith(".html")) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const popup = document.getElementById("notEnrolledPopup");
-    if (popup) {
-      popup.classList.remove("hidden");
-      popup.classList.add("flex");
+    // wait until auth is checked
+    if (!authChecked) {
+      e.preventDefault();
+      return;
     }
-  }
-}, true);
 
-/* ==========================
-   ENROLLED UI
-========================== */
-function activateEnrolledUI() {
-  const enrollBtn = document.querySelector('a[href="enroll.html"]');
-  if (!enrollBtn) return;
+    const pageName = href.split("/").pop();
 
-  enrollBtn.textContent = "Start with Courage";
-  enrollBtn.href = "#";
+    // block only protected pages
+    if (!hasAccess && protectedPages.includes(pageName)) {
+      e.preventDefault();
 
-  enrollBtn.onclick = e => {
-    e.preventDefault();
-    const popup = document.getElementById("couragePopup");
-    popup?.classList.remove("hidden");
-    popup?.classList.add("flex");
-  };
-
-  document.getElementById("agreeCourage")?.addEventListener("click", () => {
-    document.getElementById("couragePopup")?.classList.add("hidden");
+      const popup = document.getElementById("notEnrolledPopup");
+      popup?.classList.remove("hidden");
+      popup?.classList.add("flex");
+    }
   });
 
-  document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
-    document.getElementById("couragePopup")?.classList.add("hidden");
+  /* ==========================
+     ENROLLED USER UI
+  ========================== */
+  function activateEnrolledUI() {
+    const enrollBtn = document.querySelector('a[href="enroll.html"]');
+    if (!enrollBtn) return;
+
+    enrollBtn.textContent = "Start with Courage";
+    enrollBtn.href = "#";
+
+    enrollBtn.onclick = e => {
+      e.preventDefault();
+      const popup = document.getElementById("couragePopup");
+      popup?.classList.remove("hidden");
+      popup?.classList.add("flex");
+    };
+
+    document.getElementById("agreeCourage")?.addEventListener("click", () => {
+      document.getElementById("couragePopup")?.classList.add("hidden");
+    });
+
+    document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
+      document.getElementById("couragePopup")?.classList.add("hidden");
+    });
+  }
+
+  /* ==========================
+     CHECK ENROLLMENT
+  ========================== */
+  async function checkEnrollment() {
+    const { data: sessionData } = await supabaseClient.auth.getSession();
+    const session = sessionData?.session;
+
+    console.log("SESSION:", session);
+
+    if (!session?.user) {
+      hasAccess = false;
+      authChecked = true;
+      return;
+    }
+
+    const { data, error } = await supabaseClient
+      .from("student_enrollments")
+      .select("valid_till")
+      .eq("user_email", session.user.email)
+      .eq("payment_status", "paid")
+      .order("valid_till", { ascending: false })
+      .limit(1);
+
+    console.log("ENROLLMENT:", data, error);
+
+    if (error || !data?.length) {
+      hasAccess = false;
+      authChecked = true;
+      return;
+    }
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const validTill = new Date(data[0].valid_till); validTill.setHours(0,0,0,0);
+
+    hasAccess = today <= validTill;
+
+    if (hasAccess) activateEnrolledUI();
+
+    authChecked = true;
+  }
+
+  /* ==========================
+     INIT
+  ========================== */
+  await checkEnrollment();
+
+  /* ==========================
+     POPUP CLOSE (BACKGROUND)
+  ========================== */
+  document.getElementById("notEnrolledPopup")?.addEventListener("click", e => {
+    if (e.target.id === "notEnrolledPopup") {
+      e.target.classList.add("hidden");
+    }
   });
-}
 
-/* ==========================
-   ACCESS VALIDATION
-========================== */
-async function checkEnrollment() {
-  const { data: sessionData } = await supabaseClient.auth.getSession();
-  const session = sessionData?.session;
-
-  console.log("SESSION:", session);
-
-  if (!session?.user) {
-    hasAccess = false;
-    return;
-  }
-
-  const { data, error } = await supabaseClient
-    .from("student_enrollments")
-    .select("valid_till")
-    .eq("user_email", session.user.email)
-    .eq("payment_status", "paid")
-    .order("valid_till", { ascending: false })
-    .limit(1);
-
-  console.log("ENROLLMENT:", data, error);
-
-  if (error || !data?.length) {
-    hasAccess = false;
-    return;
-  }
-
-  const today = new Date(); today.setHours(0,0,0,0);
-  const validTill = new Date(data[0].valid_till); validTill.setHours(0,0,0,0);
-
-  hasAccess = today <= validTill;
-
-  if (hasAccess) activateEnrolledUI();
-}
-
-/* ==========================
-   INIT
-========================== */
-await checkEnrollment();
-
-/* ==========================
-   POPUP CLOSE
-========================== */
-document.getElementById("notEnrolledPopup")?.addEventListener("click", e => {
-  if (e.target.id === "notEnrolledPopup") {
-    e.target.classList.add("hidden");
-  }
-});
-
-console.log("✅ SSC access control loaded");
-
+  console.log("✅ SSC access control loaded | Access:", hasAccess);
 });
 </script>
+
 
 
     <!-- Footer -->
