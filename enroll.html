@@ -268,6 +268,46 @@
 
         </div>
 
+        <!-- Coupon Code -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">
+            Have a Coupon?
+          </label>
+
+          <div class="flex gap-2">
+            <input id="couponInput" type="text" placeholder="Enter coupon code" class="flex-1 border border-gray-300 p-2 rounded-md uppercase
+             focus:ring-2 focus:ring-blue-400" />
+
+            <button type="button" id="applyCouponBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md
+             hover:bg-blue-700 transition">
+              Apply
+            </button>
+          </div>
+
+          <p id="couponMsg" class="text-sm mt-1"></p>
+        </div>
+
+        <!-- Price Preview -->
+        <div id="pricePreview" class="hidden bg-blue-50 border rounded-lg p-3 text-sm">
+          <div class="flex justify-between">
+            <span>Original Price</span>
+            <span id="originalPrice">₹0</span>
+          </div>
+
+          <div class="flex justify-between text-green-600">
+            <span>Discount</span>
+            <span>- ₹<span id="discountAmount">0</span></span>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="flex justify-between font-semibold text-blue-700">
+            <span>Payable Amount</span>
+            <span>₹<span id="finalAmount">0</span></span>
+          </div>
+        </div>
+
+
         <!-- Pay Button -->
         <button id="payBtn" type="button"
           class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-md font-semibold hover:scale-105 transition">
@@ -338,21 +378,25 @@
   <!-- Supabase -->
   <script>
     const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const SUPABASE_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
     const payBtn = document.getElementById("payBtn");
-    const successMsg = document.getElementById("successMsg");
     const form = document.getElementById("enrollForm");
 
     async function getCurrentUser() {
-      const { data: session } = await supabaseClient.auth.getSession();
-      if (!session.session) {
+      const { data } = await supabaseClient.auth.getSession();
+      if (!data.session) {
         alert("⚠️ Please login first.");
         window.location.href = "index.html?checkAuth=1";
         return null;
       }
-      return session.session.user;
+      return data.session.user;
     }
 
     function resetPayButton() {
@@ -367,7 +411,6 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      // ❌ Plan not selected
       if (!data.plan_code) {
         alert("⚠️ Please select a plan first.");
         return;
@@ -377,107 +420,199 @@
       payBtn.disabled = true;
 
       const user = await getCurrentUser();
-      if (!user) return;
+      if (!user) {
+        resetPayButton();
+        return;
+      }
 
-      // Calculate valid_till
-      const today = new Date();
-      const validTill = new Date(today);
-      validTill.setDate(validTill.getDate() + parseInt(data.plan_days));
+      try {
+        /* 🔐 CALL SUPABASE EDGE FUNCTION */
+        const orderRes = await fetch(
+          `${SUPABASE_URL}/functions/v1/create-razorpay-order`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_KEY,
+              "Authorization": `Bearer ${SUPABASE_KEY}`
+            },
+            body: JSON.stringify({
+              plan_code: data.plan_code,
+              coupon_code: appliedCoupon,
+              preview: false
+            })
+          }
+        );
 
-      data.user_email = user.email;
-      data.payment_status = "paid";
-      data.valid_till = validTill.toISOString().split("T")[0];
+        if (!orderRes.ok) {
+          throw new Error("Failed to create payment order");
+        }
 
-      // Razorpay Options
-      const options = {
-        key: "rzp_live_RdymXUT2ibglux",
-        amount: parseInt(data.plan_price) * 100,
-        currency: "INR",
-        name: "Courage Library",
-        description: `${data.plan_name} - ${data.course_name}`,
-        image: "/images/logo.png",
+        const order = await orderRes.json();
 
-        handler: async function (response) {
-          try {
-            data.payment_id = response.razorpay_payment_id;
+        /* 📅 VALID TILL (FROM SERVER DAYS) */
+        const today = new Date();
+        const validTill = new Date(today);
+        validTill.setDate(validTill.getDate() + order.plan_days);
 
-            const { error } = await supabaseClient
-              .from("student_enrollments")
-              .insert([data]);
+        data.user_email = user.email;
+        data.payment_status = "paid";
+        data.valid_till = validTill.toISOString().split("T")[0];
+        data.final_amount = order.amount;
 
-            if (error) {
-              alert("❌ Enrollment failed: " + error.message);
-              resetPayButton();
-              return;
-            }
+        /* 💳 RAZORPAY OPTIONS (SECURE ORDER) */
+        const options = {
+          key: "rzp_live_RdymXUT2ibglux",
+          order_id: order.order_id,
+          amount: order.amount * 100,
+          currency: "INR",
+          name: "Courage Library",
+          description: `${data.plan_name} - ${data.course_name}`,
+          image: "/images/logo.png",
 
-            // 📧 SEND EMAIL (NON-BLOCKING)
-            fetch(
-              "https://sgagswxzsxlgcspwiuoh.supabase.co/functions/v1/send-enrollment-email",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  email: data.user_email,
-                  name: data.full_name,
-                  course: data.course_name,
-                  validTill: data.valid_till
-                })
+          handler: async function (response) {
+            try {
+              data.payment_id = response.razorpay_payment_id;
+
+              const { error } = await supabaseClient
+                .from("student_enrollments")
+                .insert([data]);
+
+              if (error) {
+                alert("❌ Enrollment failed: " + error.message);
+                resetPayButton();
+                return;
               }
-            )
-              .then(res => res.json())
-              .then(d => console.log("📧 Email response:", d))
-              .catch(err => console.error("📧 Email failed:", err));
 
-            // ✅ SHOW SUCCESS POPUP
-            popupMsg.textContent =
-              `Congratulations ${data.full_name}!
+              /* 📧 SEND EMAIL (NON-BLOCKING) */
+              fetch(
+                `${SUPABASE_URL}/functions/v1/send-enrollment-email`,
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    email: data.user_email,
+                    name: data.full_name,
+                    course: data.course_name,
+                    validTill: data.valid_till
+                  })
+                }
+              ).catch(() => { });
+
+              popupMsg.textContent =
+                `Congratulations ${data.full_name}!
 You are enrolled in ${data.plan_name}.
 Valid till ${data.valid_till}.`;
 
-            popup.classList.remove("hidden");
-            popup.classList.add("flex", "animate-fadeIn");
+              popup.classList.remove("hidden");
+              popup.classList.add("flex", "animate-fadeIn");
 
-            resetPayButton();
+              resetPayButton();
 
-            setTimeout(() => {
-              window.history.back();
-            }, 3000);
+              setTimeout(() => {
+                window.history.back();
+              }, 3000);
 
-          } catch (err) {
-            console.error(err);
-            alert("Something went wrong after payment.");
-            resetPayButton();
-          }
-        },
+            } catch (err) {
+              console.error(err);
+              alert("Something went wrong after payment.");
+              resetPayButton();
+            }
+          },
 
-        modal: {
-          ondismiss: function () {
-            // ✅ USER CLOSED PAYMENT WINDOW
-            alert("⚠️ Payment was not completed.");
-            resetPayButton();
-          }
-        },
+          modal: {
+            ondismiss: function () {
+              alert("⚠️ Payment was not completed.");
+              resetPayButton();
+            }
+          },
 
-        prefill: {
-          name: data.full_name,
-          email: user.email,
-          contact: data.phone
-        },
+          prefill: {
+            name: data.full_name,
+            email: user.email,
+            contact: data.phone
+          },
 
-        theme: { color: "#2563eb" }
-      };
+          theme: { color: "#2563eb" }
+        };
 
+        const rzp = new Razorpay(options);
+        rzp.open();
 
-      const rzp = new Razorpay(options);
-      rzp.open();
+        rzp.on("payment.failed", function () {
+          alert("❌ Payment Failed");
+          resetPayButton();
+        });
 
-      rzp.on("payment.failed", function () {
-        alert("❌ Payment Failed");
-        payBtn.textContent = "Pay Now";
-        payBtn.disabled = false;
-      });
+      } catch (err) {
+        console.error(err);
+        alert("❌ Unable to start payment");
+        resetPayButton();
+      }
     });
+
+    const applyCouponBtn = document.getElementById("applyCouponBtn");
+    const couponInput = document.getElementById("couponInput");
+
+    const pricePreview = document.getElementById("pricePreview");
+    const originalPriceEl = document.getElementById("originalPrice");
+    const discountAmountEl = document.getElementById("discountAmount");
+    const finalAmountEl = document.getElementById("finalAmount");
+
+    let appliedCoupon = null;
+
+    applyCouponBtn.addEventListener("click", async () => {
+      const code = couponInput.value.trim();
+      if (!code) return alert("Enter coupon code");
+
+      const planCode = document.querySelector('[name="plan_code"]').value;
+      if (!planCode) return alert("Select plan first");
+
+      applyCouponBtn.textContent = "Checking...";
+      applyCouponBtn.disabled = true;
+
+      try {
+        const res = await fetch(
+          `${SUPABASE_URL}/functions/v1/create-razorpay-order`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_KEY,
+              "Authorization": `Bearer ${SUPABASE_KEY}`
+            },
+            body: JSON.stringify({
+              plan_code: planCode,
+              coupon_code: code,
+              preview: true
+            })
+          }
+        );
+
+        const result = await res.json();
+
+        if (!res.ok) {
+          throw new Error("Invalid coupon");
+        }
+
+        // Show preview
+        originalPriceEl.textContent = `₹${result.original_amount}`;
+        discountAmountEl.textContent = result.discount;
+        finalAmountEl.textContent = result.final_amount;
+
+        pricePreview.classList.remove("hidden");
+        appliedCoupon = code;
+
+      } catch (err) {
+        alert("❌ Invalid or expired coupon");
+        pricePreview.classList.add("hidden");
+        appliedCoupon = null;
+      } finally {
+        applyCouponBtn.textContent = "Apply";
+        applyCouponBtn.disabled = false;
+      }
+    });
+
   </script>
 
 </body>
