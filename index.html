@@ -795,636 +795,411 @@
     </section>
 
     <!-- Courses Section -->
-    <section id="courses1"
-        class="relative pb-10 pt-20 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10 bg-white overflow-visible">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Pick
-                Your Path</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-                <!-- Main Topic Card -->
-                <div id="page-wrapper">
-                    <div id="main-content" class="transition-all duration-300">
-                        <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
-                            <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <h3 class="font-bold text-blue-700 text-xl mb-2">SSC</h3>
-                            <p class="text-gray-700 mb-2">Staff Selection Commission - Complete preparation material and
-                                strategies for all SSC Exams.</p>
-                            <button id="toggle-ssc-courses-btn"
-                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
-                                <!-- Shine Effect -->
-                                <span
-                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
-
-                                <!-- Button Content -->
-                                <span class="relative">
-                                    Courses
-                                </span>
-                            </button>
-                        </a>
-                    </div>
-
-                    <!-- Popup Overlay -->
-                    <div id="ssc-courses"
-                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto mt-12">
-
-                        <!-- Popup Content -->
-                        <div
-                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
-                            <!-- Close Button -->
-                            <button id="close-ssc-courses-btn"
-                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl">
-                                <i class="fas fa-times"></i>
-                            </button>
-
-                            <!-- Header -->
-                            <div class="text-center mb-6">
-                                <h3 class="font-bold text-blue-600 text-lg mb-2">SSC Examination Courses</h3>
-                                <p class="text-blue-500 text-sm">Choose from our specialized preparation courses</p>
-                            </div>
-
-                            <!-- Courses Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                                <!-- SSC CGL -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-graduation-cap"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SSC CGL</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Combined Graduate Level</p>
-                                    <a href="SSC.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
-                                        Courses</a>
-                                </div>
-
-                                <!-- SSC GD -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-shield-alt"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SSC GD</h3>
-                                    <p class="text-gray-600 text-xs mb-3">General Duty Constable</p>
-                                    <a href="/ssc-gd/SSC-GD-Syllabus.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
-                                        Courses</a>
-                                </div>
-
-                                <!-- SSC MTS -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-400 to-indigo-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-tasks"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SSC MTS</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Multi-Tasking Staff</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
-                                        Courses</a>
-                                </div>
-
-                                <!-- Delhi Police -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-user-shield"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Delhi Police</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Police Constable</p>
-                                    <a href="Delhi-Police.html"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">View
-                                        Courses</a>
-                                </div>
-
-                                <!-- All Courses -->
-                                <a href="SSC-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
-                                </a>
-                            </div>
+<!-- Courses Section -->
+<section id="courses" class="relative pb-10 pt-20 bg-gradient-to-r from-blue-50 to-indigo-50 fade-in z-10 bg-white overflow-visible">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Exam Categories</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- SSC Card -->
+            <div id="ssc-wrapper">
+                <div id="ssc-content" class="transition-all duration-300">
+                    <a class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400 rounded-xl">
+                        <div class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                            <i class="fas fa-book"></i>
                         </div>
-                    </div>
-
-                    <script>
-                        const openBtn = document.getElementById('toggle-ssc-courses-btn');
-                        const closeBtn = document.getElementById('close-ssc-courses-btn');
-                        const popup = document.getElementById('ssc-courses');
-                        const pageWrapper = document.getElementById('page-wrapper');
-
-                        openBtn.addEventListener('click', () => {
-                            popup.classList.remove('hidden');
-                            // document.body.style.overflow = 'hidden'; // Prevent scrolling behind popup
-                        });
-
-                        closeBtn.addEventListener('click', () => {
-                            popup.classList.add('hidden');
-                            // document.body.style.overflow = ''; // Enable scrolling again
-                        });
-                    </script>
+                        <h3 class="font-bold text-blue-700 text-xl mb-2">SSC</h3>
+                        <p class="text-gray-700 mb-2">Staff Selection Commission - Complete preparation material and strategies for all SSC Exams.</p>
+                        <button id="toggle-ssc-courses-btn" class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                            <!-- Shine Effect -->
+                            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+                            <!-- Button Content -->
+                            <span class="relative">Courses</span>
+                        </button>
+                    </a>
                 </div>
-
-
-                <div id="page-wrapper">
-                    <div id="main-content" class="transition-all duration-300">
-                        <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
-                            <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-blue-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <h3 class="font-bold text-blue-700 text-xl mb-2">Banking Exams</h3>
-                            <p class="text-gray-700 mb-2">
-                                All you need to crack IBPS, SBI, RBI and other banking exams in one place.
-                            </p>
-                            <button id="toggle-banking-courses-btn"
-                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
-                                <!-- Shine Effect -->
-                                <span
-                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
-
-                                <!-- Button Content -->
-                                <span class="relative">
-                                    Courses
-                                </span>
-                            </button>
-                        </a>
-                    </div>
-
-                    <!-- Banking Popup Overlay -->
-                    <div id="banking-courses"
-                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-
-                        <!-- Popup Content -->
-                        <div
-                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
-                            <!-- Close Button -->
-                            <button id="close-banking-courses-btn"
-                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-500 text-2xl transition duration-300">
-                                <i class="fas fa-times"></i>
-                            </button>
-
-                            <!-- Header -->
-                            <div class="text-center mb-6">
-                                <h3 class="font-bold text-blue-600 text-2xl mb-2">Banking Examination Courses</h3>
-                                <p class="text-blue-500 text-md">Choose from our specialized banking preparation courses
-                                </p>
-                            </div>
-
-                            <!-- Courses Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                                <!-- IBPS Clerk -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-file-invoice-dollar"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">IBPS Clerk</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Clerical Cadre</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- IBPS PO -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-user-tie"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">IBPS PO</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Probationary Officer</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- SBI PO -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-landmark"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">SBI PO</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Probationary Officer</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- RBI Grade B -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-chart-line"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-indigo-600 text-base mb-2">RBI Grade B</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Officer Grade B</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-                                <a href="Banking-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        const openBankingBtn = document.getElementById('toggle-banking-courses-btn');
-                        const closeBankingBtn = document.getElementById('close-banking-courses-btn');
-                        const bankingPopup = document.getElementById('banking-courses');
-                        const pagesWrapper = document.getElementById('page-wrapper');
-
-                        openBankingBtn.addEventListener('click', () => {
-                            bankingPopup.classList.remove('hidden');
-                            // document.body.style.overflow = 'hidden'; // Lock background scroll
-                        });
-
-                        closeBankingBtn.addEventListener('click', () => {
-                            bankingPopup.classList.add('hidden');
-                            // document.body.style.overflow = ''; // Restore scroll
-                        });
-                    </script>
-                </div>
-
-                <div id="page-wrapper">
-                    <div id="main-content" class="transition-all duration-300">
-                        <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
-                            <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                                <i class="fas fa-train"></i>
-                            </div>
-                            <h3 class="font-bold text-blue-700 text-xl mb-2">Railway Exams</h3>
-                            <p class="text-gray-700 mb-2">Self-paced courses, tips, and practice for Railway Exam
-                                recruitment.</p>
-                            <button id="toggle-rrb-courses-btn"
-                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
-                                <!-- Shine Effect -->
-                                <span
-                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
-
-                                <!-- Button Content -->
-                                <span class="relative">
-                                    Courses
-                                </span>
-                            </button>
-                        </a>
-                    </div>
-
-                    <!-- Railway Popup Overlay -->
-                    <div id="rrb-courses"
-                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-
-                        <!-- Popup Content -->
-                        <div
-                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
-                            <!-- Close Button -->
-                            <button id="close-rrb-courses-btn"
-                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl transition duration-300">
-                                <i class="fas fa-times"></i>
-                            </button>
-
-                            <!-- Header -->
-                            <div class="text-center mb-6">
-                                <h3 class="font-bold text-blue-600 text-2xl mb-2">RRB Examination Courses</h3>
-                                <p class="text-blue-500 text-md">Choose from our specialized railway preparation
-                                    courses</p>
-                            </div>
-
-                            <!-- Courses Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                                <!-- RRB Group D -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-hard-hat"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB Group D</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Level 1 Posts</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- RRB NTPC -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-user-tie"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB NTPC</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Non-Technical Popular Categories</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- RRB ALP -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-400 to-indigo-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-cogs"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB ALP</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Assistant Loco Pilot</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- RRB JE -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-tools"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">RRB JE</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Junior Engineer</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <a href="Railway-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        const openRrbBtn = document.getElementById('toggle-rrb-courses-btn');
-                        const closeRrbBtn = document.getElementById('close-rrb-courses-btn');
-                        const rrbPopup = document.getElementById('rrb-courses');
-                        const pagessWrapper = document.getElementById('page-wrapper');
-
-                        openRrbBtn.addEventListener('click', () => {
-                            rrbPopup.classList.remove('hidden');
-                            // document.body.style.overflow = 'hidden'; // Lock background scroll
-                        });
-
-                        closeRrbBtn.addEventListener('click', () => {
-                            rrbPopup.classList.add('hidden');
-                            // document.body.style.overflow = ''; // Restore scroll
-                        });
-                    </script>
-                </div>
-
-                <div id="page-wrapper">
-                    <div id="main-content" class="transition-all duration-300">
-                        <!-- Defence Main Card -->
-                        <a
-                            class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400">
-                            <div
-                                class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3 class="font-bold text-blue-700 text-xl mb-2">Defence Exams</h3>
-                            <p class="text-gray-700 mb-2">Complete preparation for Indian Army, Navy, Air Force and NDA
-                                examinations.</p>
-                            <button id="toggle-defence-courses-btn"
-                                class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
-                                <!-- Shine Effect -->
-                                <span
-                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
-
-                                <!-- Button Content -->
-                                <span class="relative">
-                                    Courses
-                                </span>
-                            </button>
-                        </a>
-                    </div>
-
-                    <!-- Defence Popup Overlay -->
-                    <div id="defence-courses"
-                        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto mt-12">
-
-                        <!-- Popup Content -->
-                        <div
-                            class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh]">
-                            <!-- Close Button -->
-                            <button id="close-defence-courses-btn"
-                                class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl transition duration-300">
-                                <i class="fas fa-times"></i>
-                            </button>
-
-                            <!-- Section Header -->
-                            <div class="text-center mb-6">
-                                <h3 class="font-bold text-blue-600 text-2xl mb-2">Defence Examination Courses</h3>
-                                <p class="text-blue-500 text-md">Choose from our specialized defence preparation courses
-                                </p>
-                            </div>
-
-                            <!-- Courses Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                                <!-- Indian Army -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-medal"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Army</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Army Recruitment</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- Indian Air Force -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-fighter-jet"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Air Force</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Air Force Recruitment</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-blue-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- Indian Navy -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-ship"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">Indian Navy</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Navy Recruitment</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <!-- NDA -->
-                                <div
-                                    class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">NDA</h3>
-                                    <p class="text-gray-600 text-xs mb-3">National Defence Academy</p>
-                                    <a onclick="openPopup()"
-                                        class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
-                                        View Courses
-                                    </a>
-                                </div>
-
-                                <a href="Defence-Main.html"
-                                    class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60">
-                                    <div
-                                        class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </div>
-                                    <h3 class="font-semibold text-blue-600 text-base mb-2">All Courses</h3>
-                                    <p class="text-gray-600 text-xs mb-3">Explore All Options</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        const openDefenceBtn = document.getElementById('toggle-defence-courses-btn');
-                        const closeDefenceBtn = document.getElementById('close-defence-courses-btn');
-                        const defencePopup = document.getElementById('defence-courses');
-                        const pageesWrapper = document.getElementById('page-wrapper');
-
-                        openDefenceBtn.addEventListener('click', () => {
-                            defencePopup.classList.remove('hidden');
-                            // document.body.style.overflow = 'hidden'; // Lock background scroll
-                        });
-
-                        closeDefenceBtn.addEventListener('click', () => {
-                            defencePopup.classList.add('hidden');
-                            // document.body.style.overflow = ''; // Restore scroll
-                        });
-                    </script>
-                </div>
-
             </div>
-        </div>
-    </section>
 
+            <!-- Banking Card -->
+            <div id="banking-wrapper">
+                <div id="banking-content" class="transition-all duration-300">
+                    <a class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400 rounded-xl">
+                        <div class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-blue-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-700 text-xl mb-2">Banking Exams</h3>
+                        <p class="text-gray-700 mb-2">All you need to crack IBPS, SBI, RBI and other banking exams in one place.</p>
+                        <button id="toggle-banking-courses-btn" class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                            <!-- Shine Effect -->
+                            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+                            <!-- Button Content -->
+                            <span class="relative">Courses</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
 
-    <section>
-        <!-- onclick="openPopup()" -->
-        <!-- Popup Modal -->
-        <div id="popupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-            <div class="bg-white rounded-xl shadow-xl p-8 text-center max-w-xs w-full">
-                <div class="mx-auto mb-4 w-10 h-10 rounded-full bg-blue-400 animate-soft-pulse"></div>
+            <!-- Railway Card -->
+            <div id="railway-wrapper">
+                <div id="railway-content" class="transition-all duration-300">
+                    <a class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400 rounded-xl">
+                        <div class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                            <i class="fas fa-train"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-700 text-xl mb-2">Railway Exams</h3>
+                        <p class="text-gray-700 mb-2">Self-paced courses, tips, and practice for Railway Exam recruitment.</p>
+                        <button id="toggle-railway-courses-btn" class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                            <!-- Shine Effect -->
+                            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+                            <!-- Button Content -->
+                            <span class="relative">Courses</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
 
-                <!-- Message -->
-                <h2 class="text-blue-700 text-xl font-bold mb-2">Coming Soon</h2>
-                <p class="text-gray-600 text-base mb-6">This self-paced course will be launched soon. Please check back
-                    shortly.</p>
-
-                <div class="flex justify-center">
-                    <button onclick="closePopup()"
-                        class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold ripple">
-                        Notify Me Later
-                    </button>
+            <!-- Defence Card -->
+            <div id="defence-wrapper">
+                <div id="defence-content" class="transition-all duration-300">
+                    <a class="glass p-6 flex flex-col items-center text-center shadow-xl hover:scale-105 transform transition duration-300 cursor-pointer border-b-4 border-blue-400 rounded-xl">
+                        <div class="text-4xl mb-4 bg-gradient-to-br from-blue-400 to-indigo-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="font-bold text-blue-700 text-xl mb-2">Defence Exams</h3>
+                        <p class="text-gray-700 mb-2">Complete preparation for Indian Army, Navy, Air Force and NDA examinations.</p>
+                        <button id="toggle-defence-courses-btn" class="group relative inline-flex items-center justify-center px-4 py-2 text-white bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:from-blue-600 hover:to-indigo-600 active:scale-95 overflow-hidden font-semibold">
+                            <!-- Shine Effect -->
+                            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+                            <!-- Button Content -->
+                            <span class="relative">Courses</span>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-        <style>
-            @keyframes fade-in {
-                from {
-                    opacity: 0;
-                    transform: scale(0.95);
+<!-- Course Selection Popup Overlay (Single reusable) -->
+<div id="course-popup-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm transition-opacity duration-300">
+    <div id="course-popup" class="relative bg-white rounded-xl p-6 shadow-2xl w-full max-w-6xl z-10 my-auto overflow-y-auto max-h-[90vh] transform transition-all duration-300 scale-95 opacity-0">
+        <!-- Close Button -->
+        <button id="close-popup-btn" class="absolute top-4 right-4 text-blue-400 hover:text-blue-600 text-2xl">
+            <i class="fas fa-times"></i>
+        </button>
+        <!-- Popup Content will be injected here -->
+        <div id="popup-content" class="p-4"></div>
+    </div>
+</div>
+
+<!-- Coming Soon Popup Modal -->
+<div id="coming-soon-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-[60]">
+    <div class="bg-white rounded-xl shadow-xl p-8 text-center max-w-xs w-full animate-fade-in">
+        <div class="mx-auto mb-4 w-10 h-10 rounded-full bg-blue-400 animate-soft-pulse"></div>
+        <h2 class="text-blue-700 text-xl font-bold mb-2">Coming Soon</h2>
+        <p class="text-gray-600 text-base mb-6">This self-paced course will be launched soon. Please check back shortly.</p>
+        <div class="flex justify-center">
+            <button id="close-coming-soon-btn" class="block px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-center font-semibold">
+                Notify Me Later
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Course data structure matching original
+    const courseData = {
+        ssc: {
+            title: "SSC Examination Courses",
+            subtitle: "Choose from our specialized preparation courses",
+            courses: [
+                { name: "SSC CGL", description: "Combined Graduate Level", icon: "fa-graduation-cap", link: "SSC.html" },
+                { name: "SSC GD", description: "General Duty Constable", icon: "fa-shield-alt", link: "/ssc-gd/SSC-GD-Syllabus.html" },
+                { name: "SSC MTS", description: "Multi-Tasking Staff", icon: "fa-tasks", link: "#", comingSoon: true },
+                { name: "Delhi Police", description: "Police Constable", icon: "fa-user-shield", link: "Delhi-Police.html" },
+                { name: "All Courses", description: "Explore All Options", icon: "fa-arrow-right", link: "SSC-Main.html", isAll: true }
+            ]
+        },
+        banking: {
+            title: "Banking Examination Courses",
+            subtitle: "Choose from our specialized banking preparation courses",
+            courses: [
+                { name: "IBPS Clerk", description: "Clerical Cadre", icon: "fa-file-invoice-dollar", link: "#", comingSoon: true },
+                { name: "IBPS PO", description: "Probationary Officer", icon: "fa-user-tie", link: "#", comingSoon: true },
+                { name: "SBI PO", description: "Probationary Officer", icon: "fa-landmark", link: "#", comingSoon: true },
+                { name: "RBI Grade B", description: "Officer Grade B", icon: "fa-chart-line", link: "#", comingSoon: true },
+                { name: "All Courses", description: "Explore All Options", icon: "fa-arrow-right", link: "Banking-Main.html", isAll: true }
+            ]
+        },
+        railway: {
+            title: "RRB Examination Courses",
+            subtitle: "Choose from our specialized railway preparation courses",
+            courses: [
+                { name: "RRB Group D", description: "Level 1 Posts", icon: "fa-hard-hat", link: "#", comingSoon: true },
+                { name: "RRB NTPC", description: "Non-Technical Popular Categories", icon: "fa-user-tie", link: "#", comingSoon: true },
+                { name: "RRB ALP", description: "Assistant Loco Pilot", icon: "fa-cogs", link: "#", comingSoon: true },
+                { name: "RRB JE", description: "Junior Engineer", icon: "fa-tools", link: "#", comingSoon: true },
+                { name: "All Courses", description: "Explore All Options", icon: "fa-arrow-right", link: "Railway-Main.html", isAll: true }
+            ]
+        },
+        defence: {
+            title: "Defence Examination Courses",
+            subtitle: "Choose from our specialized defence preparation courses",
+            courses: [
+                { name: "Indian Army", description: "Army Recruitment", icon: "fa-medal", link: "#", comingSoon: true },
+                { name: "Indian Air Force", description: "Air Force Recruitment", icon: "fa-fighter-jet", link: "#", comingSoon: true },
+                { name: "Indian Navy", description: "Navy Recruitment", icon: "fa-ship", link: "#", comingSoon: true },
+                { name: "NDA", description: "National Defence Academy", icon: "fa-star", link: "#", comingSoon: true },
+                { name: "All Courses", description: "Explore All Options", icon: "fa-arrow-right", link: "Defence-Main.html", isAll: true }
+            ]
+        }
+    };
+
+    // DOM Elements
+    const courseOverlay = document.getElementById('course-popup-overlay');
+    const coursePopup = document.getElementById('course-popup');
+    const popupContent = document.getElementById('popup-content');
+    const closeCoursePopupBtn = document.getElementById('close-popup-btn');
+    const comingSoonPopup = document.getElementById('coming-soon-popup');
+    const closeComingSoonBtn = document.getElementById('close-coming-soon-btn');
+
+    // Generate course grid HTML matching original design
+    function generateCourseGrid(courses) {
+        return courses.map(course => {
+            if (course.isAll) {
+                return `
+                    <a href="${course.link}" class="glass p-4 flex flex-col items-center justify-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60 rounded-lg">
+                        <div class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                            <i class="fas ${course.icon}"></i>
+                        </div>
+                        <h3 class="font-semibold text-blue-600 text-base mb-2">${course.name}</h3>
+                        <p class="text-gray-600 text-xs mb-3">${course.description}</p>
+                    </a>
+                `;
+            }
+            
+            if (course.comingSoon) {
+                return `
+                    <div class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60 rounded-lg relative">
+                        <div class="text-2xl mb-3 bg-gradient-to-br from-blue-400 to-indigo-500 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                            <i class="fas ${course.icon}"></i>
+                        </div>
+                        <h3 class="font-semibold text-blue-600 text-base mb-2">${course.name}</h3>
+                        <p class="text-gray-600 text-xs mb-3">${course.description}</p>
+                        <span class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
+                            View Courses
+                        </span>
+                    </div>
+                `;
+            }
+            
+            return `
+                <a href="${course.link}" class="glass p-4 flex flex-col items-center text-center shadow-lg hover:scale-105 transform transition duration-300 cursor-pointer border-b-2 border-blue-300 bg-white/60 rounded-lg">
+                    <div class="text-2xl mb-3 bg-gradient-to-br from-blue-300 to-indigo-400 text-white w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+                        <i class="fas ${course.icon}"></i>
+                    </div>
+                    <h3 class="font-semibold text-blue-600 text-base mb-2">${course.name}</h3>
+                    <p class="text-gray-600 text-xs mb-3">${course.description}</p>
+                    <span class="block w-full px-2 py-1.5 bg-gradient-to-r from-blue-400 to-indigo-500 text-white rounded-full text-center font-medium text-xs hover:from-blue-500 hover:to-indigo-600 transition duration-300">
+                        View Courses
+                    </span>
+                </a>
+            `;
+        }).join('');
+    }
+
+    // Open course selection popup
+    function openCoursePopup(courseType) {
+        const data = courseData[courseType];
+        
+        popupContent.innerHTML = `
+            <div class="text-center mb-6">
+                <h3 class="font-bold text-blue-600 text-lg mb-2">${data.title}</h3>
+                <p class="text-blue-500 text-sm">${data.subtitle}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                ${generateCourseGrid(data.courses)}
+            </div>
+        `;
+        
+        // Show overlay and popup
+        courseOverlay.classList.remove('hidden');
+        setTimeout(() => {
+            coursePopup.classList.remove('scale-95', 'opacity-0');
+            coursePopup.classList.add('scale-100', 'opacity-100');
+            document.body.style.overflow = 'hidden';
+        }, 10);
+        
+        // Focus on close button
+        setTimeout(() => closeCoursePopupBtn.focus(), 100);
+        
+        // Add event listeners to coming soon cards
+        setTimeout(() => {
+            document.querySelectorAll('.glass.cursor-pointer').forEach(card => {
+                if (card.tagName === 'DIV') {
+                    card.addEventListener('click', showComingSoonPopup);
                 }
+            });
+        }, 50);
+    }
 
-                to {
-                    opacity: 1;
-                    transform: scale(1);
+    // Close course selection popup
+    function closeCoursePopup() {
+        coursePopup.classList.remove('scale-100', 'opacity-100');
+        coursePopup.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+            courseOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+            if (document.activePopupButton) {
+                document.activePopupButton.focus();
+                document.activePopupButton = null;
+            }
+        }, 300);
+    }
+
+    // Show coming soon popup
+    function showComingSoonPopup() {
+        comingSoonPopup.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Close coming soon popup
+    function closeComingSoonPopup() {
+        comingSoonPopup.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        // Main course buttons
+        document.querySelectorAll('[id^="toggle-"]').forEach(button => {
+            const courseType = button.id.replace('toggle-', '').replace('-courses-btn', '');
+            
+            button.addEventListener('click', (e) => {
+                document.activePopupButton = e.target;
+                openCoursePopup(courseType);
+            });
+            
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    document.activePopupButton = e.target;
+                    openCoursePopup(courseType);
+                }
+            });
+        });
+
+        // Close popup events
+        closeCoursePopupBtn.addEventListener('click', closeCoursePopup);
+        courseOverlay.addEventListener('click', (e) => {
+            if (e.target === courseOverlay) closeCoursePopup();
+        });
+
+        closeComingSoonBtn.addEventListener('click', closeComingSoonPopup);
+        comingSoonPopup.addEventListener('click', (e) => {
+            if (e.target === comingSoonPopup) closeComingSoonPopup();
+        });
+
+        // Escape key to close popups
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!courseOverlay.classList.contains('hidden')) {
+                    closeCoursePopup();
+                } else if (!comingSoonPopup.classList.contains('hidden')) {
+                    closeComingSoonPopup();
                 }
             }
+        });
+    });
+</script>
 
-            @keyframes soft-pulse {
+<style>
+    /* Glass effect from original */
+    .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Animation for coming soon popup */
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 
-                0%,
-                100% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
+    @keyframes soft-pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.3);
+            opacity: 0.4;
+        }
+    }
 
-                50% {
-                    transform: scale(1.3);
-                    opacity: 0.4;
-                }
-            }
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }
 
-            .animate-fade-in {
-                animation: fade-in 0.3s ease-out;
-            }
-
-            .animate-soft-pulse {
-                animation: soft-pulse 1.5s ease-in-out infinite;
-            }
-        </style>
-
-        <!-- Script -->
-        <script>
-            function openPopup() {
-                document.getElementById("popupModal").classList.remove("hidden");
-            }
-
-            function closePopup() {
-                document.getElementById("popupModal").classList.add("hidden");
-            }
-        </script>
-    </section>
+    .animate-soft-pulse {
+        animation: soft-pulse 1.5s ease-in-out infinite;
+    }
+    
+    /* Original card styles */
+    .glass.p-6 {
+        border-radius: 1rem !important;
+    }
+    
+    /* Ensure all cards have rounded corners */
+    .rounded-xl {
+        border-radius: 1rem;
+    }
+    
+    .rounded-lg {
+        border-radius: 0.75rem;
+    }
+    
+    /* Button shine effect */
+    .group:hover .absolute.inset-0 {
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .gap-10 {
+            gap: 1.5rem;
+        }
+        
+        .p-6 {
+            padding: 1.25rem;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        .p-6 {
+            padding: 1rem;
+        }
+        
+        #course-popup {
+            max-width: 95%;
+            margin: 0.5rem;
+            padding: 1rem;
+        }
+        
+        #coming-soon-popup .max-w-xs {
+            max-width: 90%;
+            margin: 0 1rem;
+        }
+    }
+</style>
 
     <!-- Features Section -->
     <section id="features" class="relative py-10 fade-in bg-white">
