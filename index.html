@@ -828,6 +828,24 @@
                 currentAuthSession = session;
                 updateAuthButtons();
             });
+
+            /* -------------------------------------------------------------
+            AUTO OPEN LOGIN IF ?checkAuth=1
+            ------------------------------------------------------------- */
+            const params = new URLSearchParams(window.location.search);
+            const checkAuth = params.get("checkAuth");
+
+            if (checkAuth === "1") {
+
+                // Small delay so everything loads properly
+                setTimeout(() => {
+                    openAuthModal("login");
+                }, 300);
+
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
         });
 
         /* -------------------------------------------------------------
@@ -883,7 +901,8 @@
 
             <!-- Description -->
             <p class="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed mb-6">
-                Crack competitive government exams with well-structured, self-paced preparation built for serious aspirants.
+                Crack competitive government exams with well-structured, self-paced preparation built for serious
+                aspirants.
             </p>
 
             <!-- Exam Tags -->
@@ -2148,7 +2167,8 @@
 
     <section id="contact" class="relative py-10 bg-gradient-to-b from-white to-blue-50 fade-in z-10">
         <div class="max-w-5xl mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Support & Contact</h2>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-12 text-blue-700">Support & Contact
+            </h2>
 
             <div class="grid md:grid-cols-2 gap-10">
                 <!-- Contact Info -->
