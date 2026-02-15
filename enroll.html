@@ -46,7 +46,7 @@
       <form id="enrollForm" class="space-y-4 text-left" x-data>
 
         <!-- Course Dropdown -->
-        <div x-data="{ open: false, selected: '' }" class="relative">
+        <div x-data="courseDropdown()" class="relative">
           <label class="block text-sm font-medium text-gray-600 mb-1">Select Course<span class="text-blue-600">
               *</span></label>
           <button type="button" @click="open = !open"
@@ -615,7 +615,23 @@ Valid till ${data.valid_till}.`;
       }
     });
 
+    function courseDropdown() {
+      return {
+        open: false,
+        selected: '',
+
+        init() {
+          const params = new URLSearchParams(window.location.search);
+          const courseFromURL = params.get("course");
+
+          if (courseFromURL) {
+            this.selected = courseFromURL;
+          }
+        }
+      }
+    }
   </script>
+
 
 </body>
 
