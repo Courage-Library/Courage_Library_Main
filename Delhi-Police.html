@@ -12,6 +12,8 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script defer>
         // Smooth scroll for navigation
         document.addEventListener('DOMContentLoaded', function () {
@@ -185,64 +187,111 @@
     </nav>
 
     <section class="py-10 px-4 max-w-7xl mx-auto fade-in">
-    <h1 class="text-4xl font-bold text-center mb-14 text-blue-700">Delhi Police Course (Constable)</h1>
+        <h1 class="text-4xl font-bold text-center mb-14 text-blue-700">Delhi Police Course (Constable)</h1>
 
-    <div class="grid md:grid-cols-2 gap-12 items-start">
-        <!-- Left: About the Course -->
-        <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
-            <p class="text-gray-700 mb-6 indent-16">The Delhi Police course is designed to provide structublue preparation for General Duty Constable exams. Created by subject experts, it offers detailed syllabus coverage, practice exercises, and exam-focused strategies to help aspirants excel.</p>
-            <ul class="space-y-2 text-gray-700 mb-6">
-                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Complete syllabus coverage with updated study plans</li>
-                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Weekly mock tests and real-time performance analytics</li>
-                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Access self-paced articles and practice sets for lifetime learning</li>
-                <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Personalized mentorship and doubt-clearing support</li>
-            </ul>
-            <p class="text-gray-700 text-base mt-4">
-                Prepare effectively for the Delhi Police exams with focused content and strategy-driven practice.
-            </p>
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            <!-- Left: About the Course -->
+            <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
+                <p class="text-gray-700 mb-6 indent-16">The Delhi Police course is designed to provide structublue
+                    preparation for General Duty Constable exams. Created by subject experts, it offers detailed
+                    syllabus coverage, practice exercises, and exam-focused strategies to help aspirants excel.</p>
+                <ul class="space-y-2 text-gray-700 mb-6">
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Complete
+                        syllabus coverage with updated study plans</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Weekly
+                        mock tests and real-time performance analytics</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Access
+                        self-paced articles and practice sets for lifetime learning</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        Personalized mentorship and doubt-clearing support</li>
+                </ul>
+                <p class="text-gray-700 text-base mt-4">
+                    Prepare effectively for the Delhi Police exams with focused content and strategy-driven practice.
+                </p>
 
-            <div class="mt-6 flex justify-center">
-                <a href="index.html?openModal=signup"
-                    class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow hover:scale-105 transition">Enroll Now</a>
+                <div class="mt-6 flex justify-center">
+                    <a href="enroll.html?course=Delhi Police"
+                        class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow hover:scale-105 transition">Enroll
+                        Now</a>
+                </div>
+            </div>
+
+            <!-- Right: Subject Links as Standalone Divs -->
+            <div class="pt-8">
+                <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-globe-asia text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">General Knowledge / Current Affairs</h3>
+                    </div>
+                    <a href="/Delhi Police/DP-General-Awareness.html" class="text-blue-600 text-xl"><i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-brain text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Reasoning</h3>
+                    </div>
+                    <a href="/Delhi Police/Reasoning Ability/Analogies_Similarities_Differences.html"
+                        class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-calculator text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Numerical Ability</h3>
+                    </div>
+                    <a href="Delhi Police/Numerical-Ability/simplification.html" class="text-blue-600 text-xl"><i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-desktop text-blue-500 text-2xl"></i>
+                        <h3 class="text-xl font-bold text-blue-700">Computer Knowledge</h3>
+                    </div>
+                    <a href="Delhi Police/DP-Computer.html" class="text-blue-600 text-xl"><i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Right: Subject Links as Standalone Divs -->
-        <div class="pt-8">
-            <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-globe-asia text-blue-500 text-2xl"></i>
-                    <h3 class="text-xl font-bold text-blue-700">General Knowledge / Current Affairs</h3>
-                </div>
-                <a href="/Delhi Police/DP-General-Awareness.html" class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-brain text-blue-500 text-2xl"></i>
-                    <h3 class="text-xl font-bold text-blue-700">Reasoning</h3>
-                </div>
-                <a href="/Delhi Police/Reasoning Ability/Analogies_Similarities_Differences.html" class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-calculator text-blue-500 text-2xl"></i>
-                    <h3 class="text-xl font-bold text-blue-700">Numerical Ability</h3>
-                </div>
-                <a href="Delhi Police/Numerical-Ability/simplification.html" class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <i class="fas fa-desktop text-blue-500 text-2xl"></i>
-                    <h3 class="text-xl font-bold text-blue-700">Computer Knowledge</h3>
-                </div>
-                <a href="Delhi Police/DP-Computer.html" class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></a>
-            </div>
+    <!-- Not Enrolled Popup -->
+    <div id="notEnrolledPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm w-full">
+            <h2 class="text-2xl font-bold text-yellow-600 mb-2">Not Enrolled!</h2>
+            <p class="text-gray-700 mb-4">Please enroll to access the Delhi Police course.</p>
+            <a href="enroll.html?course=Delhi Police"
+                class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full hover:scale-105 transition">
+                Enroll Now
+            </a>
         </div>
     </div>
-</section>
+
+    <!-- Courage Popup -->
+    <div id="couragePopup" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+
+        <div class="bg-white p-8 rounded-2xl shadow-2xl text-center w-full max-w-lg relative">
+
+            <button id="closeCouragePopup"
+                class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-3xl">&times;</button>
+
+            <h2 class="text-3xl font-extrabold text-blue-700 mb-3">
+                Welcome to Delhi Police Journey 🚔
+            </h2>
+
+            <p class="text-gray-700 mb-6">
+                Discipline. Determination. Dedication.
+                Your badge begins with preparation.
+            </p>
+
+            <button id="agreeCourage"
+                class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition font-semibold">
+                Begin with Courage
+            </button>
+        </div>
+    </div>
 
 
     <!-- Footer -->
@@ -261,6 +310,119 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+            const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+
+            const supabaseClient = window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+            let hasAccess = false;
+            let authChecked = false;
+
+            /* ==========================
+               PROTECTED DELHI POLICE PAGES
+            ========================== */
+            const protectedPages = [
+                "DP-General-Awareness.html",
+                "Analogies_Similarities_Differences.html",
+                "simplification.html",
+                "DP-Computer.html"
+            ];
+
+            document.addEventListener("click", function (e) {
+                const link = e.target.closest("a");
+                if (!link) return;
+
+                const href = link.getAttribute("href");
+                if (!href || href.startsWith("#")) return;
+
+                if (!authChecked) {
+                    e.preventDefault();
+                    return;
+                }
+
+                const pageName = href.split("/").pop();
+
+                if (!hasAccess && protectedPages.includes(pageName)) {
+                    e.preventDefault();
+                    document.getElementById("notEnrolledPopup")?.classList.remove("hidden");
+                    document.getElementById("notEnrolledPopup")?.classList.add("flex");
+                }
+            });
+
+            function activateEnrolledUI() {
+                const enrollBtn = document.querySelector('a[href="enroll.html?course=Delhi Police"]');
+                if (!enrollBtn) return;
+
+                enrollBtn.textContent = "Start with Courage";
+                enrollBtn.href = "#";
+
+                enrollBtn.onclick = e => {
+                    e.preventDefault();
+                    document.getElementById("couragePopup")?.classList.remove("hidden");
+                    document.getElementById("couragePopup")?.classList.add("flex");
+                };
+
+                document.getElementById("agreeCourage")?.addEventListener("click", () => {
+                    document.getElementById("couragePopup")?.classList.add("hidden");
+                });
+
+                document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
+                    document.getElementById("couragePopup")?.classList.add("hidden");
+                });
+            }
+
+            async function checkEnrollment() {
+
+                const { data: sessionData } = await supabaseClient.auth.getSession();
+                const session = sessionData?.session;
+
+                if (!session?.user) {
+                    hasAccess = false;
+                    authChecked = true;
+                    return;
+                }
+
+                const { data, error } = await supabaseClient
+                    .from("student_enrollments")
+                    .select("valid_till, course_name")
+                    .eq("user_email", session.user.email)
+                    .eq("payment_status", "paid")
+                    .eq("course_name", "Delhi Police")  // 🔥 IMPORTANT
+                    .not("valid_till", "is", null)
+                    .gte("valid_till", new Date().toISOString())
+                    .order("valid_till", { ascending: false })
+                    .limit(1);
+
+                if (error || !data?.length) {
+                    hasAccess = false;
+                    authChecked = true;
+                    return;
+                }
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const validTill = new Date(data[0].valid_till);
+                validTill.setHours(0, 0, 0, 0);
+
+                hasAccess = today <= validTill;
+
+                if (hasAccess) activateEnrolledUI();
+
+                authChecked = true;
+            }
+
+            await checkEnrollment();
+
+        });
+    </script>
 
 </body>
 
