@@ -281,7 +281,8 @@
     name:'Focused Preparation Plan',
     duration:'3 Months',
     price:1199,
-    days:90
+    days:90,
+    smart:true
   },
 
   { 
@@ -310,20 +311,28 @@
     : 'relative border border-gray-200 bg-white rounded-xl p-4 cursor-pointer transition hover:shadow-sm'">
 
                 <!-- BADGE ROW (FIXED POSITION) -->
-                <div class="absolute top-3 right-3">
+                <div class="absolute top-3 right-3 flex flex-col gap-1">
 
-                  <template x-if="plan.popular">
+                  <!-- Smart Start (FOCUS) -->
+                  <template x-if="plan.smart">
                     <span class="px-2 py-0.5 text-[10px] font-medium rounded-full
-       bg-orange-50 text-orange-600 border border-orange-200"
->
-                      Popular
+      bg-blue-50 text-blue-700 border border-blue-200">
+                      Smart Start
                     </span>
                   </template>
 
+                  <!-- Most Popular (HUSTLE) -->
+                  <template x-if="plan.popular">
+                    <span class="px-2 py-0.5 text-[10px] font-medium rounded-full
+      bg-orange-50 text-orange-600 border border-orange-200">
+                      Most Popular
+                    </span>
+                  </template>
+
+                  <!-- Best Value (SELECTION) -->
                   <template x-if="plan.best">
                     <span class="px-2 py-0.5 text-[10px] font-medium rounded-full
-       bg-blue-50 text-blue-600 border border-blue-200"
->
+      bg-indigo-50 text-indigo-700 border border-indigo-200">
                       Best Value
                     </span>
                   </template>
@@ -609,7 +618,9 @@
 
       if (!session) {
         showToast("Please login first.", "error");
-        window.location.href = "index.html?checkAuth=1";
+        setTimeout(() => {
+          window.location.href = "index.html?checkAuth=1";
+        }, 1200);   // 1.2 seconds
         return null;
       }
 
