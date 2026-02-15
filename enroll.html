@@ -32,14 +32,73 @@
           Home
         </a>
       </div>
+      <div class="md:hidden" x-data="{ open: false }">
+        <button @click="open = !open" class="focus:outline-none">
+          <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div x-show="open" @click.away="open = false"
+          class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+          <a href="index.html#courses" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+            </svg>
+            Courses
+          </a>
+          <!-- Features -->
+          <a href="index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+            </svg>
+            Features
+          </a>
+
+          <!-- Reviews -->
+          <a href="index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+            </svg>
+            Reviews
+          </a>
+
+          <!-- Blog -->
+          <a href="/Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+            </svg>
+            Blog
+          </a>
+
+          <!-- Contact Us -->
+          <a href="index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            Contact Us
+          </a>
+          <a href="index.html"
+            class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple hidden">
+            Home
+          </a>
+        </div>
+      </div>
     </div>
   </nav>
 
   <!-- Main Section -->
-  <main class="flex-grow flex justify-center items-center px-4 py-12">
+  <main class="flex-grow flex justify-center items-start px-4 py-8 md:py-12">
     <div
       class="bg-white/90 backdrop-blur-xl border border-gray-200 p-8 md:p-10 rounded-2xl shadow-2xl w-full max-w-md text-center">
-      <h1 class="text-3xl font-bold text-blue-700 mb-4">Enroll Now</h1>
+      <h1 class="text-2xl sm:text-3xl font-bold text-blue-700 mb-4">Enroll Now</h1>
       <p class="text-gray-600 mb-6 text-sm">Choose your course and complete the details below to begin your journey
         with Courage Library.</p>
 
@@ -166,7 +225,7 @@
         <div>
           <label class="block text-sm font-medium text-gray-600 mb-1">Phone Number<span class="text-blue-600">
               *</span></label>
-          <input type="text" name="phone" required
+          <input type="tel" inputmode="numeric" pattern="[0-9]{10}" name="phone" required
             class="w-full border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400">
         </div>
 
@@ -187,8 +246,13 @@
         </div>
 
         <!-- Plan Selection -->
-        <!-- Plan Selection -->
-        <div x-data="{ selectedPlan: null }" class="space-y-3">
+        <div x-data="{ selectedPlan: null }" x-effect="
+            if(selectedPlan){
+              const btn = document.getElementById('payBtn');
+              btn.disabled = false;
+              document.getElementById('payText').textContent = 'Pay Now';
+            }
+            " class="space-y-3">
 
           <label class="block text-sm font-medium text-gray-600">
             Select Plan <span class="text-blue-600">*</span>
@@ -205,10 +269,9 @@
     ]" :key="plan.code">
 
               <!-- CARD -->
-              <div @click="selectedPlan = plan" :class="selectedPlan?.code === plan.code
-          ? 'border-blue-600 ring-1 ring-blue-300 bg-blue-50'
-          : 'border-gray-200 bg-white'" class="relative border rounded-xl p-4 cursor-pointer
-               transition hover:shadow-sm">
+              <div @click="selectedPlan = plan; handlePlanSelect(plan)" :class="selectedPlan?.code === plan.code
+    ? 'relative border border-blue-600 ring-1 ring-blue-300 bg-blue-50 rounded-xl p-4 cursor-pointer transition hover:shadow-sm'
+    : 'relative border border-gray-200 bg-white rounded-xl p-4 cursor-pointer transition hover:shadow-sm'">
 
                 <!-- BADGE ROW (FIXED POSITION) -->
                 <div class="absolute -top-2 right-2 flex gap-1">
@@ -274,14 +337,16 @@
             Have a Coupon?
           </label>
 
-          <div class="flex gap-2">
-            <input id="couponInput" type="text" placeholder="Enter coupon code" class="flex-1 border border-gray-300 p-2 rounded-md uppercase
-             focus:ring-2 focus:ring-blue-400" />
+          <div class="flex w-full gap-2">
 
-            <button type="button" id="applyCouponBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md
-             hover:bg-blue-700 transition">
+            <input id="couponInput" type="text" class="w-0 flex-1 min-w-0 border border-gray-300 p-2 rounded-md uppercase
+    focus:ring-2 focus:ring-blue-400" />
+
+            <button type="button" id="applyCouponBtn"
+              class="shrink-0 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
               Apply
             </button>
+
           </div>
 
           <p id="couponMsg" class="text-sm mt-1"></p>
@@ -307,11 +372,34 @@
           </div>
         </div>
 
+        <div class="mt-4 border-t pt-4">
+          <div class="flex items-center justify-center gap-2 bg-gray-50 rounded-lg py-2 px-3 text-xs text-gray-600">
+
+            <!-- Filled Lock Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500" viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M17 8V6a5 5 0 10-10 0v2H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1zm-8 0V6a3 3 0 016 0v2H9z" />
+            </svg>
+
+            <span>
+              Secure payment • Powered by
+              <span class="font-semibold text-gray-700">Razorpay</span>
+            </span>
+
+          </div>
+        </div>
 
         <!-- Pay Button -->
-        <button id="payBtn" type="button"
-          class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-md font-semibold hover:scale-105 transition">
-          Pay Now
+        <button id="payBtn" type="button" disabled
+          class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-md font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center">
+
+          <span id="payText">Select Plan to Continue</span>
+
+          <span id="paySpinner"
+            class="hidden ml-2 w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin">
+          </span>
+
         </button>
 
         <p id="successMsg" class="hidden text-green-600 text-center font-semibold mt-3">Successfully Enrolled!</p>
@@ -391,39 +479,68 @@
 
     async function getCurrentUser() {
       const { data } = await supabaseClient.auth.getSession();
-      if (!data.session) {
+      const session = data.session;
+
+      if (!session) {
         alert("⚠️ Please login first.");
         window.location.href = "index.html?checkAuth=1";
         return null;
       }
-      return data.session.user;
+
+      return session;   // 🔥 return full session, not just user
     }
 
     function resetPayButton() {
-      payBtn.textContent = "Pay Now";
+      document.getElementById("payText").textContent = "Pay Now";
+      document.getElementById("paySpinner").classList.add("hidden");
       payBtn.disabled = false;
+      payBtn.dataset.locked = "";
     }
 
     payBtn.addEventListener("click", async () => {
+      if (payBtn.dataset.locked) return;
+      payBtn.dataset.locked = "true";
+
       const popup = document.getElementById("successPopup");
       const popupMsg = document.getElementById("popupMessage");
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      if (!data.plan_code) {
-        alert("⚠️ Please select a plan first.");
-        return;
+      function stopWithAlert(message) {
+        payBtn.dataset.locked = "";
+        alert(message);
+        return true;
       }
 
-      payBtn.textContent = "Processing...";
+      if (!data.plan_code)
+        return stopWithAlert("⚠️ Please select a plan first.");
+
+      if (!data.course_name)
+        return stopWithAlert("Please select a course.");
+
+      if (!data.gender)
+        return stopWithAlert("Please select gender.");
+
+      if (!data.dob || !data.dob.includes("-"))
+        return stopWithAlert("Please select complete Date of Birth.");
+
+      const [day, month, year] = data.dob.split("-");
+
+      if (!day || !month || !year)
+        return stopWithAlert("Please select complete Date of Birth.");
+
+      document.getElementById("payText").textContent = "Processing";
+      document.getElementById("paySpinner").classList.remove("hidden");
       payBtn.disabled = true;
 
-      const user = await getCurrentUser();
-      if (!user) {
+      const session = await getCurrentUser();
+      if (!session) {
         resetPayButton();
         return;
       }
+
+      const user = session.user;
 
       try {
         /* 🔐 CALL SUPABASE EDGE FUNCTION */
@@ -433,8 +550,7 @@
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "apikey": SUPABASE_KEY,
-              "Authorization": `Bearer ${SUPABASE_KEY}`
+              "Authorization": `Bearer ${session.access_token}`
             },
             body: JSON.stringify({
               plan_code: data.plan_code,
@@ -574,14 +690,21 @@ Valid till ${data.valid_till}.`;
       applyCouponBtn.disabled = true;
 
       try {
+        const { data } = await supabaseClient.auth.getSession();
+        const session = data.session;
+
+        if (!session) {
+          alert("Please login first.");
+          return;
+        }
+
         const res = await fetch(
           `${SUPABASE_URL}/functions/v1/create-razorpay-order`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "apikey": SUPABASE_KEY,
-              "Authorization": `Bearer ${SUPABASE_KEY}`
+              "Authorization": `Bearer ${session.access_token}`
             },
             body: JSON.stringify({
               plan_code: planCode,
@@ -606,14 +729,18 @@ Valid till ${data.valid_till}.`;
         appliedCoupon = code;
 
       } catch (err) {
-        alert("❌ Invalid or expired coupon");
+        couponMsg.textContent = "Invalid or expired coupon";
+        couponMsg.className = "text-sm mt-1 text-red-600";
         pricePreview.classList.add("hidden");
         appliedCoupon = null;
+        couponInput.value = "";
+        couponInput.focus();
       } finally {
         applyCouponBtn.textContent = "Apply";
         applyCouponBtn.disabled = false;
       }
     });
+
 
     function courseDropdown() {
       return {
@@ -630,9 +757,24 @@ Valid till ${data.valid_till}.`;
         }
       }
     }
+
+    function handlePlanSelect(plan) {
+
+      const params = new URLSearchParams(window.location.search);
+      const urlCoupon = params.get("coupon");
+
+      if (urlCoupon) {
+        setTimeout(() => {
+          couponInput.value = urlCoupon;
+          applyCouponBtn.click();
+        }, 300);
+      }
+
+      document.getElementById("payBtn")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
   </script>
-
-
 </body>
 
 </html>
