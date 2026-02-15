@@ -250,9 +250,14 @@
             if(selectedPlan){
               const btn = document.getElementById('payBtn');
               btn.disabled = false;
-              document.getElementById('payText').textContent = 'Pay Now';
+
+              if(selectedPlan.price === 0){
+                document.getElementById('payText').textContent = 'Start Free Trial';
+              } else {
+                document.getElementById('payText').textContent = 'Pay Now';
+              }
             }
-            " class="space-y-3">
+          " class="space-y-3">
 
           <label class="block text-sm font-medium text-gray-600">
             Select Plan <span class="text-blue-600">*</span>
@@ -262,11 +267,42 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             <template x-for="plan in [
-      { code:'STARTER', name:'Strong Start Plan', duration:'1 Month', price:149, days:30 },
-      { code:'FOCUS', name:'Focused Preparation Plan', duration:'3 Months', price:349, days:90, save:'22%' },
-      { code:'HUSTLE', name:'Consistent Growth Plan', duration:'6 Months', price:649, days:180, popular:true, save:'28%' },
-      { code:'SELECTION', name:'Final Selection Plan', duration:'12 Months', price:1199, days:365, best:true, save:'44%' }
-    ]" :key="plan.code">
+
+  { 
+    code:'FREE',
+    name:'Free Trial Plan',
+    duration:'7 Days Access',
+    price:0,
+    days:7
+  },
+
+  { 
+    code:'FOCUS',
+    name:'Focused Preparation Plan',
+    duration:'3 Months',
+    price:1199,
+    days:90
+  },
+
+  { 
+    code:'HUSTLE',
+    name:'Consistent Growth Plan',
+    duration:'6 Months',
+    price:1999,
+    days:180,
+    popular:true
+  },
+
+  { 
+    code:'SELECTION',
+    name:'Final Selection Plan',
+    duration:'12 Months',
+    price:2999,
+    days:365,
+    best:true
+  }
+
+]" :key="plan.code">
 
               <!-- CARD -->
               <div @click="selectedPlan = plan; handlePlanSelect(plan)" :class="selectedPlan?.code === plan.code
@@ -274,18 +310,24 @@
     : 'relative border border-gray-200 bg-white rounded-xl p-4 cursor-pointer transition hover:shadow-sm'">
 
                 <!-- BADGE ROW (FIXED POSITION) -->
-                <div class="absolute -top-2 right-2 flex gap-1">
+                <div class="absolute top-3 right-3">
+
                   <template x-if="plan.popular">
-                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-white font-semibold">
+                    <span class="px-2 py-0.5 text-[10px] font-medium rounded-full
+       bg-orange-50 text-orange-600 border border-orange-200"
+>
                       Popular
                     </span>
                   </template>
 
                   <template x-if="plan.best">
-                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-600 text-white font-semibold">
+                    <span class="px-2 py-0.5 text-[10px] font-medium rounded-full
+       bg-blue-50 text-blue-600 border border-blue-200"
+>
                       Best Value
                     </span>
                   </template>
+
                 </div>
 
                 <!-- CONTENT -->
@@ -306,13 +348,6 @@
                       <p class="text-lg font-bold text-blue-700 leading-none">
                         ₹<span x-text="plan.price"></span>
                       </p>
-
-                      <!-- SAVE % -->
-                      <template x-if="plan.save">
-                        <p class="text-[11px] text-green-600 font-medium">
-                          Save <span x-text="plan.save"></span>
-                        </p>
-                      </template>
                     </div>
                   </div>
 
@@ -348,8 +383,6 @@
             </button>
 
           </div>
-
-          <p id="couponMsg" class="text-sm mt-1"></p>
         </div>
 
         <!-- Price Preview -->
@@ -367,7 +400,7 @@
           <hr class="my-2">
 
           <div class="flex justify-between font-semibold text-blue-700">
-            <span>Payable Amount</span>
+            <span id="payableLabel">Payable Amount</span>
             <span>₹<span id="finalAmount">0</span></span>
           </div>
         </div>
@@ -443,7 +476,100 @@
       .animate-fadeIn {
         animation: fadeIn 0.4s ease-out;
       }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(40px);
+          opacity: 0;
+        }
+
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .animate-slideUp {
+        animation: slideUp 0.25s ease-out;
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(120%);
+          opacity: 0;
+        }
+
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideOutRight {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+
+        to {
+          transform: translateX(120%);
+          opacity: 0;
+        }
+      }
+
+      .toast-in {
+        animation: slideInRight 0.35s ease-out forwards;
+      }
+
+      .toast-out {
+        animation: slideOutRight 0.3s ease-in forwards;
+      }
     </style>
+
+    <!-- Bottom Sheet Upgrade Popup -->
+    <div id="upgradePopup" class="fixed inset-0 bg-black/50 hidden z-50 items-end sm:items-center justify-center">
+
+      <!-- Sheet -->
+      <div
+        class="bg-white w-full sm:max-w-sm rounded-t-3xl sm:rounded-2xl shadow-2xl p-5 sm:p-6 animate-slideUp relative">
+
+        <!-- Drag Indicator (Mobile Look) -->
+        <div class="w-10 h-1.5 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden"></div>
+
+        <!-- Close -->
+        <button onclick="closeUpgradePopup()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">
+          ×
+        </button>
+
+        <!-- Icon -->
+        <div class="flex justify-center mb-4">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path d="M5 16l-2-8 5 3 4-6 4 6 5-3-2 8H5zm0 2h14v2H5v-2z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-base sm:text-lg font-semibold text-center text-gray-800 mb-2">
+          Free Trial Already Used
+        </h2>
+
+        <!-- Description -->
+        <p class="text-gray-600 text-sm text-center mb-5">
+          Upgrade to a premium plan to continue your preparation.
+        </p>
+
+        <!-- Single Button -->
+        <button onclick="closeUpgradePopup(); showToast('Select a premium plan below.', 'info');"
+          class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold shadow hover:opacity-95 transition">
+          Select Premium Plans
+        </button>
+
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -482,7 +608,7 @@
       const session = data.session;
 
       if (!session) {
-        alert("⚠️ Please login first.");
+        showToast("Please login first.", "error");
         window.location.href = "index.html?checkAuth=1";
         return null;
       }
@@ -507,28 +633,28 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
-      function stopWithAlert(message) {
+      function stopWithToast(message) {
         payBtn.dataset.locked = "";
-        alert(message);
+        showToast(message, "error");
         return true;
       }
 
       if (!data.plan_code)
-        return stopWithAlert("⚠️ Please select a plan first.");
+        return stopWithToast("Please select a plan first.");
 
       if (!data.course_name)
-        return stopWithAlert("Please select a course.");
+        return stopWithToast("Please select a course.");
 
       if (!data.gender)
-        return stopWithAlert("Please select gender.");
+        return stopWithToast("Please select gender.");
 
       if (!data.dob || !data.dob.includes("-"))
-        return stopWithAlert("Please select complete Date of Birth.");
+        return stopWithToast("Please select complete Date of Birth.");
 
       const [day, month, year] = data.dob.split("-");
 
       if (!day || !month || !year)
-        return stopWithAlert("Please select complete Date of Birth.");
+        return stopWithToast("Please select complete Date of Birth.");
 
       document.getElementById("payText").textContent = "Processing";
       document.getElementById("paySpinner").classList.remove("hidden");
@@ -555,16 +681,65 @@
             body: JSON.stringify({
               plan_code: data.plan_code,
               coupon_code: appliedCoupon,
-              preview: false
+              preview: false,
+              user_email: user.email
             })
           }
         );
 
+        const order = await orderRes.json();
+
         if (!orderRes.ok) {
-          throw new Error("Failed to create payment order");
+
+          if (order.error === "Free trial already used.") {
+            showUpgradePopup();
+          } else {
+            showToast(order.error || "Unable to start payment", "error");
+          }
+
+          resetPayButton();
+          return;
         }
 
-        const order = await orderRes.json();
+        // 🚀 HANDLE 100% FREE COUPON (Skip Razorpay)
+        if (!order.final_amount || order.final_amount <= 0) {
+
+          data.user_email = user.email;
+          data.payment_status = "free";
+          data.payment_id = "FREE_COUPON";
+          data.valid_till = new Date(
+            new Date().setDate(new Date().getDate() + order.plan_days)
+          ).toISOString().split("T")[0];
+
+          const { error } = await supabaseClient
+            .from("student_enrollments")
+            .insert([data]);
+
+          if (error) {
+            showToast("Enrollment failed: " + error.message, "error");
+            resetPayButton();
+            return;
+          }
+
+          popupMsg.innerHTML = `
+            <div class="space-y-1">
+              <p>Congratulations <strong>${data.full_name}</strong>!</p>
+              <p>You are enrolled in <strong>${data.plan_name}</strong>.</p>
+              <p>Valid till <strong>${data.valid_till}</strong>.</p>
+            </div>
+            `;
+
+          popup.classList.remove("hidden");
+          popup.classList.add("flex", "animate-fadeIn");
+
+          resetPayButton();
+
+          setTimeout(() => {
+            window.location.replace("free-trial.html");
+          }, 3000);
+
+          return; // 🔥 STOP — DO NOT OPEN RAZORPAY
+        }
 
         data.final_amount = order.final_amount;
 
@@ -576,13 +751,13 @@
         data.user_email = user.email;
         data.payment_status = "paid";
         data.valid_till = validTill.toISOString().split("T")[0];
-        data.final_amount = order.amount;
+        data.final_amount = order.final_amount;
 
         /* 💳 RAZORPAY OPTIONS (SECURE ORDER) */
         const options = {
           key: "rzp_live_RdymXUT2ibglux",
           order_id: order.order_id,
-          amount: order.amount * 100,
+          amount: order.final_amount * 100,
           currency: "INR",
           name: "Courage Library",
           description: `${data.plan_name} - ${data.course_name}`,
@@ -597,7 +772,7 @@
                 .insert([data]);
 
               if (error) {
-                alert("❌ Enrollment failed: " + error.message);
+                showToast("Enrollment failed: " + error.message, "error");
                 resetPayButton();
                 return;
               }
@@ -617,10 +792,13 @@
                 }
               ).catch(() => { });
 
-              popupMsg.textContent =
-                `Congratulations ${data.full_name}!
-You are enrolled in ${data.plan_name}.
-Valid till ${data.valid_till}.`;
+              popupMsg.innerHTML = `
+                <div class="space-y-1">
+                  <p>Congratulations <strong>${data.full_name}</strong>!</p>
+                  <p>You are enrolled in <strong>${data.plan_name}</strong>.</p>
+                  <p>Valid till <strong>${data.valid_till}</strong>.</p>
+                </div>
+                `;
 
               popup.classList.remove("hidden");
               popup.classList.add("flex", "animate-fadeIn");
@@ -633,14 +811,14 @@ Valid till ${data.valid_till}.`;
 
             } catch (err) {
               console.error(err);
-              alert("Something went wrong after payment.");
+              showToast("Something went wrong after payment.", "error");
               resetPayButton();
             }
           },
 
           modal: {
             ondismiss: function () {
-              alert("⚠️ Payment was not completed.");
+              showToast("Payment was not completed.", "error");
               resetPayButton();
             }
           },
@@ -658,20 +836,20 @@ Valid till ${data.valid_till}.`;
         rzp.open();
 
         rzp.on("payment.failed", function () {
-          alert("❌ Payment Failed");
+          showToast("Payment failed.", "error");
           resetPayButton();
         });
 
       } catch (err) {
         console.error(err);
-        alert("❌ Unable to start payment");
+        showToast("Unable to start payment.", "error");
         resetPayButton();
       }
     });
 
     const applyCouponBtn = document.getElementById("applyCouponBtn");
     const couponInput = document.getElementById("couponInput");
-
+    const couponMsg = document.getElementById("couponMsg");
     const pricePreview = document.getElementById("pricePreview");
     const originalPriceEl = document.getElementById("originalPrice");
     const discountAmountEl = document.getElementById("discountAmount");
@@ -679,12 +857,19 @@ Valid till ${data.valid_till}.`;
 
     let appliedCoupon = null;
 
+    couponInput.addEventListener("input", () => {
+      couponMsg.textContent = "";
+      document.getElementById("payableLabel").textContent = "Payable Amount";
+    });
+
     applyCouponBtn.addEventListener("click", async () => {
-      const code = couponInput.value.trim();
-      if (!code) return alert("Enter coupon code");
+      const code = couponInput.value.trim().toUpperCase();
+      couponInput.value = code;
+
+      if (!code) return showToast("Enter coupon code", "error");
 
       const planCode = document.querySelector('[name="plan_code"]').value;
-      if (!planCode) return alert("Select plan first");
+      if (!planCode) return showToast("Select plan first", "error");
 
       applyCouponBtn.textContent = "Checking...";
       applyCouponBtn.disabled = true;
@@ -694,7 +879,7 @@ Valid till ${data.valid_till}.`;
         const session = data.session;
 
         if (!session) {
-          alert("Please login first.");
+          showToast("Please login first.", "error");
           return;
         }
 
@@ -716,21 +901,35 @@ Valid till ${data.valid_till}.`;
 
         const result = await res.json();
 
-        if (!res.ok) {
+        if (!res.ok || result.discount <= 0) {
           throw new Error("Invalid coupon");
         }
 
         // Show preview
+        // Show preview
         originalPriceEl.textContent = `₹${result.original_amount}`;
         discountAmountEl.textContent = result.discount;
-        finalAmountEl.textContent = result.final_amount;
+
+        let final = result.final_amount;
+        finalAmountEl.textContent = final;
+
+        // 💎 If fully FREE
+        const payableLabel = document.getElementById("payableLabel");
+
+        if (final === 0) {
+          payableLabel.textContent = "Payable Amount (FREE)";
+        } else {
+          payableLabel.textContent = "Payable Amount";
+        }
 
         pricePreview.classList.remove("hidden");
+
+        showToast("Coupon applied successfully!", "success");
+
         appliedCoupon = code;
 
       } catch (err) {
-        couponMsg.textContent = "Invalid or expired coupon";
-        couponMsg.className = "text-sm mt-1 text-red-600";
+        showToast("Invalid or expired coupon.", "error");
         pricePreview.classList.add("hidden");
         appliedCoupon = null;
         couponInput.value = "";
@@ -740,7 +939,6 @@ Valid till ${data.valid_till}.`;
         applyCouponBtn.disabled = false;
       }
     });
-
 
     function courseDropdown() {
       return {
@@ -774,7 +972,96 @@ Valid till ${data.valid_till}.`;
         .scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function showUpgradePopup() {
+      const popup = document.getElementById("upgradePopup");
+      popup.classList.remove("hidden");
+      popup.classList.add("flex");
+    }
+
+    function closeUpgradePopup() {
+      const popup = document.getElementById("upgradePopup");
+      popup.classList.add("hidden");
+      popup.classList.remove("flex");
+
+      document.getElementById("payBtn")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function showToast(message, type = "info") {
+      const toast = document.getElementById("customToast");
+      const box = document.getElementById("toastBox");
+      const icon = document.getElementById("toastIcon");
+      const msg = document.getElementById("toastMessage");
+
+      msg.textContent = message;
+
+      box.classList.remove("border-blue-500", "border-green-500", "border-red-500");
+
+      if (type === "success") {
+        box.classList.add("border-green-500");
+        icon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-green-600"
+        fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"/>
+      </svg>`;
+      }
+      else if (type === "error") {
+        box.classList.add("border-red-500");
+        icon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-red-600"
+        fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"/>
+      </svg>`;
+      }
+      else {
+        box.classList.add("border-blue-500");
+        icon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-blue-600"
+        fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01"/>
+      </svg>`;
+      }
+
+      toast.classList.remove("hidden");
+      box.classList.remove("toast-out");
+      box.classList.add("toast-in");
+
+      setTimeout(() => {
+        box.classList.remove("toast-in");
+        box.classList.add("toast-out");
+
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 300);
+      }, 3000);
+    }
+
   </script>
+
+  <!-- Toast Notification -->
+  <div id="customToast" class="fixed top-[80px] sm:top-[90px] right-5 hidden z-[9999] max-w-[95%] sm:max-w-sm">
+
+    <div id="toastBox" class="flex items-center gap-3 bg-white shadow-xl rounded-lg px-4 py-3 border-l-4">
+
+      <div id="toastIcon"></div>
+
+      <p id="toastMessage" class="text-gray-800 text-sm font-medium"></p>
+
+    </div>
+  </div>
+
 </body>
 
 </html>

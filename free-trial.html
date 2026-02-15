@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CGL Free Trial | Courage Library</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <!-- Font Awesome & Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js (for mobile menu) -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <!-- Supabase client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            background: #fff;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(200, 200, 255, 0.12);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #bfdbfe;
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            transform: scale(0.5);
+        }
+
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .trial-tag {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+        }
+
+        /* course card icon circle */
+        .icon-circle {
+            background: linear-gradient(145deg, #dbeafe, #eff6ff);
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 28px;
+            box-shadow: 0 8px 16px -6px #93c5fd;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+</head>
+
+<body class="relative min-h-screen text-gray-900 overflow-x-hidden">
+
+    <!-- ========== HEADER (identical to original) ========== -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
+                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
+                <a href="index.html"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
+                    Home
+                </a>
+            </div>
+            <!-- mobile menu -->
+            <div class="md:hidden" x-data="{ open: false }">
+                <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu" aria-label="Toggle mobile menu">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <a href="index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+                    <a href="index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+                    <a href="/Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+                        </svg>
+                        Blog
+                    </a>
+                    <a href="index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== FREE TRIAL SECTION (the exact layout you refined) ========== -->
+    <section class="py-10 px-4 max-w-7xl mx-auto fade-in">
+        <!-- heading with subtle trial badge -->
+        <div class="flex flex-col items-center mb-4">
+            <h1 class="text-4xl font-bold text-center text-blue-700">
+                SSC CGL – History (Free Trial)
+            </h1>
+        </div>
+
+        <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">
+            Experience the quality of Courage Library with our Free Trial.
+            We are providing limited History articles from our complete SSC CGL course
+            to help you understand our structured approach before enrollment.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-12 items-start">
+            <!-- LEFT SIDE – What You Get -->
+            <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
+                <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2">
+                    <i class="fas fa-gift text-blue-500"></i> What You Get in Free Trial
+                </h2>
+                <ul class="space-y-3 text-gray-700 mb-6">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        <span><strong>Selected Ancient History</strong> – Indus Valley, Vedic Age, Mahajanapadas</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        <span><strong>Important Medieval Notes</strong> – Delhi Sultanate, Mughal administration</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        <span><strong>One Modern History Practice Set</strong> (10 questions with explanations)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        <span><strong>Exam-oriented structure</strong> – timelines, flowcharts, memory tricks</span>
+                    </li>
+                </ul>
+                <p class="text-gray-700 text-base leading-relaxed">
+                    These are limited preview articles from our complete SSC CGL History course (50+ topics).
+                    To unlock full access including detailed notes, practice questions,
+                    mock tests and performance tracking — enroll in the full course.
+                </p>
+                <!-- CTA -->
+                <div class="mt-8 flex flex-col items-center">
+                    <a href="enroll.html"
+                        class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow hover:scale-105 transition ripple inline-flex items-center gap-2">
+                        <i class="fas fa-unlock-alt"></i> Unlock Full Course
+                    </a>
+                    <p class="text-xs text-gray-400 mt-3">*includes 350+ practice questions & 5 mock tests</p>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE – FREE ARTICLES LIST -->
+            <div class="pt-6">
+                <!-- Article 1 -->
+                <a href="#"
+                    onclick="alert('Free article: Introduction to Ancient Indian History would open. (demo)'); return false;"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between hover:scale-[1.01] transition-transform duration-200 group">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-landmark text-blue-500 text-2xl group-hover:text-blue-700"></i>
+                        <h3 class="text-lg font-bold text-blue-700 group-hover:underline">
+                            Introduction to Ancient Indian History
+                        </h3>
+                    </div>
+                    <span
+                        class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                        <i class="fas fa-lock-open"></i> Free
+                    </span>
+                </a>
+                <!-- Article 2 -->
+                <a href="#" onclick="alert('Free article: Indus Valley Civilization would open. (demo)'); return false;"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between hover:scale-[1.01] transition-transform duration-200 group">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-city text-blue-500 text-2xl group-hover:text-blue-700"></i>
+                        <h3 class="text-lg font-bold text-blue-700 group-hover:underline">
+                            Indus Valley Civilization
+                        </h3>
+                    </div>
+                    <span
+                        class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                        <i class="fas fa-lock-open"></i> Free
+                    </span>
+                </a>
+                <!-- Article 3 -->
+                <a href="#"
+                    onclick="alert('Free article: Overview of Medieval India would open. (demo)'); return false;"
+                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between hover:scale-[1.01] transition-transform duration-200 group">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-crown text-blue-500 text-2xl group-hover:text-blue-700"></i>
+                        <h3 class="text-lg font-bold text-blue-700 group-hover:underline">
+                            Overview of Medieval India
+                        </h3>
+                    </div>
+                    <span
+                        class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                        <i class="fas fa-lock-open"></i> Free
+                    </span>
+                </a>
+                <!-- LOCKED PREVIEW -->
+                <div
+                    class="glass p-6 shadow-xl border-l-4 border-gray-300 bg-gray-50/70 flex items-center justify-between opacity-80">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-lock text-gray-400 text-2xl"></i>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-500">
+                                Complete Modern History Module
+                            </h3>
+                            <p class="text-xs text-gray-400">+ 47 more articles & practice sets</p>
+                        </div>
+                    </div>
+                    <span
+                        class="bg-gray-200 text-gray-600 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                        <i class="fas fa-lock"></i> Locked
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========== NEW SECTION: EXAM CATEGORIES (based on uploaded image) ========== -->
+    <section class="py-16 px-4 bg-gradient-to-b from-white to-blue-50/30">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Heading -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700">
+                    Explore Our Complete Courses
+                </h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+                    Your free trial gives you a glimpse. Here’s what the full Courage Library experience looks like.
+                </p>
+            </div>
+
+            <!-- grid of 4 cards – exact style from description: icon + title + description + "Courses" link -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- SSC Card -->
+                <div class="glass-card p-6 flex flex-col items-start">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">SSC</h3>
+                    <p class="text-sm text-gray-600 flex-1 mb-4">
+                        Staff Selection Commission – Complete preparation material and strategies for all SSC Exams.
+                    </p>
+                    <a href="ssc-courses.html"
+                        class="text-blue-600 font-medium inline-flex items-center gap-1 hover:underline mt-auto">
+                        Courses <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Banking Exams Card -->
+                <div class="glass-card p-6 flex flex-col items-start">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Banking Exams</h3>
+                    <p class="text-sm text-gray-600 flex-1 mb-4">
+                        All you need to crack IBPS, SBI, RBI and other banking exams in one place.
+                    </p>
+                    <a href="banking-courses.html"
+                        class="text-blue-600 font-medium inline-flex items-center gap-1 hover:underline mt-auto">
+                        Courses <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Railway Exams Card -->
+                <div class="glass-card p-6 flex flex-col items-start">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Railway Exams</h3>
+                    <p class="text-sm text-gray-600 flex-1 mb-4">
+                        Self-paced courses, tips, and practice for Railway Exam recruitment.
+                    </p>
+                    <a href="railway-courses.html"
+                        class="text-blue-600 font-medium inline-flex items-center gap-1 hover:underline mt-auto">
+                        Courses <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Defence Exams Card -->
+                <div class="glass-card p-6 flex flex-col items-start">
+                    <div class="icon-circle mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Defence Exams</h3>
+                    <p class="text-sm text-gray-600 flex-1 mb-4">
+                        Complete preparation for Indian Army, Navy, Air Force and NDA examinations.
+                    </p>
+                    <a href="defence-courses.html"
+                        class="text-blue-600 font-medium inline-flex items-center gap-1 hover:underline mt-auto">
+                        Courses <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+
+
+            </div>
+            <!-- subtle extra line: "and many more..." (optional) -->
+            <p class="text-center text-gray-500 text-sm mt-8">
+                <i class="fas fa-arrow-up text-blue-300 mr-1"></i> Each category contains detailed self-paced courses
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== POPUPS (original) ========== -->
+    <!-- Not Enrolled Popup -->
+    <div id="notEnrolledPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm w-full">
+            <div class="flex justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-yellow-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0a9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-yellow-600 mb-2">Not Enrolled!</h2>
+            <p class="text-gray-700 mb-4">Please enroll to start your Courage Library journey.</p>
+            <a href="enroll.html"
+                class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full hover:scale-105 transition">Enroll
+                Now</a>
+        </div>
+    </div>
+
+    <!-- Courage Promise Popup -->
+    <div id="couragePopup"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50 px-4 sm:px-0 overflow-y-auto sm:overflow-hidden">
+        <div
+            class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl text-center w-full max-w-md sm:max-w-lg relative my-8 sm:my-0 mt-60 sm:mt-0">
+            <button id="closeCouragePopup"
+                class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl sm:text-3xl">&times;</button>
+            <div class="flex justify-center mb-4">
+                <div class="flex justify-center">
+                    <div
+                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-white to-white rounded-full flex items-center justify-center shadow-lg">
+                        <h2 class="text-4xl sm:text-5xl font-extrabold text-blue-700 leading-none">💙</h2>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-blue-700 mb-3">A Message from Courage Library</h2>
+            <div
+                class="text-gray-700 leading-relaxed text-sm sm:text-base space-y-4 mb-6 px-1 sm:px-0 text-left sm:text-center">
+                <p>Dear <span class="font-semibold text-blue-600" id="userName">Aspirant</span>,</p>
+                <p>Welcome to <span class="font-semibold text-blue-700">Courage Library</span> — a space built for
+                    dreamers like you who refuse to settle for average.</p>
+                <p>Here, every article, every topic, and every moment you spend is a step toward the life you imagine.
+                    We believe that *real growth doesn’t come from pressure, but from purpose.*</p>
+                <p>Stay consistent. Stay curious. And whenever you feel lost, remember — <span
+                        class="font-semibold text-blue-600">Courage means showing up even when it’s hard.</span></p>
+                <p>We’re not just a library. We’re your silent companion — cheering for you in every late-night study
+                    and every small win. You’ve got this. 🌟</p>
+            </div>
+            <p class="text-sm text-gray-500 italic mb-6">— With Strength & Belief, <br> The Courage Library Team 💙</p>
+            <button id="agreeCourage"
+                class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 sm:py-2 rounded-full shadow hover:scale-105 transition font-semibold text-sm sm:text-base">
+                Begin with Courage
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== ENROLLMENT SCRIPT (original, lightly adapted) ========== -->
+    <script>
+        (async function () {
+            const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+            const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+            let hasAccess = false;
+            let authChecked = false;
+
+            const protectedPages = [
+                "SSC-ReasoningAbility.html",
+                "SSC-Quantitative-aptitude.html",
+                "SSC-Coarses.html",
+                "SSC-English.html"
+            ];
+
+            document.addEventListener("click", function (e) {
+                const link = e.target.closest("a");
+                if (!link) return;
+                const href = link.getAttribute("href");
+                if (!href || href.startsWith("#") || href === 'index.html' || href === 'enroll.html' || href === '#') return;
+                if (!authChecked) { e.preventDefault(); return; }
+                const pageName = href.split("/").pop();
+                if (!hasAccess && protectedPages.includes(pageName)) {
+                    e.preventDefault();
+                    const popup = document.getElementById("notEnrolledPopup");
+                    popup?.classList.remove("hidden");
+                    popup?.classList.add("flex");
+                }
+            });
+
+            function activateEnrolledUI() {
+                const unlockBtn = document.querySelector('a[href="enroll.html"]');
+                if (unlockBtn && unlockBtn.classList.contains('bg-gradient-to-r')) {
+                    unlockBtn.innerHTML = '<i class="fas fa-heart"></i> Start with Courage';
+                    unlockBtn.href = "#";
+                    unlockBtn.onclick = (e) => {
+                        e.preventDefault();
+                        document.getElementById("couragePopup")?.classList.remove("hidden");
+                        document.getElementById("couragePopup")?.classList.add("flex");
+                    };
+                }
+                const smallEnroll = document.querySelector('a[href="enroll.html"].text-blue-600');
+                if (smallEnroll) {
+                    smallEnroll.innerHTML = '<i class="fas fa-arrow-right"></i> Continue with Courage';
+                    smallEnroll.href = "#";
+                    smallEnroll.onclick = (e) => {
+                        e.preventDefault();
+                        document.getElementById("couragePopup")?.classList.remove("hidden");
+                        document.getElementById("couragePopup")?.classList.add("flex");
+                    };
+                }
+                document.getElementById("agreeCourage")?.addEventListener("click", () => {
+                    document.getElementById("couragePopup")?.classList.add("hidden");
+                });
+                document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
+                    document.getElementById("couragePopup")?.classList.add("hidden");
+                });
+            }
+
+            async function checkEnrollment() {
+                const { data: sessionData } = await supabase.auth.getSession();
+                const session = sessionData?.session;
+                if (!session?.user) {
+                    hasAccess = false;
+                    authChecked = true;
+                    return;
+                }
+                const { data, error } = await supabase
+                    .from("student_enrollments")
+                    .select("valid_till, course_name")
+                    .eq("user_email", session.user.email)
+                    .eq("payment_status", "paid")
+                    .eq("course_name", "SSC CGL")
+                    .not("valid_till", "is", null)
+                    .gte("valid_till", new Date().toISOString())
+                    .order("valid_till", { ascending: false })
+                    .limit(1);
+
+                if (error || !data?.length) {
+                    hasAccess = false;
+                    authChecked = true;
+                    return;
+                }
+                const today = new Date(); today.setHours(0, 0, 0, 0);
+                const validTill = new Date(data[0].valid_till); validTill.setHours(0, 0, 0, 0);
+                hasAccess = today <= validTill;
+                if (hasAccess) activateEnrolledUI();
+                authChecked = true;
+            }
+
+            await checkEnrollment();
+
+            document.getElementById("notEnrolledPopup")?.addEventListener("click", e => {
+                if (e.target.id === "notEnrolledPopup") e.target.classList.add("hidden");
+            });
+        })();
+    </script>
+
+    <!-- ========== FOOTER (identical to original) ========== -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" rel="noopener noreferrer" title="Follow us on Facebook" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" title="Follow us on LinkedIn"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" class="hover:text-white text-2xl"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
