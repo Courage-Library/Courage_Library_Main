@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | Courage Library</title>
+
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <!-- HEADER (Keep Same as Other Pages) -->
+    <nav class="bg-white/90 backdrop-blur-lg shadow-md sticky top-0 z-50">
+        <div class="w-full max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a class="flex items-center space-x-2" href="index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8" />
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">
+                    Courage Library
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
+                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="index.html#contact" class="hover:text-blue-600">Contact</a>
+
+                <!-- Profile Wrapper -->
+                <div class="relative flex items-center">
+                    <!-- Profile Button -->
+                    <button id="profileBtn"
+                        class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white flex items-center justify-center font-semibold text-sm shadow hover:scale-110 transition">
+                        <span id="userInitials">JD</span>
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div id="profileMenu"
+                        class="absolute right-0 top-full mt-3 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 opacity-0 scale-95 pointer-events-none transition-all duration-200 ease-out z-50">
+                        <!-- User Section -->
+                        <div class="p-5 border-b border-gray-100 flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 aspect-square rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-semibold text-sm">
+                                <span id="menuInitials">JD</span>
+                            </div>
+
+                            <div class="leading-tight">
+                                <p id="menuUserName" class="font-semibold text-gray-900 text-sm">
+                                    John
+                                </p>
+
+                                <a href="enroll.html"
+                                    class="block text-xs text-gray-500 mt-0.5 hover:text-indigo-600 transition font-medium">
+                                    Access all features with our Premium subscription!
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Menu Items -->
+                        <div class="py-2">
+                            <a href="dashboard.html"
+                                class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                                </svg>
+                                Dashboard
+                            </a>
+                            <a href="my-plan.html"
+                                class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+                                </svg>
+
+                                My Plan
+                            </a>
+                            <a href="payment-history.html"
+                                class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m9 14.25 6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185ZM9.75 9h.008v.008H9.75V9Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 4.5h.008v.008h-.008V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                </svg>
+                                Payment History
+                            </a>
+
+                            <a href="settings.html"
+                                class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                                Settings
+                            </a>
+
+                            <!-- Divider -->
+                            <div class="border-t border-gray-100 my-2"></div>
+
+                            <button onclick="logout()"
+                                class="w-full flex items-center gap-3 px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 transition">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                                </svg>
+
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MOBILE DROPDOWN MENU ================= -->
+            <div class="md:hidden relative" x-data="{ open: false }">
+                <!-- Hamburger -->
+                <button @click="open = !open" class="focus:outline-none">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <!-- Dropdown -->
+                <div x-show="open" @click.away="open = false" x-transition
+                    class="absolute right-0 mt-4 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 z-50">
+                    <!-- User Section -->
+                    <div class="p-5 border-b border-gray-100 flex items-center gap-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-semibold text-sm">
+                            <span id="mobileInitials">JD</span>
+                        </div>
+                        <div class="leading-tight">
+                            <p id="mobileUserName" class="font-semibold text-gray-900 text-sm">
+                                John
+                            </p>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                Courage Library Member
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Menu Items -->
+                    <div class="py-2">
+                        <!-- Dashboard -->
+                        <a href="dashboard.html"
+                            class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                            </svg>
+                            Dashboard
+                        </a>
+                        <!-- My Plan -->
+                        <a href="my-plan.html"
+                            class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+                            </svg>
+                            My Plan
+                        </a>
+                        <!-- Payment History -->
+                        <a href="payment-history.html"
+                            class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m9 14.25 6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185ZM9.75 9h.008v.008H9.75V9Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 4.5h.008v.008h-.008V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
+                            Payment History
+                        </a>
+                        <!-- Settings -->
+                        <a href="settings.html"
+                            class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                            Settings
+                        </a>
+                        <div class="border-t border-gray-100 my-2"></div>
+                        <!-- Logout -->
+                        <button onclick="logout()"
+                            class="w-full flex items-center gap-3 px-5 py-2.5 text-sm text-gray-600 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-12">
+        <div class="mb-10">
+            <h1 class="text-3xl font-bold text-gray-900">Settings</h1>
+            <p class="text-sm text-gray-500 mt-2">
+                Manage your account preferences and security.
+            </p>
+        </div>
+
+        <!-- PROFILE SETTINGS -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-6">
+                Profile Information
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label class="text-sm text-gray-600">Full Name</label>
+                    <input id="fullName"
+                        class="mt-2 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">Phone</label>
+                    <input id="phone"
+                        class="mt-2 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">Date of Birth</label>
+                    <input type="date" id="dob"
+                        class="mt-2 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">Qualification</label>
+                    <input id="qualification"
+                        class="mt-2 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                </div>
+            </div>
+
+            <button onclick="updateProfile()"
+                class="mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-md text-sm font-medium shadow hover:shadow-md transition">
+                Save Changes
+            </button>
+        </div>
+
+        <!-- ACCOUNT SECURITY -->
+        <!-- ACCOUNT SECURITY -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-6">
+                Account Security
+            </h2>
+
+            <button onclick="resetPassword()"
+                class="bg-blue-600 text-white px-6 py-2 rounded-md text-sm font-medium shadow hover:shadow-md transition">
+                Reset Password
+            </button>
+
+            <!-- Two Factor Authentication -->
+            <div class="mt-8 border-t pt-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-900">
+                            Two Factor Authentication
+                        </p>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Add an extra layer of security to your account.
+                        </p>
+                    </div>
+
+                    <label class="inline-flex items-center cursor-pointer relative">
+                        <input type="checkbox" id="twoFactor" class="sr-only peer" />
+
+                        <!-- Track -->
+                        <div
+                            class="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-blue-600 transition-colors duration-300">
+                        </div>
+
+                        <!-- Circle -->
+                        <div
+                            class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-5">
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXAM PREFERENCES -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-6">
+                Exam Preferences
+            </h2>
+
+            <div>
+                <label class="text-sm text-gray-600">Target Exam</label>
+                <select id="targetExam"
+                    class="mt-2 w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <option>SSC CGL</option>
+                    <option>SSC CHSL</option>
+                    <option>SSC GD</option>
+                    <option>Banking</option>
+                    <option>Railway</option>
+                </select>
+            </div>
+
+            <button onclick="saveExamPreference()"
+                class="mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-md text-sm font-medium shadow hover:shadow-md transition">
+                Save Preference
+            </button>
+        </div>
+
+        <!-- DANGER ZONE -->
+        <div class="bg-white border border-red-200 rounded-2xl p-8 shadow-sm">
+            <h2 class="text-lg font-semibold text-red-600 mb-6">Danger Zone</h2>
+
+            <button onclick="deleteAccount()"
+                class="bg-red-600 text-white px-6 py-2 rounded-md text-sm font-medium shadow hover:shadow-md transition">
+                Delete Account
+            </button>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="customToast" class="fixed top-[80px] sm:top-[90px] right-5 hidden z-[9999] max-w-[95%] sm:max-w-sm">
+            <div id="toastBox" class="flex items-center gap-3 bg-white shadow-xl rounded-lg px-4 py-3 border-l-4">
+                <div id="toastIcon"></div>
+
+                <p id="toastMessage" class="text-gray-800 text-sm font-medium"></p>
+            </div>
+        </div>
+        <style>
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(120%);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+
+                to {
+                    transform: translateX(120%);
+                    opacity: 0;
+                }
+            }
+
+            .toast-in {
+                animation: slideInRight 0.35s ease-out forwards;
+            }
+
+            .toast-out {
+                animation: slideOutRight 0.3s ease-in forwards;
+            }
+        </style>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">
+                &copy; 2026 Courage Library. All rights reserved.
+            </p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const supaClient = window.supabase.createClient(
+            "https://sgagswxzsxlgcspwiuoh.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4",
+        );
+
+        async function loadUserProfile() {
+            const {
+                data: { session },
+            } = await supaClient.auth.getSession();
+            if (!session) {
+                window.location.href = "index.html?checkAuth=1";
+                return;
+            }
+
+            const user = session.user;
+
+            const { data: profile, error } = await supaClient
+                .from("user_profiles")
+                .select("*")
+                .eq("id", user.id)
+                .single();
+
+            if (error) {
+                console.error("Profile fetch error:", error);
+                showToast("Unable to load profile. Please refresh.", "error");
+                return;
+            }
+
+            let fullName = profile?.full_name || user.email.split("@")[0];
+
+            // Fill inputs
+            document.getElementById("fullName").value = profile?.full_name || "";
+            document.getElementById("phone").value = profile?.phone || "";
+            document.getElementById("dob").value = profile?.dob || "";
+            document.getElementById("qualification").value =
+                profile?.qualification || "";
+            document.getElementById("targetExam").value =
+                profile?.target_exam || "SSC CGL";
+            document.getElementById("twoFactor").checked =
+                profile?.two_factor_enabled || false;
+
+            // Update dropdown
+            document.getElementById("menuUserName").textContent = fullName;
+
+            const initials = fullName
+                .split(" ")
+                .map((word) => word[0])
+                .join("")
+                .substring(0, 2)
+                .toUpperCase();
+
+            document.getElementById("userInitials").textContent = initials;
+            document.getElementById("menuInitials").textContent = initials;
+        }
+
+        async function updateProfile() {
+            const {
+                data: { session },
+            } = await supaClient.auth.getSession();
+            if (!session) return;
+
+            const user = session.user;
+
+            const { error } = await supaClient
+                .from("user_profiles")
+                .update({
+                    full_name: document.getElementById("fullName").value,
+                    phone: document.getElementById("phone").value,
+                    dob: document.getElementById("dob").value,
+                    qualification: document.getElementById("qualification").value,
+                    target_exam: document.getElementById("targetExam").value,
+                    two_factor_enabled: document.getElementById("twoFactor").checked,
+                    updated_at: new Date().toISOString(),
+                })
+                .eq("id", user.id);
+
+            if (error) {
+                showToast("Error updating profile", "error");
+            } else {
+                showToast("Profile updated successfully.");
+                loadUserProfile(); // refresh UI
+            }
+        }
+
+        async function resetPassword() {
+            const {
+                data: { session },
+            } = await supaClient.auth.getSession();
+            if (!session) return;
+
+            await supaClient.auth.resetPasswordForEmail(session.user.email);
+            showToast("Password reset email sent.");
+        }
+
+        async function saveExamPreference() {
+            const {
+                data: { session },
+            } = await supaClient.auth.getSession();
+            if (!session) return;
+
+            const { error } = await supaClient
+                .from("user_profiles")
+                .update({
+                    target_exam: document.getElementById("targetExam").value,
+                    updated_at: new Date().toISOString(),
+                })
+                .eq("id", session.user.id);
+
+            if (error) {
+                showToast("Error saving exam preference", "error");
+            } else {
+                showToast("Exam preference saved successfully.");
+            }
+        }
+
+        async function deleteAccount() {
+            showToast("Contact support to delete account securely.");
+        }
+
+        function showToast(message, type = "info") {
+            const toast = document.getElementById("customToast");
+            const box = document.getElementById("toastBox");
+            const icon = document.getElementById("toastIcon");
+            const msg = document.getElementById("toastMessage");
+
+            msg.textContent = message;
+
+            box.classList.remove(
+                "border-blue-500",
+                "border-green-500",
+                "border-red-500",
+            );
+
+            if (type === "success") {
+                box.classList.add("border-green-500");
+                icon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-green-600"
+        fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"/>
+      </svg>`;
+            } else if (type === "error") {
+                box.classList.add("border-red-500");
+                icon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-red-600"
+        fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"/>
+      </svg>`;
+            } else {
+                box.classList.add("border-blue-500");
+                icon.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-blue-600"
+        fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01"/>
+      </svg>`;
+            }
+
+            toast.classList.remove("hidden");
+            box.classList.remove("toast-out");
+            box.classList.add("toast-in");
+
+            setTimeout(() => {
+                box.classList.remove("toast-in");
+                box.classList.add("toast-out");
+
+                setTimeout(() => {
+                    toast.classList.add("hidden");
+                }, 300);
+            }, 3000);
+        }
+
+        /* ================= DROPDOWN LOGIC ================= */
+
+        const profileBtn = document.getElementById("profileBtn");
+        const profileMenu = document.getElementById("profileMenu");
+
+        profileBtn?.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            const isHidden = profileMenu.classList.contains("pointer-events-none");
+
+            if (isHidden) {
+                profileMenu.classList.remove(
+                    "opacity-0",
+                    "scale-95",
+                    "pointer-events-none",
+                );
+                profileMenu.classList.add("opacity-100", "scale-100");
+            } else {
+                profileMenu.classList.add(
+                    "opacity-0",
+                    "scale-95",
+                    "pointer-events-none",
+                );
+                profileMenu.classList.remove("opacity-100", "scale-100");
+            }
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", (e) => {
+            if (
+                !profileBtn?.contains(e.target) &&
+                !profileMenu?.contains(e.target)
+            ) {
+                profileMenu?.classList.add(
+                    "opacity-0",
+                    "scale-95",
+                    "pointer-events-none",
+                );
+                profileMenu?.classList.remove("opacity-100", "scale-100");
+            }
+        });
+
+        /* ================= LOGOUT ================= */
+
+        async function logout() {
+            await supaClient.auth.signOut();
+            window.location.href = "index.html";
+        }
+
+        loadUserProfile();
+
+        document
+            .getElementById("twoFactor")
+            .addEventListener("change", async (e) => {
+                const {
+                    data: { session },
+                } = await supaClient.auth.getSession();
+                if (!session) return;
+
+                await supaClient
+                    .from("user_profiles")
+                    .update({
+                        two_factor_enabled: e.target.checked,
+                        updated_at: new Date().toISOString(),
+                    })
+                    .eq("id", session.user.id);
+
+                showToast("Security setting updated.");
+            });
+    </script>
+</body>
+
+</html>

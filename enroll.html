@@ -746,7 +746,7 @@
           resetPayButton();
 
           setTimeout(() => {
-            window.location.replace("free-trial.html");
+            window.location.replace("dashboard.html");
           }, 3000);
 
           return; // 🔥 STOP — DO NOT OPEN RAZORPAY
@@ -817,7 +817,7 @@
               resetPayButton();
 
               setTimeout(() => {
-                window.history.back();
+                window.location.replace("dashboard.html");
               }, 3000);
 
             } catch (err) {
