@@ -714,7 +714,7 @@
 
         // 🚀 HANDLE 100% FREE COUPON (Skip Razorpay)
         if (!order.final_amount || order.final_amount <= 0) {
-
+          data.user_id = user.id;
           data.user_email = user.email;
           data.payment_status = "free";
           data.payment_id = "FREE_COUPON";
@@ -776,6 +776,7 @@
 
           handler: async function (response) {
             try {
+              data.user_id = user.id;
               data.payment_id = response.razorpay_payment_id;
 
               const { error } = await supabaseClient
