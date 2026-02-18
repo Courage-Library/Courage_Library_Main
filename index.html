@@ -942,20 +942,23 @@
             <div class="flex flex-col sm:flex-row justify-center gap-5">
 
                 <!-- Primary CTA -->
-                <a href="#courses" class="group relative inline-flex items-center justify-center
-            px-8 py-3 min-h-[52px] text-lg font-semibold text-white
-            bg-gradient-to-r from-blue-500 to-indigo-500
-            rounded-full shadow-lg hover:shadow-xl
-            transform hover:scale-105 active:scale-95
-            transition-all duration-300
-            hover:from-blue-600 hover:to-indigo-600
-            overflow-hidden
-            focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2">
+                <a id="heroPrimaryCTA" href="#courses" class="group relative inline-flex items-center justify-center
+                    px-8 py-3 min-h-[52px] text-lg font-semibold text-white
+                    bg-gradient-to-r from-blue-500 to-indigo-500
+                    rounded-full shadow-lg hover:shadow-xl
+                    transform hover:scale-105 active:scale-95
+                    transition-all duration-300
+                    hover:from-blue-600 hover:to-indigo-600
+                    overflow-hidden
+                    focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2">
+
                     <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
-                 -skew-x-12 translate-x-[-100%]
-                 group-hover:translate-x-[100%]
-                 transition-transform duration-1000"></span>
-                    Start Learning Free
+                        -skew-x-12 translate-x-[-100%]
+                        group-hover:translate-x-[100%]
+                        transition-transform duration-1000"></span>
+
+                    <span id="heroBtnText">Start Learning Free</span>
+
                 </a>
 
                 <!-- Secondary CTA -->
@@ -969,6 +972,60 @@
 
             </div>
         </div>
+        <script>
+
+            async function updateHeroCTA() {
+
+                try {
+
+                    const btn = document.getElementById("heroPrimaryCTA");
+                    const text = document.getElementById("heroBtnText");
+
+                    const { data: { session } } = await supaClient.auth.getSession();
+
+                    // Not logged in → default behavior
+                    if (!session) {
+                        btn.href = "#courses";
+                        text.innerText = "Start Learning Free";
+                        return;
+                    }
+
+                    const userId = session.user.id;
+                    const today = new Date().toISOString().split("T")[0];
+
+                    const { data: activeEnrollment } = await supaClient
+                        .from("student_enrollments")
+                        .select("valid_till")
+                        .eq("user_id", userId)
+                        .eq("payment_status", "paid")
+                        .gte("valid_till", today)
+                        .limit(1)
+                        .maybeSingle();
+
+                    if (activeEnrollment) {
+
+                        // Redirect to dashboard instead
+                        btn.href = "dashboard.html";
+                        text.innerText = "Continue Your Preparation";
+
+                    } else {
+
+                        btn.href = "#courses";
+                        text.innerText = "Start Learning Free";
+
+                    }
+
+                } catch (err) {
+                    console.error("Hero CTA error:", err);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                updateHeroCTA();
+            });
+
+        </script>
+
     </section>
 
     <section id="features" class="py-12 bg-gradient-to-b from-white to-blue-50">
