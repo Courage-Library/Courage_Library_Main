@@ -247,7 +247,18 @@
         </div>
 
         <!-- Plan Selection -->
-        <div x-data="planLogic()" class="space-y-3">
+        <div x-data="{ selectedPlan: null }" x-effect="
+            if(selectedPlan){
+              const btn = document.getElementById('payBtn');
+              btn.disabled = false;
+
+              if(selectedPlan.price === 0){
+                document.getElementById('payText').textContent = 'Start Free Trial';
+              } else {
+                document.getElementById('payText').textContent = 'Pay Now';
+              }
+            }
+          " class="space-y-3">
 
           <label class="block text-sm font-medium text-gray-600">
             Select Plan <span class="text-blue-600">*</span>
@@ -296,7 +307,7 @@
 ]" :key="plan.code">
 
               <!-- CARD -->
-              <div @click="selectPlan(plan); handlePlanSelect(plan)" :class="selectedPlan?.code === plan.code
+              <div @click="selectedPlan = plan; handlePlanSelect(plan)" :class="selectedPlan?.code === plan.code
     ? 'relative border border-blue-600 ring-1 ring-blue-300 bg-blue-50 rounded-xl p-4 cursor-pointer transition hover:shadow-sm'
     : 'relative border border-gray-200 bg-white rounded-xl p-4 cursor-pointer transition hover:shadow-sm'">
 
@@ -1048,63 +1059,6 @@
         }, 300);
       }, 3000);
     }
-
-    function planLogic() {
-  return {
-    selectedPlan: null,
-
-    getCourse() {
-      return document.querySelector('[name="course_name"]').value;
-    },
-
-    setCourse(value) {
-      document.querySelector('[name="course_name"]').value = value;
-
-      // Also update visible dropdown text
-      const dropdown = document.querySelector('[x-data="courseDropdown()"]');
-      if (dropdown && dropdown.__x) {
-        dropdown.__x.$data.selected = value;
-      }
-    },
-
-    selectPlan(plan) {
-
-      const currentCourse = this.getCourse();
-
-      // 🔵 If FREE plan selected
-      if (plan.code === "FREE") {
-
-        // If no course selected → auto select Free Trial
-        if (!currentCourse) {
-          this.setCourse("Free Trial");
-        }
-
-        // If another course selected → block
-        if (currentCourse && currentCourse !== "Free Trial") {
-          showToast("Free Trial plan is only available for Free Trial course.", "error");
-          return;
-        }
-      }
-
-      // 🔵 If Paid plan selected but Free Trial course chosen → block
-      if (plan.code !== "FREE" && currentCourse === "Free Trial") {
-        showToast("Please select a regular course for paid plans.", "error");
-        return;
-      }
-
-      this.selectedPlan = plan;
-
-      const btn = document.getElementById('payBtn');
-      btn.disabled = false;
-
-      if (plan.price === 0) {
-        document.getElementById('payText').textContent = 'Start Free Trial';
-      } else {
-        document.getElementById('payText').textContent = 'Pay Now';
-      }
-    }
-  }
-}
 
   </script>
 
