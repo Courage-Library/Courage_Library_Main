@@ -6,6 +6,10 @@
   </sitemap>
 
   <sitemap>
+  <loc>https://couragelibrary.in/sitemap-images.xml</loc>
+</sitemap>
+
+  <sitemap>
     <loc>https://couragelibrary.in/sitemap-blog.xml</loc>
   </sitemap>
 
