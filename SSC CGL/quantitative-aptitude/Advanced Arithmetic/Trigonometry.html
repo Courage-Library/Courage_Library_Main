@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Trigonometry for SSC CGL with complete guide. Learn trigonometric ratios, identities, heights distances problems with examples and practice questions." />
+    <meta name="keywords"
+        content="Trigonometry SSC CGL, Trigonometric Ratios, Trigonometry Identities, Heights Distances, Quantitative Aptitude, SSC Exam Preparation, Courage Library" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Trigonometry - Quantitative Aptitude for SSC CGL | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../../../index.html" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <button aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </button>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Advanced Arithmetic Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Advanced Arithmetic -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Advanced Arithmetic
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Algebra.html" class="nav-link" title="Algebra">Algebra</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Mensuration.html" class="nav-link" title="Mensuration">Mensuration</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Geometry.html" class="nav-link" title="Geometry">Geometry</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Trigonometry.html" class="nav-link" title="Trigonometry">Trigonometry</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Coordinate-Geometry.html" class="nav-link" title="Coordinate Geometry">Coordinate
+                                Geometry</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Trigonometry</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC-CGL Exams</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Overview Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Overview</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Trigonometry is <strong>heavily tested in SSC CGL</strong> for:
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4 mt-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="font-medium text-gray-800 text-center">Trigonometric ratios</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="font-medium text-gray-800 text-center">Identities and simplifications</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="font-medium text-gray-800 text-center">Heights & distances problems</p>
+                        </div>
+                    </div>
+                    <p class="text-lg text-gray-700 mt-4">
+                        Focus on <strong>shortcuts, formulas, and visualization</strong> for fast problem-solving.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Trigonometric Ratios Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Trigonometric Ratios</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <p class="text-lg text-gray-700 mb-4">For a <strong>right-angled triangle</strong> with angle θ:</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Ratio</th>
+                                    <th class="px-4 py-3">Formula</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">sin θ</td>
+                                    <td class="px-4 py-3">opposite/hypotenuse</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">cos θ</td>
+                                    <td class="px-4 py-3">adjacent/hypotenuse</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">tan θ</td>
+                                    <td class="px-4 py-3">opposite/adjacent</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">cot θ</td>
+                                    <td class="px-4 py-3">1/tan θ = adjacent/opposite</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">sec θ</td>
+                                    <td class="px-4 py-3">1/cos θ = hypotenuse/adjacent</td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">cosec θ</td>
+                                    <td class="px-4 py-3">1/sin θ = hypotenuse/opposite</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 1</h3>
+                    <p class="text-lg text-gray-700 mb-3">Right triangle, opposite = 3, adjacent = 4, hypotenuse = 5 →
+                        find sin θ, cos θ, tan θ</p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-800 font-medium">sin θ = 3/5, cos θ = 4/5, tan θ = 3/4</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Important Identities Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Important Identities</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Pythagorean Identities</h3>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-800 font-medium">sin²θ + cos²θ = 1</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-800 font-medium">1 + tan²θ = sec²θ</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-800 font-medium">1 + cot²θ = csc²θ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Reciprocal Identities</h3>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-gray-800 font-medium">sin θ = 1/csc θ, cos θ = 1/sec θ, tan θ = 1/cot θ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Co-function Identities</h3>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="text-gray-800 font-medium">sin(90−θ) = cos θ, cos(90−θ) = sin θ, tan(90−θ) = cot θ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mt-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 2</h3>
+                    <p class="text-lg text-gray-700 mb-3">If sin θ = 3/5, find cos θ</p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-800">cos θ = √(1 − sin²θ) = √(1 − 9/25) = √(16/25) = 4/5</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Heights & Distances Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Heights & Distances</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <p class="text-lg text-gray-700 mb-4"><strong>SSC focuses on practical problems involving:</strong>
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Angles of elevation/depression</p>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Heights of objects</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Distance between points</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Formulas (Right Triangle approach)</h3>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <p class="text-gray-800 font-medium">Height = Distance × tan θ</p>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <p class="text-gray-800 font-medium">Distance = Height / tan θ</p>
+                        </div>
+                        <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                            <p class="text-gray-800">Use sin θ, cos θ for hypotenuse / vertical / horizontal distances
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Short Tricks</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Angle</th>
+                                    <th class="px-4 py-3">Approx tan θ</th>
+                                    <th class="px-4 py-3">Approx sin θ</th>
+                                    <th class="px-4 py-3">Approx cos θ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">30°</td>
+                                    <td class="px-4 py-3">1/√3 ≈ 0.577</td>
+                                    <td class="px-4 py-3">1/2</td>
+                                    <td class="px-4 py-3">√3/2</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                    <td class="px-4 py-3 font-medium">45°</td>
+                                    <td class="px-4 py-3">1</td>
+                                    <td class="px-4 py-3">√2/2</td>
+                                    <td class="px-4 py-3">√2/2</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-4 py-3 font-medium">60°</td>
+                                    <td class="px-4 py-3">√3 ≈ 1.732</td>
+                                    <td class="px-4 py-3">√3/2</td>
+                                    <td class="px-4 py-3">1/2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-4">
+                        <p class="text-gray-800 font-medium">Use <strong>tan θ = perpendicular/base</strong> for SSC
+                            "heights & distances" problems.</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 3</h3>
+                        <p class="text-lg text-gray-700 mb-3">Tree casts shadow 10 m long, angle of elevation = 30° →
+                            height of tree?</p>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-gray-800">tan 30 = height/10 ⇒ 1/√3 = height/10 ⇒ height = 10/√3 ≈ 5.77 m</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 4</h3>
+                        <p class="text-lg text-gray-700 mb-3">Tower height = 20 m, distance from foot = 10 m → angle of
+                            elevation?</p>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-gray-800">tan θ = height/distance = 20/10 = 2 ⇒ θ = tan⁻¹(2) ≈ 63.43°</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SSC Short Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. SSC Short Tricks / Tips</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Always draw the triangle — visualize shadow,
+                                    height, distance.</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Memorize tan 30°, 45°, 60° — most SSC problems use
+                                    these angles.</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Use 1-√3-2 rule: 30° → tan 30 = 1/√3, 60° → tan 60
+                                    = √3</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Small angles approximation: For tiny angles, tan θ
+                                    ≈ sin θ ≈ θ (in radians)</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Angle of depression = angle of elevation (alternate
+                                    angle property)</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Combined problems: Two towers, bridges → break into
+                                    two right triangles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Practice Section</h2>
+
+                <div class="space-y-8">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. Right triangle: opposite = 7, adjacent
+                            = 24 → sin θ, cos θ, tan θ</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Hypotenuse = √(7²+24²) = √(49+576)=√625=25</p>
+                                <p class="text-green-700">sin θ = 7/25, cos θ = 24/25, tan θ = 7/24</p>
+                                <p class="text-green-700 font-medium">7/25, 24/25, 7/24</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. Angle of elevation = 45°, distance = 10
+                            m → height?</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">tan 45 = h/10 ⇒ h=10 m</p>
+                                <p class="text-green-700 font-medium">10 m</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Tree height = 15 m, shadow = 15√3 m →
+                            angle of elevation?</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">tan θ = 15/(15√3) = 1/√3 ⇒ θ=30°</p>
+                                <p class="text-green-700 font-medium">30°</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. sin θ = 3/5 → cos θ?</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">cos θ = √(1−9/25) = √16/25 = 4/5</p>
+                                <p class="text-green-700 font-medium">4/5</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. Tower A height = 20 m, shadow = 20 m;
+                            Tower B height = ? shadow = 10 m → tan comparison?</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Tower A: tan θ = 20/20 =1; Tower B: tan θ = h/10</p>
+                                <p class="text-green-700">If same angle θ → 1 = h/10 ⇒ h=10 m</p>
+                                <p class="text-green-700 font-medium">10 m</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. Find sin²θ + cos²θ if sin θ = 4/5</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">cos θ = √(1−16/25)=3/5 ⇒ sin²θ + cos²θ = 16/25 + 9/25 = 1</p>
+                                <p class="text-green-700 font-medium">1</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Quick Recap Table</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Topic</th>
+                                <th class="px-4 py-3">Key Formula / Property</th>
+                                <th class="px-4 py-3">SSC Tip</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Ratios</td>
+                                <td class="px-4 py-3">sin θ = opp/hyp, cos θ = adj/hyp, tan θ = opp/adj</td>
+                                <td class="px-4 py-3">Memorize basic 30°,45°,60°</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Identities</td>
+                                <td class="px-4 py-3">sin²+cos²=1, 1+tan²=sec², 1+cot²=csc²</td>
+                                <td class="px-4 py-3">Use for simplification</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Heights & Distances</td>
+                                <td class="px-4 py-3">tan θ = height/distance</td>
+                                <td class="px-4 py-3">Draw triangle & apply</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Angle of Elevation/Depression</td>
+                                <td class="px-4 py-3">Equal (alternate angles)</td>
+                                <td class="px-4 py-3">Draw lines from eye-level</td>
+                            </tr>
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Common shortcut</td>
+                                <td class="px-4 py-3">1-√3-2 rule</td>
+                                <td class="px-4 py-3">Apply tan 30°, 45°, 60° directly</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Article 12: Trigonometry!
+                    </h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: For SSC, draw a simple triangle, label all sides,
+                            use tan for height, distance, angle problems. Shortcuts like 30°-45°-60° save time in exam
+                            conditions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="Geometry.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="Coordinate-Geometry.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Start Your SSC CGL Journey Now!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library to experience disciplined study and expert support.
+                </p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2026 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

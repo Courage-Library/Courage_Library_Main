@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Question Selection Strategy for SSC CGL Quant. Learn to identify easy, moderate, tough questions, 3-round solving approach, and smart skipping techniques for maximum marks." />
+    <meta name="keywords"
+        content="Question Selection Strategy SSC CGL, Easy Moderate Tough Questions, 3-Round Solving Approach, Smart Skipping Techniques, SSC Exam Strategy, Courage Library" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Question Selection Strategy - SSC CGL Quantitative Aptitude | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../../../index.html" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <button aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </button>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Strategy and Short Tricks Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Strategy & Short Tricks -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Strategy & Short Tricks
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Exam-Strategy-and-Time-Management.html" class="nav-link"
+                                title="Exam Strategy & Time Management">Exam Strategy & Time Management</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="How-to-Choose-Easy-Moderate-and-Tough-Questions.html" class="nav-link"
+                                title="How to Choose Easy-Moderate-Tough Questions">How to Choose Easy-Moderate-Tough
+                                Questions</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Common-Traps-and-Mistakes.html" class="nav-link"
+                                title="Common Traps & Mistakes">Common Traps &
+                                Mistakes</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Revision-Notes-and-Formula-Sheet.html" class="nav-link"
+                                title="Revision Notes and Formula Sheet">Revision Notes and Formula Sheet</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Question Selection Strategy</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">How to Choose Easy, Moderate & Tough
+                    Questions in SSC CGL Quant</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Why Question Selection Matters Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">1. Why Question Selection Matters</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3">Exam Reality</h3>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>You get <strong>60 minutes for 100 questions</strong> (25 Quant)</li>
+                                    <li>Every second counts</li>
+                                    <li>A single wrong attempt = <strong>-0.50 marks</strong></li>
+                                    <li>Your goal: <strong>Maximize accuracy, not attempts</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Key Insight</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-white rounded-lg border border-green-300">
+                                    <p class="text-gray-700 font-medium text-center">The best students aren't the
+                                        fastest solvers — they're the smartest selectors</p>
+                                </div>
+                                <div class="p-3 bg-white rounded-lg border border-green-300">
+                                    <p class="text-gray-700 text-center">Quality over quantity always wins in SSC CGL
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3-Level Classification Strategy Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">2. The 3-Level Classification Strategy</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Level</th>
+                                    <th class="px-4 py-3">Type of Question</th>
+                                    <th class="px-4 py-3">Action Plan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-green-50">
+                                    <td class="px-4 py-3 font-medium">
+                                        <span
+                                            class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Easy</span>
+                                    </td>
+                                    <td class="px-4 py-3">You immediately recall the formula and can solve in < 1
+                                            min</td>
+                                    <td class="px-4 py-3">
+                                        <span
+                                            class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm font-medium">Attempt
+                                            FIRST</span>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-yellow-50">
+                                    <td class="px-4 py-3 font-medium">
+                                        <span
+                                            class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Moderate</span>
+                                    </td>
+                                    <td class="px-4 py-3">You know the method but need 1.5–2 mins for calculation or
+                                        logic</td>
+                                    <td class="px-4 py-3">
+                                        <span
+                                            class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-sm font-medium">Attempt
+                                            in SECOND round</span>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white hover:bg-red-50">
+                                    <td class="px-4 py-3 font-medium">
+                                        <span
+                                            class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Tough</span>
+                                    </td>
+                                    <td class="px-4 py-3">You're unsure of the concept, it looks lengthy, or options are
+                                        confusing</td>
+                                    <td class="px-4 py-3">
+                                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded text-sm font-medium">SKIP
+                                            in first round</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Easy Questions Identification Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">3. How to Identify Easy Questions (Within 10
+                    Seconds)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3">✅ Easy Question Indicators</h3>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>You recognize the <strong>concept instantly</strong></li>
+                                    <li>You can <strong>see the shortcut or formula</strong> right away</li>
+                                    <li>The numbers are clean (e.g., 20%, 25%, 1/4, 1/5)</li>
+                                    <li>Direct application questions</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Example</h3>
+                            <div class="p-4 bg-white rounded-lg border border-blue-300">
+                                <p class="text-gray-700 italic mb-3">"Find the simple interest on ₹8000 at 10% for 2
+                                    years."</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600">Direct formula application</span>
+                                    <span
+                                        class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">EASY</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 p-3 bg-green-100 rounded border border-green-300">
+                                <p class="text-green-800 font-medium text-center">🧭 Rule: Attempt immediately. Such
+                                    questions build confidence fast.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Moderate Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">4. Spotting Moderate Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3">⚙️ Moderate Question
+                                    Characteristics</h3>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>2-step reasoning (e.g., ratio + percentage)</li>
+                                    <li>Long values requiring calculation</li>
+                                    <li>Conditional data (like "A does half work in 5 days...")</li>
+                                    <li>Data Interpretation with 2–3 steps</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Strategy</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-white rounded-lg border border-orange-300">
+                                    <p class="text-gray-700 font-medium text-center">🧭 Rule: Mark for second round if
+                                        confident but time-consuming</p>
+                                </div>
+                                <div class="p-3 bg-white rounded-lg border border-orange-300">
+                                    <p class="text-gray-700 text-center">💡 Pro Tip: While marking for review, write a
+                                        small note like "TSD – tricky" or "% – calc" for quick recall</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tough Questions Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">5. How to Recognize Tough Questions</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3">🚫 Tough Question Warning Signs
+                                </h3>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>Language-heavy or confusingly worded</li>
+                                    <li>Questions from lesser-seen topics (e.g., Coordinate Geometry, Probability)</li>
+                                    <li>Options too close (0.25–0.5 difference)</li>
+                                    <li>Multi-layered reasoning (mix of 3+ concepts)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Action Plan</h3>
+                            <div class="space-y-4">
+                                <div class="p-3 bg-white rounded-lg border border-purple-300">
+                                    <p class="text-gray-700 font-medium text-center">🧭 Rule: SKIP on the first go.
+                                        Don't waste more than 10–15 seconds deciding.</p>
+                                </div>
+                                <div class="p-4 bg-purple-100 rounded border border-purple-300">
+                                    <p class="text-purple-800 italic text-center font-medium">"Skipping smartly is a
+                                        skill, not a weakness."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3-Round Solving Plan Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">6. The 3-Round Solving Plan</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-700">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3">Round</th>
+                                    <th class="px-4 py-3">Time</th>
+                                    <th class="px-4 py-3">Goal</th>
+                                    <th class="px-4 py-3">Focus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-green-50">
+                                    <td class="px-4 py-3 font-medium">
+                                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Round
+                                            1</span>
+                                    </td>
+                                    <td class="px-4 py-3">25–30 min</td>
+                                    <td class="px-4 py-3">Attempt all easy (direct) questions</td>
+                                    <td class="px-4 py-3">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Quick
+                                            Wins</span>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b hover:bg-yellow-50">
+                                    <td class="px-4 py-3 font-medium">
+                                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Round
+                                            2</span>
+                                    </td>
+                                    <td class="px-4 py-3">20–25 min</td>
+                                    <td class="px-4 py-3">Attempt moderate questions (marked for review)</td>
+                                    <td class="px-4 py-3">
+                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Strategic
+                                            Gains</span>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white hover:bg-red-50">
+                                    <td class="px-4 py-3 font-medium">
+                                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Round
+                                            3</span>
+                                    </td>
+                                    <td class="px-4 py-3">5–10 min</td>
+                                    <td class="px-4 py-3">Revisit tough ones only if time remains</td>
+                                    <td class="px-4 py-3">
+                                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Bonus
+                                            Points</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-3">Round-wise Expected Score</h4>
+                        <div class="grid md:grid-cols-3 gap-4 text-center">
+                            <div class="p-3 bg-green-50 rounded border border-green-300">
+                                <p class="text-2xl font-bold text-green-700">15-18</p>
+                                <p class="text-gray-700 text-sm">Round 1 (Easy)</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded border border-yellow-300">
+                                <p class="text-2xl font-bold text-yellow-700">5-7</p>
+                                <p class="text-gray-700 text-sm">Round 2 (Moderate)</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded border border-red-300">
+                                <p class="text-2xl font-bold text-red-700">1-2</p>
+                                <p class="text-gray-700 text-sm">Round 3 (Tough)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Tip Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">7. Practice Tip</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3">Training Method</h3>
+                                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                    <li>While attempting mock tests or topic tests:</li>
+                                    <li>Use a pencil or digital marker 🖊️</li>
+                                    <li>Mark each question as <strong>E / M / T</strong> (Easy, Moderate, Tough)</li>
+                                    <li>After test → Review your markings vs. actual time spent</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Expected Outcome</h3>
+                            <div class="p-4 bg-white rounded-lg border border-green-300">
+                                <p class="text-gray-700 text-center font-medium">This will train your brain to
+                                    auto-classify questions during the real exam</p>
+                            </div>
+                            <div class="mt-3 grid grid-cols-3 gap-2 text-center">
+                                <div class="p-2 bg-green-100 rounded">
+                                    <span class="text-green-800 font-bold">E</span>
+                                </div>
+                                <div class="p-2 bg-yellow-100 rounded">
+                                    <span class="text-yellow-800 font-bold">M</span>
+                                </div>
+                                <div class="p-2 bg-red-100 rounded">
+                                    <span class="text-red-800 font-bold">T</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Golden Rule Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-6">8. Golden Rule</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="text-center">
+                        <div class="inline-block p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-4">
+                            <p class="text-4xl mb-2">⏱️</p>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Don't fall in love with a question</h3>
+                        </div>
+
+                        <div class="grid md:grid-cols-3 gap-4 mt-6">
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <p class="text-2xl mb-2">👉</p>
+                                <p class="text-gray-700 font-medium">Skip</p>
+                            </div>
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="text-2xl mb-2">👉</p>
+                                <p class="text-gray-700 font-medium">Mark</p>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-2xl mb-2">👉</p>
+                                <p class="text-gray-700 font-medium">Return later</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-gray-700 font-medium text-center">If you can't find the path in 30 seconds —
+                                move on!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Summary Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div
+                    class="bg-gradient-to-r from-purple-50 to-blue-50 p-8 rounded-lg border border-purple-200 shadow-sm">
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 text-center">Master the Art of Smart
+                        Selection</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-lg border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Key Takeaways</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Classify questions within 10 seconds</li>
+                                <li>Follow the 3-round solving strategy</li>
+                                <li>Practice E/M/T marking in mocks</li>
+                                <li>Never get emotionally attached to any question</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg border border-gray-200">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Expected Results</h3>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Better time management</li>
+                                <li>Higher accuracy rate</li>
+                                <li>Reduced stress during exam</li>
+                                <li>Improved overall score</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="Exam-Strategy-and-Time-Management.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="Common-Traps-and-Mistakes.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Become a Smart Question Selector!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library to master exam strategies and boost your SSC CGL
+                    score.</p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2026 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

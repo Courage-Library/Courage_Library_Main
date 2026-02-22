@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Data Sufficiency for SSC CGL with complete guide. Learn DS approach, statement analysis, sufficiency testing with examples and practice problems." />
+    <meta name="keywords"
+        content="Data Sufficiency SSC CGL, DS Approach, Statement Analysis, Sufficiency Testing, Quantitative Aptitude, SSC Exam Preparation, Courage Library" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Data Sufficiency - Quantitative Aptitude for SSC CGL | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../../../index.html" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <button aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </button>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Data and Miscellaneous Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Data & Miscellaneous -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Data & Miscellaneous
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Data-Sufficiency.html" class="nav-link" title="Data Interpretation">Data
+                                Interpretation</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Data-Interpretation.html" class="nav-link" title="Data Sufficiency">Data
+                                Sufficiency</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Miscellaneous-Topics.html" class="nav-link"
+                                title="Miscellaneous Topics">Miscellaneous
+                                Topics</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Data Sufficiency</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC-CGL Exam</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Overview Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Overview</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        <strong>Data Sufficiency (DS)</strong> tests your ability to <strong>analyze whether given data
+                            is enough to solve a problem</strong>, rather than calculating exact answers.
+                    </p>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">SSC CGL style DS:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Two statements provided</li>
+                            <li>Decide if the statements are <strong>sufficient individually or together</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Options are usually:</h3>
+                        <ol class="list-decimal list-inside text-gray-700 space-y-1">
+                            <li>Statement 1 alone sufficient</li>
+                            <li>Statement 2 alone sufficient</li>
+                            <li>Both together sufficient, neither alone</li>
+                            <li>Each alone sufficient</li>
+                            <li>Neither sufficient</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Approach Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Approach / Steps</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">1. Read the question carefully</h3>
+                                <p class="text-gray-700">Identify what is asked: value, ratio, possibility, yes/no,
+                                    max/min</p>
+                            </div>
+
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">2. Analyze each statement
+                                    individually</h3>
+                                <p class="text-gray-700">Ignore the other statement first</p>
+                            </div>
+
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">3. Check sufficiency</h3>
+                                <p class="text-gray-700">Can you answer uniquely with this statement alone?</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">4. Combine statements if needed
+                                </h3>
+                                <p class="text-gray-700">Sometimes only together they provide a unique answer</p>
+                            </div>
+
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">5. Do not calculate exact value
+                                </h3>
+                                <p class="text-gray-700">Unless absolutely necessary</p>
+                            </div>
+
+                            <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">6. Use options smartly</h3>
+                                <p class="text-gray-700">Compare with standard SSC options</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Tips Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Common Tips</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-medium text-gray-800">Look for unique determination - Value must be
+                                    unique → statement sufficient</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="font-medium text-gray-800">Ignore unnecessary details - Focus on what is
+                                    required</p>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                                <p class="font-medium text-gray-800">Check ranges - If multiple possibilities →
+                                    statement insufficient</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <p class="font-medium text-gray-800">Watch for "yes/no" type DS - Statements sufficient
+                                    if answer can be definitely "Yes" or "No"</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="font-medium text-gray-800">Practice SSC patterns - Numbers, ages, ratios,
+                                    algebraic equations, speed/time/distance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Examples Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Examples (SSC Style)</h2>
+
+                <!-- Example 1 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 1:</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <p class="text-lg font-medium text-gray-800">Question: What is the value of x?</p>
+                        <p class="text-gray-700 mt-2">1. x + y = 10</p>
+                        <p class="text-gray-700">2. x − y = 2</p>
+                    </div>
+
+                    <div class="space-y-3 mb-4">
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="font-medium text-gray-800">Step 1: Statement 1 alone → x + y = 10 → insufficient
+                            </p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p class="font-medium text-gray-800">Step 2: Statement 2 alone → x − y = 2 → insufficient
+                            </p>
+                        </div>
+                        <div class="p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <p class="font-medium text-gray-800">Step 3: Together → x + y =10, x − y=2 → Solve: x = 6, y
+                                = 4 → sufficient</p>
+                        </div>
+                    </div>
+
+                    <details class="cursor-pointer">
+                        <summary
+                            class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer</summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">Option 3: Both together sufficient</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Example 2 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 2:</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <p class="text-lg font-medium text-gray-800">Question: What is the speed of the car?</p>
+                        <p class="text-gray-700 mt-2">1. Car covers 120 km in 2 hours</p>
+                        <p class="text-gray-700">2. Car covers 60 km in 1 hour</p>
+                    </div>
+
+                    <div class="space-y-3 mb-4">
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="font-medium text-gray-800">Step 1: Statement 1 alone → Speed = 120/2=60 km/h →
+                                sufficient</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p class="font-medium text-gray-800">Step 2: Statement 2 alone → Speed = 60/1=60 km/h →
+                                sufficient</p>
+                        </div>
+                    </div>
+
+                    <details class="cursor-pointer">
+                        <summary
+                            class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer</summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">Option 4: Each alone sufficient</p>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Example 3 -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 3:</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <p class="text-lg font-medium text-gray-800">Question: Is x > 10?</p>
+                        <p class="text-gray-700 mt-2">1. x + 5 > 15</p>
+                        <p class="text-gray-700">2. x − 2 < 20</p>
+                    </div>
+
+                    <div class="space-y-3 mb-4">
+                        <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="font-medium text-gray-800">Step 1: Statement 1 → x +5>15 → x>10 → sufficient</p>
+                        </div>
+                        <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <p class="font-medium text-gray-800">Step 2: Statement 2 → x−2<20 → x<22 → insufficient (x
+                                    can be <10 or>10)</p>
+                        </div>
+                    </div>
+
+                    <details class="cursor-pointer">
+                        <summary
+                            class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                            View Answer</summary>
+                        <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-medium">Option 1: Statement 1 alone sufficient</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- SSC Short Tricks Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. SSC Short Tricks / Tips</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Statement first approach</h3>
+                                <p class="text-gray-700">Check sufficiency → solve only if necessary</p>
+                            </div>
+
+                            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Algebraic equations</h3>
+                                <p class="text-gray-700">One equation, one variable → sufficient</p>
+                                <p class="text-gray-700">One equation, two variables → insufficient</p>
+                            </div>
+
+                            <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Yes/No questions</h3>
+                                <p class="text-gray-700">Evaluate logically, not numerically</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Inequalities</h3>
+                                <p class="text-gray-700">Check all possibilities, consider boundary cases</p>
+                            </div>
+
+                            <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Speed/Time/Distance</h3>
+                                <p class="text-gray-700">One statement giving either time, speed, distance → often
+                                    sufficient</p>
+                            </div>
+
+                            <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Ratio/Age problems</h3>
+                                <p class="text-gray-700">Usually need both statements to find unique values</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Practice Section</h2>
+
+                <div class="space-y-6">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. Find x.</h3>
+                        <p class="text-gray-700 mb-3">1. x + 7 = 12</p>
+                        <p class="text-gray-700 mb-4">2. x − 3 = 5</p>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Statement 1 → x=5 → sufficient</p>
+                                <p class="text-green-700">Statement 2 → x=8 → sufficient</p>
+                                <p class="text-green-700 font-medium">Each alone sufficient → Option 4</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. Is y even?</h3>
+                        <p class="text-gray-700 mb-3">1. y² = 16</p>
+                        <p class="text-gray-700 mb-4">2. y − 3 = 1</p>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Statement 1 → y = ±4 → y=4→ even, y=−4 → even → sufficient</p>
+                                <p class="text-green-700">Statement 2 → y=4 → y even → sufficient</p>
+                                <p class="text-green-700 font-medium">Option 4: Each alone sufficient</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. Find speed of train.</h3>
+                        <p class="text-gray-700 mb-3">1. Train travels 120 km in 1 hour</p>
+                        <p class="text-gray-700 mb-4">2. Train travels 180 km in 1.5 hours</p>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Both statements alone → speed = 120 km/h → sufficient</p>
+                                <p class="text-green-700 font-medium">Option 4: Each alone sufficient</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Find z.</h3>
+                        <p class="text-gray-700 mb-3">1. 2z + 3 = 9</p>
+                        <p class="text-gray-700 mb-4">2. z² − 16 = 0</p>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Statement 1 → 2z=6 → z=3 → sufficient</p>
+                                <p class="text-green-700">Statement 2 → z²−16=0 → z=4 or −4 → insufficient</p>
+                                <p class="text-green-700 font-medium">Option 1: Statement 1 alone sufficient</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. Is x+y = 10?</h3>
+                        <p class="text-gray-700 mb-3">1. x=5, y=5</p>
+                        <p class="text-gray-700 mb-4">2. x+y>8</p>
+                        <details class="cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Statement 1 → x+y=10 → sufficient</p>
+                                <p class="text-green-700">Statement 2 → x+y>8 → insufficient</p>
+                                <p class="text-green-700 font-medium">Option 1: Statement 1 alone sufficient</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Recap Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Quick Recap Table</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Step</th>
+                                <th class="px-4 py-3">Key Tip</th>
+                                <th class="px-4 py-3">SSC Shortcut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Step 1</td>
+                                <td class="px-4 py-3">Read question carefully</td>
+                                <td class="px-4 py-3">Identify what is asked</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Step 2</td>
+                                <td class="px-4 py-3">Analyze Statement 1 alone</td>
+                                <td class="px-4 py-3">Solve only if needed</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Step 3</td>
+                                <td class="px-4 py-3">Analyze Statement 2 alone</td>
+                                <td class="px-4 py-3">Check for unique answer</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Step 4</td>
+                                <td class="px-4 py-3">Combine if needed</td>
+                                <td class="px-4 py-3">Use logic, not calculations</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Step 5</td>
+                                <td class="px-4 py-3">Choose option</td>
+                                <td class="px-4 py-3">Compare to standard SSC options</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Tip</td>
+                                <td class="px-4 py-3">One equation, one variable → usually sufficient</td>
+                                <td class="px-4 py-3">Inequalities → check all possibilities</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Article 15: Data Sufficiency!
+                    </h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: In SSC DS, thinking logically beats calculation
+                            speed. Focus on statement sufficiency, uniqueness, and yes/no reasoning.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="Data-Interpretation.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="Miscellaneous-Topics.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Start Your SSC CGL Journey Now!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library to experience disciplined study and expert support.
+                </p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2026 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

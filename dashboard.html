@@ -36,6 +36,54 @@
                 <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
                 <a href="index.html#contact" class="hover:text-blue-600">Contact</a>
 
+                <!-- Notification Bell -->
+                <div class="relative">
+
+                    <button id="notificationBell" class="relative text-gray-600 hover:text-blue-600 transition">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                        </svg>
+
+                        <!-- Badge -->
+                        <span id="notificationCount" class="hidden absolute -top-1 -right-1
+            bg-red-500 text-white text-[10px]
+            px-1.5 py-0.5 rounded-full">
+                        </span>
+
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div id="notificationDropdown" class="hidden absolute right-0 mt-3 w-80 bg-white
+    rounded-xl shadow-2xl border border-gray-100
+    z-50 overflow-hidden">
+
+                        <!-- Header -->
+                        <div class="flex items-center justify-between px-4 py-3 border-b">
+                            <h4 class="text-sm font-semibold text-gray-900">
+                                Notifications
+                            </h4>
+
+                            <button id="markAllReadBtn" class="text-xs text-blue-600 hover:underline">
+                                Mark all as read
+                            </button>
+                        </div>
+
+                        <!-- Notification List -->
+                        <div id="notificationList" class="max-h-80 overflow-y-auto divide-y divide-gray-100">
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="px-4 py-3 border-t text-center">
+                            <a href="notifications.html" class="text-sm text-blue-600 hover:underline">
+                                View all notifications
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <!-- Profile Wrapper -->
                 <div class="relative flex items-center">
 
@@ -90,6 +138,27 @@
                                 </svg>
                                 Dashboard
                             </a>
+                            <!-- Notifications -->
+                            <a href="notifications.html" onclick="openNotifications()"
+                                class="w-full flex items-center justify-between px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition text-left">
+
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                    </svg>
+
+                                    Notifications
+                                </div>
+
+                                <!-- Number Badge -->
+                                <span id="mobileDropdownCount" class="hidden bg-indigo-100 text-indigo-700
+    text-[11px] px-2 py-0.5
+    rounded-full font-semibold">
+                                </span>
+
+                            </a>
                             <a href="my-plan.html" class="flex items-center gap-3 px-5 py-2.5 text-sm
           text-gray-700 hover:bg-gray-50 transition">
                                 <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -99,6 +168,16 @@
                                 </svg>
 
                                 My Plan
+                            </a>
+                            <!-- Support -->
+                            <a href="contact.html"
+                                class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                                <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                                </svg>
+                                Support
                             </a>
                             <a href="payment-history.html" class="flex items-center gap-3 px-5 py-2.5 text-sm
           text-gray-700 hover:bg-gray-50 transition">
@@ -144,12 +223,21 @@
             <!-- Mobile Navigation -->
             <div class="md:hidden relative" x-data="{ open: false }">
                 <!-- Hamburger -->
-                <button @click="open = !open" class="focus:outline-none">
-                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
+                <div class="relative">
+                    <button @click="open = !open" class="focus:outline-none relative">
+                        <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+
+                        <!-- Dot Badge -->
+                        <span id="mobileHamburgerDot" class="hidden absolute -top-1 -right-1
+    w-2.5 h-2.5 rounded-full
+    bg-indigo-600
+    ring-2 ring-white">
+                        </span>
+                    </button>
+                </div>
                 <!-- Dropdown -->
                 <div x-show="open" @click.away="open = false" x-transition
                     class="absolute right-0 mt-4 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 z-50">
@@ -180,6 +268,27 @@
                             </svg>
                             Dashboard
                         </a>
+                        <!-- Notifications -->
+                        <button @click="open = false; openMobileNotifications()"
+                            class="w-full flex items-center justify-between px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition text-left">
+
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                </svg>
+
+                                Notifications
+                            </div>
+
+                            <!-- Number Badge -->
+                            <span id="mobileMenuNotificationCount" class="hidden bg-indigo-100 text-indigo-700
+    text-[11px] px-2 py-0.5
+    rounded-full font-semibold">
+                            </span>
+
+                        </button>
                         <!-- My Plan -->
                         <a href="my-plan.html"
                             class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
@@ -189,6 +298,16 @@
                                     d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
                             </svg>
                             My Plan
+                        </a>
+                        <!-- Support -->
+                        <a href="contact.html"
+                            class="flex items-center gap-3 px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                            </svg>
+                            Support
                         </a>
                         <!-- Payment History -->
                         <a href="payment-history.html"
@@ -463,6 +582,59 @@
             </div>
         </div>
 
+        <!-- ================= MY SUPPORT REQUESTS ================= -->
+        <div id="supportRequestsCard" class="mb-12 bg-white border border-gray-200
+    rounded-xl p-6 shadow-sm hover:shadow-md
+    transition-all duration-300 hidden">
+
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 tracking-tight">
+                    My Support Requests
+                </h2>
+                <p class="text-xs text-gray-500 mt-1">
+                    Track the status of your submitted queries.
+                </p>
+            </div>
+
+            <div id="supportList" class="space-y-4">
+                <!-- Tickets will load here -->
+            </div>
+
+        </div>
+
+        <!-- SUPPORT MODAL -->
+        <div id="ticketModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-50">
+
+            <div class="flex items-center justify-center min-h-screen px-4 py-8">
+
+                <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl relative
+                    max-h-[90vh] overflow-hidden flex flex-col">
+
+                    <!-- Header -->
+                    <div class="flex items-center justify-between px-5 py-4 border-b">
+
+                        <div class="flex items-center gap-3">
+                            <h3 class="text-lg font-semibold text-gray-900">
+                                Support Ticket
+                            </h3>
+                            <div id="responseBadge"></div>
+                        </div>
+
+                        <button id="closeModalBtn" class="text-gray-400 hover:text-gray-600 text-lg">
+                            ✕
+                        </button>
+
+                    </div>
+
+                    <!-- Body -->
+                    <div id="modalContent" class="p-5 space-y-5 overflow-y-auto text-sm flex-1">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
 
 
 
@@ -532,6 +704,58 @@
             }
         </style>
 
+        <!-- MOBILE NOTIFICATION PANEL -->
+        <!-- MOBILE BOTTOM SHEET -->
+        <div id="mobileNotificationPanel" class="fixed inset-0 z-50 hidden">
+
+            <!-- Overlay -->
+            <div id="mobileOverlay" class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+            <!-- Bottom Sheet -->
+            <div id="mobileSheet" class="absolute bottom-0 left-0 right-0
+        bg-white rounded-t-2xl
+        max-h-[75vh]
+        flex flex-col
+        transform translate-y-full
+        transition-transform duration-300">
+
+                <!-- Handle -->
+                <div class="flex justify-center py-2">
+                    <div class="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+                </div>
+
+                <!-- Header -->
+                <div class="flex items-center justify-between px-5 py-3 border-b">
+
+                    <h3 class="text-base font-semibold">
+                        Notifications
+                    </h3>
+
+                    <div class="flex items-center gap-4">
+
+                        <button id="mobileMarkAllRead" class="text-xs text-blue-600 font-medium hover:underline">
+                            Mark all
+                        </button>
+
+                        <button id="closeMobileNotifications" class="text-gray-500 text-lg">
+                            ✕
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- List -->
+                <div id="mobileNotificationList" class="flex-1 overflow-y-auto divide-y divide-gray-100">
+                </div>
+
+                <!-- Footer -->
+                <a href="notifications.html" class="block w-full text-center 
+   text-sm font-medium text-gray-700 py-2 border-t rounded-lg transition">
+                    View All Notifications
+                </a>
+
+            </div>
+        </div>
     </main>
 
     <!-- ================= FOOTER (Same as index) ================= -->
@@ -573,6 +797,68 @@
             }
 
             const user = session.user;
+
+            const { data: unread } = await supaClient
+                .from("notifications")
+                .select("id")
+                .eq("user_id", user.id)
+                .eq("is_read", false);
+
+            const desktopBadge = document.getElementById("notificationCount");
+            const mobileDot = document.getElementById("mobileHamburgerDot");
+            const mobileDropdownBadge = document.getElementById("mobileMenuNotificationCount");
+
+            if (unread && unread.length > 0) {
+
+                desktopBadge.textContent = unread.length;
+                desktopBadge.classList.remove("hidden");
+
+                mobileDot.classList.remove("hidden");
+
+                mobileDropdownBadge.textContent = unread.length;
+                mobileDropdownBadge.classList.remove("hidden");
+
+            } else {
+
+                desktopBadge.classList.add("hidden");
+                mobileDot.classList.add("hidden");
+                mobileDropdownBadge.classList.add("hidden");
+            }
+
+            supaClient
+                .channel('realtime-notifications')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'INSERT',
+                        schema: 'public',
+                        table: 'notifications',
+                        filter: `user_id=eq.${user.id}`
+                    },
+                    (payload) => {
+
+                        showToast(payload.new.title, "success");
+
+                        const desktopBadge = document.getElementById("notificationCount");
+                        const mobileDot = document.getElementById("mobileHamburgerDot");
+                        const mobileDropdownBadge = document.getElementById("mobileMenuNotificationCount");
+
+                        let currentCount = Number(desktopBadge.textContent);
+                        if (isNaN(currentCount)) currentCount = 0;
+
+                        let count = currentCount + 1;
+
+                        desktopBadge.textContent = count;
+                        desktopBadge.classList.remove("hidden");
+
+                        mobileDot.classList.remove("hidden");
+
+                        mobileDropdownBadge.textContent = count;
+                        mobileDropdownBadge.classList.remove("hidden");
+
+                    }
+                )
+                .subscribe();
 
             /* ================= USER PROFILE ================= */
 
@@ -622,6 +908,68 @@
             requestAnimationFrame(() => {
                 heading.classList.remove("opacity-0");
             });
+
+            /* ================= SUPPORT REQUESTS ================= */
+
+            const { data: tickets } = await supaClient
+                .from("support_tickets")
+                .select("*")
+                .eq("user_id", user.id)
+                .order("created_at", { ascending: false });
+
+            if (tickets && tickets.length > 0) {
+
+                document.getElementById("supportRequestsCard").classList.remove("hidden");
+
+                const supportList = document.getElementById("supportList");
+                supportList.innerHTML = "";
+
+                tickets.forEach(ticket => {
+
+                    let statusColor = "bg-yellow-50 text-yellow-700 border border-yellow-200";
+                    let statusText = ticket.status || "Open";
+
+                    if (statusText === "resolved") {
+                        statusColor = "bg-green-50 text-green-700 border border-green-200";
+                    } else if (statusText === "in_progress") {
+                        statusColor = "bg-blue-50 text-blue-700 border border-blue-200";
+                    }
+
+                    const formattedDate = new Date(ticket.created_at)
+                        .toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric"
+                        });
+
+                    supportList.innerHTML += `
+<div class="flex justify-between items-center border border-gray-100
+    rounded-lg px-4 py-3 bg-gray-50 hover:bg-gray-100 transition">
+
+    <div>
+        <p class="text-sm font-medium text-gray-900">
+            #${ticket.id.slice(0, 8)}
+        </p>
+        <p class="text-xs text-gray-500 mt-1">
+            ${ticket.category} • ${formattedDate}
+        </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+        <span class="text-xs font-semibold px-3 py-1 rounded-full ${statusColor}">
+            ${statusText.replace("_", " ")}
+        </span>
+
+        <button onclick='openTicketModal(${JSON.stringify(ticket)})'
+            class="text-xs text-blue-600 font-semibold hover:underline">
+            View
+        </button>
+    </div>
+
+</div>
+`;
+                });
+            }
 
             /* ================= EXAM TARGET ================= */
 
@@ -688,7 +1036,7 @@
                 .select("*")
                 .eq("user_id", user.id)
                 .eq("study_date", today)
-                .single();
+                .maybeSingle();
 
             const hoursStudiedToday = todaySession?.hours_studied || 0;
 
@@ -808,7 +1156,9 @@
             // Apply everywhere
             document.getElementById("userInitials").textContent = initials;
             document.getElementById("menuInitials").textContent = initials;
+            document.getElementById("mobileInitials").textContent = initials;
             document.getElementById("menuUserName").textContent = formattedName;
+            document.getElementById("mobileUserName").textContent = formattedName;
 
             if (enrollments && enrollments.length > 0) {
 
@@ -1056,6 +1406,340 @@
             }, 3000);
         }
 
+        function openTicketModal(ticket) {
+
+            const modal = document.getElementById("ticketModal");
+            const content = document.getElementById("modalContent");
+            const closeBtn = document.getElementById("closeModalBtn");
+
+            closeBtn.addEventListener("click", () => {
+                modal.classList.add("hidden");
+            });
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    modal.classList.add("hidden");
+                }
+            });
+
+            const createdDate = new Date(ticket.created_at);
+            const updatedDate = new Date(ticket.updated_at);
+
+            const formattedCreated = createdDate.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+
+            // Calculate response time
+            let responseTimeText = "—";
+
+            if (ticket.admin_reply) {
+
+                const diffMs = updatedDate - createdDate;
+                const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                const diffMinutes = Math.floor((diffMs / (1000 * 60)) % 60);
+
+                if (diffHours > 0) {
+                    responseTimeText = `${diffHours}h ${diffMinutes}m`;
+                } else {
+                    responseTimeText = `${diffMinutes} minutes`;
+                }
+            }
+
+            const badgeContainer = document.getElementById("responseBadge");
+
+            if (ticket.admin_reply) {
+
+                badgeContainer.innerHTML = `
+        <span class="bg-green-50 text-green-700 
+px-2 py-0.5 text-[11px]
+sm:px-3 sm:py-1 sm:text-xs
+rounded-full font-medium">
+            Responded in ${responseTimeText}
+        </span>
+    `;
+
+            } else {
+
+                badgeContainer.innerHTML = `
+        <span class="bg-yellow-50 text-yellow-700
+            px-3 py-1 rounded-full text-xs font-medium">
+            Awaiting response
+        </span>
+    `;
+            }
+
+            content.innerHTML = `
+    <!-- META STRIP -->
+<div class="border-b pb-4">
+
+    <div class="flex flex-wrap items-center justify-between gap-6 text-sm">
+
+        <div class="space-y-1">
+            <p class="text-xs text-gray-400 uppercase tracking-wide">Ticket</p>
+            <p class="font-semibold text-gray-900">
+                #${ticket.id.slice(0, 8)}
+            </p>
+        </div>
+
+        <div class="space-y-1">
+            <p class="text-xs text-gray-400 uppercase tracking-wide">Category</p>
+            <p class="text-gray-800">
+                ${ticket.category}
+            </p>
+        </div>
+
+        <div class="space-y-1">
+            <p class="text-xs text-gray-400 uppercase tracking-wide">Submitted</p>
+            <p class="text-gray-800">
+                ${formattedCreated}
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- CONVERSATION -->
+    <div class="space-y-4">
+
+        <!-- User Message -->
+        <div class="bg-gray-100 p-4 rounded-xl border">
+            <p class="text-xs text-gray-500 mb-2">
+                You
+            </p>
+            <p class="text-gray-800">
+                ${ticket.message}
+            </p>
+        </div>
+
+        ${ticket.admin_reply
+                    ? `
+            <!-- Admin Response -->
+            <div class="bg-green-50 p-4 rounded-xl border border-green-200">
+                <p class="text-xs text-green-600 font-semibold mb-2">
+                    Courage Library Support
+                </p>
+                <p class="text-green-800">
+                    ${ticket.admin_reply}
+                </p>
+            </div>
+            `
+                    : ""
+                }
+
+    </div>
+`;
+
+            modal.classList.remove("hidden");
+        }
+
+        const bell = document.getElementById("notificationBell");
+        const dropdown = document.getElementById("notificationDropdown");
+
+        bell.addEventListener("click", async (e) => {
+
+            e.stopPropagation();
+
+            if (window.innerWidth < 768) {
+                // Mobile
+                const panel = document.getElementById("mobileNotificationPanel");
+                panel.classList.remove("hidden");
+                panel.classList.add("flex");
+
+                await loadMobileNotifications();
+
+            } else {
+                // Desktop
+                dropdown.classList.toggle("hidden");
+
+                if (!dropdown.classList.contains("hidden")) {
+                    await loadNotificationPreview();
+                }
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!bell.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add("hidden");
+            }
+        });
+
+        async function loadNotificationPreview() {
+
+            const { data: { session } } = await supaClient.auth.getSession();
+            const user = session.user;
+
+            const { data } = await supaClient
+                .from("notifications")
+                .select("*")
+                .eq("user_id", user.id)
+                .order("created_at", { ascending: false })
+                .limit(5);
+
+            const list = document.getElementById("notificationList");
+            list.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                list.innerHTML = `
+            <div class="p-4 text-sm text-gray-500 text-center">
+                No notifications yet
+            </div>
+        `;
+                return;
+            }
+
+            data.forEach(n => {
+
+                list.innerHTML += `
+            <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer
+                ${n.is_read ? "" : "bg-blue-50"}">
+
+                <p class="text-sm font-medium text-gray-900">
+                    ${n.title}
+                </p>
+
+                <p class="text-xs text-gray-500 mt-1">
+                    ${n.message}
+                </p>
+
+                <p class="text-[11px] text-gray-400 mt-1">
+                    ${new Date(n.created_at).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit"
+                }).replace(",", " •")}
+                </p>
+
+            </div>
+        `;
+            });
+        }
+
+        async function loadMobileNotifications() {
+
+            const { data: { session } } = await supaClient.auth.getSession();
+            const user = session.user;
+
+            const { data } = await supaClient
+                .from("notifications")
+                .select("*")
+                .eq("user_id", user.id)
+                .order("created_at", { ascending: false });
+
+            const list = document.getElementById("mobileNotificationList");
+            list.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                list.innerHTML = `
+            <div class="p-6 text-center text-gray-500">
+                No notifications yet
+            </div>
+        `;
+                return;
+            }
+
+            data.forEach(n => {
+
+                list.innerHTML += `
+            <div class="px-5 py-4 ${n.is_read ? "" : "bg-blue-50"}">
+
+                <p class="text-sm font-semibold text-gray-900">
+                    ${n.title}
+                </p>
+
+                <p class="text-sm text-gray-600 mt-1">
+                    ${n.message}
+                </p>
+
+                <p class="text-xs text-gray-400 mt-2">
+                    ${new Date(n.created_at).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit"
+                }).replace(",", " •")}
+                </p>
+
+            </div>
+        `;
+            });
+        }
+
+        document.getElementById("markAllReadBtn")
+            .addEventListener("click", async () => {
+
+                const { data: { session } } = await supaClient.auth.getSession();
+                const user = session.user;
+
+                await supaClient
+                    .from("notifications")
+                    .update({ is_read: true })
+                    .eq("user_id", user.id)
+                    .eq("is_read", false);
+
+                document.getElementById("notificationCount").classList.add("hidden");
+                document.getElementById("mobileHamburgerDot").classList.add("hidden");
+                document.getElementById("mobileMenuNotificationCount").classList.add("hidden");
+
+                await loadNotificationPreview();
+            });
+
+        document.getElementById("mobileMarkAllRead")
+            .addEventListener("click", async () => {
+
+                const { data: { session } } = await supaClient.auth.getSession();
+                const user = session.user;
+
+                await supaClient
+                    .from("notifications")
+                    .update({ is_read: true })
+                    .eq("user_id", user.id)
+                    .eq("is_read", false);
+
+                // Hide all badges
+                document.getElementById("notificationCount").classList.add("hidden");
+                document.getElementById("mobileHamburgerDot").classList.add("hidden");
+                document.getElementById("mobileMenuNotificationCount").classList.add("hidden");
+
+                // Smoothly close bottom sheet
+                closeMobileNotifications();
+            });
+
+        function openMobileNotifications() {
+
+            const panel = document.getElementById("mobileNotificationPanel");
+            const sheet = document.getElementById("mobileSheet");
+
+            panel.classList.remove("hidden");
+
+            requestAnimationFrame(() => {
+                sheet.classList.remove("translate-y-full");
+            });
+
+            loadMobileNotifications();
+        }
+
+        function closeMobileNotifications() {
+
+            const panel = document.getElementById("mobileNotificationPanel");
+            const sheet = document.getElementById("mobileSheet");
+
+            sheet.classList.add("translate-y-full");
+
+            setTimeout(() => {
+                panel.classList.add("hidden");
+            }, 300);
+        }
+
+        document.getElementById("closeMobileNotifications")
+            .addEventListener("click", closeMobileNotifications);
+
+        document.getElementById("mobileOverlay")
+            .addEventListener("click", closeMobileNotifications);
     </script>
 
 </body>

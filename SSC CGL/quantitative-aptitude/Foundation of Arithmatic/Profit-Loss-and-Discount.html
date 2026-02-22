@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master Profit, Loss & Discount for SSC CGL with complete guide. Learn cost price, selling price, marked price, discount formulas, successive discounts, false weights with examples and practice problems." />
+    <meta name="keywords"
+        content="Profit Loss Discount SSC CGL, Cost Price Selling Price, Marked Price Discount, Successive Discounts, False Weights, Quantitative Aptitude, SSC Exam Preparation, Courage Library" />
+    <meta name="author" content="Courage Library" />
+
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/png" href="../../../images/logo.png" />
+    <title>Profit Loss Discount - Quantitative Aptitude for SSC CGL | Courage Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden bg-white text-gray-900 font-sans min-h-screen flex flex-col">
+    <header
+        class="fixed top-0 left-0 w-full z-50 shadow-md bg-white/90 backdrop-blur-xl backdrop-filter shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="../../../index.html" class="flex items-center gap-2">
+                <img src="../../../images/logo.png" alt="Logo" class="w-8 h-8 rounded-lg">
+                <span class="text-3xl font-bold text-blue-700 transition-colors cursor-pointer">Courage Library</span>
+            </a>
+        </div>
+        <button aria-label="Toggle sidebar" class="lg:hidden" onclick="toggleSidebar()">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h20 M4 12h20 M10 18h14">
+                </path>
+            </svg>
+        </button>
+        <nav class="hidden lg:block">
+            <ul class="flex gap-6 text-lg">
+                <li><a href="../../../index.html" class="text-gray-600 hover:text-blue-600 text-base transition-colors">Home</a>
+                </li>
+                <li><a href="../../../about.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">About</a></li>
+                <li><a href="../../../contact.html"
+                        class="text-gray-600 hover:text-blue-600 text-base transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-1 mt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar"
+            class="fixed lg:sticky top-16 w-64 bg-gray-100 p-6 overflow-y-auto h-[calc(100vh-4rem)] transform -translate-x-full transition-transform duration-300 lg:translate-x-0 z-40">
+            <nav class="border p-4 rounded-xl shadow-lg bg-white border-gray-200"
+                aria-label="Foundation of Arithmetic Navigation">
+                <ul class="text-base text-gray-700 space-y-4">
+
+                    <!-- Foundation of Arithmetic -->
+                    <li class="text-xl font-bold text-center text-indigo-700 bg-indigo-50 px-2 py-1 rounded">
+                        Foundation of Arithmetic
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Number-System.html" class="nav-link" title="Number System">Number System</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Percentage.html" class="nav-link" title="Percentage">Percentage</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Profit-Loss-and-Discount.html" class="nav-link"
+                                title="Profit, Loss & Discount">Profit, Loss &
+                                Discount</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Simple-Interest-and-Compound-Interest.html" class="nav-link"
+                                title="Simple Interest & Compound Interest">Simple Interest & Compound Interest</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Ratio-and-Proportion.html" class="nav-link" title="Ratio & Proportion">Ratio &
+                                Proportion</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Average.html" class="nav-link" title="Average">Average</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Time-Speed-and-Distance.html" class="nav-link" title="Time, Speed & Distance">Time,
+                                Speed &
+                                Distance</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="group hover:shadow-md hover:bg-indigo-50 transition-all duration-200 rounded p-2">
+                            <a href="Time-and-Work.html" class="nav-link" title="Time & Work">Time & Work</a>
+                            <p class="last-updated">Last Updated: <time datetime="2025-10-23">23-10-2025</time></p>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <style>
+                .nav-link {
+                    display: block;
+                    width: 100%;
+                    font-weight: 600;
+                    padding: 0.3rem 0.2rem;
+                    border-radius: 0.375rem;
+                    transition: all 0.2s ease-in-out;
+                    color: #1e3a8a;
+                    /* Tailwind's blue-900 */
+                    text-decoration: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .nav-link:hover {
+                    color: #2563eb;
+                    /* Tailwind's blue-600 */
+                    transform: translateX(4px);
+                }
+
+                .last-updated {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    padding-left: 0.2rem;
+                    margin-top: -0.25rem;
+                }
+            </style>
+        </aside>
+
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black bg-opacity-40 z-30 hidden lg:hidden">
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 md:px-8 lg:px-10 py-10 space-y-12 overflow-x-hidden">
+            <!-- Hero Section -->
+            <section class="text-center bg-gradient-to-r from-blue-50 via-white to-blue-50 py-12 rounded-lg shadow-sm">
+                <h1 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4">Profit, Loss & Discount</h1>
+                <p class="text-xl md:text-2xl font-semibold text-gray-600">SSC-CGL Exams</p>
+            </section>
+            <img src="../../../images/logo.png" alt="Courage Library Logo"
+                class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10 w-64 pointer-events-none z-0" />
+
+            <!-- Introduction Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">1. Introduction</h2>
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Profit, Loss, and Discount questions check your understanding of <strong>cost, selling, and
+                            marked price relations</strong>. They are among the most scoring topics in SSC exams — once
+                        you master the formulas and common traps like successive discounts or false weights. Let's learn
+                        all concepts step-by-step.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Basic Concepts & Formulas Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">2. Basic Concepts & Formulas</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Term</th>
+                                <th class="px-4 py-3">Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Cost Price (C.P.)</td>
+                                <td class="px-4 py-3">The price at which an article is bought</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Selling Price (S.P.)</td>
+                                <td class="px-4 py-3">The price at which it is sold</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Marked Price (M.P.)</td>
+                                <td class="px-4 py-3">The printed price before discount</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Discount (D)</td>
+                                <td class="px-4 py-3">The reduction given on the marked price</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <!-- Profit Section -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Profit / Gain</h3>
+                        <p class="text-lg text-gray-700 mb-4">When S.P. > C.P.</p>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-gray-800">Profit = S.P. - C.P.</p>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-gray-800">Profit% = (Profit / C.P.) × 100</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loss Section -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Loss</h3>
+                        <p class="text-lg text-gray-700 mb-4">When C.P. > S.P.</p>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="text-gray-800">Loss = C.P. - S.P.</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                <p class="text-gray-800">Loss% = (Loss / C.P.) × 100</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Relation Between C.P. and S.P.</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-800">S.P. = C.P. × (1 + Gain%/100)</p>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-800">C.P. = S.P. × (1 - Gain%/100)</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-gray-800">S.P. = C.P. × (1 - Loss%/100)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-4">
+                    <p class="text-gray-800 font-medium">Trick to Remember: Always take C.P. as the base for % profit or
+                        % loss.</p>
+                </div>
+            </section>
+
+            <!-- Marked Price and Discount Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">3. Marked Price and Discount</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Formula</th>
+                                <th class="px-4 py-3">Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Discount = M.P. - S.P.</td>
+                                <td class="px-4 py-3">Direct difference</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Discount% = (Discount / M.P.) × 100</td>
+                                <td class="px-4 py-3">Based on M.P.</td>
+                            </tr>
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">S.P. = M.P. × (1 - Discount% / 100)</td>
+                                <td class="px-4 py-3">Final price after discount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Example 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 1</h3>
+                        <p class="text-lg text-gray-700 mb-3">A shopkeeper marks an item at ₹1000 and allows a discount
+                            of 20%. Find the selling price.</p>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-gray-800 font-medium">S.P. = 1000 × (1 - 20/100) = ₹800</p>
+                        </div>
+                    </div>
+
+                    <!-- Example 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Example 2 (Profit after Discount)</h3>
+                        <p class="text-lg text-gray-700 mb-3">An article is marked at ₹600, discount 10%, and cost price
+                            ₹450. Find the profit%.</p>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-gray-800">S.P. = 600 × (1 - 0.10) = ₹540</p>
+                            <p class="text-gray-800">Profit = 540 - 450 = 90</p>
+                            <p class="text-gray-800 font-medium">Profit% = (90/450) × 100 = 20%</p>
+                            <p class="text-green-700 font-medium mt-2">Answer: Profit = 20%</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Successive Discounts Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">4. Successive Discounts (Discount Chain)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <p class="text-lg text-gray-700 mb-4">When two discounts are given — say 20% and 10%,</p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="text-lg font-medium text-center text-gray-800">Net Discount% = A + B - (AB/100)</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+                    <p class="text-lg text-gray-700 mb-3">M.P. = ₹2000, two successive discounts of 20% and 10%</p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-800">Net Discount% = 20 + 10 - (20×10)/100 = 28%</p>
+                        <p class="text-gray-800 font-medium">S.P. = 2000 × (1 - 28/100) = ₹1440</p>
+                        <p class="text-green-700 font-medium mt-2">Answer: Selling Price = ₹1440</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- False Weights Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">5. False Weights (Cheating by Weight)</h2>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm mb-6">
+                    <p class="text-lg text-gray-700 mb-4">Sometimes shopkeepers sell goods at a <strong>profit even at
+                            cost price</strong> by using <strong>less weight</strong>.</p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="text-lg font-medium text-center text-gray-800">Gain% = [100 × Error] / (True Weight -
+                            Error)</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Example</h3>
+                    <p class="text-lg text-gray-700 mb-3">A shopkeeper sells goods at cost price but uses 900g instead
+                        of 1kg.</p>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="text-gray-800 font-medium">Gain% = [100 × 100] / (1000 - 100) = 10000/900 = 11.11%</p>
+                        <p class="text-green-700 font-medium mt-2">Answer: 11.11% profit</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Problems Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">6. Practice with SSC-style Examples</h2>
+
+                <div class="space-y-8">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q1. A man buys a watch for ₹800 and sells
+                            it for ₹960. Find his profit%.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Profit = 960 - 800 = ₹160</p>
+                                <p class="text-green-700 font-medium">Profit% = (160/800) × 100 = 20%</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q2. A trader sells goods at 10% loss. If he
+                            had sold it for ₹540 more, he would have gained 8%. Find the cost price.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">Difference in % = 8 + 10 = 18%</p>
+                                <p class="text-green-700">So, 18% of C.P. = ₹540</p>
+                                <p class="text-green-700 font-medium">⇒ C.P. = (540 × 100) / 18 = ₹3000</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q3. A shopkeeper offers two successive
+                            discounts of 20% and 10%. Find the net discount.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700 font-medium">Net Discount = 20 + 10 - (20×10)/100 = 28%</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q4. Find the selling price if M.P. = ₹1500
+                            and discount = 25%.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700 font-medium">S.P. = 1500 × (1 - 0.25) = ₹1125</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q5. A dishonest dealer professes to sell
+                            goods at cost price but uses 850g instead of 1kg. Find his gain%.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700 font-medium">Gain% = (100 × 150) / (1000 - 150) = 15000/850 =
+                                    17.65%</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q6. A man sells two articles for ₹1200
+                            each. On one he gains 20%, on the other he loses 20%. Find his overall gain or loss%.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">C.P.₁ = 100, S.P.₁ = 120</p>
+                                <p class="text-green-700">C.P.₂ = 100, S.P.₂ = 80</p>
+                                <p class="text-green-700">Total C.P. = 100 + 125 = 225</p>
+                                <p class="text-green-700">Total S.P. = 120 + 80 = 200</p>
+                                <p class="text-green-700 font-medium">Loss% = (25/225) × 100 = 11.11% loss</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Q7. A merchant marks his goods 40% above
+                            cost price and allows a discount of 25%. Find profit%.</h3>
+                        <details class="mt-4 cursor-pointer">
+                            <summary
+                                class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                View Answer</summary>
+                            <div class="mt-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                                <p class="text-green-700">C.P. = ₹100 → M.P. = ₹140</p>
+                                <p class="text-green-700">Discount = 25% of 140 = ₹35 → S.P. = ₹105</p>
+                                <p class="text-green-700 font-medium">Profit% = 5%</p>
+                                <p class="text-green-700 font-medium">Answer: 5% Profit</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Summary Table Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <h2 class="text-2xl font-semibold text-teal-800 mb-4">7. Quick Summary Table</h2>
+
+                <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Concept</th>
+                                <th class="px-4 py-3">Formula</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Profit%</td>
+                                <td class="px-4 py-3">(Profit / C.P.) × 100</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Loss%</td>
+                                <td class="px-4 py-3">(Loss / C.P.) × 100</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">S.P.</td>
+                                <td class="px-4 py-3">C.P. × (1 ± Gain/Loss%)</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">Discount%</td>
+                                <td class="px-4 py-3">(Discount / M.P.) × 100</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Successive Discounts</td>
+                                <td class="px-4 py-3">A + B - (AB/100)</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium">False Weight Gain%</td>
+                                <td class="px-4 py-3">(100 × Error) / (True Weight - Error)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Conclusion Section -->
+            <section class="mb-12 px-4 md:px-8">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border border-green-200 shadow-sm">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">You've completed Article 3: Profit, Loss &
+                        Discount!</h2>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-600 italic">Courage Tip: Always visualize the flow of price — C.P. → M.P. →
+                            Discount → S.P. Once you control that chain, this topic becomes your fastest-scoring weapon
+                            in SSC CGL.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <section class="flex justify-between p-4">
+                <a href="Percentage.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Previous</a>
+                <div class="text-center text-xs italic text-gray-600">
+                    Developed By Jan Mohammad
+                </div>
+                <a href="Simple-Interest-and-Compound-Interest.html"
+                    class="bg-blue-600 font-semibold text-white border border-gray-300 px-3 py-1 text-center rounded-md hover:bg-blue-800 transition-colors duration-100 hover:scale-105 transform w-24 h-10">Next</a>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="text-center bg-blue-50 py-12 rounded-lg shadow-md">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-700 mb-4">Start Your SSC CGL Journey Now!</h2>
+                <p class="text-gray-700 mb-6">Join Courage Library to experience disciplined study and expert support.
+                </p>
+                <a href="../../../index.html?checkAuth=1"
+                    class="inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                    Be a Couragian!
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+        <p class="text-center">&copy; 2026 Courage Library. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
