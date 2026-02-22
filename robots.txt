@@ -1,0 +1,36 @@
+User-agent: *
+
+# ==============================
+# Allow Public Study Content
+# ==============================
+Allow: /
+Allow: /Blog/
+Allow: /ssc-gd/
+Allow: /ssc-cgl/
+Allow: /delhi-police/
+
+# ==============================
+# Block Private / User Pages
+# ==============================
+Disallow: /dashboard.html
+Disallow: /settings.html
+Disallow: /payment-history.html
+Disallow: /notifications.html
+Disallow: /chatbot.html
+
+# ==============================
+# Block System / Dev Folders
+# ==============================
+Disallow: /.qodo/
+Disallow: /agents/
+Disallow: /workflows/
+
+# ==============================
+# Block Query Parameters (if any future use)
+# ==============================
+Disallow: /*?*
+
+# ==============================
+# Sitemap Location
+# ==============================
+Sitemap: https://couragelibrary.in/sitemap.xml
