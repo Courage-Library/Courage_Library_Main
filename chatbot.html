@@ -4,18 +4,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Courage Library — Chat Assistant (Final)</title>
+    <title>Courage Library | Chat Assistant</title>
+    <link rel="icon" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
     <style>
         :root {
-            --blue: #1d4ed8;
-            --indigo: #4338ca;
-            --muted: #4b5563;
-            --bg: #ffffff;
-            --bubble: #f1f8ff;
-            --bubble-user: #e6f0ff;
-            --maxw: 380px;
-            --radius: 14px;
-            --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #7c3aed;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --bubble-bot: #eef4ff;
+            --bubble-user: #2563eb;
+            --radius: 18px;
+            --shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
         }
 
         * {
@@ -26,229 +30,320 @@
         body {
             height: 100%;
             margin: 0;
-            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-            background: var(--bg);
-            color: #072244
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto;
+            background: white;
+            color: var(--text);
         }
+
+        /* ================= CONTAINER ================= */
 
         .assistant {
             width: 100%;
-            max-width: var(--maxw);
-            height: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            border: 1px solid #eef4ff;
-            overflow: hidden
+            background: var(--card);
+            overflow: hidden;
         }
+
+        /* ================= HEADER ================= */
 
         .header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            background: linear-gradient(90deg, rgba(29, 78, 216, 0.06), rgba(67, 56, 202, 0.03));
-            border-bottom: 1px solid rgba(29, 78, 216, 0.04)
+            gap: 14px;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
         }
 
         .logo {
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border-radius: 10px;
             overflow: hidden;
-            flex: 0 0 40px
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            display: block
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column
+            object-fit: contain;
         }
 
         .brand .title {
             font-weight: 700;
-            font-size: 15px;
-            color: #072244
+            font-size: 14px;
         }
 
         .brand .sub {
-            font-size: 12px;
-            color: var(--muted)
+            font-size: 11px;
+            opacity: .85;
         }
 
         .hdr-actions {
             margin-left: auto;
             display: flex;
-            gap: 8px
+            gap: 8px;
         }
 
         .hdr-btn {
-            background: transparent;
-            border: 0;
-            padding: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 8px;
             cursor: pointer;
-            color: var(--muted)
+            color: white;
+            padding: 0;
         }
+
+        .hdr-btn svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+            /* removes inline spacing */
+        }
+
+        .hdr-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ================= BODY ================= */
 
         .body {
+            flex: 1 1 auto;
+            min-height: 0;
             padding: 12px;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            overflow: auto;
-            height: calc(100% - 140px)
+            gap: 12px;
+            scroll-behavior: smooth;
         }
 
+        /* ================= MESSAGE BUBBLES ================= */
+
         .msg {
-            max-width: 86%;
-            padding: 12px 14px;
-            border-radius: 12px;
+            max-width: 94%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            font-size: 13px;
             line-height: 1.5;
-            font-size: 14px
+            animation: fadeIn .25s ease;
         }
 
         .bot {
-            background: var(--bubble);
             align-self: flex-start;
-            border-left: 3px solid var(--blue);
-            color: #072244;
-            box-shadow: 0 6px 16px rgba(13, 42, 99, 0.04)
+            background: var(--bubble-bot);
+            border-bottom-left-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
         }
 
         .user {
-            background: var(--bubble-user);
             align-self: flex-end;
-            border-right: 3px solid var(--indigo);
-            color: #072244;
-            box-shadow: 0 6px 16px rgba(16, 24, 40, 0.04)
+            background: var(--bubble-user);
+            color: white;
+            border-bottom-right-radius: 6px;
+            box-shadow: 0 4px 10px rgba(37,99,235,0.25);
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= TEXT STYLES ================= */
 
         .meta {
             font-size: 12px;
             color: var(--muted);
-            margin-top: 6px
+            margin-top: 6px;
         }
 
         .section-title {
-            font-weight: 700;
-            color: var(--blue);
-            margin-bottom: 6px
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 14px;
         }
 
         .topic {
             font-size: 13px;
             color: var(--muted);
-            line-height: 1.5
         }
 
         .divider {
             height: 1px;
-            background: #f1f5f9;
-            margin: 8px 0;
-            border-radius: 4px
+            background: #e2e8f0;
+            margin: 6px 0;
         }
 
+        /* ================= QUICK ACTION BUTTONS ================= */
+
         .controls {
-            padding: 12px;
-            border-top: 1px solid #f1f6ff;
+            padding: 8px 10px;
             display: flex;
             gap: 8px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            border-top: 1px solid #f1f5f9;
+            background: #f8fafc;
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
         }
 
         .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             padding: 8px 12px;
             border-radius: 999px;
-            background: #f7fbff;
-            border: 1px solid rgba(29, 78, 216, 0.06);
-            color: var(--blue);
-            font-weight: 600;
-            font-size: 13px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
-            min-height: 40px
+            transition: .2s;
+        }
+
+        .pill:hover {
+            background: #eef2ff;
+            border-color: #c7d2fe;
         }
 
         .pill.primary {
-            background: var(--blue);
-            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
             border: none;
-            box-shadow: 0 8px 20px rgba(29, 78, 216, 0.14)
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
         }
 
-        .pill svg {
-            width: 16px;
-            height: 16px
+        .pill.primary:hover {
+            transform: translateY(-1px);
         }
 
-        .typing-wrap {
+        /* ================= INPUT ================= */
+
+        .chat-input {
             display: flex;
-            justify-content: flex-start
+            padding: 8px 10px;
+            gap: 10px;
+            border-top: 1px solid #f1f5f9;
+            background: white;
         }
 
-        .typing {
-            display: inline-flex;
-            gap: 6px;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 12px;
-            background: #f4f6ff;
-            border-left: 3px solid var(--blue);
-            margin-bottom: 6px
+        .chat-input input {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
+            outline: none;
+            transition: .2s;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .chat-input button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .chat-input button:hover {
+            transform: translateY(-1px);
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:480px) {
+            .assistant {
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+
+        .recommend-card {
+            background: #f0f9ff;
+            border: 1px solid #dbeafe;
+            padding: 14px;
+            border-radius: 16px;
+            animation: fadeIn .25s ease;
+        }
+
+        .recommend-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .recommend-text {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 14px;
+            line-height: 1.5;
+        }
+
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .info-list {
+            font-size: 12.5px;
+            color: #475569;
+            margin-top: 6px;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(7, 34, 68, 0.22);
-            animation: blink 1s infinite
+            animation: blink 1.2s infinite;
         }
 
         .dot:nth-child(2) {
-            animation-delay: 0.12s
+            animation-delay: .2s;
         }
 
         .dot:nth-child(3) {
-            animation-delay: 0.24s
+            animation-delay: .4s;
         }
 
         @keyframes blink {
             0% {
-                opacity: 0.2
+                opacity: .2;
             }
 
             50% {
-                opacity: 1
+                opacity: 1;
             }
 
             100% {
-                opacity: 0.2
-            }
-        }
-
-        @media(max-width:520px) {
-            :root {
-                --maxw: 100vw
-            }
-
-            .body {
-                height: calc(100% - 128px);
-                padding: 10px
-            }
-
-            .controls {
-                padding: 10px
+                opacity: .2;
             }
         }
     </style>
@@ -263,490 +358,530 @@
                 <div class="title">Courage Library</div>
                 <div class="sub">India's first Virtual Library for Government Exam</div>
             </div>
-            <!-- <div class="hdr-actions" aria-hidden="true">
-                <button class="hdr-btn" title="Contact support"
-                    onclick="window.open('mailto:support@couragelibrary.in')">Contact</button>
-            </div> -->
+            <div class="hdr-actions">
+                <button class="hdr-btn" onclick="restartChat()" title="Restart chat" aria-label="Restart chat">
+                    <!-- Restart Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-refresh-ccw-icon lucide-refresh-ccw">
+                        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                        <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                        <path d="M16 16h5v5" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <div id="body" class="body" role="log" aria-live="polite"></div>
         <div id="controls" class="controls" role="toolbar" aria-label="Quick actions"></div>
+
+        <!-- Chat Input -->
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ask about SSC CGL syllabus..." />
+            <button id="sendBtn">Send</button>
+        </div>
     </div>
 
     <script>
+
+        /* =========================================
+           COURAGE LIBRARY SMART CHATBOT (CLEAN)
+           ========================================= */
+        // If chatbot is opened directly (not inside iframe)
+        if (window.top === window.self) {
+            window.location.href = "index.html";
+        }
+
         /* ---------- DOM ---------- */
         const bodyEl = document.getElementById('body');
         const controlsEl = document.getElementById('controls');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
 
-        /* ---------- Helpers ---------- */
-        function createDiv(cls, html) { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; return d; }
-        function pushUser(text) { bodyEl.appendChild(createDiv('msg user', text)); bodyEl.scrollTop = bodyEl.scrollHeight; }
-        function pushBotNow(html) { bodyEl.appendChild(createDiv('msg bot', html)); bodyEl.scrollTop = bodyEl.scrollHeight; }
-        function clearControls() { controlsEl.innerHTML = ''; }
+        /* ---------- SMART STATE ---------- */
+        let categoryClicks = {
+            SSC: 0,
+            Defence: 0,
+            Railway: 0,
+            Banking: 0
+        };
+        let userCategory = null;
+        let interactionCount = 0;
 
-        /* ---------- Typing ---------- */
-        function showTyping(ms = 700) {
-            return new Promise(resolve => {
-                const wrap = document.createElement('div'); wrap.className = 'typing-wrap'; wrap.id = '__typing_wrap';
-                const t = document.createElement('div'); t.className = 'typing'; t.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
-                wrap.appendChild(t); bodyEl.appendChild(wrap); bodyEl.scrollTop = bodyEl.scrollHeight;
-                setTimeout(() => { const el = document.getElementById('__typing_wrap'); if (el) el.remove(); resolve(); }, ms);
+        /* ---------- LOCAL STORAGE ---------- */
+        function saveChat() {
+            const data = {
+                html: bodyEl.innerHTML,
+                timestamp: Date.now()
+            };
+            localStorage.setItem("courage_chat", JSON.stringify(data));
+        }
+
+        function loadChat() {
+            const saved = localStorage.getItem("courage_chat");
+            if (!saved) return start();
+
+            const parsed = JSON.parse(saved);
+
+            const oneDay = 24 * 60 * 60 * 1000;
+
+            if (Date.now() - parsed.timestamp > oneDay) {
+                localStorage.removeItem("courage_chat");
+                return start();
+            }
+
+            bodyEl.innerHTML = parsed.html;
+        }
+
+        /* ---------- HELPERS ---------- */
+        function createDiv(cls, html) {
+            const d = document.createElement("div");
+            d.className = cls;
+            d.innerHTML = html;
+            return d;
+        }
+
+        function pushUser(text) {
+            bodyEl.appendChild(createDiv("msg user", text));
+            bodyEl.scrollTop = bodyEl.scrollHeight;
+            interactionCount++;
+
+            // 🔥 Smart Nudging After 3 Interactions
+            if (interactionCount === 3 && userCategory) {
+                setTimeout(() => {
+                    pushBot(`
+    <div class="recommend-card">
+        <div class="recommend-title">
+            🎯 Smart Recommendation
+        </div>
+        <div class="recommend-text">
+            Students preparing for <strong>${userCategory}</strong>
+            mostly choose the <strong>6 Months Plan</strong>
+            for complete structured preparation.
+        </div>
+    </div>
+`);
+                }, 600);
+            }
+
+            saveChat();
+        }
+
+        function showTyping(callback) {
+            const typing = createDiv("msg bot", `
+    <span style="opacity:.6;">Typing</span>
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+    <span class="dot">.</span>
+`);
+            bodyEl.appendChild(typing);
+            bodyEl.scrollTop = bodyEl.scrollHeight;
+
+            setTimeout(() => {
+                typing.remove();
+                callback();
+            }, 700);
+        }
+        function pushBot(html) {
+
+            showTyping(() => {
+                bodyEl.appendChild(createDiv("msg bot", html));
+                bodyEl.scrollTop = bodyEl.scrollHeight;
+                saveChat();
             });
         }
-        async function pushBot(html) { await showTyping(650); pushBotNow(html); }
 
-        /* ---------- Icons ---------- */
-        /* ===================== PREMIUM MODERN ICON SET ===================== */
+        function clearControls() {
+            controlsEl.innerHTML = "";
+        }
 
-        /* Academic / Courses */
-        function SvgAcademic() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/></svg>'; }
+        function setPills(list) {
+            clearControls();
+            list.forEach(item => {
+                const btn = document.createElement("button");
+                btn.className = "pill" + (item.primary ? " primary" : "");
+                btn.innerText = item.label;
+                btn.onclick = () => {
+                    pushUser(item.label);
+                    item.onClick();
+                };
+                controlsEl.appendChild(btn);
+            });
+        }
 
-        /* List / Syllabus / Features */
-        function SvgList() { return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="4" cy="18" r="1.5"/></svg>'; }
+        /* =========================================
+           START MENU
+           ========================================= */
 
-        function SvgBuilding() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16"><path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/><path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z"/></svg>'; }
-        
-        function SvgShield() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16"><path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/><path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/></svg>'; }
-        
-        function SvgTrain() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-train-freight-front" viewBox="0 0 16 16"><path d="M5.065.158A1.5 1.5 0 0 1 5.736 0h4.528a1.5 1.5 0 0 1 .67.158l3.237 1.618a1.5 1.5 0 0 1 .83 1.342V13.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V3.118a1.5 1.5 0 0 1 .828-1.342zM2 9.372V13.5A1.5 1.5 0 0 0 3.5 15h4V8h-.853a.5.5 0 0 0-.144.021zM8.5 15h4a1.5 1.5 0 0 0 1.5-1.5V9.372l-4.503-1.35A.5.5 0 0 0 9.353 8H8.5zM14 8.328v-5.21a.5.5 0 0 0-.276-.447l-3.236-1.618A.5.5 0 0 0 10.264 1H5.736a.5.5 0 0 0-.223.053L2.277 2.67A.5.5 0 0 0 2 3.118v5.21l1-.3V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3.028zm-2-.6V5H8.5v2h.853a1.5 1.5 0 0 1 .431.063zM7.5 7V5H4v2.728l2.216-.665A1.5 1.5 0 0 1 6.646 7zm-1-5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-3 8a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1m9 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1M5 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg>'; }
-        
-        function SvgBank() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank" viewBox="0 0 16 16"><path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z"/></svg>'; }
-        
-        function SvgAward() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16"><path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/><path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/></svg>'; }
-        
-        function SvgPersonWorkspace() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16"><path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/><path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"/></svg>'; }
-        
-        function SvgShieldShaded() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-shaded" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 14.933a1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/></svg>'; }
-        
-        function SvgPatchCheck() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/><path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/></svg>'; }
-        
-        function SvgJournalText() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16"><path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/></svg>'; }
-        
-        function SvgStars() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stars" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/></svg>'; }
-        
-        function SvgClipboardCheck() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-check" viewBox="0 0 16 16"><path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/><path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/><path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/></svg>'; }
-        
-        function SvgShieldFill() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-fill" viewBox="0 0 16 16"><path d="M5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/></svg>'; }
-        
-        function SvgAirplain() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane-fill" viewBox="0 0 16 16"><path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849"/></svg>'; }
-        
-        function SvgAnchor() { return '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-anchor-icon lucide-anchor"><path d="M12 6v16"/><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1"/><path d="M9 11h6"/><circle cx="12" cy="4" r="2"/></svg>'; }
-        
-        function SvgMorterboard() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16"><path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/><path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/></svg>'; }
-        
-        function SvgTools() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16"><path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/></svg>'; }
-        
-        function SvgSpeedometer() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer" viewBox="0 0 16 16"><path d="M8 2a.5.5 0 0 1 .5.5V4a.5.5 0 0 1-1 0V2.5A.5.5 0 0 1 8 2M3.732 3.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 8a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 8m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 7.31A.91.91 0 1 0 8.85 8.569l3.434-4.297a.39.39 0 0 0-.029-.518z"/><path fill-rule="evenodd" d="M6.664 15.889A8 8 0 1 1 9.336.11a8 8 0 0 1-2.672 15.78zm-4.665-4.283A11.95 11.95 0 0 1 8 10c2.186 0 4.236.585 6.001 1.606a7 7 0 1 0-12.002 0"/></svg>'; }
-        
-        function SvgGearFill() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>'; }
+        function start() {
 
+            pushBot(`
+        <strong>Welcome to Courage Library</strong>
+        <div class="meta">India's Smart Virtual Library</div>
+        <div class="divider"></div>
+        <div class="section-title">Select Your Exam Category</div>
+    `);
 
-            /* Rupee / Pricing */
-            function SvgRupee() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16"><path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z"/></svg>'; }
+            setPills([
+                { label: "SSC Exams", onClick: () => showCategory("SSC") },
+                { label: "Defence Exams", onClick: () => showCategory("Defence") },
+                { label: "Railway Exams", onClick: () => showCategory("Railway") },
+                { label: "Banking Exams", onClick: () => showCategory("Banking") }
+            ]);
+        }
 
-            /* Help */
-            function SvgHelp() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/></svg>'; }
+        /* =========================================
+           CATEGORY MENU
+           ========================================= */
 
-            /* Info */
-            function SvgInfo() { return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>'; }
+        function showCategory(category) {
+            categoryClicks[category]++;
+            console.log("Category Stats:", categoryClicks);
 
-            /* Book Icon (For Notes / Study Material / Chapters) */
-            function SvgBook() { return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 19.5V4.6a1.6 1.6 0 0 1 1.6-1.6h12.8A1.6 1.6 0 0 1 20 4.6v14.8"/><path d="M4 19.5h14.4"/><path d="M8 7h8"/></svg>'; }
+            userCategory = category;
 
-            /* Timer Icon (for Slot Booking / Duration / Time-based content) */
-            function SvgTimer() { return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="8"/><path d="M12 2v4"/><path d="M12 14l4 2"/></svg>'; }
+            pushBot(`
+        <strong>${category} Exams</strong>
+        <div class="meta">Choose a course</div>
+    `);
 
-            /* Mock Test Icon */
-            function SvgMock() { return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 8h8"/><path d="M8 12h5"/></svg>'; }
+            const courses = {
+                SSC: ["SSC CGL", "SSC MTS", "SSC GD", "Delhi Police"],
+                Defence: ["Army", "NDA", "Airforce"],
+                Railway: ["RRB NTPC", "RRB Group D", "RRB ALP"],
+                Banking: ["IBPS PO", "SBI PO", "IBPS Clerk"]
+            };
 
-            /* Bookmark Icon (for Saved courses, favourites, etc.) */
-            function SvgBookmark() { return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>'; }
+            const buttons = courses[category].map(course => ({
+                label: course,
+                onClick: () => showCourse(course)
+            }));
 
-            /* Dashboard Icon (Optional: for Home / Main menu) */
-            function SvgDashboard() { return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>'; }
+            buttons.push({ label: "⬅ Back", onClick: start });
 
-            /* ================== END OF PREMIUM MODERN ICON SET ================== */
+            setPills(buttons);
+        }
 
-            /* ---------- Buttons ---------- */
-            function makePill(label, opts = {}) {
-                const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'pill' + (opts.primary ? ' primary' : '');
-                if (opts.icon) { const iconWrap = document.createElement('span'); iconWrap.style.display = 'inline-flex'; iconWrap.style.marginRight = '6px'; iconWrap.style.opacity = '0.98'; iconWrap.innerHTML = opts.icon; btn.appendChild(iconWrap); }
-                const txt = document.createElement('span'); txt.innerText = label; btn.appendChild(txt);
-                btn.addEventListener('click', () => { pushUser(label); setTimeout(() => { if (typeof opts.onClick === 'function') opts.onClick(); }, 160); });
-                return btn;
-            }
-            function setPills(list) { clearControls(); list.forEach(item => controlsEl.appendChild(makePill(item.label, { icon: item.icon, primary: item.primary, onClick: item.onClick }))); }
+        /* =========================================
+           COURSE VIEW
+           ========================================= */
 
-            /* ---------- Enroll redirect ---------- */
-            function enroll(course, plan = '') {
-                const url = 'enroll.html?course=' + encodeURIComponent(course) + (plan ? ('&plan=' + plan) : '');
-                try { window.top.location.href = url; } catch (e) { window.location.href = url; }
-            }
+        function showCourse(courseName) {
 
-            /* ---------- Pricing ---------- */
-            const prices = { '1': 149, '3': 349, '6': 749, '12': 1199 };
+            pushBot(`
+        <strong>${courseName}</strong>
+        <div class="meta">Complete Preparation Package</div>
+    `);
 
-            /* ---------- Utility small shared content fragments ---------- */
-            function featuresListHtml(short) {
-    return '<div class="meta">Self-Paced Learning, Easy-to-Understand Notes, Exam-Pattern Mock Tests, Performance Dashboard, Doubt Support.</div>'
-        + (short ? '' : '<div class="topic">Includes Short Tricks, Solved Examples, Practice Questions, Personalized Study Plans, and Progress Analytics.</div>');
-}
-            function mocksHtml(short) {
-                return '<div class="meta">Practice focused: Topic-wise quizzes, sectional tests, full-length mocks and PYQs with solutions.</div>' +
-                    (short ? '' : '<div class="topic">Mocks have detailed solutions, time analysis, accuracy reports, and suggested revision paths based on performance.</div>');
-            }
+            setPills([
+                { label: "Full Syllabus", onClick: () => showSyllabus(courseName) },
+                { label: "Mock Tests", onClick: () => showMocks(courseName) },
+                { label: "Course Fee", onClick: () => showPricing(courseName) },
+                { label: "Enroll Now", primary: true, onClick: () => enroll(courseName) },
+                { label: "⬅ Back", onClick: () => showCategory(userCategory) }
+            ]);
+        }
 
-            /* ---------- START flow ---------- */
-            function start() {
-                pushBot('<strong>Welcome to Courage Library</strong><div class="meta">Self-paced courses, structured practice, and quiet study spaces. How can I help today?</div>');
+        /* =========================================
+           COURSE DETAILS
+           ========================================= */
+
+        function showSyllabus(courseName) {
+            pushBot(`
+        <div class="section-title">${courseName} Syllabus</div>
+        <div class="topic">
+        Reasoning, Quantitative Aptitude, English, General Awareness.
+        Structured topic-wise preparation with PYQs.
+        </div>
+    `);
+        }
+
+        function showMocks(courseName) {
+            pushBot(`
+        <div class="section-title">${courseName} Mock Tests</div>
+        <div class="topic">
+        Topic-wise quizzes, sectional tests, full-length mocks,
+        performance analysis & accuracy tracking.
+        </div>
+    `);
+
+            smartRecommendation();
+        }
+
+        function showPricing(courseName) {
+
+            pushBot(`
+        <div class="section-title">${courseName} Plans</div>
+
+        <div class="topic">
+            <strong>🔥 6 Months (Most Popular)</strong><br>
+            ₹1599 
+            <span style="color:#64748b;font-size:12px;">
+            (Only ₹266/month)
+            </span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="topic">
+            3 Months – ₹899<br>
+            12 Months – ₹2499
+        </div>
+    `);
+
+            // 🧠 Trust Block Automatically
+            pushBot(`
+        <div class="divider"></div>
+        <div class="section-title">Why Choose Courage Library?</div>
+        <div class="topic">
+        ✔ Structured Topic-wise Coverage<br>
+        ✔ PYQ Based Learning<br>
+        ✔ Full-Length Mocks<br>
+        ✔ Performance Tracking
+        </div>
+    `);
+
+            // 🔥 Enrollment Funnel CTA
+            setPills([
+                { label: "Enroll Now", primary: true, onClick: () => enroll(courseName) },
+                {
+                    label: "Talk to Mentor",
+                    onClick: () => {
+
+                        const message = `Hi Courage Library Mentor,
+
+I am preparing for ${userCategory}.
+Specifically interested in ${courseName}.
+
+I would like guidance regarding:
+• Preparation roadmap
+• Mock test plan
+• Best subscription plan
+
+Please assist me.`;
+
+                        pushBot("Redirecting you to our mentor on WhatsApp...");
+
+                        setTimeout(() => {
+                            window.open(
+                                `https://wa.me/918467864390?text=${encodeURIComponent(message)}`,
+                                "_blank"
+                            );
+                        }, 800);
+                    }
+                },
+                { label: "⬅ Back", onClick: () => showCourse(courseName) }
+            ]);
+        }
+
+        /* =========================================
+           SMART RECOMMENDATION SYSTEM
+           ========================================= */
+
+        function smartRecommendation() {
+
+            if (!userCategory) return;
+
+            const recommendations = {
+                SSC: "🔥 Want to try SSC Mock Test Series also?",
+                Defence: "🔥 Interested in NDA preparation too?",
+                Railway: "🔥 Check Railway Full-Length Mock Bundle?",
+                Banking: "🔥 Want Bank Interview Preparation Guide?"
+            };
+
+            pushBot(`
+        <div class="divider"></div>
+        <div class="section-title">Recommended</div>
+        <div class="topic">${recommendations[userCategory]}</div>
+    `);
+        }
+
+        /* =========================================
+           ENROLL
+           ========================================= */
+
+        function enroll(courseName) {
+
+            pushBot(`
+        🎯 Redirecting to enrollment for <strong>${courseName}</strong>...
+    `);
+
+            setTimeout(() => {
+                window.parent.location.href = `enroll.html?course=${encodeURIComponent(courseName)}`;
+            }, 800);
+        }
+
+        /* =========================================
+           TEXT INPUT HANDLER
+           ========================================= */
+
+        function handleUserText(text) {
+
+            const msg = text.toLowerCase().trim();
+
+            /* ================= GREETINGS ================= */
+
+            if (["hi", "hello", "hey", "good morning", "good evening", "good afternoon", "good night"].some(g => msg.includes(g))) {
+
+                pushBot(`
+<div class="info-card">
+    <div class="info-title">👋 Welcome to Courage Library</div>
+    We help aspirants prepare for government exams with:
+
+    <div class="info-list">
+        ✔ Structured Courses<br>
+        ✔ Topic-wise Practice<br>
+        ✔ Full-Length Mocks<br>
+        ✔ Performance Tracking
+    </div>
+
+    <div style="margin-top:8px;">
+        Please select your exam category 👇
+    </div>
+</div>
+`);
+
                 setPills([
-                    { label: 'Courses', icon: SvgDashboard(), onClick: coursesMenu },
-                    { label: 'Library Services', icon: SvgList(), onClick: libraryMenu },
-                    { label: 'Help & Support', icon: SvgHelp(), onClick: helpMenu },
-                    { label: 'About Courage Library', icon: SvgInfo(), onClick: aboutMenu }
+                    { label: "SSC Exams", onClick: () => showCategory("SSC") },
+                    { label: "Defence Exams", onClick: () => showCategory("Defence") },
+                    { label: "Railway Exams", onClick: () => showCategory("Railway") },
+                    { label: "Banking Exams", onClick: () => showCategory("Banking") }
                 ]);
+
+                return;
             }
 
-            /* ---------- Top menus ---------- */
-            function coursesMenu() {
-                pushBot('<strong>Course Categories</strong><div class="meta">Choose a category to explore syllabus, features, mocks and enrollment.</div>');
+            /* ================= ABOUT PLATFORM ================= */
+
+            if (msg.includes("what is courage") || msg.includes("about") || msg.includes("what is this") || msg.includes("platform")) {
+
+                pushBot(`
+<div class="info-card">
+    <div class="info-title">📚 About Courage Library</div>
+
+    <div class="info-list">
+        ✔ Smart self-paced learning<br>
+        ✔ PYQ-based preparation<br>
+        ✔ Real exam-level mock tests<br>
+        ✔ Detailed performance analysis
+    </div>
+
+    <div style="margin-top:8px;">
+        Which exam are you preparing for?
+    </div>
+</div>
+`);
+
                 setPills([
-                    { label: 'SSC', icon: SvgBuilding(), onClick: sscMenu },
-                    { label: 'Defence', icon: SvgShield(), onClick: defMenu },
-                    { label: 'Railway', icon: SvgTrain(), onClick: railMenu },
-                    { label: 'Banking', icon: SvgBank(), onClick: bankMenu },
-                    { label: 'Back', onClick: start }
+                    { label: "SSC", onClick: () => showCategory("SSC") },
+                    { label: "Defence", onClick: () => showCategory("Defence") },
+                    { label: "Railway", onClick: () => showCategory("Railway") },
+                    { label: "Banking", onClick: () => showCategory("Banking") }
                 ]);
+
+                return;
             }
 
-            function libraryMenu() {
-                pushBot('<strong>Library Services</strong><div class="meta">AC study halls, silent zones, discussion rooms, printer & photocopy, purified RO water, online slot booking, and focused coaching sessions.</div>');
-                setPills([
-                    { label: 'Book a Slot', onClick: () => window.open('https://forms.gle') },
-                    { label: 'Facilities & Rules', onClick: () => pushBot('<div class="section-title">Facilities & Rules</div><div class="topic">AC halls, silent zones, group rooms, printer, free RO water, CCTV for safety. Respect silence, bring ID, no food in study halls.</div>') },
-                    { label: 'Back', onClick: start }
-                ]);
+            /* ================= HOW IT WORKS ================= */
+
+            if (msg.includes("how") && msg.includes("work")) {
+
+                pushBot(`
+<div class="info-card">
+    <div class="info-title">⚙️ How It Works</div>
+
+    <div class="info-list">
+        1️⃣ Select your exam<br>
+        2️⃣ Study structured syllabus<br>
+        3️⃣ Practice topic-wise tests<br>
+        4️⃣ Attempt full mocks<br>
+        5️⃣ Track & improve performance
+    </div>
+
+    <div style="margin-top:8px;">
+        Ready to start?
+    </div>
+</div>
+`);
+
+                return;
             }
 
-            function helpMenu() {
-                pushBot('<strong>Help & Support</strong><div class="meta">How can we help? Choose an option.</div>');
-                setPills([
-                    { label: 'Technical issue', onClick: () => pushBot('<div class="section-title">Technical Help</div><div class="topic">If you face login, payment or playback issues: clear cache, try incognito, ensure stable internet, mail to support@couragelibrary.in with a screenshot.</div>') },
-                    { label: 'Course content query', onClick: () => pushBot('<div class="section-title">Course Content</div><div class="topic">For syllabus, study plans or doubts — use the course pages, or enroll to get access to full lessons and doubt support.</div>') },
-                    { label: 'Payment & refund', onClick: () => pushBot('<div class="section-title">Payments</div><div class="topic">We support UPI, cards and netbanking. Refund policy: mail to support@couragelibrary.in with transaction ID. Enroll page has secure checkout.</div>') },
-                    { label: 'Mail us', onClick: () => window.open('mailto:support@couragelibrary.in') },
-                    { label: 'Back', onClick: start }
-                ]);
+            /* ================= DIRECT INTENT MATCH ================= */
+
+            if (msg.includes("ssc")) showCategory("SSC");
+            else if (msg.includes("delhi police")) showCategory("SSC");
+            else if (msg.includes("defence") || msg.includes("army") || msg.includes("nda")) showCategory("Defence");
+            else if (msg.includes("railway") || msg.includes("rrb")) showCategory("Railway");
+            else if (msg.includes("bank") || msg.includes("ibps") || msg.includes("sbi")) showCategory("Banking");
+
+            /* ================= PRICE QUESTIONS ================= */
+
+            else if (msg.includes("price") || msg.includes("fee") || msg.includes("cost")) {
+
+                if (userCategory) {
+                    showPricing(userCategory);
+                } else {
+                    pushBot("Please tell me which exam you are preparing for.");
+                    start();
+                }
             }
 
-            function aboutMenu() {
-                pushBot('<strong>About Courage Library</strong><div class="meta">A hybrid learning space: self-paced courses + peaceful study environment for government & competitive exam aspirants.</div>');
-                setPills([
-                    { label: 'Our Mission', onClick: () => pushBot('<div class="section-title">Our Mission</div><div class="topic">To provide high-quality, low-cost study material and a quiet environment that helps aspirants study effectively and consistently.</div>') },
-                    { label: 'Why choose us', onClick: () => pushBot('<div class="section-title">Why Courage Library</div><div class="topic">Article-wise courses, topic MCQs, rigorous mocks, in-house study halls, slot booking and community study groups.</div>') },
-                    { label: 'Back', onClick: start }
-                ]);
+            /* ================= FALLBACK ================= */
+
+            else {
+                pushBot(`
+<div class="info-card">
+    <div class="info-title">🤖 I Can Help You With</div>
+
+    <div class="info-list">
+        • Exam categories<br>
+        • Course details<br>
+        • Mock tests<br>
+        • Pricing<br>
+        • Enrollment
+    </div>
+
+    <div style="margin-top:8px;">
+        Please choose an option below 👇
+    </div>
+</div>
+`);
+
             }
+        }
 
-            /* ---------- Fees quick menu (global) ---------- */
-            function feesMenu() {
-                pushBot('<strong>Fees & Plans</strong><div class="meta">Flexible plans for courses. Choose a duration to see enroll option.</div>');
-                setPills([
-                    { label: '1 Month — ₹' + prices['1'], onClick: () => enroll('General', '1') },
-                    { label: '3 Months — ₹' + prices['3'], onClick: () => enroll('General', '3') },
-                    { label: '6 Months — ₹' + prices['6'], onClick: () => enroll('General', '6') },
-                    { label: '12 Months — ₹' + prices['12'], onClick: () => enroll('General', '12') },
-                    { label: 'Back', onClick: start }
-                ]);
-            }
+        sendBtn.onclick = () => {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            pushUser(text);
+            chatInput.value = "";
+            handleUserText(text);
+            chatInput.focus();
+        };
 
-            /* ---------- SSC Category ---------- */
-            function sscMenu() {
-                pushBot('<strong>SSC — Select Course</strong><div class="meta">We cover CGL, MTS, GD, Delhi Police and related exams.</div>');
-                setPills([
-                    { label: 'SSC CGL', icon: SvgAward(), onClick: ssc_cgl },
-                    { label: 'SSC MTS', icon: SvgPersonWorkspace(), onClick: ssc_mts },
-                    { label: 'SSC GD', icon: SvgShieldShaded(), onClick: ssc_gd },
-                    { label: 'Delhi Police', icon: SvgPatchCheck(), onClick: delhi_police },
-                    { label: 'Back', onClick: coursesMenu }
-                ]);
-            }
+        chatInput.addEventListener("keypress", e => {
+            if (e.key === "Enter") sendBtn.click();
+        });
 
-            /* ===== SSC CGL (already full) ===== */
-            function ssc_cgl() {
-                pushBot('<strong>SSC CGL</strong><div class="meta">Complete article-wise syllabus, topic-wise practice, PYQs & full mock tests.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: ssc_cgl_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: ssc_cgl_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: ssc_cgl_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: ssc_cgl_fee },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('SSC CGL') },
-                    { label: 'Back', onClick: sscMenu }
-                ]);
-            }
-            function ssc_cgl_syllabus() {
-                pushBot(
-                    '<div class="section-title">Reasoning Ability</div>' +
-                    '<div class="topic">Introduction; Verbal Reasoning (Syllogism, Blood relations, Directions, Series, Analogy, Coding-Decoding, Statement-Conclusion); Non-Verbal (Puzzles, Mirror & Water images, Figure series); Advanced practice & PYQs.</div>' +
-                    '<div class="divider"></div>' +
-                    '<div class="section-title">Quantitative Aptitude</div>' +
-                    '<div class="topic">Number system, HCF-LCM, Percentages, Ratio & Proportion, Average, Profit & Loss, Time & Work, Speed & Distance, Algebra, Geometry, Mensuration, Trigonometry basics, Data Interpretation & Short tricks.</div>' +
-                    '<div class="divider"></div>' +
-                    '<div class="section-title">General Awareness</div>' +
-                    '<div class="topic">History, Geography, Polity, Basic Economy, Science basics, Art & Culture, Environment, Sports, Books & Authors, Government schemes, Current Affairs & Miscellaneous.</div>' +
-                    '<div class="divider"></div>' +
-                    '<div class="section-title">English Language</div>' +
-                    '<div class="topic">Grammar, Vocabulary, Reading Comprehension, Cloze Tests, Error Spotting, Para Jumbles, Descriptive basics.</div>'
-                );
-                setPills([{ label: 'Course Features', icon: SvgList(), onClick: ssc_cgl_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: ssc_cgl_fee }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC CGL') }, { label: 'Back', onClick: ssc_cgl }]);
-            }
-            function ssc_cgl_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: ssc_cgl_fee }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC CGL') }, { label: 'Back', onClick: ssc_cgl }]); }
-            function ssc_cgl_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: ssc_cgl_fee }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC CGL') }, { label: 'Back', onClick: ssc_cgl }]); }
-            function ssc_cgl_fee() {
-                pushBot('<strong>Pricing</strong><div class="meta">Choose a plan to enroll.</div><div class="topic">1 Month — ₹' + prices['1'] + '<br>3 Months — ₹' + prices['3'] + '<br>6 Months — ₹' + prices['6'] + '<br>12 Months — ₹' + prices['12'] + '</div>');
-                setPills([{ label: '1M – ₹' + prices['1'], onClick: () => enroll('SSC CGL', '1') }, { label: '3M – ₹' + prices['3'], onClick: () => enroll('SSC CGL', '3') }, { label: '6M – ₹' + prices['6'], onClick: () => enroll('SSC CGL', '6') }, { label: '12M – ₹' + prices['12'], onClick: () => enroll('SSC CGL', '12') }, { label: 'Back', onClick: ssc_cgl }]);
-            }
-
-            /* ===== SSC MTS ===== */
-            function ssc_mts() {
-                pushBot('<strong>SSC MTS</strong><div class="meta">Fast-track course for SSC MTS — focused syllabus and quick revision packs.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: ssc_mts_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: ssc_mts_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: ssc_mts_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC MTS') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('SSC MTS') },
-                    { label: 'Back', onClick: sscMenu }
-                ]);
-            }
-            function ssc_mts_syllabus() {
-                pushBot('<div class="section-title">SSC MTS Syllabus</div><div class="topic">Reasoning (Verbal & Non-verbal), Numerical Ability (Basics), English Language (Basics & Comprehension), General Awareness (Current & Static GK). Focused practice for speed & accuracy.</div>');
-                setPills([{ label: 'Course Features', icon: SvgList(), onClick: ssc_mts_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC MTS') }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC MTS') }, { label: 'Back', onClick: ssc_mts }]);
-            }
-            function ssc_mts_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC MTS') }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC MTS') }, { label: 'Back', onClick: ssc_mts }]); }
-            function ssc_mts_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC MTS') }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC MTS') }, { label: 'Back', onClick: ssc_mts }]); }
-
-            /* ===== SSC GD ===== */
-            function ssc_gd() {
-                pushBot('<strong>SSC GD</strong><div class="meta">Preparation for SSC GD (written + physical) — written syllabus + PST/PMT guidance.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: ssc_gd_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: ssc_gd_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: ssc_gd_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC GD') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('SSC GD') },
-                    { label: 'Back', onClick: sscMenu }
-                ]);
-            }
-            function ssc_gd_syllabus() {
-                pushBot('<div class="section-title">SSC GD Syllabus</div><div class="topic">General Intelligence & Reasoning, General Knowledge, Elementary Mathematics, English/Hindi. Includes guidance for physical standards and PST/PMT practice tips.</div>');
-                setPills([{ label: 'Course Features', icon: SvgList(), onClick: ssc_gd_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC GD') }, { label: 'Back', onClick: ssc_gd }]);
-            }
-            function ssc_gd_features() { pushBot(featuresListHtml(true) + '<div class="topic">Includes PST/PMT checklist and mock physical drills guidance.</div>'); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC GD') }, { label: 'Back', onClick: ssc_gd }]); }
-            function ssc_gd_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('SSC GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('SSC GD') }, { label: 'Back', onClick: ssc_gd }]); }
-
-            /* ===== Delhi Police ===== */
-            function delhi_police() {
-                pushBot('<strong>Delhi Police</strong><div class="meta">Prelims & mains style coverage with physical standards guidance and exam strategies.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: delhi_police_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: delhi_police_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: delhi_police_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('Delhi Police') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('Delhi Police') },
-                    { label: 'Back', onClick: sscMenu }
-                ]);
-            }
-            function delhi_police_syllabus() {
-                pushBot('<div class="section-title">Delhi Police Syllabus</div><div class="topic">Reasoning, Quantitative Aptitude, General Awareness, English/Hindi. Additionally physical standards, endurance tips and PST/PMT guidance.</div>');
-                setPills([{ label: 'Course Features', icon: SvgList(), onClick: delhi_police_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('Delhi Police') }, { label: 'Enroll', primary: true, onClick: () => enroll('Delhi Police') }, { label: 'Back', onClick: delhi_police }]);
-            }
-            function delhi_police_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('Delhi Police') }, { label: 'Enroll', primary: true, onClick: () => enroll('Delhi Police') }, { label: 'Back', onClick: delhi_police }]); }
-            function delhi_police_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => ssc_generic_fee('Delhi Police') }, { label: 'Enroll', primary: true, onClick: () => enroll('Delhi Police') }, { label: 'Back', onClick: delhi_police }]); }
-
-            /* Generic small ssc fee helper */
-            function ssc_generic_fee(courseName) {
-                pushBot('<strong>Pricing — ' + courseName + '</strong><div class="meta">Choose a duration to enroll.</div><div class="topic">1M — ₹' + prices['1'] + '<br>3M — ₹' + prices['3'] + '<br>6M — ₹' + prices['6'] + '<br>12M — ₹' + prices['12'] + '</div>');
-                setPills([
-                    { label: '1 Month – ₹' + prices['1'], onClick: () => enroll(courseName, '1') },
-                    { label: '3 Months – ₹' + prices['3'], onClick: () => enroll(courseName, '3') },
-                    { label: '6 Months – ₹' + prices['6'], onClick: () => enroll(courseName, '6') },
-                    { label: '12 Months – ₹' + prices['12'], onClick: () => enroll(courseName, '12') },
-                    { label: 'Back', onClick: sscMenu }
-                ]);
-            }
-
-            /* ---------- Defence Category ---------- */
-            function defMenu() {
-                pushBot('<strong>Defence — Select Course</strong><div class="meta">Army, Airforce, Navy and NDA prep — syllabus, physical guidance and mocks.</div>');
-                setPills([
-                    { label: 'Army', icon: SvgShieldFill(), onClick: army_agniveer },
-                    { label: 'Airforce', icon: SvgAirplain(), onClick: air_agniveer },
-                    { label: 'Navy', icon: SvgAnchor(), onClick: navy_agniveer },
-                    { label: 'NDA', icon: SvgMorterboard(), onClick: nda_course },
-                    { label: 'Back', onClick: coursesMenu }
-                ]);
-            }
-
-            /* Army */
-            function army_agniveer() {
-                pushBot('<strong>Army Agniveer GD</strong><div class="meta">Syllabus, physical standards & targeted practice.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: army_agniveer_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: army_agniveer_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: army_agniveer_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Army Agniveer GD') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('Army Agniveer GD') },
-                    { label: 'Back', onClick: defMenu }
-                ]);
-            }
-            function army_agniveer_syllabus() {
-                pushBot('<div class="section-title">Army Agniveer GD Syllabus</div><div class="topic">Reasoning, Numerical Ability (basic arithmetic), General Knowledge, English, and physical standards. Emphasis on accuracy & stamina for PST.</div>');
-                setPills([{ label: 'Course Features', icon: SvgList(), onClick: army_agniveer_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Army Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Army Agniveer GD') }, { label: 'Back', onClick: army_agniveer }]);
-            }
-            function army_agniveer_features() { pushBot(featuresListHtml(false) + '<div class="topic">Physical preparation tips included: running drills, diet & checklist for medical standards.</div>'); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Army Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Army Agniveer GD') }, { label: 'Back', onClick: army_agniveer }]); }
-            function army_agniveer_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Army Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Army Agniveer GD') }, { label: 'Back', onClick: army_agniveer }]); }
-
-            /* Airforce */
-            function air_agniveer() {
-                pushBot('<strong>Airforce Agniveer GD</strong><div class="meta">Exam training with emphasis on reasoning, numericals & basics of science.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: air_agniveer_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: air_agniveer_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: air_agniveer_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Airforce Agniveer GD') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('Airforce Agniveer GD') },
-                    { label: 'Back', onClick: defMenu }
-                ]);
-            }
-            function air_agniveer_syllabus() { pushBot('<div class="section-title">Airforce Syllabus</div><div class="topic">Reasoning, Numerical Ability, Basic Science, English and general awareness; fitness guidance included.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: air_agniveer_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Airforce Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Airforce Agniveer GD') }, { label: 'Back', onClick: air_agniveer }]); }
-            function air_agniveer_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Airforce Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Airforce Agniveer GD') }, { label: 'Back', onClick: air_agniveer }]); }
-            function air_agniveer_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Airforce Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Airforce Agniveer GD') }, { label: 'Back', onClick: air_agniveer }]); }
-
-            /* Navy */
-            function navy_agniveer() {
-                pushBot('<strong>Navy Agniveer GD</strong><div class="meta">Focused on reasoning, numericals, basic science and English with physical guidance.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: navy_agniveer_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: navy_agniveer_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: navy_agniveer_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Navy Agniveer GD') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('Navy Agniveer GD') },
-                    { label: 'Back', onClick: defMenu }
-                ]);
-            }
-            function navy_agniveer_syllabus() { pushBot('<div class="section-title">Navy Syllabus</div><div class="topic">Reasoning, Numerical Ability, General Awareness, English, and physical standards for naval recruitment.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: navy_agniveer_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Navy Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Navy Agniveer GD') }, { label: 'Back', onClick: navy_agniveer }]); }
-            function navy_agniveer_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Navy Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Navy Agniveer GD') }, { label: 'Back', onClick: navy_agniveer }]); }
-            function navy_agniveer_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('Navy Agniveer GD') }, { label: 'Enroll', primary: true, onClick: () => enroll('Navy Agniveer GD') }, { label: 'Back', onClick: navy_agniveer }]); }
-
-            /* NDA */
-            function nda_course() {
-                pushBot('<strong>NDA</strong><div class="meta">Mathematics + General Ability (English + General Awareness). Suitable study plan & mock tests included.</div>');
-                setPills([
-                    { label: 'Full Syllabus', icon: SvgJournalText(), onClick: nda_syllabus },
-                    { label: 'Course Features', icon: SvgStars(), onClick: nda_features },
-                    { label: 'Mock Tests & PYQs', icon: SvgClipboardCheck(), onClick: nda_mocks },
-                    { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('NDA') },
-                    { label: 'Enroll', primary: true, onClick: () => enroll('NDA') },
-                    { label: 'Back', onClick: defMenu }
-                ]);
-            }
-            function nda_syllabus() {
-                pushBot('<div class="section-title">NDA Syllabus</div><div class="topic">Mathematics: Algebra, Trigonometry, Coordinate Geometry, Calculus basics, Vectors. General Ability: English (Comprehension & Grammar), General Knowledge (Physics, Chemistry, Biology, History, Geography).</div>');
-                setPills([{ label: 'Course Features', icon: SvgList(), onClick: nda_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('NDA') }, { label: 'Enroll', primary: true, onClick: () => enroll('NDA') }, { label: 'Back', onClick: nda_course }]);
-            }
-            function nda_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('NDA') }, { label: 'Enroll', primary: true, onClick: () => enroll('NDA') }, { label: 'Back', onClick: nda_course }]); }
-            function nda_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('NDA') }, { label: 'Enroll', primary: true, onClick: () => enroll('NDA') }, { label: 'Back', onClick: nda_course }]); }
-
-            /* ---------- Railway Category ---------- */
-            function railMenu() {
-                pushBot('<strong>Railway — Select Course</strong><div class="meta">Group D, NTPC, ALP, JE full preparations with mocks & technical content where required.</div>');
-                setPills([
-                    { label: 'RRB Group D', icon: SvgTools(), onClick: rrb_groupd },
-                    { label: 'RRB NTPC', icon: SvgPersonWorkspace(), onClick: rrb_ntpc },
-                    { label: 'RRB ALP', icon: SvgSpeedometer(), onClick: rrb_alp },
-                    { label: 'RRB JE', icon: SvgGearFill(), onClick: rrb_je },
-                    { label: 'Back', onClick: coursesMenu }
-                ]);
-            }
-
-            /* RRB Group D */
-            function rrb_groupd() { pushBot('<strong>RRB Group D</strong><div class="meta">Syllabus: Arithmetic, Reasoning, General Science & Current Affairs — short & focused.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: rrb_groupd_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: rrb_groupd_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: rrb_groupd_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB Group D') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB Group D') }, { label: 'Back', onClick: railMenu }]); }
-            function rrb_groupd_syllabus() { pushBot('<div class="section-title">RRB Group D Syllabus</div><div class="topic">Arithmetic basics, General Intelligence & Reasoning, General Science fundamentals, Current Affairs. Quick revision packs and MCQs.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: rrb_groupd_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB Group D') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB Group D') }, { label: 'Back', onClick: rrb_groupd }]); }
-            function rrb_groupd_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB Group D') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB Group D') }, { label: 'Back', onClick: rrb_groupd }]); }
-            function rrb_groupd_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB Group D') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB Group D') }, { label: 'Back', onClick: rrb_groupd }]); }
-
-            /* RRB NTPC */
-            function rrb_ntpc() { pushBot('<strong>RRB NTPC</strong><div class="meta">Comprehensive NTPC prep: Arithmetic, Reasoning, GA & Science.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: rrb_ntpc_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: rrb_ntpc_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: rrb_ntpc_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB NTPC') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB NTPC') }, { label: 'Back', onClick: railMenu }]); }
-            function rrb_ntpc_syllabus() { pushBot('<div class="section-title">RRB NTPC Syllabus</div><div class="topic">Arithmetic (Moderate), Reasoning, General Awareness, General Science. Data interpretation & practice sets included.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: rrb_ntpc_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB NTPC') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB NTPC') }, { label: 'Back', onClick: rrb_ntpc }]); }
-            function rrb_ntpc_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB NTPC') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB NTPC') }, { label: 'Back', onClick: rrb_ntpc }]); }
-            function rrb_ntpc_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB NTPC') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB NTPC') }, { label: 'Back', onClick: rrb_ntpc }]); }
-
-            /* RRB ALP */
-            function rrb_alp() { pushBot('<strong>RRB ALP</strong><div class="meta">ALP includes technical awareness + core arithmetic & reasoning practice.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: rrb_alp_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: rrb_alp_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: rrb_alp_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB ALP') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB ALP') }, { label: 'Back', onClick: railMenu }]); }
-            function rrb_alp_syllabus() { pushBot('<div class="section-title">RRB ALP Syllabus</div><div class="topic">Technical awareness (basic engineering concepts), Mathematics, Reasoning and General Science. Discipline-specific modules and practice tests.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: rrb_alp_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB ALP') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB ALP') }, { label: 'Back', onClick: rrb_alp }]); }
-            function rrb_alp_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB ALP') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB ALP') }, { label: 'Back', onClick: rrb_alp }]); }
-            function rrb_alp_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB ALP') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB ALP') }, { label: 'Back', onClick: rrb_alp }]); }
-
-            /* RRB JE */
-            function rrb_je() { pushBot('<strong>RRB JE</strong><div class="meta">Discipline-specific technical topics + aptitude & reasoning.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: rrb_je_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: rrb_je_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: rrb_je_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB JE') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB JE') }, { label: 'Back', onClick: railMenu }]); }
-            function rrb_je_syllabus() { pushBot('<div class="section-title">RRB JE Syllabus</div><div class="topic">Discipline-specific technical subjects (civil/mech/electrical/etc.), Mathematics & Reasoning. In-depth theory + application practice.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: rrb_je_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB JE') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB JE') }, { label: 'Back', onClick: rrb_je }]); }
-            function rrb_je_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB JE') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB JE') }, { label: 'Back', onClick: rrb_je }]); }
-            function rrb_je_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RRB JE') }, { label: 'Enroll', primary: true, onClick: () => enroll('RRB JE') }, { label: 'Back', onClick: rrb_je }]); }
-
-            /* ---------- Banking Category ---------- */
-            function bankMenu() {
-                pushBot('<strong>Banking — Select Course</strong><div class="meta">Preparations for IBPS, SBI, RBI Grade B with full syllabus and mocks.</div>');
-                setPills([
-                    { label: 'IBPS Clerk', icon: SvgJournalText(), onClick: ibps_clerk },
-                    { label: 'IBPS PO', icon: SvgPersonWorkspace(), onClick: ibps_po },
-                    { label: 'SBI PO', icon: SvgAward(), onClick: sbi_po },
-                    { label: 'RBI Grade B', icon: SvgRupee(), onClick: rbi_gb },
-                    { label: 'Back', onClick: coursesMenu }
-                ]);
-            }
-
-            /* IBPS Clerk */
-            function ibps_clerk() { pushBot('<strong>IBPS Clerk</strong><div class="meta">Reasoning, Numerical Ability, English, Computer Awareness & General Awareness.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: ibps_clerk_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: ibps_clerk_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: ibps_clerk_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS Clerk') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS Clerk') }, { label: 'Back', onClick: bankMenu }]); }
-            function ibps_clerk_syllabus() { pushBot('<div class="section-title">IBPS Clerk Syllabus</div><div class="topic">Quantitative Aptitude, Reasoning, English Language, Computer Awareness, General Awareness; practice sets and sectional strategy.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: ibps_clerk_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS Clerk') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS Clerk') }, { label: 'Back', onClick: ibps_clerk }]); }
-            function ibps_clerk_features() { pushBot(featuresListHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS Clerk') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS Clerk') }, { label: 'Back', onClick: ibps_clerk }]); }
-            function ibps_clerk_mocks() { pushBot(mocksHtml(true)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS Clerk') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS Clerk') }, { label: 'Back', onClick: ibps_clerk }]); }
-
-            /* IBPS PO */
-            function ibps_po() { pushBot('<strong>IBPS PO</strong><div class="meta">Quantitative Aptitude, Reasoning, English, General Awareness & Computer.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: ibps_po_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: ibps_po_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: ibps_po_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS PO') }, { label: 'Back', onClick: bankMenu }]); }
-            function ibps_po_syllabus() { pushBot('<div class="section-title">IBPS PO Syllabus</div><div class="topic">Quantitative Aptitude (Advanced), Reasoning, English, General Awareness, Computer Knowledge; sectional strategies and full mocks.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: ibps_po_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS PO') }, { label: 'Back', onClick: ibps_po }]); }
-            function ibps_po_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS PO') }, { label: 'Back', onClick: ibps_po }]); }
-            function ibps_po_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('IBPS PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('IBPS PO') }, { label: 'Back', onClick: ibps_po }]); }
-
-            /* SBI PO */
-            function sbi_po() { pushBot('<strong>SBI PO</strong><div class="meta">Syllabus similar to IBPS PO with additional focus on reasoning & accuracy.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: sbi_po_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: sbi_po_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: sbi_po_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('SBI PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('SBI PO') }, { label: 'Back', onClick: bankMenu }]); }
-            function sbi_po_syllabus() { pushBot('<div class="section-title">SBI PO Syllabus</div><div class="topic">Quantitative Aptitude, Reasoning, English, General Awareness, Computer Awareness. Focused mock series to match SBI pattern.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: sbi_po_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('SBI PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('SBI PO') }, { label: 'Back', onClick: sbi_po }]); }
-            function sbi_po_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('SBI PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('SBI PO') }, { label: 'Back', onClick: sbi_po }]); }
-            function sbi_po_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('SBI PO') }, { label: 'Enroll', primary: true, onClick: () => enroll('SBI PO') }, { label: 'Back', onClick: sbi_po }]); }
-
-            /* RBI Grade B */
-            function rbi_gb() { pushBot('<strong>RBI Grade B</strong><div class="meta">Advanced course: Economics & Social Issues, Finance, English, Quant & Reasoning.</div>'); setPills([{ label: 'Full Syllabus', icon: SvgList(), onClick: rbi_gb_syllabus }, { label: 'Course Features', icon: SvgList(), onClick: rbi_gb_features }, { label: 'Mock Tests & PYQs', icon: SvgList(), onClick: rbi_gb_mocks }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RBI Grade B') }, { label: 'Enroll', primary: true, onClick: () => enroll('RBI Grade B') }, { label: 'Back', onClick: bankMenu }]); }
-            function rbi_gb_syllabus() { pushBot('<div class="section-title">RBI Grade B Syllabus</div><div class="topic">Economics & Social Issues, Finance and Management, Quantitative Aptitude, Reasoning, English, descriptive practice and interview prep.</div>'); setPills([{ label: 'Course Features', icon: SvgList(), onClick: rbi_gb_features }, { label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RBI Grade B') }, { label: 'Enroll', primary: true, onClick: () => enroll('RBI Grade B') }, { label: 'Back', onClick: rbi_gb }]); }
-            function rbi_gb_features() { pushBot(featuresListHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RBI Grade B') }, { label: 'Enroll', primary: true, onClick: () => enroll('RBI Grade B') }, { label: 'Back', onClick: rbi_gb }]); }
-            function rbi_gb_mocks() { pushBot(mocksHtml(false)); setPills([{ label: 'Course Fee', icon: SvgRupee(), onClick: () => generic_fee('RBI Grade B') }, { label: 'Enroll', primary: true, onClick: () => enroll('RBI Grade B') }, { label: 'Back', onClick: rbi_gb }]); }
-
-            /* ---------- Generic fee helper for non-SSC courses ---------- */
-            function generic_fee(courseName) {
-                pushBot('<strong>Pricing — ' + courseName + '</strong><div class="meta">Choose a plan to enroll.</div><div class="topic">1 Month — ₹' + prices['1'] + '<br>3 Months — ₹' + prices['3'] + '<br>6 Months — ₹' + prices['6'] + '<br>12 Months — ₹' + prices['12'] + '</div>');
-                setPills([
-                    { label: '1 Month – ₹' + prices['1'], onClick: () => enroll(courseName, '1') },
-                    { label: '3 Months – ₹' + prices['3'], onClick: () => enroll(courseName, '3') },
-                    { label: '6 Months – ₹' + prices['6'], onClick: () => enroll(courseName, '6') },
-                    { label: '12 Months – ₹' + prices['12'], onClick: () => enroll(courseName, '12') },
-                    { label: 'Back', onClick: coursesMenu }
-                ]);
-            }
-
-            /* ---------- Expose debug API ---------- */
-            window.__courage = { start, coursesMenu, sscMenu, defMenu, railMenu, bankMenu, enroll };
-
-            /* ---------- Init ---------- */
+        /* =========================================
+        CLOSE & RESTART
+        ========================================= */
+        function restartChat() {
+            localStorage.removeItem("courage_chat");
+            bodyEl.innerHTML = "";
+            controlsEl.innerHTML = "";
+            userCategory = null;
+            interactionCount = 0;
             start();
+        }
+
+        /* =========================================
+           INIT
+           ========================================= */
+
+        start();
 
     </script>
 </body>
