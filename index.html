@@ -997,8 +997,8 @@
                         .from("student_enrollments")
                         .select("valid_till")
                         .eq("user_id", userId)
-                        .eq("payment_status", "paid")
                         .gte("valid_till", today)
+                        .in("payment_status", ["paid", "free"])
                         .limit(1)
                         .maybeSingle();
 
@@ -2256,7 +2256,7 @@
                         .from("student_enrollments")
                         .select("valid_till")
                         .eq("user_id", userId)
-                        .eq("payment_status", "paid")
+                        .in("payment_status", ["paid", "free"])
                         .gte("valid_till", today)
                         .limit(1)
                         .maybeSingle();
@@ -2335,12 +2335,12 @@
 
                     const today = new Date().toISOString().split("T")[0];
 
-                    const { data: activeEnrollment, error } = await supaClient
+                    const { data: activeEnrollment } = await supaClient
                         .from("student_enrollments")
                         .select("valid_till")
                         .eq("user_id", userId)
-                        .eq("payment_status", "paid")
                         .gte("valid_till", today)
+                        .in("payment_status", ["paid", "free"])
                         .limit(1)
                         .maybeSingle();
 
