@@ -724,6 +724,28 @@
         // 🚀 HANDLE 100% FREE COUPON (Skip Razorpay)
         if (!order.final_amount || order.final_amount <= 0) {
           data.user_id = user.id;
+
+          /* 🔥 UPSERT PROFILE (FREE PLAN) */
+          const formattedDOB = new Date(data.dob).toISOString().split("T")[0];
+          data.dob = formattedDOB;
+
+          await supabaseClient
+            .from("user_profiles")
+            .upsert(
+              {
+                id: user.id,
+                user_email: user.email,
+                full_name: data.full_name.trim(),
+                phone: data.phone,
+                dob: formattedDOB,
+                qualification: data.qualification,
+                gender: data.gender,
+                address: data.address,
+                target_exam: data.course_name,
+                updated_at: new Date().toISOString()
+              },
+              { onConflict: "id" }
+            );
           data.user_email = user.email;
           data.payment_status = "free";
           data.payment_id = "FREE_COUPON";
@@ -786,6 +808,30 @@
           handler: async function (response) {
             try {
               data.user_id = user.id;
+              const formattedDOB = new Date(data.dob).toISOString().split("T")[0];
+              data.dob = formattedDOB;
+              /* 🔥 CREATE OR UPDATE USER PROFILE */
+              const { error: profileError } = await supabaseClient
+                .from("user_profiles")
+                .upsert(
+                  {
+                    id: user.id, // MUST match auth.uid()
+                    user_email: user.email,
+                    full_name: data.full_name.trim(),
+                    phone: data.phone,
+                    dob: data.dob,   // make sure format is YYYY-MM-DD
+                    qualification: data.qualification,
+                    gender: data.gender,
+                    address: data.address,
+                    target_exam: data.course_name,
+                    updated_at: new Date().toISOString()
+                  },
+                  { onConflict: "id" }
+                );
+
+              if (profileError) {
+                console.error("Profile error:", profileError.message);
+              }
               data.payment_id = response.razorpay_payment_id;
 
               const { error } = await supabaseClient
