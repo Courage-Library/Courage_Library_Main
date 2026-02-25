@@ -2332,10 +2332,9 @@
                     }
 
                     const userId = session.user.id;
-
                     const today = new Date().toISOString().split("T")[0];
 
-                    const { data: activeEnrollment } = await supaClient
+                    const { data: activeEnrollment, error } = await supaClient
                         .from("student_enrollments")
                         .select("valid_till")
                         .eq("user_id", userId)
@@ -2344,7 +2343,8 @@
                         .limit(1)
                         .maybeSingle();
 
-                    if (error || !activeEnrollment) {
+                    if (error) {
+                        console.error(error);
                         window.location.href = "enroll.html";
                         return;
                     }
@@ -2360,7 +2360,6 @@
                     window.location.href = "enroll.html";
                 }
             }
-
 
             // Initialize
             document.addEventListener("DOMContentLoaded", () => {
