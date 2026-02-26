@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC | Courage Library</title>
+    <title>SSC CGL Preparation | Courage Library</title>
     <link rel="icon" type="image/png" href="/images/logo.png" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
@@ -36,16 +36,27 @@
     </script>
     <style>
         body {
-            background: #fff;
             min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #eef2f7 100%);
         }
 
         .glass {
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(200, 200, 255, 0.12);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(18px);
+            border-radius: 1.25rem;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.04),
+                0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .subject-card {
+            transition: all 0.2s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-3px);
         }
 
         .fade-in {
@@ -185,74 +196,218 @@
         </div>
     </nav>
 
-    <section class="py-10 px-4 max-w-7xl mx-auto fade-in">
-        <h1 class="text-4xl font-bold text-center mb-14 text-blue-700">SSC CGL Course</h1>
+    <section class="py-8 sm:py-10 px-4 max-w-7xl mx-auto fade-in">
+        <h1 class="text-3xl sm:text-4xl font-bold text-blue-700 mb-8">
+            SSC CGL Preparation
+        </h1>
 
         <div class="grid md:grid-cols-2 gap-12 items-start">
             <!-- Left: About the Course -->
-            <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
-                <p class="text-gray-700 mb-6 indent-16">The SSC CGL course by Courage Library is designed to
-                    provide smart
-                    and structured preparation for Tier I and Tier II exams. Curated by subject experts, this program
-                    offers in-depth conceptual clarity and exam-oriented strategy.</p>
-                <ul class="space-y-2 text-gray-700 mb-6">
-                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Complete
-                        syllabus coverage with updated study plans</li>
-                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Weekly
-                        mock tests and real-time performance analytics</li>
-                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Access
-                        self-paced articles and practice sets for lifetime learning</li>
-                    <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i>
-                        Personalized mentorship and doubt-clearing support with AI</li>
-                </ul>
-                <p class="text-gray-700 text-base mt-4">
-                    This course is your stepping stone to success in government job exams—prepare smarter, not harder.
+            <div class="glass p-5 sm:p-6 border-l-2 border-blue-500">
+
+                <!-- Course Label -->
+                <div class="mb-4">
+                    <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">
+                        Updated for SSC CGL 2026
+                    </span>
+                </div>
+
+                <!-- Title -->
+                <h2 class="text-xl font-bold text-blue-700 mb-3">
+                    Structured Preparation Program
+                </h2>
+
+                <!-- Short Description -->
+                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                    Designed for Tier I & Tier II preparation, this program provides
+                    systematic coverage of the complete SSC CGL syllabus with
+                    concept clarity, structured practice, and revision support.
                 </p>
 
-                <div class="mt-6 flex justify-center">
-                    <a href="enroll.html?course=SSC CGL"
-                        class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow hover:scale-105 transition">Enroll
-                        Now</a>
+                <!-- Divider -->
+                <div class="border-t border-slate-200 mb-6"></div>
+
+                <!-- Course Structure -->
+                <h3 class="text-sm font-semibold text-blue-700 mb-3 uppercase tracking-wide">
+                    Syllabus Structured As
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-600 mb-6">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-book text-blue-500"></i>
+                        Concept Building
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-pen text-blue-500"></i>
+                        Topic-wise Practice
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-history text-blue-500"></i>
+                        Previous Year Questions
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sync text-blue-500"></i>
+                        Smart Revision
+                    </div>
                 </div>
+
+                <!-- Key Highlights -->
+                <h3 class="text-sm font-semibold text-blue-700 mb-3 uppercase tracking-wide">
+                    What You Get
+                </h3>
+
+                <ul class="space-y-2 text-sm text-slate-600 mb-8">
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        Complete syllabus coverage
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        Structured study flow
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        Topic-wise practice sets
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fas fa-check-circle text-blue-500 mt-1"></i>
+                        Integrated PYQ approach
+                    </li>
+                </ul>
+
+                <!-- CTA -->
+                <div class="flex flex-col items-center gap-3">
+
+                    <span id="planStatusPill"
+                        class="hidden text-xs bg-slate-200 text-slate-700 px-3 py-1 rounded-full font-medium">
+                    </span>
+
+                    <a id="enrollBtn" href="enroll.html?course=SSC CGL" class="bg-gradient-to-r from-blue-600 to-blue-700 
+                   text-white px-8 py-3 rounded-full text-base font-semibold 
+                   shadow hover:scale-105 transition">
+                        Enroll Now
+                    </a>
+                    <p id="ctaTrustLine" class="text-xs text-slate-500 mt-2 hidden">
+                        Structured content • Clear roadmap • No distractions
+                    </p>
+
+                </div>
+
             </div>
 
             <!-- Right: Subject Links as Standalone Divs -->
-            <div class="pt-8">
-                <a href="/ssc-cgl/reasoning-ability/SSC-ReasoningAbility.html" class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-brain text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Reasoning Ability</h3>
+            <div class="pt-2">
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold text-blue-700">
+                        Your Learning Modules
+                    </h2>
+                    <p class="text-sm text-slate-500 mt-1">
+                        Organized subject-wise for systematic preparation
+                    </p>
+                </div>
+
+                <div class="border-b border-slate-200 mb-6"></div>
+                <a href="/ssc-cgl/general-awareness/SSC-Coarses.html" data-subject="ga"
+                    class="subject-card glass p-4 mb-4 border-l-2 border-blue-500 flex items-start justify-between">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-globe-asia text-blue-500 text-2xl mt-1"></i>
+
+                        <div class="flex flex-col">
+                            <h3 class="text-lg font-semibold text-blue-700">
+                                General Awareness
+                            </h3>
+
+                            <span class="text-xs text-slate-500 mt-1">
+                                History • Polity • Geography • Science • Economy
+                            </span>
+
+                            <span class="text-xs text-slate-400 mt-1">
+                                <span class="font-medium text-slate-600">150+ Topics</span> • Static GK • Current
+                                Affairs
+                            </span>
+                        </div>
+
                     </div>
-                    <span class="text-blue-600 text-xl"><i
-                            class="fas fa-arrow-right"></i></span>
+                    <span class="icon-wrapper text-blue-600 text-lg self-center">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
                 </a>
 
-                <a href="/ssc-cgl/quantitative-aptitude/SSC-Quantitative-aptitude.html" 
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-calculator text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">Quantitative Aptitude</h3>
+                <a href="/ssc-cgl/reasoning-ability/SSC-ReasoningAbility.html" data-subject="reasoning"
+                    class="subject-card glass p-4 mb-4 border-l-2 border-blue-500 flex items-start justify-between">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-brain text-blue-500 text-2xl mt-1"></i>
+
+                        <div class="flex flex-col">
+                            <h3 class="text-lg font-semibold text-blue-700">
+                                Reasoning Ability
+                            </h3>
+
+                            <span class="text-xs text-slate-500 mt-1">
+                                Verbal • Non-Verbal • Logical • Puzzle
+                            </span>
+
+                            <span class="text-xs text-slate-400 mt-1">
+                                <span class="font-medium text-slate-600">60+ Topics</span> • Practice Sets •
+                                Explanations
+                            </span>
+                        </div>
+
                     </div>
-                    <span class="text-blue-600 text-xl"><i
-                            class="fas fa-arrow-right"></i></span>
+                    <span class="icon-wrapper text-blue-600 text-lg self-center">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
                 </a>
 
-                <a href="/ssc-cgl/general-awareness/SSC-Coarses.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-globe-asia text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">General Awareness</h3>
+                <a href="/ssc-cgl/quantitative-aptitude/SSC-Quantitative-aptitude.html" data-subject="quant"
+                    class="subject-card glass p-4 mb-4 border-l-2 border-blue-500 flex items-start justify-between">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-calculator text-blue-500 text-2xl mt-1"></i>
+
+                        <div class="flex flex-col">
+                            <h3 class="text-lg font-semibold text-blue-700">
+                                Quantitative Aptitude
+                            </h3>
+
+                            <span class="text-xs text-slate-500 mt-1">
+                                Arithmetic • Algebra • Geometry • Practice
+                            </span>
+
+                            <span class="text-xs text-slate-400 mt-1">
+                                <span class="font-medium text-slate-600">80+ Topics</span> • Formula Sheets • PYQs
+                            </span>
+                        </div>
+
                     </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                    <span class="icon-wrapper text-blue-600 text-lg self-center">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
                 </a>
 
-                <a href="/ssc-cgl/english-language/SSC-English.html"
-                    class="glass p-6 mb-6 shadow-xl border-l-4 border-blue-400 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <i class="fas fa-language text-blue-500 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-blue-700">English Language</h3>
+                <a href="/ssc-cgl/english-language/SSC-English.html" data-subject="english"
+                    class="subject-card glass p-4 mb-4 border-l-2 border-blue-500 flex items-start justify-between">
+                    <div class="flex items-start gap-4">
+                        <i class="fas fa-language text-blue-500 text-2xl mt-1"></i>
+
+                        <div class="flex flex-col">
+                            <h3 class="text-lg font-semibold text-blue-700">
+                                English Language
+                            </h3>
+
+                            <span class="text-xs text-slate-500 mt-1">
+                                Grammar • Vocabulary • Comprehension • Descriptive
+                            </span>
+
+                            <span class="text-xs text-slate-400 mt-1">
+                                <span class="font-medium text-slate-600">40+ Topics</span> • Practice Sets • PYQs
+                                Included
+                            </span>
+                        </div>
+
                     </div>
-                    <span class="text-blue-600 text-xl"><i class="fas fa-arrow-right"></i></span>
+                    <span class="icon-wrapper text-blue-600 text-lg self-center">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
                 </a>
 
             </div>
@@ -261,16 +416,23 @@
     </section>
 
     <!-- Not Enrolled Popup -->
-    <div id="notEnrolledPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl text-center max-w-sm w-full">
-            <div class="flex justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-yellow-500" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0a9 9 0 0118 0z" />
+    <div id="notEnrolledPopup" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden 
+            flex justify-center items-center 
+            z-50 px-4">
+        <div class="bg-white p-6 sm:p-8 
+            rounded-xl sm:rounded-2xl 
+            shadow-xl 
+            text-center 
+            max-w-sm w-full">
+            <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <!-- SVG here -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-16 h-16 text-blue-600 mx-auto">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 0h10.5a2.25 2.25 0 0 1 2.25 2.25v6.75A2.25 2.25 0 0 1 16.5 21h-9a2.25 2.25 0 0 1-2.25-2.25v-6.75A2.25 2.25 0 0 1 7.5 10.5Z" />
                 </svg>
             </div>
-            <h2 class="text-2xl font-bold text-yellow-600 mb-2">Not Enrolled!</h2>
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Not Enrolled!</h2>
             <p class="text-gray-700 mb-4">Please enroll to start your Courage Library journey.</p>
             <a href="enroll.html?course=SSC CGL"
                 class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-full hover:scale-105 transition">
@@ -280,206 +442,349 @@
     </div>
 
     <!-- Courage Promise Popup -->
-    <div id="couragePopup"
-        class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50 px-4 sm:px-0 overflow-y-auto sm:overflow-hidden">
-        <div
-            class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl text-center w-full max-w-md sm:max-w-lg relative my-8 sm:my-0 mt-60 sm:mt-0">
-            <!-- Close Button -->
-            <button id="closeCouragePopup"
-                class="absolute top-3 right-4 text-gray-500 hover:text-red-500 text-2xl sm:text-3xl">&times;</button>
+    <div id="couragePopup" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden 
+            flex justify-center items-center 
+            z-50 px-4">
 
-            <!-- Logo Icon -->
-            <div class="flex justify-center mb-4">
-                <div class="flex justify-center">
-                    <div
-                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-white to-white rounded-full flex items-center justify-center shadow-lg">
-                        <h2 class="text-4xl sm:text-5xl font-extrabold text-blue-700 leading-none">💙</h2>
-                    </div>
-                </div>
+        <div class="bg-white 
+                w-full max-w-md sm:max-w-lg 
+                rounded-2xl 
+                shadow-xl 
+                p-6 sm:p-8 
+                relative">
+
+            <!-- Close Button -->
+            <button id="closeCouragePopup" class="absolute top-4 right-4 
+                       text-slate-400 hover:text-slate-700 
+                       text-xl transition">
+                ✕
+            </button>
+
+            <!-- Icon -->
+            <div class="w-16 h-16 sm:w-20 sm:h-20 
+                    bg-blue-100 
+                    rounded-full 
+                    flex items-center justify-center 
+                    mx-auto mb-4">
+                <span class="text-3xl sm:text-4xl text-blue-700">💙</span>
             </div>
 
             <!-- Heading -->
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-blue-700 mb-3"> A Message from Courage Library</h2>
-            <!-- Message Body -->
-            <div
-                class="text-gray-700 leading-relaxed text-sm sm:text-base space-y-4 mb-6 px-1 sm:px-0 text-left sm:text-center">
+            <h2 class="text-xl sm:text-2xl font-bold text-blue-700 text-center mb-4">
+                Welcome to Courage Library
+            </h2>
+
+            <!-- Message -->
+            <div class="text-slate-600 
+                    text-sm sm:text-base 
+                    leading-relaxed 
+                    space-y-4 
+                    mb-6">
+
                 <p>
                     Dear <span class="font-semibold text-blue-600" id="userName">Aspirant</span>,
                 </p>
+
                 <p>
-                    Welcome to <span class="font-semibold text-blue-700">Courage Library</span> — a space built for
-                    dreamers like you who refuse to settle for average.
+                    This is your structured space for focused preparation.
+                    Every topic here is designed to move you one step closer to your goal.
                 </p>
+
                 <p>
-                    Here, every article, every topic, and every moment you spend is a step toward the life you imagine.
-                    We believe that *real growth doesn’t come from pressure, but from purpose.*
+                    Stay consistent. Stay disciplined.
+                    <span class="font-medium text-blue-600">
+                        Courage means showing up every single day.
+                    </span>
                 </p>
-                <p>
-                    Stay consistent. Stay curious. And whenever you feel lost, remember —
-                    <span class="font-semibold text-blue-600">Courage means showing up even when it’s hard.</span>
-                </p>
-                <p>
-                    We’re not just a library. We’re your silent companion — cheering for you in every late-night study
-                    and every small win.
-                    You’ve got this. 🌟
-                </p>
+
             </div>
-            <!-- Signature -->
-            <p class="text-sm text-gray-500 italic mb-6">— With Strength & Belief, <br> The Courage Library Team 💙</p>
-            <!-- Button -->
-            <button id="agreeCourage"
-                class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 sm:py-2 rounded-full shadow hover:scale-105 transition font-semibold text-sm sm:text-base">
-                Begin with Courage
+
+            <!-- CTA -->
+            <button id="agreeCourage" class="w-full 
+                       bg-blue-700 hover:bg-blue-800 
+                       text-white 
+                       py-3 
+                       rounded-xl 
+                       font-semibold 
+                       transition duration-200">
+                Start Learning
             </button>
+
         </div>
     </div>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
 
-  /* ==========================
-     SUPABASE SETUP
-  ========================== */
-  const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+            /* ==========================
+               SUPABASE SETUP
+            ========================== */
+            const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+            const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+            const supabaseClient = window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
 
-  /* ==========================
-     GLOBAL FLAGS
-  ========================== */
-  let hasAccess = false;
-  let authChecked = false;
+            /* ==========================
+               GLOBAL FLAGS
+            ========================== */
+            let hasAccess = "none";
+            let authChecked = false;
 
-  /* ==========================
-     PROTECTED PAGES ONLY
-     (VERY IMPORTANT)
-  ========================== */
-  const protectedPages = [
-    "SSC-ReasoningAbility.html",
-    "SSC-Quantitative-aptitude.html",
-    "SSC-Coarses.html",
-    "SSC-English.html"
-  ];
+            /* ==========================
+               PROTECTED PAGES ONLY
+               (VERY IMPORTANT)
+            ========================== */
+            const protectedPages = [
+                "SSC-ReasoningAbility.html",
+                "SSC-Quantitative-aptitude.html",
+                "SSC-Coarses.html",
+                "SSC-English.html"
+            ];
 
-  /* ==========================
-     GLOBAL NAVIGATION GUARD
-  ========================== */
-  document.addEventListener("click", function (e) {
-    const link = e.target.closest("a");
-    if (!link) return;
+            /* ==========================
+               GLOBAL NAVIGATION GUARD
+            ========================== */
+            document.addEventListener("click", function (e) {
+                const link = e.target.closest("a");
+                if (!link) return;
 
-    const href = link.getAttribute("href");
-    if (!href || href.startsWith("#")) return;
+                const href = link.getAttribute("href");
+                if (!href || href.startsWith("#")) return;
 
-    // wait until auth is checked
-    if (!authChecked) {
-      e.preventDefault();
-      return;
-    }
+                if (!authChecked) {
+                    e.preventDefault();
+                    return;
+                }
 
-    const pageName = href.split("/").pop();
+                const pageName = href.split("/").pop();
 
-    // block only protected pages
-    if (!hasAccess && protectedPages.includes(pageName)) {
-      e.preventDefault();
+                const fullAccessPages = [
+                    "SSC-ReasoningAbility.html",
+                    "SSC-Quantitative-aptitude.html",
+                    "SSC-English.html"
+                ];
 
-      const popup = document.getElementById("notEnrolledPopup");
-      popup?.classList.remove("hidden");
-      popup?.classList.add("flex");
-    }
-  });
+                const generalAwarenessPage = "SSC-Coarses.html";
 
-  /* ==========================
-     ENROLLED USER UI
-  ========================== */
-  function activateEnrolledUI() {
-    const enrollBtn = document.querySelector('a[href="enroll.html"]');
-    if (!enrollBtn) return;
+                // ❌ Not enrolled at all
+                if (!hasAccess) {
+                    if (fullAccessPages.includes(pageName) || pageName === generalAwarenessPage) {
+                        e.preventDefault();
+                        showNotEnrolledPopup();
+                    }
+                }
 
-    enrollBtn.textContent = "Start with Courage";
-    enrollBtn.href = "#";
+                // 🟡 Free user → only GA allowed
+                if (hasAccess === "limited") {
+                    if (fullAccessPages.includes(pageName)) {
+                        e.preventDefault();
+                        showUpgradePopup();
+                    }
+                }
 
-    enrollBtn.onclick = e => {
-      e.preventDefault();
-      const popup = document.getElementById("couragePopup");
-      popup?.classList.remove("hidden");
-      popup?.classList.add("flex");
-    };
+                // 🟢 Paid user → allow everything
+            });
 
-    document.getElementById("agreeCourage")?.addEventListener("click", () => {
-      document.getElementById("couragePopup")?.classList.add("hidden");
-    });
+            /* ==========================
+               ENROLLED USER UI
+            ========================== */
+            function activateEnrolledUI() {
+                const enrollBtn = document.querySelector('a[href="enroll.html"]');
+                if (!enrollBtn) return;
 
-    document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
-      document.getElementById("couragePopup")?.classList.add("hidden");
-    });
-  }
+                enrollBtn.textContent = "Start with Courage";
+                enrollBtn.href = "#";
 
-  /* ==========================
-     CHECK ENROLLMENT
-  ========================== */
-  async function checkEnrollment() {
-    const { data: sessionData } = await supabaseClient.auth.getSession();
-    const session = sessionData?.session;
+                enrollBtn.onclick = e => {
+                    e.preventDefault();
+                    const popup = document.getElementById("couragePopup");
+                    popup?.classList.remove("hidden");
+                    popup?.classList.add("flex");
+                };
 
-    console.log("SESSION:", session);
+                document.getElementById("agreeCourage")?.addEventListener("click", () => {
+                    document.getElementById("couragePopup")?.classList.add("hidden");
+                });
 
-    if (!session?.user) {
-      hasAccess = false;
-      authChecked = true;
-      return;
-    }
+                document.getElementById("closeCouragePopup")?.addEventListener("click", () => {
+                    document.getElementById("couragePopup")?.classList.add("hidden");
+                });
+            }
 
-    const { data, error } = await supabaseClient
-      .from("student_enrollments")
-      .select("valid_till, course_name")
-      .eq("user_email", session.user.email)
-      .eq("payment_status", "paid")
-      .eq("course_name", "SSC CGL")        // 🔥 IMPORTANT
-      .not("valid_till", "is", null)       // 🔥 CRITICAL FIX
-      .gte("valid_till", new Date().toISOString())
-      .order("valid_till", { ascending: false })
-      .limit(1);
+            /* ==========================
+               CHECK ENROLLMENT
+            ========================== */
+            async function checkEnrollment() {
 
-    console.log("ENROLLMENT:", data, error);
+                const { data: { session } } = await supabaseClient.auth.getSession();
 
-    if (error || !data?.length) {
-      hasAccess = false;
-      authChecked = true;
-      return;
-    }
+                if (!session) {
+                    hasAccess = "none";
+                    authChecked = true;
+                    return;
+                }
 
-    const today = new Date(); today.setHours(0,0,0,0);
-    const validTill = new Date(data[0].valid_till); validTill.setHours(0,0,0,0);
+                const { data, error } = await supabaseClient
+                    .rpc("get_ssc_access");
 
-    hasAccess = today <= validTill;
+                if (error) {
+                    console.error(error);
+                    hasAccess = "none";
+                } else {
+                    hasAccess = data; // 'none' | 'limited' | 'full'
+                }
 
-    if (hasAccess) activateEnrolledUI();
+                authChecked = true;
 
-    authChecked = true;
-  }
+                applyAccessUI();
+                configureEnrollButton();
+            }
 
-  /* ==========================
-     INIT
-  ========================== */
-  await checkEnrollment();
+            function showUpgradePopup() {
+                const popup = document.getElementById("notEnrolledPopup");
+                popup.querySelector("h2").textContent = "Upgrade Required";
+                popup.querySelector("p").textContent =
+                    "Upgrade to unlock all SSC CGL subjects and premium content.";
+                popup.classList.remove("hidden");
+                popup.classList.add("flex");
+            }
 
-  /* ==========================
-     POPUP CLOSE (BACKGROUND)
-  ========================== */
-  document.getElementById("notEnrolledPopup")?.addEventListener("click", e => {
-    if (e.target.id === "notEnrolledPopup") {
-      e.target.classList.add("hidden");
-    }
-  });
+            function showNotEnrolledPopup() {
+                const popup = document.getElementById("notEnrolledPopup");
+                popup.classList.remove("hidden");
+                popup.classList.add("flex");
+            }
 
-  console.log("✅ SSC access control loaded | Access:", hasAccess);
-});
-</script>
+            /* ==========================
+               INIT
+            ========================== */
+            await checkEnrollment();
+
+            /* ==========================
+               POPUP CLOSE (BACKGROUND)
+            ========================== */
+            document.getElementById("notEnrolledPopup")?.addEventListener("click", e => {
+                if (e.target.id === "notEnrolledPopup") {
+                    e.target.classList.add("hidden");
+                }
+            });
+
+            console.log("✅ SSC access control loaded | Access:", hasAccess);
+
+            function applyAccessUI() {
+
+                const cards = document.querySelectorAll(".subject-card");
+
+                cards.forEach(card => {
+
+                    const subject = card.dataset.subject;
+
+                    if (hasAccess === "none") {
+                        lockCard(card);
+                    }
+
+                    if (hasAccess === "limited") {
+                        if (subject !== "ga") {
+                            lockCard(card);
+                        } else {
+                            unlockCard(card);
+                        }
+                    }
+
+                    if (hasAccess === "full") {
+                        unlockCard(card);
+                    }
+
+                });
+            }
+
+            function lockCard(card) {
+
+                card.classList.add("opacity-60", "cursor-not-allowed");
+
+                const iconWrapper = card.querySelector(".icon-wrapper");
+                if (iconWrapper) {
+                    iconWrapper.innerHTML = '<i class="fas fa-lock text-slate-500"></i>';
+                }
+            }
+
+            function unlockCard(card) {
+
+                card.classList.remove("opacity-60", "cursor-not-allowed");
+
+                const iconWrapper = card.querySelector(".icon-wrapper");
+                if (iconWrapper) {
+                    iconWrapper.innerHTML = '<i class="fas fa-arrow-right text-blue-600"></i>';
+                }
+            }
+
+            function configureEnrollButton() {
+
+                const enrollBtn = document.getElementById("enrollBtn");
+                const pill = document.getElementById("planStatusPill");
+
+                if (!enrollBtn) return;
+
+                // Not logged in
+                if (!authChecked || hasAccess === "none") {
+
+                    enrollBtn.textContent = "Enroll Now";
+                    enrollBtn.onclick = async (e) => {
+                        e.preventDefault();
+
+                        const { data: { session } } = await supabaseClient.auth.getSession();
+
+                        if (!session) {
+                            window.location.href = "index.html?checkAuth=1";
+                        } else {
+                            window.location.href = "enroll.html?course=SSC CGL";
+                        }
+                    };
+                    document.getElementById("ctaTrustLine")?.classList.remove("hidden");
+
+                    return;
+                }
+
+                // Free trial
+                if (hasAccess === "limited") {
+
+                    pill.classList.remove("hidden");
+
+                    // Reset classes first
+                    pill.className =
+                        "text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-medium";
+
+                    pill.textContent = "Trial Mode • 1 Subject Unlocked";
+
+                    enrollBtn.textContent = "Go to Dashboard";
+                    enrollBtn.href = "dashboard.html";
+                    document.getElementById("ctaTrustLine")?.classList.add("hidden");
+
+                    return;
+                }
+
+                // Paid user
+                if (hasAccess === "full") {
+
+                    pill.classList.remove("hidden");
+
+                    pill.className =
+                        "text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium";
+
+                    pill.textContent = "Full Access";
+
+                    enrollBtn.textContent = "Go to Dashboard";
+                    enrollBtn.href = "dashboard.html";
+                    document.getElementById("ctaTrustLine")?.classList.add("hidden");
+
+                    return;
+                }
+            }
+        });
+    </script>
 
 
 
