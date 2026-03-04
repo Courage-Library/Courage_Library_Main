@@ -111,12 +111,12 @@
             position: fixed;
             top: 90px;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: calc(100% - 90px);
 
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 160px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-auto-rows: 140px;
 
             pointer-events: none;
             z-index: 5;
@@ -140,8 +140,8 @@
             white-space: pre-line;
         }
 
-        #sectionTabs::-webkit-scrollbar {
-            display: none;
+        #sectionTabs {
+            max-width: 100%;
         }
     </style>
     <!-- Google tag (gtag.js) -->
@@ -234,7 +234,7 @@
     </div>
     <div class="flex-grow">
         <!-- ========== EXAM INTERFACE ========== -->
-        <section class="py-6 px-4 max-w-7xl mx-auto">
+        <section class="py-6 px-4 max-w-7xl mx-auto w-full box-border">
 
             <!-- TOP BAR -->
             <div
@@ -268,33 +268,30 @@
                 <!-- QUESTION AREA -->
                 <div class="lg:col-span-3">
 
-                    <div class="bg-white shadow-lg rounded-xl p-8 min-h-[420px] border">
+                    <div class="bg-white shadow-lg rounded-xl p-5 sm:p-8 min-h-[420px] border">
 
-                        <div id="sectionTabs" class="flex gap-3 mb-6 overflow-x-auto whitespace-nowrap pb-2">
+                        <div id="sectionTabs"
+                            class="grid grid-cols-2 sm:flex gap-3 mb-6 pb-2 sm:overflow-x-auto w-full">
                         </div>
+
                         <div id="questionContainer"></div>
 
                         <!-- NAVIGATION -->
                         <div class="mt-10 space-y-3">
 
-                            <!-- Row 1: Prev + Next -->
                             <div class="flex justify-between gap-3">
-
-                                <button id="prevBtn"
-                                    class="flex-1 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg transition text-sm sm:text-base">
+                                <button id="prevBtn" class="flex-1 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
                                     Previous
                                 </button>
 
                                 <button id="nextBtn"
-                                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition text-sm sm:text-base">
+                                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
                                     Next
                                 </button>
-
                             </div>
 
-                            <!-- Row 2: Mark -->
                             <button id="markBtn"
-                                class="w-full border border-indigo-500 text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50 transition text-sm sm:text-base">
+                                class="w-full border border-indigo-500 text-indigo-600 px-4 py-2 rounded-lg">
                                 Mark for Review
                             </button>
 
@@ -338,7 +335,7 @@
 
                     </div>
 
-                    <div id="questionNav" class="grid grid-cols-5 gap-3 mb-6"></div>
+                    <div id="questionNav" class="grid grid-cols-5 sm:grid-cols-5 gap-3 mb-6 w-full"></div>
 
                     <!-- LEGEND -->
                     <div class="text-xs space-y-2 border-t pt-4 mb-6">

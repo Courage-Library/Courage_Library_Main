@@ -70,7 +70,9 @@ async function loadExam() {
     .single();
 
   const pattern = attempt.scheduled_exams.exam_patterns;
+  if (window.innerWidth > 768) {
   document.documentElement.requestFullscreen();
+}
 
   document.getElementById("examTitle").innerText = pattern.pattern_name;
   durationSeconds = pattern.duration_minutes * 60;
@@ -111,11 +113,7 @@ ${now}`;
 }
 
 document.addEventListener("fullscreenchange", () => {
-  if (!document.fullscreenElement) {
-    showAlert(
-      "Fullscreen mode is required for the exam. Returning to fullscreen.",
-      "warning",
-    );
+  if (!document.fullscreenElement && window.innerWidth > 768) {
     document.documentElement.requestFullscreen();
   }
 });
@@ -165,8 +163,8 @@ function showQuestion(index) {
   const container = document.getElementById("questionContainer");
 
   container.innerHTML = `
-    <div class="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-      <h2 class="text-base sm:text-lg font-semibold text-gray-800 leading-relaxed break-words">
+    <div class="mb-6 flex justify-between items-center">
+      <h2 class="text-lg font-semibold text-gray-800">
         Q${index + 1}. ${q.question_text}
       </h2>
 
@@ -181,7 +179,8 @@ function showQuestion(index) {
           const isChecked = savedAnswers[q.id] === key;
 
           return `
-            <label class="flex items-start gap-3 p-3 border rounded-xl cursor-pointer transition
+            <label 
+              class="flex items-center p-4 border rounded-xl cursor-pointer transition
               ${isChecked ? "bg-blue-50 border-blue-500 shadow-md" : "hover:border-blue-300 hover:shadow-sm"}
               ">
               
@@ -189,7 +188,7 @@ function showQuestion(index) {
                 type="radio"
                 name="option"
                 value="${key}"
-                class="mt-1 accent-blue-600 w-4 h-4 flex-shrink-0"
+                class="mr-4 accent-blue-600 w-4 h-4"
                 ${isChecked ? "checked" : ""}
                 onchange="saveAnswer('${q.id}', '${key}')"
               >
@@ -429,7 +428,7 @@ function renderSections(sections) {
     const btn = document.createElement("button");
 
     btn.className =
-      "px-3 py-1.5 text-sm rounded-lg bg-gray-100 hover:bg-blue-100 text-gray-700 font-medium transition flex-shrink-0 snap-start";
+      "px-4 py-2 rounded-lg bg-gray-100 hover:bg-blue-100 text-gray-700 font-medium transition";
 
     btn.innerText = section;
 
@@ -471,7 +470,6 @@ document.addEventListener("DOMContentLoaded", () => {
     openRulesBtn.addEventListener("click", () => {
       rulesModal.classList.remove("hidden");
       rulesModal.classList.add("flex");
-
       document.body.style.overflow = "hidden";
     });
   }
