@@ -570,7 +570,7 @@
                 const generalAwarenessPage = "SSC-Coarses.html";
 
                 // ❌ Not enrolled at all
-                if (!hasAccess) {
+                if (hasAccess === "none") {
                     if (fullAccessPages.includes(pageName) || pageName === generalAwarenessPage) {
                         e.preventDefault();
                         showNotEnrolledPopup();
