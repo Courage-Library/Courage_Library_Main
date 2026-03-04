@@ -72,7 +72,7 @@ async function checkAuth() {
     data: { user },
   } = await client.auth.getUser();
   if (!user) {
-    window.location.href = "/login.html";
+    window.location.href = "/index.html?checkAuth=1";
   }
 }
 

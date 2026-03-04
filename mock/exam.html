@@ -139,6 +139,10 @@
             text-align: center;
             white-space: pre-line;
         }
+
+        #sectionTabs::-webkit-scrollbar {
+            display: none;
+        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
@@ -266,7 +270,8 @@
 
                     <div class="bg-white shadow-lg rounded-xl p-8 min-h-[420px] border">
 
-                        <div id="sectionTabs" class="flex gap-3 mb-6"></div>
+                        <div id="sectionTabs" class="flex gap-3 mb-6 overflow-x-auto whitespace-nowrap pb-2">
+                        </div>
                         <div id="questionContainer"></div>
 
                         <!-- NAVIGATION -->
