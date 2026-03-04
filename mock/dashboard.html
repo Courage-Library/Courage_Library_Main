@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test Dashboard | Courage Library</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <!-- Font Awesome & Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js (for mobile menu) -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <!-- Supabase client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            background: #f4f6fa;
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(200, 200, 255, 0.12);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #bfdbfe;
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            transition: opacity 0.6s, transform 0.6s;
+            transform: scale(0.5);
+        }
+
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .trial-tag {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+        }
+
+        /* course card icon circle */
+        .icon-circle {
+            background: linear-gradient(145deg, #dbeafe, #eff6ff);
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            font-size: 28px;
+            box-shadow: 0 8px 16px -6px #93c5fd;
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+</head>
+
+<body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
+
+    <!-- ========== HEADER (identical to original) ========== -->
+    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
+                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+            </a>
+            <div class="space-x-6 hidden md:flex items-center">
+                <a href="index.html#features" class="hover:text-blue-600">Features</a>
+                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
+                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+                <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
+                <a href="index.html"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
+                    Home
+                </a>
+            </div>
+            <!-- mobile menu -->
+            <div class="md:hidden" x-data="{ open: false }">
+                <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu"
+                    aria-label="Toggle mobile menu">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+                    <a href="index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+                        </svg>
+                        Courses
+                    </a>
+                    <a href="index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+                        </svg>
+                        Features
+                    </a>
+                    <a href="index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+                        </svg>
+                        Reviews
+                    </a>
+                    <a href="/Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+                        </svg>
+                        Blog
+                    </a>
+                    <a href="index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex-grow">
+        <!-- ========== STUDENT MOCK DASHBOARD ========== -->
+        <section class="py-12 px-4 max-w-6xl mx-auto fade-in space-y-14">
+
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-semibold text-gray-900">
+                        Mock Test Dashboard
+                    </h1>
+                    <p class="mt-2 text-gray-500 text-sm md:text-base">
+                        Free daily and weekly mock tests for serious aspirants.
+                    </p>
+                </div>
+
+                <div class="text-sm text-gray-400">
+                    Updated automatically
+                </div>
+
+            </div>
+
+
+            <!-- 📊 PERFORMANCE SNAPSHOT -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+
+                <div
+                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
+                    <div class="bg-blue-50 text-blue-600 p-3 rounded-xl">
+                        <i class="fas fa-clipboard-check text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">Mocks Attempted</p>
+                        <h2 id="totalAttempts" class="text-xl md:text-2xl font-bold text-blue-700">0</h2>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
+                    <div class="bg-green-50 text-green-600 p-3 rounded-xl">
+                        <i class="fas fa-bullseye text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">Average Accuracy</p>
+                        <h2 id="avgAccuracy" class="text-xl md:text-2xl font-bold text-green-600">0%</h2>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
+                    <div class="bg-indigo-50 text-indigo-600 p-3 rounded-xl">
+                        <i class="fas fa-trophy text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">Best Score</p>
+                        <h2 id="bestScore" class="text-xl md:text-2xl font-bold text-indigo-600">0</h2>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
+                    <div class="bg-amber-50 text-amber-600 p-3 rounded-xl">
+                        <i class="fas fa-clock text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">Total Study Time</p>
+                        <h2 id="totalTime" class="text-xl md:text-2xl font-bold text-amber-600">0 hrs</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- 🎯 TODAY’S FREE CHALLENGES -->
+            <div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl md:text-2xl font-semibold text-gray-900">
+                        Available Mock Tests
+                    </h2>
+                    <span class="text-xs text-gray-500">
+                        Updated in real-time
+                    </span>
+                </div>
+
+                <div id="examList" class="grid md:grid-cols-2 gap-6"></div>
+
+            </div>
+
+
+            <!-- 📜 RECENT ATTEMPTS -->
+            <div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-800">
+                        Your Recent Attempts
+                    </h2>
+                </div>
+
+                <div id="recentAttempts" class="bg-white rounded-2xl shadow border"></div>
+
+            </div>
+
+        </section>
+    </div>
+
+    <script src="/js/studentDashboard.js"></script>
+
+    <!-- ========== FOOTER (identical to original) ========== -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" rel="noopener noreferrer" title="Follow us on Facebook"
+                    class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer"
+                    title="Follow us on Twitter" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
+                    title="Follow us on LinkedIn" class="hover:text-white text-2xl"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
+                    title="Follow us on Instagram" class="hover:text-white text-2xl"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
