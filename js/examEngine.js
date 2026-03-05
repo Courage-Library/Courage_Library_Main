@@ -22,6 +22,8 @@ let durationSeconds;
 let savedAnswers = {};
 let visitedQuestions = {};
 let markedQuestions = {};
+let examStartedAt;
+let examDuration;
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
@@ -37,8 +39,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 2000);
     return;
   }
-
-  await loadExam();
 });
 
 async function loadExam() {
@@ -53,11 +53,12 @@ async function loadExam() {
     return;
   }
 
-  const { data: attempt } = await client
+  const { data: attempt, error } = await client
     .from("attempts")
     .select(
       `
       id,
+      started_at,
       scheduled_exams(
         exam_patterns(
           pattern_name,
@@ -69,18 +70,33 @@ async function loadExam() {
     .eq("id", attemptId)
     .single();
 
+  if (error) {
+    console.error("Exam load error:", error);
+    return;
+  }
+
   const pattern = attempt.scheduled_exams.exam_patterns;
-  if (window.innerWidth > 768) {
-  document.documentElement.requestFullscreen();
-}
+  examStartedAt = new Date(attempt.started_at).getTime();
+  examDuration = pattern.duration_minutes * 60;
 
   document.getElementById("examTitle").innerText = pattern.pattern_name;
-  durationSeconds = pattern.duration_minutes * 60;
+
+  const now = Date.now();
+const elapsed = Math.floor((now - examStartedAt) / 1000);
+
+durationSeconds = examDuration - elapsed;
+
+  if (durationSeconds <= 0) {
+    submitExam();
+    return;
+  }
 
   await loadQuestions();
   await loadSavedAnswers();
+
   showQuestion(0);
   startTimer();
+
   generateWatermark();
   setInterval(generateWatermark, 5000);
 }
@@ -151,6 +167,7 @@ async function loadQuestions() {
 }
 
 function showQuestion(index) {
+  if (!questions[index]) return;
   currentIndex = index;
 
   const q = questions[index];
@@ -283,19 +300,43 @@ document.addEventListener("visibilitychange", () => {
   if (isSubmitting) return;
 
   if (document.hidden) {
-    tabSwitchCount++;
+    const leaveTime = Date.now();
 
-    showAlert("Tab switching detected.");
+    setTimeout(() => {
+      // If still hidden after 800ms → real app switch
+      if (document.hidden) {
+        tabSwitchCount++;
 
-    if (tabSwitchCount >= 3) {
-      showAlert(
-        "Multiple violations detected. Test will be submitted.",
-        "error",
-      );
+        showAlert("App switching detected.");
 
+        if (tabSwitchCount >= 3) {
+          showAlert(
+            "Multiple violations detected. Test will be submitted.",
+            "error",
+          );
+
+          submitExam();
+        }
+      }
+    }, 800);
+  }
+});
+
+document.addEventListener("visibilitychange", () => {
+
+  if (!document.hidden) {
+
+    const now = Date.now();
+    const elapsed = Math.floor((now - examStartedAt) / 1000);
+
+    durationSeconds = examDuration - elapsed;
+
+    if (durationSeconds <= 0) {
       submitExam();
     }
+
   }
+
 });
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -479,9 +520,14 @@ document.addEventListener("DOMContentLoaded", () => {
     rulesModal.classList.add("hidden");
     document.body.style.overflow = "auto";
 
-    if (typeof startExam === "function") {
-      startExam();
+    // FULLSCREEN MUST BE TRIGGERED BY USER ACTION
+    if (window.innerWidth > 768 && !document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.log("Fullscreen blocked:", err);
+      });
     }
+
+    loadExam();
   });
 });
 
@@ -549,4 +595,11 @@ function showAlert(message, type = "warning") {
   setTimeout(() => {
     container.classList.add("hidden");
   }, 4000);
+}
+
+const isReload =
+  performance.getEntriesByType("navigation")[0]?.type === "reload";
+
+if (isReload) {
+  showAlert("Page refreshed. Your answers have been restored.", "warning");
 }
