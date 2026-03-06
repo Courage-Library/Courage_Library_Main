@@ -24,6 +24,7 @@ let visitedQuestions = {};
 let markedQuestions = {};
 let examStartedAt;
 let examDuration;
+let examStarted = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
@@ -297,7 +298,7 @@ document.getElementById("prevBtn").addEventListener("click", () => {
 let tabSwitchCount = 0;
 
 document.addEventListener("visibilitychange", () => {
-  if (isSubmitting) return;
+  if (isSubmitting || !examStarted) return;
 
   if (document.hidden) {
     const leaveTime = Date.now();
@@ -323,6 +324,7 @@ document.addEventListener("visibilitychange", () => {
 });
 
 document.addEventListener("visibilitychange", () => {
+  if (!examStarted) return;
 
   if (!document.hidden) {
 
@@ -517,6 +519,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start Test
   startBtn.addEventListener("click", () => {
+    examStarted = true;
     rulesModal.classList.add("hidden");
     document.body.style.overflow = "auto";
 
