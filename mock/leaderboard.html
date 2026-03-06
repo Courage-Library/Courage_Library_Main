@@ -105,7 +105,216 @@
             font-size: 28px;
             box-shadow: 0 8px 16px -6px #93c5fd;
         }
-    </style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
+
+  .lb-hero {
+    background: linear-gradient(135deg, #1E40AF 0%, #2563EB 55%, #4338CA 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .lb-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 45% at 85% 15%, rgba(99,102,241,.1) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 55% at 10% 85%, rgba(37,99,235,.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .lb-hero::after {
+    content: '';
+    position: absolute; bottom: -1px; left: 0; right: 0; height: 56px;
+    background: #F4F6FB;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  /* PODIUM */
+  .lb-podium-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 4px;
+  }
+
+  .lb-podium-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 18px;
+    padding: 18px 10px 0;
+    position: relative;
+    transition: transform .3s;
+    cursor: default;
+    /* Equal width for all three — prevents cramped cards */
+    flex: 1;
+    max-width: 120px;
+    min-width: 0;
+  }
+  .lb-podium-card:hover { transform: translateY(-4px); }
+  .lb-podium-card.r1 { background: linear-gradient(160deg,#FFF9EC,#FFEFC2); border: 2px solid #F5A623; box-shadow: 0 16px 40px -10px rgba(245,166,35,.3); }
+  .lb-podium-card.r2 { background: linear-gradient(160deg,#F8FAFF,#E8EDF8); border: 2px solid #A8B8C8; box-shadow: 0 12px 30px -10px rgba(100,116,139,.22); }
+  .lb-podium-card.r3 { background: linear-gradient(160deg,#FFF5F0,#FFE8DC); border: 2px solid #CD7F32; box-shadow: 0 10px 28px -10px rgba(205,127,50,.22); }
+
+  /* Avatar — same size for all, simpler */
+  .lb-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1.1rem; color: white;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+  .r1 .lb-avatar { background: linear-gradient(135deg,#F5A623,#E07B00); width:60px; height:60px; font-size:1.25rem; }
+  .r2 .lb-avatar { background: linear-gradient(135deg,#94A3B8,#64748B); }
+  .r3 .lb-avatar { background: linear-gradient(135deg,#CD7F32,#A0522D); }
+
+  .lb-crown { position:absolute; top:-20px; font-size:1.6rem; animation: lb-float 3s ease-in-out infinite; }
+  @keyframes lb-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+  /* Podium body — name + score, nothing else */
+  .lb-podium-body {
+    width: 100%;
+    text-align: center;
+    padding: 0 4px;
+    margin-bottom: 10px;
+  }
+  .lb-podium-name {
+    font-weight: 700;
+    font-size: .78rem;
+    line-height: 1.2;
+    color: #1E293B;
+    /* Single line with ellipsis — NO wrapping */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+  }
+  .lb-podium-score {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #1E40AF;
+    margin-top: 4px;
+    line-height: 1;
+  }
+  .lb-podium-score-label {
+    font-size: .62rem;
+    color: #94A3B8;
+    margin-top: 1px;
+    letter-spacing: .03em;
+  }
+
+  .lb-podium-base {
+    width: 100%;
+    border-radius: 0 0 14px 14px;
+    margin-top: auto;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1.25rem; color: white;
+    padding: 8px 0;
+  }
+  .r1 .lb-podium-base { background: linear-gradient(135deg,#F5A623,#E07B00); height: 64px; }
+  .r2 .lb-podium-base { background: linear-gradient(135deg,#A8B8C8,#7A8FA0); height: 52px; }
+  .r3 .lb-podium-base { background: linear-gradient(135deg,#CD7F32,#9A5E1E); height: 44px; }
+
+  /* RANK ROWS */
+  .lb-row {
+    display:flex; align-items:center; gap:12px; padding:12px 16px;
+    border-radius:14px; background:#fff; border:1px solid #E2E8F0;
+    transition: all .2s; opacity:0; transform:translateX(-14px);
+    animation: lb-slide .4s ease forwards;
+  }
+  .lb-row:hover { border-color:#BFDBFE; box-shadow:0 6px 20px -6px rgba(37,99,235,.12); transform:translateX(4px) !important; }
+  .lb-row.lb-you { background:linear-gradient(135deg,#EFF6FF,#EEF2FF); border:2px solid #2563EB; box-shadow:0 8px 28px -8px rgba(37,99,235,.18); }
+  @keyframes lb-slide { to { opacity:1; transform:translateX(0); } }
+
+  .lb-rank-num { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; min-width:34px; text-align:center; color:#64748B; }
+  .lb-mini-av {
+    width:38px; height:38px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Syne',sans-serif; font-weight:700; font-size:.9rem; color:white;
+    background:linear-gradient(135deg,#2563EB,#6366F1);
+  }
+
+  .lb-pill { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:999px; font-size:.75rem; font-weight:500; }
+  .lb-pill-score { background:#DBEAFE; color:#1E40AF; }
+  .lb-pill-acc   { background:#D1FAE5; color:#065F46; }
+  .lb-pill-time  { background:#F3F4F6; color:#374151; }
+
+  .lb-you-badge {
+    background:#2563EB; color:white; font-size:.62rem; font-weight:700;
+    padding:2px 6px; border-radius:999px; text-transform:uppercase; letter-spacing:.05em;
+  }
+
+  /* YOUR RANK CARD */
+  .lb-your-card {
+    background: linear-gradient(135deg, #2563EB, #4F46E5);
+    border-radius: 20px; padding:22px 28px; color:white; position:relative; overflow:hidden;
+  }
+  .lb-your-card::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 60% 80% at 110% 50%,rgba(255,255,255,.12),transparent);
+    pointer-events:none;
+  }
+  .lb-pct-ring {
+    width:88px; height:88px; border-radius:50%; flex-shrink:0;
+    background:conic-gradient(rgba(255,255,255,.9) var(--pct),rgba(255,255,255,.2) 0);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .lb-pct-ring::after {
+    content:''; position:absolute;
+    width:70px; height:70px; border-radius:50%; background:#2563EB;
+  }
+  .lb-pct-text { position:relative;z-index:2; font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; line-height:1; text-align:center; }
+
+  /* SKELETON */
+  .lb-skeleton {
+    background:linear-gradient(90deg,#E2E8F0 25%,#F1F5F9 50%,#E2E8F0 75%);
+    background-size:200% 100%; animation:lb-shimmer 1.4s infinite; border-radius:10px;
+  }
+  @keyframes lb-shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  /* SEARCH */
+  .lb-search {
+    background:#fff; border:1.5px solid #E2E8F0; border-radius:12px;
+    padding:9px 14px 9px 40px; font-size:.92rem; width:100%; outline:none;
+    transition:border .2s,box-shadow .2s;
+  }
+  .lb-search:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.1); }
+
+  /* SHARE BTN */
+  .lb-share-btn {
+    background:linear-gradient(135deg,#F5A623,#F97316); color:white; border:none;
+    border-radius:10px; padding:9px 18px; font-family:'Syne',sans-serif; font-weight:700;
+    font-size:.88rem; cursor:pointer; transition:transform .2s,box-shadow .2s; white-space:nowrap;
+  }
+  .lb-share-btn:hover { transform:scale(1.05); box-shadow:0 8px 24px -6px rgba(245,166,35,.45); }
+
+  /* TAB BTNS */
+  .lb-tab {
+    padding:7px 18px; border-radius:10px; font-weight:600; font-size:.88rem; cursor:pointer;
+    border:1.5px solid #E2E8F0; background:white; color:#64748B; transition:all .2s;
+  }
+  .lb-tab.active { background:#2563EB; border-color:#2563EB; color:white; box-shadow:0 4px 12px -4px rgba(37,99,235,.4); }
+
+  /* TOAST */
+  #lb-toast {
+    position:fixed; bottom:24px; right:24px; background:#0F172A; color:white;
+    padding:11px 18px; border-radius:12px; font-size:.88rem; z-index:999;
+    opacity:0; pointer-events:none; transform:translateY(8px); transition:all .3s;
+  }
+  #lb-toast.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+
+  /* stagger */
+  .lb-row:nth-child(1){animation-delay:.04s}.lb-row:nth-child(2){animation-delay:.08s}
+  .lb-row:nth-child(3){animation-delay:.12s}.lb-row:nth-child(4){animation-delay:.16s}
+  .lb-row:nth-child(5){animation-delay:.20s}.lb-row:nth-child(6){animation-delay:.24s}
+  .lb-row:nth-child(7){animation-delay:.28s}.lb-row:nth-child(8){animation-delay:.32s}
+  .lb-row:nth-child(9){animation-delay:.36s}.lb-row:nth-child(10){animation-delay:.40s}
+</style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
     <script>
@@ -191,33 +400,133 @@
         </div>
     </nav>
 
-    <div class="flex-grow">
-        <!-- ========== LEADERBOARD CONTENT (new) ========== -->
-        <section class="py-16 px-4 max-w-6xl mx-auto">
+<div class="flex-grow" style="background:#F4F6FB;">
 
-            <div class="text-center mb-10">
-                <h1 class="text-4xl font-bold text-blue-700">
-                    Leaderboard
-                </h1>
-            </div>
+  <!-- HERO BANNER -->
+  <div class="lb-hero px-4 pt-14 pb-24">
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur px-4 py-1.5 rounded-full text-sm mb-5 border border-white/25 text-white font-semibold">
+        <i class="fas fa-trophy text-yellow-400"></i>
+        <span>Live Results</span>
+      </div>
+      <h1 style="font-family:'Syne',sans-serif;" class="text-4xl md:text-5xl font-extrabold mb-2 tracking-tight text-white">
+        Exam Leaderboard
+      </h1>
+      <p class="text-blue-200 text-base" id="lb-subtitle">Loading…</p>
 
-            <div class="glass p-8 shadow-xl">
+      <!-- quick stats -->
+      <div class="mt-8 flex justify-center gap-8">
+        <div class="text-center">
+          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold text-white" id="lb-stat-total">—</div>
+          <div class="text-xs text-blue-200 mt-1">Participants</div>
+        </div>
+        <div class="w-px bg-white/25"></div>
+        <div class="text-center">
+          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold text-white" id="lb-stat-avg">—</div>
+          <div class="text-xs text-blue-200 mt-1">Avg Score</div>
+        </div>
+        <div class="w-px bg-white/25"></div>
+        <div class="text-center">
+          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold text-white" id="lb-stat-top">—</div>
+          <div class="text-xs text-blue-200 mt-1">Top Score</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-                <div id="topRanks" class="space-y-4"></div>
+  <!-- MAIN CONTENT -->
+  <div class="max-w-3xl mx-auto w-full px-4 -mt-6 pb-20 relative z-10">
 
-                <div class="mt-10 text-center">
-                    <h2 class="text-xl font-bold">
-                        Your Rank: <span id="yourRank"></span>
-                    </h2>
-                </div>
-
-            </div>
-
-        </section>
+    <!-- YOUR RANK CARD -->
+    <div class="lb-your-card mb-8 shadow-2xl" id="lb-your-card" style="display:none">
+      <div class="relative z-10 flex flex-col sm:flex-row items-center gap-5">
+        <div class="lb-pct-ring" id="lb-pct-ring" style="--pct:0%">
+          <div class="lb-pct-text">
+            <div id="lb-pct-val">—</div>
+            <div class="text-xs text-blue-200 font-normal">pctile</div>
+          </div>
+        </div>
+        <div class="flex-1 text-center sm:text-left">
+          <div class="text-sm text-blue-100 mb-1">Your Result</div>
+          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold mb-2">
+            Rank <span id="lb-your-rank-num">—</span>
+            <span class="text-sm font-normal text-blue-100" id="lb-your-rank-of"></span>
+          </div>
+          <div class="flex flex-wrap gap-2 justify-center sm:justify-start" id="lb-your-pills"></div>
+          <div id="lb-your-bar"></div>
+        </div>
+        <button class="lb-share-btn flex items-center gap-2" onclick="lbShare()">
+          <i class="fas fa-share-nodes"></i> Share
+        </button>
+      </div>
     </div>
 
-    <script src="/js/supabaseClient.js"></script>
-    <script src="/js/leaderboardEngine.js"></script>
+    <!-- PODIUM -->
+    <div class="mb-10" id="lb-podium" style="display:none">
+      <div class="text-center mb-6">
+        <h2 style="font-family:'Syne',sans-serif;" class="text-2xl font-bold text-gray-800">🏆 Top Performers</h2>
+      </div>
+      <div class="lb-podium-wrap" id="lb-podium-container"></div>
+    </div>
+
+    <!-- LIST CARD -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+      <!-- toolbar -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-4 border-b border-gray-100">
+        <div class="flex gap-2">
+          <button class="lb-tab active" onclick="lbSetTab(this,'all')">All</button>
+          <button class="lb-tab"        onclick="lbSetTab(this,'top10')">Top 10</button>
+        </div>
+        <div class="relative w-full sm:w-60">
+          <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+          <input id="lb-search" class="lb-search" placeholder="Search by name…" oninput="lbFilter()">
+        </div>
+      </div>
+
+      <!-- col headers -->
+      <div class="grid text-xs font-semibold text-gray-400 uppercase tracking-wide px-5 py-2 bg-gray-50"
+           style="grid-template-columns:44px 1fr auto">
+        <span>#</span><span>Student</span><span class="text-right pr-1">Score · Acc · Time</span>
+      </div>
+
+      <!-- skeleton -->
+      <div id="lb-skeleton" class="p-4 space-y-3">
+        <div class="lb-skeleton h-14"></div>
+        <div class="lb-skeleton h-14"></div>
+        <div class="lb-skeleton h-14"></div>
+        <div class="lb-skeleton h-14"></div>
+        <div class="lb-skeleton h-14"></div>
+      </div>
+
+      <!-- rows -->
+      <div id="lb-list" class="p-4 space-y-3"></div>
+
+      <!-- empty -->
+      <div id="lb-empty" class="hidden py-14 text-center text-gray-400">
+        <i class="fas fa-search-minus text-4xl mb-3"></i>
+        <p class="text-lg font-medium">No results found</p>
+        <p class="text-sm">Try a different name</p>
+      </div>
+    </div>
+
+    <!-- dashboard btn -->
+    <div class="mt-8 flex justify-center">
+      <a href="/mock/dashboard.html"
+         class="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition shadow-md font-semibold">
+        <i class="fas fa-home"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="lb-toast"></div>
+
+<!-- SCRIPTS -->
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/leaderboardEngine.js"></script>
 
     <!-- ========== FOOTER (identical to original) ========== -->
     <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">

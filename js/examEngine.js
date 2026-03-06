@@ -8,7 +8,7 @@ const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let isSubmitting = false;
 
 window.addEventListener("beforeunload", (e) => {
-  if (!isSubmitting && durationSeconds > 0) {
+  if (!isSubmitting && durationSeconds && durationSeconds > 0) {
     e.preventDefault();
     e.returnValue = "";
   }
@@ -25,6 +25,8 @@ let markedQuestions = {};
 let examStartedAt;
 let examDuration;
 let examStarted = false;
+let fullscreenLockActive = false;
+let securityActive = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
@@ -77,26 +79,47 @@ async function loadExam() {
   }
 
   const pattern = attempt.scheduled_exams.exam_patterns;
-  examStartedAt = new Date(attempt.started_at).getTime();
-  examDuration = pattern.duration_minutes * 60;
-
   document.getElementById("examTitle").innerText = pattern.pattern_name;
 
-  const now = Date.now();
-const elapsed = Math.floor((now - examStartedAt) / 1000);
+  /* ------------------ SET EXAM START TIME ------------------ */
 
-durationSeconds = examDuration - elapsed;
+  let startTime;
 
-  if (durationSeconds <= 0) {
-    submitExam();
-    return;
+  if (!attempt.started_at) {
+    startTime = Date.now();
+
+    await client
+      .from("attempts")
+      .update({ started_at: new Date(startTime) })
+      .eq("id", attemptId);
+  } else {
+    startTime = new Date(attempt.started_at).getTime();
   }
+
+  examStartedAt = startTime;
+
+  /* ------------------ SET DURATION ------------------ */
+
+  examDuration = pattern.duration_minutes * 60;
+
+  const elapsed = Math.floor((Date.now() - examStartedAt) / 1000);
+
+  durationSeconds = examDuration - elapsed;
+
+  if (durationSeconds <= 0 || isNaN(durationSeconds)) {
+    durationSeconds = examDuration;
+  }
+
+  /* ------------------ LOAD DATA ------------------ */
 
   await loadQuestions();
   await loadSavedAnswers();
 
   showQuestion(0);
-  startTimer();
+
+  setTimeout(() => {
+    startTimer();
+  }, 100);
 
   generateWatermark();
   setInterval(generateWatermark, 5000);
@@ -118,7 +141,7 @@ ${now}`;
 
   container.innerHTML = "";
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 9; i++) {
     const item = document.createElement("div");
 
     item.className = "watermarkItem";
@@ -130,8 +153,12 @@ ${now}`;
 }
 
 document.addEventListener("fullscreenchange", () => {
+  if (!fullscreenLockActive) return;
+
   if (!document.fullscreenElement && window.innerWidth > 768) {
-    document.documentElement.requestFullscreen();
+    showAlert("Fullscreen mode is required.", "warning");
+
+    document.documentElement.requestFullscreen().catch(() => {});
   }
 });
 
@@ -249,7 +276,7 @@ function startTimer() {
     const minutes = Math.floor(durationSeconds / 60);
     const seconds = durationSeconds % 60;
 
-    timerEl.innerText = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    timerEl.innerText = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
     if (durationSeconds <= 0) {
       clearInterval(timerInterval);
@@ -298,11 +325,9 @@ document.getElementById("prevBtn").addEventListener("click", () => {
 let tabSwitchCount = 0;
 
 document.addEventListener("visibilitychange", () => {
-  if (isSubmitting || !examStarted) return;
+  if (isSubmitting || !securityActive) return;
 
   if (document.hidden) {
-    const leaveTime = Date.now();
-
     setTimeout(() => {
       // If still hidden after 800ms → real app switch
       if (document.hidden) {
@@ -324,10 +349,9 @@ document.addEventListener("visibilitychange", () => {
 });
 
 document.addEventListener("visibilitychange", () => {
-  if (!examStarted) return;
+  if (!securityActive) return;
 
   if (!document.hidden) {
-
     const now = Date.now();
     const elapsed = Math.floor((now - examStartedAt) / 1000);
 
@@ -336,9 +360,7 @@ document.addEventListener("visibilitychange", () => {
     if (durationSeconds <= 0) {
       submitExam();
     }
-
   }
-
 });
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -519,18 +541,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start Test
   startBtn.addEventListener("click", () => {
-    examStarted = true;
     rulesModal.classList.add("hidden");
     document.body.style.overflow = "auto";
 
-    // FULLSCREEN MUST BE TRIGGERED BY USER ACTION
     if (window.innerWidth > 768 && !document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch((err) => {
-        console.log("Fullscreen blocked:", err);
-      });
+      document.documentElement.requestFullscreen().catch(() => {});
     }
 
     loadExam();
+
+    examStarted = true;
+
+    // activate security AFTER environment stabilizes
+    setTimeout(() => {
+      securityActive = true;
+      fullscreenLockActive = true;
+    }, 3000);
   });
 });
 
@@ -541,14 +567,20 @@ window.onpopstate = function () {
 };
 
 setInterval(() => {
-  const devtools = window.outerWidth - window.innerWidth > 160;
+  if (!securityActive) return;
+
+  const widthDiff = window.outerWidth - window.innerWidth;
+  const heightDiff = window.outerHeight - window.innerHeight;
+
+  const devtools = widthDiff > 220 || heightDiff > 220;
 
   if (devtools) {
-    showAlert("Developer tools detected. Test will be submitted.", "error");
+    showAlert("Developer tools detected.", "warning");
 
-    submitExam();
+    // optional: don't instantly submit
+    // submitExam();
   }
-}, 2000);
+}, 3000);
 
 window.addEventListener("offline", () => {
   showAlert("Internet connection lost.", "warning");
