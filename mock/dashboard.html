@@ -1,322 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Test Dashboard | Courage Library</title>
-    <link rel="icon" type="image/png" href="../images/logo.png" />
-    <!-- Font Awesome & Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Alpine.js (for mobile menu) -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
-    <!-- Supabase client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Test Dashboard | Courage Library</title>
+  <link rel="icon" type="image/png" href="../images/logo.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Sora:wght@700;800&display=swap" rel="stylesheet"> -->
 
-    <style>
-        body {
-            background: #f4f6fa;
-            min-height: 100vh;
-        }
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-HDZDTH2P22');
+  </script>
 
-        .glass {
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(200, 200, 255, 0.12);
-        }
+  <style>
+    *,*::before,*::after{box-sizing:border-box;}
+    body{font-family:inherit;background:#eef2f9;min-height:100vh;-webkit-font-smoothing:antialiased;}
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-        }
+    /* ── kept compat classes ── */
+    .glass{background:rgba(255,255,255,.85);box-shadow:0 8px 32px 0 rgba(31,38,135,.18);backdrop-filter:blur(12px);border-radius:1.5rem;border:1px solid rgba(200,200,255,.12);}
+    .glass-card{background:rgba(255,255,255,.75);backdrop-filter:blur(4px);border-radius:1.5rem;border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 40px -12px rgba(0,0,0,.1);transition:all .2s ease;}
+    .glass-card:hover{transform:scale(1.02);background:rgba(255,255,255,.9);border-color:#bfdbfe;}
+    .ripple{position:relative;overflow:hidden;}
+    .ripple:after{content:'';display:block;position:absolute;border-radius:50%;width:100%;height:100%;top:0;left:0;pointer-events:none;background:rgba(59,130,246,.2);opacity:0;transition:opacity .6s,transform .6s;transform:scale(.5);}
+    .ripple:active:after{opacity:1;transform:scale(1.2);transition:0s;}
+    .trial-tag{background:linear-gradient(135deg,#f59e0b,#f97316);}
+    .icon-circle{background:linear-gradient(145deg,#dbeafe,#eff6ff);width:60px;height:60px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#2563eb;font-size:28px;box-shadow:0 8px 16px -6px #93c5fd;}
 
-        .glass-card:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #bfdbfe;
-        }
+    /* ── animations ── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    @keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.7);}50%{box-shadow:0 0 0 6px rgba(52,211,153,0);}}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+    @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
+    .fade-in{animation:fadeUp .6s ease both;}
+    .d1{animation-delay:.04s;}.d2{animation-delay:.08s;}.d3{animation-delay:.12s;}
+    .d4{animation-delay:.16s;}.d5{animation-delay:.22s;}.d6{animation-delay:.28s;}
 
-        .ripple:after {
-            content: '';
-            display: block;
-            position: absolute;
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background: rgba(59, 130, 246, 0.2);
-            opacity: 0;
-            transition: opacity 0.6s, transform 0.6s;
-            transform: scale(0.5);
-        }
+    /* ── HERO ── */
+    .dash-hero{
+      background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 60%,#1a1d6e 100%);
+      padding:36px 24px 72px;
+      position:relative;overflow:hidden;
+    }
+    .dash-hero::before{content:'';position:absolute;width:380px;height:380px;background:rgba(255,255,255,.05);border-radius:50%;right:-100px;top:-100px;pointer-events:none;}
+    .dash-hero::after{content:'';position:absolute;width:220px;height:220px;background:rgba(96,165,250,.1);border-radius:50%;left:-60px;bottom:-80px;pointer-events:none;}
+    .hero-inner{position:relative;z-index:1;max-width:1152px;margin:0 auto;}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:14px;}
+    .hero-live-dot{width:7px;height:7px;border-radius:50%;background:#34d399;animation:livepulse 1.8s ease-in-out infinite;}
+    .dash-hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.55rem,4.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;}
+    .dash-hero p{font-size:.9rem;color:#93c5fd;line-height:1.55;}
 
-        .ripple:active:after {
-            opacity: 1;
-            transform: scale(1.2);
-            transition: 0s;
-        }
+    /* ── STAT CARDS (float over hero) ── */
+    .stat-float{max-width:1152px;margin:-48px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;position:relative;z-index:10;}
+    @media(min-width:560px){.stat-float{grid-template-columns:repeat(4,1fr);gap:14px;}}
 
-        .fade-in {
-            animation: fadeIn 1.2s ease-in;
-        }
+    .stat-card{background:#fff;border-radius:18px;border:1px solid #e2e8f4;padding:16px 14px 14px;box-shadow:0 4px 20px rgba(15,23,42,.12),0 1px 4px rgba(15,23,42,.06);display:flex;flex-direction:column;gap:10px;transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;animation:fadeUp .5s ease both;}
+    .stat-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,86,219,.18);}
+    .stat-card::after{content:'';position:absolute;right:-10px;bottom:-10px;width:64px;height:64px;border-radius:50%;opacity:.07;}
+    .sc-blue::after{background:#1d4ed8;}.sc-green::after{background:#059669;}.sc-indigo::after{background:#4f46e5;}.sc-amber::after{background:#d97706;}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+    .stat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.88rem;}
+    .si-blue{background:#dbeafe;color:#1d4ed8;}.si-green{background:#d1fae5;color:#059669;}.si-indigo{background:#e0e7ff;color:#4f46e5;}.si-amber{background:#fef3c7;color:#d97706;}
+    .stat-val{font-family:'Sora',sans-serif;font-size:1.65rem;font-weight:800;line-height:1;}
+    .sv-blue{color:#1d4ed8;}.sv-green{color:#059669;}.sv-indigo{color:#4f46e5;}.sv-amber{color:#d97706;}
+    .stat-lbl{font-size:.67rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;}
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* ── MAIN BODY ── */
+    .dash-body{max-width:1152px;margin:0 auto;padding:36px 24px 80px;}
 
-        .trial-tag {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-        }
+    /* ── SECTION HEADER ── */
+    .sec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+    .sec-title{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:10px;}
+    .sec-bar{width:4px;height:20px;border-radius:99px;flex-shrink:0;background:linear-gradient(180deg,#1a56db,#60a5fa);}
+    .sec-sub{font-size:.72rem;font-weight:600;color:#94a3b8;}
 
-        /* course card icon circle */
-        .icon-circle {
-            background: linear-gradient(145deg, #dbeafe, #eff6ff);
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2563eb;
-            font-size: 28px;
-            box-shadow: 0 8px 16px -6px #93c5fd;
-        }
-    </style>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-HDZDTH2P22');
-    </script>
+    /* ── EXAM GRID ── */
+    .exam-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+    @media(min-width:540px){.exam-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(min-width:860px){.exam-grid{grid-template-columns:repeat(3,1fr);}}
+
+    /* ── EXAM CARD ── */
+    .exam-card{background:#fff;border-radius:18px;border:1px solid #e2e8f4;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 10px rgba(15,23,42,.07);transition:transform .22s ease,box-shadow .22s ease;}
+    .exam-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(26,86,219,.15);}
+    .exam-card-accent{height:4px;background:linear-gradient(90deg,#1a56db,#60a5fa);}
+    .exam-card-accent.expired{background:linear-gradient(90deg,#cbd5e1,#e2e8f0);}
+    .exam-card-body{padding:18px 18px 14px;flex:1;display:flex;flex-direction:column;gap:12px;}
+    .exam-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+    .exam-card-title{font-family:'Sora',sans-serif;font-size:.93rem;font-weight:700;color:#0f172a;line-height:1.35;}
+    .exam-type-badge{font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;flex-shrink:0;margin-top:2px;white-space:nowrap;}
+    .badge-live{background:#dcfce7;color:#166534;}.badge-weekly{background:#dbeafe;color:#1e40af;}.badge-practice{background:#f1f5f9;color:#475569;}.badge-expired{background:#fee2e2;color:#991b1b;}
+    .exam-avail{display:flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;}
+    .exam-avail.ok{color:#059669;}.exam-avail.exp{color:#dc2626;}
+    .avail-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+    .ok .avail-dot{background:#10b981;animation:blink 1.8s ease-in-out infinite;}.exp .avail-dot{background:#ef4444;}
+    .exam-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+    .meta-chip{background:#f7f9ff;border:1px solid #e8edf5;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;}
+    .meta-chip-icon{width:26px;height:26px;border-radius:7px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0;}
+    .meta-chip-icon.green{background:#d1fae5;color:#059669;}.meta-chip-icon.amber{background:#fef3c7;color:#b45309;}.meta-chip-icon.indigo{background:#e0e7ff;color:#4338ca;}
+    .meta-chip-label{font-size:.58rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.04em;line-height:1;}
+    .meta-chip-value{font-size:.82rem;font-weight:800;color:#0f172a;margin-top:2px;line-height:1;}
+    .exam-card-footer{padding:0 18px 16px;}
+    .btn-start-exam{width:100%;height:44px;border-radius:12px;border:none;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;letter-spacing:.01em;}
+    .btn-start-exam.active{background:linear-gradient(135deg,#1a56db 0%,#2563eb 100%);color:#fff;box-shadow:0 4px 16px rgba(26,86,219,.35);}
+    .btn-start-exam.active:hover{background:linear-gradient(135deg,#1e40af 0%,#1a56db 100%);box-shadow:0 6px 24px rgba(26,86,219,.45);transform:translateY(-1px);}
+    .btn-start-exam.active:active{transform:scale(.98);}
+    .btn-start-exam.disabled-btn{background:#f1f5f9;color:#94a3b8;cursor:not-allowed;}
+
+    /* ── ATTEMPTS SHELL ── */
+    .attempts-shell{background:#fff;border-radius:20px;border:1px solid #e2e8f4;box-shadow:0 2px 10px rgba(15,23,42,.07);overflow:hidden;}
+
+    /* ── DESKTOP TABLE ── */
+    .attempts-thead{display:grid;grid-template-columns:1fr 80px 90px 70px;padding:10px 20px;background:#f7f9ff;border-bottom:1px solid #e8edf5;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;gap:12px;}
+    .attempt-row{display:grid;grid-template-columns:1fr 80px 90px 70px;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid #f1f5f9;transition:background .15s;}
+    .attempt-row:last-child{border-bottom:none;}
+    .attempt-row:hover{background:#f8faff;}
+    .attempt-name{font-weight:800;font-size:.88rem;color:#0f172a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .attempt-date{font-size:.68rem;color:#94a3b8;margin-top:2px;font-weight:600;}
+    .a-pill{display:inline-flex;align-items:center;justify-content:center;padding:5px 12px;border-radius:100px;font-weight:800;font-size:.76rem;white-space:nowrap;}
+    .p-blue{background:#dbeafe;color:#1e40af;}.p-green{background:#d1fae5;color:#065f46;}.p-amber{background:#fef3c7;color:#92400e;}.p-red{background:#fee2e2;color:#991b1b;}
+    .attempt-time{font-size:.8rem;font-weight:700;color:#475569;}
+
+    /* ── MOBILE ATTEMPT CARDS ── */
+    .attempt-mob{display:none;}
+
+    @media(max-width:580px){
+      .attempts-thead,.attempt-row{display:none;}
+      .attempt-mob{
+        display:block;
+        padding:16px;
+        border-bottom:1px solid #f1f5f9;
+      }
+      .attempt-mob:last-child{border-bottom:none;}
+
+      /* row 1: name left + date right */
+      .amb-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px;}
+      .amb-name{font-family:'Sora',sans-serif;font-size:.92rem;font-weight:700;color:#0f172a;line-height:1.3;flex:1;}
+      .amb-date{font-size:.7rem;font-weight:600;color:#94a3b8;white-space:nowrap;padding-top:2px;}
+
+      /* row 2: 3 equal stat chips */
+      .amb-chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+      .amb-chip{border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #e8edf5;}
+      .amb-chip-val{font-family:'Sora',sans-serif;font-size:.95rem;font-weight:800;line-height:1;}
+      .amb-chip-lbl{font-size:.58rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-top:5px;line-height:1;}
+
+      /* colour variants */
+      .amb-chip.score{background:#eff6ff;border-color:#bfdbfe;}.amb-chip.score .amb-chip-val{color:#1e40af;}
+      .amb-chip.acc-green{background:#f0fdf4;border-color:#bbf7d0;}.amb-chip.acc-green .amb-chip-val{color:#059669;}
+      .amb-chip.acc-amber{background:#fffbeb;border-color:#fde68a;}.amb-chip.acc-amber .amb-chip-val{color:#d97706;}
+      .amb-chip.acc-red{background:#fff1f2;border-color:#fecdd3;}.amb-chip.acc-red .amb-chip-val{color:#dc2626;}
+      .amb-chip.time{background:#f7f9ff;border-color:#e2e8f4;}.amb-chip.time .amb-chip-val{color:#334155;font-size:.85rem;}
+    }
+
+    /* ── EMPTY + SKELETON ── */
+    .empty-box{padding:52px 24px;text-align:center;}
+    .empty-ico{width:60px;height:60px;border-radius:16px;background:#eff6ff;color:#1a56db;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 16px;}
+    .empty-box h3{font-family:'Sora',sans-serif;font-size:.98rem;font-weight:800;color:#0f172a;margin-bottom:6px;}
+    .empty-box p{font-size:.82rem;color:#94a3b8;line-height:1.6;max-width:260px;margin:0 auto;}
+    .skel{background:linear-gradient(90deg,#edf1f9 25%,#e2e8f4 50%,#edf1f9 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+  </style>
 </head>
 
 <body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
 
-    <!-- ========== HEADER (identical to original) ========== -->
-    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a class="flex items-center space-x-2" href="../index.html">
-                <img src="../images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
-                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
-            </a>
-            <div class="space-x-6 hidden md:flex items-center">
-                <a href="../index.html#features" class="hover:text-blue-600">Features</a>
-                <a href="../index.html#courses" class="hover:text-blue-600">Courses</a>
-                <a href="../index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
-                <a href="../Blog/Blog.html" class="hover:text-blue-600">Blog</a>
-                <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
-                <a href="../index.html"
-                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
-                    Home
-                </a>
-            </div>
-            <!-- mobile menu -->
-            <div class="md:hidden" x-data="{ open: false }">
-                <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu"
-                    aria-label="Toggle mobile menu">
-                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <div x-show="open" @click.away="open = false"
-                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
-                    <a href="../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
-                        </svg>
-                        Courses
-                    </a>
-                    <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
-                        </svg>
-                        Features
-                    </a>
-                    <a href="../index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-                        </svg>
-                        Reviews
-                    </a>
-                    <a href="../Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
-                        </svg>
-                        Blog
-                    </a>
-                    <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                        </svg>
-                        Contact Us
-                    </a>
-                </div>
-            </div>
+  <!-- ════════ HEADER — YOUR EXACT CODE ════════ -->
+  <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a class="flex items-center space-x-2" href="../index.html">
+        <img src="../images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
+        <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+      </a>
+      <div class="space-x-6 hidden md:flex items-center">
+        <a href="../index.html#features" class="hover:text-blue-600">Features</a>
+        <a href="../index.html#courses" class="hover:text-blue-600">Courses</a>
+        <a href="../index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
+        <a href="../Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+        <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
+        <a href="../index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">Home</a>
+      </div>
+      <div class="md:hidden" x-data="{ open: false }">
+        <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu" aria-label="Toggle mobile menu">
+          <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <div x-show="open" @click.away="open = false" class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+          <a href="../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>Courses</a>
+          <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z"/></svg>Features</a>
+          <a href="../index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>Reviews</a>
+          <a href="../Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>Blog</a>
+          <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact Us</a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
+  <!-- ════════ /HEADER ════════ -->
 
-    <div class="flex-grow">
-        <!-- ========== STUDENT MOCK DASHBOARD ========== -->
-        <section class="py-12 px-4 max-w-6xl mx-auto fade-in space-y-14">
+  <div class="flex-grow">
 
-            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-
-                <div>
-                    <h1 class="text-3xl md:text-4xl font-semibold text-gray-900">
-                        Mock Test Dashboard
-                    </h1>
-                    <p class="mt-2 text-gray-500 text-sm md:text-base">
-                        Free daily and weekly mock tests for serious aspirants.
-                    </p>
-                </div>
-
-                <div class="text-sm text-gray-400">
-                    Updated automatically
-                </div>
-
-            </div>
-
-
-            <!-- 📊 PERFORMANCE SNAPSHOT -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-
-                <div
-                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
-                    <div class="bg-blue-50 text-blue-600 p-3 rounded-xl">
-                        <i class="fas fa-clipboard-check text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Mocks Attempted</p>
-                        <h2 id="totalAttempts" class="text-xl md:text-2xl font-bold text-blue-700">0</h2>
-                    </div>
-                </div>
-
-                <div
-                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
-                    <div class="bg-green-50 text-green-600 p-3 rounded-xl">
-                        <i class="fas fa-bullseye text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Average Accuracy</p>
-                        <h2 id="avgAccuracy" class="text-xl md:text-2xl font-bold text-green-600">0%</h2>
-                    </div>
-                </div>
-
-                <div
-                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
-                    <div class="bg-indigo-50 text-indigo-600 p-3 rounded-xl">
-                        <i class="fas fa-trophy text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Best Score</p>
-                        <h2 id="bestScore" class="text-xl md:text-2xl font-bold text-indigo-600">0</h2>
-                    </div>
-                </div>
-
-                <div
-                    class="bg-white rounded-2xl shadow border p-5 flex items-center gap-4 transition hover:-translate-y-1 hover:shadow-xl">
-                    <div class="bg-amber-50 text-amber-600 p-3 rounded-xl">
-                        <i class="fas fa-clock text-lg"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Total Study Time</p>
-                        <h2 id="totalTime" class="text-xl md:text-2xl font-bold text-amber-600">0 hrs</h2>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- 🎯 TODAY’S FREE CHALLENGES -->
-            <div>
-
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl md:text-2xl font-semibold text-gray-900">
-                        Available Mock Tests
-                    </h2>
-                    <span class="text-xs text-gray-500">
-                        Updated in real-time
-                    </span>
-                </div>
-
-                <div id="examList" class="grid md:grid-cols-2 gap-6"></div>
-
-            </div>
-
-
-            <!-- 📜 RECENT ATTEMPTS -->
-            <div>
-
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-800">
-                        Your Recent Attempts
-                    </h2>
-                </div>
-
-                <div id="recentAttempts" class="bg-white rounded-2xl shadow border"></div>
-
-            </div>
-
-        </section>
+    <!-- HERO -->
+    <div class="dash-hero fade-in">
+      <div class="hero-inner">
+        <div class="hero-eyebrow"><span class="hero-live-dot"></span> Mock Test Dashboard</div>
+        <h1>Your Preparation,<br>Your Progress.</h1>
+        <p>Free daily &amp; weekly mock tests · Every attempt tracked · Improve every day</p>
+      </div>
     </div>
 
-    <script src="/js/studentDashboard.js"></script>
+    <!-- STAT CARDS -->
+    <div class="stat-float">
+      <div class="stat-card sc-blue d1">
+        <div class="stat-icon si-blue"><i class="fas fa-clipboard-check"></i></div>
+        <div class="stat-val sv-blue" id="totalAttempts">—</div>
+        <div class="stat-lbl">Mocks Attempted</div>
+      </div>
+      <div class="stat-card sc-green d2">
+        <div class="stat-icon si-green"><i class="fas fa-bullseye"></i></div>
+        <div class="stat-val sv-green" id="avgAccuracy">—</div>
+        <div class="stat-lbl">Avg Accuracy</div>
+      </div>
+      <div class="stat-card sc-indigo d3">
+        <div class="stat-icon si-indigo"><i class="fas fa-trophy"></i></div>
+        <div class="stat-val sv-indigo" id="bestScore">—</div>
+        <div class="stat-lbl">Best Score</div>
+      </div>
+      <div class="stat-card sc-amber d4">
+        <div class="stat-icon si-amber"><i class="fas fa-clock"></i></div>
+        <div class="stat-val sv-amber" id="totalTime">—</div>
+        <div class="stat-lbl">Study Time</div>
+      </div>
+    </div>
 
-    <!-- ========== FOOTER (identical to original) ========== -->
-    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
-            <div class="flex space-x-6">
-                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
-                    target="_blank" rel="noopener noreferrer" title="Follow us on Facebook"
-                    class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer"
-                    title="Follow us on Twitter" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
-                    title="Follow us on LinkedIn" class="hover:text-white text-2xl"><i
-                        class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
-                    title="Follow us on Instagram" class="hover:text-white text-2xl"><i
-                        class="fab fa-instagram"></i></a>
-            </div>
+    <!-- BODY -->
+    <div class="dash-body">
+
+      <!-- Available Mocks -->
+      <div class="fade-in d5" style="margin-bottom:36px">
+        <div class="sec-row">
+          <div class="sec-title"><span class="sec-bar"></span>Available Mock Tests</div>
+          <span class="sec-sub">Updated in real-time</span>
         </div>
-    </footer>
-</body>
+        <div id="examList" class="exam-grid">
+          <div class="exam-card">
+            <div class="exam-card-accent"></div>
+            <div class="exam-card-body" style="gap:10px">
+              <div class="skel" style="height:14px;width:65%"></div>
+              <div class="skel" style="height:10px;width:38%"></div>
+              <div class="exam-meta-grid">
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+              </div>
+            </div>
+            <div class="exam-card-footer"><div class="skel" style="height:44px;border-radius:12px"></div></div>
+          </div>
+          <div class="exam-card">
+            <div class="exam-card-accent"></div>
+            <div class="exam-card-body" style="gap:10px">
+              <div class="skel" style="height:14px;width:55%"></div>
+              <div class="skel" style="height:10px;width:42%"></div>
+              <div class="exam-meta-grid">
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+                <div class="skel" style="height:50px;border-radius:10px"></div>
+              </div>
+            </div>
+            <div class="exam-card-footer"><div class="skel" style="height:44px;border-radius:12px"></div></div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Recent Attempts -->
+      <div class="fade-in d6">
+        <div class="sec-row">
+          <div class="sec-title">
+            <span class="sec-bar" style="background:linear-gradient(180deg,#4f46e5,#818cf8)"></span>
+            Your Recent Attempts
+          </div>
+        </div>
+        <div id="recentAttempts" class="attempts-shell">
+          <div class="empty-box">
+            <div class="skel" style="width:60px;height:60px;border-radius:16px;margin:0 auto 14px"></div>
+            <div class="skel" style="height:12px;width:42%;margin:0 auto 8px"></div>
+            <div class="skel" style="height:10px;width:28%;margin:0 auto"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/js/studentDashboard.js"></script>
+
+  <!-- ════════ FOOTER — YOUR EXACT CODE ════════ -->
+  <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+      <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+      <div class="flex space-x-6">
+        <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" title="Follow us on Facebook" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" title="Follow us on LinkedIn" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
 </html>
