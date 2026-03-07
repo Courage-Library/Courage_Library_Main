@@ -11,362 +11,247 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadAvailableExams();
 });
 
+async function checkAuth() {
+  const { data: { user } } = await client.auth.getUser();
+  if (!user) window.location.href = "/index.html?checkAuth=1";
+}
+
 async function loadPerformanceAnalytics() {
-  const {
-    data: { user },
-  } = await client.auth.getUser();
+  const { data: { user } } = await client.auth.getUser();
 
   const { data } = await client
     .from("attempts")
-    .select(
-      `
-      total_score,
-      accuracy,
-      time_taken,
-      submitted_at,
-      scheduled_exams (
-        exam_patterns (
-          pattern_name
-        )
-      )
-    `,
-    )
+    .select(`
+      total_score, accuracy, time_taken, submitted_at,
+      scheduled_exams ( exam_patterns ( pattern_name ) )
+    `)
     .eq("user_id", user.id)
     .not("submitted_at", "is", null);
 
   if (!data || data.length === 0) {
-    document.getElementById("recentAttempts").innerHTML = `
-    <div class="p-6 text-center text-gray-500">
-      No mock attempts yet. Start your first test 🚀
-    </div>
-  `;
-
+    document.getElementById("totalAttempts").textContent = "0";
+    document.getElementById("avgAccuracy").textContent   = "0%";
+    document.getElementById("bestScore").textContent     = "0";
+    document.getElementById("totalTime").textContent     = "0 hrs";
+    renderRecentAttempts([]);
     return;
   }
 
-  // Total attempts
   document.getElementById("totalAttempts").innerText = data.length;
 
-  // Average accuracy
-  const avgAccuracy =
-    data.reduce((sum, a) => sum + Number(a.accuracy || 0), 0) / data.length;
+  const avgAccuracy = data.reduce((s, a) => s + Number(a.accuracy || 0), 0) / data.length;
+  document.getElementById("avgAccuracy").innerText = avgAccuracy.toFixed(1) + "%";
 
-  document.getElementById("avgAccuracy").innerText =
-    avgAccuracy.toFixed(1) + "%";
-
-  // Best score
   const bestScore = Math.max(...data.map((a) => a.total_score || 0));
   document.getElementById("bestScore").innerText = bestScore;
 
-  // Total time spent
-  const totalSeconds = data.reduce((sum, a) => sum + (a.time_taken || 0), 0);
-
-  const hours = (totalSeconds / 3600).toFixed(1);
-  document.getElementById("totalTime").innerText = hours + " hrs";
+  const totalSeconds = data.reduce((s, a) => s + (a.time_taken || 0), 0);
+  document.getElementById("totalTime").innerText = (totalSeconds / 3600).toFixed(1) + " hrs";
 
   renderRecentAttempts(data.slice(-5).reverse());
-}
-
-async function checkAuth() {
-  const {
-    data: { user },
-  } = await client.auth.getUser();
-  if (!user) {
-    window.location.href = "/index.html?checkAuth=1";
-  }
 }
 
 async function loadAvailableExams() {
   const { data, error } = await client
     .from("scheduled_exams")
-    .select(
-      `
-  id,
-  mode,
-  availability_type,
-  end_datetime,
-  exam_patterns (
-    pattern_name,
-    duration_minutes,
-    negative_marking,
-    total_questions
-  )
-`,
-    )
+    .select(`
+      id, mode, availability_type, end_datetime,
+      exam_patterns ( pattern_name, duration_minutes, negative_marking, total_questions )
+    `)
     .eq("is_active", true);
-  console.log("DATA:", data);
-  console.log("ERROR:", error);
-  if (error) {
-    console.error(error);
-    return;
-  }
+
+  console.log("DATA:", data, "ERROR:", error);
+  if (error) { console.error(error); return; }
 
   const container = document.getElementById("examList");
   container.innerHTML = "";
 
-  data.forEach((exam) => {
-    const div = document.createElement("div");
-    const isExpired =
-      exam.end_datetime && new Date(exam.end_datetime) < new Date();
-    div.className =
-      "rounded-2xl shadow-md border p-6 hover:shadow-xl transition bg-white hover:-translate-y-1";
+  if (!data || data.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column:1/-1">
+        <div class="empty-box">
+          <div class="empty-ico"><i class="fas fa-calendar-times"></i></div>
+          <h3>No Tests Available</h3>
+          <p>No mock tests are scheduled right now. Check back soon!</p>
+        </div>
+      </div>`;
+    return;
+  }
 
-    div.innerHTML = `
+  data.forEach((exam, i) => {
+    const pattern   = exam.exam_patterns || {};
+    const isExpired = exam.end_datetime && new Date(exam.end_datetime) < new Date();
+    const avType    = (exam.availability_type || "practice").toLowerCase();
+    const badgeClass = isExpired ? "badge-expired" : avType === "live" ? "badge-live" : avType === "weekly" ? "badge-weekly" : "badge-practice";
+    const negVal    = pattern.negative_marking != null ? `-${pattern.negative_marking}` : "None";
 
-    <!-- Header -->
-    <div>
-
-      <div class="flex justify-between items-start mb-3">
-
-        <h3 class="text-lg font-semibold text-gray-800">
-          ${exam.exam_patterns?.pattern_name}
-        </h3>
-
-        <span class="px-3 py-1 text-xs font-semibold rounded-full tracking-wide
-          ${
-            exam.availability_type === "live"
-              ? "bg-green-100 text-green-700"
-              : "bg-blue-100 text-blue-700"
-          }">
-          ${exam.availability_type}
-        </span>
-
+    const card = document.createElement("div");
+    card.className = "exam-card";
+    card.style.animation = `fadeInUp .45s ease ${i * 0.07}s both`;
+    card.innerHTML = `
+      <div class="exam-card-accent ${isExpired ? "expired" : ""}"></div>
+      <div class="exam-card-body">
+        <div class="exam-card-head">
+          <div class="exam-card-title">${pattern.pattern_name || "Mock Test"}</div>
+          <span class="exam-type-badge ${badgeClass}">${isExpired ? "Expired" : avType}</span>
+        </div>
+        <div class="exam-avail ${isExpired ? "exp" : "ok"}">
+          <span class="avail-dot"></span>
+          ${isExpired ? "No longer available" : "Available now"}
+        </div>
+        <div class="exam-meta-grid">
+          <div class="meta-chip">
+            <div class="meta-chip-icon"><i class="far fa-clock"></i></div>
+            <div><div class="meta-chip-label">Duration</div><div class="meta-chip-value">${pattern.duration_minutes ?? "—"} min</div></div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-icon green"><i class="fas fa-list-ol"></i></div>
+            <div><div class="meta-chip-label">Questions</div><div class="meta-chip-value">${pattern.total_questions ?? "—"}</div></div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-icon amber"><i class="fas fa-minus-circle"></i></div>
+            <div><div class="meta-chip-label">Negative</div><div class="meta-chip-value">${negVal}</div></div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-icon indigo"><i class="fas fa-layer-group"></i></div>
+            <div><div class="meta-chip-label">Mode</div><div class="meta-chip-value">${exam.mode || "—"}</div></div>
+          </div>
+        </div>
       </div>
-
-      ${
-        isExpired
-          ? `
-        <div class="text-xs text-red-500 font-medium mb-2">
-          This mock is no longer available
-        </div>
-      `
-          : `
-        <div class="text-xs text-green-600 font-medium mb-2">
-          Available Now
-        </div>
-      `
-      }
-
-      <!-- Details -->
-      <div class="text-sm text-gray-600 space-y-2 mb-5">
-
-        <div>
-          <strong>Mode:</strong> ${exam.mode}
-        </div>
-
-        <div>
-          <strong>Duration:</strong> 
-          ${exam.exam_patterns?.duration_minutes} minutes
-        </div>
-
-        <div>
-          <strong>Total Questions:</strong> 
-          ${exam.exam_patterns?.total_questions || "—"}
-        </div>
-
-        <div>
-          <strong>Negative Marking:</strong> 
-          ${exam.exam_patterns?.negative_marking || 0}
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Button -->
-    ${
-      isExpired
-        ? `
-          <button 
-            class="w-full bg-gray-200 text-gray-400 py-2 rounded-lg cursor-not-allowed font-medium">
-            Expired
-          </button>
-        `
-        : `
-          <button 
-  onclick="startExam('${exam.id}', this)"
-  class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition">
-  Start Exam
-</button>
-        `
-    }
-`;
-
-    container.appendChild(div);
+      <div class="exam-card-footer">
+        ${isExpired
+          ? `<button class="btn-start-exam disabled-btn" disabled><i class="fas fa-lock"></i> Expired</button>`
+          : `<button class="btn-start-exam active" onclick="startExam('${exam.id}', this)"><i class="fas fa-play"></i> Start Exam</button>`
+        }
+      </div>`;
+    container.appendChild(card);
   });
 }
 
 window.startExam = async function (examId, btn) {
-  // show loading animation
   btn.disabled = true;
   btn.innerHTML = `
-    <span class="flex items-center justify-center gap-2">
-      <svg class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="3" fill="none" opacity="0.3"/>
-        <path d="M22 12a10 10 0 0 1-10 10" stroke="white" stroke-width="3" fill="none"/>
+    <span style="display:flex;align-items:center;justify-content:center;gap:8px">
+      <svg style="width:16px;height:16px;animation:spin .75s linear infinite;flex-shrink:0" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+        <path d="M22 12a10 10 0 0 1-10 10" stroke="white" stroke-width="3" stroke-linecap="round"/>
       </svg>
       Preparing Exam...
-    </span>
-  `;
+    </span>`;
 
-  const {
-    data: { user },
-  } = await client.auth.getUser();
+  const { data: { user } } = await client.auth.getUser();
 
-  // Create attempt
   const { data: newAttempt, error } = await client
     .from("attempts")
-    .insert([
-      {
-        user_id: user.id,
-        scheduled_exam_id: examId,
-        started_at: new Date(),
-      },
-    ])
-    .select()
-    .single();
+    .insert([{ user_id: user.id, scheduled_exam_id: examId, started_at: new Date() }])
+    .select().single();
 
   if (error) {
     btn.disabled = false;
-    btn.innerHTML = "Start Exam";
+    btn.innerHTML = `<i class="fas fa-play"></i> Start Exam`;
     alert(error.message);
     return;
   }
 
-  // Get exam pattern
   const { data: exam } = await client
-    .from("scheduled_exams")
-    .select(`mode, exam_patterns(id)`)
-    .eq("id", examId)
-    .single();
+    .from("scheduled_exams").select(`mode, exam_patterns(id)`).eq("id", examId).single();
 
   const patternId = exam.exam_patterns.id;
-
-  // Fetch sections
-  const { data: sections } = await client
-    .from("pattern_sections")
-    .select("*")
-    .eq("pattern_id", patternId);
+  const { data: sections } = await client.from("pattern_sections").select("*").eq("pattern_id", patternId);
 
   let finalQuestions = [];
-
   const sectionIds = sections.map((s) => s.id);
-
-  const { data: allQuestions } = await client
-    .from("questions")
-    .select("id, pattern_section_id")
-    .in("pattern_section_id", sectionIds);
+  const { data: allQuestions } = await client.from("questions").select("id, pattern_section_id").in("pattern_section_id", sectionIds);
 
   sections.forEach((section) => {
-    const sectionQuestions = allQuestions
-      .filter((q) => q.pattern_section_id === section.id)
-      .slice(0, section.question_count);
-
+    const sectionQuestions = allQuestions.filter((q) => q.pattern_section_id === section.id).slice(0, section.question_count);
     finalQuestions = finalQuestions.concat(sectionQuestions);
   });
 
-  const questionRows = finalQuestions.map((q, index) => ({
-    attempt_id: newAttempt.id,
-    question_id: q.id,
-    question_order: index + 1,
-  }));
-
-  await client.from("attempt_questions").insert(questionRows);
+  await client.from("attempt_questions").insert(
+    finalQuestions.map((q, index) => ({ attempt_id: newAttempt.id, question_id: q.id, question_order: index + 1 }))
+  );
 
   window.location.href = `/mock/exam.html?attempt=${newAttempt.id}`;
 };
 
 function renderRecentAttempts(attempts) {
   const container = document.getElementById("recentAttempts");
-
   if (!container) return;
 
   if (!attempts || attempts.length === 0) {
     container.innerHTML = `
-      <div class="p-6 text-center text-gray-500">
-        No mock attempts yet. Start your first test 🚀
-      </div>
-    `;
+      <div class="empty-box">
+        <div class="empty-ico"><i class="fas fa-rocket"></i></div>
+        <h3>No Attempts Yet</h3>
+        <p>Start your first mock test — your performance history will appear here.</p>
+      </div>`;
     return;
   }
 
-  const getAccuracyColor = (acc) => {
-    if (acc >= 80) return "text-green-600";
-    if (acc >= 60) return "text-amber-500";
-    return "text-red-500";
-  };
-  container.innerHTML = `
-    <div class="space-y-4 p-4">
+  const accClass = (acc) => acc >= 80 ? "p-green" : acc >= 60 ? "p-amber" : "p-red";
+  const accMobClass = (acc) => acc >= 80 ? "acc-green" : acc >= 60 ? "acc-amber" : "acc-red";
 
-      ${attempts
-        .map(
-          (a) => `
-        <div class="border rounded-xl p-4 shadow-sm">
-
-          <div class="flex justify-between items-center mb-2">
-            <div class="font-semibold text-blue-700">
-              ${a.scheduled_exams?.exam_patterns?.pattern_name || "Mock"}
-            </div>
-            <div class="text-xs text-gray-500">
-              ${
-                a.submitted_at
-                  ? new Date(a.submitted_at).toLocaleDateString()
-                  : "—"
-              }
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 text-center text-sm">
-
-            <div>
-              <div class="font-semibold">${a.total_score ?? 0}</div>
-              <div class="text-gray-500 text-xs">Score</div>
-            </div>
-
-            <div>
-              <div class="font-semibold ${getAccuracyColor(a.accuracy)}">
-                ${a.accuracy ?? 0}%
-              </div>
-              <div class="text-gray-500 text-xs">Accuracy</div>
-            </div>
-
-            <div>
-              <div class="font-semibold">
-                ${formatDuration(a.time_taken)}
-              </div>
-              <div class="text-gray-500 text-xs">Time</div>
-            </div>
-
-          </div>
-
+  const desktopRows = attempts.map((a) => {
+    const acc  = Number(a.accuracy ?? 0);
+    const name = a.scheduled_exams?.exam_patterns?.pattern_name || "Mock";
+    const date = a.submitted_at ? new Date(a.submitted_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—";
+    return `
+      <div class="attempt-row">
+        <div>
+          <div class="attempt-name">${name}</div>
+          <div class="attempt-date">${date}</div>
         </div>
-      `,
-        )
-        .join("")}
+        <div><span class="a-pill p-blue">${a.total_score ?? 0}</span></div>
+        <div><span class="a-pill ${accClass(acc)}">${acc.toFixed(1)}%</span></div>
+        <div class="attempt-time">${formatDuration(a.time_taken)}</div>
+      </div>`;
+  }).join("");
 
+  /* Mobile: each attempt becomes a card with name/date on top,
+     then 3 equal chips: Score | Accuracy | Time */
+  const mobileCards = attempts.map((a) => {
+    const acc  = Number(a.accuracy ?? 0);
+    const name = a.scheduled_exams?.exam_patterns?.pattern_name || "Mock";
+    const date = a.submitted_at ? new Date(a.submitted_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—";
+    return `
+      <div class="attempt-mob">
+        <div class="amb-top">
+          <div class="amb-name">${name}</div>
+          <div class="amb-date">${date}</div>
+        </div>
+        <div class="amb-chips">
+          <div class="amb-chip score">
+            <div class="amb-chip-val">${a.total_score ?? 0}</div>
+            <div class="amb-chip-lbl">Score</div>
+          </div>
+          <div class="amb-chip ${accMobClass(acc)}">
+            <div class="amb-chip-val">${acc.toFixed(1)}%</div>
+            <div class="amb-chip-lbl">Accuracy</div>
+          </div>
+          <div class="amb-chip time">
+            <div class="amb-chip-val">${formatDuration(a.time_taken)}</div>
+            <div class="amb-chip-lbl">Time</div>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="attempts-thead">
+      <div>Exam</div><div>Score</div><div>Accuracy</div><div>Time</div>
     </div>
-  `;
+    ${desktopRows}
+    ${mobileCards}`;
 }
 
 function formatDuration(time) {
   if (!time) return "—";
-
   let seconds = Number(time);
-
-  // If value is too large, it is milliseconds
-  if (seconds > 100000) {
-    seconds = Math.floor(seconds / 1000);
-  }
-
-  const hrs = Math.floor(seconds / 3600);
+  if (seconds > 100000) seconds = Math.floor(seconds / 1000);
+  const hrs  = Math.floor(seconds / 3600);
   const mins = Math.floor((seconds % 3600) / 60);
-
-  if (hrs > 0) {
-    return `${hrs}h ${mins}m`;
-  }
-
-  if (mins > 0) {
-    return `${mins}m`;
-  }
-
+  if (hrs > 0)  return `${hrs}h ${mins}m`;
+  if (mins > 0) return `${mins}m`;
   return "<1m";
 }
