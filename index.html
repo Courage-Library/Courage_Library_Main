@@ -2765,7 +2765,7 @@
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <p class="mb-4 md:mb-0">&copy; 2026 Courage Library. All rights reserved.</p>
             <div class="flex space-x-6">
                 <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
                     target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
@@ -2778,39 +2778,6 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        function handleSearch() {
-            const input = document.getElementById("searchInput").value.toLowerCase();
-            const cards = document.querySelectorAll("#courses .glass");
-            const resultsDiv = document.getElementById("results");
-
-            let matchCount = 0;
-
-            cards.forEach((card) => {
-                const title = card.querySelector("h3").textContent.toLowerCase();
-                const desc = card.querySelector("p").textContent.toLowerCase();
-
-                if (title.includes(input) || desc.includes(input)) {
-                    card.style.display = "flex";
-                    matchCount++;
-                } else {
-                    card.style.display = "none";
-                }
-            });
-
-            // Optional: Show results summary
-            if (input.trim() === "") {
-                resultsDiv.innerHTML = "";
-            } else if (matchCount === 0) {
-                resultsDiv.innerHTML = `<p class='text-center text-blue-500'>No courses found for "<strong>${input}</strong>"</p>`;
-            } else {
-                resultsDiv.innerHTML = `<p class='text-center text-blue-600'>Found ${matchCount} course(s) for "<strong>${input}</strong>"</p>`;
-            }
-        }
-        // Optional: Trigger on typing instead of just submit
-        document.getElementById("searchInput").addEventListener("input", handleSearch);
-    </script>
 
     <section>
         <!-- ================== COURAGE LIBRARY CHATBOT ================== -->

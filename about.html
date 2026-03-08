@@ -1,75 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Courage Library - Self Paced Government Exam Learning Platform</title>
-    <meta name="description" content="Courage Library is a self-paced government exam learning platform that empowers aspirants to prepare for SSC, NDA, Banking, and other exams at their own pace. Learn anytime, anywhere with expert-designed courses.">
+    <meta name="description" content="Courage Library is a self-paced government exam learning platform that empowers aspirants to prepare for SSC, NDA, Banking, and other exams at their own pace.">
     <meta name="keywords" content="Courage Library, about Courage Library, self paced learning, government exam preparation, SSC GD, NDA, Banking, Railway, online learning platform">
     <meta name="author" content="Courage Library">
-    
-    <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="About Courage Library | Self-Paced Learning for Government Exams">
-    <meta property="og:description" content="Learn more about Courage Library — a modern self-paced platform for SSC, NDA, Banking, and other government exams. Study anytime, anywhere.">
+    <meta property="og:description" content="Learn more about Courage Library — a modern self-paced platform for SSC, NDA, Banking, and other government exams.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.couragelibrary.in/about.html">
     <meta property="og:image" content="https://www.couragelibrary.in/images/logo.png">
-    
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://www.couragelibrary.in/about.html">
-    
     <link rel="icon" type="image/png" href="/images/logo.png" />
+
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        body {
-            background: #fff;
-            min-height: 100vh;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-            backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(200, 200, 255, 0.12);
-        }
-        .fade-in {
-            animation: fadeIn 1.2s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        .ripple:after {
-            content: '';
-            display: block;
-            position: absolute;
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            top: 0; left: 0;
-            pointer-events: none;
-            background: rgba(59, 130, 246, 0.2);
-            opacity: 0;
-            transition: opacity 0.6s, transform 0.6s;
-            transform: scale(0.5);
-        }
-        .ripple:active:after {
-            opacity: 1;
-            transform: scale(1.2);
-            transition: 0s;
-        }
-    </style>
-
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -77,187 +26,560 @@
         gtag('js', new Date());
         gtag('config', 'G-HDZDTH2P22');
     </script>
+
+    <style>
+        :root { --blue:#2563eb; --indigo:#4f46e5; --purple:#7c3aed; }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: inherit; background:#f8f9ff; color:#1e1b4b; overflow-x:hidden; margin:0; }
+
+        /* ── RIPPLE ── */
+        .ripple { position:relative; overflow:hidden; }
+        .ripple:after {
+            content:''; display:block; position:absolute; border-radius:50%;
+            width:100%; height:100%; top:0; left:0; pointer-events:none;
+            background:rgba(59,130,246,0.2); opacity:0;
+            transition:opacity .6s,transform .6s; transform:scale(.5);
+        }
+        .ripple:active:after { opacity:1; transform:scale(1.2); transition:0s; }
+
+        /* ── MOBILE DROPDOWN ── */
+        .mobile-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 12px;
+            width: 220px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(30,27,75,0.18), 0 4px 16px rgba(30,27,75,0.08);
+            border: 1px solid #e0e7ff;
+            z-index: 100;
+            overflow: hidden;
+            transform-origin: top right;
+        }
+        /* small arrow pointing up toward hamburger */
+        .mobile-menu::before {
+            content: '';
+            position: absolute;
+            top: -7px; right: 18px;
+            width: 14px; height: 14px;
+            background: white;
+            border-left: 1px solid #e0e7ff;
+            border-top: 1px solid #e0e7ff;
+            transform: rotate(45deg);
+            border-radius: 2px;
+        }
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #374151;
+            text-decoration: none;
+            transition: background .15s, color .15s;
+            border-bottom: 1px solid #f3f4ff;
+        }
+        .mobile-menu a:last-child { border-bottom: none; }
+        .mobile-menu a:hover { background:#eff6ff; color:#2563eb; }
+        .mobile-menu a .menu-icon {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        .mobile-menu .mock-link {
+            background: linear-gradient(135deg,#eff6ff,#eef2ff);
+            color: #4338ca;
+            font-weight: 700;
+            border-bottom: none;
+        }
+        .mobile-menu .mock-link:hover { background: linear-gradient(135deg,#dbeafe,#e0e7ff); }
+        .mobile-menu .home-link {
+            background: linear-gradient(135deg,#2563eb,#4f46e5);
+            color: white !important;
+            font-weight: 700;
+            justify-content: center;
+            margin: 8px;
+            border-radius: 10px;
+            border-bottom: none;
+            padding: 10px 16px;
+        }
+        .mobile-menu .home-link:hover { background: linear-gradient(135deg,#1d4ed8,#4338ca); }
+        .mobile-menu .home-link .menu-icon { background: rgba(255,255,255,0.2); color: white; }
+
+        /* ── HERO ── */
+        .hero-section {
+            background: linear-gradient(135deg,#1d4ed8 0%,#4338ca 50%,#6d28d9 100%);
+            position:relative; overflow:hidden; padding:64px 16px 80px;
+        }
+        @media(min-width:768px){ .hero-section { padding:100px 24px 90px; } }
+        .hero-dots {
+            position:absolute; inset:0;
+            background-image:radial-gradient(rgba(255,255,255,0.15) 1px,transparent 1px);
+            background-size:28px 28px; opacity:.35; pointer-events:none;
+        }
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:6px;
+            background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);
+            color:#e0e7ff; padding:5px 14px; border-radius:999px;
+            font-size:.78rem; font-weight:700; letter-spacing:.06em;
+            text-transform:uppercase; margin-bottom:18px;
+        }
+
+        /* ── SECTION LABELS ── */
+        .section-tag {
+            display:inline-block; background:#ede9fe; color:#5b21b6;
+            font-size:.72rem; font-weight:800; letter-spacing:.1em;
+            text-transform:uppercase; padding:4px 12px; border-radius:999px; margin-bottom:10px;
+        }
+        .section-divider {
+            height:2px; background:linear-gradient(90deg,transparent,#c7d2fe,transparent);
+            margin:12px auto 0; max-width:160px;
+        }
+
+        /* ── TIMELINE ── */
+        .timeline-dot {
+            width:46px; height:46px; min-width:46px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.1rem; color:white;
+        }
+
+        /* ── FEATURE CARDS ── */
+        .feature-card {
+            background:white; border-radius:18px; padding:28px 22px;
+            border:1px solid #e0e7ff;
+            transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+            position:relative; overflow:hidden;
+        }
+        .feature-card::before {
+            content:''; position:absolute; top:0; left:0; right:0; height:3px;
+            background:linear-gradient(90deg,var(--blue),var(--indigo),var(--purple));
+            opacity:0; transition:opacity .3s;
+        }
+        .feature-card:hover { transform:translateY(-5px); box-shadow:0 16px 48px rgba(79,70,229,.13); border-color:#c7d2fe; }
+        .feature-card:hover::before { opacity:1; }
+        .icon-wrap { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:16px; }
+
+        /* ── VALUE CARDS ── */
+        .value-card {
+            background:white; border-radius:16px; padding:24px 18px;
+            border:1px solid #e0e7ff; text-align:center;
+            transition:transform .3s ease,box-shadow .3s ease;
+        }
+        .value-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(79,70,229,.11); }
+
+        /* ── PROMISE ── */
+        .promise-banner {
+            background:linear-gradient(135deg,#1d4ed8 0%,#4338ca 60%,#6d28d9 100%);
+            border-radius:22px; position:relative; overflow:hidden; padding:48px 20px;
+        }
+        @media(min-width:640px){ .promise-banner { padding:64px 40px; } }
+        .promise-banner::before {
+            content:''; position:absolute; inset:0;
+            background-image:radial-gradient(rgba(255,255,255,0.07) 1px,transparent 1px);
+            background-size:20px 20px; pointer-events:none;
+        }
+
+        /* ── EXAM PILLS ── */
+        .exam-pill {
+            display:inline-flex; align-items:center; gap:6px;
+            padding:10px 18px; background:white;
+            border:1px solid #e0e7ff; border-radius:12px;
+            font-weight:600; font-size:.9rem; color:#374151;
+            box-shadow:0 1px 4px rgba(0,0,0,.06);
+            transition:border-color .2s,box-shadow .2s; white-space:nowrap;
+        }
+        .exam-pill:hover { border-color:#93c5fd; box-shadow:0 4px 14px rgba(79,70,229,.1); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes scaleIn { from{opacity:0;transform:scale(.92) translateY(-4px)} to{opacity:1;transform:scale(1) translateY(0)} }
+        .anim-up  { animation:fadeUp .75s ease both; }
+        .d1{animation-delay:.1s} .d2{animation-delay:.2s} .d3{animation-delay:.3s}
+        .d4{animation-delay:.4s} .d5{animation-delay:.5s}
+        .float { animation:floatY 3.5s ease-in-out infinite; }
+        [x-show].mobile-menu { animation:scaleIn .2s ease; }
+
+        /* ── MOCK TEST BADGE in desktop nav ── */
+        .mock-badge {
+            display:inline-flex; align-items:center; gap:5px;
+            background:linear-gradient(135deg,#4f46e5,#7c3aed);
+            color:white; padding:6px 14px; border-radius:999px;
+            font-size:.8rem; font-weight:700; letter-spacing:.02em;
+            box-shadow:0 2px 10px rgba(79,70,229,.35);
+            transition:transform .2s, box-shadow .2s;
+        }
+        .mock-badge:hover { transform:scale(1.06); box-shadow:0 4px 16px rgba(79,70,229,.45); }
+    </style>
 </head>
+<body class="min-h-screen">
 
-<body class="relative min-h-screen text-gray-900 overflow-x-hidden">
+<!-- ════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+<nav class="bg-white/90 backdrop-blur-xl shadow-md sticky top-0 z-50" x-data="{ open: false }" style="position:sticky;">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 
-    <!-- Navbar -->
-    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a class="flex items-center space-x-2" href="index.html">
-                <img src="/images/logo.png" alt="Courage Library Logo" class="w-8 h-8">
-                <span class="text-3xl font-bold text-blue-700">Courage Library</span>
+        <!-- Logo -->
+        <a class="flex items-center space-x-2 flex-shrink-0" href="index.html">
+            <img src="/images/logo.png" alt="Courage Library Logo" class="w-8 h-8">
+            <span class="text-2xl sm:text-3xl font-bold text-blue-700">Courage Library</span>
+        </a>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex items-center gap-5">
+            <a href="index.html#features" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Features</a>
+            <a href="index.html#courses" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Courses</a>
+            <a href="index.html#testimonials" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Testimonials</a>
+            <a href="Blog/Blog.html" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Blog</a>
+            <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Contact</a>
+            <!-- Mock Test — highlighted -->
+            <a href="mock/dashboard.html" class="mock-badge">
+                <i class="fa-solid fa-pen-to-square"></i> Mock Test
             </a>
-            <div class="space-x-6 hidden md:flex items-center">
-                <a href="index.html#features" class="hover:text-blue-600">Features</a>
-                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
-                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
-                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
-                <a href="index.html#contact" class="hover:text-blue-600">Contact</a>
-                <a href="index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
-                    Home
+            <a href="index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow font-semibold hover:scale-105 transform transition ripple text-sm">
+                Home
+            </a>
+        </div>
+
+        <!-- Hamburger (mobile) -->
+        <div class="md:hidden relative" style="position:relative;">
+            <button
+                @click="open = !open"
+                @keydown.escape.window="open = false"
+                class="w-10 h-10 flex flex-col justify-center items-center rounded-xl hover:bg-blue-50 transition-colors focus:outline-none"
+                :aria-expanded="open" aria-label="Menu"
+            >
+                <span class="block w-5 h-0.5 bg-blue-700 transition-all duration-300 rounded"
+                      :class="open ? 'rotate-45 translate-y-1.5' : ''"></span>
+                <span class="block w-5 h-0.5 bg-blue-700 mt-1 transition-all duration-300 rounded"
+                      :class="open ? 'opacity-0 scale-x-0' : ''"></span>
+                <span class="block w-5 h-0.5 bg-blue-700 mt-1 transition-all duration-300 rounded"
+                      :class="open ? '-rotate-45 -translate-y-3' : ''"></span>
+            </button>
+
+            <!-- RIGHT-SIDE FLOATING DROPDOWN -->
+            <div
+                class="mobile-menu"
+                x-show="open"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95"
+                @click.outside="open = false"
+                style="display:none;"
+            >
+                <a href="index.html#features" @click="open=false">
+                    <span class="menu-icon bg-blue-50 text-blue-500"><i class="fa-solid fa-star"></i></span>
+                    Features
+                </a>
+                <a href="index.html#courses" @click="open=false">
+                    <span class="menu-icon bg-indigo-50 text-indigo-500"><i class="fa-solid fa-book"></i></span>
+                    Courses
+                </a>
+                <a href="index.html#testimonials" @click="open=false">
+                    <span class="menu-icon bg-purple-50 text-purple-500"><i class="fa-solid fa-comments"></i></span>
+                    Testimonials
+                </a>
+                <a href="Blog/Blog.html" @click="open=false">
+                    <span class="menu-icon bg-blue-50 text-blue-500"><i class="fa-solid fa-pen-nib"></i></span>
+                    Blog
+                </a>
+                <a href="index.html#contact" @click="open=false">
+                    <span class="menu-icon bg-indigo-50 text-indigo-500"><i class="fa-solid fa-envelope"></i></span>
+                    Contact
+                </a>
+                <!-- Mock Test highlighted row -->
+                <a href="mock/dashboard.html" class="mock-link" @click="open=false">
+                    <span class="menu-icon" style="background:rgba(79,70,229,0.12);color:#4f46e5;"><i class="fa-solid fa-pen-to-square"></i></span>
+                    Mock Test
+                    <span style="margin-left:auto;background:#4f46e5;color:white;font-size:0.6rem;padding:2px 7px;border-radius:999px;font-weight:800;">NEW</span>
+                </a>
+                <!-- Home CTA -->
+                <a href="index.html" class="home-link" @click="open=false">
+                    <span class="menu-icon"><i class="fa-solid fa-house"></i></span>
+                    Go to Home
                 </a>
             </div>
         </div>
-    </nav>
 
-    <!-- Main About Content -->
-    <!-- About Us Page: Courage Library -->
-<main class="flex-1 px-6 md:px-12 lg:px-20 py-12 space-y-16 bg-gradient-to-b from-gray-50 to-white">
+    </div>
+</nav>
 
-    <!-- Hero Section -->
-    <section class="text-center space-y-4">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-800">
-            About <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Courage Library</span>
-        </h1>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Empowering government exam aspirants through <strong>self-paced, smart, and motivating learning</strong> — anytime, anywhere.
-        </p>
-    </section>
 
-    <!-- Mission Section -->
-    <section class="grid md:grid-cols-2 gap-10 items-center">
-        <div class="space-y-6">
-            <h2 class="text-3xl font-semibold text-gray-800">Our Mission</h2>
-            <p class="text-gray-700 text-lg leading-relaxed">
-                At <strong>Courage Library</strong>, our mission is simple yet powerful — to make learning for government exams <strong>accessible, flexible, and stress-free</strong>.
-                We believe that every student deserves a chance to learn at their own speed, guided by structured modules, engaging content, and a motivating environment.
+<!-- ════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════ -->
+<main>
+
+    <!-- ── HERO ── -->
+    <section class="hero-section text-center">
+        <div class="hero-dots"></div>
+        <div class="relative z-10 max-w-3xl mx-auto">
+            <div class="flex justify-center mb-4 anim-up">
+                <span class="hero-badge"><i class="fa-solid fa-star text-yellow-300"></i> Our Story &amp; Mission</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-5 anim-up d1">
+                Courage Library —<br><span style="color:#bfdbfe;">Built for Every Aspirant</span>
+            </h1>
+            <p class="text-blue-100 text-base sm:text-lg leading-relaxed max-w-xl mx-auto anim-up d2 px-2">
+                A self-paced, judgment-free platform where government exam aspirants study at their own speed,
+                track real progress, and build unshakeable confidence.
             </p>
-            <p class="text-gray-700 text-lg leading-relaxed">
-                Our platform helps learners master concepts, track progress, and stay inspired every step of the way. 
-                We’re here to support your journey — from the first lesson to final success.
-            </p>
-        </div>
-
-        <!-- Mission Icon Representation -->
-        <div class="flex justify-center items-center">
-            <div class="relative flex flex-col items-center justify-center bg-white rounded-2xl shadow-2xl p-10 hover:scale-105 transform transition duration-500">
-                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-8 rounded-full shadow-xl">
-                    <i class="fa-solid fa-bullseye text-6xl"></i>
+            <!-- Stats -->
+            <div class="mt-10 grid grid-cols-3 gap-3 max-w-sm mx-auto anim-up d3">
+                <div class="bg-white/10 border border-white/25 rounded-xl py-4 px-2 text-center">
+                    <div class="text-xl sm:text-2xl font-extrabold text-white">24×7</div>
+                    <div class="text-blue-200 text-xs mt-1">Always Open</div>
                 </div>
-                <p class="mt-6 text-lg font-semibold text-gray-700">Focus • Dedication • Growth</p>
-                <div class="absolute -z-10 blur-2xl bg-blue-400/30 rounded-full w-48 h-48 animate-pulse"></div>
+                <div class="bg-white/10 border border-white/25 rounded-xl py-4 px-2 text-center">
+                    <div class="text-xl sm:text-2xl font-extrabold text-white">100%</div>
+                    <div class="text-blue-200 text-xs mt-1">Self-Paced</div>
+                </div>
+                <div class="bg-white/10 border border-white/25 rounded-xl py-4 px-2 text-center">
+                    <div class="text-xl sm:text-2xl font-extrabold text-white">Free</div>
+                    <div class="text-blue-200 text-xs mt-1">to Start</div>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- Vision Section -->
-    <section class="grid md:grid-cols-2 gap-10 items-center">
-        <!-- Vision Icon Representation -->
-        <div class="flex justify-center items-center order-2 md:order-1">
-            <div class="relative flex flex-col items-center justify-center bg-white rounded-2xl shadow-2xl p-10 hover:scale-105 transform transition duration-500">
-                <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-8 rounded-full shadow-xl">
-                    <i class="fa-solid fa-lightbulb text-6xl"></i>
-                </div>
-                <p class="mt-6 text-lg font-semibold text-gray-700">Innovation • Vision • Empowerment</p>
-                <div class="absolute -z-10 blur-2xl bg-purple-400/30 rounded-full w-48 h-48 animate-pulse"></div>
-            </div>
-        </div>
-
-        <div class="space-y-6 order-1 md:order-2">
-            <h2 class="text-3xl font-semibold text-gray-800">Our Vision</h2>
-            <p class="text-gray-700 text-lg leading-relaxed">
-                We envision a nation where every student has the <strong>courage to learn independently</strong> and the tools to succeed.
-                Education should not be limited by time, place, or cost. That’s why <strong>Courage Library</strong> is built to be your personal, always-accessible classroom — available 24×7.
-            </p>
-            <p class="text-gray-700 text-lg leading-relaxed">
-                Our long-term goal is to evolve into India’s most trusted <strong>self-paced learning ecosystem</strong> — blending human mentorship, AI learning insights, and emotional well-being support.
-            </p>
+        <!-- Wave -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden" style="line-height:0;">
+            <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:50px;">
+                <path d="M0,25 C360,50 1080,0 1440,25 L1440,50 L0,50 Z" fill="#f8f9ff"/>
+            </svg>
         </div>
     </section>
 
-    <!-- What We Offer -->
-    <section class="text-center space-y-8">
-        <h2 class="text-3xl font-semibold text-gray-800">What We Offer</h2>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-
-            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="text-5xl text-blue-600 mb-4">
-                    <i class="fa-solid fa-laptop-code"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Self-Paced Courses</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Learn anytime, anywhere with structured video lessons designed by experts.
-                </p>
+    <!-- ── ORIGIN STORY ── -->
+    <section class="w-full px-4 sm:px-6 py-14 sm:py-20">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="section-tag">How It Started</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">The Story Behind Courage Library</h2>
+                <div class="section-divider"></div>
             </div>
-
-            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="text-5xl text-indigo-600 mb-4">
-                    <i class="fa-solid fa-chart-line"></i>
+            <div class="flex flex-col gap-6">
+                <div class="flex gap-4 items-start anim-up">
+                    <div class="timeline-dot bg-gradient-to-br from-blue-500 to-blue-700 shadow-md shadow-blue-200 mt-1">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div class="flex-1 bg-white rounded-2xl p-5 border border-blue-50 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">The Idea Was Born</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">We saw thousands of students struggling — not because they lacked talent, but because traditional coaching was too rigid, too expensive, and too intimidating. We asked: <em>"What if learning could truly be on your terms?"</em></p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Smart Progress Tracking</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Track preparation, identify weak areas, and improve faster with smart insights.
-                </p>
-            </div>
-
-            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="text-5xl text-purple-600 mb-4">
-                    <i class="fa-solid fa-brain"></i>
+                <div class="flex gap-4 items-start anim-up d2">
+                    <div class="timeline-dot bg-gradient-to-br from-indigo-500 to-indigo-700 shadow-md shadow-indigo-200 mt-1">
+                        <i class="fa-solid fa-hammer"></i>
+                    </div>
+                    <div class="flex-1 bg-white rounded-2xl p-5 border border-indigo-50 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">Building Something Different</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">We're building Courage Library with one principle at the core — <strong>every aspirant deserves a structured, stress-free path to success</strong>. No fixed schedules. No peer pressure. Just you, the content, and your goals.</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Motivation & Mindset</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Stay positive with daily affirmations and our Courage Motivation Zone.
-                </p>
-            </div>
-
-            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="text-5xl text-blue-500 mb-4">
-                    <i class="fa-solid fa-book-open-reader"></i>
+                <div class="flex gap-4 items-start anim-up d3">
+                    <div class="timeline-dot bg-gradient-to-br from-purple-500 to-purple-700 shadow-md shadow-purple-200 mt-1">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <div class="flex-1 bg-white rounded-2xl p-5 border border-purple-50 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">Just Getting Started — Join Us Early</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">We're a brand-new platform and growing fast. <strong>Being an early member means you'll shape what Courage Library becomes</strong> — your feedback and journey will directly influence every feature we build.</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Exam-Focused Materials</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Access high-quality notes, current affairs, and practice questions anytime.
-                </p>
-            </div>
-
-            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="text-5xl text-indigo-500 mb-4">
-                    <i class="fa-solid fa-robot"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">AI Learning Support</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Coming soon — your AI mentor for personalized learning recommendations.
-                </p>
-            </div>
-
-            <div class="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition duration-500">
-                <div class="text-5xl text-purple-500 mb-4">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Learning Community</h3>
-                <p class="text-gray-600 leading-relaxed">
-                    Join a group of learners — share ideas, doubts, and celebrate success.
-                </p>
             </div>
         </div>
     </section>
 
-    <!-- Closing Statement -->
-    <section class="text-center space-y-4">
-        <h2 class="text-3xl font-semibold text-gray-800">Our Promise</h2>
-        <p class="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
-            <strong>Courage Library</strong> is more than just a learning platform — it’s a movement to help students 
-            study with confidence, discipline, and hope.  
-            We don’t just teach; we <strong>build courage</strong> — the courage to start, persist, and succeed.
-        </p>
+    <!-- ── MISSION & VISION ── -->
+    <section style="background:linear-gradient(135deg,#eff6ff 0%,#eef2ff 100%);" class="py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto grid sm:grid-cols-2 gap-6 sm:gap-10">
+            <div class="bg-white rounded-2xl p-7 sm:p-10 border border-blue-100 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl shadow-md shadow-blue-200 mb-5">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <span class="section-tag" style="background:#dbeafe;color:#1d4ed8;">Our Mission</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mt-3 mb-3">Make Learning Accessible &amp; Flexible</h2>
+                <p class="text-gray-600 text-sm leading-relaxed mb-3">Our mission is simple — make government exam preparation <strong>accessible, flexible, and stress-free</strong> for every student in India, regardless of background, city, or schedule.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Structured modules, quality content, and a motivating environment can transform how students prepare — and ultimately, how they perform.</p>
+                <div class="mt-5 flex gap-2 flex-wrap">
+                    <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Accessible</span>
+                    <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Flexible</span>
+                    <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">Stress-Free</span>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-7 sm:p-10 border border-indigo-100 shadow-sm hover:shadow-xl transition-shadow duration-300">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-md shadow-indigo-200 mb-5">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <span class="section-tag">Our Vision</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mt-3 mb-3">India's Most Trusted Self-Paced Platform</h2>
+                <p class="text-gray-600 text-sm leading-relaxed mb-3">We envision a nation where every student has the <strong>courage to learn independently</strong> and the tools to succeed. Education should not be limited by time, place, or cost.</p>
+                <p class="text-gray-600 text-sm leading-relaxed">Our long-term goal is to evolve into India's most trusted <strong>self-paced learning ecosystem</strong> — blending mentorship, AI insights, and emotional well-being support.</p>
+                <div class="mt-5 flex gap-2 flex-wrap">
+                    <span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">Innovation</span>
+                    <span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">Empowerment</span>
+                    <span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">Growth</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── WHAT WE OFFER ── -->
+    <section class="w-full px-4 sm:px-6 py-14 sm:py-20">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="section-tag">Platform Features</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">What Courage Library Offers</h2>
+                <p class="text-gray-500 text-sm mt-2 max-w-md mx-auto">Everything you need to prepare smarter — and stay motivated every step of the way.</p>
+                <div class="section-divider"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="feature-card anim-up">
+                    <div class="icon-wrap bg-blue-50"><i class="fa-solid fa-laptop-code text-blue-600"></i></div>
+                    <h3 class="text-base font-bold text-gray-900 mb-2">Self-Paced Courses</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Study at your own speed with structured video lessons designed by subject experts — no deadlines, no pressure.</p>
+                </div>
+                <div class="feature-card anim-up d1">
+                    <div class="icon-wrap bg-indigo-50"><i class="fa-solid fa-chart-line text-indigo-600"></i></div>
+                    <h3 class="text-base font-bold text-gray-900 mb-2">Smart Progress Tracking</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Know exactly where you stand. Identify weak areas and improve faster with clear week-by-week insights.</p>
+                </div>
+                <div class="feature-card anim-up d2">
+                    <div class="icon-wrap bg-purple-50"><i class="fa-solid fa-brain text-purple-600"></i></div>
+                    <h3 class="text-base font-bold text-gray-900 mb-2">Motivation &amp; Mindset</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Stay mentally strong with our Courage Motivation Zone — built for the long haul of government exam preparation.</p>
+                </div>
+                <div class="feature-card anim-up d3">
+                    <div class="icon-wrap bg-blue-50"><i class="fa-solid fa-book-open-reader text-blue-500"></i></div>
+                    <h3 class="text-base font-bold text-gray-900 mb-2">Exam-Focused Materials</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Access high-quality notes, current affairs, and practice questions for SSC, NDA, Banking, Railways, and more.</p>
+                </div>
+                <!-- Mock Test card — highlighted -->
+                <div class="feature-card anim-up d4" style="border-color:#c7d2fe;background:linear-gradient(135deg,#f5f3ff,#eef2ff);">
+                    <div class="icon-wrap" style="background:rgba(79,70,229,0.1);"><i class="fa-solid fa-pen-to-square text-indigo-600"></i></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-base font-bold text-gray-900">Mock Tests</h3>
+                        <span style="background:#4f46e5;color:white;font-size:0.6rem;padding:2px 7px;border-radius:999px;font-weight:800;">NEW</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">Attempt full-length and section-wise mock tests that mirror real exam patterns. Analyse your score instantly.</p>
+                    <a href="mock/dashboard.html" class="inline-flex items-center gap-1 mt-3 text-indigo-600 text-xs font-bold hover:underline">
+                        Attempt Now <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+                <div class="feature-card anim-up d5">
+                    <div class="icon-wrap bg-purple-50"><i class="fa-solid fa-robot text-purple-500"></i></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="text-base font-bold text-gray-900">AI Learning Support</h3>
+                        <span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-0.5 rounded-full">Soon</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">Your personal AI mentor for personalised recommendations, doubt-clearing, and study plans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CORE VALUES ── -->
+    <section style="background:linear-gradient(135deg,#eff6ff 0%,#eef2ff 100%);" class="py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="section-tag">What Drives Us</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">Our Core Values</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="value-card">
+                    <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 text-lg mx-auto mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">Courage</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">Celebrating the bravery to start and keep going.</p>
+                </div>
+                <div class="value-card">
+                    <div class="w-11 h-11 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-lg mx-auto mb-3"><i class="fa-solid fa-unlock"></i></div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">Openness</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">Quality education open to all, not just the privileged.</p>
+                </div>
+                <div class="value-card">
+                    <div class="w-11 h-11 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 text-lg mx-auto mb-3"><i class="fa-solid fa-handshake"></i></div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">Trust</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">Built with integrity — content you can rely on.</p>
+                </div>
+                <div class="value-card">
+                    <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 text-lg mx-auto mb-3"><i class="fa-solid fa-arrows-spin"></i></div>
+                    <h3 class="font-bold text-gray-900 text-sm mb-1">Growth</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">Always improving — for students and alongside them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── EXAMS WE COVER ── -->
+    <section class="w-full px-4 sm:px-6 py-14 sm:py-20">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="section-tag">Exam Coverage</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">Exams We're Preparing You For</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="exam-pill"><i class="fa-solid fa-star text-blue-500"></i>SSC GD</span>
+                <span class="exam-pill"><i class="fa-solid fa-star text-indigo-500"></i>SSC CGL</span>
+                <span class="exam-pill"><i class="fa-solid fa-star text-purple-500"></i>NDA</span>
+                <span class="exam-pill"><i class="fa-solid fa-star text-blue-500"></i>Banking PO/Clerk</span>
+                <span class="exam-pill"><i class="fa-solid fa-star text-indigo-500"></i>Railway RRB</span>
+                <span class="exam-pill"><i class="fa-solid fa-star text-purple-500"></i>UPSC CDS</span>
+                <span class="exam-pill"><i class="fa-solid fa-star text-blue-500"></i>State PSC</span>
+                <span class="exam-pill"><i class="fa-solid fa-plus text-indigo-500"></i>More Coming</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PROMISE BANNER ── -->
+    <section class="w-full px-4 sm:px-6 pb-14 sm:pb-20">
+        <div class="max-w-4xl mx-auto promise-banner text-center">
+            <div class="relative z-10">
+                <div class="float inline-block mb-5">
+                    <div class="w-16 h-16 rounded-full bg-white/20 border-2 border-white/40 flex items-center justify-center text-white text-3xl mx-auto">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Our Promise to You</h2>
+                <p class="text-blue-100 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-7">
+                    Courage Library is more than a learning platform — it's a movement.
+                    We don't just teach; <strong class="text-white">we build courage</strong> — to start, to persist, and to succeed on your own terms.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    <a href="mock/dashboard.html" class="w-full sm:w-auto text-center bg-white text-indigo-700 font-bold px-7 py-3 rounded-full hover:shadow-xl hover:scale-105 transform transition text-sm">
+                        <i class="fa-solid fa-pen-to-square mr-2"></i>Try a Mock Test
+                    </a>
+                    <a href="index.html#courses" class="w-full sm:w-auto text-center border-2 border-white/60 text-white font-bold px-7 py-3 rounded-full hover:bg-white/10 transition text-sm">
+                        <i class="fa-solid fa-book mr-2"></i>Explore Courses
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
 </main>
 
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
-            <div class="flex space-x-6">
-                <a href="https://www.facebook.com/people/Courage-Library/61561969000820" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/company/courage-library" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
-            </div>
+<!-- ════════════════════════════════════════
+     FOOTER (unchanged)
+════════════════════════════════════════ -->
+<footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
+        <p>&copy; 2025 Courage Library. All rights reserved.</p>
+        <div class="flex space-x-6">
+            <a href="https://www.facebook.com/people/Courage-Library/61561969000820" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/courage-library" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
         </div>
-    </footer>
+    </div>
+</footer>
 
 </body>
 </html>
