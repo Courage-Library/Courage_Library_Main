@@ -73,6 +73,17 @@
             background-color: #fef2f2 !important;
         }
 
+        /* ── Clear button disabled state ── */
+        #clearBtn:disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* ── Saved toast ── */
+        #savedToast {
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
         /* ── Question fade on change ── */
         #questionContainer {
             animation: qFade 0.18s ease;
@@ -227,6 +238,14 @@
         <div id="examAlert" class="flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium shadow"></div>
     </div>
 
+    <!-- ── Saved toast — bottom-right micro confirmation ── -->
+    <div id="savedToast" class="fixed bottom-6 right-5 z-50 flex items-center gap-2 bg-green-600 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg opacity-0 translate-y-1 pointer-events-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+        </svg>
+        Answer Saved
+    </div>
+
     <div class="flex-grow">
         <section class="py-5 px-4 max-w-7xl mx-auto w-full box-border">
 
@@ -291,14 +310,25 @@
                                     </svg>
                                 </button>
                             </div>
-                            <!-- Mark button — JS toggles mark-btn-marked class -->
-                            <button id="markBtn"
-                                class="w-full flex items-center justify-center gap-2 border-2 px-4 py-3 rounded-xl font-semibold transition text-sm">
-                                <svg id="markBtnIcon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"/>
-                                </svg>
-                                <span id="markBtnLabel">Mark for Review</span>
-                            </button>
+                            <!-- Mark + Clear row -->
+                            <div class="flex gap-3">
+                                <!-- Mark button — JS toggles mark-btn-marked class -->
+                                <button id="markBtn"
+                                    class="flex-1 flex items-center justify-center gap-2 border-2 px-4 py-3 rounded-xl font-semibold transition text-sm">
+                                    <svg id="markBtnIcon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"/>
+                                    </svg>
+                                    <span id="markBtnLabel">Mark for Review</span>
+                                </button>
+                                <!-- Clear Answer button -->
+                                <button id="clearBtn"
+                                    class="flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 text-gray-400 hover:text-red-500 px-4 py-3 rounded-xl font-semibold transition text-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                                    </svg>
+                                    Clear
+                                </button>
+                            </div>
                         </div>
 
                     </div>
@@ -650,6 +680,26 @@
 
     <div id="examWarning" class="fixed top-6 right-6 bg-red-600 text-white px-5 py-3 rounded-xl shadow-lg hidden z-50"></div>
     <div id="examWatermark" aria-hidden="true"></div>
+
+    <!-- ── IMAGE ZOOM OVERLAY ── -->
+    <div id="imageZoomOverlay"
+         class="fixed inset-0 hidden items-center justify-center z-[70] px-4 cursor-zoom-out"
+         style="background:rgba(0,0,0,0.88);"
+         onclick="closeImageZoom()">
+        <div class="relative max-w-3xl w-full flex flex-col items-center gap-3">
+            <button onclick="closeImageZoom()"
+                class="absolute -top-10 right-0 text-white/70 hover:text-white text-sm flex items-center gap-1.5 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                </svg>
+                Close
+            </button>
+            <img id="imageZoomImg" src="" alt="Zoomed figure"
+                 class="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
+                 onclick="event.stopPropagation()" />
+            <p class="text-white/40 text-xs">Tap outside to close</p>
+        </div>
+    </div>
 
     <script src="/js/examEngine.js"></script>
 
