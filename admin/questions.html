@@ -6,107 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Questions | Courage Library</title>
     <link rel="icon" type="image/png" href="/images/logo.png" />
-    <!-- Font Awesome & Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Alpine.js (for mobile menu) -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
-    <!-- Supabase client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        body {
-            background: #fff;
-            min-height: 100vh;
-        }
-
+        body { background: #f1f5f9; min-height: 100vh; }
         .glass {
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.92);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
             backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(200, 200, 255, 0.12);
+            border-radius: 1.25rem;
+            border: 1px solid rgba(200,200,255,0.15);
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-        }
-
-        .glass-card:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #bfdbfe;
-        }
-
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
-
+        .ripple { position: relative; overflow: hidden; }
         .ripple:after {
-            content: '';
-            display: block;
-            position: absolute;
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background: rgba(59, 130, 246, 0.2);
-            opacity: 0;
-            transition: opacity 0.6s, transform 0.6s;
-            transform: scale(0.5);
+            content:''; display:block; position:absolute; border-radius:50%;
+            width:100%; height:100%; top:0; left:0; pointer-events:none;
+            background:rgba(59,130,246,0.18); opacity:0;
+            transition:opacity .6s,transform .6s; transform:scale(0.5);
         }
+        .ripple:active:after { opacity:1; transform:scale(1.2); transition:0s; }
 
-        .ripple:active:after {
-            opacity: 1;
-            transform: scale(1.2);
-            transition: 0s;
+        /* upload zone */
+        .upload-zone {
+            border: 2px dashed #bfdbfe;
+            border-radius: 0.875rem;
+            padding: 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            background: #f8faff;
         }
+        .upload-zone:hover { border-color: #3b82f6; background: #eff6ff; }
+        .upload-zone.uploading { border-color: #f59e0b; background: #fffbeb; }
+        .upload-zone.done { border-color: #22c55e; background: #f0fdf4; }
 
-        .fade-in {
-            animation: fadeIn 1.2s ease-in;
-        }
+        /* option image row */
+        .option-img-row { display: none; }
+        .option-img-row.visible { display: flex; }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .trial-tag {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-        }
-
-        /* course card icon circle */
-        .icon-circle {
-            background: linear-gradient(145deg, #dbeafe, #eff6ff);
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2563eb;
-            font-size: 28px;
-            box-shadow: 0 8px 16px -6px #93c5fd;
-        }
+        label.field-label { font-size: 0.8rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem; display: block; }
     </style>
-    <!-- Google tag (gtag.js) -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -118,221 +61,475 @@
 
 <body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
 
-    <!-- ========== HEADER (identical to original) ========== -->
-    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- HEADER -->
+    <nav class="bg-white/95 backdrop-blur-xl shadow-md sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <a class="flex items-center space-x-2" href="index.html">
-                <img src="/images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
-                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-2xl font-bold text-blue-700">Courage Library</span>
             </a>
-            <div class="space-x-6 hidden md:flex items-center">
-                <a href="index.html#features" class="hover:text-blue-600">Features</a>
-                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
-                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
-                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
-                <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
-                <a href="index.html"
-                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
-                    Home
-                </a>
+            <div class="space-x-6 hidden md:flex items-center text-sm">
+                <a href="index.html#features"    class="hover:text-blue-600 transition">Features</a>
+                <a href="index.html#courses"     class="hover:text-blue-600 transition">Courses</a>
+                <a href="index.html#testimonials"class="hover:text-blue-600 transition">Testimonials</a>
+                <a href="Blog/Blog.html"         class="hover:text-blue-600 transition">Blog</a>
+                <a href="index.html#contact"     class="hover:text-blue-600 transition">Contact Us</a>
+                <a href="index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-full shadow hover:scale-105 transform transition ripple text-sm">Home</a>
             </div>
-            <!-- mobile menu -->
             <div class="md:hidden" x-data="{ open: false }">
-                <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu"
-                    aria-label="Toggle mobile menu">
+                <button type="button" @click="open = !open" class="focus:outline-none" aria-label="Toggle mobile menu">
                     <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
-                <div x-show="open" @click.away="open = false"
-                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
-                    <a href="index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
-                        </svg>
-                        Courses
-                    </a>
-                    <a href="index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
-                        </svg>
-                        Features
-                    </a>
-                    <a href="index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-                        </svg>
-                        Reviews
-                    </a>
-                    <a href="/Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
-                        </svg>
-                        Blog
-                    </a>
-                    <a href="index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                        </svg>
-                        Contact Us
-                    </a>
+                <div x-show="open" @click.away="open = false" class="absolute right-4 mt-4 w-44 bg-white rounded-xl shadow-lg py-3 px-3 z-50 space-y-3 text-sm border">
+                    <a href="index.html#courses1"     class="block hover:text-blue-600 py-1">Courses</a>
+                    <a href="index.html#features"     class="block hover:text-blue-600 py-1">Features</a>
+                    <a href="index.html#testimonials" class="block hover:text-blue-600 py-1">Reviews</a>
+                    <a href="/Blog/Blog.html"          class="block hover:text-blue-600 py-1">Blog</a>
+                    <a href="index.html#contact"       class="block hover:text-blue-600 py-1">Contact Us</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="flex-grow">
-        <!-- ========== ADMIN: QUESTION BANK ========== -->
-        <section class="py-16 px-4 max-w-6xl mx-auto fade-in">
+        <section class="py-10 px-4 max-w-6xl mx-auto">
 
-            <div class="text-center mb-12">
-                <h1 class="text-4xl font-extrabold text-blue-700">
-                    Question Bank Manager
-                </h1>
-                <p class="text-gray-600 mt-3">
-                    Add and manage mock test questions.
-                </p>
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-extrabold text-blue-700">Question Bank Manager</h1>
+                <p class="text-gray-500 mt-2 text-sm">Add and manage mock test questions with images and PYQ support.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-10">
+            <div class="grid md:grid-cols-2 gap-8">
 
+                <!-- ── LEFT: Add Question Form ── -->
+                <div class="glass p-7 border-l-4 border-blue-500">
 
-                <!-- LEFT SIDE – Add Question -->
-                <div class="glass p-8 shadow-xl border-l-4 border-blue-500">
-
-                    <h2 class="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2">
+                    <h2 class="text-xl font-bold text-blue-700 mb-5 flex items-center gap-2">
                         <i class="fas fa-plus-circle text-blue-500"></i>
                         Add New Question
                     </h2>
 
                     <div class="space-y-4">
 
-                        <select id="questionCategory" class="w-full p-3 rounded-xl border border-blue-100">
-                        </select>
+                        <!-- Category / Pattern / Section -->
+                        <div>
+                            <label class="field-label">Category</label>
+                            <select id="questionCategory" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
+                        </div>
+                        <div>
+                            <label class="field-label">Exam Pattern</label>
+                            <select id="questionPattern" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
+                        </div>
+                        <div>
+                            <label class="field-label">Section</label>
+                            <select id="questionSection" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
+                        </div>
 
-                        <select id="questionPattern" class="w-full p-3 rounded-xl border border-blue-100">
-                        </select>
+                        <!-- Question Text -->
+                        <div>
+                            <label class="field-label">Question Text</label>
+                            <textarea id="questionText" placeholder="Enter question text..." rows="3"
+                                class="w-full p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 resize-none"></textarea>
+                        </div>
 
-                        <select id="questionSection" class="w-full p-3 rounded-xl border border-blue-100">
-                        </select>
+                        <!-- Question Figure Image (optional) -->
+                        <div>
+                            <label class="field-label">
+                                Question Figure <span class="text-gray-400 font-normal">(optional — upload if question has a diagram/image)</span>
+                            </label>
+                            <div class="upload-zone" id="qImgZone" onclick="document.getElementById('qImgInput').click()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto mb-1 text-blue-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5M4.5 16.5h15M4.5 12h15"/>
+                                </svg>
+                                <p class="text-xs text-gray-400" id="qImgLabel">Click to upload question image</p>
+                                <input type="file" id="qImgInput" accept="image/*" class="hidden" onchange="handleQImgSelect(event)">
+                            </div>
+                            <div id="qImgPreview" class="mt-2 hidden">
+                                <img id="qImgPreviewImg" src="" alt="Preview" class="max-h-32 rounded-xl border border-gray-200 object-contain mx-auto">
+                                <button onclick="clearQImg()" class="mt-1 text-xs text-red-400 hover:text-red-600 block mx-auto">✕ Remove image</button>
+                            </div>
+                            <input type="hidden" id="questionImageUrl">
+                        </div>
 
-                        <textarea id="questionText" placeholder="Enter Question"
-                            class="w-full p-3 rounded-xl border border-blue-100"></textarea>
+                        <!-- Options Type -->
+                        <div>
+                            <label class="field-label">Options Type</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="flex items-center gap-2 p-3 border-2 border-blue-500 rounded-xl cursor-pointer bg-blue-50 text-blue-700 text-xs font-semibold" id="optTypeTextLabel">
+                                    <input type="radio" name="optionsType" value="text" checked class="hidden" id="optTypeText" onchange="switchOptionsType('text')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
+                                    Text
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer text-gray-500 text-xs font-semibold hover:border-blue-300" id="optTypeImageLabel">
+                                    <input type="radio" name="optionsType" value="image" class="hidden" id="optTypeImage" onchange="switchOptionsType('image')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5"/></svg>
+                                    Images
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer text-gray-500 text-xs font-semibold hover:border-blue-300" id="optTypeMixedLabel">
+                                    <input type="radio" name="optionsType" value="mixed" class="hidden" id="optTypeMixed" onchange="switchOptionsType('mixed')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+                                    Mixed
+                                </label>
+                            </div>
+                        </div>
 
-                        <input id="optionA" placeholder="Option A" class="w-full p-3 rounded-xl border border-blue-100">
+                        <!-- Options A B C D -->
+                        <div class="space-y-3" id="optionsContainer">
+                            <!-- Option A -->
+                            <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optABlock">
+                                <label class="field-label text-green-700">Option A</label>
+                                <input id="optionA" placeholder="Option A text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <div class="option-img-row items-center gap-2" id="optAImgRow">
+                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optAImgInput').click()">
+                                        <p class="text-xs text-gray-400" id="optAImgLabel">Upload image for Option A</p>
+                                        <input type="file" id="optAImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'A')">
+                                    </div>
+                                    <img id="optAImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                </div>
+                                <input type="hidden" id="optAImgUrl">
+                            </div>
+                            <!-- Option B -->
+                            <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optBBlock">
+                                <label class="field-label text-blue-700">Option B</label>
+                                <input id="optionB" placeholder="Option B text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <div class="option-img-row items-center gap-2" id="optBImgRow">
+                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optBImgInput').click()">
+                                        <p class="text-xs text-gray-400" id="optBImgLabel">Upload image for Option B</p>
+                                        <input type="file" id="optBImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'B')">
+                                    </div>
+                                    <img id="optBImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                </div>
+                                <input type="hidden" id="optBImgUrl">
+                            </div>
+                            <!-- Option C -->
+                            <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optCBlock">
+                                <label class="field-label text-purple-700">Option C</label>
+                                <input id="optionC" placeholder="Option C text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <div class="option-img-row items-center gap-2" id="optCImgRow">
+                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optCImgInput').click()">
+                                        <p class="text-xs text-gray-400" id="optCImgLabel">Upload image for Option C</p>
+                                        <input type="file" id="optCImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'C')">
+                                    </div>
+                                    <img id="optCImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                </div>
+                                <input type="hidden" id="optCImgUrl">
+                            </div>
+                            <!-- Option D -->
+                            <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optDBlock">
+                                <label class="field-label text-orange-700">Option D</label>
+                                <input id="optionD" placeholder="Option D text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <div class="option-img-row items-center gap-2" id="optDImgRow">
+                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optDImgInput').click()">
+                                        <p class="text-xs text-gray-400" id="optDImgLabel">Upload image for Option D</p>
+                                        <input type="file" id="optDImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'D')">
+                                    </div>
+                                    <img id="optDImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                </div>
+                                <input type="hidden" id="optDImgUrl">
+                            </div>
+                        </div>
 
-                        <input id="optionB" placeholder="Option B" class="w-full p-3 rounded-xl border border-blue-100">
+                        <!-- Correct Answer + Difficulty -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="field-label">Correct Answer</label>
+                                <select id="correctAnswer" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                                    <option value="">Select</option>
+                                    <option value="A">Option A</option>
+                                    <option value="B">Option B</option>
+                                    <option value="C">Option C</option>
+                                    <option value="D">Option D</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="field-label">Difficulty</label>
+                                <select id="difficulty" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <input id="optionC" placeholder="Option C" class="w-full p-3 rounded-xl border border-blue-100">
+                        <!-- PYQ Fields -->
+                        <div class="border border-amber-200 bg-amber-50 rounded-xl p-4 space-y-3">
+                            <label class="field-label text-amber-700 flex items-center gap-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                </svg>
+                                PYQ Details <span class="text-amber-500 font-normal">(optional — fill only for previous year questions)</span>
+                            </label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="field-label">Source Exam</label>
+                                    <input id="pyqSource" placeholder="e.g. SSC CGL, UPSC, Railway" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                                </div>
+                                <div>
+                                    <label class="field-label">Year</label>
+                                    <input id="pyqYear" type="number" placeholder="e.g. 2022" min="1990" max="2030" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                                </div>
+                            </div>
+                        </div>
 
-                        <input id="optionD" placeholder="Option D" class="w-full p-3 rounded-xl border border-blue-100">
+                        <!-- Explanation -->
+                        <div>
+                            <label class="field-label">Explanation</label>
+                            <textarea id="explanation" placeholder="Explain the correct answer..." rows="3"
+                                class="w-full p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 resize-none"></textarea>
+                        </div>
 
-                        <select id="correctAnswer" class="w-full p-3 rounded-xl border border-blue-100">
-                            <option value="">Select Correct Option</option>
-                            <option value="A">Option A</option>
-                            <option value="B">Option B</option>
-                            <option value="C">Option C</option>
-                            <option value="D">Option D</option>
-                        </select>
-
-                        <select id="difficulty" class="w-full p-3 rounded-xl border border-blue-100">
-                            <option value="easy">Easy</option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Hard</option>
-                        </select>
-
-                        <textarea id="explanation" placeholder="Explanation"
-                            class="w-full p-3 rounded-xl border border-blue-100"></textarea>
+                        <!-- Upload progress indicator -->
+                        <div id="uploadStatus" class="hidden text-xs text-blue-600 flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
+                            <svg class="w-4 h-4 animate-spin flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                            </svg>
+                            <span id="uploadStatusText">Uploading image...</span>
+                        </div>
 
                         <button id="addQuestionBtn"
-                            class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition ripple">
+                            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl shadow hover:opacity-90 transition ripple font-semibold text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-plus-circle"></i>
                             Add Question
                         </button>
 
                     </div>
 
-                    <!-- BULK CSV PROMPT BUILDER -->
-                    <div class="glass p-8 shadow-xl border-l-4 border-indigo-500 mt-10">
-
-                        <h2 class="text-xl font-bold text-indigo-700 mb-5 flex items-center gap-2">
-                            <i class="fas fa-file-csv"></i>
-                            Bulk CSV Prompt Builder
-                        </h2>
-
-                        <p class="text-sm text-gray-500 mb-4">
-                            Paste your questions with options and answers. The system will generate a ready-to-use AI
-                            prompt with correct IDs.
-                        </p>
-
-                        <textarea id="questionInput" placeholder="Paste questions here with options and answers..."
-                            class="w-full p-3 rounded-xl border border-blue-100 h-32 text-sm"></textarea>
-
-                        <button onclick="generatePrompt()"
-                            class="mt-4 bg-indigo-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-indigo-700 transition">
-                            Generate Prompt
-                        </button>
-
-                        <label class="block text-sm font-semibold mt-6 mb-2">
-                            AI Prompt (Copy & Paste to ChatGPT)
-                        </label>
-
-                        <textarea id="generatedPrompt" class="w-full p-3 rounded-xl border border-blue-100 h-44 text-xs"
-                            readonly></textarea>
-
-                        <button onclick="copyPrompt()"
-                            class="mt-3 bg-blue-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-blue-700 transition flex items-center gap-2">
-                            <i class="fas fa-copy"></i>
-                            Copy Prompt
-                        </button>
-
+                    <!-- BULK IMPORT LINK -->
+                    <div class="border border-indigo-200 rounded-xl p-5 mt-8 bg-gradient-to-br from-indigo-50 to-blue-50">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-file-import text-indigo-600"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="text-sm font-bold text-indigo-700 mb-1">Bulk Question Import</h3>
+                                <p class="text-xs text-gray-500 mb-3 leading-relaxed">Add hundreds of questions at once — generate AI prompts, upload images in bulk, validate CSV, and import directly to database.</p>
+                                <a href="/admin/bulkImport.html"
+                                    class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition shadow-sm">
+                                    <i class="fas fa-arrow-right"></i>
+                                    Open Bulk Import Tool
+                                </a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
-                <!-- RIGHT SIDE – Question List -->
+                <!-- ── RIGHT: Question List ── -->
                 <div>
-                    <h2 class="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2">
+                    <h2 class="text-xl font-bold text-blue-700 mb-4 flex items-center gap-2">
                         <i class="fas fa-list text-blue-500"></i>
-                        Existing Questions
+                        Question Bank
                     </h2>
 
-                    <div id="questionList" class="space-y-4"></div>
+                    <!-- Search + Filters -->
+                    <div class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm mb-4 space-y-3">
+
+                        <!-- Search -->
+                        <div class="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 15.803a7.5 7.5 0 0 0 10.607 0Z"/>
+                            </svg>
+                            <input id="qSearchInput" type="text" placeholder="Search questions..."
+                                oninput="onSearchInput(this.value)"
+                                class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 bg-gray-50">
+                        </div>
+
+                        <!-- Filter row -->
+                        <div class="grid grid-cols-3 gap-2">
+                            <select id="qDiffFilter" onchange="onDifficultyFilter(this.value)"
+                                class="p-2 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-blue-400 text-gray-600">
+                                <option value="">All Levels</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+
+                            <select id="qPyqFilter" onchange="onPyqFilter(this.value)"
+                                class="p-2 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-blue-400 text-gray-600">
+                                <option value="">All Types</option>
+                                <option value="pyq">PYQ Only</option>
+                            </select>
+
+                            <select id="qSectionFilter" onchange="onSectionFilter(this.value)"
+                                class="p-2 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-blue-400 text-gray-600">
+                                <option value="">All Sections</option>
+                            </select>
+                        </div>
+
+                        <!-- Count + reset -->
+                        <div class="flex items-center justify-between">
+                            <span id="questionCount" class="text-xs text-gray-400 font-medium"></span>
+                            <button onclick="resetFilters()" class="text-xs text-blue-500 hover:text-blue-700 font-medium transition">
+                                Reset filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question list -->
+                    <div id="questionList" class="space-y-3"></div>
+
+                    <!-- Pagination -->
+                    <div id="paginationContainer"></div>
                 </div>
 
             </div>
-
         </section>
     </div>
 
-    <!-- ========== FOOTER (identical to original) ========== -->
-    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10 fade-in z-10">
+    <!-- FOOTER -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
             <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
             <div class="flex space-x-6">
-                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
-                    target="_blank" rel="noopener noreferrer" title="Follow us on Facebook"
-                    class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer"
-                    title="Follow us on Twitter" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
-                    title="Follow us on LinkedIn" class="hover:text-white text-2xl"><i
-                        class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
-                    title="Follow us on Instagram" class="hover:text-white text-2xl"><i
-                        class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
-    <script src="/js/adminQuestions.js"></script>
-</body>
 
+    <script src="/js/adminQuestions.js"></script>
+
+    <!-- ── EDIT QUESTION MODAL ── -->
+    <div id="editModal" class="fixed inset-0 hidden items-center justify-center z-50 px-4" style="background:rgba(0,0,0,0.55);">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
+
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                <h2 class="text-white font-bold text-base flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/>
+                    </svg>
+                    Edit Question
+                </h2>
+                <button onclick="closeEditModal()" class="text-white/70 hover:text-white transition text-lg">✕</button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <input type="hidden" id="editQuestionId">
+
+                <!-- Question Text -->
+                <div>
+                    <label class="field-label">Question Text</label>
+                    <textarea id="editQuestionText" rows="3"
+                        class="w-full p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 resize-none"></textarea>
+                </div>
+
+                <!-- Question Image -->
+                <div>
+                    <label class="field-label">Question Figure <span class="text-gray-400 font-normal">(optional)</span></label>
+                    <div class="upload-zone" id="editQImgZone" onclick="document.getElementById('editQImgInput').click()">
+                        <p class="text-xs text-gray-400" id="editQImgLabel">Click to upload / replace image</p>
+                        <input type="file" id="editQImgInput" accept="image/*" class="hidden" onchange="handleEditQImgSelect(event)">
+                    </div>
+                    <div id="editQImgPreview" class="mt-2 hidden">
+                        <img id="editQImgPreviewImg" src="" alt="Preview" class="max-h-28 rounded-xl border border-gray-200 object-contain mx-auto">
+                        <button onclick="clearEditQImg()" class="mt-1 text-xs text-red-400 hover:text-red-600 block mx-auto">✕ Remove image</button>
+                    </div>
+                    <input type="hidden" id="editQuestionImageUrl">
+                </div>
+
+                <!-- Options A B C D -->
+                <div class="space-y-2">
+                    <label class="field-label">Options</label>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-green-100 text-green-700 text-xs font-bold flex items-center justify-center flex-shrink-0">A</span>
+                            <input id="editOptionA" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center flex-shrink-0">B</span>
+                            <input id="editOptionB" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 text-xs font-bold flex items-center justify-center flex-shrink-0">C</span>
+                            <input id="editOptionC" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 text-xs font-bold flex items-center justify-center flex-shrink-0">D</span>
+                            <input id="editOptionD" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Correct Answer + Difficulty -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="field-label">Correct Answer</label>
+                        <select id="editCorrectAnswer" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                            <option value="A">Option A</option>
+                            <option value="B">Option B</option>
+                            <option value="C">Option C</option>
+                            <option value="D">Option D</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="field-label">Difficulty</label>
+                        <select id="editDifficulty" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- PYQ -->
+                <div class="border border-amber-200 bg-amber-50 rounded-xl p-4 space-y-3">
+                    <label class="field-label text-amber-700">PYQ Details <span class="text-amber-500 font-normal">(optional)</span></label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="field-label">Source Exam</label>
+                            <input id="editPyqSource" placeholder="e.g. SSC CGL" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                        </div>
+                        <div>
+                            <label class="field-label">Year</label>
+                            <input id="editPyqYear" type="number" placeholder="e.g. 2022" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation -->
+                <div>
+                    <label class="field-label">Explanation</label>
+                    <textarea id="editExplanation" rows="3"
+                        class="w-full p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 resize-none"></textarea>
+                </div>
+
+                <!-- Active toggle -->
+                <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl">
+                    <input type="checkbox" id="editIsActive" class="w-4 h-4 accent-blue-600">
+                    <label for="editIsActive" class="text-sm font-medium text-gray-700">Question is active (visible in exams)</label>
+                </div>
+
+                <!-- Upload status -->
+                <div id="editUploadStatus" class="hidden text-xs text-blue-600 flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
+                    <svg class="w-4 h-4 animate-spin flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                    </svg>
+                    Uploading image...
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closeEditModal()"
+                        class="flex-1 border-2 border-gray-200 text-gray-600 hover:bg-gray-50 py-3 rounded-xl font-semibold text-sm transition">
+                        Cancel
+                    </button>
+                    <button id="saveEditBtn" onclick="saveEditQuestion()"
+                        class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold text-sm transition hover:opacity-90 flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+                        </svg>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

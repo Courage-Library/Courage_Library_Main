@@ -5,6 +5,12 @@ const SUPABASE_ANON_KEY =
 const { createClient } = supabase;
 const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ── Intercept browser back button → go to dashboard, not exam ──
+history.pushState(null, null, location.href);
+window.addEventListener("popstate", () => {
+  window.location.href = "/mock/dashboard.html";
+});
+
 let attemptId;
 let allReviewItems = [];
 
@@ -49,15 +55,19 @@ async function calculateResult() {
     return;
   }
 
+  // Security: block access to results if exam not yet submitted
+  if (!attempt.submitted_at) {
+    window.location.href = `/mock/exam.html?attempt=${attemptId}`;
+    return;
+  }
+
   const negative = Number(attempt.scheduled_exams?.exam_patterns?.negative_marking) || 0;
   const totalQ   = Number(attempt.scheduled_exams?.exam_patterns?.total_questions)   || 0;
 
-  // Time taken in seconds
   const timeTaken = attempt.submitted_at && attempt.started_at
     ? Math.floor((new Date(attempt.submitted_at) - new Date(attempt.started_at)) / 1000)
     : null;
 
-  // Fetch all answers for this attempt
   const { data: answers } = await client
     .from("answers")
     .select(`
@@ -67,13 +77,11 @@ async function calculateResult() {
     `)
     .eq("attempt_id", attemptId);
 
-  // Fetch all questions assigned to this attempt
   const { data: attemptQs } = await client
     .from("attempt_questions")
     .select("question_id")
     .eq("attempt_id", attemptId);
 
-  // Build lookup: question_id -> answer row
   const answerMap = {};
   (answers || []).forEach(a => { answerMap[a.question_id] = a; });
 
@@ -96,7 +104,7 @@ async function calculateResult() {
     ? 0
     : +((correct / totalAttempted) * 100).toFixed(2);
 
-  // Persist to DB only if not already saved (prevents overwrite on refresh)
+  // Save to DB only once — don't overwrite on refresh
   if (attempt.total_score == null) {
     await client
       .from("attempts")
@@ -123,7 +131,6 @@ function displayResult({ score, correct, wrong, skipped, accuracy, timeTaken, to
   document.getElementById("accuracy").textContent     = accuracy + "%";
   document.getElementById("timeTaken").textContent    = formatDuration(timeTaken);
 
-  // Verdict badge — FA icons instead of emojis
   const badge = document.getElementById("verdictBadge");
   badge.style.display = "inline-flex";
 
@@ -154,6 +161,10 @@ async function loadReview(answerMap) {
         id,
         question_text,
         options,
+        options_type,
+        question_image,
+        pyq_year,
+        pyq_source,
         correct_answer,
         explanation,
         pattern_section_id,
@@ -165,20 +176,16 @@ async function loadReview(answerMap) {
 
   if (error || !aqData) return;
 
-  // Build review items array
   allReviewItems = aqData.map((item, index) => {
     const q        = item.questions;
     const selected = answerMap[q.id]?.selected_option || null;
     const correct  = q.correct_answer;
     const status   = !selected
       ? "skipped"
-      : selected === correct
-        ? "correct"
-        : "wrong";
+      : selected === correct ? "correct" : "wrong";
     return { q, selected, correct, status, index };
   });
 
-  // Update filter tab counts
   const counts = { all: allReviewItems.length, correct: 0, wrong: 0, skipped: 0 };
   allReviewItems.forEach(i => counts[i.status]++);
   document.getElementById("cnt-all").textContent     = counts.all;
@@ -186,13 +193,37 @@ async function loadReview(answerMap) {
   document.getElementById("cnt-wrong").textContent   = counts.wrong;
   document.getElementById("cnt-skipped").textContent = counts.skipped;
 
-  document.getElementById("reviewSubtitle").textContent =
-    `${counts.all} questions`;
+  document.getElementById("reviewSubtitle").textContent = `${counts.all} questions`;
 
-  // Section accuracy bars
   renderSectionAccuracy(aqData, answerMap);
-
   renderReviewList(allReviewItems);
+}
+
+/* ─────────────────────────────────────────
+   RENDER OPTION VALUE — handles text / image / mixed
+───────────────────────────────────────── */
+function renderOptionValue(value, optionsType) {
+  if (!value) return "";
+
+  if (optionsType === "image") {
+    // value is a URL string
+    return `<img src="${value}" alt="Option" class="h-14 max-w-full object-contain rounded-lg border border-gray-200 my-0.5">`;
+  }
+
+  if (optionsType === "mixed") {
+    // value is { text, image }
+    const parts = [];
+    if (value.image) {
+      parts.push(`<img src="${value.image}" alt="Option" class="h-14 max-w-full object-contain rounded-lg border border-gray-200 my-0.5">`);
+    }
+    if (value.text) {
+      parts.push(`<span style="line-height:1.45">${value.text}</span>`);
+    }
+    return parts.join("");
+  }
+
+  // Default: plain text
+  return `<span style="flex:1;line-height:1.45">${value}</span>`;
 }
 
 /* ─────────────────────────────────────────
@@ -211,9 +242,10 @@ function renderReviewList(items) {
   }
 
   container.innerHTML = items.map(({ q, selected, correct, status, index }) => {
-    const opts   = q.options || {};
-    const isSkip = status === "skipped";
-    const isOk   = status === "correct";
+    const opts        = q.options || {};
+    const optionsType = q.options_type || "text";
+    const isSkip      = status === "skipped";
+    const isOk        = status === "correct";
 
     const chipClass = isSkip ? "chip-skipped" : isOk ? "chip-correct" : "chip-wrong";
     const chipIcon  = isSkip
@@ -221,31 +253,47 @@ function renderReviewList(items) {
       : isOk
         ? `<i class="fas fa-check"></i>`
         : `<i class="fas fa-times"></i>`;
-    const chipLabel = isSkip ? "Skipped" : isOk ? "Correct" : "Wrong";
-
+    const chipLabel   = isSkip ? "Skipped" : isOk ? "Correct" : "Wrong";
     const sectionName = q.pattern_sections?.section_name || "";
 
+    // ── PYQ badge ──
+    const pyqBadge = q.pyq_year
+      ? `<span style="font-size:.65rem;font-weight:700;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;padding:2px 8px;border-radius:999px;white-space:nowrap">
+           PYQ${q.pyq_source ? " · " + q.pyq_source : ""} ${q.pyq_year}
+         </span>`
+      : "";
+
+    // ── Question figure image ──
+    const questionImageHtml = q.question_image
+      ? `<div style="padding:0 18px 10px">
+           <img src="${q.question_image}" alt="Question figure"
+                style="max-width:100%;max-height:200px;border-radius:10px;border:1px solid #e2e8f0;object-fit:contain;cursor:zoom-in"
+                onclick="openResultImgZoom('${q.question_image}')" />
+         </div>`
+      : "";
+
+    // ── Options ──
     const optionKeys = Object.keys(opts).sort();
     const optionsHTML = optionKeys.map(key => {
       const isCorrectOpt  = key === correct;
       const isSelectedOpt = key === selected;
       const isWrongSel    = isSelectedOpt && !isCorrectOpt;
 
-      // For skipped: show no highlights — student never answered
-      // For answered: highlight correct green, wrong red
       let optClass = "", keyClass = "", trailIcon = "";
 
       if (!isSkip) {
-        if (isCorrectOpt)  { optClass = "opt-correct"; keyClass = "key-correct"; }
-        if (isWrongSel)    { optClass = "opt-wrong";   keyClass = "key-wrong";   }
-        if (isCorrectOpt)  trailIcon = `<i class="fas fa-check"  style="color:#16a34a;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
-        if (isWrongSel)    trailIcon = `<i class="fas fa-times"  style="color:#dc2626;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
+        if (isCorrectOpt) { optClass = "opt-correct"; keyClass = "key-correct"; }
+        if (isWrongSel)   { optClass = "opt-wrong";   keyClass = "key-wrong";   }
+        if (isCorrectOpt) trailIcon = `<i class="fas fa-check"  style="color:#16a34a;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
+        if (isWrongSel)   trailIcon = `<i class="fas fa-times"  style="color:#dc2626;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
       }
+
+      const optValueHtml = renderOptionValue(opts[key], optionsType);
 
       return `
         <div class="q-option ${optClass}">
           <span class="opt-key ${keyClass}">${key}</span>
-          <span style="flex:1;line-height:1.45">${opts[key]}</span>
+          ${optValueHtml}
           ${trailIcon}
         </div>`;
     }).join("");
@@ -263,12 +311,14 @@ function renderReviewList(items) {
           <div class="q-meta">
             <span class="q-num">Q${index + 1}</span>
             ${sectionName ? `<span class="q-section-tag">${sectionName}</span>` : ""}
+            ${pyqBadge}
           </div>
           <span class="q-status-chip ${chipClass}">
             ${chipIcon} ${chipLabel}
           </span>
         </div>
         <div class="q-text">${q.question_text}</div>
+        ${questionImageHtml}
         <div class="q-options">${optionsHTML}</div>
         <div class="q-footer">
           ${isSkip
@@ -281,6 +331,35 @@ function renderReviewList(items) {
       </div>`;
   }).join("");
 }
+
+/* ─────────────────────────────────────────
+   IMAGE ZOOM (for result page)
+───────────────────────────────────────── */
+window.openResultImgZoom = function(src) {
+  // Reuse exam zoom overlay if exists, else create one inline
+  let overlay = document.getElementById("resultImgZoom");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "resultImgZoom";
+    overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;cursor:zoom-out";
+    overlay.innerHTML = `
+      <div style="position:relative;max-width:800px;width:100%;display:flex;flex-direction:column;align-items:center;gap:12px">
+        <button onclick="document.getElementById('resultImgZoom').remove()"
+          style="position:absolute;top:-36px;right:0;background:none;border:none;color:rgba(255,255,255,0.7);font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:6px">
+          ✕ Close
+        </button>
+        <img id="resultImgZoomImg" src="${src}" alt="Zoomed"
+          style="max-width:100%;max-height:80vh;border-radius:12px;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.5)"
+          onclick="event.stopPropagation()">
+        <p style="color:rgba(255,255,255,0.35);font-size:.75rem">Tap outside to close</p>
+      </div>`;
+    overlay.addEventListener("click", () => overlay.remove());
+    document.body.appendChild(overlay);
+  } else {
+    document.getElementById("resultImgZoomImg").src = src;
+    overlay.style.display = "flex";
+  }
+};
 
 /* ─────────────────────────────────────────
    FILTER (client-side, instant)
@@ -304,10 +383,10 @@ function renderSectionAccuracy(aqData, answerMap) {
   const sectionMap = {};
 
   aqData.forEach(item => {
-    const q           = item.questions;
-    const name        = q.pattern_sections?.section_name || "General";
-    const selected    = answerMap[q.id]?.selected_option;
-    const isCorrect   = selected && selected === q.correct_answer;
+    const q         = item.questions;
+    const name      = q.pattern_sections?.section_name || "General";
+    const selected  = answerMap[q.id]?.selected_option;
+    const isCorrect = selected && selected === q.correct_answer;
 
     if (!sectionMap[name]) sectionMap[name] = { correct: 0, total: 0 };
     sectionMap[name].total++;
@@ -315,20 +394,14 @@ function renderSectionAccuracy(aqData, answerMap) {
   });
 
   const sections = Object.entries(sectionMap);
-  if (sections.length < 2) return; // only show for multi-section papers
+  if (sections.length < 2) return;
 
-  const COLORS = [
-    "#1a56db",   // 1 — brand blue (dark)
-    "#0284c7",   // 2 — deep sky (clearly distinct from #1)
-    "#0d9488",   // 3 — teal (warm direction, very different from blues)
-    "#6366f1",   // 4 — indigo/violet (different hue entirely)
-    "#7dd3fc",   // 5 — light sky (bright, airy — completes the spread)
-  ];
+  const COLORS = ["#1a56db", "#0284c7", "#0d9488", "#6366f1", "#7dd3fc"];
 
   document.getElementById("sectionAccuracyCard").style.display = "block";
   document.getElementById("sectionBars").innerHTML = sections.map(([name, s], i) => {
-    const pct   = s.total ? Math.round((s.correct / s.total) * 100) : 0;
-    const color = COLORS[i % COLORS.length];
+    const pct      = s.total ? Math.round((s.correct / s.total) * 100) : 0;
+    const color    = COLORS[i % COLORS.length];
     const tagClass = pct >= 75 ? "tag-strong" : pct >= 50 ? "tag-average" : "tag-weak";
     const tagLabel = pct >= 75 ? "Strong"     : pct >= 50 ? "Average"     : "Weak";
 
@@ -384,7 +457,7 @@ function showFatalError(msg) {
 function formatDuration(seconds) {
   if (!seconds && seconds !== 0) return "—";
   let s = Number(seconds);
-  if (s > 100000) s = Math.floor(s / 1000); // handle ms
+  if (s > 100000) s = Math.floor(s / 1000);
   const hrs  = Math.floor(s / 3600);
   const mins = Math.floor((s % 3600) / 60);
   const secs = s % 60;
@@ -394,15 +467,15 @@ function formatDuration(seconds) {
 }
 
 function animateCount(id, target, duration) {
-  const el  = document.getElementById(id);
-  const to  = Number(target);
-  const t0  = performance.now();
+  const el = document.getElementById(id);
+  const to = Number(target);
+  const t0 = performance.now();
 
   function step(now) {
-    const p     = Math.min((now - t0) / duration, 1);
-    const ease  = 1 - Math.pow(1 - p, 3); // ease-out cubic
-    const value = to * ease;
-    el.textContent = Number.isInteger(to) ? Math.round(value) : value.toFixed(2);
+    const p    = Math.min((now - t0) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const val  = to * ease;
+    el.textContent = Number.isInteger(to) ? Math.round(val) : val.toFixed(2);
     if (p < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);

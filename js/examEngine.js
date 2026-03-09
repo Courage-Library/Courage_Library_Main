@@ -171,7 +171,10 @@ async function loadQuestions() {
         id,
         question_text,
         options,
-        correct_answer,
+        options_type,
+        question_image,
+        pyq_year,
+        pyq_source,
         pattern_section_id,
         pattern_sections(
           id,
@@ -183,6 +186,9 @@ async function loadQuestions() {
     .eq("attempt_id", attemptId)
     .order("question_order", { ascending: true });
 
+  // correct_answer is intentionally NOT fetched here.
+  // It is only fetched after submission in resultEngine.js
+
   questions = data.map((d) => ({
     ...d.questions,
     section: d.questions.pattern_sections.section_name,
@@ -191,6 +197,14 @@ async function loadQuestions() {
   const uniqueSections = [...new Set(questions.map((q) => q.section))];
 
   renderSections(uniqueSections);
+}
+
+// ── XSS sanitizer — strips all HTML tags from text content ──
+function sanitizeText(str) {
+  if (!str) return "";
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 function showQuestion(index) {
@@ -210,7 +224,7 @@ function showQuestion(index) {
   if (prevBtn) prevBtn.disabled = index === 0;
   if (nextBtn) nextBtn.disabled = index === questions.length - 1;
 
-  // FIX: update active section tab highlight
+  // Update active section tab highlight
   const currentSection = q.section;
   document.querySelectorAll("#sectionTabs button").forEach((btn) => {
     if (btn.innerText === currentSection) {
@@ -222,46 +236,112 @@ function showQuestion(index) {
 
   const container = document.getElementById("questionContainer");
 
+  // ── PYQ badge (only if pyq_year exists) ──
+  const pyqBadge = (q.pyq_year)
+    ? `<span class="inline-flex items-center gap-1.5 text-xs bg-amber-50 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-lg font-medium ml-auto flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+        </svg>
+        PYQ${q.pyq_source ? " · " + q.pyq_source : ""} ${q.pyq_year}
+      </span>`
+    : `<span class="text-xs text-gray-400 ml-auto bg-gray-100 px-2.5 py-1 rounded-lg tabular-nums flex-shrink-0">${index + 1} / ${questions.length}</span>`;
+
+  // ── Question figure image (only if question_image exists) ──
+  const questionImageHtml = q.question_image
+    ? `<div class="my-4 flex justify-center">
+        <img src="${q.question_image}"
+             alt="Question figure"
+             class="max-w-full max-h-64 rounded-xl border border-gray-200 shadow-sm object-contain cursor-zoom-in"
+             onclick="openImageZoom('${q.question_image}')" />
+        <p class="text-xs text-gray-400 text-center mt-1">Click image to enlarge</p>
+       </div>`
+    : "";
+
+  // ── Build options — handles text, image, and mixed ──
+  const optionsType = q.options_type || "text";
+
+  const optionsHtml = Object.entries(q.options).map(([key, value]) => {
+    const isChecked = savedAnswers[q.id] === key;
+
+    // Detect value type — old format is plain string, new image format is a URL string
+    // options_type flag tells us how to render
+    let optionContent = "";
+
+    if (optionsType === "image") {
+      // value is an image URL
+      optionContent = `
+        <div class="flex-1 flex items-center justify-center py-1">
+          <img src="${value}"
+               alt="Option ${key}"
+               class="max-h-20 max-w-full rounded-lg object-contain cursor-zoom-in"
+               onclick="openImageZoom('${value}')" />
+        </div>`;
+    } else if (optionsType === "mixed") {
+      // value is object: { text: "...", image: "..." }
+      const optText  = (typeof value === "object" && value.text)  ? value.text  : null;
+      const optImage = (typeof value === "object" && value.image) ? value.image : null;
+      optionContent = `
+        <div class="flex-1 flex flex-col gap-1.5 justify-center">
+          ${optImage ? `<img src="${optImage}" alt="Option ${key}" class="max-h-16 max-w-full rounded-lg object-contain cursor-zoom-in" onclick="openImageZoom('${optImage}')" />` : ""}
+          ${optText  ? `<span class="text-gray-700 text-sm sm:text-base leading-snug">${optText}</span>` : ""}
+        </div>`;
+    } else {
+      // Default: plain text (all existing questions)
+      optionContent = `<span class="text-gray-700 text-sm sm:text-base leading-snug flex-1">${sanitizeText(value)}</span>`;
+    }
+
+    return `
+      <label class="flex items-center gap-3 p-3.5 border-2 rounded-xl cursor-pointer transition-all select-none
+        ${isChecked ? "bg-blue-50 border-blue-500 shadow-sm" : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/40"}">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all
+          ${isChecked ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"}">
+          ${key}
+        </span>
+        <input type="radio" name="option" value="${key}" class="hidden"
+          ${isChecked ? "checked" : ""}
+          onchange="saveAnswer('${q.id}', '${key}')">
+        ${optionContent}
+      </label>`;
+  }).join("");
+
   container.innerHTML = `
     <div class="mb-5">
-      <div class="flex items-center gap-2 mb-3">
+      <div class="flex items-center gap-2 mb-3 flex-wrap">
         <span class="text-xs font-medium text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-lg">${q.section}</span>
-        <span class="text-xs text-gray-400 ml-auto bg-gray-100 px-2.5 py-1 rounded-lg tabular-nums">${index + 1} / ${questions.length}</span>
+        ${pyqBadge}
       </div>
       <h2 class="text-base sm:text-lg font-semibold text-gray-800 leading-relaxed">
-        Q${index + 1}. ${q.question_text}
+        Q${index + 1}. ${sanitizeText(q.question_text)}
       </h2>
+      ${questionImageHtml}
     </div>
-
     <div class="space-y-2.5">
-      ${Object.entries(q.options)
-        .map(([key, value]) => {
-          const isChecked = savedAnswers[q.id] === key;
-          return `
-            <label class="flex items-center gap-3 p-3.5 border-2 rounded-xl cursor-pointer transition-all select-none
-              ${isChecked
-                ? "bg-blue-50 border-blue-500 shadow-sm"
-                : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/40"}">
-              <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all
-                ${isChecked ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"}">
-                ${key}
-              </span>
-              <input
-                type="radio"
-                name="option"
-                value="${key}"
-                class="hidden"
-                ${isChecked ? "checked" : ""}
-                onchange="saveAnswer('${q.id}', '${key}')"
-              >
-              <span class="text-gray-700 text-sm sm:text-base leading-snug">${value}</span>
-            </label>
-          `;
-        })
-        .join("")}
+      ${optionsHtml}
     </div>
   `;
 }
+
+// ── Debounce helper — prevents rapid DB writes on fast clicks ──
+function debounce(fn, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+const debouncedUpsertAnswer = debounce(async (attemptId, questionId, selected) => {
+  try {
+    const { error } = await client.from("answers").upsert(
+      [{ attempt_id: attemptId, question_id: questionId, selected_option: selected }],
+      { onConflict: ["attempt_id", "question_id"] },
+    );
+    if (error) throw error;
+    showSavedToast();
+  } catch (err) {
+    showAlert("Answer not saved — check your internet connection.", "error");
+  }
+}, 300);
 
 window.saveAnswer = async function (questionId, selected) {
   savedAnswers[questionId] = selected;
@@ -274,13 +354,7 @@ window.saveAnswer = async function (questionId, selected) {
       const badge = label.querySelector("span:first-child");
       if (!input || !badge) return;
       const isSelected = input.value === selected;
-      // Label border + background
       if (isSelected) {
-        label.className = label.className
-          .replace(/border-gray-200[^\s]*/g, "")
-          .replace(/hover:border-blue-300/g, "")
-          .replace(/hover:bg-blue-50\/40/g, "")
-          .trim();
         label.classList.add("bg-blue-50", "border-blue-500", "shadow-sm");
         label.classList.remove("border-gray-200", "hover:border-blue-300", "hover:bg-blue-50/40");
         badge.classList.add("bg-blue-600", "text-white");
@@ -296,16 +370,8 @@ window.saveAnswer = async function (questionId, selected) {
     });
   }
 
-  await client.from("answers").upsert(
-    [
-      {
-        attempt_id: attemptId,
-        question_id: questionId,
-        selected_option: selected,
-      },
-    ],
-    { onConflict: ["attempt_id", "question_id"] },
-  );
+  // Debounced DB write — fires 300ms after last click
+  debouncedUpsertAnswer(attemptId, questionId, selected);
 
   updatePalette();
 };
@@ -428,19 +494,82 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
+// ── Image zoom — opens clicked image in a fullscreen overlay ──
+window.openImageZoom = function(src) {
+  const overlay = document.getElementById("imageZoomOverlay");
+  const img     = document.getElementById("imageZoomImg");
+  if (!overlay || !img) return;
+  img.src = src;
+  overlay.classList.remove("hidden");
+  overlay.classList.add("flex");
+};
+
+window.closeImageZoom = function() {
+  const overlay = document.getElementById("imageZoomOverlay");
+  if (!overlay) return;
+  overlay.classList.add("hidden");
+  overlay.classList.remove("flex");
+};
+let savedToastTimer;
+function showSavedToast() {
+  let toast = document.getElementById("savedToast");
+  if (!toast) return;
+  toast.classList.remove("opacity-0", "translate-y-1");
+  toast.classList.add("opacity-100", "translate-y-0");
+  clearTimeout(savedToastTimer);
+  savedToastTimer = setTimeout(() => {
+    toast.classList.add("opacity-0", "translate-y-1");
+    toast.classList.remove("opacity-100", "translate-y-0");
+  }, 1200);
+}
+
+// FIX #2: Clear Answer button
+document.getElementById("clearBtn").addEventListener("click", async () => {
+  const q = questions[currentIndex];
+  if (!q || !savedAnswers[q.id]) return;
+
+  delete savedAnswers[q.id];
+
+  // Reset all option labels to unselected state
+  document.querySelectorAll("#questionContainer label").forEach((label) => {
+    const input = label.querySelector("input[type=radio]");
+    const badge = label.querySelector("span:first-child");
+    if (!input || !badge) return;
+    label.classList.remove("bg-blue-50", "border-blue-500", "shadow-sm");
+    label.classList.add("border-gray-200", "hover:border-blue-300", "hover:bg-blue-50/40");
+    badge.classList.remove("bg-blue-600", "text-white");
+    badge.classList.add("bg-gray-100", "text-gray-600");
+    input.checked = false;
+  });
+
+  // Delete from DB
+  try {
+    await client
+      .from("answers")
+      .delete()
+      .eq("attempt_id", attemptId)
+      .eq("question_id", q.id);
+  } catch (err) {
+    showAlert("Could not clear answer — check your connection.", "error");
+  }
+
+  updatePalette();
+});
+
 document.getElementById("markBtn").addEventListener("click", () => {
   const q = questions[currentIndex];
+  if (!q) return;
   markedQuestions[q.id] = !markedQuestions[q.id];
   updatePalette();
 });
 
 async function submitExam() {
-  // FIX #2: only one submit ever fires
   if (submitCalled) return;
   submitCalled = true;
   isSubmitting = true;
 
   clearInterval(timerInterval);
+  clearInterval(heartbeatInterval); // stop heartbeat on submit
 
   const now = new Date();
 
@@ -654,7 +783,8 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-setInterval(async () => {
+const heartbeatInterval = setInterval(async () => {
+  if (isSubmitting) return;
   await client
     .from("attempts")
     .update({ last_active: new Date() })
@@ -682,7 +812,8 @@ function showAlert(message, type = "warning") {
   }, 4000);
 }
 
-const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
-if (isReload) {
+// FIX #3: Only show reload message when it's a genuine reload AND exam was in progress
+const navEntry = performance.getEntriesByType("navigation")[0];
+if (navEntry?.type === "reload" && document.referrer === window.location.href) {
   showAlert("Page refreshed. Your answers have been restored.", "warning");
 }
