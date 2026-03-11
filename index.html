@@ -414,6 +414,18 @@
                     Login
                 </button>
 
+                <div class="flex items-center gap-2 my-3">
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                    <span class="text-xs text-gray-400">or</span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                <button onclick="loginWithGoogle()"
+                    class="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition font-medium text-gray-700 text-sm">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
+                    Continue with Google
+                </button>
+
                 <p class="mt-2 text-sm text-gray-600 text-center">Don’t have an account?
                     <a href="#" onclick="openAuthModal('signup')" class="text-blue-600 underline">Sign Up</a>
                 </p>
@@ -473,6 +485,18 @@
                 <button onclick="signupWithEmail()"
                     class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium flex justify-center items-center">
                     Sign Up
+                </button>
+
+                <div class="flex items-center gap-2 my-3">
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                    <span class="text-xs text-gray-400">or</span>
+                    <div class="flex-1 h-px bg-gray-200"></div>
+                </div>
+
+                <button onclick="loginWithGoogle()"
+                    class="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition font-medium text-gray-700 text-sm">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
+                    Continue with Google
                 </button>
 
                 <p class="mt-2 text-sm text-gray-600 text-center">Already have an account?
@@ -706,6 +730,23 @@
             currentAuthSession = null;
             updateAuthButtons();
             showCustomPopup("Logged out!", "success");
+        }
+
+        /* -------------------------------------------------------------
+GOOGLE LOGIN
+------------------------------------------------------------- */
+        async function loginWithGoogle() {
+            try {
+                const { error } = await supaClient.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                        redirectTo: 'https://www.couragelibrary.in/'
+                    }
+                });
+                if (error) showCustomPopup(error.message, "error");
+            } catch (err) {
+                showCustomPopup(err.message, "error");
+            }
         }
 
         /* -------------------------------------------------------------
