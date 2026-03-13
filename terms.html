@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Courage Library</title>
+    <meta name="description" content="Terms of Service for Courage Library — India's self-paced learning platform for government exam aspirants.">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9ff; color: #1e1b4b; margin: 0; padding: 0; overflow-x: hidden; }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 55%, #6d28d9 100%);
+            padding: 72px 20px 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(30,27,75,0.08));
+            pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+            color: #e0e7ff; padding: 5px 16px; border-radius: 999px;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; margin-bottom: 20px;
+        }
+        .hero-title { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; color: #ffffff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.02em; }
+        .hero-subtitle { font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
+        .hero-meta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+        .hero-meta-chip { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); color: rgba(255,255,255,0.88); padding: 7px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 500; }
+        .hero-meta-chip i { font-size: 0.78rem; opacity: 0.8; }
+
+        .toc-sidebar { position: sticky; top: 80px; background: white; border: 1px solid #e0e7ff; border-radius: 16px; padding: 22px; }
+        .toc-sidebar a { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #6b7280; text-decoration: none; padding: 6px 10px; border-radius: 8px; transition: all 0.15s; margin-bottom: 2px; line-height: 1.4; }
+        .toc-sidebar a:hover { background: #eff6ff; color: #2563eb; }
+        .toc-num { width: 20px; height: 20px; min-width: 20px; background: #dbeafe; color: #1d4ed8; border-radius: 50%; font-size: 0.68rem; font-weight: 700; text-align: center; line-height: 20px; }
+
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2px solid #dbeafe; }
+        .section-num-badge { width: 34px; height: 34px; min-width: 34px; background: linear-gradient(135deg, #1d4ed8, #4f46e5); color: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; }
+        .section-title { font-size: 1.2rem; font-weight: 800; color: #111827; }
+        .content-section { margin-bottom: 48px; scroll-margin-top: 90px; }
+        .content-section p { font-size: 0.93rem; color: #374151; margin-bottom: 12px; line-height: 1.8; }
+        .content-section h3 { font-size: 0.93rem; font-weight: 700; color: #111827; margin: 18px 0 8px; }
+        .content-section ul, .content-section ol { margin: 8px 0 14px; padding-left: 0; list-style: none; }
+        .content-section ul li, .content-section ol li { font-size: 0.91rem; color: #374151; padding: 5px 0 5px 26px; position: relative; line-height: 1.7; }
+        .content-section ul li::before { content: ''; position: absolute; left: 8px; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: #4f46e5; }
+        .content-section ol { counter-reset: ol-counter; }
+        .content-section ol li { counter-increment: ol-counter; }
+        .content-section ol li::before { content: counter(ol-counter); position: absolute; left: 0; top: 5px; width: 20px; height: 20px; background: #dbeafe; color: #1d4ed8; border-radius: 50%; font-size: 0.68rem; font-weight: 700; text-align: center; line-height: 20px; }
+
+        .highlight-box { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; color: #1e3a8a; }
+        .warn-box { background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid #ef4444; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; color: #7f1d1d; }
+        .green-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #22c55e; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; color: #14532d; }
+
+        .contact-card { background: linear-gradient(135deg, #1d4ed8, #4338ca); border-radius: 16px; padding: 28px; color: white; margin-top: 16px; }
+        .contact-card h3 { font-size: 1.05rem; font-weight: 800; color: white; margin-bottom: 16px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.88rem; color: rgba(255,255,255,0.85); }
+        .contact-icon { width: 30px; height: 30px; min-width: 30px; background: rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; }
+        .contact-item a { color: rgba(255,255,255,0.9); text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<nav class="bg-white/90 backdrop-blur-xl shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <a class="flex items-center space-x-2" href="/index.html">
+            <img src="/images/logo.png" alt="Courage Library" class="w-8 h-8">
+            <span class="text-2xl font-bold text-blue-700">Courage Library</span>
+        </a>
+        <a href="/index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow font-semibold hover:scale-105 transform transition text-sm">
+            <i class="fa-solid fa-house mr-1"></i> Home
+        </a>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="hero-orb-1"></div>
+    <div class="hero-orb-2"></div>
+    <div class="hero-shine"></div>
+    <div class="relative z-10 max-w-3xl mx-auto">
+        <div class="hero-badge"><i class="fa-solid fa-file-contract"></i> Legal Document</div>
+        <h1 class="hero-title">Terms of Service</h1>
+        <p class="hero-subtitle">Please read these terms carefully before using Courage Library. By accessing our platform, you agree to be bound by these terms.</p>
+        <div class="hero-meta-row">
+            <span class="hero-meta-chip"><i class="fa-solid fa-calendar-days"></i> Effective: March 1, 2025</span>
+            <span class="hero-meta-chip"><i class="fa-solid fa-rotate"></i> Last Updated: March 11, 2026</span>
+            <span class="hero-meta-chip"><i class="fa-solid fa-building"></i> Courage Library, India</span>
+        </div>
+    </div>
+</section>
+
+<div style="height:4px;background:linear-gradient(90deg,#1d4ed8,#4338ca,#6d28d9);"></div>
+
+<div style="max-width:1100px;margin:0 auto;padding:56px 20px;display:flex;gap:40px;align-items:start;">
+
+    <aside class="toc-sidebar" style="min-width:220px;width:220px;display:none;" id="tocSidebar">
+        <div style="font-size:0.7rem;font-weight:800;color:#9ca3af;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Contents</div>
+        <a href="#t1"><span class="toc-num">1</span> Acceptance of Terms</a>
+        <a href="#t2"><span class="toc-num">2</span> About the Platform</a>
+        <a href="#t3"><span class="toc-num">3</span> User Accounts</a>
+        <a href="#t4"><span class="toc-num">4</span> Permitted Use</a>
+        <a href="#t5"><span class="toc-num">5</span> Mock Tests &amp; Exams</a>
+        <a href="#t6"><span class="toc-num">6</span> Payments &amp; Refunds</a>
+        <a href="#t7"><span class="toc-num">7</span> Intellectual Property</a>
+        <a href="#t8"><span class="toc-num">8</span> Prohibited Conduct</a>
+        <a href="#t9"><span class="toc-num">9</span> Disclaimers</a>
+        <a href="#t10"><span class="toc-num">10</span> Limitation of Liability</a>
+        <a href="#t11"><span class="toc-num">11</span> Termination</a>
+        <a href="#t12"><span class="toc-num">12</span> Governing Law</a>
+        <a href="#t13"><span class="toc-num">13</span> Contact Us</a>
+    </aside>
+    <script>if(window.innerWidth>=1024){document.getElementById('tocSidebar').style.display='block';}</script>
+
+    <main style="flex:1;min-width:0;">
+
+        <section id="t1" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">1</div>
+                <h2 class="section-title">Acceptance of Terms</h2>
+            </div>
+            <p>These Terms of Service ("Terms") constitute a legally binding agreement between you ("User", "you", or "your") and <strong>Courage Library</strong> ("Company", "we", "our", or "us"), governing your access to and use of the Courage Library platform available at <strong>couragelibrary.in</strong> and all associated services.</p>
+            <p>By registering an account, accessing course content, attempting mock tests, or using any feature of our platform, you confirm that you have read, understood, and agree to be bound by these Terms and our Privacy Policy.</p>
+            <div class="warn-box">
+                <i class="fa-solid fa-ban mr-2"></i>
+                <strong>If you do not agree to these Terms, you must not access or use the Courage Library platform.</strong> Users under the age of 16 must have parental or guardian consent before using our services.
+            </div>
+        </section>
+
+        <section id="t2" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">2</div>
+                <h2 class="section-title">About the Platform</h2>
+            </div>
+            <p>Courage Library is an online educational platform designed to help aspirants prepare for Indian government competitive examinations including SSC, Railway Recruitment Board (RRB), Banking (IBPS, SBI, RBI), Defence (NDA, CDS), and other government recruitment examinations.</p>
+            <p>Our platform provides the following services:</p>
+            <ul>
+                <li><strong>Mock Test Engine:</strong> Timed, pattern-based mock examinations with real exam simulation, negative marking, sectional navigation, and leaderboards.</li>
+                <li><strong>Question Bank:</strong> A curated library of 8,000+ practice questions including Previous Year Questions (PYQ) across multiple subjects and difficulty levels.</li>
+                <li><strong>Performance Analytics:</strong> Detailed analysis of accuracy, speed, subject-wise performance, rank comparison, and improvement tracking.</li>
+                <li><strong>Self-Paced Courses:</strong> Structured study material and lesson content aligned with official exam syllabi.</li>
+                <li><strong>Physical Learning Centre:</strong> An offline study facility at our Ramaipur, Kanpur location for disciplined in-person study sessions.</li>
+            </ul>
+            <div class="green-box">
+                <i class="fa-solid fa-circle-check mr-2" style="color:#15803d;"></i>
+                <strong>Free Access:</strong> Mock tests and the question bank are currently available free of charge to all registered users as part of our launch offer. Course content may require enrollment.
+            </div>
+        </section>
+
+        <section id="t3" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">3</div>
+                <h2 class="section-title">User Accounts</h2>
+            </div>
+            <h3>3.1 Registration</h3>
+            <p>To access most features of Courage Library, you must create a free account using a valid email address and password, or by signing in through Google OAuth. You agree to provide accurate, current, and complete information during registration.</p>
+            <h3>3.2 Account Security</h3>
+            <ul>
+                <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
+                <li>You must not share your account with others or allow others to access your account.</li>
+                <li>You must notify us immediately at support@couragelibrary.in if you suspect unauthorized access to your account.</li>
+                <li>We are not liable for any loss resulting from unauthorized use of your account due to your failure to protect your credentials.</li>
+            </ul>
+            <h3>3.3 One Account Per User</h3>
+            <p>Each individual is permitted to maintain only one active account. Creating multiple accounts to circumvent restrictions, leaderboard rankings, or attempt limits is strictly prohibited and may result in permanent suspension of all associated accounts.</p>
+            <h3>3.4 Account Accuracy</h3>
+            <p>You agree to keep your profile information accurate and up to date, particularly your enrolled exam category and contact details, as these affect our question recommendation and communication systems.</p>
+        </section>
+
+        <section id="t4" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">4</div>
+                <h2 class="section-title">Permitted Use</h2>
+            </div>
+            <p>Subject to these Terms, Courage Library grants you a limited, non-exclusive, non-transferable, revocable licence to access and use the platform for your personal, non-commercial educational purposes. You may:</p>
+            <ul>
+                <li>Create an account and access all features available to your account tier.</li>
+                <li>Attempt scheduled mock tests within the permitted attempt limits.</li>
+                <li>View your personal performance analytics and attempt history.</li>
+                <li>Access course content you have enrolled in or that is freely available.</li>
+                <li>Share your results and rank on personal social media for non-commercial purposes.</li>
+                <li>Contact our support team for assistance with platform-related issues.</li>
+            </ul>
+        </section>
+
+        <section id="t5" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">5</div>
+                <h2 class="section-title">Mock Tests &amp; Exam Rules</h2>
+            </div>
+            <p>Our mock test engine is designed to simulate real exam conditions. By attempting any mock test on our platform, you agree to the following rules:</p>
+            <h3>5.1 Fair Attempt Policy</h3>
+            <ul>
+                <li>Each scheduled exam has a defined attempt limit. Circumventing attempt limits through account manipulation is prohibited.</li>
+                <li>Sharing questions, answer keys, or exam content from our platform — whether via screenshots, text, or any other means — is strictly prohibited and constitutes a violation of our intellectual property rights.</li>
+                <li>Using automated tools, scripts, bots, or browser extensions to gain unfair advantage during exams is prohibited.</li>
+            </ul>
+            <h3>5.2 Exam Conduct</h3>
+            <ul>
+                <li>Tab switching during a live exam is monitored. Excessive tab switching may result in automatic submission of your attempt.</li>
+                <li>Back navigation during an active exam is blocked to maintain exam integrity.</li>
+                <li>You must not attempt to inspect or extract question data or correct answers through browser developer tools or network interception.</li>
+            </ul>
+            <h3>5.3 Results &amp; Scores</h3>
+            <ul>
+                <li>Scores are calculated based on the exam pattern configured for each test, including negative marking where applicable.</li>
+                <li>Leaderboard rankings are based on score, accuracy, and time taken.</li>
+                <li>We reserve the right to disqualify attempts and remove users from leaderboards if cheating or manipulation is detected.</li>
+            </ul>
+            <h3>5.4 Exam Availability</h3>
+            <p>Scheduled exams are available only within their defined start and end datetime windows. We are not responsible for technical issues that prevent you from completing an exam within the window, though we will make reasonable efforts to accommodate genuine technical failures on our end.</p>
+        </section>
+
+        <section id="t6" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">6</div>
+                <h2 class="section-title">Payments &amp; Refunds</h2>
+            </div>
+            <h3>6.1 Pricing</h3>
+            <p>Mock tests and basic platform access are currently free. Paid course enrollments are available at prices listed at the time of purchase. All prices are in Indian Rupees (INR) inclusive of applicable taxes.</p>
+            <h3>6.2 Payment Processing</h3>
+            <p>Payments are processed through secure third-party payment gateways. We do not store your payment card details. By making a payment, you agree to the terms of the respective payment processor.</p>
+            <h3>6.3 Refund Policy</h3>
+            <ul>
+                <li><strong>Course Enrollments:</strong> Refund requests made within 7 days of enrollment and before accessing more than 20% of course content will be honored in full.</li>
+                <li><strong>After 7 Days:</strong> No refunds will be issued after 7 days from the date of purchase.</li>
+                <li><strong>Technical Issues:</strong> If a verified technical issue on our end prevents you from accessing purchased content, we will either resolve the issue or provide a full refund at our discretion.</li>
+                <li><strong>Offline Learning Centre:</strong> Physical seat bookings are non-refundable after 24 hours of booking confirmation.</li>
+            </ul>
+            <p>To request a refund, email <strong>support@couragelibrary.in</strong> with your order details and reason for refund.</p>
+            <h3>6.4 Enrollment Validity</h3>
+            <p>Paid enrollments are valid for the period specified at the time of purchase. Upon expiry, access to premium content will be suspended until renewal. Your attempt history and performance data will be retained.</p>
+        </section>
+
+        <section id="t7" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">7</div>
+                <h2 class="section-title">Intellectual Property</h2>
+            </div>
+            <p>All content on the Courage Library platform — including but not limited to questions, explanations, course material, study notes, images, graphics, UI design, code, and branding — is the exclusive intellectual property of Courage Library or its licensed content providers.</p>
+            <ul>
+                <li>You may not copy, reproduce, distribute, publish, transmit, or create derivative works from our content without explicit written permission.</li>
+                <li>Scraping, bulk downloading, or automated extraction of questions or content from our platform is strictly prohibited.</li>
+                <li>The "Courage Library" name, logo, and associated branding are our trademarks and may not be used without written consent.</li>
+                <li>Previous Year Questions (PYQ) sourced from official government exam bodies remain the property of their respective owners. We present them for educational purposes only.</li>
+            </ul>
+            <div class="highlight-box">
+                <i class="fa-solid fa-shield-halved mr-2" style="color:#2563eb;"></i>
+                <strong>Copyright Violations:</strong> Unauthorised reproduction of our content will result in immediate account termination and may be subject to legal action under the Indian Copyright Act, 1957.
+            </div>
+        </section>
+
+        <section id="t8" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">8</div>
+                <h2 class="section-title">Prohibited Conduct</h2>
+            </div>
+            <p>You agree not to engage in any of the following prohibited activities:</p>
+            <ul>
+                <li>Attempting to hack, breach, or gain unauthorized access to our systems, databases, or other users' accounts.</li>
+                <li>Uploading or transmitting malware, viruses, or any malicious code through our platform.</li>
+                <li>Using our platform for any unlawful purpose or in violation of any applicable Indian or international laws.</li>
+                <li>Harassing, threatening, or abusing other users or our staff through any platform communication channel.</li>
+                <li>Creating fake accounts, impersonating other users, or providing false information.</li>
+                <li>Attempting to manipulate leaderboard rankings through cheating, multiple accounts, or collusion.</li>
+                <li>Attempting to reverse-engineer, decompile, or extract the source code of our platform.</li>
+                <li>Selling, reselling, or commercially exploiting any part of our platform or content without authorization.</li>
+                <li>Using VPNs or proxies to circumvent geographic or access restrictions.</li>
+            </ul>
+            <p>Violation of these prohibitions may result in immediate account suspension, permanent ban, and/or legal action as appropriate.</p>
+        </section>
+
+        <section id="t9" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">9</div>
+                <h2 class="section-title">Disclaimers</h2>
+            </div>
+            <p>Courage Library is an independent educational platform and is <strong>not affiliated with, endorsed by, or officially connected to</strong> SSC, RRB, IBPS, SBI, or any other government recruitment body.</p>
+            <ul>
+                <li><strong>Educational Purpose Only:</strong> All content, mock tests, and questions are provided for practice and preparation purposes only. We do not guarantee actual exam success or selection.</li>
+                <li><strong>Accuracy:</strong> While we strive to ensure content accuracy, we do not warrant that all questions, answers, or study material are error-free. Users are advised to cross-reference with official exam notifications.</li>
+                <li><strong>Platform Availability:</strong> We strive for maximum uptime but do not guarantee uninterrupted access. Scheduled maintenance or unforeseen technical issues may cause temporary unavailability.</li>
+                <li><strong>Third-Party Links:</strong> Our platform may contain links to third-party websites. We are not responsible for the content, privacy practices, or availability of those sites.</li>
+            </ul>
+            <div class="warn-box">
+                <i class="fa-solid fa-triangle-exclamation mr-2"></i>
+                <strong>No Guarantee of Results:</strong> Using Courage Library does not guarantee success in any government examination. Exam results depend on individual effort, preparation, and factors beyond our control.
+            </div>
+        </section>
+
+        <section id="t10" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">10</div>
+                <h2 class="section-title">Limitation of Liability</h2>
+            </div>
+            <p>To the maximum extent permitted by applicable law, Courage Library and its founders, employees, and affiliates shall not be liable for:</p>
+            <ul>
+                <li>Any indirect, incidental, special, consequential, or punitive damages arising from your use of the platform.</li>
+                <li>Loss of data, exam attempts, or performance records due to technical failures beyond our reasonable control.</li>
+                <li>Decisions made by users based on content, scores, or analytics provided by our platform.</li>
+                <li>Any damages arising from unauthorized access to your account due to your failure to protect your credentials.</li>
+                <li>Service interruptions caused by third-party infrastructure failures including Supabase, hosting providers, or CDN services.</li>
+            </ul>
+            <p>Our total liability to you for any claim shall not exceed the amount you paid to us in the 3 months preceding the claim. For free users, our liability is limited to INR 500.</p>
+        </section>
+
+        <section id="t11" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">11</div>
+                <h2 class="section-title">Termination</h2>
+            </div>
+            <h3>11.1 Termination by You</h3>
+            <p>You may delete your account at any time by contacting us at support@couragelibrary.in. Upon deletion, your access to the platform will be revoked and your personal data will be deleted in accordance with our Privacy Policy.</p>
+            <h3>11.2 Termination by Us</h3>
+            <p>We reserve the right to suspend or permanently terminate your account, without prior notice, if you violate any provision of these Terms, engage in fraudulent or illegal activity, or pose a risk to other users or our platform integrity.</p>
+            <h3>11.3 Effect of Termination</h3>
+            <p>Upon termination, all licences granted to you under these Terms will cease immediately. Provisions that by their nature should survive termination — including intellectual property, disclaimers, and limitation of liability — shall continue in full effect. For paid users terminated for Terms violations, no refund will be issued.</p>
+        </section>
+
+        <section id="t12" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">12</div>
+                <h2 class="section-title">Governing Law &amp; Disputes</h2>
+            </div>
+            <p>These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising from these Terms or your use of the platform shall be subject to the exclusive jurisdiction of the courts located in <strong>Kanpur Nagar, Uttar Pradesh, India</strong>.</p>
+            <h3>12.1 Dispute Resolution Process</h3>
+            <ol>
+                <li><strong>Informal Resolution:</strong> Contact us at support@couragelibrary.in and attempt to resolve the dispute informally within 30 days.</li>
+                <li><strong>Mediation:</strong> If informal resolution fails, both parties agree to attempt mediation through a mutually agreed mediator before proceeding to litigation.</li>
+                <li><strong>Litigation:</strong> If mediation fails, disputes shall be resolved through the courts of Kanpur Nagar, Uttar Pradesh.</li>
+            </ol>
+            <p>This platform operates in compliance with the Information Technology Act, 2000, the Consumer Protection Act, 2019, and other applicable Indian legislation.</p>
+        </section>
+
+        <section id="t13" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">13</div>
+                <h2 class="section-title">Contact Us</h2>
+            </div>
+            <p>For any questions, concerns, or legal notices regarding these Terms of Service, please contact us. We aim to respond to all formal inquiries within 48 business hours.</p>
+            <div class="contact-card">
+                <h3><i class="fa-solid fa-file-contract mr-2"></i>Courage Library — Legal &amp; Support</h3>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <span><a href="mailto:support@couragelibrary.in">support@couragelibrary.in</a></span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-globe"></i></div>
+                    <span><a href="https://www.couragelibrary.in" target="_blank">www.couragelibrary.in</a></span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
+        <p class="text-sm">&copy; 2026 Courage Library. All rights reserved. &nbsp;|&nbsp;
+            <a href="/privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a> &nbsp;|&nbsp;
+            <a href="/terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+        </p>
+        <div class="flex space-x-6">
+            <a href="https://www.facebook.com/people/Courage-Library/61561969000820" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/courage-library" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

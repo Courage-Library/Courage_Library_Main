@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Courage Library</title>
+    <meta name="description" content="Privacy Policy for Courage Library — India's self-paced learning platform for government exam aspirants.">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9ff; color: #1e1b4b; margin: 0; padding: 0; overflow-x: hidden; }
+
+        /* ── HERO ── */
+        .hero-section {
+            background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 55%, #6d28d9 100%);
+            padding: 72px 20px 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Dot grid texture */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+        /* Bottom fade */
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(30,27,75,0.12));
+            pointer-events: none;
+        }
+        /* 3D depth — top-left light source */
+        .hero-orb-1 {
+            position: absolute;
+            top: -60px; left: -60px;
+            width: 340px; height: 340px;
+            background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.18) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        /* 3D depth — bottom-right shadow sink */
+        .hero-orb-2 {
+            position: absolute;
+            bottom: -80px; right: -60px;
+            width: 380px; height: 380px;
+            background: radial-gradient(circle at 60% 60%, rgba(109,40,217,0.55) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        /* Subtle inner highlight band across the top */
+        .hero-shine {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            pointer-events: none;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #e0e7ff;
+            padding: 5px 16px; border-radius: 999px;
+            font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900; color: #ffffff;
+            line-height: 1.15; margin-bottom: 14px;
+            letter-spacing: -0.02em;
+        }
+        .hero-subtitle {
+            font-size: 1rem; color: rgba(255,255,255,0.75);
+            max-width: 520px; margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+        .hero-meta-row {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 10px; margin-top: 8px;
+        }
+        .hero-meta-chip {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.22);
+            color: rgba(255,255,255,0.88);
+            padding: 7px 16px; border-radius: 8px;
+            font-size: 0.82rem; font-weight: 500;
+        }
+        .hero-meta-chip i { font-size: 0.78rem; opacity: 0.8; }
+
+        /* ── SIDEBAR TOC ── */
+        .toc-sidebar {
+            position: sticky; top: 80px;
+            background: white; border: 1px solid #e0e7ff;
+            border-radius: 16px; padding: 22px;
+        }
+        .toc-sidebar a {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.82rem; color: #6b7280;
+            text-decoration: none; padding: 6px 10px;
+            border-radius: 8px; transition: all 0.15s;
+            margin-bottom: 2px; line-height: 1.4;
+        }
+        .toc-sidebar a:hover { background: #eff6ff; color: #2563eb; }
+        .toc-num {
+            width: 20px; height: 20px; min-width: 20px;
+            background: #dbeafe; color: #1d4ed8;
+            border-radius: 50%; font-size: 0.68rem;
+            font-weight: 700; text-align: center; line-height: 20px;
+        }
+
+        /* ── CONTENT ── */
+        .section-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 18px; padding-bottom: 14px;
+            border-bottom: 2px solid #dbeafe;
+        }
+        .section-num-badge {
+            width: 34px; height: 34px; min-width: 34px;
+            background: linear-gradient(135deg, #1d4ed8, #4f46e5);
+            color: white; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.82rem; font-weight: 700;
+        }
+        .section-title { font-size: 1.2rem; font-weight: 800; color: #111827; }
+        .content-section { margin-bottom: 48px; scroll-margin-top: 90px; }
+        .content-section p { font-size: 0.93rem; color: #374151; margin-bottom: 12px; line-height: 1.8; }
+        .content-section h3 { font-size: 0.93rem; font-weight: 700; color: #111827; margin: 18px 0 8px; }
+        .content-section ul, .content-section ol { margin: 8px 0 14px; padding-left: 0; list-style: none; }
+        .content-section ul li, .content-section ol li { font-size: 0.91rem; color: #374151; padding: 5px 0 5px 26px; position: relative; line-height: 1.7; }
+        .content-section ul li::before { content: ''; position: absolute; left: 8px; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; }
+        .content-section ol { counter-reset: ol-counter; }
+        .content-section ol li { counter-increment: ol-counter; }
+        .content-section ol li::before { content: counter(ol-counter); position: absolute; left: 0; top: 5px; width: 20px; height: 20px; background: #dbeafe; color: #1d4ed8; border-radius: 50%; font-size: 0.68rem; font-weight: 700; text-align: center; line-height: 20px; }
+
+        .highlight-box { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; color: #1e3a8a; }
+        .warn-box { background: #fefce8; border: 1px solid #fef08a; border-left: 4px solid #eab308; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; color: #713f12; }
+
+        .contact-card { background: linear-gradient(135deg, #1d4ed8, #4338ca); border-radius: 16px; padding: 28px; color: white; margin-top: 16px; }
+        .contact-card h3 { font-size: 1.05rem; font-weight: 800; color: white; margin-bottom: 16px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.88rem; color: rgba(255,255,255,0.85); }
+        .contact-icon { width: 30px; height: 30px; min-width: 30px; background: rgba(255,255,255,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; }
+        .contact-item a { color: rgba(255,255,255,0.9); text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="bg-white/90 backdrop-blur-xl shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <a class="flex items-center space-x-2" href="/index.html">
+            <img src="/images/logo.png" alt="Courage Library" class="w-8 h-8">
+            <span class="text-2xl font-bold text-blue-700">Courage Library</span>
+        </a>
+        <a href="/index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow font-semibold hover:scale-105 transform transition text-sm">
+            <i class="fa-solid fa-house mr-1"></i> Home
+        </a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+    <div class="hero-orb-1"></div>
+    <div class="hero-orb-2"></div>
+    <div class="hero-shine"></div>
+    <div class="relative z-10 max-w-3xl mx-auto">
+        <div class="hero-badge"><i class="fa-solid fa-file-lines"></i> Legal Document</div>
+        <h1 class="hero-title">Privacy Policy</h1>
+        <p class="hero-subtitle">We believe privacy is a right, not a feature. Here is exactly how we handle your data — clearly, honestly, and completely.</p>
+        <div class="hero-meta-row">
+            <span class="hero-meta-chip"><i class="fa-solid fa-calendar-days"></i> Effective: March 1, 2025</span>
+            <span class="hero-meta-chip"><i class="fa-solid fa-rotate"></i> Last Updated: March 11, 2026</span>
+            <span class="hero-meta-chip"><i class="fa-solid fa-building"></i> Courage Library, India</span>
+        </div>
+    </div>
+</section>
+
+<!-- BODY DIVIDER — clean separation, no wave -->
+<div style="height:4px;background:linear-gradient(90deg,#1d4ed8,#4338ca,#6d28d9);"></div>
+
+<!-- LAYOUT -->
+<div style="max-width:1100px;margin:0 auto;padding:56px 20px;display:flex;gap:40px;align-items:start;">
+
+    <!-- TOC -->
+    <aside class="toc-sidebar" style="min-width:220px;width:220px;display:none;" id="tocSidebar">
+        <div style="font-size:0.7rem;font-weight:800;color:#9ca3af;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;">Contents</div>
+        <a href="#s1"><span class="toc-num">1</span> Overview</a>
+        <a href="#s2"><span class="toc-num">2</span> Information We Collect</a>
+        <a href="#s3"><span class="toc-num">3</span> How We Use Your Data</a>
+        <a href="#s4"><span class="toc-num">4</span> Data Storage &amp; Security</a>
+        <a href="#s5"><span class="toc-num">5</span> Third-Party Services</a>
+        <a href="#s6"><span class="toc-num">6</span> Cookies &amp; Tracking</a>
+        <a href="#s7"><span class="toc-num">7</span> Your Rights</a>
+        <a href="#s8"><span class="toc-num">8</span> Children's Privacy</a>
+        <a href="#s9"><span class="toc-num">9</span> Data Retention</a>
+        <a href="#s10"><span class="toc-num">10</span> Changes to Policy</a>
+        <a href="#s11"><span class="toc-num">11</span> Contact Us</a>
+    </aside>
+    <script>if(window.innerWidth>=1024){document.getElementById('tocSidebar').style.display='block';}</script>
+
+    <!-- CONTENT -->
+    <main style="flex:1;min-width:0;">
+
+        <section id="s1" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">1</div>
+                <h2 class="section-title">Overview</h2>
+            </div>
+            <p>Welcome to <strong>Courage Library</strong> ("we", "our", or "us"). We operate the website <strong>couragelibrary.in</strong> and provide an online learning platform for government exam aspirants across India.</p>
+            <p>This Privacy Policy explains how we collect, use, store, and protect your personal information when you use our platform, including our mock test engine, course content, and all related services.</p>
+            <p>By using Courage Library, you agree to the practices described in this policy. If you do not agree, please discontinue use of our services.</p>
+            <div class="highlight-box">
+                <i class="fa-solid fa-shield-halved mr-2" style="color:#2563eb;"></i>
+                <strong>Our Commitment:</strong> We never sell your personal data to third parties. We do not display advertisements. We collect only what is necessary to provide and improve our services.
+            </div>
+        </section>
+
+        <section id="s2" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">2</div>
+                <h2 class="section-title">Information We Collect</h2>
+            </div>
+            <h3>2.1 Information You Provide Directly</h3>
+            <ul>
+                <li><strong>Account Registration:</strong> Email address and password when you sign up via email, or your name and email when you sign in via Google OAuth.</li>
+                <li><strong>Profile Information:</strong> Full name, date of birth, phone number, gender, address, qualification, target exam, and exam date — collected only during course enrollment.</li>
+                <li><strong>Contact Form:</strong> Name, email, and message when you submit a support query.</li>
+                <li><strong>Payment Information:</strong> We do not store card details. Payments are processed by third-party providers. We only store payment status and enrollment validity dates.</li>
+            </ul>
+            <h3>2.2 Information Collected Automatically</h3>
+            <ul>
+                <li><strong>Exam Attempt Data:</strong> Questions attempted, answers selected, time taken, score, accuracy, and submission timestamps.</li>
+                <li><strong>Usage Data:</strong> Pages visited, features used, session duration, and click patterns — collected via Google Analytics.</li>
+                <li><strong>Device &amp; Technical Data:</strong> IP address, browser type, operating system, device type, and screen resolution.</li>
+                <li><strong>Session Data:</strong> Login timestamps, session tokens, and authentication state managed via Supabase Auth.</li>
+            </ul>
+            <h3>2.3 Information from Third Parties</h3>
+            <ul>
+                <li><strong>Google Sign-In:</strong> If you use Google OAuth, we receive your name, email address, and profile picture from Google.</li>
+            </ul>
+        </section>
+
+        <section id="s3" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">3</div>
+                <h2 class="section-title">How We Use Your Data</h2>
+            </div>
+            <p>We use your information solely to provide and improve our educational services:</p>
+            <ol>
+                <li><strong>Account Management:</strong> To create and manage your account, authenticate your identity, and maintain session security.</li>
+                <li><strong>Mock Test Engine:</strong> To assign questions, record your answers, calculate scores, track attempt history, and display leaderboards.</li>
+                <li><strong>Performance Analytics:</strong> To show you accuracy, subject-wise performance, rank comparisons, and improvement trends.</li>
+                <li><strong>Course Access:</strong> To verify your enrollment status and grant access to paid or free course content.</li>
+                <li><strong>Communication:</strong> To send account verification emails, password reset links, and important platform announcements.</li>
+                <li><strong>Platform Improvement:</strong> To analyse usage patterns, fix bugs, and improve the learning experience.</li>
+                <li><strong>Legal Compliance:</strong> To comply with applicable Indian laws including the IT Act 2000 and its amendments.</li>
+            </ol>
+            <div class="highlight-box">
+                <i class="fa-solid fa-ban mr-2" style="color:#2563eb;"></i>
+                <strong>We do NOT use your data for:</strong> advertising, profiling for third-party marketing, selling to data brokers, or any purpose unrelated to your education on our platform.
+            </div>
+        </section>
+
+        <section id="s4" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">4</div>
+                <h2 class="section-title">Data Storage &amp; Security</h2>
+            </div>
+            <p>All user data is stored on <strong>Supabase</strong>, a secure cloud database platform. We implement the following security measures:</p>
+            <ul>
+                <li><strong>Encryption in Transit:</strong> All data between your browser and our servers is encrypted using HTTPS/TLS.</li>
+                <li><strong>Encryption at Rest:</strong> Database storage is encrypted by Supabase infrastructure.</li>
+                <li><strong>Row-Level Security (RLS):</strong> Database policies ensure users can only access their own data.</li>
+                <li><strong>Authentication:</strong> Passwords are never stored in plaintext. We use Supabase Auth with bcrypt hashing.</li>
+                <li><strong>Answer Security:</strong> Correct answers to exam questions are never transmitted to the client browser during live exams.</li>
+                <li><strong>Session Management:</strong> Sessions auto-expire and are validated server-side on every request.</li>
+                <li><strong>Admin Access Control:</strong> Admin features are protected by role-based access with database-level enforcement.</li>
+            </ul>
+            <div class="warn-box">
+                <i class="fa-solid fa-triangle-exclamation mr-2" style="color:#92400e;"></i>
+                While we implement industry-standard security practices, no system is 100% immune to breaches. We encourage you to use a strong, unique password and never share your account credentials with anyone.
+            </div>
+        </section>
+
+        <section id="s5" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">5</div>
+                <h2 class="section-title">Third-Party Services</h2>
+            </div>
+            <p>We use the following third-party services that may process your data according to their own privacy policies:</p>
+            <ul>
+                <li><strong>Supabase (supabase.com):</strong> Database, authentication, and backend infrastructure. Data is stored in compliance with global data protection standards.</li>
+                <li><strong>Google Analytics &amp; Google Tag Manager:</strong> Anonymous usage analytics. No personally identifiable information is sent to Google Analytics.</li>
+                <li><strong>Google OAuth (accounts.google.com):</strong> Optional sign-in method. We receive only your name and email from Google upon login.</li>
+                <li><strong>Formspree (formspree.io):</strong> Contact form submissions are processed by Formspree and delivered to our support email.</li>
+                <li><strong>WhatsApp (wa.me):</strong> Used only for direct user-initiated support conversations. No data is sent automatically.</li>
+                <li><strong>Google Maps:</strong> Embedded map for our physical learning centre location. Subject to Google's privacy policy.</li>
+                <li><strong>Font &amp; Icon CDN (cdnjs, Google Fonts):</strong> Fonts and icons loaded from CDN services may log your IP address as part of standard CDN operation.</li>
+            </ul>
+            <p>We do not share your personal data with these services beyond what is strictly necessary for their intended function.</p>
+        </section>
+
+        <section id="s6" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">6</div>
+                <h2 class="section-title">Cookies &amp; Tracking</h2>
+            </div>
+            <p>We use the following types of cookies and local storage:</p>
+            <ul>
+                <li><strong>Authentication Cookies:</strong> Supabase stores your session token in browser localStorage to keep you logged in across visits. These are essential for platform functionality.</li>
+                <li><strong>Analytics Cookies:</strong> Google Analytics sets cookies to track anonymous usage statistics. These do not contain personally identifiable information.</li>
+                <li><strong>Preference Storage:</strong> We may store your exam preferences and UI settings in localStorage for a better experience.</li>
+            </ul>
+            <p>We do not use advertising cookies, tracking pixels, or third-party behavioural targeting cookies of any kind.</p>
+            <p>You can clear cookies and localStorage at any time through your browser settings. Note that clearing authentication cookies will log you out of the platform.</p>
+        </section>
+
+        <section id="s7" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">7</div>
+                <h2 class="section-title">Your Rights</h2>
+            </div>
+            <p>As a user of Courage Library, you have the following rights regarding your personal data:</p>
+            <ul>
+                <li><strong>Right to Access:</strong> You can request a copy of all personal data we hold about you.</li>
+                <li><strong>Right to Correction:</strong> You can update your profile information at any time through your account settings.</li>
+                <li><strong>Right to Deletion:</strong> You can request deletion of your account and all associated data. We will process deletion requests within 30 days.</li>
+                <li><strong>Right to Data Portability:</strong> You can request an export of your exam history and performance data in a readable format.</li>
+                <li><strong>Right to Withdraw Consent:</strong> You can withdraw consent for optional data processing such as analytics at any time.</li>
+                <li><strong>Right to Lodge a Complaint:</strong> If you believe your data rights have been violated, you may contact us directly or lodge a complaint with the relevant Indian data protection authority.</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us at <strong>support@couragelibrary.in</strong> with the subject line "Data Rights Request".</p>
+        </section>
+
+        <section id="s8" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">8</div>
+                <h2 class="section-title">Children's Privacy</h2>
+            </div>
+            <p>Courage Library is an educational platform intended for users aged <strong>16 years and above</strong>, as our content is designed for government exam aspirants who are typically 18–30 years of age.</p>
+            <p>We do not knowingly collect personal information from children under the age of 13. If we become aware that a child under 13 has provided us with personal information, we will delete such information immediately.</p>
+            <p>If you are a parent or guardian and believe your child has provided personal information to us, please contact us at <strong>support@couragelibrary.in</strong> and we will take prompt action.</p>
+        </section>
+
+        <section id="s9" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">9</div>
+                <h2 class="section-title">Data Retention</h2>
+            </div>
+            <p>We retain your data for as long as your account remains active or as needed to provide services. Specifically:</p>
+            <ul>
+                <li><strong>Account Data:</strong> Retained until you request deletion or your account is inactive for more than 3 years.</li>
+                <li><strong>Exam Attempt Data:</strong> Retained indefinitely to provide complete performance history. Deleted upon account deletion request.</li>
+                <li><strong>Payment Records:</strong> Retained for 7 years as required by Indian financial regulations (GST compliance).</li>
+                <li><strong>Support Communications:</strong> Retained for 2 years for quality assurance purposes.</li>
+                <li><strong>Analytics Data:</strong> Anonymous aggregated analytics data may be retained indefinitely as it cannot be linked to individual users.</li>
+            </ul>
+            <p>Upon account deletion, all personally identifiable data is permanently removed from our active systems within 30 days. Backup copies may persist for up to 90 days before being purged.</p>
+        </section>
+
+        <section id="s10" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">10</div>
+                <h2 class="section-title">Changes to This Policy</h2>
+            </div>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements.</p>
+            <p>When we make significant changes, we will:</p>
+            <ul>
+                <li>Update the "Last Updated" date at the top of this page.</li>
+                <li>Notify registered users via email at least 7 days before the changes take effect.</li>
+                <li>Display a prominent notice on our platform homepage.</li>
+            </ul>
+            <p>Your continued use of Courage Library after the effective date of any changes constitutes your acceptance of the updated policy.</p>
+            <div class="highlight-box">
+                <i class="fa-solid fa-circle-info mr-2" style="color:#2563eb;"></i>
+                The most current version of this policy is always available at <strong>couragelibrary.in/privacy-policy.html</strong>
+            </div>
+        </section>
+
+        <section id="s11" class="content-section">
+            <div class="section-header">
+                <div class="section-num-badge">11</div>
+                <h2 class="section-title">Contact Us</h2>
+            </div>
+            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how we handle your data, please reach out to us. We aim to respond to all queries within 48 business hours.</p>
+            <div class="contact-card">
+                <h3><i class="fa-solid fa-shield-halved mr-2"></i>Courage Library — Data &amp; Privacy</h3>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <span><a href="mailto:support@couragelibrary.in">support@couragelibrary.in</a></span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-globe"></i></div>
+                    <span><a href="https://www.couragelibrary.in" target="_blank">www.couragelibrary.in</a></span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
+        <p class="text-sm">&copy; 2026 Courage Library. All rights reserved. &nbsp;|&nbsp;
+            <a href="/privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a> &nbsp;|&nbsp;
+            <a href="/terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+        </p>
+        <div class="flex space-x-6">
+            <a href="https://www.facebook.com/people/Courage-Library/61561969000820" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://x.com/CourageLibrary" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/courage-library" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/couragelibrary1" target="_blank" class="hover:text-white text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

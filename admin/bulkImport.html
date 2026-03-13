@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,74 +13,336 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
     :root {
-      --brand:#1a56db; --brand-dark:#1e40af; --brand-light:#eff6ff;
-      --green:#16a34a; --green-light:#f0fdf4;
-      --red:#dc2626;   --red-light:#fef2f2;
-      --amber:#d97706; --border:#e2e8f0;
-      --text:#0f172a;  --muted:#64748b;
+      --brand: #1a56db;
+      --brand-dark: #1e40af;
+      --brand-light: #eff6ff;
+      --green: #16a34a;
+      --green-light: #f0fdf4;
+      --red: #dc2626;
+      --red-light: #fef2f2;
+      --amber: #d97706;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
     }
-    *,*::before,*::after{box-sizing:border-box}
-    body{font-family:'DM Sans',sans-serif;background:#f1f5fb;color:var(--text);min-height:100vh}
-    h1,h2,h3{font-family:'Sora',sans-serif}
 
-    .tab-btn{transition:all .2s}
-    .tab-btn.active{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:0 4px 14px rgba(26,86,219,.25)}
-    .tab-panel{display:none}
-    .tab-panel.active{display:block}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
 
-    .card{background:#fff;border-radius:16px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f1f5fb;
+      color: var(--text);
+      min-height: 100vh
+    }
 
-    .upload-zone{border:2px dashed #cbd5e1;border-radius:14px;padding:36px 20px;text-align:center;cursor:pointer;transition:all .2s;background:#f8fafc}
-    .upload-zone:hover,.upload-zone.dragover{border-color:var(--brand);background:var(--brand-light)}
-    .upload-zone.dragover{transform:scale(1.01)}
+    h1,
+    h2,
+    h3 {
+      font-family: 'Sora', sans-serif
+    }
 
-    .progress-bar{height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;background:linear-gradient(90deg,#1a56db,#6366f1);border-radius:999px;transition:width .3s ease}
+    .tab-btn {
+      transition: all .2s
+    }
 
-    .url-table{width:100%;border-collapse:collapse;font-size:.8rem}
-    .url-table th{background:#f8fafc;border-bottom:2px solid var(--border);padding:10px 12px;text-align:left;font-weight:700;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
-    .url-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
-    .url-table tr:last-child td{border-bottom:none}
-    .url-table tr:hover td{background:#f8fafc}
+    .tab-btn.active {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
+      box-shadow: 0 4px 14px rgba(26, 86, 219, .25)
+    }
 
-    .csv-input{width:100%;font-family:'Courier New',monospace;font-size:.78rem;line-height:1.6;border:1.5px solid var(--border);border-radius:12px;padding:14px;resize:vertical;background:#fafbfc;outline:none;transition:border .2s}
-    .csv-input:focus{border-color:var(--brand);background:#fff}
+    .tab-panel {
+      display: none
+    }
 
-    .val-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;font-size:.82rem;margin-bottom:6px}
-    .val-ok{background:var(--green-light);color:#15803d}
-    .val-error{background:var(--red-light);color:#b91c1c}
-    .val-warn{background:#fffbeb;color:#92400e}
-    .val-icon{flex-shrink:0;margin-top:1px;font-size:.85rem}
+    .tab-panel.active {
+      display: block
+    }
 
-    .prompt-box{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:20px;font-family:'Courier New',monospace;font-size:.78rem;line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:480px;overflow-y:auto}
-    .prompt-box::-webkit-scrollbar{width:6px}
-    .prompt-box::-webkit-scrollbar-track{background:#1e293b;border-radius:3px}
-    .prompt-box::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .05)
+    }
 
-    .pill{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:999px}
-    .pill-blue{background:#dbeafe;color:#1e40af}
-    .pill-green{background:#dcfce7;color:#15803d}
-    .pill-amber{background:#fef3c7;color:#92400e}
-    .pill-red{background:#fee2e2;color:#b91c1c}
+    .upload-zone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 36px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      background: #f8fafc
+    }
 
-    .copy-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:.78rem;font-weight:700;background:#1e293b;color:#e2e8f0;border:none;cursor:pointer;transition:background .15s}
-    .copy-btn:hover{background:#334155}
-    .copy-btn.copied{background:#15803d;color:#fff}
+    .upload-zone:hover,
+    .upload-zone.dragover {
+      border-color: var(--brand);
+      background: var(--brand-light)
+    }
 
-    .field-label{display:block;font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:5px}
-    .step-num{width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;font-size:.75rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Sora',sans-serif}
+    .upload-zone.dragover {
+      transform: scale(1.01)
+    }
 
-    .import-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;margin-bottom:4px;font-size:.82rem}
-    .import-ok{background:#f0fdf4;color:#15803d}
-    .import-err{background:#fef2f2;color:#b91c1c}
+    .progress-bar {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden
+    }
 
-    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-    .fade-up{animation:fadeUp .35s ease both}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .spin{animation:spin 1s linear infinite;display:inline-block}
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1a56db, #6366f1);
+      border-radius: 999px;
+      transition: width .3s ease
+    }
+
+    .url-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .8rem
+    }
+
+    .url-table th {
+      background: #f8fafc;
+      border-bottom: 2px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--muted);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .05em
+    }
+
+    .url-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle
+    }
+
+    .url-table tr:last-child td {
+      border-bottom: none
+    }
+
+    .url-table tr:hover td {
+      background: #f8fafc
+    }
+
+    .csv-input {
+      width: 100%;
+      font-family: 'Courier New', monospace;
+      font-size: .78rem;
+      line-height: 1.6;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      resize: vertical;
+      background: #fafbfc;
+      outline: none;
+      transition: border .2s
+    }
+
+    .csv-input:focus {
+      border-color: var(--brand);
+      background: #fff
+    }
+
+    .val-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: .82rem;
+      margin-bottom: 6px
+    }
+
+    .val-ok {
+      background: var(--green-light);
+      color: #15803d
+    }
+
+    .val-error {
+      background: var(--red-light);
+      color: #b91c1c
+    }
+
+    .val-warn {
+      background: #fffbeb;
+      color: #92400e
+    }
+
+    .val-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: .85rem
+    }
+
+    .prompt-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: .78rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 480px;
+      overflow-y: auto
+    }
+
+    .prompt-box::-webkit-scrollbar {
+      width: 6px
+    }
+
+    .prompt-box::-webkit-scrollbar-track {
+      background: #1e293b;
+      border-radius: 3px
+    }
+
+    .prompt-box::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 3px
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px
+    }
+
+    .pill-blue {
+      background: #dbeafe;
+      color: #1e40af
+    }
+
+    .pill-green {
+      background: #dcfce7;
+      color: #15803d
+    }
+
+    .pill-amber {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .pill-red {
+      background: #fee2e2;
+      color: #b91c1c
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: .78rem;
+      font-weight: 700;
+      background: #1e293b;
+      color: #e2e8f0;
+      border: none;
+      cursor: pointer;
+      transition: background .15s
+    }
+
+    .copy-btn:hover {
+      background: #334155
+    }
+
+    .copy-btn.copied {
+      background: #15803d;
+      color: #fff
+    }
+
+    .field-label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 5px
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Sora', sans-serif
+    }
+
+    .import-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      font-size: .82rem
+    }
+
+    .import-ok {
+      background: #f0fdf4;
+      color: #15803d
+    }
+
+    .import-err {
+      background: #fef2f2;
+      color: #b91c1c
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp .35s ease both
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .spin {
+      animation: spin 1s linear infinite;
+      display: inline-block
+    }
   </style>
 </head>
+
 <body class="min-h-screen">
 
   <!-- NAV -->
@@ -103,18 +366,25 @@
     <!-- Header -->
     <div class="mb-8 fade-up">
       <h1 class="text-2xl font-bold text-gray-900 mb-1">Bulk Question Import</h1>
-      <p class="text-sm text-gray-500">3-step toolkit: generate AI prompt → upload images → validate &amp; import CSV</p>
+      <p class="text-sm text-gray-500">3-step toolkit: generate AI prompt → upload images → validate &amp; import CSV
+      </p>
     </div>
 
     <!-- Tabs -->
     <div class="flex gap-3 mb-6 flex-wrap fade-up">
-      <button class="tab-btn active flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-blue-600 font-bold text-sm" onclick="switchTab('prompt',this)">
+      <button
+        class="tab-btn active flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-blue-600 font-bold text-sm"
+        onclick="switchTab('prompt',this)">
         <i class="fas fa-magic"></i> Step 1 · Prompt Generator
       </button>
-      <button class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-500 font-bold text-sm" onclick="switchTab('images',this)">
+      <button
+        class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-500 font-bold text-sm"
+        onclick="switchTab('images',this)">
         <i class="fas fa-images"></i> Step 2 · Image Uploader
       </button>
-      <button class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-500 font-bold text-sm" onclick="switchTab('csv',this)">
+      <button
+        class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-500 font-bold text-sm"
+        onclick="switchTab('csv',this)">
         <i class="fas fa-file-csv"></i> Step 3 · CSV Validator &amp; Import
       </button>
     </div>
@@ -194,19 +464,23 @@
           <div>
             <label class="field-label">Question Types in this batch</label>
             <div class="space-y-2 mt-1">
-              <label class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
+              <label
+                class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
                 <input type="checkbox" id="pgTypeText" checked class="w-4 h-4 accent-blue-600 flex-shrink-0">
                 <span>Text question + text options</span>
               </label>
-              <label class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
+              <label
+                class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
                 <input type="checkbox" id="pgTypeFigText" class="w-4 h-4 accent-blue-600 flex-shrink-0">
                 <span>Text question + figure image + text options</span>
               </label>
-              <label class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
+              <label
+                class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
                 <input type="checkbox" id="pgTypeFigOpts" class="w-4 h-4 accent-blue-600 flex-shrink-0">
                 <span>Figure image question + text options</span>
               </label>
-              <label class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
+              <label
+                class="flex items-center gap-2.5 text-sm cursor-pointer p-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition">
                 <input type="checkbox" id="pgTypeImgOpts" class="w-4 h-4 accent-blue-600 flex-shrink-0">
                 <span>Figure image question + image options</span>
               </label>
@@ -217,11 +491,17 @@
           <div>
             <label class="field-label">Is this a PYQ batch?</label>
             <div class="flex gap-3 mt-1">
-              <label class="flex items-center gap-2 text-sm cursor-pointer px-4 py-2 rounded-xl border-2 border-gray-200 hover:border-blue-300 transition" id="pgPyqYesLabel">
-                <input type="radio" name="pgPyq" value="yes" class="accent-blue-600" onchange="togglePyqFields(true)"> Yes
+              <label
+                class="flex items-center gap-2 text-sm cursor-pointer px-4 py-2 rounded-xl border-2 border-gray-200 hover:border-blue-300 transition"
+                id="pgPyqYesLabel">
+                <input type="radio" name="pgPyq" value="yes" class="accent-blue-600" onchange="togglePyqFields(true)">
+                Yes
               </label>
-              <label class="flex items-center gap-2 text-sm cursor-pointer px-4 py-2 rounded-xl border-2 border-blue-500 bg-blue-50 text-blue-700 font-semibold transition" id="pgPyqNoLabel">
-                <input type="radio" name="pgPyq" value="no" checked class="accent-blue-600" onchange="togglePyqFields(false)"> No
+              <label
+                class="flex items-center gap-2 text-sm cursor-pointer px-4 py-2 rounded-xl border-2 border-blue-500 bg-blue-50 text-blue-700 font-semibold transition"
+                id="pgPyqNoLabel">
+                <input type="radio" name="pgPyq" value="no" checked class="accent-blue-600"
+                  onchange="togglePyqFields(false)"> No
               </label>
             </div>
             <div id="pgPyqFields" class="hidden mt-3 grid grid-cols-2 gap-3">
@@ -235,6 +515,32 @@
                 <input id="pgPyqYear" placeholder="e.g. 2022"
                   class="w-full p-2.5 rounded-lg border border-amber-200 bg-amber-50 text-sm focus:outline-none focus:border-amber-400">
               </div>
+            </div>
+          </div>
+
+          <!-- Language selector -->
+          <div>
+            <label class="field-label">Question Language</label>
+            <div class="flex gap-2 mt-1">
+              <button type="button" id="langBtnEn" onclick="setLanguage('english')"
+                class="flex-1 py-2 rounded-xl border-2 border-blue-600 bg-blue-50 text-blue-700 text-xs font-bold transition">
+                🇬🇧 English
+              </button>
+              <button type="button" id="langBtnHi" onclick="setLanguage('hindi')"
+                class="flex-1 py-2 rounded-xl border-2 border-gray-200 text-gray-500 text-xs font-bold transition">
+                🇮🇳 Hindi (हिंदी)
+              </button>
+            </div>
+            <input type="hidden" id="pgLanguage" value="english">
+            <div id="hindiTip" class="hidden mt-2 bg-orange-50 border border-orange-200 rounded-xl p-3">
+              <p class="text-xs font-bold text-orange-700 mb-1"><i class="fas fa-info-circle mr-1"></i> Hindi Batch Tips
+              </p>
+              <ul class="text-xs text-orange-600 space-y-1 list-disc list-inside">
+                <li>AI will output questions &amp; options in Hindi (Devanagari script)</li>
+                <li>Prompt will instruct AI to set <code class="bg-orange-100 px-1 rounded">language = hindi</code> for
+                  all rows</li>
+                <li>Use Unicode Hindi in your source — not transliteration</li>
+              </ul>
             </div>
           </div>
 
@@ -275,8 +581,11 @@
             </div>
 
             <div class="mt-3 bg-amber-50 border border-amber-200 rounded-xl p-3">
-              <p class="text-xs text-amber-700 font-semibold"><i class="fas fa-image mr-1"></i> If questions have images:</p>
-              <p class="text-xs text-amber-600 mt-1">Before generating the prompt, go to <strong>Step 2 → Image Uploader</strong>, upload your images using the naming convention below, then paste all URLs into the AI along with your questions.</p>
+              <p class="text-xs text-amber-700 font-semibold"><i class="fas fa-image mr-1"></i> If questions have
+                images:</p>
+              <p class="text-xs text-amber-600 mt-1">Before generating the prompt, go to <strong>Step 2 → Image
+                  Uploader</strong>, upload your images using the naming convention below, then paste all URLs into the
+                AI along with your questions.</p>
             </div>
           </div>
         </div>
@@ -304,7 +613,9 @@
                 Option Images
               </button>
             </div>
-            <p class="text-xs text-gray-400 mt-2">Uploads to: <code class="bg-gray-100 px-1 rounded text-gray-600">question-images/<span id="folderLabel">questions</span>/</code></p>
+            <p class="text-xs text-gray-400 mt-2">Uploads to: <code
+                class="bg-gray-100 px-1 rounded text-gray-600">question-images/<span id="folderLabel">questions</span>/</code>
+            </p>
           </div>
 
           <!-- Naming guide -->
@@ -312,35 +623,41 @@
             <p class="text-xs font-bold text-blue-700 flex items-center gap-1.5">
               <i class="fas fa-tag"></i> File Naming Convention
             </p>
-            <p class="text-xs text-blue-600">Rename your images <strong>before uploading</strong> so the AI knows exactly which URL goes where.</p>
+            <p class="text-xs text-blue-600">Rename your images <strong>before uploading</strong> so the AI knows
+              exactly which URL goes where.</p>
 
             <div class="space-y-2">
               <!-- Question figure -->
               <div class="bg-white rounded-lg border border-blue-100 p-3">
-                <p class="text-xs font-bold text-gray-600 mb-1.5"><i class="fas fa-image mr-1 text-blue-400"></i> Question Figure</p>
+                <p class="text-xs font-bold text-gray-600 mb-1.5"><i class="fas fa-image mr-1 text-blue-400"></i>
+                  Question Figure</p>
                 <div class="flex items-center gap-2 flex-wrap">
                   <code class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-lg font-mono">q1_fig.png</code>
                   <code class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-lg font-mono">q3_fig.png</code>
                   <code class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-lg font-mono">q7_fig.png</code>
                 </div>
-                <p class="text-xs text-gray-400 mt-1.5">→ Goes into <code class="bg-gray-100 px-1 rounded">question_image</code> column</p>
+                <p class="text-xs text-gray-400 mt-1.5">→ Goes into <code
+                    class="bg-gray-100 px-1 rounded">question_image</code> column</p>
               </div>
 
               <!-- Option images -->
               <div class="bg-white rounded-lg border border-blue-100 p-3">
-                <p class="text-xs font-bold text-gray-600 mb-1.5"><i class="fas fa-list mr-1 text-purple-400"></i> Option Images (4 per question)</p>
+                <p class="text-xs font-bold text-gray-600 mb-1.5"><i class="fas fa-list mr-1 text-purple-400"></i>
+                  Option Images (4 per question)</p>
                 <div class="flex items-center gap-2 flex-wrap">
                   <code class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-lg font-mono">q2_A.png</code>
                   <code class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-lg font-mono">q2_B.png</code>
                   <code class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-lg font-mono">q2_C.png</code>
                   <code class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-lg font-mono">q2_D.png</code>
                 </div>
-                <p class="text-xs text-gray-400 mt-1.5">→ Goes into <code class="bg-gray-100 px-1 rounded">options</code> JSON as A/B/C/D URLs</p>
+                <p class="text-xs text-gray-400 mt-1.5">→ Goes into <code
+                    class="bg-gray-100 px-1 rounded">options</code> JSON as A/B/C/D URLs</p>
               </div>
 
               <!-- Both -->
               <div class="bg-white rounded-lg border border-blue-100 p-3">
-                <p class="text-xs font-bold text-gray-600 mb-1.5"><i class="fas fa-layer-group mr-1 text-green-500"></i> Question with figure + image options</p>
+                <p class="text-xs font-bold text-gray-600 mb-1.5"><i class="fas fa-layer-group mr-1 text-green-500"></i>
+                  Question with figure + image options</p>
                 <div class="flex items-center gap-2 flex-wrap">
                   <code class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-lg font-mono">q5_fig.png</code>
                   <code class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-lg font-mono">q5_A.png</code>
@@ -352,19 +669,21 @@
             </div>
 
             <div class="bg-amber-50 border border-amber-200 rounded-lg p-2.5">
-              <p class="text-xs text-amber-700"><i class="fas fa-lightbulb mr-1"></i> <strong>How AI uses this:</strong> After uploading, copy all URLs and paste them into ChatGPT/Claude along with your questions. The AI reads the filename in each URL (e.g. <code class="bg-amber-100 px-1 rounded">q3_fig</code>, <code class="bg-amber-100 px-1 rounded">q3_A</code>) and automatically places each URL in the correct CSV column and row.</p>
+              <p class="text-xs text-amber-700"><i class="fas fa-lightbulb mr-1"></i> <strong>How AI uses this:</strong>
+                After uploading, copy all URLs and paste them into ChatGPT/Claude along with your questions. The AI
+                reads the filename in each URL (e.g. <code class="bg-amber-100 px-1 rounded">q3_fig</code>, <code
+                  class="bg-amber-100 px-1 rounded">q3_A</code>) and automatically places each URL in the correct CSV
+                column and row.</p>
             </div>
           </div>
 
-          <div class="upload-zone" id="imgDropZone"
-            onclick="document.getElementById('imgFileInput').click()"
-            ondrop="handleImgDrop(event)"
-            ondragover="handleImgDragOver(event)"
-            ondragleave="handleImgDragLeave(event)">
+          <div class="upload-zone" id="imgDropZone" onclick="document.getElementById('imgFileInput').click()"
+            ondrop="handleImgDrop(event)" ondragover="handleImgDragOver(event)" ondragleave="handleImgDragLeave(event)">
             <i class="fas fa-cloud-upload-alt text-3xl text-blue-400 mb-3"></i>
             <p class="text-sm font-bold text-gray-600">Drop images here or click to select</p>
             <p class="text-xs text-gray-400 mt-1">JPG, PNG, WebP · Multiple files at once</p>
-            <input type="file" id="imgFileInput" accept="image/*" multiple class="hidden" onchange="handleImgSelect(event)">
+            <input type="file" id="imgFileInput" accept="image/*" multiple class="hidden"
+              onchange="handleImgSelect(event)">
           </div>
 
           <div id="uploadProgress" class="hidden space-y-2">
@@ -384,8 +703,10 @@
           <div class="flex items-center justify-between">
             <h2 class="text-base font-bold text-gray-800">Uploaded URLs</h2>
             <div class="flex gap-2">
-              <button id="copyAllUrlsBtn" onclick="copyAllUrls()" class="copy-btn hidden"><i class="fas fa-copy"></i> Copy All</button>
-              <button id="clearUrlsBtn" onclick="clearUrls()" class="hidden text-xs text-red-400 hover:text-red-600 font-semibold px-3 py-1.5 rounded-lg border border-red-200 hover:bg-red-50 transition">Clear</button>
+              <button id="copyAllUrlsBtn" onclick="copyAllUrls()" class="copy-btn hidden"><i class="fas fa-copy"></i>
+                Copy All</button>
+              <button id="clearUrlsBtn" onclick="clearUrls()"
+                class="hidden text-xs text-red-400 hover:text-red-600 font-semibold px-3 py-1.5 rounded-lg border border-red-200 hover:bg-red-50 transition">Clear</button>
             </div>
           </div>
 
@@ -396,7 +717,14 @@
 
           <div id="urlTableWrap" class="hidden overflow-x-auto rounded-xl border border-gray-100">
             <table class="url-table">
-              <thead><tr><th>#</th><th>Filename</th><th>Public URL</th><th>Copy</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Filename</th>
+                  <th>Public URL</th>
+                  <th>Copy</th>
+                </tr>
+              </thead>
               <tbody id="urlTableBody"></tbody>
             </table>
           </div>
@@ -420,16 +748,18 @@
 
           <div class="bg-gray-900 rounded-xl p-3">
             <p class="text-xs text-gray-400 font-mono font-bold mb-1">Expected columns:</p>
-            <p class="text-xs text-green-400 font-mono leading-relaxed">question_text, options, options_type, correct_answer, difficulty, topic, explanation, category_id, pattern_section_id, question_image, pyq_year, pyq_source, is_active</p>
+            <p class="text-xs text-green-400 font-mono leading-relaxed">question_text, options, options_type,
+              correct_answer, difficulty, topic, explanation, category_id, pattern_section_id, question_image, pyq_year,
+              pyq_source, is_active, language</p>
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-2">
               <label class="field-label mb-0">Paste your CSV here</label>
-              <button onclick="loadSampleCsv()" class="text-xs text-blue-500 hover:text-blue-700 font-semibold">Load sample</button>
+              <button onclick="loadSampleCsv()" class="text-xs text-blue-500 hover:text-blue-700 font-semibold">Load
+                sample</button>
             </div>
-            <textarea id="csvInput" class="csv-input" rows="10"
-              placeholder='question_text,options,options_type,correct_answer,difficulty,...
+            <textarea id="csvInput" class="csv-input" rows="10" placeholder='question_text,options,options_type,correct_answer,difficulty,...
 "What is 2+2?","{""A"":""3"",""B"":""4"",""C"":""5"",""D"":""6""}",text,B,easy,...'></textarea>
           </div>
 
@@ -492,7 +822,7 @@
   </div>
 
   <script>
-    const SUPABASE_URL      = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+    const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
     const { createClient } = supabase;
     const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -573,7 +903,7 @@
     }
 
     function onSectionChange() {
-      const sel   = document.getElementById("pgSection");
+      const sel = document.getElementById("pgSection");
       const secId = sel.value;
       document.getElementById("pgSectionId").value = secId;
       const hasAll = document.getElementById("pgCategoryId").value && secId;
@@ -586,10 +916,10 @@
     function setDifficulty(val, btn) {
       document.getElementById("pgDifficulty").value = val;
       const colors = {
-        easy:   "border-green-500 bg-green-50 text-green-700",
+        easy: "border-green-500 bg-green-50 text-green-700",
         medium: "border-amber-400 bg-amber-50 text-amber-700",
-        hard:   "border-red-500 bg-red-50 text-red-700",
-        mixed:  "border-purple-500 bg-purple-50 text-purple-700",
+        hard: "border-red-500 bg-red-50 text-red-700",
+        mixed: "border-purple-500 bg-purple-50 text-purple-700",
       };
       document.querySelectorAll(".diff-pill").forEach(b => {
         b.className = "diff-pill px-4 py-2 rounded-xl border-2 border-gray-200 text-xs font-bold text-gray-500 transition";
@@ -614,19 +944,20 @@
     //  PROMPT GENERATOR
     // ════════════════════════════════════
     function generatePrompt() {
-      const catSel  = document.getElementById("pgCategory");
-      const secSel  = document.getElementById("pgSection");
-      const exam    = catSel.options[catSel.selectedIndex]?.text?.trim()  || "the exam";
-      const section = secSel.options[secSel.selectedIndex]?.text?.trim()  || "General";
-      const diff    = document.getElementById("pgDifficulty").value        || "medium";
-      const catId   = document.getElementById("pgCategoryId").value.trim() || "REPLACE_WITH_CATEGORY_ID";
-      const secId   = document.getElementById("pgSectionId").value.trim()  || "REPLACE_WITH_SECTION_ID";
-      const isPyq   = document.querySelector("input[name='pgPyq']:checked").value === "yes";
-      const pyqSrc  = document.getElementById("pgPyqSource").value.trim()  || "";
-      const pyqYr   = document.getElementById("pgPyqYear").value.trim()    || "";
+      const catSel = document.getElementById("pgCategory");
+      const secSel = document.getElementById("pgSection");
+      const exam = catSel.options[catSel.selectedIndex]?.text?.trim() || "the exam";
+      const section = secSel.options[secSel.selectedIndex]?.text?.trim() || "General";
+      const diff = document.getElementById("pgDifficulty").value || "medium";
+      const catId = document.getElementById("pgCategoryId").value.trim() || "REPLACE_WITH_CATEGORY_ID";
+      const secId = document.getElementById("pgSectionId").value.trim() || "REPLACE_WITH_SECTION_ID";
+      const isPyq = document.querySelector("input[name='pgPyq']:checked").value === "yes";
+      const pyqSrc = document.getElementById("pgPyqSource").value.trim() || "";
+      const pyqYr = document.getElementById("pgPyqYear").value.trim() || "";
+      const language = document.getElementById("pgLanguage").value || "english";
 
       const types = [];
-      if (document.getElementById("pgTypeText").checked)    types.push("plain text question with text options (options_type = text)");
+      if (document.getElementById("pgTypeText").checked) types.push("plain text question with text options (options_type = text)");
       if (document.getElementById("pgTypeFigText").checked) types.push("text question + figure image (question_image = URL) + text options (options_type = text)");
       if (document.getElementById("pgTypeFigOpts").checked) types.push("figure image question (question_image = URL) + text options (options_type = text)");
       if (document.getElementById("pgTypeImgOpts").checked) types.push("figure image question + image options — each option value is a URL (options_type = image)");
@@ -640,45 +971,45 @@
         // ══════════════════════════════
         "ssc gd": {
           profile: "10th pass candidates, basic academic level, rural/semi-urban background",
-          easy:    "Direct recall or single-step problems. Standard 10th level. Most SSC GD aspirants solve in under 30 seconds.",
-          medium:  "Requires 2-3 steps or moderate reasoning. Needs some preparation. Aspirant takes about 1 minute.",
-          hard:    "Multi-step logic, tricky wording, or concepts uncommon at this level. Even well-prepared aspirants may struggle.",
+          easy: "Direct recall or single-step problems. Standard 10th level. Most SSC GD aspirants solve in under 30 seconds.",
+          medium: "Requires 2-3 steps or moderate reasoning. Needs some preparation. Aspirant takes about 1 minute.",
+          hard: "Multi-step logic, tricky wording, or concepts uncommon at this level. Even well-prepared aspirants may struggle.",
         },
         "ssc cgl": {
           profile: "Graduate level candidates, moderate to high aptitude, competitive exam",
-          easy:    "Direct formula application or basic concept recall. Any prepared CGL aspirant solves in under 45 seconds.",
-          medium:  "Solid conceptual understanding needed. 2-3 step solving. Average aspirant takes 1-1.5 minutes.",
-          hard:    "Complex multi-step, advanced concepts, or time-consuming. Only well-prepared aspirants solve confidently.",
+          easy: "Direct formula application or basic concept recall. Any prepared CGL aspirant solves in under 45 seconds.",
+          medium: "Solid conceptual understanding needed. 2-3 step solving. Average aspirant takes 1-1.5 minutes.",
+          hard: "Complex multi-step, advanced concepts, or time-consuming. Only well-prepared aspirants solve confidently.",
         },
         "ssc chsl": {
           profile: "12th pass candidates, moderate level, LDC/DEO/PA posts",
-          easy:    "Basic recall or single-step at 12th level. Standard knowledge sufficient.",
-          medium:  "Needs preparation beyond 12th. Moderate reasoning or 2-step calculation.",
-          hard:    "Advanced for 12th level. Requires deep preparation and careful analysis.",
+          easy: "Basic recall or single-step at 12th level. Standard knowledge sufficient.",
+          medium: "Needs preparation beyond 12th. Moderate reasoning or 2-step calculation.",
+          hard: "Advanced for 12th level. Requires deep preparation and careful analysis.",
         },
         "ssc cpo": {
           profile: "Graduate candidates for SI/ASI posts, physical + written exam",
-          easy:    "Direct GK recall or basic reasoning. Standard graduate level.",
-          medium:  "Moderate aptitude and awareness needed. 2-step problems.",
-          hard:    "Tricky reasoning or advanced GK. Requires dedicated preparation.",
+          easy: "Direct GK recall or basic reasoning. Standard graduate level.",
+          medium: "Moderate aptitude and awareness needed. 2-step problems.",
+          hard: "Tricky reasoning or advanced GK. Requires dedicated preparation.",
         },
         "ssc mts": {
           profile: "10th pass candidates, entry level, basic academic standard",
-          easy:    "Very basic recall or arithmetic. 8th-10th level knowledge sufficient.",
-          medium:  "Simple reasoning or 2-step arithmetic at 10th level.",
-          hard:    "Moderate difficulty for MTS level — equivalent to easy for CGL.",
+          easy: "Very basic recall or arithmetic. 8th-10th level knowledge sufficient.",
+          medium: "Simple reasoning or 2-step arithmetic at 10th level.",
+          hard: "Moderate difficulty for MTS level — equivalent to easy for CGL.",
         },
         "ssc je": {
           profile: "Diploma/Graduate engineers, technical knowledge required",
-          easy:    "Direct formula or basic concept from diploma syllabus. Straightforward.",
-          medium:  "Application of engineering concepts. Standard diploma-level problem.",
-          hard:    "Multi-concept application or advanced engineering problem.",
+          easy: "Direct formula or basic concept from diploma syllabus. Straightforward.",
+          medium: "Application of engineering concepts. Standard diploma-level problem.",
+          hard: "Multi-concept application or advanced engineering problem.",
         },
         "ssc steno": {
           profile: "12th pass candidates, focus on English and reasoning",
-          easy:    "Basic English grammar or direct reasoning. 12th level.",
-          medium:  "Moderate English comprehension or 2-step reasoning.",
-          hard:    "Advanced vocabulary, complex comprehension, or tricky reasoning.",
+          easy: "Basic English grammar or direct reasoning. 12th level.",
+          medium: "Moderate English comprehension or 2-step reasoning.",
+          hard: "Advanced vocabulary, complex comprehension, or tricky reasoning.",
         },
 
         // ══════════════════════════════
@@ -686,51 +1017,51 @@
         // ══════════════════════════════
         "rrb ntpc": {
           profile: "12th/Graduate candidates for clerical and commercial posts",
-          easy:    "Direct recall or basic calculation at 12th level. Common GK questions.",
-          medium:  "Moderate reasoning or standard formula-based problems. Needs preparation.",
-          hard:    "Tricky multi-step or advanced for NTPC level. Requires strong preparation.",
+          easy: "Direct recall or basic calculation at 12th level. Common GK questions.",
+          medium: "Moderate reasoning or standard formula-based problems. Needs preparation.",
+          hard: "Tricky multi-step or advanced for NTPC level. Requires strong preparation.",
         },
         "ntpc": {
           profile: "12th/Graduate candidates for Railway NTPC posts",
-          easy:    "Direct recall or single-step problems within 12th level syllabus.",
-          medium:  "Moderate difficulty needing 2-3 step reasoning or calculation.",
-          hard:    "Complex for NTPC level. Needs strong preparation.",
+          easy: "Direct recall or single-step problems within 12th level syllabus.",
+          medium: "Moderate difficulty needing 2-3 step reasoning or calculation.",
+          hard: "Complex for NTPC level. Needs strong preparation.",
         },
         "rrb group d": {
           profile: "10th pass candidates for Group D posts, basic level",
-          easy:    "Very basic arithmetic, science, GK at 10th level. Direct recall.",
-          medium:  "Moderate 10th level reasoning or 2-step arithmetic.",
-          hard:    "Challenging for Group D level — equivalent to medium for NTPC.",
+          easy: "Very basic arithmetic, science, GK at 10th level. Direct recall.",
+          medium: "Moderate 10th level reasoning or 2-step arithmetic.",
+          hard: "Challenging for Group D level — equivalent to medium for NTPC.",
         },
         "rrb alp": {
           profile: "10th pass + ITI candidates for Assistant Loco Pilot, technical focus",
-          easy:    "Basic trade knowledge or direct recall. ITI level technical questions.",
-          medium:  "Application of technical trade concepts. 2-step problems.",
-          hard:    "Advanced technical or multi-concept application for ALP level.",
+          easy: "Basic trade knowledge or direct recall. ITI level technical questions.",
+          medium: "Application of technical trade concepts. 2-step problems.",
+          hard: "Advanced technical or multi-concept application for ALP level.",
         },
         "rrb je": {
           profile: "Diploma engineers for Junior Engineer posts in Railways",
-          easy:    "Direct formula or basic engineering concept from diploma syllabus.",
-          medium:  "Standard diploma-level engineering application problem.",
-          hard:    "Multi-concept or advanced engineering for JE level.",
+          easy: "Direct formula or basic engineering concept from diploma syllabus.",
+          medium: "Standard diploma-level engineering application problem.",
+          hard: "Multi-concept or advanced engineering for JE level.",
         },
         "rrb paramedical": {
           profile: "Paramedical diploma/degree candidates for health posts in Railways",
-          easy:    "Direct medical/health knowledge recall. Standard paramedical level.",
-          medium:  "Applied medical knowledge. 2-step clinical reasoning.",
-          hard:    "Advanced paramedical concepts or tricky clinical scenarios.",
+          easy: "Direct medical/health knowledge recall. Standard paramedical level.",
+          medium: "Applied medical knowledge. 2-step clinical reasoning.",
+          hard: "Advanced paramedical concepts or tricky clinical scenarios.",
         },
         "rrb ministerial": {
           profile: "Graduate candidates for ministerial and isolated posts",
-          easy:    "Basic GK, reasoning, English at graduate level.",
-          medium:  "Moderate aptitude and awareness. Standard graduate level.",
-          hard:    "Competitive level — tricky reasoning or advanced questions.",
+          easy: "Basic GK, reasoning, English at graduate level.",
+          medium: "Moderate aptitude and awareness. Standard graduate level.",
+          hard: "Competitive level — tricky reasoning or advanced questions.",
         },
         "railway": {
           profile: "Railway exam candidates (10th/12th/Graduate depending on post)",
-          easy:    "Direct knowledge or basic calculation. General awareness easy for anyone following news.",
-          medium:  "Requires preparation. Moderate reasoning or standard formula problems.",
-          hard:    "Tricky or multi-step. Requires dedicated preparation.",
+          easy: "Direct knowledge or basic calculation. General awareness easy for anyone following news.",
+          medium: "Requires preparation. Moderate reasoning or standard formula problems.",
+          hard: "Tricky or multi-step. Requires dedicated preparation.",
         },
 
         // ══════════════════════════════
@@ -738,81 +1069,81 @@
         // ══════════════════════════════
         "ibps po": {
           profile: "Graduate candidates for Probationary Officer, high competition",
-          easy:    "Standard banking prelims level. Well-prepared aspirant solves in under 45 seconds.",
-          medium:  "Mains level difficulty. Solid quantitative/verbal skills needed. 1-2 minutes.",
-          hard:    "High-level DI, complex reasoning, or advanced English. Only top aspirants solve.",
+          easy: "Standard banking prelims level. Well-prepared aspirant solves in under 45 seconds.",
+          medium: "Mains level difficulty. Solid quantitative/verbal skills needed. 1-2 minutes.",
+          hard: "High-level DI, complex reasoning, or advanced English. Only top aspirants solve.",
         },
         "ibps clerk": {
           profile: "Graduate candidates for Clerical Cadre, moderate competition",
-          easy:    "Basic banking prelims level. Direct formula or recall.",
-          medium:  "Moderate aptitude needed. Standard clerical level problem.",
-          hard:    "Challenging for clerk level. Multi-step or tricky.",
+          easy: "Basic banking prelims level. Direct formula or recall.",
+          medium: "Moderate aptitude needed. Standard clerical level problem.",
+          hard: "Challenging for clerk level. Multi-step or tricky.",
         },
         "ibps so": {
           profile: "Graduate/Specialist candidates for Specialist Officer posts",
-          easy:    "Direct specialist knowledge or basic aptitude. Standard SO level.",
-          medium:  "Applied specialist knowledge. Moderate aptitude problems.",
-          hard:    "Advanced specialist or high-level aptitude. Only strong aspirants solve.",
+          easy: "Direct specialist knowledge or basic aptitude. Standard SO level.",
+          medium: "Applied specialist knowledge. Moderate aptitude problems.",
+          hard: "Advanced specialist or high-level aptitude. Only strong aspirants solve.",
         },
         "ibps rrb": {
           profile: "Graduate candidates for Regional Rural Banks, moderate level",
-          easy:    "Basic banking aptitude or GK. Direct recall.",
-          medium:  "Moderate reasoning or arithmetic. Standard RRB level.",
-          hard:    "Competitive level for RRB. Multi-step problems.",
+          easy: "Basic banking aptitude or GK. Direct recall.",
+          medium: "Moderate reasoning or arithmetic. Standard RRB level.",
+          hard: "Competitive level for RRB. Multi-step problems.",
         },
         "ibps": {
           profile: "Graduate candidates for banking exams, high aptitude required",
-          easy:    "Standard banking prelims formula questions. Prepared aspirant solves in under 45 seconds.",
-          medium:  "Requires solid quantitative/verbal skills. 1-2 minutes for a prepared aspirant.",
-          hard:    "High-level DI, complex reasoning, or advanced English. Only top aspirants solve.",
+          easy: "Standard banking prelims formula questions. Prepared aspirant solves in under 45 seconds.",
+          medium: "Requires solid quantitative/verbal skills. 1-2 minutes for a prepared aspirant.",
+          hard: "High-level DI, complex reasoning, or advanced English. Only top aspirants solve.",
         },
         "sbi po": {
           profile: "Graduate candidates for SBI PO, highly competitive exam",
-          easy:    "Standard SBI prelims level. Direct application of concepts.",
-          medium:  "Mains level. Strong conceptual clarity needed.",
-          hard:    "Challenging even for top SBI aspirants. Multi-step or very tricky.",
+          easy: "Standard SBI prelims level. Direct application of concepts.",
+          medium: "Mains level. Strong conceptual clarity needed.",
+          hard: "Challenging even for top SBI aspirants. Multi-step or very tricky.",
         },
         "sbi clerk": {
           profile: "Graduate candidates for SBI Junior Associates, moderate level",
-          easy:    "Basic SBI prelims level. Direct recall or formula.",
-          medium:  "Moderate reasoning or arithmetic. Standard clerk level.",
-          hard:    "Competitive for clerk level. Tricky or multi-step.",
+          easy: "Basic SBI prelims level. Direct recall or formula.",
+          medium: "Moderate reasoning or arithmetic. Standard clerk level.",
+          hard: "Competitive for clerk level. Tricky or multi-step.",
         },
         "sbi": {
           profile: "Graduate candidates for SBI exams, competitive and high level",
-          easy:    "Direct application questions. Standard SBI prelims level.",
-          medium:  "Mains level difficulty. Needs strong conceptual clarity.",
-          hard:    "Challenging even for top SBI aspirants. Multi-step or tricky.",
+          easy: "Direct application questions. Standard SBI prelims level.",
+          medium: "Mains level difficulty. Needs strong conceptual clarity.",
+          hard: "Challenging even for top SBI aspirants. Multi-step or tricky.",
         },
         "rbi grade b": {
           profile: "Graduate/Post-graduate candidates for RBI Grade B, very high level",
-          easy:    "Standard banking/economy concept. Any RBI aspirant knows this.",
-          medium:  "Requires deep economic/financial knowledge or complex aptitude.",
-          hard:    "Advanced economics, finance, or very complex reasoning. Elite level.",
+          easy: "Standard banking/economy concept. Any RBI aspirant knows this.",
+          medium: "Requires deep economic/financial knowledge or complex aptitude.",
+          hard: "Advanced economics, finance, or very complex reasoning. Elite level.",
         },
         "rbi assistant": {
           profile: "Graduate candidates for RBI Assistant, moderate-high level",
-          easy:    "Basic banking awareness or aptitude. Prelims level.",
-          medium:  "Moderate reasoning or economy awareness. Mains level.",
-          hard:    "Advanced for RBI Assistant level. Requires strong preparation.",
+          easy: "Basic banking awareness or aptitude. Prelims level.",
+          medium: "Moderate reasoning or economy awareness. Mains level.",
+          hard: "Advanced for RBI Assistant level. Requires strong preparation.",
         },
         "rbi": {
           profile: "Graduate candidates for RBI exams",
-          easy:    "Basic banking/economy concept recall. Prelims level.",
-          medium:  "Moderate financial/aptitude knowledge needed.",
-          hard:    "Advanced economics or complex reasoning. Competitive level.",
+          easy: "Basic banking/economy concept recall. Prelims level.",
+          medium: "Moderate financial/aptitude knowledge needed.",
+          hard: "Advanced economics or complex reasoning. Competitive level.",
         },
         "niacl": {
           profile: "Graduate candidates for insurance sector exams",
-          easy:    "Basic insurance awareness or aptitude. Direct recall.",
-          medium:  "Moderate aptitude or insurance knowledge.",
-          hard:    "Advanced for insurance exam level.",
+          easy: "Basic insurance awareness or aptitude. Direct recall.",
+          medium: "Moderate aptitude or insurance knowledge.",
+          hard: "Advanced for insurance exam level.",
         },
         "lic": {
           profile: "Graduate candidates for LIC AAO/ADO, insurance focus",
-          easy:    "Basic insurance/financial awareness. Direct recall.",
-          medium:  "Moderate aptitude and insurance awareness.",
-          hard:    "Complex reasoning or advanced insurance concepts.",
+          easy: "Basic insurance/financial awareness. Direct recall.",
+          medium: "Moderate aptitude and insurance awareness.",
+          hard: "Complex reasoning or advanced insurance concepts.",
         },
 
         // ══════════════════════════════
@@ -820,39 +1151,39 @@
         // ══════════════════════════════
         "nda": {
           profile: "12th pass candidates (PCM) for National Defence Academy, high level",
-          easy:    "Direct 11th-12th PCM concept or basic GK. Any prepared NDA aspirant knows this.",
-          medium:  "Requires solid 11th-12th Maths/Science understanding. 2-3 step problems.",
-          hard:    "Advanced PCM application or tricky reasoning. Only well-prepared aspirants solve.",
+          easy: "Direct 11th-12th PCM concept or basic GK. Any prepared NDA aspirant knows this.",
+          medium: "Requires solid 11th-12th Maths/Science understanding. 2-3 step problems.",
+          hard: "Advanced PCM application or tricky reasoning. Only well-prepared aspirants solve.",
         },
         "cds": {
           profile: "Graduate candidates for Combined Defence Services, moderate-high level",
-          easy:    "Basic GK, English, or arithmetic at graduate level. Direct recall.",
-          medium:  "Moderate reasoning, English comprehension, or 2-step arithmetic.",
-          hard:    "Advanced English, complex reasoning, or tricky maths. Competitive level.",
+          easy: "Basic GK, English, or arithmetic at graduate level. Direct recall.",
+          medium: "Moderate reasoning, English comprehension, or 2-step arithmetic.",
+          hard: "Advanced English, complex reasoning, or tricky maths. Competitive level.",
         },
         "afcat": {
           profile: "Graduate candidates for Air Force Common Admission Test, high level",
-          easy:    "Direct GK or basic reasoning/verbal. Standard graduate level.",
-          medium:  "Moderate verbal ability, reasoning, or numerical. 2-step problems.",
-          hard:    "Advanced for AFCAT level. Complex reasoning or tough GK.",
+          easy: "Direct GK or basic reasoning/verbal. Standard graduate level.",
+          medium: "Moderate verbal ability, reasoning, or numerical. 2-step problems.",
+          hard: "Advanced for AFCAT level. Complex reasoning or tough GK.",
         },
         "agniveer": {
           profile: "10th/12th pass candidates for Agnipath scheme (Army/Navy/Air Force)",
-          easy:    "Basic 10th-12th level recall. Simple arithmetic or GK.",
-          medium:  "Moderate 12th level. Needs some preparation.",
-          hard:    "Challenging for Agniveer level. Multi-step or tricky.",
+          easy: "Basic 10th-12th level recall. Simple arithmetic or GK.",
+          medium: "Moderate 12th level. Needs some preparation.",
+          hard: "Challenging for Agniveer level. Multi-step or tricky.",
         },
         "capf": {
           profile: "Graduate candidates for Central Armed Police Forces (BSF/CRPF/CISF etc.)",
-          easy:    "Basic GK, reasoning, or arithmetic at graduate level.",
-          medium:  "Moderate current affairs, reasoning, or aptitude.",
-          hard:    "Advanced GK depth or complex reasoning. Competitive level.",
+          easy: "Basic GK, reasoning, or arithmetic at graduate level.",
+          medium: "Moderate current affairs, reasoning, or aptitude.",
+          hard: "Advanced GK depth or complex reasoning. Competitive level.",
         },
         "defence": {
           profile: "Candidates for defence exams (10th/12th/Graduate depending on post)",
-          easy:    "Basic science, maths, or GK at the relevant level. Direct recall.",
-          medium:  "Needs preparation. Moderate reasoning or standard concepts.",
-          hard:    "Advanced for this defence exam level. Multi-step or requires strong preparation.",
+          easy: "Basic science, maths, or GK at the relevant level. Direct recall.",
+          medium: "Needs preparation. Moderate reasoning or standard concepts.",
+          hard: "Advanced for this defence exam level. Multi-step or requires strong preparation.",
         },
       };
 
@@ -871,9 +1202,9 @@
       if (!benchmark) {
         benchmark = {
           profile: "Indian government exam aspirants",
-          easy:    "Direct recall or single-step problems. Most aspirants can solve quickly.",
-          medium:  "Requires preparation and 2-3 step reasoning or calculation.",
-          hard:    "Complex or multi-step. Only well-prepared aspirants solve comfortably.",
+          easy: "Direct recall or single-step problems. Most aspirants can solve quickly.",
+          medium: "Requires preparation and 2-3 step reasoning or calculation.",
+          hard: "Complex or multi-step. Only well-prepared aspirants solve comfortably.",
         };
       }
 
@@ -908,10 +1239,10 @@ WRONG — do NOT do this (unescaped quotes will break the CSV):
         : "";
 
       const prompt =
-`You are a question bank formatter for an Indian government exam prep platform.
+        `You are a question bank formatter for an Indian government exam prep platform.
 
-Convert the questions I give you into a CSV with EXACTLY these 13 columns in this order:
-question_text, options, options_type, correct_answer, difficulty, topic, explanation, category_id, pattern_section_id, question_image, pyq_year, pyq_source, is_active
+Convert the questions I give you into a CSV with EXACTLY these 14 columns in this order:
+question_text, options, options_type, correct_answer, difficulty, topic, explanation, category_id, pattern_section_id, question_image, pyq_year, pyq_source, is_active, language
 
 STRICT RULES:
 1. question_text   — Full question text. Escape internal double quotes by doubling them ("").
@@ -938,6 +1269,7 @@ STRICT RULES:
 11. pyq_year       — ${isPyq ? (pyqYr || "year of the exam (number only)") : "leave blank"}.
 12. pyq_source     — ${isPyq ? `"${pyqSrc || "source exam name"}"` : "leave blank"}.
 13. is_active      — Always: true
+14. language       — Always: "${language}"
 ${imgNote}
 EXAM CONTEXT:
 - Exam: ${exam}
@@ -945,7 +1277,14 @@ EXAM CONTEXT:
 - ${pyqNote}
 
 QUESTION TYPES IN THIS BATCH:
-${types.length ? types.map((t,i) => `${i+1}. ${t}`).join("\n") : "1. plain text question with text options"}
+${types.length ? types.map((t, i) => `${i + 1}. ${t}`).join("\n") : "1. plain text question with text options"}
+
+LANGUAGE:
+${language === "hindi" ? `- ALL question_text and options must be in Hindi (Devanagari script: हिंदी).
+- Do NOT transliterate — use proper Unicode Devanagari characters.
+- Set language column = "hindi" for every single row.
+- topic must still be English standard name (e.g. "Blood Relations").` : `- Questions are in English.
+- Set language column = "english" for every row.`}
 
 OUTPUT RULES:
 - Output ONLY the raw CSV. No explanation, no markdown, no code fences.
@@ -983,7 +1322,7 @@ Paste your questions below this line:`;
     function setFolder(folder, btn) {
       uploadFolder = folder;
       document.getElementById("folderLabel").textContent = folder;
-      ["questions","options"].forEach(f => {
+      ["questions", "options"].forEach(f => {
         const b = document.getElementById("folderBtn" + f.charAt(0).toUpperCase() + f.slice(1));
         b.className = f === folder
           ? "flex-1 py-2 rounded-xl border-2 border-blue-600 bg-blue-600 text-white text-xs font-bold transition"
@@ -991,33 +1330,33 @@ Paste your questions below this line:`;
       });
     }
 
-    function handleImgDragOver(e)  { e.preventDefault(); document.getElementById("imgDropZone").classList.add("dragover"); }
-    function handleImgDragLeave()  { document.getElementById("imgDropZone").classList.remove("dragover"); }
-    function handleImgDrop(e)      { e.preventDefault(); document.getElementById("imgDropZone").classList.remove("dragover"); uploadFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/"))); }
-    function handleImgSelect(e)    { uploadFiles(Array.from(e.target.files)); e.target.value = ""; }
+    function handleImgDragOver(e) { e.preventDefault(); document.getElementById("imgDropZone").classList.add("dragover"); }
+    function handleImgDragLeave() { document.getElementById("imgDropZone").classList.remove("dragover"); }
+    function handleImgDrop(e) { e.preventDefault(); document.getElementById("imgDropZone").classList.remove("dragover"); uploadFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/"))); }
+    function handleImgSelect(e) { uploadFiles(Array.from(e.target.files)); e.target.value = ""; }
 
     async function uploadFiles(files) {
       if (!files.length) return;
       const progWrap = document.getElementById("uploadProgress");
-      const progBar  = document.getElementById("uploadProgressBar");
-      const progPct  = document.getElementById("uploadProgressPct");
-      const progLbl  = document.getElementById("uploadProgressLabel");
-      const queue    = document.getElementById("uploadQueue");
+      const progBar = document.getElementById("uploadProgressBar");
+      const progPct = document.getElementById("uploadProgressPct");
+      const progLbl = document.getElementById("uploadProgressLabel");
+      const queue = document.getElementById("uploadQueue");
       progWrap.classList.remove("hidden");
       let done = 0;
 
       for (const file of files) {
         const itemId = "qi_" + Date.now() + "_" + Math.random().toString(36).slice(2);
-        const item   = document.createElement("div");
+        const item = document.createElement("div");
         item.id = itemId;
         item.className = "flex items-center gap-3 text-xs bg-gray-50 border border-gray-100 rounded-lg px-3 py-2";
         item.innerHTML = `<i class="fas fa-spinner spin text-blue-400"></i><span class="flex-1 truncate text-gray-600">${file.name}</span><span class="text-gray-400">Uploading...</span>`;
         queue.prepend(item);
 
         try {
-          const ext      = file.name.split(".").pop();
+          const ext = file.name.split(".").pop();
           const filename = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
-          const path     = `${uploadFolder}/${filename}`;
+          const path = `${uploadFolder}/${filename}`;
           const { error } = await db.storage.from("question-images").upload(path, file, { contentType: file.type, upsert: false });
           if (error) throw error;
           const { data: urlData } = db.storage.from("question-images").getPublicUrl(path);
@@ -1046,17 +1385,17 @@ Paste your questions below this line:`;
       document.getElementById("copyAllUrlsBtn").classList.remove("hidden");
       document.getElementById("clearUrlsBtn").classList.remove("hidden");
       document.getElementById("urlListForPrompt").classList.remove("hidden");
-      const tr   = document.createElement("tr");
-      const short = url.length > 48 ? url.slice(0,48) + "…" : url;
+      const tr = document.createElement("tr");
+      const short = url.length > 48 ? url.slice(0, 48) + "…" : url;
       tr.innerHTML = `<td class="text-gray-400 font-mono">${num}</td><td class="font-medium text-gray-700 truncate max-w-xs">${filename}</td><td class="text-blue-600 font-mono text-xs truncate max-w-xs" title="${url}">${short}</td><td><button onclick="copySingleUrl('${url}')" class="text-xs bg-blue-50 hover:bg-blue-100 text-blue-600 px-2 py-1 rounded-lg font-semibold">Copy</button></td>`;
       document.getElementById("urlTableBody").appendChild(tr);
     }
 
     function updateUrlList() {
-      document.getElementById("urlListText").value = uploadedUrls.map((u,i) => `${i+1}. ${u.filename}\n   ${u.url}`).join("\n\n");
+      document.getElementById("urlListText").value = uploadedUrls.map((u, i) => `${i + 1}. ${u.filename}\n   ${u.url}`).join("\n\n");
     }
     function copySingleUrl(url) { navigator.clipboard.writeText(url).then(() => alert("URL copied!")); }
-    function copyAllUrls()      { navigator.clipboard.writeText(uploadedUrls.map(u => u.url).join("\n")).then(() => alert(`${uploadedUrls.length} URLs copied!`)); }
+    function copyAllUrls() { navigator.clipboard.writeText(uploadedUrls.map(u => u.url).join("\n")).then(() => alert(`${uploadedUrls.length} URLs copied!`)); }
     function clearUrls() {
       uploadedUrls = [];
       document.getElementById("urlTableBody").innerHTML = "";
@@ -1072,75 +1411,74 @@ Paste your questions below this line:`;
     // ════════════════════════════════════
     //  CSV VALIDATOR + IMPORT
     // ════════════════════════════════════
-    const REQUIRED = ["question_text","options","correct_answer","difficulty","topic","category_id","pattern_section_id"];
-    const ALL_COLS = ["question_text","options","options_type","correct_answer","difficulty","topic","explanation","category_id","pattern_section_id","question_image","pyq_year","pyq_source","is_active"];
-    let parsedRows = [];
+    const REQUIRED = ["question_text", "options", "correct_answer", "difficulty", "topic", "category_id", "pattern_section_id"];
+    const ALL_COLS = ["question_text", "options", "options_type", "correct_answer", "difficulty", "topic", "explanation", "category_id", "pattern_section_id", "question_image", "pyq_year", "pyq_source", "is_active", "language"]; let parsedRows = [];
 
     function validateCsv() {
       const raw = document.getElementById("csvInput").value.trim();
       if (!raw) { alert("Please paste a CSV first."); return; }
 
       const result = Papa.parse(raw, { header: true, skipEmptyLines: true });
-      const rows   = result.data;
+      const rows = result.data;
       const fields = result.meta.fields || [];
-      const msgs   = [];
+      const msgs = [];
       let errors = 0, warnings = 0;
 
       // Column check
       const missing = REQUIRED.filter(c => !fields.includes(c));
-      if (missing.length) { msgs.push({ t:"error", m:`Missing required columns: ${missing.join(", ")}` }); errors++; }
-      else msgs.push({ t:"ok", m:`All required columns found (${fields.length} total)` });
+      if (missing.length) { msgs.push({ t: "error", m: `Missing required columns: ${missing.join(", ")}` }); errors++; }
+      else msgs.push({ t: "ok", m: `All required columns found (${fields.length} total)` });
 
       const extra = fields.filter(c => !ALL_COLS.includes(c));
-      if (extra.length) { msgs.push({ t:"warn", m:`Unknown columns (will be ignored): ${extra.join(", ")}` }); warnings++; }
+      if (extra.length) { msgs.push({ t: "warn", m: `Unknown columns (will be ignored): ${extra.join(", ")}` }); warnings++; }
 
       // Row checks
       let rowErr = 0;
       rows.forEach((row, i) => {
         const n = i + 2;
-        if (!row.question_text?.trim()) { msgs.push({ t:"error", m:`Row ${n}: question_text is empty` }); rowErr++; errors++; }
+        if (!row.question_text?.trim()) { msgs.push({ t: "error", m: `Row ${n}: question_text is empty` }); rowErr++; errors++; }
         if (row.options) {
           try {
             const o = JSON.parse(row.options);
-            if (!["A","B","C","D"].every(k => k in o)) { msgs.push({ t:"error", m:`Row ${n}: options missing A/B/C/D keys` }); rowErr++; errors++; }
-          } catch { msgs.push({ t:"error", m:`Row ${n}: options is not valid JSON — check double-quote escaping` }); rowErr++; errors++; }
+            if (!["A", "B", "C", "D"].every(k => k in o)) { msgs.push({ t: "error", m: `Row ${n}: options missing A/B/C/D keys` }); rowErr++; errors++; }
+          } catch { msgs.push({ t: "error", m: `Row ${n}: options is not valid JSON — check double-quote escaping` }); rowErr++; errors++; }
         }
-        if (!["A","B","C","D"].includes(row.correct_answer?.trim()?.toUpperCase())) { msgs.push({ t:"error", m:`Row ${n}: correct_answer "${row.correct_answer}" must be A/B/C/D` }); rowErr++; errors++; }
-        if (row.difficulty && !["easy","medium","hard"].includes(row.difficulty.trim().toLowerCase())) { msgs.push({ t:"error", m:`Row ${n}: difficulty "${row.difficulty}" must be easy/medium/hard` }); rowErr++; errors++; }
+        if (!["A", "B", "C", "D"].includes(row.correct_answer?.trim()?.toUpperCase())) { msgs.push({ t: "error", m: `Row ${n}: correct_answer "${row.correct_answer}" must be A/B/C/D` }); rowErr++; errors++; }
+        if (row.difficulty && !["easy", "medium", "hard"].includes(row.difficulty.trim().toLowerCase())) { msgs.push({ t: "error", m: `Row ${n}: difficulty "${row.difficulty}" must be easy/medium/hard` }); rowErr++; errors++; }
         const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-        if (row.category_id && !uuid.test(row.category_id.trim())) { msgs.push({ t:"warn", m:`Row ${n}: category_id doesn't look like a UUID` }); warnings++; }
-        if (row.pattern_section_id && !uuid.test(row.pattern_section_id.trim())) { msgs.push({ t:"warn", m:`Row ${n}: pattern_section_id doesn't look like a UUID` }); warnings++; }
+        if (row.category_id && !uuid.test(row.category_id.trim())) { msgs.push({ t: "warn", m: `Row ${n}: category_id doesn't look like a UUID` }); warnings++; }
+        if (row.pattern_section_id && !uuid.test(row.pattern_section_id.trim())) { msgs.push({ t: "warn", m: `Row ${n}: pattern_section_id doesn't look like a UUID` }); warnings++; }
       });
 
-      if (rowErr === 0 && errors === 0) msgs.push({ t:"ok", m:`All ${rows.length} rows passed row-level validation` });
+      if (rowErr === 0 && errors === 0) msgs.push({ t: "ok", m: `All ${rows.length} rows passed row-level validation` });
 
       document.getElementById("validationResults").classList.remove("hidden");
       document.getElementById("validationSummary").innerHTML = `
         <span class="pill pill-blue">${rows.length} rows</span>
-        <span class="pill ${errors===0?"pill-green":"pill-red"}">${errors} error${errors!==1?"s":""}</span>
-        ${warnings>0?`<span class="pill pill-amber">${warnings} warning${warnings!==1?"s":""}</span>`:""}`;
+        <span class="pill ${errors === 0 ? "pill-green" : "pill-red"}">${errors} error${errors !== 1 ? "s" : ""}</span>
+        ${warnings > 0 ? `<span class="pill pill-amber">${warnings} warning${warnings !== 1 ? "s" : ""}</span>` : ""}`;
 
       document.getElementById("validationMessages").innerHTML =
-        msgs.slice(0,30).map(m => `
+        msgs.slice(0, 30).map(m => `
           <div class="val-row val-${m.t}">
-            <i class="val-icon fas ${m.t==="ok"?"fa-check-circle":m.t==="error"?"fa-times-circle":"fa-exclamation-triangle"}"></i>
+            <i class="val-icon fas ${m.t === "ok" ? "fa-check-circle" : m.t === "error" ? "fa-times-circle" : "fa-exclamation-triangle"}"></i>
             <span>${m.m}</span>
           </div>`).join("") +
-        (msgs.length>30 ? `<p class="text-xs text-gray-400 mt-2">…and ${msgs.length-30} more messages</p>` : "");
+        (msgs.length > 30 ? `<p class="text-xs text-gray-400 mt-2">…and ${msgs.length - 30} more messages</p>` : "");
 
       if (rows.length) {
         document.getElementById("previewSection").classList.remove("hidden");
         const cols = ALL_COLS.filter(c => fields.includes(c));
-        document.getElementById("previewHead").innerHTML = `<tr>${cols.map(c=>`<th>${c}</th>`).join("")}</tr>`;
-        document.getElementById("previewBody").innerHTML = rows.slice(0,5).map(r =>
-          `<tr>${cols.map(c => { let v = r[c]||""; if(v.length>38) v=v.slice(0,38)+"…"; return `<td>${v}</td>`; }).join("")}</tr>`
+        document.getElementById("previewHead").innerHTML = `<tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr>`;
+        document.getElementById("previewBody").innerHTML = rows.slice(0, 5).map(r =>
+          `<tr>${cols.map(c => { let v = r[c] || ""; if (v.length > 38) v = v.slice(0, 38) + "…"; return `<td>${v}</td>`; }).join("")}</tr>`
         ).join("");
       }
 
       if (errors === 0 && rows.length > 0) {
         parsedRows = rows;
         document.getElementById("importSection").classList.remove("hidden");
-        document.getElementById("importReadyLabel").textContent = `${rows.length} question${rows.length>1?"s":""} ready to insert`;
+        document.getElementById("importReadyLabel").textContent = `${rows.length} question${rows.length > 1 ? "s" : ""} ready to insert`;
       } else {
         document.getElementById("importSection").classList.add("hidden");
       }
@@ -1162,19 +1500,20 @@ Paste your questions below this line:`;
 
       for (let i = 0; i < parsedRows.length; i += BATCH) {
         const batch = parsedRows.slice(i, i + BATCH).map(r => ({
-          question_text:      r.question_text?.trim() || "",
-          options:            (() => { try { return JSON.parse(r.options); } catch { return {}; } })(),
-          options_type:       (r.options_type?.trim() || "text").toLowerCase(),
-          correct_answer:     r.correct_answer?.trim()?.toUpperCase() || "A",
-          difficulty:         r.difficulty?.trim()?.toLowerCase() || "medium",
-          topic:              r.topic?.trim() || null,
-          explanation:        r.explanation?.trim() || null,
-          category_id:        r.category_id?.trim() || null,
+          question_text: r.question_text?.trim() || "",
+          options: (() => { try { return JSON.parse(r.options); } catch { return {}; } })(),
+          options_type: (r.options_type?.trim() || "text").toLowerCase(),
+          correct_answer: r.correct_answer?.trim()?.toUpperCase() || "A",
+          difficulty: r.difficulty?.trim()?.toLowerCase() || "medium",
+          topic: r.topic?.trim() || null,
+          explanation: r.explanation?.trim() || null,
+          category_id: r.category_id?.trim() || null,
           pattern_section_id: r.pattern_section_id?.trim() || null,
-          question_image:     r.question_image?.trim() || null,
-          pyq_year:           r.pyq_year ? parseInt(r.pyq_year) : null,
-          pyq_source:         r.pyq_source?.trim() || null,
-          is_active:          r.is_active?.toString().toLowerCase() !== "false",
+          question_image: r.question_image?.trim() || null,
+          pyq_year: r.pyq_year ? parseInt(r.pyq_year) : null,
+          pyq_source: r.pyq_source?.trim() || null,
+          is_active: r.is_active?.toString().toLowerCase() !== "false",
+          language: ["english","hindi"].includes(r.language?.trim().toLowerCase()) ? r.language.trim().toLowerCase() : "english",
         }));
 
         const { error } = await db.from("questions").insert(batch);
@@ -1200,8 +1539,8 @@ Paste your questions below this line:`;
       btn.disabled = false;
       btn.innerHTML = `<i class="fas fa-database"></i> Import to Supabase`;
       const summary = document.createElement("div");
-      summary.className = `import-row font-bold mt-2 ${failed===0?"import-ok":"import-err"}`;
-      summary.innerHTML = `<i class="fas ${failed===0?"fa-check-circle":"fa-exclamation-circle"}"></i> Finished — ${success} inserted, ${failed} failed`;
+      summary.className = `import-row font-bold mt-2 ${failed === 0 ? "import-ok" : "import-err"}`;
+      summary.innerHTML = `<i class="fas ${failed === 0 ? "fa-check-circle" : "fa-exclamation-circle"}"></i> Finished — ${success} inserted, ${failed} failed`;
       log.appendChild(summary);
     }
 
@@ -1214,10 +1553,22 @@ Paste your questions below this line:`;
 
     function loadSampleCsv() {
       document.getElementById("csvInput").value =
-`question_text,options,options_type,correct_answer,difficulty,explanation,category_id,pattern_section_id,question_image,pyq_year,pyq_source,is_active
+        `question_text,options,options_type,correct_answer,difficulty,explanation,category_id,pattern_section_id,question_image,pyq_year,pyq_source,is_active
 "What is the capital of India?","{""A"":""Mumbai"",""B"":""New Delhi"",""C"":""Chennai"",""D"":""Kolkata""}",text,B,easy,"New Delhi is the capital of India since 1911.",REPLACE_CATEGORY_UUID,REPLACE_SECTION_UUID,"","","",true
 "Who wrote Jana Gana Mana?","{""A"":""Bankim Chandra"",""B"":""Rabindranath Tagore"",""C"":""Sarojini Naidu"",""D"":""Mahatma Gandhi""}",text,B,easy,"Rabindranath Tagore wrote Jana Gana Mana in 1911.",REPLACE_CATEGORY_UUID,REPLACE_SECTION_UUID,"","","",true`;
     }
+
+    function setLanguage(lang) {
+      document.getElementById("pgLanguage").value = lang;
+      document.getElementById("langBtnEn").className = lang === "english"
+        ? "flex-1 py-2 rounded-xl border-2 border-blue-600 bg-blue-50 text-blue-700 text-xs font-bold transition"
+        : "flex-1 py-2 rounded-xl border-2 border-gray-200 text-gray-500 text-xs font-bold transition";
+      document.getElementById("langBtnHi").className = lang === "hindi"
+        ? "flex-1 py-2 rounded-xl border-2 border-orange-500 bg-orange-50 text-orange-700 text-xs font-bold transition"
+        : "flex-1 py-2 rounded-xl border-2 border-gray-200 text-gray-500 text-xs font-bold transition";
+      document.getElementById("hindiTip").classList.toggle("hidden", lang !== "hindi");
+    }
   </script>
 </body>
+
 </html>
