@@ -362,7 +362,7 @@ window.startExam = async function (examId, btn) {
     // 1 — Fetch exam with all restriction fields
     const { data: examCheck } = await client
       .from("scheduled_exams")
-      .select("is_active, start_datetime, end_datetime, is_premium, attempt_limit, exam_patterns(id)")
+      .select("is_active, start_datetime, end_datetime, is_premium, attempt_limit, language, exam_patterns(id)")
       .eq("id", examId)
       .single();
 
@@ -429,12 +429,25 @@ window.startExam = async function (examId, btn) {
     if (!sections || sections.length === 0) throw new Error("No sections found for this exam pattern.");
 
     // 5 — Fetch ALL active questions for all sections in one query
+    // For "both" language exams, default to english at attempt creation time
+    // (student's actual language choice happens in examEngine before rendering)
+    const examLang = examCheck.language || "english";
+    const langToFetch = examLang === "both" ? null : examLang;
+
     const sectionIds = sections.map(s => s.id);
-    const { data: allQuestions } = await client
+    let qQuery = client
       .from("questions")
-      .select("id, pattern_section_id, topic, difficulty")
+      .select("id, pattern_section_id, topic, difficulty, language")
       .in("pattern_section_id", sectionIds)
       .eq("is_active", true);
+
+    // Only filter by language if exam is NOT "both"
+    // For "both" exams, all questions are loaded and examEngine filters by chosen language
+    if (langToFetch) {
+      qQuery = qQuery.eq("language", langToFetch);
+    }
+
+    const { data: allQuestions } = await qQuery;
 
     if (!allQuestions || allQuestions.length === 0) throw new Error("No active questions found for this exam.");
 

@@ -12,22 +12,45 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        body { background: #f1f5f9; min-height: 100vh; }
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+        }
+
         .glass {
-            background: rgba(255,255,255,0.92);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.10);
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
             backdrop-filter: blur(12px);
             border-radius: 1.25rem;
-            border: 1px solid rgba(200,200,255,0.15);
+            border: 1px solid rgba(200, 200, 255, 0.15);
         }
-        .ripple { position: relative; overflow: hidden; }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
         .ripple:after {
-            content:''; display:block; position:absolute; border-radius:50%;
-            width:100%; height:100%; top:0; left:0; pointer-events:none;
-            background:rgba(59,130,246,0.18); opacity:0;
-            transition:opacity .6s,transform .6s; transform:scale(0.5);
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, 0.18);
+            opacity: 0;
+            transition: opacity .6s, transform .6s;
+            transform: scale(0.5);
         }
-        .ripple:active:after { opacity:1; transform:scale(1.2); transition:0s; }
+
+        .ripple:active:after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
 
         /* upload zone */
         .upload-zone {
@@ -39,15 +62,38 @@
             transition: border-color 0.2s, background 0.2s;
             background: #f8faff;
         }
-        .upload-zone:hover { border-color: #3b82f6; background: #eff6ff; }
-        .upload-zone.uploading { border-color: #f59e0b; background: #fffbeb; }
-        .upload-zone.done { border-color: #22c55e; background: #f0fdf4; }
+
+        .upload-zone:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .upload-zone.uploading {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .upload-zone.done {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
 
         /* option image row */
-        .option-img-row { display: none; }
-        .option-img-row.visible { display: flex; }
+        .option-img-row {
+            display: none;
+        }
 
-        label.field-label { font-size: 0.8rem; font-weight: 600; color: #4b5563; margin-bottom: 0.25rem; display: block; }
+        .option-img-row.visible {
+            display: flex;
+        }
+
+        label.field-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
     </style>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
@@ -69,25 +115,28 @@
                 <span class="text-2xl font-bold text-blue-700">Courage Library</span>
             </a>
             <div class="space-x-6 hidden md:flex items-center text-sm">
-                <a href="index.html#features"    class="hover:text-blue-600 transition">Features</a>
-                <a href="index.html#courses"     class="hover:text-blue-600 transition">Courses</a>
-                <a href="index.html#testimonials"class="hover:text-blue-600 transition">Testimonials</a>
-                <a href="Blog/Blog.html"         class="hover:text-blue-600 transition">Blog</a>
-                <a href="index.html#contact"     class="hover:text-blue-600 transition">Contact Us</a>
-                <a href="index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-full shadow hover:scale-105 transform transition ripple text-sm">Home</a>
+                <a href="index.html#features" class="hover:text-blue-600 transition">Features</a>
+                <a href="index.html#courses" class="hover:text-blue-600 transition">Courses</a>
+                <a href="index.html#testimonials" class="hover:text-blue-600 transition">Testimonials</a>
+                <a href="Blog/Blog.html" class="hover:text-blue-600 transition">Blog</a>
+                <a href="index.html#contact" class="hover:text-blue-600 transition">Contact Us</a>
+                <a href="index.html"
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-full shadow hover:scale-105 transform transition ripple text-sm">Home</a>
             </div>
             <div class="md:hidden" x-data="{ open: false }">
                 <button type="button" @click="open = !open" class="focus:outline-none" aria-label="Toggle mobile menu">
                     <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <div x-show="open" @click.away="open = false" class="absolute right-4 mt-4 w-44 bg-white rounded-xl shadow-lg py-3 px-3 z-50 space-y-3 text-sm border">
-                    <a href="index.html#courses1"     class="block hover:text-blue-600 py-1">Courses</a>
-                    <a href="index.html#features"     class="block hover:text-blue-600 py-1">Features</a>
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-4 mt-4 w-44 bg-white rounded-xl shadow-lg py-3 px-3 z-50 space-y-3 text-sm border">
+                    <a href="index.html#courses1" class="block hover:text-blue-600 py-1">Courses</a>
+                    <a href="index.html#features" class="block hover:text-blue-600 py-1">Features</a>
                     <a href="index.html#testimonials" class="block hover:text-blue-600 py-1">Reviews</a>
-                    <a href="/Blog/Blog.html"          class="block hover:text-blue-600 py-1">Blog</a>
-                    <a href="index.html#contact"       class="block hover:text-blue-600 py-1">Contact Us</a>
+                    <a href="/Blog/Blog.html" class="block hover:text-blue-600 py-1">Blog</a>
+                    <a href="index.html#contact" class="block hover:text-blue-600 py-1">Contact Us</a>
                 </div>
             </div>
         </div>
@@ -98,7 +147,8 @@
 
             <div class="text-center mb-10">
                 <h1 class="text-3xl font-extrabold text-blue-700">Question Bank Manager</h1>
-                <p class="text-gray-500 mt-2 text-sm">Add and manage mock test questions with images and PYQ support.</p>
+                <p class="text-gray-500 mt-2 text-sm">Add and manage mock test questions with images and PYQ support.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
@@ -116,15 +166,18 @@
                         <!-- Category / Pattern / Section -->
                         <div>
                             <label class="field-label">Category</label>
-                            <select id="questionCategory" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
+                            <select id="questionCategory"
+                                class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
                         </div>
                         <div>
                             <label class="field-label">Exam Pattern</label>
-                            <select id="questionPattern" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
+                            <select id="questionPattern"
+                                class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
                         </div>
                         <div>
                             <label class="field-label">Section</label>
-                            <select id="questionSection" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
+                            <select id="questionSection"
+                                class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400"></select>
                         </div>
 
                         <!-- Question Text -->
@@ -137,18 +190,26 @@
                         <!-- Question Figure Image (optional) -->
                         <div>
                             <label class="field-label">
-                                Question Figure <span class="text-gray-400 font-normal">(optional — upload if question has a diagram/image)</span>
+                                Question Figure <span class="text-gray-400 font-normal">(optional — upload if question
+                                    has a diagram/image)</span>
                             </label>
-                            <div class="upload-zone" id="qImgZone" onclick="document.getElementById('qImgInput').click()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto mb-1 text-blue-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5M4.5 16.5h15M4.5 12h15"/>
+                            <div class="upload-zone" id="qImgZone"
+                                onclick="document.getElementById('qImgInput').click()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto mb-1 text-blue-400"
+                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5M4.5 16.5h15M4.5 12h15" />
                                 </svg>
                                 <p class="text-xs text-gray-400" id="qImgLabel">Click to upload question image</p>
-                                <input type="file" id="qImgInput" accept="image/*" class="hidden" onchange="handleQImgSelect(event)">
+                                <input type="file" id="qImgInput" accept="image/*" class="hidden"
+                                    onchange="handleQImgSelect(event)">
                             </div>
                             <div id="qImgPreview" class="mt-2 hidden">
-                                <img id="qImgPreviewImg" src="" alt="Preview" class="max-h-32 rounded-xl border border-gray-200 object-contain mx-auto">
-                                <button onclick="clearQImg()" class="mt-1 text-xs text-red-400 hover:text-red-600 block mx-auto">✕ Remove image</button>
+                                <img id="qImgPreviewImg" src="" alt="Preview"
+                                    class="max-h-32 rounded-xl border border-gray-200 object-contain mx-auto">
+                                <button onclick="clearQImg()"
+                                    class="mt-1 text-xs text-red-400 hover:text-red-600 block mx-auto">✕ Remove
+                                    image</button>
                             </div>
                             <input type="hidden" id="questionImageUrl">
                         </div>
@@ -157,19 +218,40 @@
                         <div>
                             <label class="field-label">Options Type</label>
                             <div class="grid grid-cols-3 gap-2">
-                                <label class="flex items-center gap-2 p-3 border-2 border-blue-500 rounded-xl cursor-pointer bg-blue-50 text-blue-700 text-xs font-semibold" id="optTypeTextLabel">
-                                    <input type="radio" name="optionsType" value="text" checked class="hidden" id="optTypeText" onchange="switchOptionsType('text')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"/></svg>
+                                <label
+                                    class="flex items-center gap-2 p-3 border-2 border-blue-500 rounded-xl cursor-pointer bg-blue-50 text-blue-700 text-xs font-semibold"
+                                    id="optTypeTextLabel">
+                                    <input type="radio" name="optionsType" value="text" checked class="hidden"
+                                        id="optTypeText" onchange="switchOptionsType('text')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                                    </svg>
                                     Text
                                 </label>
-                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer text-gray-500 text-xs font-semibold hover:border-blue-300" id="optTypeImageLabel">
-                                    <input type="radio" name="optionsType" value="image" class="hidden" id="optTypeImage" onchange="switchOptionsType('image')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5"/></svg>
+                                <label
+                                    class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer text-gray-500 text-xs font-semibold hover:border-blue-300"
+                                    id="optTypeImageLabel">
+                                    <input type="radio" name="optionsType" value="image" class="hidden"
+                                        id="optTypeImage" onchange="switchOptionsType('image')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5" />
+                                    </svg>
                                     Images
                                 </label>
-                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer text-gray-500 text-xs font-semibold hover:border-blue-300" id="optTypeMixedLabel">
-                                    <input type="radio" name="optionsType" value="mixed" class="hidden" id="optTypeMixed" onchange="switchOptionsType('mixed')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+                                <label
+                                    class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer text-gray-500 text-xs font-semibold hover:border-blue-300"
+                                    id="optTypeMixedLabel">
+                                    <input type="radio" name="optionsType" value="mixed" class="hidden"
+                                        id="optTypeMixed" onchange="switchOptionsType('mixed')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                                    </svg>
                                     Mixed
                                 </label>
                             </div>
@@ -180,52 +262,68 @@
                             <!-- Option A -->
                             <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optABlock">
                                 <label class="field-label text-green-700">Option A</label>
-                                <input id="optionA" placeholder="Option A text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <input id="optionA" placeholder="Option A text"
+                                    class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
                                 <div class="option-img-row items-center gap-2" id="optAImgRow">
-                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optAImgInput').click()">
+                                    <div class="upload-zone flex-1 py-2"
+                                        onclick="document.getElementById('optAImgInput').click()">
                                         <p class="text-xs text-gray-400" id="optAImgLabel">Upload image for Option A</p>
-                                        <input type="file" id="optAImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'A')">
+                                        <input type="file" id="optAImgInput" accept="image/*" class="hidden"
+                                            onchange="handleOptImgSelect(event,'A')">
                                     </div>
-                                    <img id="optAImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                    <img id="optAImgPreview" src="" alt=""
+                                        class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
                                 </div>
                                 <input type="hidden" id="optAImgUrl">
                             </div>
                             <!-- Option B -->
                             <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optBBlock">
                                 <label class="field-label text-blue-700">Option B</label>
-                                <input id="optionB" placeholder="Option B text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <input id="optionB" placeholder="Option B text"
+                                    class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
                                 <div class="option-img-row items-center gap-2" id="optBImgRow">
-                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optBImgInput').click()">
+                                    <div class="upload-zone flex-1 py-2"
+                                        onclick="document.getElementById('optBImgInput').click()">
                                         <p class="text-xs text-gray-400" id="optBImgLabel">Upload image for Option B</p>
-                                        <input type="file" id="optBImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'B')">
+                                        <input type="file" id="optBImgInput" accept="image/*" class="hidden"
+                                            onchange="handleOptImgSelect(event,'B')">
                                     </div>
-                                    <img id="optBImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                    <img id="optBImgPreview" src="" alt=""
+                                        class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
                                 </div>
                                 <input type="hidden" id="optBImgUrl">
                             </div>
                             <!-- Option C -->
                             <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optCBlock">
                                 <label class="field-label text-purple-700">Option C</label>
-                                <input id="optionC" placeholder="Option C text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <input id="optionC" placeholder="Option C text"
+                                    class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
                                 <div class="option-img-row items-center gap-2" id="optCImgRow">
-                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optCImgInput').click()">
+                                    <div class="upload-zone flex-1 py-2"
+                                        onclick="document.getElementById('optCImgInput').click()">
                                         <p class="text-xs text-gray-400" id="optCImgLabel">Upload image for Option C</p>
-                                        <input type="file" id="optCImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'C')">
+                                        <input type="file" id="optCImgInput" accept="image/*" class="hidden"
+                                            onchange="handleOptImgSelect(event,'C')">
                                     </div>
-                                    <img id="optCImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                    <img id="optCImgPreview" src="" alt=""
+                                        class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
                                 </div>
                                 <input type="hidden" id="optCImgUrl">
                             </div>
                             <!-- Option D -->
                             <div class="border border-gray-200 rounded-xl p-3 space-y-2" id="optDBlock">
                                 <label class="field-label text-orange-700">Option D</label>
-                                <input id="optionD" placeholder="Option D text" class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
+                                <input id="optionD" placeholder="Option D text"
+                                    class="w-full p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400 opt-text-input">
                                 <div class="option-img-row items-center gap-2" id="optDImgRow">
-                                    <div class="upload-zone flex-1 py-2" onclick="document.getElementById('optDImgInput').click()">
+                                    <div class="upload-zone flex-1 py-2"
+                                        onclick="document.getElementById('optDImgInput').click()">
                                         <p class="text-xs text-gray-400" id="optDImgLabel">Upload image for Option D</p>
-                                        <input type="file" id="optDImgInput" accept="image/*" class="hidden" onchange="handleOptImgSelect(event,'D')">
+                                        <input type="file" id="optDImgInput" accept="image/*" class="hidden"
+                                            onchange="handleOptImgSelect(event,'D')">
                                     </div>
-                                    <img id="optDImgPreview" src="" alt="" class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
+                                    <img id="optDImgPreview" src="" alt=""
+                                        class="h-12 w-12 rounded-lg object-contain border border-gray-200 hidden">
                                 </div>
                                 <input type="hidden" id="optDImgUrl">
                             </div>
@@ -235,7 +333,8 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="field-label">Correct Answer</label>
-                                <select id="correctAnswer" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                                <select id="correctAnswer"
+                                    class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
                                     <option value="">Select</option>
                                     <option value="A">Option A</option>
                                     <option value="B">Option B</option>
@@ -245,7 +344,8 @@
                             </div>
                             <div>
                                 <label class="field-label">Difficulty</label>
-                                <select id="difficulty" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                                <select id="difficulty"
+                                    class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
                                     <option value="easy">Easy</option>
                                     <option value="medium">Medium</option>
                                     <option value="hard">Hard</option>
@@ -256,22 +356,33 @@
                         <!-- PYQ Fields -->
                         <div class="border border-amber-200 bg-amber-50 rounded-xl p-4 space-y-3">
                             <label class="field-label text-amber-700 flex items-center gap-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
-                                PYQ Details <span class="text-amber-500 font-normal">(optional — fill only for previous year questions)</span>
+                                PYQ Details <span class="text-amber-500 font-normal">(optional — fill only for previous
+                                    year questions)</span>
                             </label>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
                                     <label class="field-label">Source Exam</label>
-                                    <input id="pyqSource" placeholder="e.g. SSC CGL, UPSC, Railway" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                                    <input id="pyqSource" placeholder="e.g. SSC CGL, UPSC, Railway"
+                                        class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
                                 </div>
                                 <div>
                                     <label class="field-label">Year</label>
-                                    <input id="pyqYear" type="number" placeholder="e.g. 2022" min="1990" max="2030" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                                    <input id="pyqYear" type="number" placeholder="e.g. 2022" min="1990" max="2030"
+                                        class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
                                 </div>
                             </div>
                         </div>
+
+                        <select id="questionLanguage"
+                            class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                            <option value="english">English</option>
+                            <option value="hindi">Hindi (हिंदी)</option>
+                        </select>
 
                         <!-- Explanation -->
                         <div>
@@ -281,9 +392,12 @@
                         </div>
 
                         <!-- Upload progress indicator -->
-                        <div id="uploadStatus" class="hidden text-xs text-blue-600 flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
-                            <svg class="w-4 h-4 animate-spin flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <div id="uploadStatus"
+                            class="hidden text-xs text-blue-600 flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
+                            <svg class="w-4 h-4 animate-spin flex-shrink-0" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
                             </svg>
                             <span id="uploadStatusText">Uploading image...</span>
@@ -298,14 +412,18 @@
                     </div>
 
                     <!-- BULK IMPORT LINK -->
-                    <div class="border border-indigo-200 rounded-xl p-5 mt-8 bg-gradient-to-br from-indigo-50 to-blue-50">
+                    <div
+                        class="border border-indigo-200 rounded-xl p-5 mt-8 bg-gradient-to-br from-indigo-50 to-blue-50">
                         <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-file-import text-indigo-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <h3 class="text-sm font-bold text-indigo-700 mb-1">Bulk Question Import</h3>
-                                <p class="text-xs text-gray-500 mb-3 leading-relaxed">Add hundreds of questions at once — generate AI prompts, upload images in bulk, validate CSV, and import directly to database.</p>
+                                <p class="text-xs text-gray-500 mb-3 leading-relaxed">Add hundreds of questions at once
+                                    — generate AI prompts, upload images in bulk, validate CSV, and import directly to
+                                    database.</p>
                                 <a href="/admin/bulkImport.html"
                                     class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition shadow-sm">
                                     <i class="fas fa-arrow-right"></i>
@@ -329,8 +447,11 @@
 
                         <!-- Search -->
                         <div class="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 15.803a7.5 7.5 0 0 0 10.607 0Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 15.803a7.5 7.5 0 0 0 10.607 0Z" />
                             </svg>
                             <input id="qSearchInput" type="text" placeholder="Search questions..."
                                 oninput="onSearchInput(this.value)"
@@ -338,7 +459,7 @@
                         </div>
 
                         <!-- Filter row -->
-                        <div class="grid grid-cols-3 gap-2">
+                        <div class="grid grid-cols-4 gap-2">
                             <select id="qDiffFilter" onchange="onDifficultyFilter(this.value)"
                                 class="p-2 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-blue-400 text-gray-600">
                                 <option value="">All Levels</option>
@@ -357,12 +478,20 @@
                                 class="p-2 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-blue-400 text-gray-600">
                                 <option value="">All Sections</option>
                             </select>
+
+                            <select id="qLangFilter" onchange="onLanguageFilter(this.value)"
+                                class="p-2 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-blue-400 text-gray-600">
+                                <option value="">All Languages</option>
+                                <option value="english">English</option>
+                                <option value="hindi">Hindi</option>
+                            </select>
                         </div>
 
                         <!-- Count + reset -->
                         <div class="flex items-center justify-between">
                             <span id="questionCount" class="text-xs text-gray-400 font-medium"></span>
-                            <button onclick="resetFilters()" class="text-xs text-blue-500 hover:text-blue-700 font-medium transition">
+                            <button onclick="resetFilters()"
+                                class="text-xs text-blue-500 hover:text-blue-700 font-medium transition">
                                 Reset filters
                             </button>
                         </div>
@@ -384,10 +513,15 @@
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
             <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
             <div class="flex space-x-6">
-                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
@@ -395,14 +529,18 @@
     <script src="/js/adminQuestions.js"></script>
 
     <!-- ── EDIT QUESTION MODAL ── -->
-    <div id="editModal" class="fixed inset-0 hidden items-center justify-center z-50 px-4" style="background:rgba(0,0,0,0.55);">
+    <div id="editModal" class="fixed inset-0 hidden items-center justify-center z-50 px-4"
+        style="background:rgba(0,0,0,0.55);">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
 
             <!-- Header -->
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+            <div
+                class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex items-center justify-between rounded-t-2xl">
                 <h2 class="text-white font-bold text-base flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" />
                     </svg>
                     Edit Question
                 </h2>
@@ -421,14 +559,19 @@
 
                 <!-- Question Image -->
                 <div>
-                    <label class="field-label">Question Figure <span class="text-gray-400 font-normal">(optional)</span></label>
-                    <div class="upload-zone" id="editQImgZone" onclick="document.getElementById('editQImgInput').click()">
+                    <label class="field-label">Question Figure <span
+                            class="text-gray-400 font-normal">(optional)</span></label>
+                    <div class="upload-zone" id="editQImgZone"
+                        onclick="document.getElementById('editQImgInput').click()">
                         <p class="text-xs text-gray-400" id="editQImgLabel">Click to upload / replace image</p>
-                        <input type="file" id="editQImgInput" accept="image/*" class="hidden" onchange="handleEditQImgSelect(event)">
+                        <input type="file" id="editQImgInput" accept="image/*" class="hidden"
+                            onchange="handleEditQImgSelect(event)">
                     </div>
                     <div id="editQImgPreview" class="mt-2 hidden">
-                        <img id="editQImgPreviewImg" src="" alt="Preview" class="max-h-28 rounded-xl border border-gray-200 object-contain mx-auto">
-                        <button onclick="clearEditQImg()" class="mt-1 text-xs text-red-400 hover:text-red-600 block mx-auto">✕ Remove image</button>
+                        <img id="editQImgPreviewImg" src="" alt="Preview"
+                            class="max-h-28 rounded-xl border border-gray-200 object-contain mx-auto">
+                        <button onclick="clearEditQImg()"
+                            class="mt-1 text-xs text-red-400 hover:text-red-600 block mx-auto">✕ Remove image</button>
                     </div>
                     <input type="hidden" id="editQuestionImageUrl">
                 </div>
@@ -438,20 +581,28 @@
                     <label class="field-label">Options</label>
                     <div class="grid grid-cols-1 gap-2">
                         <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-green-100 text-green-700 text-xs font-bold flex items-center justify-center flex-shrink-0">A</span>
-                            <input id="editOptionA" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-green-100 text-green-700 text-xs font-bold flex items-center justify-center flex-shrink-0">A</span>
+                            <input id="editOptionA"
+                                class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center flex-shrink-0">B</span>
-                            <input id="editOptionB" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center flex-shrink-0">B</span>
+                            <input id="editOptionB"
+                                class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 text-xs font-bold flex items-center justify-center flex-shrink-0">C</span>
-                            <input id="editOptionC" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 text-xs font-bold flex items-center justify-center flex-shrink-0">C</span>
+                            <input id="editOptionC"
+                                class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 text-xs font-bold flex items-center justify-center flex-shrink-0">D</span>
-                            <input id="editOptionD" class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
+                            <span
+                                class="w-7 h-7 rounded-lg bg-orange-100 text-orange-700 text-xs font-bold flex items-center justify-center flex-shrink-0">D</span>
+                            <input id="editOptionD"
+                                class="flex-1 p-2.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-blue-400">
                         </div>
                     </div>
                 </div>
@@ -460,7 +611,8 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="field-label">Correct Answer</label>
-                        <select id="editCorrectAnswer" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                        <select id="editCorrectAnswer"
+                            class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
                             <option value="A">Option A</option>
                             <option value="B">Option B</option>
                             <option value="C">Option C</option>
@@ -469,7 +621,8 @@
                     </div>
                     <div>
                         <label class="field-label">Difficulty</label>
-                        <select id="editDifficulty" class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                        <select id="editDifficulty"
+                            class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
                             <option value="easy">Easy</option>
                             <option value="medium">Medium</option>
                             <option value="hard">Hard</option>
@@ -479,18 +632,27 @@
 
                 <!-- PYQ -->
                 <div class="border border-amber-200 bg-amber-50 rounded-xl p-4 space-y-3">
-                    <label class="field-label text-amber-700">PYQ Details <span class="text-amber-500 font-normal">(optional)</span></label>
+                    <label class="field-label text-amber-700">PYQ Details <span
+                            class="text-amber-500 font-normal">(optional)</span></label>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="field-label">Source Exam</label>
-                            <input id="editPyqSource" placeholder="e.g. SSC CGL" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                            <input id="editPyqSource" placeholder="e.g. SSC CGL"
+                                class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
                         </div>
                         <div>
                             <label class="field-label">Year</label>
-                            <input id="editPyqYear" type="number" placeholder="e.g. 2022" class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
+                            <input id="editPyqYear" type="number" placeholder="e.g. 2022"
+                                class="w-full p-2.5 rounded-lg border border-amber-200 bg-white text-sm focus:outline-none focus:border-amber-400">
                         </div>
                     </div>
                 </div>
+
+                <select id="editLanguage"
+                    class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-blue-400">
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi (हिंदी)</option>
+                </select>
 
                 <!-- Explanation -->
                 <div>
@@ -502,13 +664,17 @@
                 <!-- Active toggle -->
                 <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl">
                     <input type="checkbox" id="editIsActive" class="w-4 h-4 accent-blue-600">
-                    <label for="editIsActive" class="text-sm font-medium text-gray-700">Question is active (visible in exams)</label>
+                    <label for="editIsActive" class="text-sm font-medium text-gray-700">Question is active (visible in
+                        exams)</label>
                 </div>
 
                 <!-- Upload status -->
-                <div id="editUploadStatus" class="hidden text-xs text-blue-600 flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
-                    <svg class="w-4 h-4 animate-spin flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <div id="editUploadStatus"
+                    class="hidden text-xs text-blue-600 flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-lg px-3 py-2">
+                    <svg class="w-4 h-4 animate-spin flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
                     </svg>
                     Uploading image...
@@ -522,8 +688,9 @@
                     </button>
                     <button id="saveEditBtn" onclick="saveEditQuestion()"
                         class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold text-sm transition hover:opacity-90 flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                         </svg>
                         Save Changes
                     </button>
@@ -532,4 +699,5 @@
         </div>
     </div>
 </body>
+
 </html>

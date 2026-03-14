@@ -30,6 +30,7 @@ let securityActive = false;
 
 // FIX #2: prevent double-submit
 let submitCalled = false;
+let examLanguage = "english"; // set after language pick or from exam config
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
@@ -66,6 +67,7 @@ async function loadExam() {
       id,
       started_at,
       scheduled_exams(
+      language,
         exam_patterns(
           pattern_name,
           duration_minutes
@@ -83,6 +85,11 @@ async function loadExam() {
 
   const pattern = attempt.scheduled_exams.exam_patterns;
   document.getElementById("examTitle").innerText = pattern.pattern_name;
+
+  // Store exam language — used for question filtering and font rendering
+  const examLangConfig = attempt.scheduled_exams.language || "english";
+  examLanguage = examLangConfig === "both" ? null : examLangConfig;
+  // null means "both" — language will be set by student's choice before exam
 
   // FIX: set rulesExamTitle after real name is loaded (not before)
   const rulesTitleEl = document.getElementById("rulesExamTitle");
@@ -122,17 +129,28 @@ async function loadExam() {
 
   /* ------------------ LOAD DATA ------------------ */
 
-  await loadQuestions();
   await loadSavedAnswers();
 
-  showQuestion(0);
-
-  setTimeout(() => {
-    startTimer();
-  }, 100);
+  // If exam supports both languages, show picker before loading questions
+  if (examLangConfig === "both" && !examLanguage) {
+    showLanguagePicker(() => {
+      loadQuestionsAndStart();
+    });
+  } else {
+    examLanguage = examLangConfig;
+    loadQuestionsAndStart();
+  }
 
   generateWatermark();
   setInterval(generateWatermark, 5000);
+}
+
+async function loadQuestionsAndStart() {
+  await loadQuestions();
+  showQuestion(0);
+  setTimeout(() => {
+    startTimer();
+  }, 100);
 }
 
 function generateWatermark() {
@@ -162,7 +180,7 @@ ${now}`;
 // Fullscreen enforcement is handled by the UI modal in exam.html
 
 async function loadQuestions() {
-  const { data } = await client
+  let qQuery = client
     .from("attempt_questions")
     .select(
       `
@@ -175,6 +193,7 @@ async function loadQuestions() {
         question_image,
         pyq_year,
         pyq_source,
+        language,
         pattern_section_id,
         pattern_sections(
           id,
@@ -186,13 +205,20 @@ async function loadQuestions() {
     .eq("attempt_id", attemptId)
     .order("question_order", { ascending: true });
 
+  const { data } = await qQuery;
+
   // correct_answer is intentionally NOT fetched here.
   // It is only fetched after submission in resultEngine.js
 
-  questions = data.map((d) => ({
+  const allQuestions = data.map((d) => ({
     ...d.questions,
     section: d.questions.pattern_sections.section_name,
   }));
+
+  // Filter by selected language if set
+  questions = examLanguage
+    ? allQuestions.filter((q) => (q.language || "english") === examLanguage)
+    : allQuestions;
 
   const uniqueSections = [...new Set(questions.map((q) => q.section))];
 
@@ -236,8 +262,15 @@ function showQuestion(index) {
 
   const container = document.getElementById("questionContainer");
 
+  // Apply Hindi font if exam language is Hindi
+  if (examLanguage === "hindi") {
+    container.style.fontFamily = "'Noto Sans Devanagari', 'Mangal', sans-serif";
+  } else {
+    container.style.fontFamily = "";
+  }
+
   // ── PYQ badge (only if pyq_year exists) ──
-  const pyqBadge = (q.pyq_year)
+  const pyqBadge = q.pyq_year
     ? `<span class="inline-flex items-center gap-1.5 text-xs bg-amber-50 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-lg font-medium ml-auto flex-shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -260,37 +293,40 @@ function showQuestion(index) {
   // ── Build options — handles text, image, and mixed ──
   const optionsType = q.options_type || "text";
 
-  const optionsHtml = Object.entries(q.options).map(([key, value]) => {
-    const isChecked = savedAnswers[q.id] === key;
+  const optionsHtml = Object.entries(q.options)
+    .map(([key, value]) => {
+      const isChecked = savedAnswers[q.id] === key;
 
-    // Detect value type — old format is plain string, new image format is a URL string
-    // options_type flag tells us how to render
-    let optionContent = "";
+      // Detect value type — old format is plain string, new image format is a URL string
+      // options_type flag tells us how to render
+      let optionContent = "";
 
-    if (optionsType === "image") {
-      // value is an image URL
-      optionContent = `
+      if (optionsType === "image") {
+        // value is an image URL
+        optionContent = `
         <div class="flex-1 flex items-center justify-center py-1">
           <img src="${value}"
                alt="Option ${key}"
                class="max-h-20 max-w-full rounded-lg object-contain cursor-zoom-in"
                onclick="openImageZoom('${value}')" />
         </div>`;
-    } else if (optionsType === "mixed") {
-      // value is object: { text: "...", image: "..." }
-      const optText  = (typeof value === "object" && value.text)  ? value.text  : null;
-      const optImage = (typeof value === "object" && value.image) ? value.image : null;
-      optionContent = `
+      } else if (optionsType === "mixed") {
+        // value is object: { text: "...", image: "..." }
+        const optText =
+          typeof value === "object" && value.text ? value.text : null;
+        const optImage =
+          typeof value === "object" && value.image ? value.image : null;
+        optionContent = `
         <div class="flex-1 flex flex-col gap-1.5 justify-center">
           ${optImage ? `<img src="${optImage}" alt="Option ${key}" class="max-h-16 max-w-full rounded-lg object-contain cursor-zoom-in" onclick="openImageZoom('${optImage}')" />` : ""}
-          ${optText  ? `<span class="text-gray-700 text-sm sm:text-base leading-snug">${optText}</span>` : ""}
+          ${optText ? `<span class="text-gray-700 text-sm sm:text-base leading-snug">${optText}</span>` : ""}
         </div>`;
-    } else {
-      // Default: plain text (all existing questions)
-      optionContent = `<span class="text-gray-700 text-sm sm:text-base leading-snug flex-1">${sanitizeText(value)}</span>`;
-    }
+      } else {
+        // Default: plain text (all existing questions)
+        optionContent = `<span class="text-gray-700 text-sm sm:text-base leading-snug flex-1">${sanitizeText(value)}</span>`;
+      }
 
-    return `
+      return `
       <label class="flex items-center gap-3 p-3.5 border-2 rounded-xl cursor-pointer transition-all select-none
         ${isChecked ? "bg-blue-50 border-blue-500 shadow-sm" : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/40"}">
         <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all
@@ -302,7 +338,8 @@ function showQuestion(index) {
           onchange="saveAnswer('${q.id}', '${key}')">
         ${optionContent}
       </label>`;
-  }).join("");
+    })
+    .join("");
 
   container.innerHTML = `
     <div class="mb-5">
@@ -324,24 +361,33 @@ function showQuestion(index) {
 // ── Debounce helper — prevents rapid DB writes on fast clicks ──
 function debounce(fn, delay) {
   let timer;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
 }
 
-const debouncedUpsertAnswer = debounce(async (attemptId, questionId, selected) => {
-  try {
-    const { error } = await client.from("answers").upsert(
-      [{ attempt_id: attemptId, question_id: questionId, selected_option: selected }],
-      { onConflict: ["attempt_id", "question_id"] },
-    );
-    if (error) throw error;
-    showSavedToast();
-  } catch (err) {
-    showAlert("Answer not saved — check your internet connection.", "error");
-  }
-}, 300);
+const debouncedUpsertAnswer = debounce(
+  async (attemptId, questionId, selected) => {
+    try {
+      const { error } = await client.from("answers").upsert(
+        [
+          {
+            attempt_id: attemptId,
+            question_id: questionId,
+            selected_option: selected,
+          },
+        ],
+        { onConflict: ["attempt_id", "question_id"] },
+      );
+      if (error) throw error;
+      showSavedToast();
+    } catch (err) {
+      showAlert("Answer not saved — check your internet connection.", "error");
+    }
+  },
+  300,
+);
 
 window.saveAnswer = async function (questionId, selected) {
   savedAnswers[questionId] = selected;
@@ -356,13 +402,21 @@ window.saveAnswer = async function (questionId, selected) {
       const isSelected = input.value === selected;
       if (isSelected) {
         label.classList.add("bg-blue-50", "border-blue-500", "shadow-sm");
-        label.classList.remove("border-gray-200", "hover:border-blue-300", "hover:bg-blue-50/40");
+        label.classList.remove(
+          "border-gray-200",
+          "hover:border-blue-300",
+          "hover:bg-blue-50/40",
+        );
         badge.classList.add("bg-blue-600", "text-white");
         badge.classList.remove("bg-gray-100", "text-gray-600");
         input.checked = true;
       } else {
         label.classList.remove("bg-blue-50", "border-blue-500", "shadow-sm");
-        label.classList.add("border-gray-200", "hover:border-blue-300", "hover:bg-blue-50/40");
+        label.classList.add(
+          "border-gray-200",
+          "hover:border-blue-300",
+          "hover:bg-blue-50/40",
+        );
         badge.classList.remove("bg-blue-600", "text-white");
         badge.classList.add("bg-gray-100", "text-gray-600");
         input.checked = false;
@@ -395,9 +449,11 @@ function startTimer() {
 }
 
 document.getElementById("submitExamBtn").addEventListener("click", () => {
-  const total      = questions.length;
-  const answered   = Object.keys(savedAnswers).length;
-  const marked     = Object.keys(markedQuestions).filter(k => markedQuestions[k]).length;
+  const total = questions.length;
+  const answered = Object.keys(savedAnswers).length;
+  const marked = Object.keys(markedQuestions).filter(
+    (k) => markedQuestions[k],
+  ).length;
   const notAnswered = total - answered;
 
   document.getElementById("summaryStats").innerHTML = `
@@ -456,7 +512,10 @@ document.addEventListener("visibilitychange", () => {
         tabSwitchCount++;
         showAlert("App switching detected.");
         if (tabSwitchCount >= 3) {
-          showAlert("Multiple violations detected. Test will be submitted.", "error");
+          showAlert(
+            "Multiple violations detected. Test will be submitted.",
+            "error",
+          );
           submitExam();
         }
       }
@@ -478,8 +537,8 @@ document.addEventListener("visibilitychange", () => {
 });
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
-document.addEventListener("copy",  (e) => e.preventDefault());
-document.addEventListener("cut",   (e) => e.preventDefault());
+document.addEventListener("copy", (e) => e.preventDefault());
+document.addEventListener("cut", (e) => e.preventDefault());
 document.addEventListener("paste", (e) => e.preventDefault());
 
 document.addEventListener("keydown", function (e) {
@@ -495,16 +554,16 @@ document.addEventListener("keydown", function (e) {
 });
 
 // ── Image zoom — opens clicked image in a fullscreen overlay ──
-window.openImageZoom = function(src) {
+window.openImageZoom = function (src) {
   const overlay = document.getElementById("imageZoomOverlay");
-  const img     = document.getElementById("imageZoomImg");
+  const img = document.getElementById("imageZoomImg");
   if (!overlay || !img) return;
   img.src = src;
   overlay.classList.remove("hidden");
   overlay.classList.add("flex");
 };
 
-window.closeImageZoom = function() {
+window.closeImageZoom = function () {
   const overlay = document.getElementById("imageZoomOverlay");
   if (!overlay) return;
   overlay.classList.add("hidden");
@@ -536,7 +595,11 @@ document.getElementById("clearBtn").addEventListener("click", async () => {
     const badge = label.querySelector("span:first-child");
     if (!input || !badge) return;
     label.classList.remove("bg-blue-50", "border-blue-500", "shadow-sm");
-    label.classList.add("border-gray-200", "hover:border-blue-300", "hover:bg-blue-50/40");
+    label.classList.add(
+      "border-gray-200",
+      "hover:border-blue-300",
+      "hover:bg-blue-50/40",
+    );
     badge.classList.remove("bg-blue-600", "text-white");
     badge.classList.add("bg-gray-100", "text-gray-600");
     input.checked = false;
@@ -629,8 +692,7 @@ function updatePalette() {
   const btnSize = isLarge ? "h-8 w-8 rounded-md" : "h-10 w-10 rounded-lg";
 
   questions.forEach((q, index) => {
-    let baseClass =
-      `${btnSize} text-xs font-semibold flex items-center justify-center transition border cursor-pointer `;
+    let baseClass = `${btnSize} text-xs font-semibold flex items-center justify-center transition border cursor-pointer `;
 
     if (markedQuestions[q.id]) {
       baseClass += "bg-indigo-500 text-white border-indigo-500";
@@ -654,27 +716,33 @@ function updatePalette() {
   });
 
   const answered = Object.keys(savedAnswers).length;
-  const marked   = Object.keys(markedQuestions).filter(k => markedQuestions[k]).length;
+  const marked = Object.keys(markedQuestions).filter(
+    (k) => markedQuestions[k],
+  ).length;
 
-  document.getElementById("statTotal").innerText     = questions.length;
-  document.getElementById("statAnswered").innerText  = answered;
-  document.getElementById("statMarked").innerText    = marked;
-  document.getElementById("statRemaining").innerText = questions.length - answered;
+  document.getElementById("statTotal").innerText = questions.length;
+  document.getElementById("statAnswered").innerText = answered;
+  document.getElementById("statMarked").innerText = marked;
+  document.getElementById("statRemaining").innerText =
+    questions.length - answered;
 
   // Sync mark button visual state with current question
   const q = questions[currentIndex];
-  const markBtn   = document.getElementById("markBtn");
+  const markBtn = document.getElementById("markBtn");
   const markLabel = document.getElementById("markBtnLabel");
-  const markIcon  = document.getElementById("markBtnIcon");
+  const markIcon = document.getElementById("markBtnIcon");
   if (markBtn && q) {
     const isMarked = !!markedQuestions[q.id];
-    markBtn.classList.toggle("mark-btn-marked",   isMarked);
+    markBtn.classList.toggle("mark-btn-marked", isMarked);
     markBtn.classList.toggle("mark-btn-unmarked", !isMarked);
     if (markIcon) {
-      markIcon.setAttribute("fill",   isMarked ? "currentColor" : "none");
+      markIcon.setAttribute("fill", isMarked ? "currentColor" : "none");
       markIcon.setAttribute("stroke", isMarked ? "none" : "currentColor");
     }
-    if (markLabel) markLabel.textContent = isMarked ? "Marked for Review" : "Mark for Review";
+    if (markLabel)
+      markLabel.textContent = isMarked
+        ? "Marked for Review"
+        : "Mark for Review";
   }
 }
 
@@ -695,13 +763,48 @@ function renderSections(sections) {
   });
 }
 
+function showLanguagePicker(onSelect) {
+  const overlay = document.createElement("div");
+  overlay.id = "langPickerOverlay";
+  overlay.className = "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm";
+  overlay.innerHTML = `
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
+      <div class="text-3xl mb-3">🌐</div>
+      <h2 class="text-lg font-bold text-gray-800 mb-1">Choose Language</h2>
+      <p class="text-sm text-gray-500 mb-2">भाषा चुनें</p>
+      <p class="text-xs text-gray-400 mb-6">This exam is available in both English and Hindi.<br>यह परीक्षा दोनों भाषाओं में उपलब्ध है।</p>
+      <div class="flex gap-3">
+        <button id="pickEnglish"
+          class="flex-1 py-3 rounded-xl border-2 border-blue-500 bg-blue-50 text-blue-700 font-bold text-sm hover:bg-blue-100 transition">
+          🇬🇧 English
+        </button>
+        <button id="pickHindi"
+          class="flex-1 py-3 rounded-xl border-2 border-orange-400 bg-orange-50 text-orange-700 font-bold text-sm hover:bg-orange-100 transition">
+          🇮🇳 हिंदी
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  document.getElementById("pickEnglish").onclick = () => {
+    examLanguage = "english";
+    overlay.remove();
+    onSelect();
+  };
+  document.getElementById("pickHindi").onclick = () => {
+    examLanguage = "hindi";
+    overlay.remove();
+    onSelect();
+  };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  const rulesModal     = document.getElementById("rulesModal");
+  const rulesModal = document.getElementById("rulesModal");
   const acceptCheckbox = document.getElementById("acceptRules");
-  const startBtn       = document.getElementById("startTestBtn");
-  const examTitle      = document.getElementById("examTitle");
+  const startBtn = document.getElementById("startTestBtn");
+  const examTitle = document.getElementById("examTitle");
   const rulesExamTitle = document.getElementById("rulesExamTitle");
-  const openRulesBtn   = document.getElementById("openRulesBtn");
+  const openRulesBtn = document.getElementById("openRulesBtn");
 
   // Dynamically set exam title (will be overwritten with real name after loadExam)
   if (examTitle && rulesExamTitle) {
@@ -753,18 +856,20 @@ document.addEventListener("DOMContentLoaded", () => {
     examStarted = true;
 
     setTimeout(() => {
-      securityActive       = true;
+      securityActive = true;
       fullscreenLockActive = true;
     }, 3000);
   });
 });
 
 history.pushState(null, null, location.href);
-window.onpopstate = function () { history.go(1); };
+window.onpopstate = function () {
+  history.go(1);
+};
 
 setInterval(() => {
   if (!securityActive) return;
-  const widthDiff  = window.outerWidth  - window.innerWidth;
+  const widthDiff = window.outerWidth - window.innerWidth;
   const heightDiff = window.outerHeight - window.innerHeight;
   if (widthDiff > 220 || heightDiff > 220) {
     showAlert("Developer tools detected.", "warning");
@@ -793,18 +898,29 @@ const heartbeatInterval = setInterval(async () => {
 
 function showAlert(message, type = "warning") {
   const container = document.getElementById("examAlertContainer");
-  const alertBox  = document.getElementById("examAlert");
+  const alertBox = document.getElementById("examAlert");
 
   container.classList.remove("hidden");
 
   const styles = {
-    warning: { cls: "bg-amber-50 text-amber-800 border border-amber-300", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>` },
-    error:   { cls: "bg-red-50 text-red-800 border border-red-300",    icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>` },
-    success: { cls: "bg-green-50 text-green-800 border border-green-300", icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>` },
+    warning: {
+      cls: "bg-amber-50 text-amber-800 border border-amber-300",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>`,
+    },
+    error: {
+      cls: "bg-red-50 text-red-800 border border-red-300",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>`,
+    },
+    success: {
+      cls: "bg-green-50 text-green-800 border border-green-300",
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>`,
+    },
   };
   const s = styles[type] || styles.warning;
 
-  alertBox.className = "flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium shadow " + s.cls;
+  alertBox.className =
+    "flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium shadow " +
+    s.cls;
   alertBox.innerHTML = `${s.icon}<span>${message}</span>`;
 
   setTimeout(() => {

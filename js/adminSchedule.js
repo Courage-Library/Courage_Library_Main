@@ -165,6 +165,7 @@ async function createSchedule() {
   const attempt_limit = attempt_limit_raw ? Math.max(1, parseInt(attempt_limit_raw)) : null;
   const enable_leaderboard = document.getElementById("enableLeaderboard").checked;
   const is_premium     = document.getElementById("isPremium").checked;
+  const language       = document.getElementById("scheduleLanguage")?.value || "english";
 
   // ── Validation ──
   if (!pattern_id) {
@@ -208,6 +209,7 @@ async function createSchedule() {
     enable_leaderboard,
     is_premium,
     is_active: true,
+    language,
   }]);
 
   btn.disabled = false;
@@ -229,7 +231,7 @@ async function loadSchedules() {
     .select(`
       id, mode, availability_type, is_active,
       start_datetime, end_datetime, attempt_limit,
-      enable_leaderboard, is_premium, created_at,
+      enable_leaderboard, is_premium, created_at, language,
       exam_patterns ( pattern_name, total_questions, duration_minutes )
     `)
     .order("created_at", { ascending: false });
@@ -273,6 +275,8 @@ async function loadSchedules() {
       `<span class="info-chip"><i class="far fa-clock"></i> ${pattern.duration_minutes || "—"} min</span>`,
       `<span class="info-chip capitalize">${s.mode}</span>`,
     ];
+    if (s.language === "hindi") chips.push(`<span class="info-chip" style="background:#fff7ed;color:#c2410c;border-color:#fed7aa;">🇮🇳 Hindi</span>`);
+    if (s.language === "both")  chips.push(`<span class="info-chip" style="background:#f0fdf4;color:#15803d;border-color:#bbf7d0;">🌐 Bilingual</span>`);
     if (s.is_premium)         chips.push(`<span class="info-chip chip-premium"><i class="fas fa-crown"></i> Premium</span>`);
     if (s.enable_leaderboard) chips.push(`<span class="info-chip chip-leaderboard"><i class="fas fa-trophy"></i> Leaderboard</span>`);
     if (s.attempt_limit)      chips.push(`<span class="info-chip">Max ${s.attempt_limit} attempts</span>`);
@@ -370,6 +374,8 @@ function resetForm() {
   document.getElementById("attemptLimit").value        = "";
   document.getElementById("enableLeaderboard").checked = false;
   document.getElementById("isPremium").checked         = false;
+  const schedLang = document.getElementById("scheduleLanguage");
+  if (schedLang) schedLang.value = "english";
   document.getElementById("examPreview").classList.add("hidden");
   document.getElementById("datetimeRow").classList.add("hidden");
 }

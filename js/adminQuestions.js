@@ -7,7 +7,9 @@ const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── Admin auth guard — verified against user_profiles table ──
 async function checkAdminAuth() {
-  const { data: { user } } = await client.auth.getUser();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
   if (!user) {
     window.location.href = "/index.html?checkAuth=1";
     return false;
@@ -74,43 +76,48 @@ async function loadCategories() {
 }
 
 function setupCategoryListener() {
-  document.getElementById("questionCategory").addEventListener("change", async (e) => {
-    const categoryId = e.target.value;
-    const { data } = await client
-      .from("exam_patterns")
-      .select("id, pattern_name")
-      .eq("category_id", categoryId);
+  document
+    .getElementById("questionCategory")
+    .addEventListener("change", async (e) => {
+      const categoryId = e.target.value;
+      const { data } = await client
+        .from("exam_patterns")
+        .select("id, pattern_name")
+        .eq("category_id", categoryId);
 
-    const patternSelect = document.getElementById("questionPattern");
-    patternSelect.innerHTML = `<option value="">Select Pattern</option>`;
-    data.forEach((p) => {
-      patternSelect.innerHTML += `<option value="${p.id}">${p.pattern_name}</option>`;
+      const patternSelect = document.getElementById("questionPattern");
+      patternSelect.innerHTML = `<option value="">Select Pattern</option>`;
+      data.forEach((p) => {
+        patternSelect.innerHTML += `<option value="${p.id}">${p.pattern_name}</option>`;
+      });
+      document.getElementById("questionSection").innerHTML =
+        `<option value="">Select Section</option>`;
     });
-    document.getElementById("questionSection").innerHTML = `<option value="">Select Section</option>`;
-  });
 }
 
 function setupPatternListener() {
-  document.getElementById("questionPattern").addEventListener("change", async (e) => {
-    const patternId = e.target.value;
-    const { data } = await client
-      .from("pattern_sections")
-      .select("id, section_name")
-      .eq("pattern_id", patternId);
+  document
+    .getElementById("questionPattern")
+    .addEventListener("change", async (e) => {
+      const patternId = e.target.value;
+      const { data } = await client
+        .from("pattern_sections")
+        .select("id, section_name")
+        .eq("pattern_id", patternId);
 
-    const sectionSelect = document.getElementById("questionSection");
-    sectionSelect.innerHTML = `<option value="">Select Section</option>`;
-    data.forEach((s) => {
-      sectionSelect.innerHTML += `<option value="${s.id}">${s.section_name}</option>`;
+      const sectionSelect = document.getElementById("questionSection");
+      sectionSelect.innerHTML = `<option value="">Select Section</option>`;
+      data.forEach((s) => {
+        sectionSelect.innerHTML += `<option value="${s.id}">${s.section_name}</option>`;
+      });
     });
-  });
 }
 
 // ─────────────────────────────────────────────
 //  OPTIONS TYPE SWITCHER
 // ─────────────────────────────────────────────
 
-function switchOptionsType (type) {
+function switchOptionsType(type) {
   currentOptionsType = type;
 
   // Update radio button label styles
@@ -127,16 +134,16 @@ function switchOptionsType (type) {
   });
 
   // Show/hide text inputs and image upload rows per option
-  const showText  = type === "text"  || type === "mixed";
+  const showText = type === "text" || type === "mixed";
   const showImage = type === "image" || type === "mixed";
 
   ["A", "B", "C", "D"].forEach((key) => {
     const textInput = document.getElementById(`option${key}`);
-    const imgRow    = document.getElementById(`opt${key}ImgRow`);
-    if (textInput) textInput.style.display = showText  ? "block" : "none";
-    if (imgRow)    imgRow.classList.toggle("visible", showImage);
+    const imgRow = document.getElementById(`opt${key}ImgRow`);
+    if (textInput) textInput.style.display = showText ? "block" : "none";
+    if (imgRow) imgRow.classList.toggle("visible", showImage);
   });
-};
+}
 
 // ─────────────────────────────────────────────
 //  IMAGE UPLOAD HELPERS
@@ -152,7 +159,7 @@ function hideUploadStatus() {
 }
 
 async function uploadImageToStorage(file, folder) {
-  const ext      = file.name.split(".").pop();
+  const ext = file.name.split(".").pop();
   const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
 
   const { data, error } = await client.storage
@@ -169,7 +176,7 @@ async function uploadImageToStorage(file, folder) {
 }
 
 // ── Question figure image ──
-async function handleQImgSelect (event) {
+async function handleQImgSelect(event) {
   const file = event.target.files[0];
   if (!file) return;
 
@@ -195,19 +202,20 @@ async function handleQImgSelect (event) {
   } finally {
     hideUploadStatus();
   }
-};
+}
 
-function clearQImg () {
+function clearQImg() {
   document.getElementById("questionImageUrl").value = "";
   document.getElementById("qImgPreviewImg").src = "";
   document.getElementById("qImgPreview").classList.add("hidden");
-  document.getElementById("qImgLabel").textContent = "Click to upload question image";
+  document.getElementById("qImgLabel").textContent =
+    "Click to upload question image";
   document.getElementById("qImgZone").classList.remove("done");
   document.getElementById("qImgInput").value = "";
-};
+}
 
 // ── Option image ──
-async function handleOptImgSelect (event, key) {
+async function handleOptImgSelect(event, key) {
   const file = event.target.files[0];
   if (!file) return;
 
@@ -221,34 +229,43 @@ async function handleOptImgSelect (event, key) {
     preview.src = url;
     preview.classList.remove("hidden");
 
-    document.getElementById(`opt${key}ImgLabel`).textContent = `✓ Option ${key} image uploaded`;
+    document.getElementById(`opt${key}ImgLabel`).textContent =
+      `✓ Option ${key} image uploaded`;
   } catch (err) {
     alert(`Option ${key} image upload failed: ` + err.message);
   } finally {
     hideUploadStatus();
   }
-};
+}
 
 // ─────────────────────────────────────────────
 //  ADD QUESTION
 // ─────────────────────────────────────────────
 
-document.getElementById("addQuestionBtn").addEventListener("click", addQuestion);
+document
+  .getElementById("addQuestionBtn")
+  .addEventListener("click", addQuestion);
 
 async function addQuestion() {
-  const category_id      = document.getElementById("questionCategory").value;
+  const category_id = document.getElementById("questionCategory").value;
   const pattern_section_id = document.getElementById("questionSection").value;
-  const question_text    = document.getElementById("questionText").value.trim();
-  const correct_answer   = document.getElementById("correctAnswer").value;
-  const difficulty       = document.getElementById("difficulty").value;
-  const explanation      = document.getElementById("explanation").value.trim();
-  const question_image   = document.getElementById("questionImageUrl").value || null;
-  const pyq_source_raw   = document.getElementById("pyqSource").value.trim();
-  const pyq_year_raw     = document.getElementById("pyqYear").value.trim();
-  const options_type     = currentOptionsType;
+  const question_text = document.getElementById("questionText").value.trim();
+  const correct_answer = document.getElementById("correctAnswer").value;
+  const difficulty = document.getElementById("difficulty").value;
+  const explanation = document.getElementById("explanation").value.trim();
+  const question_image =
+    document.getElementById("questionImageUrl").value || null;
+  const pyq_source_raw = document.getElementById("pyqSource").value.trim();
+  const pyq_year_raw = document.getElementById("pyqYear").value.trim();
+  const options_type = currentOptionsType;
 
   // Validation
-  if (!category_id || !pattern_section_id || !question_text || !correct_answer) {
+  if (
+    !category_id ||
+    !pattern_section_id ||
+    !question_text ||
+    !correct_answer
+  ) {
     alert("Please fill: Category, Section, Question Text, and Correct Answer.");
     return;
   }
@@ -268,7 +285,6 @@ async function addQuestion() {
       alert("Please fill all 4 option texts.");
       return;
     }
-
   } else if (options_type === "image") {
     // All options are images — store URLs as values
     const urlA = document.getElementById("optAImgUrl").value;
@@ -280,17 +296,18 @@ async function addQuestion() {
       return;
     }
     options = { A: urlA, B: urlB, C: urlC, D: urlD };
-
   } else if (options_type === "mixed") {
     // Mixed — each option has text and/or image
     ["A", "B", "C", "D"].forEach((key) => {
       options[key] = {
-        text:  document.getElementById(`option${key}`).value.trim() || null,
-        image: document.getElementById(`opt${key}ImgUrl`).value    || null,
+        text: document.getElementById(`option${key}`).value.trim() || null,
+        image: document.getElementById(`opt${key}ImgUrl`).value || null,
       };
     });
     // Validate at least one of text/image per option
-    const incomplete = ["A","B","C","D"].filter(k => !options[k].text && !options[k].image);
+    const incomplete = ["A", "B", "C", "D"].filter(
+      (k) => !options[k].text && !options[k].image,
+    );
     if (incomplete.length) {
       alert(`Options ${incomplete.join(", ")} need at least text or an image.`);
       return;
@@ -298,28 +315,31 @@ async function addQuestion() {
   }
 
   // PYQ values
-  const pyq_year   = pyq_year_raw   ? parseInt(pyq_year_raw)  : null;
-  const pyq_source = pyq_source_raw ? pyq_source_raw          : null;
+  const pyq_year = pyq_year_raw ? parseInt(pyq_year_raw) : null;
+  const pyq_source = pyq_source_raw ? pyq_source_raw : null;
 
   // Disable button during save
   const btn = document.getElementById("addQuestionBtn");
   btn.disabled = true;
   btn.innerHTML = `<svg class="w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> Saving...`;
 
-  const { error } = await client.from("questions").insert([{
-    category_id,
-    pattern_section_id,
-    question_text,
-    options,
-    options_type,
-    question_image,
-    correct_answer,
-    difficulty,
-    explanation,
-    pyq_year,
-    pyq_source,
-    is_active: true,
-  }]);
+  const { error } = await client.from("questions").insert([
+    {
+      category_id,
+      pattern_section_id,
+      question_text,
+      options,
+      options_type,
+      question_image,
+      correct_answer,
+      difficulty,
+      explanation,
+      pyq_year,
+      pyq_source,
+      is_active: true,
+      language: document.getElementById("questionLanguage")?.value || "english",
+    },
+  ]);
 
   btn.disabled = false;
   btn.innerHTML = `<i class="fas fa-plus-circle"></i> Add Question`;
@@ -335,24 +355,28 @@ async function addQuestion() {
 }
 
 function resetForm() {
-  document.getElementById("questionText").value    = "";
-  document.getElementById("explanation").value     = "";
-  document.getElementById("optionA").value         = "";
-  document.getElementById("optionB").value         = "";
-  document.getElementById("optionC").value         = "";
-  document.getElementById("optionD").value         = "";
-  document.getElementById("correctAnswer").value   = "";
-  document.getElementById("pyqSource").value       = "";
-  document.getElementById("pyqYear").value         = "";
+  document.getElementById("questionText").value = "";
+  document.getElementById("explanation").value = "";
+  document.getElementById("optionA").value = "";
+  document.getElementById("optionB").value = "";
+  document.getElementById("optionC").value = "";
+  document.getElementById("optionD").value = "";
+  document.getElementById("correctAnswer").value = "";
+  document.getElementById("pyqSource").value = "";
+  document.getElementById("pyqYear").value = "";
   document.getElementById("questionImageUrl").value = "";
   document.getElementById("qImgPreview").classList.add("hidden");
-  document.getElementById("qImgLabel").textContent = "Click to upload question image";
+  document.getElementById("qImgLabel").textContent =
+    "Click to upload question image";
   document.getElementById("qImgZone").classList.remove("done");
 
-  ["A","B","C","D"].forEach((key) => {
+  ["A", "B", "C", "D"].forEach((key) => {
     document.getElementById(`opt${key}ImgUrl`).value = "";
     const preview = document.getElementById(`opt${key}ImgPreview`);
-    if (preview) { preview.src = ""; preview.classList.add("hidden"); }
+    if (preview) {
+      preview.src = "";
+      preview.classList.add("hidden");
+    }
     const label = document.getElementById(`opt${key}ImgLabel`);
     if (label) label.textContent = `Upload image for Option ${key}`;
   });
@@ -368,15 +392,16 @@ function resetForm() {
 
 const PAGE_SIZE = 20;
 let currentPage = 0;
-let totalCount  = 0;
+let totalCount = 0;
 let searchDebounceTimer;
 
 // State
 let filterState = {
-  search:     "",
+  search: "",
   difficulty: "",
-  pyq:        "",    // "pyq" | "" (all)
-  section:    "",    // pattern_section_id
+  pyq: "", // "pyq" | "" (all)
+  section: "", // pattern_section_id
+  language: "",
 };
 
 // Called on page load and after any filter change
@@ -394,17 +419,20 @@ async function loadQuestions(resetPage = true) {
     </div>`;
 
   const from = currentPage * PAGE_SIZE;
-  const to   = from + PAGE_SIZE - 1;
+  const to = from + PAGE_SIZE - 1;
 
   let query = client
     .from("questions")
-    .select(`
+    .select(
+      `
       id, question_text, difficulty, options_type,
-      pyq_year, pyq_source, question_image, is_active,
+      pyq_year, pyq_source, question_image, is_active, language,
       pattern_section_id,
       category_id,
       exam_categories(name)
-    `, { count: "exact" })
+    `,
+      { count: "exact" },
+    )
     .order("created_at", { ascending: false })
     .range(from, to);
 
@@ -429,10 +457,15 @@ async function loadQuestions(resetPage = true) {
       .from("pattern_sections")
       .select("id")
       .ilike("section_name", filterState.section.trim());
-    const ids = (sectionIds || []).map(s => s.id);
+    const ids = (sectionIds || []).map((s) => s.id);
     if (ids.length) {
       query = query.in("pattern_section_id", ids);
     }
+  }
+
+  // Language filter
+  if (filterState.language) {
+    query = query.eq("language", filterState.language);
   }
 
   const { data, count, error } = await query;
@@ -454,10 +487,11 @@ function renderQuestionList(data) {
   const countEl = document.getElementById("questionCount");
   if (countEl) {
     const start = currentPage * PAGE_SIZE + 1;
-    const end   = Math.min((currentPage + 1) * PAGE_SIZE, totalCount);
-    countEl.textContent = totalCount === 0
-      ? "No questions found"
-      : `Showing ${start}–${end} of ${totalCount} questions`;
+    const end = Math.min((currentPage + 1) * PAGE_SIZE, totalCount);
+    countEl.textContent =
+      totalCount === 0
+        ? "No questions found"
+        : `Showing ${start}–${end} of ${totalCount} questions`;
   }
 
   if (!data.length) {
@@ -475,7 +509,8 @@ function renderQuestionList(data) {
   list.innerHTML = "";
   data.forEach((q) => {
     const div = document.createElement("div");
-    div.className = "bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-2";
+    div.className =
+      "bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-2";
 
     const categoryName = q.exam_categories?.name || "";
     const categoryHtml = categoryName
@@ -490,9 +525,15 @@ function renderQuestionList(data) {
       ? `<img src="${q.question_image}" class="h-8 w-12 object-contain rounded border border-gray-200 inline-block ml-1 align-middle">`
       : "";
 
-    const typeHtml = q.options_type && q.options_type !== "text"
-      ? `<span class="text-xs bg-indigo-50 border border-indigo-200 text-indigo-600 px-2 py-0.5 rounded-lg font-medium">${q.options_type} options</span>`
-      : "";
+    const typeHtml =
+      q.options_type && q.options_type !== "text"
+        ? `<span class="text-xs bg-indigo-50 border border-indigo-200 text-indigo-600 px-2 py-0.5 rounded-lg font-medium">${q.options_type} options</span>`
+        : "";
+
+    const langBadge =
+      q.language === "hindi"
+        ? `<span class="text-xs bg-orange-50 border border-orange-200 text-orange-600 px-2 py-0.5 rounded-lg font-medium">🇮🇳 Hindi</span>`
+        : "";
 
     const inactiveBadge = !q.is_active
       ? `<span class="text-xs bg-red-50 border border-red-200 text-red-500 px-2 py-0.5 rounded-lg font-medium">Inactive</span>`
@@ -512,13 +553,18 @@ function renderQuestionList(data) {
       <div class="flex flex-wrap gap-1.5 items-center">
         ${categoryHtml}
         <span class="text-xs px-2 py-0.5 rounded-lg font-medium
-          ${q.difficulty === "easy"   ? "bg-green-50 text-green-700 border border-green-200" :
-            q.difficulty === "medium" ? "bg-amber-50 text-amber-700 border border-amber-200" :
-                                        "bg-red-50 text-red-700 border border-red-200"}">
+          ${
+            q.difficulty === "easy"
+              ? "bg-green-50 text-green-700 border border-green-200"
+              : q.difficulty === "medium"
+                ? "bg-amber-50 text-amber-700 border border-amber-200"
+                : "bg-red-50 text-red-700 border border-red-200"
+          }">
           ${q.difficulty}
         </span>
         ${pyqHtml}
         ${typeHtml}
+        ${langBadge}
         ${inactiveBadge}
       </div>
     `;
@@ -531,7 +577,10 @@ function renderPagination() {
   if (!container) return;
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
-  if (totalPages <= 1) { container.innerHTML = ""; return; }
+  if (totalPages <= 1) {
+    container.innerHTML = "";
+    return;
+  }
 
   const prev = currentPage > 0;
   const next = currentPage < totalPages - 1;
@@ -546,16 +595,18 @@ function renderPagination() {
   // Deduplicate and add ellipsis markers
   let pageButtons = "";
   let last = -1;
-  pages.forEach(p => {
+  pages.forEach((p) => {
     if (last !== -1 && p - last > 1) {
       pageButtons += `<span class="px-2 text-gray-400 text-xs self-center">…</span>`;
     }
     pageButtons += `
       <button onclick="goToPage(${p})"
         class="w-8 h-8 rounded-lg text-xs font-bold transition
-          ${p === currentPage
-            ? "bg-blue-600 text-white shadow-sm"
-            : "bg-white border border-gray-200 text-gray-600 hover:border-blue-300 hover:text-blue-600"}">
+          ${
+            p === currentPage
+              ? "bg-blue-600 text-white shadow-sm"
+              : "bg-white border border-gray-200 text-gray-600 hover:border-blue-300 hover:text-blue-600"
+          }">
         ${p + 1}
       </button>`;
     last = p;
@@ -593,8 +644,10 @@ function goToPage(page) {
   currentPage = page;
   loadQuestions(false);
   // Scroll to top of question list
-  document.getElementById("questionList").scrollIntoView({ behavior: "smooth", block: "start" });
-};
+  document
+    .getElementById("questionList")
+    .scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 // ── Filter handlers ──
 function onSearchInput(val) {
@@ -603,33 +656,44 @@ function onSearchInput(val) {
     filterState.search = val;
     loadQuestions(true);
   }, 350); // debounce 350ms so it doesn't fire on every keystroke
-};
+}
 
 function onDifficultyFilter(val) {
   filterState.difficulty = val;
   loadQuestions(true);
-};
+}
 
 function onPyqFilter(val) {
   filterState.pyq = val;
   loadQuestions(true);
-};
+}
 
 function onSectionFilter(val) {
   filterState.section = val;
   loadQuestions(true);
-};
+}
 
 function resetFilters() {
-  filterState = { search: "", difficulty: "", pyq: "", section: "" };
-  document.getElementById("qSearchInput").value    = "";
-  document.getElementById("qDiffFilter").value     = "";
-  document.getElementById("qPyqFilter").value      = "";
-  document.getElementById("qSectionFilter").value  = "";
+  filterState = {
+    search: "",
+    difficulty: "",
+    pyq: "",
+    section: "",
+    language: "",
+  };
+  document.getElementById("qSearchInput").value = "";
+  document.getElementById("qDiffFilter").value = "";
+  document.getElementById("qPyqFilter").value = "";
+  document.getElementById("qSectionFilter").value = "";
+  const qLangFilter = document.getElementById("qLangFilter");
+  if (qLangFilter) qLangFilter.value = "";
   loadQuestions(true);
-};
+}
 
-
+function onLanguageFilter(val) {
+  filterState.language = val;
+  loadQuestions(true);
+}
 // ─────────────────────────────────────────────
 //  EDIT MODAL — OPEN
 // ─────────────────────────────────────────────
@@ -637,21 +701,28 @@ function resetFilters() {
 async function openEditModal(questionId) {
   const { data: q, error } = await client
     .from("questions")
-    .select("id, question_text, options, options_type, question_image, correct_answer, difficulty, explanation, pyq_year, pyq_source, is_active")
+    .select(
+      "id, question_text, options, options_type, question_image, correct_answer, difficulty, explanation, pyq_year, pyq_source, is_active, language",
+    )
     .eq("id", questionId)
     .single();
 
-  if (error || !q) { alert("Could not load question."); return; }
+  if (error || !q) {
+    alert("Could not load question.");
+    return;
+  }
 
   // Populate fields
-  document.getElementById("editQuestionId").value      = q.id;
-  document.getElementById("editQuestionText").value    = q.question_text || "";
-  document.getElementById("editExplanation").value     = q.explanation   || "";
-  document.getElementById("editCorrectAnswer").value   = q.correct_answer || "A";
-  document.getElementById("editDifficulty").value      = q.difficulty    || "easy";
-  document.getElementById("editPyqSource").value       = q.pyq_source    || "";
-  document.getElementById("editPyqYear").value         = q.pyq_year      || "";
-  document.getElementById("editIsActive").checked      = q.is_active !== false;
+  document.getElementById("editQuestionId").value = q.id;
+  document.getElementById("editQuestionText").value = q.question_text || "";
+  document.getElementById("editExplanation").value = q.explanation || "";
+  document.getElementById("editCorrectAnswer").value = q.correct_answer || "A";
+  document.getElementById("editDifficulty").value = q.difficulty || "easy";
+  document.getElementById("editPyqSource").value = q.pyq_source || "";
+  document.getElementById("editPyqYear").value = q.pyq_year || "";
+  document.getElementById("editIsActive").checked = q.is_active !== false;
+  const editLang = document.getElementById("editLanguage");
+  if (editLang) editLang.value = q.language || "english";
 
   // Options — only text type supported in edit for simplicity
   // (image/mixed options editing via re-upload is complex; show current values as text)
@@ -673,11 +744,13 @@ async function openEditModal(questionId) {
   if (imgUrl) {
     document.getElementById("editQImgPreviewImg").src = imgUrl;
     document.getElementById("editQImgPreview").classList.remove("hidden");
-    document.getElementById("editQImgLabel").textContent = "✓ Image loaded — click to replace";
+    document.getElementById("editQImgLabel").textContent =
+      "✓ Image loaded — click to replace";
     document.getElementById("editQImgZone").classList.add("done");
   } else {
     document.getElementById("editQImgPreview").classList.add("hidden");
-    document.getElementById("editQImgLabel").textContent = "Click to upload / replace image";
+    document.getElementById("editQImgLabel").textContent =
+      "Click to upload / replace image";
     document.getElementById("editQImgZone").classList.remove("done");
   }
 
@@ -686,16 +759,16 @@ async function openEditModal(questionId) {
   modal.classList.remove("hidden");
   modal.classList.add("flex");
   document.body.style.overflow = "hidden";
-};
+}
 
 function closeEditModal() {
   document.getElementById("editModal").classList.add("hidden");
   document.getElementById("editModal").classList.remove("flex");
   document.body.style.overflow = "auto";
-};
+}
 
 // Close on backdrop click
-document.getElementById("editModal").addEventListener("click", function(e) {
+document.getElementById("editModal").addEventListener("click", function (e) {
   if (e.target === this) closeEditModal();
 });
 
@@ -717,7 +790,8 @@ async function handleEditQImgSelect(event) {
     document.getElementById("editQuestionImageUrl").value = url;
     document.getElementById("editQImgPreviewImg").src = url;
     document.getElementById("editQImgPreview").classList.remove("hidden");
-    document.getElementById("editQImgLabel").textContent = "✓ New image uploaded";
+    document.getElementById("editQImgLabel").textContent =
+      "✓ New image uploaded";
     zone.classList.remove("uploading");
     zone.classList.add("done");
   } catch (err) {
@@ -726,32 +800,37 @@ async function handleEditQImgSelect(event) {
   } finally {
     statusEl.classList.add("hidden");
   }
-};
+}
 
 function clearEditQImg() {
   document.getElementById("editQuestionImageUrl").value = "";
   document.getElementById("editQImgPreviewImg").src = "";
   document.getElementById("editQImgPreview").classList.add("hidden");
-  document.getElementById("editQImgLabel").textContent = "Click to upload / replace image";
+  document.getElementById("editQImgLabel").textContent =
+    "Click to upload / replace image";
   document.getElementById("editQImgZone").classList.remove("done");
   document.getElementById("editQImgInput").value = "";
-};
+}
 
 // ─────────────────────────────────────────────
 //  EDIT MODAL — SAVE
 // ─────────────────────────────────────────────
 
 async function saveEditQuestion() {
-  const questionId     = document.getElementById("editQuestionId").value;
-  const question_text  = document.getElementById("editQuestionText").value.trim();
-  const explanation    = document.getElementById("editExplanation").value.trim();
+  const questionId = document.getElementById("editQuestionId").value;
+  const question_text = document
+    .getElementById("editQuestionText")
+    .value.trim();
+  const explanation = document.getElementById("editExplanation").value.trim();
   const correct_answer = document.getElementById("editCorrectAnswer").value;
-  const difficulty     = document.getElementById("editDifficulty").value;
-  const pyq_source     = document.getElementById("editPyqSource").value.trim() || null;
-  const pyq_year_raw   = document.getElementById("editPyqYear").value.trim();
-  const pyq_year       = pyq_year_raw ? parseInt(pyq_year_raw) : null;
-  const question_image = document.getElementById("editQuestionImageUrl").value || null;
-  const is_active      = document.getElementById("editIsActive").checked;
+  const difficulty = document.getElementById("editDifficulty").value;
+  const pyq_source =
+    document.getElementById("editPyqSource").value.trim() || null;
+  const pyq_year_raw = document.getElementById("editPyqYear").value.trim();
+  const pyq_year = pyq_year_raw ? parseInt(pyq_year_raw) : null;
+  const question_image =
+    document.getElementById("editQuestionImageUrl").value || null;
+  const is_active = document.getElementById("editIsActive").checked;
 
   if (!question_text || !correct_answer) {
     alert("Question text and correct answer are required.");
@@ -789,6 +868,7 @@ async function saveEditQuestion() {
       pyq_year,
       pyq_source,
       is_active,
+      language: document.getElementById("editLanguage")?.value || "english",
     })
     .eq("id", questionId);
 
@@ -802,4 +882,4 @@ async function saveEditQuestion() {
     loadQuestions();
     alert("✓ Question updated successfully!");
   }
-};
+}
