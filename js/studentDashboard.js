@@ -949,18 +949,38 @@ function showDashboardLangPicker(onSelect) {
   overlay.id = "dashLangPicker";
   overlay.style = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px";
   overlay.innerHTML = `
-    <div style="background:#fff;border-radius:24px;padding:32px 28px;max-width:340px;width:100%;box-shadow:0 32px 80px rgba(15,23,42,.25);text-align:center">
-      <div style="font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:-.01em">Choose Your Language</div>
-      <div style="font-size:.78rem;color:#94a3b8;margin-bottom:24px;font-weight:500">भाषा चुनें · Select to begin the exam</div>
-      <div style="display:flex;gap:10px">
-        <button id="dashLangEn" style="flex:1;padding:14px 10px;border-radius:14px;border:none;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;font-weight:800;font-size:.92rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .18s;box-shadow:0 4px 16px rgba(26,86,219,.3)">
-          <span style="font-size:.65rem;font-weight:700;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;letter-spacing:.06em">EN</span>
-          <span>English</span>
-        </button>
-        <button id="dashLangHi" style="flex:1;padding:14px 10px;border-radius:14px;border:none;background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;font-weight:800;font-size:.92rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .18s;box-shadow:0 4px 16px rgba(234,88,12,.3)">
-          <span style="font-size:.65rem;font-weight:700;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;letter-spacing:.06em">हि</span>
-          <span>हिंदी</span>
-        </button>
+    <div style="background:#fff;border-radius:24px;max-width:360px;width:100%;box-shadow:0 32px 80px rgba(15,23,42,.25);overflow:hidden;">
+
+      <!-- Header strip -->
+      <div style="background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 100%);padding:28px 24px 24px;text-align:center">
+        <img src="/images/logo.png" alt="Courage Library" style="width:44px;height:44px;border-radius:12px;margin:0 auto 12px;display:block;background:#fff;padding:4px;">
+        <div style="font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:4px">Courage Library</div>
+        <div style="font-size:.72rem;color:#93c5fd;font-weight:500">Mock Test Platform</div>
+      </div>
+
+      <!-- Body -->
+      <div style="padding:24px 24px 28px;text-align:center">
+        <div style="font-family:'Sora',sans-serif;font-size:.98rem;font-weight:800;color:#0f172a;margin-bottom:4px">Select Exam Language</div>
+        <div style="font-size:.76rem;color:#94a3b8;margin-bottom:20px">परीक्षा की भाषा चुनें</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <button id="dashLangEn"
+            style="padding:16px 12px;border-radius:14px;border:2px solid #dbeafe;background:#f8faff;color:#1d4ed8;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .18s"
+            onmouseover="this.style.background='#dbeafe';this.style.borderColor='#3b82f6'"
+            onmouseout="this.style.background='#f8faff';this.style.borderColor='#dbeafe'">
+            <span style="font-size:1.1rem;font-weight:900;color:#1a56db;letter-spacing:.02em">A</span>
+            <span style="font-size:.88rem">English</span>
+            <span style="font-size:.62rem;color:#64748b;font-weight:600">Medium</span>
+          </button>
+          <button id="dashLangHi"
+            style="padding:16px 12px;border-radius:14px;border:2px solid #fed7aa;background:#fff7ed;color:#c2410c;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .18s"
+            onmouseover="this.style.background='#fed7aa';this.style.borderColor='#f97316'"
+            onmouseout="this.style.background='#fff7ed';this.style.borderColor='#fed7aa'">
+            <span style="font-size:1.1rem;font-weight:900;color:#ea580c;font-family:'Noto Sans Devanagari',sans-serif">अ</span>
+            <span style="font-size:.88rem;font-family:'Noto Sans Devanagari',sans-serif">हिंदी</span>
+            <span style="font-size:.62rem;color:#64748b;font-weight:600">माध्यम</span>
+          </button>
+        </div>
       </div>
     </div>`;
 
