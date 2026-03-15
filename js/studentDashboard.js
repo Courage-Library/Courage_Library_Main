@@ -854,6 +854,8 @@ window.startExam = async function(examId, btn, chosenLanguage = null) {
 
     if (insertError) throw new Error(insertError.message);
 
+    // Store chosen language so examEngine skips its own picker
+    if (chosenLanguage) sessionStorage.setItem('chosenExamLanguage', chosenLanguage);
     window.location.href = `/mock/exam.html?attempt=${newAttempt.id}`;
 
   } catch (err) {
@@ -947,16 +949,17 @@ function showDashboardLangPicker(onSelect) {
   overlay.id = "dashLangPicker";
   overlay.style = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px";
   overlay.innerHTML = `
-    <div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;box-shadow:0 24px 64px rgba(15,23,42,.2);text-align:center">
-      <div style="font-size:1.8rem;margin-bottom:8px">🌐</div>
-      <div style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:4px">Choose Language</div>
-      <div style="font-size:.8rem;color:#64748b;margin-bottom:20px">भाषा चुनें · This exam supports both languages</div>
+    <div style="background:#fff;border-radius:24px;padding:32px 28px;max-width:340px;width:100%;box-shadow:0 32px 80px rgba(15,23,42,.25);text-align:center">
+      <div style="font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:800;color:#0f172a;margin-bottom:6px;letter-spacing:-.01em">Choose Your Language</div>
+      <div style="font-size:.78rem;color:#94a3b8;margin-bottom:24px;font-weight:500">भाषा चुनें · Select to begin the exam</div>
       <div style="display:flex;gap:10px">
-        <button id="dashLangEn" style="flex:1;padding:12px;border-radius:12px;border:2px solid #3b82f6;background:#eff6ff;color:#1d4ed8;font-weight:800;font-size:.9rem;cursor:pointer">
-          🇬🇧 English
+        <button id="dashLangEn" style="flex:1;padding:14px 10px;border-radius:14px;border:none;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;font-weight:800;font-size:.92rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .18s;box-shadow:0 4px 16px rgba(26,86,219,.3)">
+          <span style="font-size:.65rem;font-weight:700;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;letter-spacing:.06em">EN</span>
+          <span>English</span>
         </button>
-        <button id="dashLangHi" style="flex:1;padding:12px;border-radius:12px;border:2px solid #f97316;background:#fff7ed;color:#c2410c;font-weight:800;font-size:.9rem;cursor:pointer">
-          🇮🇳 हिंदी
+        <button id="dashLangHi" style="flex:1;padding:14px 10px;border-radius:14px;border:none;background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;font-weight:800;font-size:.92rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .18s;box-shadow:0 4px 16px rgba(234,88,12,.3)">
+          <span style="font-size:.65rem;font-weight:700;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;letter-spacing:.06em">हि</span>
+          <span>हिंदी</span>
         </button>
       </div>
     </div>`;
