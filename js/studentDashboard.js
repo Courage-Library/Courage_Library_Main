@@ -687,7 +687,21 @@ window.resumeExam = function(attemptId, btn) {
 };
 
 // ─── Start Exam ───────────────────────────────────────────────────────────────
-window.startExam = async function(examId, btn) {
+window.startExam = async function(examId, btn, chosenLanguage = null) {
+  // If exam language is "both" and no language chosen yet — ask first
+  if (!chosenLanguage) {
+    const { data: examLangCheck } = await client
+      .from("scheduled_exams")
+      .select("language")
+      .eq("id", examId)
+      .single();
+
+    if (examLangCheck?.language === "both") {
+      showDashboardLangPicker((lang) => window.startExam(examId, btn, lang));
+      return;
+    }
+  }
+
   btn.disabled = true;
   btn.innerHTML = `<span style="display:flex;align-items:center;justify-content:center;gap:8px">
     <svg style="width:16px;height:16px;animation:spin .75s linear infinite;flex-shrink:0" viewBox="0 0 24 24" fill="none">
@@ -806,8 +820,9 @@ window.startExam = async function(examId, btn) {
       sections = sections.map(s => ({ ...s, question_count: 20 }));
     }
 
-    const examLang   = examCheck.language || "english";
-    const langToFetch = examLang === "both" ? null : examLang;
+    const examLang    = examCheck.language || "english";
+    // Use student's chosen language for "both" exams
+    const langToFetch = examLang === "both" ? (chosenLanguage || "hindi") : examLang;
     const sectionIds  = sections.map(s => s.id);
 
     let qQuery = client
@@ -921,6 +936,34 @@ function renderRecentAttempts(attempts) {
   container.innerHTML = `
     <div class="attempts-thead"><div>Exam</div><div>Score</div><div>Accuracy</div><div>Time</div></div>
     ${desktopRows}${mobileCards}${showMoreBtn}`;
+}
+
+// ─── Dashboard Language Picker ───────────────────────────────────────────────
+function showDashboardLangPicker(onSelect) {
+  const existing = document.getElementById("dashLangPicker");
+  if (existing) existing.remove();
+
+  const overlay = document.createElement("div");
+  overlay.id = "dashLangPicker";
+  overlay.style = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px";
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;box-shadow:0 24px 64px rgba(15,23,42,.2);text-align:center">
+      <div style="font-size:1.8rem;margin-bottom:8px">🌐</div>
+      <div style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:4px">Choose Language</div>
+      <div style="font-size:.8rem;color:#64748b;margin-bottom:20px">भाषा चुनें · This exam supports both languages</div>
+      <div style="display:flex;gap:10px">
+        <button onclick="document.getElementById('dashLangPicker').remove();(${onSelect.toString()})('english')"
+          style="flex:1;padding:12px;border-radius:12px;border:2px solid #3b82f6;background:#eff6ff;color:#1d4ed8;font-weight:800;font-size:.9rem;cursor:pointer">
+          🇬🇧 English
+        </button>
+        <button onclick="document.getElementById('dashLangPicker').remove();(${onSelect.toString()})('hindi')"
+          style="flex:1;padding:12px;border-radius:12px;border:2px solid #f97316;background:#fff7ed;color:#c2410c;font-weight:800;font-size:.9rem;cursor:pointer">
+          🇮🇳 हिंदी
+        </button>
+      </div>
+    </div>`;
+  overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
 }
 
 window.toggleAttempts = function() {
