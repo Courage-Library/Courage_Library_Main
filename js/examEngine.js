@@ -745,6 +745,12 @@ window.openReportIssue = function() {
       '<div style="padding:16px 20px 20px">' +
         '<div style="font-size:.75rem;font-weight:700;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Select Issue Type</div>' +
         '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px" id="reportOptions">' + optionsHtml + '</div>' +
+        '<div id="otherIssueBox" style="display:none;margin-bottom:12px">' +
+          '<textarea id="otherIssueText" placeholder="Describe the issue..." ' +
+          'style="width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e2e8f4;font-size:.82rem;color:#0f172a;resize:none;outline:none;font-family:inherit" ' +
+          'rows="3" maxlength="300"></textarea>' +
+          '<div style="font-size:.68rem;color:#94a3b8;margin-top:4px;text-align:right">Max 300 characters</div>' +
+        '</div>' +
         '<button id="submitReportBtn" disabled ' +
           'style="width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-weight:800;font-size:.88rem;cursor:pointer;opacity:.4;transition:opacity .15s">' +
           '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Submit Report' +
@@ -773,6 +779,18 @@ window.openReportIssue = function() {
     });
   });
 
+  // Show text box when "other" is selected
+  document.querySelectorAll(".report-opt").forEach(opt => {
+    opt.addEventListener("click", () => {
+      const otherBox = document.getElementById("otherIssueBox");
+      if (opt.dataset.val === "other") {
+        if (otherBox) otherBox.style.display = "block";
+      } else {
+        if (otherBox) otherBox.style.display = "none";
+      }
+    });
+  });
+
   document.getElementById("submitReportBtn").addEventListener("click", () => {
     if (selectedVal) window.submitReport(q.id, currentIndex + 1, selectedVal);
   });
@@ -782,15 +800,22 @@ window.openReportIssue = function() {
 window.submitReport = async function(questionId, qNumber, selectedVal) {
   if (!selectedVal) return;
 
+  // Get "other" text if applicable
+  const otherText = selectedVal === "other"
+    ? (document.getElementById("otherIssueText")?.value?.trim() || "")
+    : "";
+
   const btn = document.getElementById("submitReportBtn");
   btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
   btn.disabled = true;
 
   try {
     const { data: { user } } = await client.auth.getUser();
+
+    // Fetch profile — use full_name only, email from auth
     const { data: profile } = await client
       .from("user_profiles")
-      .select("full_name, email")
+      .select("full_name")
       .eq("id", user.id)
       .single();
 
@@ -803,24 +828,31 @@ window.submitReport = async function(questionId, qNumber, selectedVal) {
     };
 
     const priority = selectedVal === "wrong_answer" ? "high" : "medium";
+    const issueText = issueLabels[selectedVal] + (otherText ? ": " + otherText : "");
+    const message = "Q" + qNumber + " | " + issueText + " | Question ID: " + questionId + " | Attempt ID: " + attemptId;
 
-    await client.from("support_tickets").insert([{
+    const { error: insertError } = await client.from("support_tickets").insert([{
       user_id:    user.id,
-      user_email: profile?.email || user.email,
+      user_email: user.email || "",
       full_name:  profile?.full_name || "Student",
       category:   "question_report",
-      message:    "Q" + qNumber + " | " + issueLabels[selectedVal] + " | Question ID: " + questionId + " | Attempt ID: " + attemptId,
+      message:    message,
       status:     "open",
       priority:   priority,
-      user_type:  "student",
+      user_type:  "registered",
     }]);
+
+    if (insertError) {
+      console.error("Insert error:", insertError);
+      throw new Error(insertError.message);
+    }
 
     document.getElementById("reportIssueOverlay").remove();
     showAlert("Report submitted. Thank you!", "success");
 
   } catch (err) {
     console.error("Report error:", err);
-    showAlert("Could not submit report. Try again.", "error");
+    showAlert("Could not submit: " + err.message, "error");
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit Report';
   }

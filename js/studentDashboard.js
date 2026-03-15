@@ -715,7 +715,7 @@ window.startExam = async function(examId, btn, chosenLanguage = null) {
     // Fetch exam details
     const { data: examCheck } = await client
       .from("scheduled_exams")
-      .select("is_active, start_datetime, end_datetime, is_premium, attempt_limit, language, schedule_type, day_of_week, active_section, exam_type, exam_patterns(id, duration_minutes)")
+      .select("is_active, start_datetime, end_datetime, is_premium, attempt_limit, language, schedule_type, day_of_week, active_section, exam_type, exam_patterns(id, duration_minutes, question_source_pattern_id)")
       .eq("id", examId)
       .single();
 
@@ -791,32 +791,29 @@ window.startExam = async function(examId, btn, chosenLanguage = null) {
 
     const patternId = examCheck.exam_patterns.id;
 
-    // All question types use Daily Sectional section IDs as the question pool
-    // Mixed & Full Mock share the same questions — just different question_count per section
-    const DAILY_PATTERN_ID = 'aaaaaaaa-0001-0001-0001-000000000001';
+    // Use question_source_pattern_id if set — otherwise use own pattern
+    // This allows any pattern to share a question pool without hardcoding
+    const isDaily = examCheck.schedule_type === "daily_auto";
+    const patternIdForSections = examCheck.exam_patterns.question_source_pattern_id || patternId;
 
     let sectionsQuery = client
       .from("pattern_sections")
       .select("id, section_name, question_count")
-      .eq("pattern_id", DAILY_PATTERN_ID);
+      .eq("pattern_id", patternIdForSections);
 
     // For daily sectional — only load the active section for today
-    if (examCheck.exam_type === "daily_sectional" && examCheck.active_section) {
+    if (isDaily && examCheck.exam_type === "daily_sectional" && examCheck.active_section) {
       sectionsQuery = sectionsQuery.eq("section_name", examCheck.active_section);
     }
-
-    // For Mixed — override question_count to 10 per section
-    // For Full Mock — override question_count to 20 per section
-    // (pattern_sections question_count is for daily=20, so we override for mixed/full)
 
     let { data: sections } = await sectionsQuery;
 
     if (!sections || sections.length === 0) throw new Error("No sections found for this exam pattern.");
 
-    // Override question_count based on exam type
-    if (examCheck.exam_type === "mixed") {
+    // Override question_count only for daily_auto Mixed & Full Mock
+    if (isDaily && examCheck.exam_type === "mixed") {
       sections = sections.map(s => ({ ...s, question_count: 10 }));
-    } else if (examCheck.exam_type === "full_mock") {
+    } else if (isDaily && examCheck.exam_type === "full_mock") {
       sections = sections.map(s => ({ ...s, question_count: 20 }));
     }
 
