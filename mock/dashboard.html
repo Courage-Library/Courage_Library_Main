@@ -22,15 +22,12 @@
     *,*::before,*::after{box-sizing:border-box;}
     body{font-family:inherit;background:#eef2f9;min-height:100vh;-webkit-font-smoothing:antialiased;}
 
-    /* ── kept compat classes ── */
     .glass{background:rgba(255,255,255,.85);box-shadow:0 8px 32px 0 rgba(31,38,135,.18);backdrop-filter:blur(12px);border-radius:1.5rem;border:1px solid rgba(200,200,255,.12);}
     .glass-card{background:rgba(255,255,255,.75);backdrop-filter:blur(4px);border-radius:1.5rem;border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 40px -12px rgba(0,0,0,.1);transition:all .2s ease;}
     .glass-card:hover{transform:scale(1.02);background:rgba(255,255,255,.9);border-color:#bfdbfe;}
     .ripple{position:relative;overflow:hidden;}
     .ripple:after{content:'';display:block;position:absolute;border-radius:50%;width:100%;height:100%;top:0;left:0;pointer-events:none;background:rgba(59,130,246,.2);opacity:0;transition:opacity .6s,transform .6s;transform:scale(.5);}
     .ripple:active:after{opacity:1;transform:scale(1.2);transition:0s;}
-    .trial-tag{background:linear-gradient(135deg,#f59e0b,#f97316);}
-    .icon-circle{background:linear-gradient(145deg,#dbeafe,#eff6ff);width:60px;height:60px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#2563eb;font-size:28px;box-shadow:0 8px 16px -6px #93c5fd;}
 
     /* ── animations ── */
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
@@ -45,11 +42,7 @@
     .d4{animation-delay:.16s;}.d5{animation-delay:.22s;}.d6{animation-delay:.28s;}
 
     /* ── HERO ── */
-    .dash-hero{
-      background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 60%,#1a1d6e 100%);
-      padding:36px 24px 72px;
-      position:relative;overflow:hidden;
-    }
+    .dash-hero{background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 60%,#1a1d6e 100%);padding:36px 24px 72px;position:relative;overflow:hidden;}
     .dash-hero::before{content:'';position:absolute;width:380px;height:380px;background:rgba(255,255,255,.05);border-radius:50%;right:-100px;top:-100px;pointer-events:none;}
     .dash-hero::after{content:'';position:absolute;width:220px;height:220px;background:rgba(96,165,250,.1);border-radius:50%;left:-60px;bottom:-80px;pointer-events:none;}
     .hero-inner{position:relative;z-index:1;max-width:1152px;margin:0 auto;}
@@ -58,7 +51,7 @@
     .dash-hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.55rem,4.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;}
     .dash-hero p{font-size:.9rem;color:#93c5fd;line-height:1.55;}
 
-    /* ── STAT CARDS (float over hero) ── */
+    /* ── STAT CARDS ── */
     .stat-float{max-width:1152px;margin:-48px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;position:relative;z-index:10;}
     @media(min-width:560px){.stat-float{grid-template-columns:repeat(4,1fr);gap:14px;}}
 
@@ -76,12 +69,6 @@
     /* ── MAIN BODY ── */
     .dash-body{max-width:1152px;margin:0 auto;padding:36px 24px 80px;}
 
-    /* ── SECTION HEADER ── */
-    .sec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-    .sec-title{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:10px;}
-    .sec-bar{width:4px;height:20px;border-radius:99px;flex-shrink:0;background:linear-gradient(180deg,#1a56db,#60a5fa);}
-    .sec-sub{font-size:.72rem;font-weight:600;color:#94a3b8;}
-
     /* ── EXAM GRID ── */
     .exam-grid{display:grid;grid-template-columns:1fr;gap:14px;}
     @media(min-width:540px){.exam-grid{grid-template-columns:repeat(2,1fr);}}
@@ -92,6 +79,7 @@
     .exam-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(26,86,219,.15);}
     .exam-card-accent{height:4px;background:linear-gradient(90deg,#1a56db,#60a5fa);}
     .exam-card-accent.expired{background:linear-gradient(90deg,#cbd5e1,#e2e8f0);}
+    .exam-card-accent.locked{background:linear-gradient(90deg,#e2e8f0,#cbd5e1);}
     .exam-card-body{padding:18px 18px 14px;flex:1;display:flex;flex-direction:column;gap:12px;}
     .exam-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
     .exam-card-title{font-family:'Sora',sans-serif;font-size:.93rem;font-weight:700;color:#0f172a;line-height:1.35;}
@@ -114,10 +102,14 @@
     .btn-start-exam.active:active{transform:scale(.98);}
     .btn-start-exam.disabled-btn{background:#f1f5f9;color:#94a3b8;cursor:not-allowed;}
 
+    /* ── SECTION HEADER ── */
+    .sec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+    .sec-title{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:10px;}
+    .sec-bar{width:4px;height:20px;border-radius:99px;flex-shrink:0;background:linear-gradient(180deg,#1a56db,#60a5fa);}
+    .sec-sub{font-size:.72rem;font-weight:600;color:#94a3b8;}
+
     /* ── ATTEMPTS SHELL ── */
     .attempts-shell{background:#fff;border-radius:20px;border:1px solid #e2e8f4;box-shadow:0 2px 10px rgba(15,23,42,.07);overflow:hidden;}
-
-    /* ── DESKTOP TABLE ── */
     .attempts-thead{display:grid;grid-template-columns:1fr 80px 90px 70px;padding:10px 20px;background:#f7f9ff;border-bottom:1px solid #e8edf5;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;gap:12px;}
     .attempt-row{display:grid;grid-template-columns:1fr 80px 90px 70px;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid #f1f5f9;transition:background .15s;}
     .attempt-row:last-child{border-bottom:none;}
@@ -127,31 +119,19 @@
     .a-pill{display:inline-flex;align-items:center;justify-content:center;padding:5px 12px;border-radius:100px;font-weight:800;font-size:.76rem;white-space:nowrap;}
     .p-blue{background:#dbeafe;color:#1e40af;}.p-green{background:#d1fae5;color:#065f46;}.p-amber{background:#fef3c7;color:#92400e;}.p-red{background:#fee2e2;color:#991b1b;}
     .attempt-time{font-size:.8rem;font-weight:700;color:#475569;}
-
-    /* ── MOBILE ATTEMPT CARDS ── */
     .attempt-mob{display:none;}
 
     @media(max-width:580px){
       .attempts-thead,.attempt-row{display:none;}
-      .attempt-mob{
-        display:block;
-        padding:16px;
-        border-bottom:1px solid #f1f5f9;
-      }
+      .attempt-mob{display:block;padding:16px;border-bottom:1px solid #f1f5f9;}
       .attempt-mob:last-child{border-bottom:none;}
-
-      /* row 1: name left + date right */
       .amb-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px;}
       .amb-name{font-family:'Sora',sans-serif;font-size:.92rem;font-weight:700;color:#0f172a;line-height:1.3;flex:1;}
       .amb-date{font-size:.7rem;font-weight:600;color:#94a3b8;white-space:nowrap;padding-top:2px;}
-
-      /* row 2: 3 equal stat chips */
       .amb-chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
       .amb-chip{border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #e8edf5;}
       .amb-chip-val{font-family:'Sora',sans-serif;font-size:.95rem;font-weight:800;line-height:1;}
       .amb-chip-lbl{font-size:.58rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-top:5px;line-height:1;}
-
-      /* colour variants */
       .amb-chip.score{background:#eff6ff;border-color:#bfdbfe;}.amb-chip.score .amb-chip-val{color:#1e40af;}
       .amb-chip.acc-green{background:#f0fdf4;border-color:#bbf7d0;}.amb-chip.acc-green .amb-chip-val{color:#059669;}
       .amb-chip.acc-amber{background:#fffbeb;border-color:#fde68a;}.amb-chip.acc-amber .amb-chip-val{color:#d97706;}
@@ -165,12 +145,16 @@
     .empty-box h3{font-family:'Sora',sans-serif;font-size:.98rem;font-weight:800;color:#0f172a;margin-bottom:6px;}
     .empty-box p{font-size:.82rem;color:#94a3b8;line-height:1.6;max-width:260px;margin:0 auto;}
     .skel{background:linear-gradient(90deg,#edf1f9 25%,#e2e8f4 50%,#edf1f9 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+
+    /* ── Show More ── */
+    .hidden-card{display:none !important;}
+    .hidden-attempt{display:none;}
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
 
-  <!-- ════════ HEADER — YOUR EXACT CODE ════════ -->
+  <!-- ════════ HEADER ════════ -->
   <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <a class="flex items-center space-x-2" href="../index.html">
@@ -206,7 +190,6 @@
       </div>
     </div>
   </nav>
-  <!-- ════════ /HEADER ════════ -->
 
   <div class="flex-grow">
 
@@ -246,13 +229,10 @@
     <!-- BODY -->
     <div class="dash-body">
 
-      <!-- Available Mocks -->
+      <!-- ── Exam Sections — rendered by JS into examList ── -->
       <div class="fade-in d5" style="margin-bottom:36px">
-        <div class="sec-row">
-          <div class="sec-title"><span class="sec-bar"></span>Available Mock Tests</div>
-          <span class="sec-sub">Updated in real-time</span>
-        </div>
         <div id="examList" class="exam-grid">
+          <!-- Skeleton loaders -->
           <div class="exam-card">
             <div class="exam-card-accent"></div>
             <div class="exam-card-body" style="gap:10px">
@@ -306,15 +286,15 @@
 
   <script src="/js/studentDashboard.js"></script>
 
-  <!-- ════════ FOOTER — YOUR EXACT CODE ════════ -->
+  <!-- ════════ FOOTER ════════ -->
   <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
     <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
       <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
       <div class="flex space-x-6">
-        <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" title="Follow us on Facebook" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" title="Follow us on LinkedIn" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
   </footer>
