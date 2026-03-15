@@ -275,7 +275,7 @@ function showQuestion(index) {
       <div class="flex items-start gap-2">
         <span style="font-size:.72rem;font-weight:700;color:#94a3b8;background:#f1f5f9;padding:2px 7px;border-radius:6px;flex-shrink:0;margin-top:3px;letter-spacing:.02em">Q${index + 1}</span>
         <p style="font-size:1rem;font-weight:500;color:#1e293b;line-height:1.65;flex:1;margin:0">${sanitizeText(q.question_text)}</p>
-        <button onclick="openReportIssue()" title="Report Issue"
+        <button id="reportBtn" title="Report Issue"
           style="flex-shrink:0;width:26px;height:26px;border-radius:7px;background:#fff5f5;border:1px solid #fecaca;color:#dc2626;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;margin-top:2px;transition:all .15s"
           onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fff5f5'">
           <i class="fas fa-flag"></i>
@@ -287,6 +287,12 @@ function showQuestion(index) {
       ${optionsHtml}
     </div>
   `;
+
+  // Attach report button listener after DOM is updated
+  const reportBtn = document.getElementById("reportBtn");
+  if (reportBtn) {
+    reportBtn.addEventListener("click", () => window.openReportIssue());
+  }
 }
 
 function debounce(fn, delay) {
@@ -699,10 +705,82 @@ if (navEntry?.type === "reload" && document.referrer === window.location.href) {
   showAlert("Page refreshed. Your answers have been restored.", "warning");
 }
 
+// ── Report Issue ─────────────────────────────────────────────────────────────
+window.openReportIssue = function() {
+  const q = questions[currentIndex];
+  if (!q) return;
+
+  const existing = document.getElementById("reportIssueOverlay");
+  if (existing) existing.remove();
+
+  const overlay = document.createElement("div");
+  overlay.id = "reportIssueOverlay";
+  overlay.style.cssText = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px";
+
+  const issues = [
+    {val:"wrong_answer",  icon:"fas fa-times-circle", bg:"#fee2e2", color:"#dc2626", label:"Wrong Answer Key",        desc:"The correct answer marked is incorrect"},
+    {val:"typo_question", icon:"fas fa-spell-check",  bg:"#fef3c7", color:"#d97706", label:"Typo / Error in Question", desc:"Spelling mistake or unclear question text"},
+    {val:"image_issue",   icon:"fas fa-image",        bg:"#ede9fe", color:"#7c3aed", label:"Image Not Loading",        desc:"Question image is broken or missing"},
+    {val:"wrong_options", icon:"fas fa-list",         bg:"#dbeafe", color:"#1d4ed8", label:"Wrong Options",            desc:"Options are incorrect or repeated"},
+    {val:"other",         icon:"fas fa-comment-alt",  bg:"#f0fdf4", color:"#15803d", label:"Other Issue",              desc:"Something else is wrong"},
+  ];
+
+  const optionsHtml = issues.map(it =>
+    '<div class="report-opt" data-val="' + it.val + '" data-bg="' + it.bg + '" data-color="' + it.color + '" ' +
+    'style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:2px solid #f1f5f9;cursor:pointer;transition:all .15s;background:#fff">' +
+    '<span style="width:32px;height:32px;border-radius:8px;background:' + it.bg + ';color:' + it.color + ';display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0"><i class="' + it.icon + '"></i></span>' +
+    '<div><div style="font-size:.8rem;font-weight:700;color:#0f172a">' + it.label + '</div><div style="font-size:.7rem;color:#94a3b8;margin-top:1px">' + it.desc + '</div></div>' +
+    '</div>'
+  ).join('');
+
+  overlay.innerHTML =
+    '<div style="background:#fff;border-radius:20px;max-width:400px;width:100%;box-shadow:0 24px 64px rgba(15,23,42,.2);overflow:hidden">' +
+      '<div style="background:linear-gradient(135deg,#dc2626,#b91c1c);padding:16px 20px;display:flex;align-items:center;justify-content:space-between">' +
+        '<div>' +
+          '<div style="font-size:.62rem;font-weight:700;color:#fca5a5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px">Question ' + (currentIndex + 1) + '</div>' +
+          '<div style="font-size:.92rem;font-weight:800;color:#fff">Report an Issue</div>' +
+        '</div>' +
+        '<button id="closeReportBtn" style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center">✕</button>' +
+      '</div>' +
+      '<div style="padding:16px 20px 20px">' +
+        '<div style="font-size:.75rem;font-weight:700;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Select Issue Type</div>' +
+        '<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px" id="reportOptions">' + optionsHtml + '</div>' +
+        '<button id="submitReportBtn" disabled ' +
+          'style="width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-weight:800;font-size:.88rem;cursor:pointer;opacity:.4;transition:opacity .15s">' +
+          '<i class="fas fa-paper-plane" style="margin-right:8px"></i>Submit Report' +
+        '</button>' +
+      '</div>' +
+    '</div>';
+
+  overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+
+  document.getElementById("closeReportBtn").addEventListener("click", () => overlay.remove());
+
+  let selectedVal = null;
+  document.querySelectorAll(".report-opt").forEach(opt => {
+    opt.addEventListener("click", () => {
+      document.querySelectorAll(".report-opt").forEach(o => {
+        o.style.borderColor = "#f1f5f9";
+        o.style.background = "#fff";
+      });
+      opt.style.borderColor = opt.dataset.color;
+      opt.style.background = opt.dataset.bg;
+      selectedVal = opt.dataset.val;
+      const btn = document.getElementById("submitReportBtn");
+      btn.disabled = false;
+      btn.style.opacity = "1";
+    });
+  });
+
+  document.getElementById("submitReportBtn").addEventListener("click", () => {
+    if (selectedVal) window.submitReport(q.id, currentIndex + 1, selectedVal);
+  });
+};
+
 // ── Submit Report ─────────────────────────────────────────────────────────────
-window.submitReport = async function(questionId, qNumber) {
-  const selected = document.querySelector('input[name="reportIssue"]:checked');
-  if (!selected) return;
+window.submitReport = async function(questionId, qNumber, selectedVal) {
+  if (!selectedVal) return;
 
   const btn = document.getElementById("submitReportBtn");
   btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
@@ -724,14 +802,14 @@ window.submitReport = async function(questionId, qNumber) {
       other:         "Other Issue",
     };
 
-    const priority = selected.value === "wrong_answer" ? "high" : "medium";
+    const priority = selectedVal === "wrong_answer" ? "high" : "medium";
 
     await client.from("support_tickets").insert([{
       user_id:    user.id,
       user_email: profile?.email || user.email,
       full_name:  profile?.full_name || "Student",
       category:   "question_report",
-      message:    "Q" + qNumber + " | " + issueLabels[selected.value] + " | Question ID: " + questionId + " | Attempt ID: " + attemptId,
+      message:    "Q" + qNumber + " | " + issueLabels[selectedVal] + " | Question ID: " + questionId + " | Attempt ID: " + attemptId,
       status:     "open",
       priority:   priority,
       user_type:  "student",
