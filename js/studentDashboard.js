@@ -777,20 +777,34 @@ window.startExam = async function(examId, btn) {
 
     const patternId = examCheck.exam_patterns.id;
 
+    // All question types use Daily Sectional section IDs as the question pool
+    // Mixed & Full Mock share the same questions — just different question_count per section
+    const DAILY_PATTERN_ID = 'aaaaaaaa-0001-0001-0001-000000000001';
+
     let sectionsQuery = client
       .from("pattern_sections")
       .select("id, section_name, question_count")
-      .eq("pattern_id", patternId);
+      .eq("pattern_id", DAILY_PATTERN_ID);
 
     // For daily sectional — only load the active section for today
-    // Mixed & Full Mock load all sections
     if (examCheck.exam_type === "daily_sectional" && examCheck.active_section) {
       sectionsQuery = sectionsQuery.eq("section_name", examCheck.active_section);
     }
 
-    const { data: sections } = await sectionsQuery;
+    // For Mixed — override question_count to 10 per section
+    // For Full Mock — override question_count to 20 per section
+    // (pattern_sections question_count is for daily=20, so we override for mixed/full)
+
+    let { data: sections } = await sectionsQuery;
 
     if (!sections || sections.length === 0) throw new Error("No sections found for this exam pattern.");
+
+    // Override question_count based on exam type
+    if (examCheck.exam_type === "mixed") {
+      sections = sections.map(s => ({ ...s, question_count: 10 }));
+    } else if (examCheck.exam_type === "full_mock") {
+      sections = sections.map(s => ({ ...s, question_count: 20 }));
+    }
 
     const examLang   = examCheck.language || "english";
     const langToFetch = examLang === "both" ? null : examLang;
