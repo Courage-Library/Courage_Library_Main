@@ -952,18 +952,27 @@ function showDashboardLangPicker(onSelect) {
       <div style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:4px">Choose Language</div>
       <div style="font-size:.8rem;color:#64748b;margin-bottom:20px">भाषा चुनें · This exam supports both languages</div>
       <div style="display:flex;gap:10px">
-        <button onclick="document.getElementById('dashLangPicker').remove();(${onSelect.toString()})('english')"
-          style="flex:1;padding:12px;border-radius:12px;border:2px solid #3b82f6;background:#eff6ff;color:#1d4ed8;font-weight:800;font-size:.9rem;cursor:pointer">
+        <button id="dashLangEn" style="flex:1;padding:12px;border-radius:12px;border:2px solid #3b82f6;background:#eff6ff;color:#1d4ed8;font-weight:800;font-size:.9rem;cursor:pointer">
           🇬🇧 English
         </button>
-        <button onclick="document.getElementById('dashLangPicker').remove();(${onSelect.toString()})('hindi')"
-          style="flex:1;padding:12px;border-radius:12px;border:2px solid #f97316;background:#fff7ed;color:#c2410c;font-weight:800;font-size:.9rem;cursor:pointer">
+        <button id="dashLangHi" style="flex:1;padding:12px;border-radius:12px;border:2px solid #f97316;background:#fff7ed;color:#c2410c;font-weight:800;font-size:.9rem;cursor:pointer">
           🇮🇳 हिंदी
         </button>
       </div>
     </div>`;
+
   overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
   document.body.appendChild(overlay);
+
+  // Use addEventListener instead of inline onclick to keep scope
+  document.getElementById("dashLangEn").addEventListener("click", () => {
+    overlay.remove();
+    onSelect("english");
+  });
+  document.getElementById("dashLangHi").addEventListener("click", () => {
+    overlay.remove();
+    onSelect("hindi");
+  });
 }
 
 window.toggleAttempts = function() {
