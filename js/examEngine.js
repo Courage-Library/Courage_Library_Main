@@ -107,13 +107,9 @@ async function loadExam() {
 
   await loadSavedAnswers();
 
-  // Only show language picker if NOT already chosen on dashboard
-  if (examLangConfig === "both" && !examLanguage) {
-    showLanguagePicker(() => { loadQuestionsAndStart(); });
-  } else {
-    if (!examLanguage) examLanguage = examLangConfig;
-    loadQuestionsAndStart();
-  }
+  // Language already chosen on dashboard via sessionStorage
+  if (!examLanguage) examLanguage = examLangConfig === "both" ? "hindi" : examLangConfig;
+  loadQuestionsAndStart();
 
   generateWatermark();
   setInterval(generateWatermark, 5000);
@@ -598,26 +594,7 @@ function renderSections(sections) {
   });
 }
 
-function showLanguagePicker(onSelect) {
-  const overlay = document.createElement("div");
-  overlay.id = "langPickerOverlay";
-  overlay.className = "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm";
-  overlay.innerHTML = `
-    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
-      <div class="text-3xl mb-3">🌐</div>
-      <h2 class="text-lg font-bold text-gray-800 mb-1">Choose Language</h2>
-      <p class="text-sm text-gray-500 mb-2">भाषा चुनें</p>
-      <p class="text-xs text-gray-400 mb-6">This exam is available in both English and Hindi.<br>यह परीक्षा दोनों भाषाओं में उपलब्ध है।</p>
-      <div class="flex gap-3">
-        <button id="pickEnglish" class="flex-1 py-3 rounded-xl border-2 border-blue-500 bg-blue-50 text-blue-700 font-bold text-sm hover:bg-blue-100 transition">🇬🇧 English</button>
-        <button id="pickHindi"   class="flex-1 py-3 rounded-xl border-2 border-orange-400 bg-orange-50 text-orange-700 font-bold text-sm hover:bg-orange-100 transition">🇮🇳 हिंदी</button>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
 
-  document.getElementById("pickEnglish").onclick = () => { examLanguage = "english"; overlay.remove(); onSelect(); };
-  document.getElementById("pickHindi").onclick   = () => { examLanguage = "hindi";   overlay.remove(); onSelect(); };
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   const rulesModal    = document.getElementById("rulesModal");
