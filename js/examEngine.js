@@ -165,9 +165,10 @@ async function loadQuestions() {
     section: d.questions.pattern_sections.section_name,
   }));
 
-  questions = examLanguage
-    ? allQuestions.filter((q) => (q.language || "english") === examLanguage)
-    : allQuestions;
+  // Questions are already language-filtered by startExam when creating the attempt
+  // We only filter here to ensure correct font rendering per language
+  // Don't re-filter — trust the stored attempt_questions
+  questions = allQuestions;
 
   const uniqueSections = [...new Set(questions.map((q) => q.section))];
   renderSections(uniqueSections);
