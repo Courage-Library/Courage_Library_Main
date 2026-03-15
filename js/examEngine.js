@@ -275,6 +275,11 @@ function showQuestion(index) {
       <div class="flex items-start gap-2">
         <span style="font-size:.72rem;font-weight:700;color:#94a3b8;background:#f1f5f9;padding:2px 7px;border-radius:6px;flex-shrink:0;margin-top:3px;letter-spacing:.02em">Q${index + 1}</span>
         <p style="font-size:1rem;font-weight:500;color:#1e293b;line-height:1.65;flex:1;margin:0">${sanitizeText(q.question_text)}</p>
+        <button onclick="openReportIssue()" title="Report Issue"
+          style="flex-shrink:0;width:26px;height:26px;border-radius:7px;background:#fff5f5;border:1px solid #fecaca;color:#dc2626;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;margin-top:2px;transition:all .15s"
+          onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fff5f5'">
+          <i class="fas fa-flag"></i>
+        </button>
       </div>
       ${questionImageHtml}
     </div>
@@ -693,3 +698,52 @@ const navEntry = performance.getEntriesByType("navigation")[0];
 if (navEntry?.type === "reload" && document.referrer === window.location.href) {
   showAlert("Page refreshed. Your answers have been restored.", "warning");
 }
+
+// ── Submit Report ─────────────────────────────────────────────────────────────
+window.submitReport = async function(questionId, qNumber) {
+  const selected = document.querySelector('input[name="reportIssue"]:checked');
+  if (!selected) return;
+
+  const btn = document.getElementById("submitReportBtn");
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+  btn.disabled = true;
+
+  try {
+    const { data: { user } } = await client.auth.getUser();
+    const { data: profile } = await client
+      .from("user_profiles")
+      .select("full_name, email")
+      .eq("id", user.id)
+      .single();
+
+    const issueLabels = {
+      wrong_answer:  "Wrong Answer Key",
+      typo_question: "Typo / Error in Question",
+      image_issue:   "Image Not Loading",
+      wrong_options: "Wrong Options",
+      other:         "Other Issue",
+    };
+
+    const priority = selected.value === "wrong_answer" ? "high" : "medium";
+
+    await client.from("support_tickets").insert([{
+      user_id:    user.id,
+      user_email: profile?.email || user.email,
+      full_name:  profile?.full_name || "Student",
+      category:   "question_report",
+      message:    "Q" + qNumber + " | " + issueLabels[selected.value] + " | Question ID: " + questionId + " | Attempt ID: " + attemptId,
+      status:     "open",
+      priority:   priority,
+      user_type:  "student",
+    }]);
+
+    document.getElementById("reportIssueOverlay").remove();
+    showAlert("Report submitted. Thank you!", "success");
+
+  } catch (err) {
+    console.error("Report error:", err);
+    showAlert("Could not submit report. Try again.", "error");
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit Report';
+  }
+};
