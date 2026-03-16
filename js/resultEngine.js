@@ -34,7 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function calculateResult() {
   const { data: attempt, error: attemptErr } = await client
     .from("attempts")
-    .select(`
+    .select(
+      `
       id,
       started_at,
       submitted_at,
@@ -43,10 +44,12 @@ async function calculateResult() {
       scheduled_exams(
         exam_patterns(
           negative_marking,
-          total_questions
+          total_questions,
+          total_marks
         )
       )
-    `)
+    `,
+    )
     .eq("id", attemptId)
     .single();
 
@@ -61,20 +64,31 @@ async function calculateResult() {
     return;
   }
 
-  const negative = Number(attempt.scheduled_exams?.exam_patterns?.negative_marking) || 0;
-  const totalQ   = Number(attempt.scheduled_exams?.exam_patterns?.total_questions)   || 0;
+  const negative =
+    Number(attempt.scheduled_exams?.exam_patterns?.negative_marking) || 0;
+  const totalQ =
+    Number(attempt.scheduled_exams?.exam_patterns?.total_questions) || 0;
+  const totalMarks =
+    Number(attempt.scheduled_exams?.exam_patterns?.total_marks) || totalQ;
+  const marksPerQ = totalQ > 0 ? totalMarks / totalQ : 1;
 
-  const timeTaken = attempt.submitted_at && attempt.started_at
-    ? Math.floor((new Date(attempt.submitted_at) - new Date(attempt.started_at)) / 1000)
-    : null;
+  const timeTaken =
+    attempt.submitted_at && attempt.started_at
+      ? Math.floor(
+          (new Date(attempt.submitted_at) - new Date(attempt.started_at)) /
+            1000,
+        )
+      : null;
 
   const { data: answers } = await client
     .from("answers")
-    .select(`
+    .select(
+      `
       selected_option,
       question_id,
       questions(correct_answer, pattern_section_id)
-    `)
+    `,
+    )
     .eq("attempt_id", attemptId);
 
   const { data: attemptQs } = await client
@@ -83,11 +97,15 @@ async function calculateResult() {
     .eq("attempt_id", attemptId);
 
   const answerMap = {};
-  (answers || []).forEach(a => { answerMap[a.question_id] = a; });
+  (answers || []).forEach((a) => {
+    answerMap[a.question_id] = a;
+  });
 
-  let correct = 0, wrong = 0, skipped = 0;
+  let correct = 0,
+    wrong = 0,
+    skipped = 0;
 
-  (attemptQs || []).forEach(aq => {
+  (attemptQs || []).forEach((aq) => {
     const a = answerMap[aq.question_id];
     if (!a || !a.selected_option) {
       skipped++;
@@ -98,11 +116,10 @@ async function calculateResult() {
     }
   });
 
-  const score          = +(correct - wrong * negative).toFixed(2);
+  const score = +(correct * marksPerQ - wrong * negative).toFixed(2);
   const totalAttempted = correct + wrong;
-  const accuracy       = totalAttempted === 0
-    ? 0
-    : +((correct / totalAttempted) * 100).toFixed(2);
+  const accuracy =
+    totalAttempted === 0 ? 0 : +((correct / totalAttempted) * 100).toFixed(2);
 
   // Save to DB only once — don't overwrite on refresh
   if (attempt.total_score == null) {
@@ -112,24 +129,43 @@ async function calculateResult() {
       .eq("id", attemptId);
   }
 
-  displayResult({ score, correct, wrong, skipped, accuracy, timeTaken, totalQ });
+  displayResult({
+    score,
+    correct,
+    wrong,
+    skipped,
+    accuracy,
+    timeTaken,
+    totalQ,
+    totalMarks,
+  });
   await loadReview(answerMap);
 }
 
 /* ─────────────────────────────────────────
    STEP 2 — DISPLAY SUMMARY HERO
 ───────────────────────────────────────── */
-function displayResult({ score, correct, wrong, skipped, accuracy, timeTaken, totalQ }) {
+function displayResult({
+  score,
+  correct,
+  wrong,
+  skipped,
+  accuracy,
+  timeTaken,
+  totalQ,
+  totalMarks,
+}) {
   animateCount("score", score, 900);
 
-  document.getElementById("scoreDenom").textContent =
-    totalQ ? `out of ${totalQ} marks` : "";
+  document.getElementById("scoreDenom").textContent = totalMarks
+    ? `out of ${totalMarks} marks`
+    : "";
 
   document.getElementById("correctCount").textContent = correct;
-  document.getElementById("wrongCount").textContent   = wrong;
+  document.getElementById("wrongCount").textContent = wrong;
   document.getElementById("skippedCount").textContent = skipped;
-  document.getElementById("accuracy").textContent     = accuracy + "%";
-  document.getElementById("timeTaken").textContent    = formatDuration(timeTaken);
+  document.getElementById("accuracy").textContent = accuracy + "%";
+  document.getElementById("timeTaken").textContent = formatDuration(timeTaken);
 
   const badge = document.getElementById("verdictBadge");
   badge.style.display = "inline-flex";
@@ -155,7 +191,8 @@ function displayResult({ score, correct, wrong, skipped, accuracy, timeTaken, to
 async function loadReview(answerMap) {
   const { data: aqData, error } = await client
     .from("attempt_questions")
-    .select(`
+    .select(
+      `
       question_order,
       questions(
         id,
@@ -170,30 +207,39 @@ async function loadReview(answerMap) {
         pattern_section_id,
         pattern_sections(section_name)
       )
-    `)
+    `,
+    )
     .eq("attempt_id", attemptId)
     .order("question_order", { ascending: true });
 
   if (error || !aqData) return;
 
   allReviewItems = aqData.map((item, index) => {
-    const q        = item.questions;
+    const q = item.questions;
     const selected = answerMap[q.id]?.selected_option || null;
-    const correct  = q.correct_answer;
-    const status   = !selected
+    const correct = q.correct_answer;
+    const status = !selected
       ? "skipped"
-      : selected === correct ? "correct" : "wrong";
+      : selected === correct
+        ? "correct"
+        : "wrong";
     return { q, selected, correct, status, index };
   });
 
-  const counts = { all: allReviewItems.length, correct: 0, wrong: 0, skipped: 0 };
-  allReviewItems.forEach(i => counts[i.status]++);
-  document.getElementById("cnt-all").textContent     = counts.all;
+  const counts = {
+    all: allReviewItems.length,
+    correct: 0,
+    wrong: 0,
+    skipped: 0,
+  };
+  allReviewItems.forEach((i) => counts[i.status]++);
+  document.getElementById("cnt-all").textContent = counts.all;
   document.getElementById("cnt-correct").textContent = counts.correct;
-  document.getElementById("cnt-wrong").textContent   = counts.wrong;
+  document.getElementById("cnt-wrong").textContent = counts.wrong;
   document.getElementById("cnt-skipped").textContent = counts.skipped;
 
-  document.getElementById("reviewSubtitle").textContent = `${counts.all} questions`;
+  document.getElementById("reviewSubtitle").textContent =
+    `${counts.all} questions`;
 
   renderSectionAccuracy(aqData, answerMap);
   renderReviewList(allReviewItems);
@@ -214,7 +260,9 @@ function renderOptionValue(value, optionsType) {
     // value is { text, image }
     const parts = [];
     if (value.image) {
-      parts.push(`<img src="${value.image}" alt="Option" class="h-14 max-w-full object-contain rounded-lg border border-gray-200 my-0.5">`);
+      parts.push(
+        `<img src="${value.image}" alt="Option" class="h-14 max-w-full object-contain rounded-lg border border-gray-200 my-0.5">`,
+      );
     }
     if (value.text) {
       parts.push(`<span style="line-height:1.45">${value.text}</span>`);
@@ -241,71 +289,88 @@ function renderReviewList(items) {
     return;
   }
 
-  container.innerHTML = items.map(({ q, selected, correct, status, index }) => {
-    const opts        = q.options || {};
-    const optionsType = q.options_type || "text";
-    const isSkip      = status === "skipped";
-    const isOk        = status === "correct";
+  container.innerHTML = items
+    .map(({ q, selected, correct, status, index }) => {
+      const opts = q.options || {};
+      const optionsType = q.options_type || "text";
+      const isSkip = status === "skipped";
+      const isOk = status === "correct";
 
-    const chipClass = isSkip ? "chip-skipped" : isOk ? "chip-correct" : "chip-wrong";
-    const chipIcon  = isSkip
-      ? `<i class="fas fa-minus"></i>`
-      : isOk
-        ? `<i class="fas fa-check"></i>`
-        : `<i class="fas fa-times"></i>`;
-    const chipLabel   = isSkip ? "Skipped" : isOk ? "Correct" : "Wrong";
-    const sectionName = q.pattern_sections?.section_name || "";
+      const chipClass = isSkip
+        ? "chip-skipped"
+        : isOk
+          ? "chip-correct"
+          : "chip-wrong";
+      const chipIcon = isSkip
+        ? `<i class="fas fa-minus"></i>`
+        : isOk
+          ? `<i class="fas fa-check"></i>`
+          : `<i class="fas fa-times"></i>`;
+      const chipLabel = isSkip ? "Skipped" : isOk ? "Correct" : "Wrong";
+      const sectionName = q.pattern_sections?.section_name || "";
 
-    // ── PYQ badge ──
-    const pyqBadge = q.pyq_year
-      ? `<span style="font-size:.65rem;font-weight:700;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;padding:2px 8px;border-radius:999px;white-space:nowrap">
+      // ── PYQ badge ──
+      const pyqBadge = q.pyq_year
+        ? `<span style="font-size:.65rem;font-weight:700;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;padding:2px 8px;border-radius:999px;white-space:nowrap">
            PYQ${q.pyq_source ? " · " + q.pyq_source : ""} ${q.pyq_year}
          </span>`
-      : "";
+        : "";
 
-    // ── Question figure image ──
-    const questionImageHtml = q.question_image
-      ? `<div style="padding:0 18px 10px">
+      // ── Question figure image ──
+      const questionImageHtml = q.question_image
+        ? `<div style="padding:0 18px 10px">
            <img src="${q.question_image}" alt="Question figure"
                 style="max-width:100%;max-height:200px;border-radius:10px;border:1px solid #e2e8f0;object-fit:contain;cursor:zoom-in"
                 onclick="openResultImgZoom('${q.question_image}')" />
          </div>`
-      : "";
+        : "";
 
-    // ── Options ──
-    const optionKeys = Object.keys(opts).sort();
-    const optionsHTML = optionKeys.map(key => {
-      const isCorrectOpt  = key === correct;
-      const isSelectedOpt = key === selected;
-      const isWrongSel    = isSelectedOpt && !isCorrectOpt;
+      // ── Options ──
+      const optionKeys = Object.keys(opts).sort();
+      const optionsHTML = optionKeys
+        .map((key) => {
+          const isCorrectOpt = key === correct;
+          const isSelectedOpt = key === selected;
+          const isWrongSel = isSelectedOpt && !isCorrectOpt;
 
-      let optClass = "", keyClass = "", trailIcon = "";
+          let optClass = "",
+            keyClass = "",
+            trailIcon = "";
 
-      if (!isSkip) {
-        if (isCorrectOpt) { optClass = "opt-correct"; keyClass = "key-correct"; }
-        if (isWrongSel)   { optClass = "opt-wrong";   keyClass = "key-wrong";   }
-        if (isCorrectOpt) trailIcon = `<i class="fas fa-check"  style="color:#16a34a;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
-        if (isWrongSel)   trailIcon = `<i class="fas fa-times"  style="color:#dc2626;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
-      }
+          if (!isSkip) {
+            if (isCorrectOpt) {
+              optClass = "opt-correct";
+              keyClass = "key-correct";
+            }
+            if (isWrongSel) {
+              optClass = "opt-wrong";
+              keyClass = "key-wrong";
+            }
+            if (isCorrectOpt)
+              trailIcon = `<i class="fas fa-check"  style="color:#16a34a;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
+            if (isWrongSel)
+              trailIcon = `<i class="fas fa-times"  style="color:#dc2626;margin-left:auto;flex-shrink:0;font-size:.75rem"></i>`;
+          }
 
-      const optValueHtml = renderOptionValue(opts[key], optionsType);
+          const optValueHtml = renderOptionValue(opts[key], optionsType);
 
-      return `
+          return `
         <div class="q-option ${optClass}">
           <span class="opt-key ${keyClass}">${key}</span>
           ${optValueHtml}
           ${trailIcon}
         </div>`;
-    }).join("");
+        })
+        .join("");
 
-    const explanationHTML = q.explanation
-      ? `<div class="q-explanation">
+      const explanationHTML = q.explanation
+        ? `<div class="q-explanation">
            <i class="fas fa-lightbulb exp-icon"></i>
            <span><strong>Explanation:</strong> ${q.explanation}</span>
          </div>`
-      : "";
+        : "";
 
-    return `
+      return `
       <div class="q-card ${status}" data-status="${status}">
         <div class="q-card-head">
           <div class="q-meta">
@@ -321,27 +386,30 @@ function renderReviewList(items) {
         ${questionImageHtml}
         <div class="q-options">${optionsHTML}</div>
         <div class="q-footer">
-          ${isSkip
-            ? `<div class="qa-item"><i class="fas fa-info-circle" style="color:#1a56db;margin-right:4px"></i>Not attempted &nbsp;·&nbsp; Correct answer: <span class="qa-correct-ans">${correct}</span></div>`
-            : `<div class="qa-item">Your answer: <strong>${selected}</strong></div>
+          ${
+            isSkip
+              ? `<div class="qa-item"><i class="fas fa-info-circle" style="color:#1a56db;margin-right:4px"></i>Not attempted &nbsp;·&nbsp; Correct answer: <span class="qa-correct-ans">${correct}</span></div>`
+              : `<div class="qa-item">Your answer: <strong>${selected}</strong></div>
                <div class="qa-item">Correct answer: <span class="qa-correct-ans">${correct}</span></div>`
           }
         </div>
         ${explanationHTML}
       </div>`;
-  }).join("");
+    })
+    .join("");
 }
 
 /* ─────────────────────────────────────────
    IMAGE ZOOM (for result page)
 ───────────────────────────────────────── */
-window.openResultImgZoom = function(src) {
+window.openResultImgZoom = function (src) {
   // Reuse exam zoom overlay if exists, else create one inline
   let overlay = document.getElementById("resultImgZoom");
   if (!overlay) {
     overlay = document.createElement("div");
     overlay.id = "resultImgZoom";
-    overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;cursor:zoom-out";
+    overlay.style.cssText =
+      "position:fixed;inset:0;background:rgba(0,0,0,0.88);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;cursor:zoom-out";
     overlay.innerHTML = `
       <div style="position:relative;max-width:800px;width:100%;display:flex;flex-direction:column;align-items:center;gap:12px">
         <button onclick="document.getElementById('resultImgZoom').remove()"
@@ -364,14 +432,22 @@ window.openResultImgZoom = function(src) {
 /* ─────────────────────────────────────────
    FILTER (client-side, instant)
 ───────────────────────────────────────── */
-window.filterReview = function(type, btn) {
-  document.querySelectorAll(".ftab").forEach(t => { t.className = "ftab"; });
-  const map = { all: "active-all", correct: "active-correct", wrong: "active-wrong", skipped: "active-skipped" };
+window.filterReview = function (type, btn) {
+  document.querySelectorAll(".ftab").forEach((t) => {
+    t.className = "ftab";
+  });
+  const map = {
+    all: "active-all",
+    correct: "active-correct",
+    wrong: "active-wrong",
+    skipped: "active-skipped",
+  };
   btn.classList.add(map[type]);
 
-  const filtered = type === "all"
-    ? allReviewItems
-    : allReviewItems.filter(i => i.status === type);
+  const filtered =
+    type === "all"
+      ? allReviewItems
+      : allReviewItems.filter((i) => i.status === type);
 
   renderReviewList(filtered);
 };
@@ -382,10 +458,10 @@ window.filterReview = function(type, btn) {
 function renderSectionAccuracy(aqData, answerMap) {
   const sectionMap = {};
 
-  aqData.forEach(item => {
-    const q         = item.questions;
-    const name      = q.pattern_sections?.section_name || "General";
-    const selected  = answerMap[q.id]?.selected_option;
+  aqData.forEach((item) => {
+    const q = item.questions;
+    const name = q.pattern_sections?.section_name || "General";
+    const selected = answerMap[q.id]?.selected_option;
     const isCorrect = selected && selected === q.correct_answer;
 
     if (!sectionMap[name]) sectionMap[name] = { correct: 0, total: 0 };
@@ -399,13 +475,15 @@ function renderSectionAccuracy(aqData, answerMap) {
   const COLORS = ["#1a56db", "#0284c7", "#0d9488", "#6366f1", "#7dd3fc"];
 
   document.getElementById("sectionAccuracyCard").style.display = "block";
-  document.getElementById("sectionBars").innerHTML = sections.map(([name, s], i) => {
-    const pct      = s.total ? Math.round((s.correct / s.total) * 100) : 0;
-    const color    = COLORS[i % COLORS.length];
-    const tagClass = pct >= 75 ? "tag-strong" : pct >= 50 ? "tag-average" : "tag-weak";
-    const tagLabel = pct >= 75 ? "Strong"     : pct >= 50 ? "Average"     : "Weak";
+  document.getElementById("sectionBars").innerHTML = sections
+    .map(([name, s], i) => {
+      const pct = s.total ? Math.round((s.correct / s.total) * 100) : 0;
+      const color = COLORS[i % COLORS.length];
+      const tagClass =
+        pct >= 75 ? "tag-strong" : pct >= 50 ? "tag-average" : "tag-weak";
+      const tagLabel = pct >= 75 ? "Strong" : pct >= 50 ? "Average" : "Weak";
 
-    return `
+      return `
       <div class="sub-bar">
         <div class="sub-bar-head">
           <span>${name}</span>
@@ -418,20 +496,21 @@ function renderSectionAccuracy(aqData, answerMap) {
           <div class="bar-fill" style="width:${pct}%;background:${color}"></div>
         </div>
       </div>`;
-  }).join("");
+    })
+    .join("");
 }
 
 /* ─────────────────────────────────────────
    WHATSAPP SHARE
 ───────────────────────────────────────── */
-window.shareResult = function() {
-  const score   = document.getElementById("score").textContent;
-  const acc     = document.getElementById("accuracy").textContent;
+window.shareResult = function () {
+  const score = document.getElementById("score").textContent;
+  const acc = document.getElementById("accuracy").textContent;
   const correct = document.getElementById("correctCount").textContent;
-  const text    = encodeURIComponent(
+  const text = encodeURIComponent(
     `I just completed a Mock Test on Courage Library!\n\n` +
-    `Score: ${score}  |  Correct: ${correct}  |  Accuracy: ${acc}\n\n` +
-    `Prepare with me: https://couragelibrary.in`
+      `Score: ${score}  |  Correct: ${correct}  |  Accuracy: ${acc}\n\n` +
+      `Prepare with me: https://couragelibrary.in`,
   );
   window.open(`https://wa.me/?text=${text}`, "_blank");
 };
@@ -458,10 +537,10 @@ function formatDuration(seconds) {
   if (!seconds && seconds !== 0) return "—";
   let s = Number(seconds);
   if (s > 100000) s = Math.floor(s / 1000);
-  const hrs  = Math.floor(s / 3600);
+  const hrs = Math.floor(s / 3600);
   const mins = Math.floor((s % 3600) / 60);
   const secs = s % 60;
-  if (hrs > 0)  return `${hrs}h ${mins}m`;
+  if (hrs > 0) return `${hrs}h ${mins}m`;
   if (mins > 0) return `${mins}m ${secs}s`;
   return `${secs}s`;
 }
@@ -472,9 +551,9 @@ function animateCount(id, target, duration) {
   const t0 = performance.now();
 
   function step(now) {
-    const p    = Math.min((now - t0) / duration, 1);
+    const p = Math.min((now - t0) / duration, 1);
     const ease = 1 - Math.pow(1 - p, 3);
-    const val  = to * ease;
+    const val = to * ease;
     el.textContent = Number.isInteger(to) ? Math.round(val) : val.toFixed(2);
     if (p < 1) requestAnimationFrame(step);
   }
@@ -483,4 +562,6 @@ function animateCount(id, target, duration) {
 
 /* Prevent back navigation to exam page */
 history.pushState(null, null, location.href);
-window.onpopstate = () => { window.location.href = "/mock/dashboard.html"; };
+window.onpopstate = () => {
+  window.location.href = "/mock/dashboard.html";
+};
