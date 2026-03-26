@@ -325,15 +325,35 @@ async function loadAvailableExams() {
   const manualExams = data.filter(e => e.schedule_type !== "daily_auto");
 
   // Fetch user attempts for all exams
-  const examIds = data.map(e => e.id);
-  const { data: userAttempts } = await client
-    .from("attempts")
-    .select("id, scheduled_exam_id, submitted_at, started_at, total_score")
-    .eq("user_id", user.id)
-    .in("scheduled_exam_id", examIds);
+const todayStart = new Date();
+todayStart.setHours(0, 0, 0, 0);
+const todayISO = todayStart.toISOString();
+
+const dailyExamIds  = data.filter(e => e.schedule_type === "daily_auto").map(e => e.id);
+const manualExamIds = data.filter(e => e.schedule_type !== "daily_auto").map(e => e.id);
+
+// Daily attempts: only today's — so last Monday never blocks this Monday
+const { data: dailyAttempts } = dailyExamIds.length > 0
+  ? await client
+      .from("attempts")
+      .select("id, scheduled_exam_id, submitted_at, started_at, total_score")
+      .eq("user_id", user.id)
+      .in("scheduled_exam_id", dailyExamIds)
+      .gte("started_at", todayISO)
+  : { data: [] };
+
+// Manual attempts: fetch all (no date restriction — attempt_limit logic still applies)
+const { data: manualAttempts } = manualExamIds.length > 0
+  ? await client
+      .from("attempts")
+      .select("id, scheduled_exam_id, submitted_at, started_at, total_score")
+      .eq("user_id", user.id)
+      .in("scheduled_exam_id", manualExamIds)
+  : { data: [] };
+
+const userAttempts = [...(dailyAttempts || []), ...(manualAttempts || [])];
 
   // Fetch all daily_auto attempts for streak calculation
-  const dailyExamIds = dailyExams.map(e => e.id);
   const { data: streakAttempts } = dailyExamIds.length > 0 ? await client
     .from("attempts")
     .select("submitted_at")
@@ -739,11 +759,20 @@ window.startExam = async function(examId, btn, chosenLanguage = null) {
     }
 
     // Check existing attempts
-    const { data: existingAttempts } = await client
-      .from("attempts")
-      .select("id, submitted_at, started_at")
-      .eq("user_id", user.id)
-      .eq("scheduled_exam_id", examId);
+    const isDaily = examCheck.schedule_type === "daily_auto";
+const todayMidnight = new Date(); todayMidnight.setHours(0,0,0,0);
+
+let attemptsQuery = client
+  .from("attempts")
+  .select("id, submitted_at, started_at")
+  .eq("user_id", user.id)
+  .eq("scheduled_exam_id", examId);
+
+if (isDaily) {
+  attemptsQuery = attemptsQuery.gte("started_at", todayMidnight.toISOString());
+}
+
+const { data: existingAttempts } = await attemptsQuery;
 
     const incomplete = (existingAttempts || []).find(a => !a.submitted_at);
 
@@ -793,7 +822,6 @@ window.startExam = async function(examId, btn, chosenLanguage = null) {
 
     // Use question_source_pattern_id if set — otherwise use own pattern
     // This allows any pattern to share a question pool without hardcoding
-    const isDaily = examCheck.schedule_type === "daily_auto";
     const patternIdForSections = examCheck.exam_patterns.question_source_pattern_id || patternId;
 
     let sectionsQuery = client
