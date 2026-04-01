@@ -456,6 +456,16 @@
             <!-- Signup Form -->
             <div id="signupForm" class="hidden">
                 <h2 class="text-lg font-semibold text-center text-gray-800 mb-4">Sign Up</h2>
+                <!-- Full Name Field -->
+                <div class="relative mb-4">
+                    <input type="text" id="signupName" placeholder="Enter your full name"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-3 w-5 h-5 text-gray-400"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                    </svg>
+                </div>
+                <!-- Email Field -->
                 <div class="relative mb-4">
                     <input type="email" id="signupEmail" placeholder="Enter your email"
                         class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -702,17 +712,34 @@
         SIGNUP
         ------------------------------------------------------------- */
         async function signupWithEmail() {
-            const email = signupEmail.value;
-            const password = signupPassword.value;
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+
+            if (!name) return showCustomPopup("Please enter your full name.", "error");
+            if (!email) return showCustomPopup("Please enter your email.", "error");
+            if (!password) return showCustomPopup("Please create a password.", "error");
 
             try {
                 const { data, error } = await supaClient.auth.signUp({
                     email,
                     password,
-                    options: { redirectTo: window.location.origin }
+                    options: {
+                        redirectTo: window.location.origin,
+                        data: { full_name: name }  // saves to auth.users user_metadata
+                    }
                 });
 
                 if (error) return showCustomPopup(error.message, "error");
+
+                // Also write to user_profiles table — leaderboardEngine.js reads from here
+                if (data?.user) {
+                    await supaClient.from('user_profiles').upsert({
+                        id: data.user.id,
+                        full_name: name,
+                        user_email: email
+                    }, { onConflict: 'id' });
+                }
 
                 showCustomPopup("Account created! Check your email for confirmation.", "success");
                 setTimeout(() => toggleModal(), 700);
@@ -2608,7 +2635,7 @@ GOOGLE LOGIN
                             </div>
                             <span>
                                 <strong class="block">Email</strong>
-                                <span class="text-sm">support@couragelibrary.in</span>
+                                <span class="text-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6a5a3a6a6b9a4a296b5b9a3a4b7b1b3babfb4a4b7a4aff8bfb8">[email&#160;protected]</a></span>
                             </span>
                         </li>
 
@@ -2715,7 +2742,7 @@ GOOGLE LOGIN
                     </div>
                 </div>
 
-                <script>
+                <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
                     const form = document.getElementById('contactForm');
                     const submitButton = form.querySelector('button[type="submit"]');
 
@@ -3027,16 +3054,15 @@ GOOGLE LOGIN
             // Preload chatbot silently after page load
             window.addEventListener("load", () => {
                 frame.src = "chatbot.html";
-                chatLoaded = true;
-            });
-
-            frame.addEventListener("load", () => {
-                frame.style.visibility = "visible";
+                if (!chatLoaded) {
+                    chatLoaded = true;
+                    setTimeout(() => {
+                        frame.style.visibility = "visible";
+                    }, 400);
+                }
             });
         </script>
-
     </section>
 
 </body>
-
 </html>
