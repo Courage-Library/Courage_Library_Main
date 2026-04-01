@@ -28,15 +28,76 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadAvailableExams();
 });
 
+// Tracks whether a user is logged in — used to gate the Attempt button only
+let _currentUser = null;
+
 async function checkAuth() {
   const { data: { user } } = await client.auth.getUser();
-  if (!user) window.location.href = "/index.html?checkAuth=1";
+  _currentUser = user || null;
+  // No redirect here — guests can browse freely; gate is on the Attempt button
 }
 
-// ─── Performance Analytics (unchanged) ────────────────────────────────────────
-async function loadPerformanceAnalytics() {
-  const { data: { user } } = await client.auth.getUser();
+// ─── Guest Auth Prompt ────────────────────────────────────────────────────────
+window.showGuestAuthPrompt = function() {
+  if (document.getElementById("guestAuthOverlay")) return;
 
+  const overlay = document.createElement("div");
+  overlay.id = "guestAuthOverlay";
+  overlay.style = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.6);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:20px;";
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:24px;max-width:380px;width:100%;box-shadow:0 32px 80px rgba(15,23,42,.25);overflow:hidden;animation:fadeInUp .25s ease;">
+
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 100%);padding:28px 24px 24px;text-align:center;position:relative">
+        <button onclick="document.getElementById('guestAuthOverlay').remove()" style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center">✕</button>
+        <img src="/images/logo.png" alt="Courage Library" style="width:48px;height:48px;border-radius:14px;margin:0 auto 12px;display:block;background:#fff;padding:5px;box-shadow:0 4px 16px rgba(0,0,0,.2);">
+        <div style="font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">Join Free to Attempt</div>
+        <div style="font-size:.75rem;color:#93c5fd;font-weight:500">Track your progress · All tests free · Daily mocks</div>
+      </div>
+
+      <!-- Body -->
+      <div style="padding:24px 24px 28px;">
+
+        <!-- Value props -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+          ${[
+            ["fas fa-clipboard-check","#dbeafe","#1d4ed8","Free daily & weekly mock tests"],
+            ["fas fa-chart-line",     "#d1fae5","#059669","Track accuracy & score history"],
+            ["fas fa-fire",           "#fff7ed","#c2410c","Build streaks, stay consistent"],
+          ].map(([icon,bg,color,text]) => `
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f8faff;border-radius:12px;border:1px solid #e8edf5;">
+              <span style="width:30px;height:30px;border-radius:9px;background:${bg};color:${color};display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0"><i class="${icon}"></i></span>
+              <span style="font-size:.82rem;font-weight:700;color:#0f172a">${text}</span>
+            </div>`).join("")}
+        </div>
+
+        <!-- Buttons -->
+        <a href="/index.html?action=signup" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:14px;font-weight:800;font-size:.95rem;text-decoration:none;margin-bottom:10px;box-shadow:0 4px 16px rgba(26,86,219,.35);">
+          <i class="fas fa-user-plus"></i> Create Free Account
+        </a>
+        <a href="/index.html?action=login" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;background:#fff;color:#1d4ed8;border:1.5px solid #bfdbfe;border-radius:14px;font-weight:800;font-size:.9rem;text-decoration:none;">
+          <i class="fas fa-sign-in-alt"></i> Already have an account? Log In
+        </a>
+      </div>
+    </div>`;
+
+  overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+};
+
+
+async function loadPerformanceAnalytics() {
+  // Guest users — show placeholder stats with a subtle sign-in nudge
+  if (!_currentUser) {
+    document.getElementById("totalAttempts").textContent = "—";
+    document.getElementById("avgAccuracy").textContent   = "—";
+    document.getElementById("bestScore").textContent     = "—";
+    document.getElementById("totalTime").textContent     = "—";
+    renderRecentAttempts([], true); // true = guest mode
+    return;
+  }
+
+  const user = _currentUser;
   const { data } = await client
     .from("attempts")
     .select(`total_score, accuracy, time_taken, submitted_at,
@@ -288,7 +349,8 @@ function startCountdown(elementId, getMs, urgent = false) {
 
 // ─── Load Available Exams ─────────────────────────────────────────────────────
 async function loadAvailableExams() {
-  const { data: { user } } = await client.auth.getUser();
+  // For guests, fetch exams publicly (no user-specific attempt data)
+  const user = _currentUser;
 
   const { data, error } = await client
     .from("scheduled_exams")
@@ -324,7 +386,7 @@ async function loadAvailableExams() {
   const dailyExams  = data.filter(e => e.schedule_type === "daily_auto");
   const manualExams = data.filter(e => e.schedule_type !== "daily_auto");
 
-  // Fetch user attempts for all exams
+  // Fetch user attempts for all exams (guests get empty arrays)
 const todayStart = new Date();
 todayStart.setHours(0, 0, 0, 0);
 const todayISO = todayStart.toISOString();
@@ -333,7 +395,7 @@ const dailyExamIds  = data.filter(e => e.schedule_type === "daily_auto").map(e =
 const manualExamIds = data.filter(e => e.schedule_type !== "daily_auto").map(e => e.id);
 
 // Daily attempts: only today's — so last Monday never blocks this Monday
-const { data: dailyAttempts } = dailyExamIds.length > 0
+const { data: dailyAttempts } = (user && dailyExamIds.length > 0)
   ? await client
       .from("attempts")
       .select("id, scheduled_exam_id, submitted_at, started_at, total_score")
@@ -343,7 +405,7 @@ const { data: dailyAttempts } = dailyExamIds.length > 0
   : { data: [] };
 
 // Manual attempts: fetch all (no date restriction — attempt_limit logic still applies)
-const { data: manualAttempts } = manualExamIds.length > 0
+const { data: manualAttempts } = (user && manualExamIds.length > 0)
   ? await client
       .from("attempts")
       .select("id, scheduled_exam_id, submitted_at, started_at, total_score")
@@ -354,7 +416,7 @@ const { data: manualAttempts } = manualExamIds.length > 0
 const userAttempts = [...(dailyAttempts || []), ...(manualAttempts || [])];
 
   // Fetch all daily_auto attempts for streak calculation
-  const { data: streakAttempts } = dailyExamIds.length > 0 ? await client
+  const { data: streakAttempts } = (user && dailyExamIds.length > 0) ? await client
     .from("attempts")
     .select("submitted_at")
     .eq("user_id", user.id)
@@ -473,7 +535,12 @@ const userAttempts = [...(dailyAttempts || []), ...(manualAttempts || [])];
       const warnAttr = (minsLeft <= 30 && minsLeft > 0)
         ? `onclick="if(!confirm('Only ${minsLeft} minutes left today and this exam is ${pattern.duration_minutes} minutes long. Start anyway?')) return; startExam('${exam.id}', this)"`
         : `onclick="startExam('${exam.id}', this)"`;
-      btnHtml     = `<button class="btn-start-exam active" ${warnAttr}><i class="fas fa-play mr-1"></i> Start Exam</button>`;
+      // Guest users — gate on attempt button only
+      if (!_currentUser) {
+        btnHtml = `<button class="btn-start-exam active" onclick="showGuestAuthPrompt()"><i class="fas fa-play mr-1"></i> Start Exam</button>`;
+      } else {
+        btnHtml = `<button class="btn-start-exam active" ${warnAttr}><i class="fas fa-play mr-1"></i> Start Exam</button>`;
+      }
     }
 
     const card = document.createElement("div");
@@ -610,7 +677,9 @@ const userAttempts = [...(dailyAttempts || []), ...(manualAttempts || [])];
       } else if (incompleteAttempt && !isAbandoned) {
         btnHtml = `<button class="btn-start-exam active" style="background:linear-gradient(135deg,#059669,#10b981)" onclick="resumeExam('${incompleteAttempt.id}', this)"><i class="fas fa-redo"></i> Resume</button>`;
       } else {
-        btnHtml = `<button class="btn-start-exam active" onclick="startExam('${exam.id}', this)"><i class="fas fa-play"></i> Start Exam</button>`;
+        btnHtml = !_currentUser
+          ? `<button class="btn-start-exam active" onclick="showGuestAuthPrompt()"><i class="fas fa-play"></i> Start Exam</button>`
+          : `<button class="btn-start-exam active" onclick="startExam('${exam.id}', this)"><i class="fas fa-play"></i> Start Exam</button>`;
       }
 
       const attemptsInfo = exam.attempt_limit
@@ -892,9 +961,23 @@ const { data: existingAttempts } = await attemptsQuery;
 };
 
 // ─── Render Recent Attempts ───────────────────────────────────────────────────
-function renderRecentAttempts(attempts) {
+function renderRecentAttempts(attempts, isGuest = false) {
   const container = document.getElementById("recentAttempts");
   if (!container) return;
+
+  if (isGuest) {
+    container.innerHTML = `
+      <div class="empty-box">
+        <div class="empty-ico"><i class="fas fa-lock"></i></div>
+        <h3>Sign In to See Your History</h3>
+        <p>Your scores, accuracy, and streaks are saved here once you create a free account.</p>
+        <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a href="/index.html?action=signup" style="padding:9px 22px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:100px;font-weight:800;font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(26,86,219,.3)"><i class="fas fa-user-plus"></i> Create Free Account</a>
+          <a href="/index.html?action=login" style="padding:9px 22px;background:#fff;color:#1d4ed8;border:1.5px solid #bfdbfe;border-radius:100px;font-weight:800;font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px"><i class="fas fa-sign-in-alt"></i> Log In</a>
+        </div>
+      </div>`;
+    return;
+  }
 
   if (!attempts || attempts.length === 0) {
     container.innerHTML = `
