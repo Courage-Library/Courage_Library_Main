@@ -285,6 +285,31 @@
   </div>
 
   <script src="/js/studentDashboard.js"></script>
+  <script>
+    // Show guest banner if not logged in (checked after auth resolves)
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        if (!_currentUser) {
+          const banner = document.createElement("div");
+          banner.id = "guestBanner";
+          banner.style = "background:linear-gradient(135deg,#1e3a8a,#1a56db);padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,86,219,.3);";
+          banner.innerHTML = `
+            <span style="font-size:.82rem;color:#bfdbfe;font-weight:600"><i class="fas fa-eye" style="margin-right:6px"></i>You're browsing as a guest — <strong style="color:#fff">sign up free</strong> to attempt tests & track progress</span>
+            <div style="display:flex;gap:8px;flex-shrink:0">
+              <a href="/index.html?action=signup" style="padding:6px 16px;background:#fff;color:#1d4ed8;border-radius:100px;font-weight:800;font-size:.75rem;text-decoration:none;">Sign Up Free</a>
+              <a href="/index.html?action=login" style="padding:6px 14px;background:rgba(255,255,255,.15);color:#fff;border-radius:100px;font-weight:700;font-size:.75rem;text-decoration:none;border:1px solid rgba(255,255,255,.3)">Log In</a>
+            </div>`;
+          // Insert after nav
+          const nav = document.querySelector("nav");
+          if (nav && nav.nextSibling) {
+            nav.parentNode.insertBefore(banner, nav.nextSibling);
+          } else {
+            document.body.prepend(banner);
+          }
+        }
+      }, 600); // slight delay to let checkAuth resolve
+    });
+  </script>
 
   <!-- ════════ FOOTER ════════ -->
   <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
