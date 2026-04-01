@@ -43,7 +43,12 @@ async function lbLoad() {
         if (exam?.title) lbSet("lb-subtitle", exam.title);
       });
 
-    // 3. All submitted attempts for this exam
+    // 3. All submitted attempts for this exam — today only
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setHours(23, 59, 59, 999);
+
     const { data: attempts, error: e2 } = await client
       .from("attempts")
       .select(
@@ -58,7 +63,9 @@ async function lbLoad() {
       `,
       )
       .eq("scheduled_exam_id", examId)
-      .not("submitted_at", "is", null);
+      .not("submitted_at", "is", null)
+      .gte("submitted_at", todayStart.toISOString())
+      .lte("submitted_at", todayEnd.toISOString());
 
     if (e2 || !attempts) {
       lbShowError();
