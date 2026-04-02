@@ -73,7 +73,8 @@
         }
 
         html {
-            scroll-behavior: smooth;
+            /* scroll-behavior handled by JS easing — see scrollToSection() */
+            scroll-padding-top: 72px;
         }
 
         body {
@@ -253,58 +254,149 @@
             }
         }
 
-        /* ── NOTIFICATION POPUP ────────────────────────────────── */
-        #cl-popup {
+        /* ── TOAST STACK ───────────────────────────────────────── */
+        #cl-toast-stack {
             position: fixed;
-            top: 1.25rem;
-            right: 1.25rem;
-            max-width: 92%;
-            z-index: 99999;
+            /* sits just below the sticky navbar (~56px tall) */
+            top: 64px;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            z-index: 49;
+            /* below nav z-50 so it slides under on scroll, but above page */
             pointer-events: none;
+            width: min(300px, calc(100vw - 1.25rem));
         }
 
-        #cl-popup-box {
+        @media(min-width: 640px) {
+            #cl-toast-stack {
+                top: 68px;
+                right: 1.25rem;
+                width: 320px;
+            }
+        }
+
+        .cl-toast {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: .85rem;
+            padding: .7rem .85rem;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, .11);
+            pointer-events: all;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(110%);
+            opacity: 0;
+            transition: transform .32s cubic-bezier(.34, 1.56, .64, 1), opacity .32s ease;
+        }
+
+        .cl-toast.in {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .cl-toast.out {
+            transform: translateX(110%);
+            opacity: 0;
+            transition: transform .25s ease, opacity .25s ease;
+        }
+
+        .cl-toast-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: .75rem;
-            background: #fff;
-            border-left: 4px solid var(--blue-500);
-            border-radius: .75rem;
-            padding: .9rem 1.2rem;
-            box-shadow: 0 8px 32px rgba(30, 58, 138, .14);
-            pointer-events: all;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: .68rem;
+            margin-top: 1px;
         }
 
-        @keyframes slideInR {
-            from {
-                transform: translateX(110%);
-                opacity: 0
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1
-            }
+        .cl-toast-body {
+            flex: 1;
+            min-width: 0;
         }
 
-        @keyframes slideOutR {
-            from {
-                transform: translateX(0);
-                opacity: 1
-            }
-
-            to {
-                transform: translateX(110%);
-                opacity: 0
-            }
+        .cl-toast-title {
+            font-size: .78rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+            margin: 0;
         }
 
-        .popup-in {
-            animation: slideInR .32s ease forwards;
+        .cl-toast-sub {
+            font-size: .68rem;
+            color: #64748b;
+            margin: 1px 0 0;
+            line-height: 1.3;
         }
 
-        .popup-out {
-            animation: slideOutR .28s ease forwards;
+        .cl-toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #94a3b8;
+            padding: 2px;
+            line-height: 1;
+            font-size: .68rem;
+            flex-shrink: 0;
+            transition: color .15s;
+            align-self: flex-start;
+        }
+
+        .cl-toast-close:hover {
+            color: #475569;
+        }
+
+        .cl-toast-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2.5px;
+            border-radius: 0 2px 0 0;
+        }
+
+        /* Toast type variants */
+        .cl-toast--success .cl-toast-icon {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .cl-toast--success .cl-toast-bar {
+            background: #16a34a;
+        }
+
+        .cl-toast--error .cl-toast-icon {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .cl-toast--error .cl-toast-bar {
+            background: #dc2626;
+        }
+
+        .cl-toast--info .cl-toast-icon {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .cl-toast--info .cl-toast-bar {
+            background: #2563eb;
+        }
+
+        .cl-toast--warning .cl-toast-icon {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+        .cl-toast--warning .cl-toast-bar {
+            background: #d97706;
         }
 
         /* ── MODALS ────────────────────────────────────────────── */
@@ -724,7 +816,6 @@
                 padding: .28rem .6rem;
             }
 
-            /* On desktop show as one pill with dots */
             .hero-badge-wrap {
                 display: inline-flex;
                 background: #eff6ff;
@@ -939,25 +1030,6 @@
             gap: .5rem;
         }
 
-        .cmp-cols {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: .4rem;
-            text-align: center;
-        }
-
-        .cmp-col-head {
-            font-size: .63rem;
-            font-weight: 700;
-            color: #64748b;
-            margin-bottom: .3rem;
-            line-height: 1.2;
-        }
-
-        .cmp-col-us .cmp-col-head {
-            color: #1d4ed8;
-        }
-
         .cmp-col-us {
             background: #eff6ff;
             border-radius: .6rem;
@@ -981,6 +1053,60 @@
             font-size: .62rem;
             color: #f59e0b;
             font-weight: 600;
+        }
+
+        /* ── MOCK TEST STATUS PILL ─────────────────────────────── */
+        #mock-test-status-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .mock-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .38rem 1rem;
+            border-radius: 9999px;
+            font-size: .74rem;
+            font-weight: 600;
+            cursor: default;
+            user-select: none;
+        }
+
+        .mock-status-pill--loggedin {
+            background: #f0fdf4;
+            border: 1.5px solid #bbf7d0;
+            color: #15803d;
+        }
+
+        .mock-status-pill--loggedout {
+            background: #eff6ff;
+            border: 1.5px solid #bfdbfe;
+            color: #1d4ed8;
+            cursor: pointer;
+            transition: opacity .15s, transform .15s;
+        }
+
+        .mock-status-pill--loggedout:hover {
+            opacity: .85;
+            transform: translateY(-1px);
+        }
+
+        .mock-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .mock-status-dot--green {
+            background: #16a34a;
+            animation: softPulse 1.6s ease-in-out infinite;
+        }
+
+        .mock-status-dot--blue {
+            background: #3b82f6;
         }
     </style>
 </head>
@@ -1013,7 +1139,7 @@
                     class="nav-link text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Contact</a>
                 <button id="nav-login-btn" class="btn-outline text-sm px-5 py-2"
                     onclick="openAuthModal('login')">Login</button>
-                <button id="nav-logout-btn" class="btn-primary  text-sm px-5 py-2 hidden"
+                <button id="nav-logout-btn" class="btn-primary text-sm px-5 py-2 hidden"
                     onclick="doLogout()">Logout</button>
             </div>
             <div class="md:hidden">
@@ -1055,7 +1181,7 @@
                     <div class="pt-2 border-t border-slate-100 flex gap-2">
                         <button id="mob-login-btn" class="btn-outline text-xs px-4 py-2 flex-1"
                             onclick="openAuthModal('login')">Login</button>
-                        <button id="mob-logout-btn" class="btn-primary  text-xs px-4 py-2 flex-1 hidden"
+                        <button id="mob-logout-btn" class="btn-primary text-xs px-4 py-2 flex-1 hidden"
                             onclick="doLogout()">Logout</button>
                     </div>
                 </div>
@@ -1249,12 +1375,8 @@
     </div>
 
 
-    <!-- ══ NOTIFICATION POPUP ══════════════════════════════════ -->
-    <div id="cl-popup" aria-live="polite" aria-atomic="true" class="hidden">
-        <div id="cl-popup-box">
-            <span id="cl-popup-msg" class="text-sm font-semibold text-slate-800"></span>
-        </div>
-    </div>
+    <!-- ══ TOAST STACK ══════════════════════════════════════════ -->
+    <div id="cl-toast-stack" aria-live="polite" aria-atomic="false"></div>
 
 
     <!-- ══ HERO ════════════════════════════════════════════════ -->
@@ -1267,7 +1389,6 @@
 
         <div class="relative w-full max-w-4xl mx-auto text-center px-5">
 
-            <!-- FIX 1: Hero badge — separate pills on mobile, single pill on desktop -->
             <div class="hero-badge-wrap mb-3" aria-label="Platform highlights">
                 <span class="hero-badge">1200+ Articles</span>
                 <span class="hero-badge-dot" aria-hidden="true"></span>
@@ -1370,7 +1491,7 @@
             <div class="rounded-2xl overflow-hidden"
                 style="border:1.5px solid #dbeafe; box-shadow:0 8px 40px rgba(30,58,138,.12); background:rgba(255,255,255,.84); backdrop-filter:blur(12px);">
 
-                <!-- ── DESKTOP TABLE (≥640px) ── -->
+                <!-- ── DESKTOP TABLE ── -->
                 <div class="compare-desktop">
                     <table class="compare-tbl" aria-label="Platform comparison">
                         <colgroup>
@@ -1458,11 +1579,9 @@
                     </table>
                 </div>
 
-                <!-- ── MOBILE STACKED CARDS (<640px) — FIX 2: no scroll ── -->
+                <!-- ── MOBILE STACKED CARDS ── -->
                 <div class="compare-mobile p-3" aria-label="Platform comparison">
-                    <!-- Column header strip -->
                     <div class="grid grid-cols-3 gap-20 mb-3 px-1">
-                        <!-- <div></div> -->
                         <div class="text-center pl-10">
                             <span
                                 class="inline-block px-2 py-1 rounded-full text-xs font-extrabold text-white leading-tight"
@@ -1473,10 +1592,7 @@
                             <span class="text-xs font-bold text-slate-400 leading-tight">Others</span>
                         </div>
                     </div>
-
-                    <!-- Feature rows -->
                     <div class="space-y-2">
-                        <!-- Row helper: feature | us | video | course -->
                         <div class="cmp-feature-row">
                             <p class="cmp-feature-label"><i class="fas fa-list-ul text-blue-400 text-xs"></i> Structured
                                 syllabus</p>
@@ -1548,7 +1664,7 @@
                     </div>
                 </div>
 
-                <!-- CTA bar (shared) -->
+                <!-- CTA bar -->
                 <div
                     class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p class="text-white text-sm font-semibold text-center sm:text-left">Purpose-built for government
@@ -1600,7 +1716,6 @@
             <div class="hidden md:grid grid-cols-5 gap-3 relative">
                 <div class="absolute top-8 left-[10%] right-[10%] h-0.5 z-0" aria-hidden="true"
                     style="background:linear-gradient(90deg,#bfdbfe,#2563eb,#1d4ed8,#bfdbfe);"></div>
-
                 <div class="relative z-10 flex flex-col items-center text-center group">
                     <div class="roadmap-step-icon mb-4 group-hover:scale-110 transition-transform duration-300"
                         style="--si-clr:#2563eb;">
@@ -1612,7 +1727,6 @@
                         <p class="text-xs text-slate-500">Pick your target and commit to a clear goal.</p>
                     </div>
                 </div>
-
                 <div class="relative z-10 flex flex-col items-center text-center group">
                     <div class="roadmap-step-icon mb-4 group-hover:scale-110 transition-transform duration-300"
                         style="--si-clr:#1d4ed8;">
@@ -1624,7 +1738,6 @@
                         <p class="text-xs text-slate-500">Exam-aligned articles and study material — no noise.</p>
                     </div>
                 </div>
-
                 <div class="relative z-10 flex flex-col items-center text-center group">
                     <div class="roadmap-step-icon mb-4 group-hover:scale-110 transition-transform duration-300"
                         style="--si-clr:#3b82f6;">
@@ -1636,7 +1749,6 @@
                         <p class="text-xs text-slate-500">Daily mocks with real exam patterns and timer.</p>
                     </div>
                 </div>
-
                 <div class="relative z-10 flex flex-col items-center text-center group">
                     <div class="roadmap-step-icon mb-4 group-hover:scale-110 transition-transform duration-300"
                         style="--si-clr:#1e40af;">
@@ -1648,7 +1760,6 @@
                         <p class="text-xs text-slate-500">Track weak areas. Revisit. Strengthen each topic.</p>
                     </div>
                 </div>
-
                 <div class="relative z-10 flex flex-col items-center text-center group">
                     <div class="roadmap-step-icon mb-4 group-hover:scale-110 transition-transform duration-300"
                         style="--si-clr:#16a34a;">
@@ -1740,7 +1851,8 @@
                     class="glass flex flex-col items-center text-center p-4 sm:p-5 border-b-4 border-sky-400 hover:-translate-y-1 transition-transform duration-200">
                     <div class="icon-circle mb-3"
                         style="width:2.8rem;height:2.8rem;font-size:1.1rem;background:linear-gradient(135deg,#0ea5e9,#2563eb)">
-                        <i class="fas fa-university"></i></div>
+                        <i class="fas fa-university"></i>
+                    </div>
                     <h3 class="font-bold text-blue-700 text-sm sm:text-base mb-1">Banking Exams</h3>
                     <p class="text-slate-600 text-xs sm:text-sm mb-4">All you need to crack IBPS, SBI, RBI and other
                         banking exams.</p>
@@ -1751,7 +1863,8 @@
                     class="glass flex flex-col items-center text-center p-4 sm:p-5 border-b-4 border-indigo-400 hover:-translate-y-1 transition-transform duration-200">
                     <div class="icon-circle mb-3"
                         style="width:2.8rem;height:2.8rem;font-size:1.1rem;background:linear-gradient(135deg,#6366f1,#4f46e5)">
-                        <i class="fas fa-train"></i></div>
+                        <i class="fas fa-train"></i>
+                    </div>
                     <h3 class="font-bold text-blue-700 text-sm sm:text-base mb-1">Railway Exams</h3>
                     <p class="text-slate-600 text-xs sm:text-sm mb-4">Self-paced courses and practice for RRB — NTPC,
                         Group D, ALP, JE.</p>
@@ -1762,7 +1875,8 @@
                     class="glass flex flex-col items-center text-center p-4 sm:p-5 border-b-4 border-blue-600 hover:-translate-y-1 transition-transform duration-200">
                     <div class="icon-circle mb-3"
                         style="width:2.8rem;height:2.8rem;font-size:1.1rem;background:linear-gradient(135deg,#0284c7,#1d4ed8)">
-                        <i class="fas fa-shield-alt"></i></div>
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
                     <h3 class="font-bold text-blue-700 text-sm sm:text-base mb-1">Defence Exams</h3>
                     <p class="text-slate-600 text-xs sm:text-sm mb-4">Complete preparation for Indian Army, Navy, Air
                         Force and NDA.</p>
@@ -1786,14 +1900,13 @@
     </div>
 
 
-    <!-- ══ COMING SOON — FIX 3: shows course name ═══════════════ -->
+    <!-- ══ COMING SOON ═══════════════════════════════════════════ -->
     <div id="cs-overlay" class="cl-overlay" onclick="if(event.target===this)closeCS()" role="dialog" aria-modal="true"
         aria-label="Coming soon">
         <div id="cs-modal" class="cl-modal">
             <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mb-4 pulse-dot">
             </div>
             <h2 class="text-blue-700 font-bold text-xl mb-1">Coming Soon</h2>
-            <!-- Course name badge — shown when a course is set -->
             <div id="cs-course-badge" class="hidden mb-3">
                 <span
                     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200">
@@ -1850,6 +1963,12 @@
                     <p class="text-xs font-semibold text-slate-700">Exam Pattern Tests</p>
                 </div>
             </div>
+
+            <!-- ══ ENROLLMENT STATUS PILL (shown only when logged in + enrolled/expired) ══ -->
+            <div id="mock-test-status-wrap" class="hidden mb-5">
+                <!-- Populated by renderMockTestPill() -->
+            </div>
+
             <a href="/mock/dashboard.html" class="btn-primary text-sm px-7 py-3 inline-flex gap-2">
                 Join Mock Test <i class="fas fa-arrow-right text-xs"></i>
             </a>
@@ -2089,7 +2208,7 @@
         <div class="max-w-5xl mx-auto px-4">
             <div class="text-center mb-7">
                 <span class="section-label">Get in Touch</span>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-blue-700">Support & Contact</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-blue-700">Support &amp; Contact</h2>
             </div>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass p-8 border-t-4 border-blue-500">
@@ -2112,12 +2231,14 @@
                         <li class="flex items-center gap-4 p-3 rounded-xl hover:bg-indigo-50 transition">
                             <div class="icon-circle flex-shrink-0"
                                 style="background:linear-gradient(135deg,#6366f1,#4f46e5)"><i
-                                    class="fas fa-envelope text-sm"></i></div><span><strong
-                                    class="block text-sm text-slate-800">Email</strong><a
-                                    href="/cdn-cgi/l/email-protection#0a797f7a7a65787e4a69657f786b6d6f666368786b7873246364"
-                                    class="text-sm text-slate-500 hover:text-blue-600 transition"><span
-                                        class="__cf_email__"
-                                        data-cfemail="ccbfb9bcbca3beb88cafa3b9beadaba9a0a5aebeadbeb5e2a5a2">[email&#160;protected]</span></a></span>
+                                    class="fas fa-envelope text-sm"></i></div>
+                            <span><strong class="block text-sm text-slate-800">Email</strong>
+                                <a href="/cdn-cgi/l/email-protection#0a797f7a7a65787e4a69657f786b6d6f666368786b7873246364"
+                                    class="text-sm text-slate-500 hover:text-blue-600 transition">
+                                    <span class="__cf_email__"
+                                        data-cfemail="ccbfb9bcbca3beb88cafa3b9beadaba9a0a5aebeadbeb5e2a5a2">[email&#160;protected]</span>
+                                </a>
+                            </span>
                         </li>
                     </ul>
                     <div class="flex justify-center">
@@ -2134,34 +2255,37 @@
                         novalidate>
                         <div><label for="c-name" class="sr-only">Your name</label>
                             <div class="relative"><i
-                                    class="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input
-                                    type="text" id="c-name" name="name" placeholder="Your Name" required
+                                    class="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <input type="text" id="c-name" name="name" placeholder="Your Name" required
                                     autocomplete="name"
                                     class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white/70 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none transition" />
                             </div>
                         </div>
                         <div><label for="c-email" class="sr-only">Your email</label>
                             <div class="relative"><i
-                                    class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i><input
-                                    type="email" id="c-email" name="email" placeholder="Your Email" required
+                                    class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                <input type="email" id="c-email" name="email" placeholder="Your Email" required
                                     autocomplete="email"
                                     class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white/70 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none transition" />
                             </div>
                         </div>
                         <div><label for="c-msg" class="sr-only">Your query</label>
                             <div class="relative"><i
-                                    class="fas fa-comment absolute left-3.5 top-4 text-slate-400 text-sm"></i><textarea
-                                    id="c-msg" name="message" rows="4" placeholder="Your Query" required
+                                    class="fas fa-comment absolute left-3.5 top-4 text-slate-400 text-sm"></i>
+                                <textarea id="c-msg" name="message" rows="4" placeholder="Your Query" required
                                     class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white/70 text-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none transition resize-none"></textarea>
                             </div>
                         </div>
                         <div id="form-success"
-                            class="hidden text-center py-3 bg-blue-50 rounded-xl border border-blue-200"><i
-                                class="fas fa-check-circle text-blue-500 mr-1"></i><span
-                                class="text-sm font-semibold text-blue-700">Message sent! We'll reply soon.</span></div>
-                        <div class="flex justify-center"><button type="submit" id="contact-submit"
-                                class="btn-primary text-sm px-7 py-2.5 gap-2"><i class="fas fa-paper-plane text-sm"></i>
-                                Send Query</button></div>
+                            class="hidden text-center py-3 bg-blue-50 rounded-xl border border-blue-200">
+                            <i class="fas fa-check-circle text-blue-500 mr-1"></i>
+                            <span class="text-sm font-semibold text-blue-700">Message sent! We'll reply soon.</span>
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit" id="contact-submit" class="btn-primary text-sm px-7 py-2.5 gap-2">
+                                <i class="fas fa-paper-plane text-sm"></i> Send Query
+                            </button>
+                        </div>
                         <p class="text-xs text-slate-400 text-center">You can also use our chatbot for instant help.</p>
                     </form>
                 </div>
@@ -2196,7 +2320,7 @@
             </div>
             <div
                 class="border-t border-blue-600 pt-4 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
-                <p class="text-blue-300">© 2026 Courage Library. All rights reserved.</p>
+                <p class="text-blue-300">© <span id="footer-year"></span> Courage Library. All rights reserved.</p>
                 <nav aria-label="Footer links" class="flex gap-4 text-blue-300">
                     <a href="#courses" class="hover:text-white transition">Courses</a>
                     <a href="/Blog/blog.html" class="hover:text-white transition">Blog</a>
@@ -2224,6 +2348,10 @@
     <!-- ══ JAVASCRIPT ══════════════════════════════════════════ -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
+        /* ── Auto footer year ─────────────────────────────────── */
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        /* ── Supabase init ────────────────────────────────────── */
         function waitForSupabase(cb) {
             if (window.supabase) { cb(); return; }
             const t = setInterval(() => { if (window.supabase) { clearInterval(t); cb(); } }, 50);
@@ -2255,31 +2383,71 @@
             return _enrollCache;
         }
 
-        let _popupTimer = null;
+        /* ── TOAST SYSTEM ─────────────────────────────────────── */
+        const TOAST_DURATION = 3200;
+
+        const TOAST_ICONS = {
+            success: '<i class="fas fa-check" style="font-size:.72rem"></i>',
+            error: '<i class="fas fa-times" style="font-size:.72rem"></i>',
+            info: '<i class="fas fa-info" style="font-size:.72rem"></i>',
+            warning: '<i class="fas fa-exclamation" style="font-size:.72rem"></i>'
+        };
+
+        const TOAST_SUBTITLES = {
+            'Login successful!': 'Welcome back to Courage Library',
+            'Logged out successfully.': 'See you next time',
+            'Account created! Check your email to confirm.': 'Verification email sent',
+            'Reset link sent! Check your email.': 'Check your inbox',
+            'Password updated successfully!': 'You can now log in',
+            'Message sent successfully!': "We'll reply within a few hours",
+            "You're on the list! We'll notify you when it goes live.": 'Stay tuned!',
+            "You're already on the list! We'll notify you.": 'Already registered'
+        };
+
         function showPopup(msg, type = 'success') {
-            const popup = document.getElementById('cl-popup');
-            const box = document.getElementById('cl-popup-box');
-            const msgEl = document.getElementById('cl-popup-msg');
-            msgEl.textContent = msg;
-            box.style.borderLeftColor = type === 'error' ? '#ef4444' : '#3b82f6';
-            popup.classList.remove('hidden');
-            box.classList.remove('popup-out');
-            void box.offsetWidth;
-            box.classList.add('popup-in');
-            if (_popupTimer) clearTimeout(_popupTimer);
-            _popupTimer = setTimeout(() => {
-                box.classList.remove('popup-in');
-                box.classList.add('popup-out');
-                setTimeout(() => popup.classList.add('hidden'), 300);
-            }, 2800);
+            const stack = document.getElementById('cl-toast-stack');
+            const normT = type === 'error' ? 'error' : type === 'warning' ? 'warning' : type === 'info' ? 'info' : 'success';
+            const toast = document.createElement('div');
+            toast.className = `cl-toast cl-toast--${normT}`;
+            const sub = TOAST_SUBTITLES[msg] || '';
+            toast.innerHTML = `
+                <div class="cl-toast-icon">${TOAST_ICONS[normT]}</div>
+                <div class="cl-toast-body">
+                    <p class="cl-toast-title">${msg}</p>
+                    ${sub ? `<p class="cl-toast-sub">${sub}</p>` : ''}
+                </div>
+                <button class="cl-toast-close" aria-label="Dismiss notification">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="cl-toast-bar" style="width:100%;transition-duration:${TOAST_DURATION}ms;transition-property:width;transition-timing-function:linear;"></div>`;
+            stack.appendChild(toast);
+
+            const dismiss = () => {
+                toast.classList.remove('in');
+                toast.classList.add('out');
+                setTimeout(() => toast.remove(), 280);
+            };
+
+            toast.querySelector('.cl-toast-close').addEventListener('click', dismiss);
+
+            /* Two rAF ticks ensure transition plays after paint */
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                toast.classList.add('in');
+                const bar = toast.querySelector('.cl-toast-bar');
+                setTimeout(() => { if (bar) bar.style.width = '0%'; }, 30);
+            }));
+
+            setTimeout(dismiss, TOAST_DURATION);
         }
 
+        /* ── AUTH BUTTONS ─────────────────────────────────────── */
         function updateAuthButtons() {
             const on = !!currentSession;
             ['nav-login-btn', 'mob-login-btn'].forEach(id => document.getElementById(id)?.classList.toggle('hidden', on));
             ['nav-logout-btn', 'mob-logout-btn'].forEach(id => document.getElementById(id)?.classList.toggle('hidden', !on));
         }
 
+        /* ── AUTH MODAL ───────────────────────────────────────── */
         const AUTH_FORMS = ['login', 'signup', 'reset', 'update'];
         let _lastFocus = null;
 
@@ -2291,6 +2459,7 @@
             document.body.style.overflow = 'hidden';
             setTimeout(() => { overlay.querySelector('input')?.focus(); }, 260);
         }
+
         function closeAuthModal() {
             document.getElementById('auth-overlay').classList.remove('open');
             document.body.style.overflow = '';
@@ -2368,6 +2537,7 @@
             await supaClient.auth.signOut();
             currentSession = null; _enrollCache = null;
             updateAuthButtons();
+            renderMockTestPill({ loggedIn: false });
             showPopup('Logged out successfully.');
         }
 
@@ -2407,6 +2577,7 @@
             history.replaceState({}, '', '/');
         }
 
+        /* ── HERO CTA ─────────────────────────────────────────── */
         async function renderHeroCTA(status) {
             const wrap = document.getElementById('hero-cta-wrap');
             const href = status.active ? 'dashboard.html' : '#courses';
@@ -2414,6 +2585,7 @@
             wrap.innerHTML = `<a href="${href}" class="btn-primary text-base px-8 py-3.5">${text} <i class="fas fa-arrow-right text-sm"></i></a>`;
         }
 
+        /* ── CTA SECTION ──────────────────────────────────────── */
         async function renderCTASection(status) {
             const heading = document.getElementById('cta-heading');
             const btnText = document.getElementById('cta-btn-text');
@@ -2446,6 +2618,33 @@
             }
         }
 
+        /* ── MOCK TEST STATUS PILL ────────────────────────────── */
+        /*  Note: mock tests are free — no enrollment needed.
+            Mock tests are FREE — only login is required, no enrollment.
+            Pill shows login status and readiness to attempt.             */
+        function renderMockTestPill(status) {
+            const wrap = document.getElementById('mock-test-status-wrap');
+            if (!wrap) return;
+            const { loggedIn } = status;
+
+            if (loggedIn) {
+                /* User is logged in — ready to attempt */
+                wrap.innerHTML = `
+                    <span class="mock-status-pill mock-status-pill--loggedin">
+                        <span class="mock-status-dot mock-status-dot--green"></span>
+                        You're logged in &mdash; ready to attempt today's mock
+                    </span>`;
+            } else {
+                /* Not logged in — prompt to login (clicking opens auth modal) */
+                wrap.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="mock-status-pill mock-status-pill--loggedout">
+                        <span class="mock-status-dot mock-status-dot--blue"></span>
+                        Login free to attempt today's mock test
+                    </button>`;
+            }
+            wrap.classList.remove('hidden');
+        }
+
         async function handleCTA() {
             const btn = document.getElementById('cta-btn');
             btn.disabled = true;
@@ -2460,7 +2659,7 @@
             }
         }
 
-        /* ── COURSE POPUP ──────────────────────────────────────── */
+        /* ── COURSE POPUP ─────────────────────────────────────── */
         const COURSES = {
             ssc: {
                 title: 'SSC Examination Courses', sub: 'Choose from our specialized preparation courses',
@@ -2509,7 +2708,6 @@
                 const ico = `<div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-xl mb-3 flex-shrink-0" style="background:linear-gradient(135deg,#3b82f6,#6366f1);box-shadow:0 4px 12px rgba(59,130,246,.3)"><i class="fas ${c.icon}"></i></div>`;
                 const info = `<h3 class="font-semibold text-blue-700 text-sm mb-1">${c.name}</h3><p class="text-slate-500 text-xs mb-3">${c.desc}</p>`;
                 if (c.isAll) return `<a href="${c.href}" class="glass flex flex-col items-center text-center p-4 hover:-translate-y-1 transition-transform">${ico}${info}<span class="text-xs font-semibold text-blue-600">→ See All</span></a>`;
-                /* FIX: pass course name to openCS */
                 if (c.soon) return `<div class="glass flex flex-col items-center text-center p-4 cursor-pointer hover:-translate-y-1 transition-transform js-soon" data-course="${c.name}" role="button" tabindex="0">${ico}${info}<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white" style="background:linear-gradient(135deg,#3b82f6,#6366f1)">Coming Soon</span></div>`;
                 return `<a href="${c.href}" class="glass flex flex-col items-center text-center p-4 hover:-translate-y-1 transition-transform">${ico}${info}<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white" style="background:linear-gradient(135deg,#3b82f6,#6366f1)">View Course</span></a>`;
             }).join('');
@@ -2519,7 +2717,7 @@
             const d = COURSES[type];
             document.getElementById('course-content').innerHTML =
                 `<div class="text-center mb-6"><h3 class="font-bold text-blue-700 text-xl mb-1">${d.title}</h3><p class="text-slate-500 text-sm">${d.sub}</p></div>
-     <div class="course-grid">${buildGrid(d.list)}</div>`;
+                 <div class="course-grid">${buildGrid(d.list)}</div>`;
             document.querySelectorAll('.js-soon').forEach(el => {
                 const courseName = el.dataset.course || '';
                 el.addEventListener('click', () => openCS(courseName));
@@ -2528,6 +2726,7 @@
             document.getElementById('course-overlay').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
+
         function closeCoursePopup() {
             document.getElementById('course-overlay').classList.remove('open');
             if (!document.getElementById('cs-overlay').classList.contains('open') &&
@@ -2535,22 +2734,20 @@
                 document.body.style.overflow = '';
         }
 
-        /* FIX: openCS now accepts and displays course name */
+        /* ── COMING SOON ──────────────────────────────────────── */
         let _currentCourseName = '';
+
         function openCS(courseName) {
             _currentCourseName = courseName || '';
             const badge = document.getElementById('cs-course-badge');
             const nameSpan = document.getElementById('cs-course-name');
-            if (_currentCourseName) {
-                nameSpan.textContent = _currentCourseName;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
+            if (_currentCourseName) { nameSpan.textContent = _currentCourseName; badge.classList.remove('hidden'); }
+            else { badge.classList.add('hidden'); }
             document.getElementById('cs-overlay').classList.add('open');
             document.body.style.overflow = 'hidden';
             setTimeout(() => document.getElementById('waitlist-email')?.focus(), 260);
         }
+
         function closeCS() {
             document.getElementById('cs-overlay').classList.remove('open');
             if (!document.getElementById('course-overlay').classList.contains('open') &&
@@ -2558,37 +2755,17 @@
                 document.body.style.overflow = '';
         }
 
-        /* ── WAITLIST — Supabase SQL (run once in your SQL editor):
-           ──────────────────────────────────────────────────────────
-           CREATE TABLE IF NOT EXISTS public.waitlist (
-             id          BIGSERIAL PRIMARY KEY,
-             email       TEXT NOT NULL,
-             course_name TEXT,
-             created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
-             CONSTRAINT waitlist_email_course_unique UNIQUE (email, course_name)
-           );
-           ALTER TABLE public.waitlist ENABLE ROW LEVEL SECURITY;
-           CREATE POLICY "Allow anon inserts" ON public.waitlist
-             FOR INSERT TO anon WITH CHECK (true);
-           ────────────────────────────────────────────────────────── */
         async function joinWaitlist() {
             const email = document.getElementById('waitlist-email').value.trim();
             if (!email) return showPopup('Please enter your email.', 'error');
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showPopup('Please enter a valid email.', 'error');
-
             const btn = document.querySelector('#cs-modal .btn-primary');
             if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
-
             try {
                 if (supaClient) {
-                    /* FIX: include course_name in the insert */
-                    const payload = {
-                        email,
-                        course_name: _currentCourseName || null,
-                        created_at: new Date().toISOString()
-                    };
-                    const { error } = await supaClient.from('waitlist').insert(payload);
-
+                    const { error } = await supaClient.from('waitlist').insert({
+                        email, course_name: _currentCourseName || null, created_at: new Date().toISOString()
+                    });
                     if (error) {
                         if (error.code === '23505' || (error.message && error.message.includes('duplicate'))) {
                             showPopup("You're already on the list! We'll notify you.", 'success');
@@ -2606,13 +2783,12 @@
                 console.warn('Waitlist error:', err);
                 showPopup("You're on the list! We'll notify you when it goes live.");
             }
-
             if (btn) { btn.disabled = false; btn.textContent = 'Notify Me When Live'; }
             document.getElementById('waitlist-email').value = '';
             setTimeout(closeCS, 1200);
         }
 
-        /* ── TESTIMONIALS ──────────────────────────────────────── */
+        /* ── TESTIMONIALS ─────────────────────────────────────── */
         let _testiVisible = false;
         function initTestimonials() {
             const track = document.getElementById('testi-track');
@@ -2641,6 +2817,7 @@
             obs.observe(document.getElementById('testimonials'));
         }
 
+        /* ── SCROLL REVEAL ────────────────────────────────────── */
         function initReveal() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
@@ -2648,6 +2825,7 @@
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         }
 
+        /* ── ACTIVE NAV ───────────────────────────────────────── */
         function initActiveNav() {
             const sections = ['courses', 'mock-tests', 'features', 'testimonials', 'contact'];
             const links = document.querySelectorAll('.nav-link[data-section]');
@@ -2657,6 +2835,7 @@
             sections.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
         }
 
+        /* ── MOBILE MENU ──────────────────────────────────────── */
         function initMobileMenu() {
             const btn = document.getElementById('mob-menu-btn');
             const menu = document.getElementById('mob-menu');
@@ -2667,11 +2846,18 @@
                 btn.setAttribute('aria-expanded', String(!open));
             });
             document.addEventListener('click', (e) => {
-                if (!btn.contains(e.target) && !menu.contains(e.target)) { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }
+                if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.add('hidden');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
             });
-            menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }));
+            menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+            }));
         }
 
+        /* ── CONTACT FORM ─────────────────────────────────────── */
         function initContactForm() {
             const form = document.getElementById('contact-form');
             const btn = document.getElementById('contact-submit');
@@ -2683,14 +2869,26 @@
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin text-sm"></i> Sending…';
                 try {
                     const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-                    if (res.ok) { form.reset(); succ.classList.remove('hidden'); btn.classList.add('hidden'); showPopup('Message sent successfully!'); }
-                    else { showPopup('Failed to send. Please try again.', 'error'); btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane text-sm"></i> Send Query'; }
+                    if (res.ok) {
+                        form.reset();
+                        succ.classList.remove('hidden');
+                        btn.classList.add('hidden');
+                        showPopup('Message sent successfully!');
+                        succ.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        showPopup('Failed to send. Please try again.', 'error');
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-paper-plane text-sm"></i> Send Query';
+                    }
                 } catch {
-                    showPopup('Network error. Please try again.', 'error'); btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane text-sm"></i> Send Query';
+                    showPopup('Network error. Please try again.', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane text-sm"></i> Send Query';
                 }
             });
         }
 
+        /* ── CHATBOT ──────────────────────────────────────────── */
         function initChatbot() {
             const chatBtn = document.getElementById('cl-chat-btn');
             const chatWin = document.getElementById('cl-chat-win');
@@ -2698,7 +2896,8 @@
             let loaded = false;
             chatBtn.addEventListener('click', () => {
                 const opening = !chatWin.classList.contains('open');
-                chatWin.classList.toggle('open'); chatBtn.classList.toggle('active');
+                chatWin.classList.toggle('open');
+                chatBtn.classList.toggle('active');
                 if (opening && !loaded) {
                     chatFrame.src = 'chatbot.html'; loaded = true;
                     chatFrame.addEventListener('load', () => { chatFrame.style.visibility = 'visible'; }, { once: true });
@@ -2706,14 +2905,23 @@
             });
             document.addEventListener('click', (e) => {
                 if (chatWin.classList.contains('open') && !chatWin.contains(e.target) && !chatBtn.contains(e.target)) {
-                    chatWin.classList.remove('open'); chatBtn.classList.remove('active');
+                    chatWin.classList.remove('open');
+                    chatBtn.classList.remove('active');
                 }
             });
         }
 
+        /* ── KEYBOARD SHORTCUTS ───────────────────────────────── */
         function initKeyboard() {
             document.addEventListener('keydown', (e) => {
                 if (e.key !== 'Escape') return;
+                /* Close mobile menu first */
+                const mobMenu = document.getElementById('mob-menu');
+                if (mobMenu && !mobMenu.classList.contains('hidden')) {
+                    mobMenu.classList.add('hidden');
+                    document.getElementById('mob-menu-btn')?.setAttribute('aria-expanded', 'false');
+                    return;
+                }
                 if (document.getElementById('cs-overlay').classList.contains('open')) { closeCS(); return; }
                 if (document.getElementById('course-overlay').classList.contains('open')) { closeCoursePopup(); return; }
                 if (document.getElementById('auth-overlay').classList.contains('open')) { closeAuthModal(); return; }
@@ -2722,16 +2930,51 @@
             });
         }
 
+        /* ── SMOOTH SCROLL ────────────────────────────────────── */
+        /* ── CUSTOM SMOOTH SCROLL ─────────────────────────────
+           easeInOutCubic gives a natural accelerate→decelerate
+           feel that the browser's native smooth scroll lacks.  */
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        let _scrollRaf = null;
+        function scrollToSection(id) {
+            const target = document.getElementById(id);
+            if (!target) return;
+            const navH = document.getElementById('main-nav')?.offsetHeight || 64;
+            const start = window.scrollY;
+            const end = target.getBoundingClientRect().top + start - navH - 8;
+            const dist = end - start;
+            const dur = Math.min(900, Math.max(380, Math.abs(dist) * 0.55)); /* 380-900ms, scales with distance */
+            let startTs = null;
+
+            if (_scrollRaf) cancelAnimationFrame(_scrollRaf);
+
+            function step(ts) {
+                if (!startTs) startTs = ts;
+                const elapsed = ts - startTs;
+                const progress = Math.min(elapsed / dur, 1);
+                window.scrollTo(0, start + dist * easeInOutCubic(progress));
+                if (progress < 1) { _scrollRaf = requestAnimationFrame(step); }
+                else { _scrollRaf = null; }
+            }
+            _scrollRaf = requestAnimationFrame(step);
+        }
+
         function initSmoothScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(a => {
                 a.addEventListener('click', (e) => {
                     const id = a.getAttribute('href').slice(1);
-                    const t = document.getElementById(id);
-                    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+                    if (document.getElementById(id)) {
+                        e.preventDefault();
+                        scrollToSection(id);
+                    }
                 });
             });
         }
 
+        /* ── AUTO LOGIN CHECK ─────────────────────────────────── */
         function checkAutoLogin() {
             if (new URLSearchParams(window.location.search).get('checkAuth') === '1') {
                 setTimeout(() => openAuthModal('login'), 300);
@@ -2739,18 +2982,31 @@
             }
         }
 
+        /* ── APP INIT ─────────────────────────────────────────── */
         async function initApp() {
             const { data: { session } } = await supaClient.auth.getSession();
             currentSession = session;
             updateAuthButtons();
+
+            /* Mock test pill is login-only — render immediately from session */
+            renderMockTestPill({ loggedIn: !!session });
+
             supaClient.auth.onAuthStateChange((_e, s) => {
                 currentSession = s; _enrollCache = null;
                 updateAuthButtons();
-                getEnrollmentStatus().then(st => { renderHeroCTA(st); renderCTASection(st); });
+                /* Update mock pill instantly on auth change */
+                renderMockTestPill({ loggedIn: !!s });
+                /* Hero CTA & CTA section need enrollment info */
+                getEnrollmentStatus().then(st => {
+                    renderHeroCTA(st);
+                    renderCTASection(st);
+                });
             });
+
             await handleRecoveryLink();
             const status = await getEnrollmentStatus();
             await Promise.all([renderHeroCTA(status), renderCTASection(status)]);
+
             initReveal();
             initTestimonials();
             initActiveNav();
