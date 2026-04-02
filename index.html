@@ -263,7 +263,7 @@
             display: flex;
             flex-direction: column;
             gap: .4rem;
-            z-index: 49;
+            z-index: 99999;
             /* below nav z-50 so it slides under on scroll, but above page */
             pointer-events: none;
             width: min(300px, calc(100vw - 1.25rem));
@@ -2763,9 +2763,9 @@
             if (btn) { btn.disabled = true; btn.textContent = 'Saving…'; }
             try {
                 if (supaClient) {
-                    const { error } = await supaClient.from('waitlist').insert({
-                        email, course_name: _currentCourseName || null, created_at: new Date().toISOString()
-                    });
+                    const payload = { email };
+                    if (_currentCourseName) payload.course_name = _currentCourseName;
+                    const { error } = await supaClient.from('waitlist').insert(payload);
                     if (error) {
                         if (error.code === '23505' || (error.message && error.message.includes('duplicate'))) {
                             showPopup("You're already on the list! We'll notify you.", 'success');
