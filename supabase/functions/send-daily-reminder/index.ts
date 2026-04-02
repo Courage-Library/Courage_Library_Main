@@ -9,20 +9,20 @@ const MOCK_URL = "https://couragelibrary.in/mock/dashboard.html";
 // ─── Day config ────────────────────────────────────────────────
 const DAY_DATA: Record<string, {
   icon: string; sub: string; q: number; m: number; d: string;
-  c1: string; c2: string; c3: string; tip: string; motive: string;
+  tip: string; motive: string; week: string;
 }> = {
-  Monday:    { icon:"📰", sub:"General Awareness",       q:20,  m:40,  d:"20 min", c1:"#1a56db", c2:"#3b82f6", c3:"#1e3a8a", tip:"Brush up on current affairs from the last 3 months. Focus on schemes, awards & sports.", motive:"🔥 SSC GD toppers never skip a day. Will you?" },
-  Tuesday:   { icon:"🧠", sub:"Reasoning",               q:20,  m:40,  d:"20 min", c1:"#4f46e5", c2:"#818cf8", c3:"#312e81", tip:"Don't spend more than 1 min per question. Puzzles & series are high scorers today.", motive:"💪 Sharp mind wins. Warm up and dive in!" },
-  Wednesday: { icon:"🔢", sub:"Quant Aptitude",          q:20,  m:40,  d:"20 min", c1:"#0891b2", c2:"#22d3ee", c3:"#164e63", tip:"Percentages, ratio & time-work are most common. Skip and come back if stuck.", motive:"📈 Numbers are your weapon today. Use them!" },
-  Thursday:  { icon:"📝", sub:"English Grammar",         q:20,  m:40,  d:"20 min", c1:"#059669", c2:"#34d399", c3:"#064e3b", tip:"Error spotting & fill-in-the-blanks carry most weight. Read each option carefully.", motive:"✨ Grammar today. Precision wins marks!" },
-  Friday:    { icon:"🇮🇳", sub:"Hindi",                  q:20,  m:40,  d:"20 min", c1:"#dc2626", c2:"#f87171", c3:"#7f1d1d", tip:"संधि, समास और मुहावरे पर ध्यान दें। आज का पेपर अच्छा जाएगा!", motive:"🏅 हिंदी में आज धमाका करो! All the best!" },
-  Saturday:  { icon:"⚡", sub:"Mixed Sectional (All 5)", q:50,  m:100, d:"30 min", c1:"#d97706", c2:"#fbbf24", c3:"#78350f", tip:"Mixed bag today — divide your time wisely. 30 sec per question on average.", motive:"⚡ Big test day! Give it everything you have." },
-  Sunday:    { icon:"🏆", sub:"Full Mock Test",          q:100, m:200, d:"60 min", c1:"#7c3aed", c2:"#a78bfa", c3:"#3b0764", tip:"Treat this like the real SSC GD exam. No distractions. Full focus. You've got this!", motive:"🏆 Full mock Sunday! This is your moment." },
+  Monday:    { icon:"📰", sub:"General Awareness",       q:20,  m:40,  d:"20 min", tip:"Focus on current affairs from last 3 months — schemes, awards &amp; sports are high-frequency topics.", motive:"Every day you show up, you move ahead of those who didn't.", week:"Monday" },
+  Tuesday:   { icon:"🧠", sub:"Reasoning",               q:20,  m:40,  d:"20 min", tip:"Don't spend more than 1 min per question. Puzzles &amp; number series are the highest-scoring areas today.", motive:"A sharp mind is built one problem at a time. Start now.", week:"Tuesday" },
+  Wednesday: { icon:"🔢", sub:"Quantitative Aptitude",   q:20,  m:40,  d:"20 min", tip:"Percentages, ratio &amp; time-work appear most. Skip tough questions and return — don't get stuck.", motive:"Numbers don't lie. Neither does consistent practice.", week:"Wednesday" },
+  Thursday:  { icon:"📝", sub:"English Grammar",         q:20,  m:40,  d:"20 min", tip:"Error spotting &amp; fill-in-the-blanks carry most marks. Read every option carefully before selecting.", motive:"Precision in language builds confidence in the exam hall.", week:"Thursday" },
+  Friday:    { icon:"🇮🇳", sub:"Hindi",                  q:20,  m:40,  d:"20 min", tip:"संधि, समास और मुहावरों पर ध्यान दें। हर विकल्प ध्यान से पढ़ें — एक अंक का फर्क बड़ा होता है।", motive:"आज का प्रयास कल की सफलता की नींव है।", week:"Friday" },
+  Saturday:  { icon:"⚡", sub:"Mixed Sectional (All 5)", q:50,  m:100, d:"30 min", tip:"Mixed bag today — all 5 subjects. Allocate ~6 min per section. Don't spend too long on any single area.", motive:"Saturday is where the serious ones separate from the rest.", week:"Saturday" },
+  Sunday:    { icon:"🏆", sub:"Full Mock Test",          q:100, m:200, d:"60 min", tip:"Treat this exactly like the real SSC GD exam. Sit down, full focus, no phone. You've prepared for this.", motive:"The full mock is the closest thing to the real exam. Own it.", week:"Sunday" },
 };
 
 const DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-// ─── HTML email builder ─────────────────────────────────────────
+// ─── Email builder ──────────────────────────────────────────────
 function buildEmailHTML(name: string, day: string): string {
   const d = DAY_DATA[day];
   const safeName = name || "Student";
@@ -33,174 +33,241 @@ function buildEmailHTML(name: string, day: string): string {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Today's Mock is Live — ${d.sub}</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #e2e8f0; font-family: 'Segoe UI', Arial, sans-serif; }
-  .email { max-width: 500px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.18); }
-  .accent-bar { height: 5px; background: linear-gradient(90deg,${d.c1},${d.c2},${d.c1}); }
-  .hero-bg { padding: 30px 28px 0; background: linear-gradient(160deg,${d.c1} 0%,${d.c3} 100%); }
-  .hero-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-  .logo-area { display: flex; align-items: center; gap: 10px; }
-  .logo-circle { width: 42px; height: 42px; border-radius: 11px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0,0,0,.15); overflow: hidden; flex-shrink: 0; }
-  .logo-circle img { width: 36px; height: 36px; object-fit: contain; display: block; }
-  .logo-brand { font-size: 13px; font-weight: 800; color: #fff; line-height: 1.1; display: block; }
-  .logo-tagline { font-size: 9px; font-weight: 600; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .08em; display: block; }
-  .morning-badge { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3); border-radius: 100px; padding: 4px 11px; }
-  .badge-text { font-size: 9px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .08em; }
-  .hero-center { text-align: center; padding-bottom: 10px; }
-  .sun-inner { width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.3); display: flex; align-items: center; justify-content: center; font-size: 34px; margin: 0 auto 14px; }
-  .greet { font-size: 13px; color: rgba(255,255,255,.75); margin-bottom: 6px; font-weight: 500; }
-  .main-title { font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 4px; letter-spacing: -.03em; line-height: 1.1; }
-  .subject-name { font-size: 15px; font-weight: 700; color: rgba(255,255,255,.85); }
-  .wave { display: block; margin-top: -2px; }
-  .stats-section { padding: 20px 20px 16px; }
-  .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 14px; }
-  .stat-box { background: #f8faff; border: 1px solid #e8edf5; border-radius: 12px; padding: 12px 8px; text-align: center; }
-  .stat-num { font-size: 22px; font-weight: 900; line-height: 1; margin-bottom: 3px; }
-  .stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #94a3b8; }
-  .tip-box { background: linear-gradient(135deg,#fefce8,#fef3c7); border: 1px solid #fde68a; border-radius: 12px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
-  .tip-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: #92400e; margin-bottom: 3px; }
-  .tip-text { font-size: 12px; color: #78350f; line-height: 1.5; font-weight: 500; }
-  .rules-section { padding: 0 20px 16px; }
-  .rules-strip { background: #fff5f5; border: 1px solid #fecaca; border-radius: 12px; padding: 12px 16px; }
-  .rules-title { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: #dc2626; margin-bottom: 10px; }
-  .rules-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-  .rule-item { text-align: center; }
-  .rule-icon { font-size: 16px; display: block; margin-bottom: 2px; }
-  .rule-name { font-size: 10px; font-weight: 700; color: #dc2626; display: block; }
-  .rule-val { font-size: 10px; color: #9ca3af; display: block; margin-top: 1px; }
-  .cta-section { padding: 4px 20px 20px; text-align: center; }
-  .cta-btn { display: inline-block; color: #fff !important; text-decoration: none; font-size: 15px; font-weight: 800; padding: 15px 50px; border-radius: 100px; background: linear-gradient(135deg,${d.c1},${d.c2}); box-shadow: 0 8px 28px ${d.c1}55; letter-spacing: .02em; }
-  .cta-note { font-size: 10px; color: #94a3b8; margin: 8px 0 0; }
-  .motive-section { padding: 0 20px 18px; }
-  .motive-box { border-radius: 12px; padding: 14px 16px; text-align: center; background: linear-gradient(135deg,${d.c1}12,${d.c2}18); }
-  .motive-text { font-size: 13px; font-weight: 800; color: ${d.c3}; margin-bottom: 3px; }
-  .motive-sub { font-size: 11px; color: #6b7280; }
-  .footer { padding: 18px 28px 22px; text-align: center; border-top: 1px solid #f1f5f9; }
-  .social-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
-  .soc-btn { width: 36px; height: 36px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: #fff !important; font-weight: 900; font-size: 14px; text-decoration: none; }
-  .fb { background: #1877f2; }
-  .ig { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
-  .footer-brand { font-size: 12px; font-weight: 800; color: #374151; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
-  .footer-links { font-size: 10px; color: #9ca3af; margin-bottom: 10px; }
-  .footer-links a { color: #3b82f6; text-decoration: none; }
-  .unsub { font-size: 9px; color: #d1d5db; }
-  .bottom-bar { height: 4px; background: linear-gradient(90deg,${d.c1},${d.c2},${d.c1}); }
-</style>
 </head>
-<body>
-<div class="email">
+<body style="margin:0;padding:0;background:#dde6f5;font-family:Arial,Helvetica,sans-serif;">
 
-  <div class="accent-bar"></div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#dde6f5;padding:28px 0;">
+<tr><td align="center">
 
-  <div class="hero-bg">
-    <div class="hero-top">
-      <div class="logo-area">
-        <div class="logo-circle">
-          <img src="https://couragelibrary.in/images/logo.png" alt="CL">
-        </div>
-        <div>
-          <span class="logo-brand">Courage Library</span>
-          <span class="logo-tagline">Mock Test Platform</span>
-        </div>
+<table width="520" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;width:100%;background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #bfdbfe;">
+
+  <!-- Top bar -->
+  <tr><td style="background:#1d4ed8;height:5px;font-size:0;line-height:0;">&nbsp;</td></tr>
+
+  <!-- HEADER -->
+  <tr>
+    <td style="background:#1e3a8a;padding:24px 28px 0 28px;">
+
+      <!-- Nav row -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="vertical-align:middle;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="vertical-align:middle;width:42px;height:42px;background:#1d4ed8;border-radius:10px;border:2px solid rgba(255,255,255,0.25);text-align:center;">
+                  <img src="https://couragelibrary.in/images/logo.png" width="38" height="38" alt="CL" style="display:block;border-radius:8px;">
+                </td>
+                <td style="padding-left:12px;vertical-align:middle;">
+                  <span style="display:block;font-size:15px;font-weight:800;color:#ffffff;line-height:1.2;letter-spacing:0.01em;">Courage Library</span>
+                  <span style="display:block;font-size:8px;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">Self-Paced Learning Platform</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td align="right" style="vertical-align:middle;">
+            <span style="display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:5px 12px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:0.08em;text-transform:uppercase;">&#9200; 5:00 AM</span>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Separator -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
+        <tr><td style="border-top:1px solid rgba(255,255,255,0.08);font-size:0;line-height:0;">&nbsp;</td></tr>
+      </table>
+
+      <!-- Hero -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td align="center" style="padding:28px 0 0;">
+
+            <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 18px;">
+              <tr>
+                <td style="width:70px;height:70px;background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.18);border-radius:50%;text-align:center;vertical-align:middle;font-size:32px;line-height:70px;">
+                  ${d.icon}
+                </td>
+              </tr>
+            </table>
+
+            <p style="margin:0 0 8px;font-size:12px;color:rgba(255,255,255,0.55);letter-spacing:0.04em;font-family:Arial,sans-serif;">Good Morning, ${safeName} &#9728;&#65039;</p>
+            <h1 style="margin:0 0 8px;font-size:30px;font-weight:900;color:#ffffff;letter-spacing:-0.03em;line-height:1.05;font-family:Arial,sans-serif;">Your Mock is Live!</h1>
+            <p style="margin:0 0 16px;font-size:16px;font-weight:700;color:rgba(255,255,255,0.82);letter-spacing:0.01em;font-family:Arial,sans-serif;">${d.sub}</p>
+
+            <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px;">
+              <tr>
+                <td style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:5px 18px;">
+                  <span style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:0.08em;text-transform:uppercase;font-family:Arial,sans-serif;">${d.week}</span>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Wave -->
+  <tr>
+    <td style="background:#1e3a8a;font-size:0;line-height:0;padding:0;">
+      <div style="overflow:hidden;height:36px;">
+        <div style="background:#f0f5ff;border-radius:50% 50% 0 0/100% 100% 0 0;height:68px;margin-top:-32px;"></div>
       </div>
-      <div class="morning-badge">
-        <span class="badge-text">⏰ 4:45 AM</span>
-      </div>
-    </div>
+    </td>
+  </tr>
 
-    <div class="hero-center">
-      <div class="sun-inner">${d.icon}</div>
-      <p class="greet">Good Morning, ${safeName}! ☀️</p>
-      <h1 class="main-title">Your Mock is Live!</h1>
-      <p class="subject-name">${d.sub}</p>
-    </div>
-  </div>
+  <!-- STATS -->
+  <tr>
+    <td style="background:#f0f5ff;padding:4px 22px 18px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="25%" style="padding:3px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr><td align="center" style="background:#ffffff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 6px;">
+                <span style="display:block;font-size:24px;font-weight:900;color:#1d4ed8;line-height:1;font-family:Arial,sans-serif;">${d.q}</span>
+                <span style="display:block;font-size:8px;font-weight:700;color:#94a3b8;letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;font-family:Arial,sans-serif;">Questions</span>
+              </td></tr>
+            </table>
+          </td>
+          <td width="25%" style="padding:3px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr><td align="center" style="background:#ffffff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 6px;">
+                <span style="display:block;font-size:24px;font-weight:900;color:#1d4ed8;line-height:1;font-family:Arial,sans-serif;">${d.m}</span>
+                <span style="display:block;font-size:8px;font-weight:700;color:#94a3b8;letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;font-family:Arial,sans-serif;">Marks</span>
+              </td></tr>
+            </table>
+          </td>
+          <td width="25%" style="padding:3px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr><td align="center" style="background:#ffffff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 6px;">
+                <span style="display:block;font-size:14px;font-weight:900;color:#1d4ed8;line-height:1;padding-top:5px;font-family:Arial,sans-serif;">${d.d}</span>
+                <span style="display:block;font-size:8px;font-weight:700;color:#94a3b8;letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;font-family:Arial,sans-serif;">Duration</span>
+              </td></tr>
+            </table>
+          </td>
+          <td width="25%" style="padding:3px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr><td align="center" style="background:#ffffff;border:1px solid #bfdbfe;border-radius:12px;padding:14px 6px;">
+                <span style="display:block;font-size:20px;font-weight:900;color:#1d4ed8;line-height:1;padding-top:3px;font-family:Arial,sans-serif;">&minus;0.5</span>
+                <span style="display:block;font-size:8px;font-weight:700;color:#94a3b8;letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;font-family:Arial,sans-serif;">Negative</span>
+              </td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
 
-  <svg class="wave" viewBox="0 0 500 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" width="100%" height="40">
-    <path d="M0,20 C125,40 375,0 500,20 L500,40 L0,40 Z" fill="#ffffff"/>
-  </svg>
+  <!-- WHITE BODY -->
+  <tr>
+    <td style="background:#ffffff;padding:0 22px;">
 
-  <div class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-box">
-        <div class="stat-num" style="color:#1d4ed8">${d.q}</div>
-        <div class="stat-label">Questions</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" style="color:#059669">${d.m}</div>
-        <div class="stat-label">Marks</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" style="color:#d97706;font-size:15px;padding-top:4px">${d.d}</div>
-        <div class="stat-label">Duration</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" style="color:#dc2626;font-size:18px;padding-top:2px">−0.5</div>
-        <div class="stat-label">Negative</div>
-      </div>
-    </div>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:18px;">
+        <tr><td style="border-top:1px solid #e2e8f0;font-size:0;line-height:0;">&nbsp;</td></tr>
+      </table>
 
-    <div class="tip-box">
-      <div style="font-size:18px;flex-shrink:0;margin-top:1px">💡</div>
-      <div>
-        <div class="tip-label">Today's Strategy</div>
-        <p class="tip-text">${d.tip}</p>
-      </div>
-    </div>
-  </div>
+      <!-- STRATEGY TIP -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+        <tr>
+          <td style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:14px 16px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="22" style="vertical-align:top;font-size:15px;line-height:1.5;padding-top:1px;">&#128161;</td>
+                <td style="vertical-align:top;padding-left:10px;">
+                  <span style="display:block;font-size:8px;font-weight:700;color:#92400e;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:5px;font-family:Arial,sans-serif;">Today's Strategy</span>
+                  <span style="font-size:12px;color:#78350f;line-height:1.7;font-family:Arial,sans-serif;">${d.tip}</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
 
-  <div class="rules-section">
-    <div class="rules-strip">
-      <div class="rules-title">⚠ Important Rules</div>
-      <div class="rules-row">
-        <div class="rule-item">
-          <span class="rule-icon">⏰</span>
-          <span class="rule-name">Window</span>
-          <span class="rule-val">5 AM – 11:59 PM</span>
-        </div>
-        <div class="rule-item">
-          <span class="rule-icon">🚫</span>
-          <span class="rule-name">One Attempt</span>
-          <span class="rule-val">No retakes allowed</span>
-        </div>
-        <div class="rule-item">
-          <span class="rule-icon">📵</span>
-          <span class="rule-name">Missed = Gone</span>
-          <span class="rule-val">Real exam discipline</span>
-        </div>
-      </div>
-    </div>
-  </div>
+      <!-- RULES -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+        <tr>
+          <td style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 16px;text-align:center;">
+            <span style="font-size:10px;font-weight:700;color:#1d4ed8;letter-spacing:0.04em;font-family:Arial,sans-serif;">One attempt only &nbsp;&nbsp;|&nbsp;&nbsp; 5 AM &ndash; 11:59 PM &nbsp;&nbsp;|&nbsp;&nbsp; Missed = Real exam discipline</span>
+          </td>
+        </tr>
+      </table>
 
-  <div class="cta-section">
-    <a class="cta-btn" href="${MOCK_URL}">Attempt Now &nbsp;→</a>
-    <p class="cta-note">Opens in browser · Free · No app needed</p>
-  </div>
+      <!-- CTA -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:6px;">
+        <tr>
+          <td align="center">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="background:#1d4ed8;border-radius:100px;">
+                  <a href="${MOCK_URL}" style="display:inline-block;padding:17px 64px;font-size:15px;font-weight:800;color:#ffffff;text-decoration:none;letter-spacing:0.04em;border-radius:100px;font-family:Arial,sans-serif;">Attempt Now &nbsp;&rarr;</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+        <tr><td align="center"><span style="font-size:10px;color:#94a3b8;font-family:Arial,sans-serif;">Opens in browser &nbsp;&middot;&nbsp; Free &nbsp;&middot;&nbsp; No app needed</span></td></tr>
+      </table>
 
-  <div class="motive-section">
-    <div class="motive-box">
-      <p class="motive-text">${d.motive}</p>
-      <p class="motive-sub">Every attempt builds your rank. Start now before the day slips away.</p>
-    </div>
-  </div>
+      <!-- MOTIVATION -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:26px;">
+        <tr>
+          <td style="border-left:3px solid #1d4ed8;border-radius:0 12px 12px 0;background:#eff6ff;padding:14px 16px;">
+            <p style="margin:0 0 5px;font-size:13px;font-weight:800;color:#1e3a8a;line-height:1.4;font-family:Arial,sans-serif;">&#10024; ${d.motive}</p>
+            <p style="margin:0;font-size:11px;color:#64748b;line-height:1.6;font-family:Arial,sans-serif;">Every attempt builds your rank. Start before the day slips away.</p>
+          </td>
+        </tr>
+      </table>
 
-  <div class="footer">
-    <div class="social-row">
-      <a class="soc-btn fb" href="https://www.facebook.com/profile.php?id=61576489404761">f</a>
-      <a class="soc-btn ig" href="https://www.instagram.com/couragelibrarymock/">◯</a>
-    </div>
-    <p style="font-size:11px;color:#9ca3af;margin-bottom:12px">Follow us for daily updates &amp; results</p>
-    <p class="footer-brand">Courage Library</p>
-    <p class="footer-links">
-      <a href="https://couragelibrary.in">couragelibrary.in</a> &nbsp;·&nbsp;
-      <a href="mailto:team@couragelibrary.in">team@couragelibrary.in</a>
-    </p>
-    <p class="unsub">You're receiving this because you registered on Courage Library. © 2025</p>
-  </div>
+      <!-- Divider -->
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr><td style="border-top:1px solid #e2e8f0;font-size:0;line-height:0;">&nbsp;</td></tr>
+      </table>
 
-  <div class="bottom-bar"></div>
-</div>
+    </td>
+  </tr>
+
+  <!-- FOOTER -->
+  <tr>
+    <td align="center" style="background:#ffffff;padding:20px 22px 24px;">
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:14px;">
+        <tr>
+          <td style="padding:0 4px;">
+            <a href="https://www.facebook.com/profile.php?id=61576489404761" style="display:inline-block;width:34px;height:34px;background:#1877f2;border-radius:8px;text-align:center;line-height:34px;font-size:14px;font-weight:900;color:#ffffff;text-decoration:none;">f</a>
+          </td>
+          <td style="padding:0 4px;">
+            <a href="https://www.instagram.com/couragelibrarymock/" style="display:inline-block;width:34px;height:34px;background:#e1306c;border-radius:8px;text-align:center;line-height:34px;font-size:10px;font-weight:900;color:#ffffff;text-decoration:none;">IG</a>
+          </td>
+        </tr>
+      </table>
+      <p style="margin:0 0 3px;font-size:11px;color:#94a3b8;font-family:Arial,sans-serif;">Follow us for daily updates &amp; results</p>
+      <p style="margin:0 0 8px;font-size:12px;font-weight:800;color:#1e3a8a;letter-spacing:0.06em;text-transform:uppercase;font-family:Arial,sans-serif;">Courage Library</p>
+      <p style="margin:0 0 10px;font-size:10px;font-family:Arial,sans-serif;">
+        <a href="https://couragelibrary.in" style="color:#1d4ed8;text-decoration:none;font-weight:600;">couragelibrary.in</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:team@couragelibrary.in" style="color:#1d4ed8;text-decoration:none;font-weight:600;">team@couragelibrary.in</a>
+      </p>
+      <p style="margin:0;font-size:9px;color:#cbd5e1;line-height:1.6;font-family:Arial,sans-serif;">You're receiving this because you registered on Courage Library.<br>&copy; 2025 Courage Library. All rights reserved.</p>
+    </td>
+  </tr>
+
+  <!-- Bottom 2-tone bar -->
+  <tr>
+    <td style="font-size:0;line-height:0;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td width="50%" style="background:#1d4ed8;height:5px;font-size:0;">&nbsp;</td>
+          <td width="50%" style="background:#1e3a8a;height:5px;font-size:0;">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+</table>
+
+</td></tr>
+</table>
+
 </body>
 </html>`;
 }
