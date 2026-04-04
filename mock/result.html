@@ -15,22 +15,26 @@
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
 
         :root {
-            --brand:       #1a56db;
-            --brand-dark:  #1e40af;
+            --brand: #1a56db;
+            --brand-dark: #1e40af;
             --brand-light: #eff6ff;
-            --green:       #16a34a;
+            --green: #16a34a;
             --green-light: #f0fdf4;
-            --red:         #dc2626;
-            --red-light:   #fef2f2;
-            --amber:       #d97706;
+            --red: #dc2626;
+            --red-light: #fef2f2;
+            --amber: #d97706;
             --amber-light: #fffbeb;
-            --border:      #e2e8f0;
-            --text:        #0f172a;
-            --muted:       #64748b;
-            --radius:      16px;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --muted: #64748b;
+            --radius: 16px;
         }
 
-        *, *::before, *::after { box-sizing: border-box; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'DM Sans', inherit, sans-serif;
@@ -39,42 +43,107 @@
             color: var(--text);
         }
 
-        h1, h2, h3, .score-num { font-family: 'Sora', sans-serif; }
+        h1,
+        h2,
+        h3,
+        .score-num {
+            font-family: 'Sora', sans-serif;
+        }
 
         /* ── RIPPLE ── */
-        .ripple { position: relative; overflow: hidden; }
-        .ripple::after {
-            content: ''; display: block; position: absolute;
-            border-radius: 50%; width: 100%; height: 100%;
-            top: 0; left: 0; pointer-events: none;
-            background: rgba(59,130,246,.2); opacity: 0;
-            transition: opacity .6s, transform .6s; transform: scale(.5);
+        .ripple {
+            position: relative;
+            overflow: hidden;
         }
-        .ripple:active::after { opacity: 1; transform: scale(1.2); transition: 0s; }
+
+        .ripple::after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, .2);
+            opacity: 0;
+            transition: opacity .6s, transform .6s;
+            transform: scale(.5);
+        }
+
+        .ripple:active::after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
 
         /* ── KEYFRAMES ── */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(22px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scoreReveal {
-            from { opacity: 0; transform: scale(.65); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        @keyframes popIn {
-            0%   { transform: scale(.5); opacity: 0; }
-            70%  { transform: scale(1.08); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes shimmer {
-            0%   { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .fade-up { animation: fadeUp .45s ease both; }
-        .s1 { animation-delay: .04s; }
-        .s2 { animation-delay: .12s; }
-        .s3 { animation-delay: .20s; }
+        @keyframes scoreReveal {
+            from {
+                opacity: 0;
+                transform: scale(.65);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(.5);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp .45s ease both;
+        }
+
+        .s1 {
+            animation-delay: .04s;
+        }
+
+        .s2 {
+            animation-delay: .12s;
+        }
+
+        .s3 {
+            animation-delay: .20s;
+        }
 
         /* ── SCORE HERO ── */
         .score-hero {
@@ -85,24 +154,42 @@
             color: #fff;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 56px rgba(26,86,219,.38);
+            box-shadow: 0 20px 56px rgba(26, 86, 219, .38);
         }
+
         @media (min-width: 480px) {
-            .score-hero { padding: 48px 32px 38px; border-radius: 24px; }
+            .score-hero {
+                padding: 48px 32px 38px;
+                border-radius: 24px;
+            }
         }
+
         .score-hero::before {
             content: '';
-            position: absolute; top: -70px; right: -70px;
-            width: 240px; height: 240px;
-            background: rgba(255,255,255,.055); border-radius: 50%;
+            position: absolute;
+            top: -70px;
+            right: -70px;
+            width: 240px;
+            height: 240px;
+            background: rgba(255, 255, 255, .055);
+            border-radius: 50%;
         }
+
         .score-hero::after {
             content: '';
-            position: absolute; bottom: -90px; left: -50px;
-            width: 300px; height: 300px;
-            background: rgba(255,255,255,.035); border-radius: 50%;
+            position: absolute;
+            bottom: -90px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, .035);
+            border-radius: 50%;
         }
-        .score-hero > * { position: relative; z-index: 1; }
+
+        .score-hero>* {
+            position: relative;
+            z-index: 1;
+        }
 
         .score-label {
             font-size: .75rem;
@@ -112,16 +199,21 @@
             opacity: .65;
             margin-bottom: 10px;
         }
+
         .score-num {
             font-size: 4rem;
             font-weight: 800;
             line-height: 1;
-            animation: scoreReveal .55s cubic-bezier(.34,1.56,.64,1) both;
+            animation: scoreReveal .55s cubic-bezier(.34, 1.56, .64, 1) both;
             animation-delay: .18s;
         }
+
         @media (min-width: 480px) {
-            .score-num { font-size: 5.5rem; }
+            .score-num {
+                font-size: 5.5rem;
+            }
         }
+
         .score-denom {
             font-size: 1rem;
             opacity: .5;
@@ -139,36 +231,66 @@
             border-radius: 100px;
             font-size: .82rem;
             font-weight: 700;
-            animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+            animation: popIn .5s cubic-bezier(.34, 1.56, .64, 1) both;
             animation-delay: .5s;
         }
-        .verdict-excellent { background: rgba(22,163,74,.22);  color: #bbf7d0; border: 1px solid rgba(22,163,74,.38); }
-        .verdict-good      { background: rgba(59,130,246,.22); color: #bfdbfe; border: 1px solid rgba(59,130,246,.38); }
-        .verdict-average   { background: rgba(217,119,6,.22);  color: #fde68a; border: 1px solid rgba(217,119,6,.38); }
-        .verdict-poor      { background: rgba(220,38,38,.22);  color: #fca5a5; border: 1px solid rgba(220,38,38,.38); }
+
+        .verdict-excellent {
+            background: rgba(22, 163, 74, .22);
+            color: #bbf7d0;
+            border: 1px solid rgba(22, 163, 74, .38);
+        }
+
+        .verdict-good {
+            background: rgba(59, 130, 246, .22);
+            color: #bfdbfe;
+            border: 1px solid rgba(59, 130, 246, .38);
+        }
+
+        .verdict-average {
+            background: rgba(217, 119, 6, .22);
+            color: #fde68a;
+            border: 1px solid rgba(217, 119, 6, .38);
+        }
+
+        .verdict-poor {
+            background: rgba(220, 38, 38, .22);
+            color: #fca5a5;
+            border: 1px solid rgba(220, 38, 38, .38);
+        }
 
         /* ── STAT CHIPS (inside hero) ── */
         .stat-row {
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             margin-top: 22px;
             width: 100%;
         }
+        /* 4th and 5th chips span naturally on mobile in a second row */
+        @media (min-width: 480px) {
+            .stat-row {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+
         .stat-chip {
             flex: 1;
             min-width: 0;
-            background: rgba(255,255,255,.11);
-            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(255, 255, 255, .11);
+            border: 1px solid rgba(255, 255, 255, .16);
             border-radius: 11px;
             padding: 10px 4px 9px;
             text-align: center;
         }
+
         .stat-chip .sc-icon {
             font-size: .75rem;
             opacity: .75;
             margin-bottom: 5px;
         }
+
         .stat-chip .sc-val {
             font-family: 'Sora', sans-serif;
             font-size: clamp(.72rem, 2.8vw, 1.15rem);
@@ -176,6 +298,7 @@
             line-height: 1;
             white-space: nowrap;
         }
+
         .stat-chip .sc-lbl {
             font-size: .48rem;
             opacity: .6;
@@ -183,19 +306,50 @@
             text-transform: uppercase;
             letter-spacing: .04em;
         }
+
         /* larger on wider screens */
         @media (min-width: 480px) {
-            .stat-row { gap: 10px; }
-            .stat-chip { padding: 13px 8px 11px; border-radius: 13px; }
-            .stat-chip .sc-val { font-size: 1.4rem; }
-            .stat-chip .sc-lbl { font-size: .6rem; }
-            .stat-chip .sc-icon { font-size: .85rem; }
+            .stat-row {
+                gap: 10px;
+            }
+
+            .stat-chip {
+                padding: 13px 8px 11px;
+                border-radius: 13px;
+            }
+
+            .stat-chip .sc-val {
+                font-size: 1.4rem;
+            }
+
+            .stat-chip .sc-lbl {
+                font-size: .6rem;
+            }
+
+            .stat-chip .sc-icon {
+                font-size: .85rem;
+            }
         }
-        .scv-green { color: #86efac; }
-        .scv-red   { color: #fca5a5; }
-        .scv-sky   { color: #bae6fd; }
-        .scv-amber { color: #fde68a; }
-        .scv-white { color: #fff; }
+
+        .scv-green {
+            color: #86efac;
+        }
+
+        .scv-red {
+            color: #fca5a5;
+        }
+
+        .scv-sky {
+            color: #bae6fd;
+        }
+
+        .scv-amber {
+            color: #fde68a;
+        }
+
+        .scv-white {
+            color: #fff;
+        }
 
         /* ── ACTION BUTTONS ── */
         .action-row {
@@ -206,12 +360,14 @@
             justify-content: center;
             margin-top: 20px;
         }
+
         /* Mobile: icon-only circles */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px; height: 44px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             padding: 0;
             font-size: .95rem;
@@ -224,43 +380,81 @@
             flex-shrink: 0;
             letter-spacing: .01em;
         }
-        .btn-label { display: none; }
-        .btn:hover { transform: translateY(-2px); }
+
+        .btn-label {
+            display: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
         /* Desktop: icon + label */
         @media (min-width: 400px) {
             .btn {
-                width: auto; height: auto;
+                width: auto;
+                height: auto;
                 border-radius: 10px;
                 padding: 9px 15px;
                 font-size: .78rem;
                 gap: 6px;
             }
-            .btn-label { display: inline; }
-            .action-row { gap: 8px; }
+
+            .btn-label {
+                display: inline;
+            }
+
+            .action-row {
+                gap: 8px;
+            }
         }
+
         @media (min-width: 480px) {
-            .btn { padding: 11px 20px; font-size: .84rem; gap: 8px; }
-            .action-row { gap: 10px; margin-top: 28px; }
+            .btn {
+                padding: 11px 20px;
+                font-size: .84rem;
+                gap: 8px;
+            }
+
+            .action-row {
+                gap: 10px;
+                margin-top: 28px;
+            }
         }
+
         .btn-white {
-            background: rgba(255,255,255,.15);
+            background: rgba(255, 255, 255, .15);
             color: #fff;
-            border: 1.5px solid rgba(255,255,255,.3);
+            border: 1.5px solid rgba(255, 255, 255, .3);
             backdrop-filter: blur(4px);
         }
-        .btn-white:hover { background: rgba(255,255,255,.25); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+
+        .btn-white:hover {
+            background: rgba(255, 255, 255, .25);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .2);
+        }
+
         .btn-outline-white {
             background: #fff;
             color: var(--brand-dark);
-            box-shadow: 0 2px 8px rgba(0,0,0,.12);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
         }
-        .btn-outline-white:hover { background: #f0f6ff; box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+
+        .btn-outline-white:hover {
+            background: #f0f6ff;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+        }
+
         .btn-whatsapp {
             background: #25d366;
             color: #fff;
-            box-shadow: 0 2px 8px rgba(37,211,102,.35);
+            box-shadow: 0 2px 8px rgba(37, 211, 102, .35);
         }
-        .btn-whatsapp:hover { background: #1fb855; box-shadow: 0 6px 20px rgba(37,211,102,.45); }
+
+        .btn-whatsapp:hover {
+            background: #1fb855;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, .45);
+        }
 
         /* ── INFO CARD ── */
         .info-card {
@@ -268,11 +462,15 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             padding: 18px 16px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
         }
+
         @media (min-width: 480px) {
-            .info-card { padding: 24px 26px; }
+            .info-card {
+                padding: 24px 26px;
+            }
         }
+
         .info-card-title {
             font-size: 1rem;
             font-weight: 700;
@@ -282,19 +480,29 @@
             gap: 10px;
             margin-bottom: 20px;
         }
+
         .title-icon {
-            width: 32px; height: 32px;
+            width: 32px;
+            height: 32px;
             border-radius: 9px;
             background: var(--brand-light);
             color: var(--brand);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: .84rem;
             flex-shrink: 0;
         }
 
         /* ── SECTION ACCURACY BARS ── */
-        .sub-bar { margin-bottom: 16px; }
-        .sub-bar:last-child { margin-bottom: 0; }
+        .sub-bar {
+            margin-bottom: 16px;
+        }
+
+        .sub-bar:last-child {
+            margin-bottom: 0;
+        }
+
         .sub-bar-head {
             display: flex;
             justify-content: space-between;
@@ -305,10 +513,12 @@
             gap: 8px;
             flex-wrap: wrap;
         }
-        .sub-bar-head > span:first-child {
+
+        .sub-bar-head>span:first-child {
             flex: 1;
             min-width: 0;
         }
+
         .sub-bar-tag {
             font-size: .62rem;
             font-weight: 700;
@@ -316,19 +526,33 @@
             border-radius: 100px;
             white-space: nowrap;
         }
-        .tag-strong  { background: #dcfce7; color: #15803d; }
-        .tag-average { background: #fef3c7; color: #92400e; }
-        .tag-weak    { background: #fee2e2; color: #b91c1c; }
+
+        .tag-strong {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .tag-average {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-weak {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
         .bar-track {
             height: 10px;
             background: #eef2f7;
             border-radius: 999px;
             overflow: hidden;
         }
+
         .bar-fill {
             height: 100%;
             border-radius: 999px;
-            transition: width 1.1s cubic-bezier(.4,0,.2,1);
+            transition: width 1.1s cubic-bezier(.4, 0, .2, 1);
         }
 
         /* ── FILTER TABS ── */
@@ -340,7 +564,11 @@
             gap: 10px;
             margin-bottom: 14px;
         }
-        .review-header h2 { font-size: 1.1rem; font-weight: 700; }
+
+        .review-header h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
 
         .filter-tabs {
             display: flex;
@@ -352,7 +580,11 @@
             scrollbar-width: none;
             padding-bottom: 2px;
         }
-        .filter-tabs::-webkit-scrollbar { display: none; }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
         .ftab {
             display: inline-flex;
             align-items: center;
@@ -369,7 +601,12 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .ftab:hover { border-color: #94a3b8; color: var(--text); }
+
+        .ftab:hover {
+            border-color: #94a3b8;
+            color: var(--text);
+        }
+
         .ftab-count {
             background: #f1f5f9;
             color: var(--muted);
@@ -378,14 +615,38 @@
             font-size: .68rem;
             font-weight: 800;
         }
-        .ftab.active-all     { background: var(--brand); color: #fff; border-color: var(--brand); }
-        .ftab.active-correct { background: var(--green); color: #fff; border-color: var(--green); }
-        .ftab.active-wrong   { background: var(--red);   color: #fff; border-color: var(--red);   }
-        .ftab.active-skipped { background: #64748b;      color: #fff; border-color: #64748b;      }
+
+        .ftab.active-all {
+            background: var(--brand);
+            color: #fff;
+            border-color: var(--brand);
+        }
+
+        .ftab.active-correct {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green);
+        }
+
+        .ftab.active-wrong {
+            background: var(--red);
+            color: #fff;
+            border-color: var(--red);
+        }
+
+        .ftab.active-skipped {
+            background: #64748b;
+            color: #fff;
+            border-color: #64748b;
+        }
+
         .ftab.active-all .ftab-count,
         .ftab.active-correct .ftab-count,
         .ftab.active-wrong .ftab-count,
-        .ftab.active-skipped .ftab-count { background: rgba(255,255,255,.25); color: #fff; }
+        .ftab.active-skipped .ftab-count {
+            background: rgba(255, 255, 255, .25);
+            color: #fff;
+        }
 
         /* ── QUESTION CARDS ── */
         .q-card {
@@ -394,13 +655,28 @@
             border-left-width: 4px;
             overflow: hidden;
             margin-bottom: 12px;
-            box-shadow: 0 1px 4px rgba(0,0,0,.04);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
             transition: box-shadow .2s;
         }
-        .q-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.09); }
-        .q-card.correct { border-left-color: #2563eb; background: #f8fbff; }
-        .q-card.wrong   { border-left-color: #2563eb; background: #fff8f8; }
-        .q-card.skipped { border-left-color: #2563eb; background: #fff;    }
+
+        .q-card:hover {
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .09);
+        }
+
+        .q-card.correct {
+            border-left-color: #16a34a;
+            background: #f8fbff;
+        }
+
+        .q-card.wrong {
+            border-left-color: #dc2626;
+            background: #fff8f8;
+        }
+
+        .q-card.skipped {
+            border-left-color: #94a3b8;
+            background: #fff;
+        }
 
         .q-card-head {
             display: flex;
@@ -409,7 +685,13 @@
             padding: 13px 18px 9px;
             gap: 10px;
         }
-        .q-meta { display: flex; align-items: center; gap: 8px; }
+
+        .q-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .q-num {
             font-size: .72rem;
             font-weight: 800;
@@ -417,6 +699,7 @@
             letter-spacing: .05em;
             text-transform: uppercase;
         }
+
         .q-section-tag {
             font-size: .65rem;
             font-weight: 600;
@@ -425,6 +708,7 @@
             padding: 2px 8px;
             border-radius: 100px;
         }
+
         .q-status-chip {
             display: inline-flex;
             align-items: center;
@@ -437,9 +721,21 @@
             text-transform: uppercase;
             flex-shrink: 0;
         }
-        .chip-correct { background: var(--green-light); color: var(--green); }
-        .chip-wrong   { background: var(--red-light);   color: var(--red);   }
-        .chip-skipped { background: #f1f5f9;            color: #64748b;      }
+
+        .chip-correct {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .chip-wrong {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .chip-skipped {
+            background: #f1f5f9;
+            color: #64748b;
+        }
 
         .q-text {
             padding: 2px 18px 14px;
@@ -455,6 +751,7 @@
             flex-direction: column;
             gap: 6px;
         }
+
         .q-option {
             display: flex;
             align-items: center;
@@ -467,10 +764,12 @@
             color: var(--text);
             transition: background .12s;
         }
+
         .q-option.opt-correct {
             background: #f0fdf4;
             border-color: #86efac;
         }
+
         .q-option.opt-wrong {
             background: #fff5f5;
             border-color: #fca5a5;
@@ -479,15 +778,26 @@
         .opt-key {
             font-weight: 800;
             font-size: .75rem;
-            min-width: 24px; height: 24px;
+            min-width: 24px;
+            height: 24px;
             border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: #e2e8f0;
             color: var(--muted);
             flex-shrink: 0;
         }
-        .opt-key.key-correct { background: var(--green); color: #fff; }
-        .opt-key.key-wrong   { background: var(--red);   color: #fff; }
+
+        .opt-key.key-correct {
+            background: var(--green);
+            color: #fff;
+        }
+
+        .opt-key.key-wrong {
+            background: var(--red);
+            color: #fff;
+        }
 
         .q-footer {
             padding: 10px 16px 13px;
@@ -498,9 +808,21 @@
             border-top: 1px solid #f1f5f9;
             background: #fafbfc;
         }
-        .qa-item { font-size: .78rem; color: var(--muted); }
-        .qa-item strong { font-weight: 700; color: var(--text); }
-        .qa-correct-ans { color: var(--green); font-weight: 700; }
+
+        .qa-item {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        .qa-item strong {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .qa-correct-ans {
+            color: var(--green);
+            font-weight: 700;
+        }
 
         .q-explanation {
             display: flex;
@@ -513,7 +835,12 @@
             color: #1e40af;
             line-height: 1.6;
         }
-        .exp-icon { color: #60a5fa; margin-top: 2px; flex-shrink: 0; }
+
+        .exp-icon {
+            color: #60a5fa;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
 
         /* ── SKELETON ── */
         .skeleton {
@@ -528,16 +855,58 @@
             text-align: center;
             padding: 44px 20px;
         }
+
         .empty-filter .ef-icon {
-            width: 52px; height: 52px;
+            width: 52px;
+            height: 52px;
             border-radius: 14px;
             background: #f1f5f9;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.3rem;
             color: #94a3b8;
             margin: 0 auto 14px;
         }
-        .empty-filter p { font-size: .88rem; color: var(--muted); }
+
+        .empty-filter p {
+            font-size: .88rem;
+            color: var(--muted);
+        }
+
+        @keyframes floatCoin {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(1.5);
+            }
+        }
+
+        @keyframes floatUp {
+            0%   { opacity:1; transform:translateY(0) scale(1); }
+            100% { opacity:0; transform:translateY(-140px) scale(1.4); }
+        }
+
+        @keyframes slideUp {
+            from { opacity:0; transform:translate(-50%, 20px); }
+            to   { opacity:1; transform:translate(-50%, 0); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
@@ -551,37 +920,172 @@
 
 <body class="min-h-screen flex flex-col overflow-x-hidden">
 
-    <!-- ── HEADER ── -->
-    <nav class="bg-white/90 backdrop-blur-xl shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- Gradients -->
+    <linearGradient id="cl-rim" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2af8ef"/>
+      <stop offset="45%" stop-color="#00c8c0"/>
+      <stop offset="100%" stop-color="#007a78"/>
+    </linearGradient>
+
+    <linearGradient id="cl-face" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00d8d0"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-stamp" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00cfc7"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-coin-shine" x1="0.06" y1="0.03" x2="0.42" y2="0.38">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="cl-logo-shine" x1="0.06" y1="0.04" x2="0.5" y2="0.44">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- LARGE COIN -->
+    <symbol id="CLcoin-lg" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-lg">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <circle cx="80" cy="80" r="60.5" fill="none" stroke="#009090" stroke-width="0.6" opacity="0.25"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-lg)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.88" transform="translate(6,7)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.55"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="none" stroke="#00e8e0" stroke-width="0.8" opacity="0.45"/>
+        <ellipse cx="66" cy="56" rx="14" ry="9" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- SMALL COIN -->
+    <symbol id="CLcoin-sm" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-sm">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-sm)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.85" transform="translate(5,6)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.50"/>
+        <ellipse cx="66" cy="56" rx="11" ry="7" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- ── Level Badge Symbols ── -->
+    <symbol id="badge-seeker" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rsk-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#3030a0"/><stop offset="100%" stop-color="#12124a"/></radialGradient>
+        <linearGradient id="rsk-sh" x1="0.1" y1="0.1" x2="0.6" y2="0.6"><stop offset="0%" stop-color="#fff" stop-opacity="0.18"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsk-bg)" stroke="#4040b0" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsk-sh)"/>
+      <circle cx="32" cy="32" r="8" fill="none" stroke="#5050c0" stroke-width="1.5" opacity="0.6"/>
+      <line x1="32" y1="20" x2="32" y2="26" stroke="#8080c0" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="32" y1="38" x2="32" y2="44" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="20" y1="32" x2="26" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="38" y1="32" x2="44" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="32" cy="32" r="2.5" fill="#8080c0"/>
+    </symbol>
+    <symbol id="badge-scholar" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rsc-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#0077c8"/><stop offset="100%" stop-color="#003a6e"/></radialGradient>
+        <linearGradient id="rsc-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.25"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsc-bg)" stroke="#0ea5e9" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsc-sh)"/>
+      <rect x="19" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <rect x="33" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <line x1="32" y1="23" x2="32" y2="37" stroke="#38bdf8" stroke-width="1.2" opacity="0.7"/>
+      <line x1="22" y1="28" x2="28" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="22" y1="31" x2="28" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="28" x2="42" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="31" x2="42" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <circle cx="32" cy="17" r="1.8" fill="#38bdf8"/>
+      <circle cx="27" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+      <circle cx="37" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+    </symbol>
+    <symbol id="badge-luminary" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rlm-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#2e0a5e"/></radialGradient>
+        <linearGradient id="rlm-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.28"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlm-bg)" stroke="#a855f7" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlm-sh)"/>
+      <path d="M32 16 C26 16 22 21 22 27 C22 31 24 34 27 36 L27 40 L37 40 L37 36 C40 34 42 31 42 27 C42 21 38 16 32 16 Z" fill="none" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="40" x2="28" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="36" y1="40" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="43" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <ellipse cx="32" cy="27" rx="5" ry="6" fill="#a855f7" opacity="0.4"/>
+      <line x1="32" y1="10" x2="32" y2="13" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+    </symbol>
+    <symbol id="badge-legend" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rlg-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#c4720a"/><stop offset="100%" stop-color="#5a2e00"/></radialGradient>
+        <linearGradient id="rlg-sh" x1="0.05" y1="0.05" x2="0.5" y2="0.5"><stop offset="0%" stop-color="#fff" stop-opacity="0.35"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="rlg-st" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlg-bg)" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="32,10 50,21 50,43 32,54 14,43 14,21" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.4"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlg-sh)"/>
+      <polygon points="32,15 34.9,24.1 44.4,24.1 36.8,29.6 39.6,38.7 32,33.1 24.4,38.7 27.2,29.6 19.6,24.1 29.1,24.1" fill="url(#rlg-st)" opacity="0.95"/>
+      <path d="M25 16 L28 20 L32 14 L36 20 L39 16 L39 22 L25 22 Z" fill="#fde68a" opacity="0.9"/>
+      <circle cx="25" cy="16" r="1.5" fill="#fde68a"/>
+      <circle cx="32" cy="13" r="1.5" fill="#fde68a"/>
+      <circle cx="39" cy="16" r="1.5" fill="#fde68a"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+    <!-- ── HEADER (post-exam — no marketing links) ── -->
+    <nav class="bg-white/95 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <a class="flex items-center space-x-2" href="/index.html">
                 <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
-                <span class="text-3xl font-bold text-blue-700">Courage Library</span>
+                <span class="text-xl font-bold text-blue-700">Courage Library</span>
             </a>
-            <div class="space-x-6 hidden md:flex items-center">
-                <a href="/index.html#features"     class="hover:text-blue-600">Features</a>
-                <a href="/index.html#courses"      class="hover:text-blue-600">Courses</a>
-                <a href="/index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
-                <a href="/Blog/Blog.html"          class="hover:text-blue-600">Blog</a>
-                <a href="/index.html#contact"      class="hover:text-blue-600">Contact Us</a>
-                <a href="/index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
-                    Home
+            <div class="flex items-center gap-3">
+                <a href="/mock/leaderboard.html" id="navLeaderboardLink"
+                    class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-600 transition px-3 py-2 rounded-lg hover:bg-blue-50">
+                    <i class="fas fa-trophy text-yellow-500"></i> Leaderboard
                 </a>
-            </div>
-            <div class="md:hidden" x-data="{ open: false }">
-                <button @click="open = !open" class="focus:outline-none" aria-label="Menu">
-                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <div x-show="open" @click.away="open = false"
-                    class="absolute right-4 mt-4 w-44 bg-white rounded-xl shadow-lg py-2 px-2 z-50 space-y-1">
-                    <a href="/index.html#courses"      class="hover:text-blue-600 flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-blue-50 text-sm"><i class="fas fa-book-open w-4 text-blue-500"></i> Courses</a>
-                    <a href="/index.html#features"     class="hover:text-blue-600 flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-blue-50 text-sm"><i class="fas fa-star w-4 text-blue-500"></i> Features</a>
-                    <a href="/index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-blue-50 text-sm"><i class="fas fa-comments w-4 text-blue-500"></i> Reviews</a>
-                    <a href="/Blog/Blog.html"          class="hover:text-blue-600 flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-blue-50 text-sm"><i class="fas fa-file-alt w-4 text-blue-500"></i> Blog</a>
-                    <a href="/index.html#contact"      class="hover:text-blue-600 flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-blue-50 text-sm"><i class="fas fa-envelope w-4 text-blue-500"></i> Contact</a>
-                </div>
+                <a href="/mock/dashboard.html"
+                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm">
+                    <i class="fas fa-th-large"></i>
+                    <span class="hidden sm:inline">Dashboard</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -595,6 +1099,16 @@
                 <div class="score-num" id="score">—</div>
                 <div class="score-denom" id="scoreDenom"></div>
                 <div class="verdict-badge" id="verdictBadge" style="display:none"></div>
+                <!-- Level pill — populated by resultEngine after coins are awarded -->
+                <div id="resultLevelPill" style="
+                  display:none;
+                  align-items:center;gap:6px;
+                  padding:5px 14px 5px 8px;border-radius:100px;
+                  font-family:'Syne',sans-serif;font-size:.8rem;font-weight:800;
+                  letter-spacing:.04em;margin-top:10px;
+                  border:1px solid;
+                  animation:fadeUp .5s ease both;
+                "></div>
 
                 <!-- 5 stat chips -->
                 <div class="stat-row">
@@ -658,6 +1172,13 @@
                     <span class="text-sm text-gray-400" id="reviewSubtitle"></span>
                 </div>
 
+                <!-- Color legend -->
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap">
+                    <span style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Legend:</span>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#15803d"><span style="width:10px;height:10px;border-radius:2px;background:#16a34a;display:inline-block"></span>Correct</span>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#b91c1c"><span style="width:10px;height:10px;border-radius:2px;background:#dc2626;display:inline-block"></span>Wrong</span>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#475569"><span style="width:10px;height:10px;border-radius:2px;background:#94a3b8;display:inline-block"></span>Skipped</span>
+                </div>
                 <!-- Filter tabs with live counts -->
                 <div class="filter-tabs">
                     <button class="ftab active-all" onclick="filterReview('all', this)">
@@ -697,18 +1218,33 @@
     </div>
 
     <script src="/js/resultEngine.js"></script>
+    <script>
+      // Wire nav leaderboard link to current attempt
+      (function() {
+        const p = new URLSearchParams(window.location.search);
+        const a = p.get("attempt");
+        const el = document.getElementById("navLeaderboardLink");
+        if (a && el) el.href = "/mock/leaderboard.html?attempt=" + a;
+      })();
+    </script>
 
     <!-- ── FOOTER ── -->
     <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <p>&copy; 2026 Courage Library. All rights reserved.</p>
             <div class="flex space-x-6">
-                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" aria-label="Facebook"  class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://x.com/CourageLibrary"                       target="_blank" rel="noopener noreferrer" aria-label="Twitter"   class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/company/courage-library"   target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"  class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/couragelibrary1"          target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-white text-2xl"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" aria-label="Twitter"
+                    class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
+                    aria-label="LinkedIn" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </footer>
 </body>
+
 </html>

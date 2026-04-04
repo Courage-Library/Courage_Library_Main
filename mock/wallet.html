@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CL Coin Wallet | Courage Library</title>
+  <link rel="icon" type="image/png" href="../images/logo.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: 'Sora', sans-serif;
+      background: #eef2f9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ── */
+    .wallet-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #1a1d6e 100%);
+      padding: 32px 24px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .wallet-hero::before {
+      content: '';
+      position: absolute;
+      width: 380px; height: 380px;
+      background: rgba(0,208,200,0.07);
+      border-radius: 50%;
+      right: -100px; top: -120px;
+      pointer-events: none;
+    }
+    .wallet-hero::after {
+      content: '';
+      position: absolute;
+      width: 220px; height: 220px;
+      background: rgba(251,191,36,0.06);
+      border-radius: 50%;
+      left: -50px; bottom: -70px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 800px; margin: 0 auto;
+    }
+
+    /* ── Cards ── */
+    .wcard {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f4;
+      box-shadow: 0 4px 24px rgba(15,23,42,.08);
+      overflow: hidden;
+    }
+    .wcard-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wcard-title {
+      font-family: 'Syne', sans-serif;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #475569;
+    }
+
+    /* ── Stat pills ── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      min-width: 0;
+    }
+    .stat-row > * {
+      min-width: 0;
+    }
+    .stat-pill {
+      background: #f8fafc;
+      border: 1px solid #e2e8f4;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stat-pill .val {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 4.5vw, 1.45rem);
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1;
+    }
+    .stat-pill .lbl {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #94a3b8;
+    }
+
+    /* ── Transaction log ── */
+    .tx-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 20px;
+      border-bottom: 0.5px solid #f1f5f9;
+      transition: background .12s;
+    }
+    .tx-row:last-child { border-bottom: none; }
+    .tx-row:hover { background: #f8fafc; }
+    .tx-icon {
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .tx-label { font-size: .8rem; font-weight: 600; color: #1e293b; }
+    .tx-time  { font-size: .65rem; color: #94a3b8; margin-top: 1px; }
+    .tx-amount {
+      margin-left: auto;
+      font-family: 'Syne', sans-serif;
+      font-size: .85rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .tx-earn { color: #059669; }
+    .tx-spend { color: #dc2626; }
+
+    /* ── Progress ring ── */
+    .ring-wrap {
+      position: relative;
+      width: 120px; height: 120px;
+      flex-shrink: 0;
+    }
+    .ring-wrap svg { transform: rotate(-90deg); }
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+
+    /* ── Sparkline ── */
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 56px;
+    }
+    .bar-day {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .bar-fill {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      background: linear-gradient(180deg, #00d8d0, #00bdb5);
+      min-height: 3px;
+      transition: height .4s ease;
+    }
+    .bar-lbl {
+      font-size: .58rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    /* ── Skeleton loader ── */
+    .skel {
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f4 50%, #f1f5f9 75%);
+      background-size: 200% 100%;
+      animation: skel-shine 1.4s infinite;
+      border-radius: 8px;
+    }
+    @keyframes skel-shine {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 32px 20px;
+      color: #94a3b8;
+    }
+    .empty-state .emoji { font-size: 2.2rem; margin-bottom: 8px; }
+    .empty-state .msg   { font-size: .82rem; font-weight: 600; }
+
+    /* ── Back link ── */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .75rem; font-weight: 700;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: color .15s;
+    }
+    .back-btn:hover { color: #fff; }
+
+    /* ── Forecast badge ── */
+    .forecast-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(0,208,200,0.12);
+      border: 0.5px solid rgba(0,208,200,0.3);
+      color: #00bdb5;
+      font-size: .7rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 100px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    @media (max-width: 520px) {
+      .stat-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SVG sprite (CLcoin) ─────────────────────────────────────────────── -->
+<svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cl-rim" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2af8ef"/>
+      <stop offset="45%" stop-color="#00c8c0"/>
+      <stop offset="100%" stop-color="#007a78"/>
+    </linearGradient>
+    <linearGradient id="cl-face" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00d8d0"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+    <linearGradient id="cl-stamp" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00cfc7"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+    <linearGradient id="cl-coin-shine" x1="0.06" y1="0.03" x2="0.42" y2="0.38">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cl-logo-shine" x1="0.06" y1="0.04" x2="0.5" y2="0.44">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <symbol id="CLcoin-sm" viewBox="0 0 160 160">
+      <defs><clipPath id="cl-clip-sm"><circle cx="80" cy="80" r="71"/></clipPath></defs>
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+      <g clip-path="url(#cl-clip-sm)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+          fill="#1a005e" opacity="0.85" transform="translate(5,6)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+          fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+          fill="#1fe0d7" opacity="0.50"/>
+        <ellipse cx="66" cy="56" rx="11" ry="7" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+    <symbol id="CLcoin-lg" viewBox="0 0 160 160">
+      <defs><clipPath id="cl-clip-lg"><circle cx="80" cy="80" r="71"/></clipPath></defs>
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <circle cx="80" cy="80" r="60.5" fill="none" stroke="#009090" stroke-width="0.6" opacity="0.25"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+      <g clip-path="url(#cl-clip-lg)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+          fill="#1a005e" opacity="0.88" transform="translate(6,7)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+          fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+          fill="#1fe0d7" opacity="0.55"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z" fill="none"
+          stroke="#00e8e0" stroke-width="0.8" opacity="0.45"/>
+        <ellipse cx="66" cy="56" rx="14" ry="9" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- ── Level Badge Symbols ── -->
+    <symbol id="badge-seeker" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="wsk-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#3030a0"/><stop offset="100%" stop-color="#12124a"/></radialGradient>
+        <linearGradient id="wsk-sh" x1="0.1" y1="0.1" x2="0.6" y2="0.6"><stop offset="0%" stop-color="#fff" stop-opacity="0.18"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wsk-bg)" stroke="#4040b0" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wsk-sh)"/>
+      <circle cx="32" cy="32" r="8" fill="none" stroke="#5050c0" stroke-width="1.5" opacity="0.6"/>
+      <line x1="32" y1="20" x2="32" y2="26" stroke="#8080c0" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="32" y1="38" x2="32" y2="44" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="20" y1="32" x2="26" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="38" y1="32" x2="44" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="32" cy="32" r="2.5" fill="#8080c0"/>
+    </symbol>
+    <symbol id="badge-scholar" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="wsc-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#0077c8"/><stop offset="100%" stop-color="#003a6e"/></radialGradient>
+        <linearGradient id="wsc-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.25"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wsc-bg)" stroke="#0ea5e9" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wsc-sh)"/>
+      <rect x="19" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <rect x="33" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <line x1="32" y1="23" x2="32" y2="37" stroke="#38bdf8" stroke-width="1.2" opacity="0.7"/>
+      <line x1="22" y1="28" x2="28" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="22" y1="31" x2="28" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="28" x2="42" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="31" x2="42" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <circle cx="32" cy="17" r="1.8" fill="#38bdf8"/>
+      <circle cx="27" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+      <circle cx="37" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+    </symbol>
+    <symbol id="badge-luminary" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="wlm-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#2e0a5e"/></radialGradient>
+        <linearGradient id="wlm-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.28"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wlm-bg)" stroke="#a855f7" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wlm-sh)"/>
+      <path d="M32 16 C26 16 22 21 22 27 C22 31 24 34 27 36 L27 40 L37 40 L37 36 C40 34 42 31 42 27 C42 21 38 16 32 16 Z" fill="none" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="40" x2="28" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="36" y1="40" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="43" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <ellipse cx="32" cy="27" rx="5" ry="6" fill="#a855f7" opacity="0.4"/>
+      <line x1="32" y1="10" x2="32" y2="13" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+    </symbol>
+    <symbol id="badge-legend" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="wlg-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#c4720a"/><stop offset="100%" stop-color="#5a2e00"/></radialGradient>
+        <linearGradient id="wlg-sh" x1="0.05" y1="0.05" x2="0.5" y2="0.5"><stop offset="0%" stop-color="#fff" stop-opacity="0.35"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="wlg-st" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wlg-bg)" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="32,10 50,21 50,43 32,54 14,43 14,21" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.4"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#wlg-sh)"/>
+      <polygon points="32,15 34.9,24.1 44.4,24.1 36.8,29.6 39.6,38.7 32,33.1 24.4,38.7 27.2,29.6 19.6,24.1 29.1,24.1" fill="url(#wlg-st)" opacity="0.95"/>
+      <path d="M25 16 L28 20 L32 14 L36 20 L39 16 L39 22 L25 22 Z" fill="#fde68a" opacity="0.9"/>
+      <circle cx="25" cy="16" r="1.5" fill="#fde68a"/>
+      <circle cx="32" cy="13" r="1.5" fill="#fde68a"/>
+      <circle cx="39" cy="16" r="1.5" fill="#fde68a"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<div class="wallet-hero">
+  <div class="hero-inner">
+    <a href="dashboard.html" class="back-btn">
+      <i class="fas fa-arrow-left" style="font-size:.7rem"></i>
+      Back to Dashboard
+    </a>
+
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+      <svg width="52" height="52" viewBox="0 0 160 160">
+        <use href="#CLcoin-lg"/>
+      </svg>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;line-height:1.1">
+          CL Coin Wallet
+        </div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,.55);margin-top:3px">
+          Your earnings, history &amp; forecast
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero stat row -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px">
+      <div style="background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.14);
+                  border-radius:16px;padding:14px 16px">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+                    color:rgba(255,255,255,.45);margin-bottom:4px">Available</div>
+        <div id="heroTotal" style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
+                                    color:#fff;line-height:1">—</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:3px">CL Coins</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.14);
+                  border-radius:16px;padding:14px 16px">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+                    color:rgba(255,255,255,.45);margin-bottom:4px">This Week</div>
+        <div id="heroWeek" style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
+                                   color:#34d399;line-height:1">—</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:3px">Earned</div>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.14);
+                  border-radius:16px;padding:14px 16px">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+                    color:rgba(255,255,255,.45);margin-bottom:4px">Forecast</div>
+        <div id="heroForecast" style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
+                                       color:#f59e0b;line-height:1">—</div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:3px">This Month</div>
+      </div>
+    </div>
+
+    <!-- Level badge row -->
+    <div id="walletLevelRow" style="background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.12);
+         border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div id="walletLevelBadge" style="display:inline-flex;align-items:center;gap:7px;
+           font-family:'Syne',sans-serif;font-size:.82rem;font-weight:800;letter-spacing:.04em;
+           background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
+           padding:5px 14px 5px 8px;border-radius:100px">
+        <span style="width:22px;height:22px;background:rgba(255,255,255,.15);border-radius:50%;display:inline-block"></span>
+        Loading…
+      </div>
+      <div style="flex:1;min-width:120px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span id="walletLevelLabel" style="font-size:.62rem;color:rgba(255,255,255,.5);font-weight:600"></span>
+          <span id="walletLevelPct" style="font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:rgba(255,255,255,.4)"></span>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:100px;height:5px;overflow:hidden">
+          <div id="walletLevelBar" style="height:100%;border-radius:100px;width:0%;transition:width .8s cubic-bezier(.4,0,.2,1)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BODY ──────────────────────────────────────────────────────────────── -->
+<div style="max-width:800px;margin:-36px auto 40px;padding:0 16px;position:relative;z-index:2">
+
+  <!-- Progress ring + next reward -->
+  <div class="wcard" style="margin-bottom:14px">
+    <div class="wcard-header">
+      <div class="wcard-title">Progress to Next Reward</div>
+      <a href="/mock/reward.html" style="font-size:.7rem;font-weight:700;color:#1d4ed8;text-decoration:none">
+        View store →
+      </a>
+    </div>
+    <div style="padding:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <!-- Ring -->
+      <div class="ring-wrap">
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" stroke-width="10"/>
+          <circle id="ringProgress" cx="60" cy="60" r="50" fill="none"
+            stroke="url(#ring-grad)" stroke-width="10"
+            stroke-linecap="round"
+            stroke-dasharray="314"
+            stroke-dashoffset="314"
+            style="transition:stroke-dashoffset 1s ease"/>
+          <defs>
+            <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#00d8d0"/>
+              <stop offset="100%" stop-color="#1d4ed8"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="ring-center">
+          <div id="ringPct" style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#0f172a">—</div>
+          <div style="font-size:.58rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em">done</div>
+        </div>
+      </div>
+      <!-- Info -->
+      <div style="flex:1;min-width:160px">
+        <div id="nextRewardName" style="font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;color:#0f172a;margin-bottom:6px">
+          Next reward
+        </div>
+        <div id="nextRewardCoins" style="font-size:.78rem;color:#475569;margin-bottom:10px">
+          —
+        </div>
+        <div id="daysToGoal" style="display:none" class="forecast-badge">
+          <i class="fas fa-clock" style="font-size:.65rem"></i>
+          <span id="daysToGoalText">— days at current pace</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7-day bar chart -->
+  <div class="wcard" style="margin-bottom:14px">
+    <div class="wcard-header">
+      <div class="wcard-title">7-Day Earn History</div>
+      <div id="weeklyAvgBadge" class="forecast-badge" style="display:none">
+        <svg width="12" height="12" viewBox="0 0 160 160"><use href="#CLcoin-sm"/></svg>
+        <span id="weeklyAvgText">—</span> / day avg
+      </div>
+    </div>
+    <div style="padding:20px 20px 16px">
+      <div class="bar-chart" id="barChart">
+        <!-- Rendered by JS -->
+        <div style="flex:1;height:40px" class="skel"></div>
+        <div style="flex:1;height:26px" class="skel"></div>
+        <div style="flex:1;height:50px" class="skel"></div>
+        <div style="flex:1;height:34px" class="skel"></div>
+        <div style="flex:1;height:44px" class="skel"></div>
+        <div style="flex:1;height:20px" class="skel"></div>
+        <div style="flex:1;height:56px" class="skel"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transaction log -->
+  <div class="wcard">
+    <div class="wcard-header">
+      <div class="wcard-title">Transaction Log</div>
+      <div id="txCount" style="font-size:.7rem;color:#94a3b8;font-weight:600"></div>
+    </div>
+    <div id="txList">
+      <!-- Skeleton rows -->
+      <div class="tx-row" style="gap:12px">
+        <div class="skel" style="width:34px;height:34px;border-radius:10px;flex-shrink:0"></div>
+        <div style="flex:1"><div class="skel" style="height:12px;width:55%;margin-bottom:5px"></div><div class="skel" style="height:9px;width:35%"></div></div>
+        <div class="skel" style="width:48px;height:14px;border-radius:6px"></div>
+      </div>
+      <div class="tx-row" style="gap:12px">
+        <div class="skel" style="width:34px;height:34px;border-radius:10px;flex-shrink:0"></div>
+        <div style="flex:1"><div class="skel" style="height:12px;width:65%;margin-bottom:5px"></div><div class="skel" style="height:9px;width:40%"></div></div>
+        <div class="skel" style="width:48px;height:14px;border-radius:6px"></div>
+      </div>
+      <div class="tx-row" style="gap:12px">
+        <div class="skel" style="width:34px;height:34px;border-radius:10px;flex-shrink:0"></div>
+        <div style="flex:1"><div class="skel" style="height:12px;width:45%;margin-bottom:5px"></div><div class="skel" style="height:9px;width:30%"></div></div>
+        <div class="skel" style="width:48px;height:14px;border-radius:6px"></div>
+      </div>
+    </div>
+    <div id="loadMoreWrap" style="display:none;padding:14px;text-align:center">
+      <button id="loadMoreBtn" onclick="loadMore()"
+        style="font-size:.75rem;font-weight:700;color:#1d4ed8;background:none;border:1.5px solid #bfdbfe;
+               border-radius:100px;padding:6px 20px;cursor:pointer;transition:all .15s"
+        onmouseenter="this.style.background='#eff6ff'"
+        onmouseleave="this.style.background='none'">
+        Load more
+      </button>
+    </div>
+  </div>
+
+</div><!-- /body -->
+
+<script>
+const SUPABASE_URL   = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+const SUPABASE_ANON  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+const REWARDS = [
+  { name: 'Courage Bottle', cost: 1800 },
+  { name: 'Courage Diary',  cost: 3000 },
+  { name: 'Courage T-Shirt', cost: 5000 },
+];
+
+let _userId = null;
+let _totalCoins = 0;
+let _txOffset = 0;
+const TX_PAGE = 25;
+
+// ── Helpers ────────────────────────────────────────────────────────────
+function fmt(n) { return Number(n || 0).toLocaleString('en-IN'); }
+function timeAgo(iso) {
+  if (!iso) return '';
+  const d = Math.floor((Date.now() - new Date(iso)) / 1000);
+  if (d < 60)    return 'just now';
+  if (d < 3600)  return `${Math.floor(d/60)}m ago`;
+  if (d < 86400) return `${Math.floor(d/3600)}h ago`;
+  if (d < 604800) return `${Math.floor(d/86400)}d ago`;
+  return new Date(iso).toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+}
+function istDate(iso) {
+  return new Date(iso).toLocaleDateString('en-CA', { timeZone:'Asia/Kolkata' });
+}
+function animCount(from, to, dur, el) {
+  if (!el) return;
+  const s = performance.now();
+  const d = to - from;
+  if (d === 0) { el.textContent = fmt(to); return; }
+  (function tick(now) {
+    const p = Math.min((now - s) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(Math.round(from + d * e));
+    if (p < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+
+// ── TX icon by type ────────────────────────────────────────────────────
+const TX_META = {
+  mock_submit:  { icon:'📝', bg:'rgba(59,130,246,.1)',  label:'Mock Test' },
+  streak_bonus: { icon:'🔥', bg:'rgba(251,146,60,.1)',  label:'Streak Bonus' },
+  referral:     { icon:'🎉', bg:'rgba(52,211,153,.1)',  label:'Referral Reward' },
+  reward_claim: { icon:'🎁', bg:'rgba(139,92,246,.1)',  label:'Reward Claim' },
+  level_up:     { icon:'⭐', bg:'rgba(245,158,11,.1)',  label:'Level Up Bonus' },
+  signup:       { icon:'🚀', bg:'rgba(16,185,129,.1)',  label:'Signup Bonus' },
+};
+function txMeta(type) {
+  return TX_META[type] || { icon:'🪙', bg:'rgba(100,116,139,.1)', label: type || 'Transaction' };
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  const { data: { user } } = await db.auth.getUser();
+  if (!user) {
+    document.body.innerHTML = `<div style="padding:60px;text-align:center;color:#64748b;font-size:1rem">
+      Please <a href="dashboard.html" style="color:#1d4ed8">log in</a> to view your wallet.</div>`;
+    return;
+  }
+  _userId = user.id;
+  await Promise.all([loadProfile(), load7Day(), loadTx()]);
+});
+
+// ── Profile & hero stats ───────────────────────────────────────────────
+async function loadProfile() {
+  const { data: p } = await db
+    .from('user_profiles')
+    .select('total_coins, lifetime_coins')
+    .eq('id', _userId)
+    .single();
+  if (!p) return;
+  _totalCoins = p.total_coins || 0;
+  animCount(0, _totalCoins, 800, document.getElementById('heroTotal'));
+  updateProgressRing(_totalCoins);
+  renderWalletLevel(p.lifetime_coins || p.total_coins || 0);
+}
+
+function getLevelFromLifetimeCoins(coins) {
+  if (coins >= 6000) return { label: "Legend",   color: "#f59e0b", bg: "rgba(245,158,11,0.25)", border: "rgba(245,158,11,0.5)" };
+  if (coins >= 3000) return { label: "Luminary",  color: "#c084fc", bg: "rgba(168,85,247,0.25)",  border: "rgba(168,85,247,0.5)" };
+  if (coins >= 1000) return { label: "Scholar",   color: "#38bdf8", bg: "rgba(0,168,255,0.22)",   border: "rgba(0,168,255,0.45)" };
+  return               { label: "Seeker",    color: "#a0a0e0", bg: "rgba(80,80,180,0.22)",   border: "rgba(80,80,180,0.45)" };
+}
+
+function renderWalletLevel(lifetimeCoins) {
+  const TIERS = [
+    { label: "Seeker",   min: 0,    max: 1000 },
+    { label: "Scholar",  min: 1000, max: 3000 },
+    { label: "Luminary", min: 3000, max: 6000 },
+    { label: "Legend",   min: 6000, max: null  },
+  ];
+  const { label, color, bg, border } = getLevelFromLifetimeCoins(lifetimeCoins);
+  const currentTier = TIERS.find(t => t.label === label);
+  const nextTier    = TIERS.find(t => t.min === currentTier?.max);
+
+  // Badge pill
+  const badgeEl = document.getElementById('walletLevelBadge');
+  if (badgeEl) {
+    badgeEl.style.background = bg;
+    badgeEl.style.borderColor = border;
+    badgeEl.style.color = color;
+    badgeEl.innerHTML = `
+      <svg width="22" height="22" viewBox="0 0 64 64"><use href="#badge-${label.toLowerCase()}"/></svg>
+      ${label}`;
+  }
+
+  // Progress bar
+  const lbl = document.getElementById('walletLevelLabel');
+  const pct = document.getElementById('walletLevelPct');
+  const bar = document.getElementById('walletLevelBar');
+  if (lbl && pct && bar) {
+    if (nextTier) {
+      const range    = currentTier.max - currentTier.min;
+      const progress = Math.min(lifetimeCoins - currentTier.min, range);
+      const percent  = Math.round((progress / range) * 100);
+      const left     = (currentTier.max - lifetimeCoins).toLocaleString('en-IN');
+      lbl.textContent = `${left} CL to ${nextTier.label}`;
+      pct.textContent = `${percent}%`;
+    } else {
+      lbl.textContent = 'Maximum tier reached 🏆';
+      pct.textContent = '100%';
+    }
+    bar.style.background = color;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const range   = nextTier ? (currentTier.max - currentTier.min) : 1;
+        const prog    = nextTier ? Math.min(lifetimeCoins - currentTier.min, range) : range;
+        bar.style.width = Math.round((prog / range) * 100) + '%';
+      });
+    });
+  }
+}
+
+function updateProgressRing(coins) {
+  const next = REWARDS.find(r => r.cost > coins) || REWARDS[REWARDS.length - 1];
+  const prev = REWARDS.filter(r => r.cost <= coins).pop();
+  const base  = prev ? prev.cost : 0;
+  const range = next.cost - base;
+  const pct   = Math.min(100, Math.round(((coins - base) / range) * 100));
+  const offset = 314 - (314 * pct / 100);
+
+  document.getElementById('ringProgress').style.strokeDashoffset = offset;
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('nextRewardName').textContent = next.name;
+  document.getElementById('nextRewardCoins').textContent =
+    `${fmt(coins)} / ${fmt(next.cost)} CL`;
+}
+
+// ── 7-day bar chart ────────────────────────────────────────────────────
+async function load7Day() {
+  const dayNames = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const days = [], labels = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const ist = d.toLocaleDateString('en-CA', { timeZone:'Asia/Kolkata' });
+    days.push(ist);
+    labels.push(dayNames[new Date(ist + 'T12:00:00').getDay()]);
+  }
+
+  const { data: rows } = await db
+    .from('coin_transactions')
+    .select('coins, created_at')
+    .eq('user_id', _userId)
+    .gt('coins', 0)
+    .gte('created_at', days[0] + 'T00:00:00+05:30')
+    .lte('created_at', days[6] + 'T23:59:59+05:30');
+
+  const dayMap = {};
+  days.forEach(d => dayMap[d] = 0);
+  (rows || []).forEach(r => {
+    const d = istDate(r.created_at);
+    if (dayMap[d] !== undefined) dayMap[d] += (r.coins || 0);
+  });
+
+  const values = days.map(d => dayMap[d]);
+  const max    = Math.max(...values, 1);
+  const weekTotal = values.reduce((s, v) => s + v, 0);
+  const avg = Math.round(weekTotal / 7);
+
+  // Bar chart
+  const bc = document.getElementById('barChart');
+  bc.innerHTML = values.map((v, i) => {
+    const heightPct = Math.max(4, (v / max) * 100);
+    const isToday = i === 6;
+    return `
+      <div class="bar-day">
+        <div style="font-size:.6rem;font-weight:700;color:${v > 0 ? '#0f172a' : '#94a3b8'};
+                    margin-bottom:2px;font-family:'Syne',sans-serif;min-height:12px">
+          ${v > 0 ? fmt(v) : ''}
+        </div>
+        <div class="bar-fill" style="
+          height:${heightPct}%;
+          background:${isToday
+            ? 'linear-gradient(180deg,#f59e0b,#b45309)'
+            : v > 0
+              ? 'linear-gradient(180deg,#00d8d0,#00bdb5)'
+              : '#e2e8f4'};
+        "></div>
+        <div class="bar-lbl" style="color:${isToday ? '#b45309' : '#94a3b8'}">${labels[i]}</div>
+      </div>`;
+  }).join('');
+
+  // Hero week total
+  animCount(0, weekTotal, 700, document.getElementById('heroWeek'));
+
+  // Weekly avg badge
+  if (avg > 0) {
+    document.getElementById('weeklyAvgText').textContent = fmt(avg);
+    document.getElementById('weeklyAvgBadge').style.display = 'inline-flex';
+  }
+
+  // Monthly forecast = avg * 30
+  const forecast = avg * 30;
+  animCount(0, forecast, 700, document.getElementById('heroForecast'));
+
+  // Days to next reward goal
+  const next = REWARDS.find(r => r.cost > _totalCoins) || REWARDS[REWARDS.length - 1];
+  const needed = Math.max(0, next.cost - _totalCoins);
+  if (avg > 0 && needed > 0) {
+    const days_left = Math.ceil(needed / avg);
+    document.getElementById('daysToGoalText').textContent =
+      `~${days_left} day${days_left !== 1 ? 's' : ''} at current pace`;
+    document.getElementById('daysToGoal').style.display = 'inline-flex';
+  }
+}
+
+// ── Transaction log ────────────────────────────────────────────────────
+async function loadTx(append = false) {
+  const { data: rows, count } = await db
+    .from('coin_transactions')
+    .select('*', { count: 'exact' })
+    .eq('user_id', _userId)
+    .order('created_at', { ascending: false })
+    .range(_txOffset, _txOffset + TX_PAGE - 1);
+
+  if (!append) {
+    document.getElementById('txList').innerHTML = '';
+    document.getElementById('txCount').textContent = count ? `${fmt(count)} transactions` : '';
+  }
+
+  if (!rows || rows.length === 0) {
+    if (!append) {
+      document.getElementById('txList').innerHTML = `
+        <div class="empty-state">
+          <div class="emoji">🪙</div>
+          <div class="msg">No transactions yet. Take your first mock test!</div>
+        </div>`;
+    }
+    return;
+  }
+
+  const list = document.getElementById('txList');
+  rows.forEach(r => {
+    const isEarn  = r.coins > 0;
+    const m       = txMeta(r.transaction_type);
+    const label   = r.description || m.label;
+    const row     = document.createElement('div');
+    row.className = 'tx-row';
+    row.innerHTML = `
+      <div class="tx-icon" style="background:${m.bg}">${m.icon}</div>
+      <div style="flex:1;min-width:0">
+        <div class="tx-label">${label}</div>
+        <div class="tx-time">${timeAgo(r.created_at)}</div>
+      </div>
+      <div class="tx-amount ${isEarn ? 'tx-earn' : 'tx-spend'}">
+        ${isEarn ? '+' : ''}${fmt(r.coins)} CL
+      </div>`;
+    list.appendChild(row);
+  });
+
+  _txOffset += rows.length;
+
+  // Load more button
+  const lmw = document.getElementById('loadMoreWrap');
+  if (_txOffset < (count || 0)) {
+    lmw.style.display = 'block';
+  } else {
+    lmw.style.display = 'none';
+  }
+}
+
+async function loadMore() {
+  document.getElementById('loadMoreBtn').textContent = 'Loading…';
+  await loadTx(true);
+  document.getElementById('loadMoreBtn').textContent = 'Load more';
+}
+
+// Refresh balance when the user tabs back to this page (e.g. after earning coins on result page)
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && _userId) {
+    client.from('user_profiles')
+      .select('total_coins, lifetime_coins')
+      .eq('id', _userId)
+      .single()
+      .then(({ data }) => {
+        if (!data) return;
+        const fmt = n => (n || 0).toLocaleString('en-IN');
+        const heroEl = document.getElementById('heroTotal');
+        if (heroEl) heroEl.textContent = fmt(data.total_coins);
+      });
+  }
+});
+</script>
+</body>
+</html>

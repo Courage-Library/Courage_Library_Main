@@ -2527,6 +2527,24 @@
                     await supaClient.from('user_profiles').upsert({
                         id: data.user.id, full_name: name, user_email: email
                     }, { onConflict: 'id' });
+
+                    // Referral capture
+                    const refCode = new URLSearchParams(window.location.search).get('ref');
+                    if (refCode) {
+                        const { data: referrer } = await supaClient
+                            .from('user_profiles')
+                            .select('id')
+                            .eq('referral_code', refCode)
+                            .single();
+
+                        if (referrer && referrer.id !== data.user.id) {
+                            await supaClient.from('referrals').insert({
+                                referrer_id: referrer.id,
+                                referee_id: data.user.id,
+                                status: 'pending',
+                            });
+                        }
+                    }
                 } catch (_) { }
             }
             showPopup('Account created! Check your email to confirm.');

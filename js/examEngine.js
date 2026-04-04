@@ -43,14 +43,40 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function loadExam() {
-  const { data: attemptCheck } = await client
+  // ── Auth + ownership guard ──────────────────────────────────────────────────
+  // Verify the current user is logged in AND owns this attempt before loading
+  const { data: { user } } = await client.auth.getUser();
+  if (!user) {
+    document.getElementById("examPageLoader")?.remove();
+    showAlert("Please log in to access this exam.", "error");
+    setTimeout(() => { window.location.href = "/index.html?action=login"; }, 2000);
+    return;
+  }
+
+  const { data: attemptCheck, error: checkError } = await client
     .from("attempts")
-    .select("submitted_at")
+    .select("submitted_at, user_id")
     .eq("id", attemptId)
     .single();
 
+  if (checkError || !attemptCheck) {
+    document.getElementById("examPageLoader")?.remove();
+    showAlert("Exam not found. Redirecting to dashboard.", "error");
+    setTimeout(() => { window.location.href = "/mock/dashboard.html"; }, 2000);
+    return;
+  }
+
+  // Ownership check — prevent users from accessing other students' attempts
+  if (attemptCheck.user_id !== user.id) {
+    document.getElementById("examPageLoader")?.remove();
+    showAlert("Access denied. This exam does not belong to your account.", "error");
+    setTimeout(() => { window.location.href = "/mock/dashboard.html"; }, 2500);
+    return;
+  }
+
   if (attemptCheck.submitted_at) {
-    window.location.href = "/mock/result.html?attempt=" + attemptId;
+    showAlert("This exam is already submitted. Redirecting to your result…", "success");
+    setTimeout(() => { window.location.href = "/mock/result.html?attempt=" + attemptId; }, 1800);
     return;
   }
 
@@ -363,7 +389,25 @@ document.getElementById("submitExamBtn").addEventListener("click", () => {
   const marked = Object.keys(markedQuestions).filter(k => markedQuestions[k]).length;
   const notAnswered = total - answered;
 
-  document.getElementById("summaryStats").innerHTML = `
+  // Unanswered warning — prominent when > 0
+  const unansweredWarning = notAnswered > 0 ? `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:11px 14px;background:#fff7ed;border:1.5px solid #fb923c;border-radius:12px;margin-bottom:8px">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;flex-shrink:0;color:#c2410c;margin-top:1px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+      </svg>
+      <div>
+        <div style="font-weight:800;font-size:.85rem;color:#c2410c">${notAnswered} question${notAnswered > 1 ? 's' : ''} left unanswered</div>
+        <div style="font-size:.75rem;color:#92400e;margin-top:2px">Unanswered questions score zero. Go back to attempt them.</div>
+      </div>
+    </div>` : `
+    <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;margin-bottom:8px">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;flex-shrink:0;color:#16a34a" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/>
+      </svg>
+      <div style="font-weight:800;font-size:.85rem;color:#15803d">All ${total} questions answered — great job!</div>
+    </div>`;
+
+  document.getElementById("summaryStats").innerHTML = unansweredWarning + `
     <div class="grid grid-cols-2 gap-2">
       <div class="bg-gray-50 border border-gray-200 rounded-xl p-3 text-center">
         <div class="text-xl font-bold text-gray-700">${total}</div>
@@ -373,9 +417,9 @@ document.getElementById("submitExamBtn").addEventListener("click", () => {
         <div class="text-xl font-bold text-green-600">${answered}</div>
         <div class="text-xs text-green-600 mt-0.5">Answered</div>
       </div>
-      <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-center">
-        <div class="text-xl font-bold text-amber-600">${notAnswered}</div>
-        <div class="text-xs text-amber-600 mt-0.5">Not Answered</div>
+      <div style="background:${notAnswered > 0 ? '#fff7ed' : '#f9fafb'};border:1px solid ${notAnswered > 0 ? '#fed7aa' : '#e5e7eb'}" class="rounded-xl p-3 text-center">
+        <div style="font-size:1.25rem;font-weight:700;color:${notAnswered > 0 ? '#c2410c' : '#6b7280'}">${notAnswered}</div>
+        <div style="font-size:.75rem;color:${notAnswered > 0 ? '#c2410c' : '#6b7280'}" class="mt-0.5">Not Answered</div>
       </div>
       <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-center">
         <div class="text-xl font-bold text-indigo-600">${marked}</div>
@@ -403,25 +447,27 @@ document.getElementById("prevBtn").addEventListener("click", () => {
 
 let tabSwitchCount = 0;
 
-document.addEventListener("visibilitychange", () => {
-  if (isSubmitting || !securityActive) return;
-  if (document.hidden) {
-    setTimeout(() => {
-      if (document.hidden) {
-        tabSwitchCount++;
-        showAlert("App switching detected.");
-        if (tabSwitchCount >= 3) {
-          showAlert("Multiple violations detected. Test will be submitted.", "error");
-          submitExam();
-        }
-      }
-    }, 800);
-  }
-});
-
+// Single unified visibilitychange handler — handles tab-switch violations
+// AND timer re-sync when the student returns to the tab
 document.addEventListener("visibilitychange", () => {
   if (!securityActive) return;
-  if (!document.hidden) {
+
+  if (document.hidden) {
+    // Tab/app hidden — count as violation after 800ms grace period
+    if (!isSubmitting) {
+      setTimeout(() => {
+        if (document.hidden) {
+          tabSwitchCount++;
+          showAlert("App switching detected.");
+          if (tabSwitchCount >= 3) {
+            showAlert("Multiple violations detected. Test will be submitted.", "error");
+            submitExam();
+          }
+        }
+      }, 800);
+    }
+  } else {
+    // Tab returned — re-sync timer from server clock to prevent cheating via suspension
     const now = Date.now();
     const elapsed = Math.floor((now - examStartedAt) / 1000);
     durationSeconds = examDuration - elapsed;
@@ -515,22 +561,108 @@ async function submitExam() {
   clearInterval(timerInterval);
   clearInterval(heartbeatInterval);
 
+  // Show a submitting overlay so the student knows something is happening
+  _showSubmittingOverlay();
+
   const now = new Date();
-  const { data: attemptData, error: fetchError } = await client
-    .from("attempts").select("started_at").eq("id", attemptId).single();
 
-  if (fetchError) { console.error("Fetch attempt failed:", fetchError); return; }
+  // Retry helper — retries up to maxAttempts times with exponential backoff
+  async function withRetry(fn, maxAttempts = 3) {
+    for (let i = 0; i < maxAttempts; i++) {
+      try {
+        const result = await fn();
+        if (result.error) throw result.error;
+        return result;
+      } catch (err) {
+        if (i === maxAttempts - 1) throw err;
+        await new Promise(r => setTimeout(r, 800 * Math.pow(2, i)));
+      }
+    }
+  }
 
-  const timeTaken = Math.floor((Date.now() - Date.parse(attemptData.started_at)) / 1000);
+  try {
+    // Step 1 — fetch started_at (with retry)
+    const { data: attemptData } = await withRetry(() =>
+      client.from("attempts").select("started_at").eq("id", attemptId).single()
+    );
 
-  const { error } = await client.from("attempts")
-    .update({ submitted_at: now, time_taken: timeTaken })
-    .eq("id", attemptId)
-    .select();
+    const timeTaken = Math.floor((Date.now() - Date.parse(attemptData.started_at)) / 1000);
 
-  if (error) { console.error("Update failed:", error); return; }
+    // Step 2 — mark submitted (with retry)
+    await withRetry(() =>
+      client.from("attempts")
+        .update({ submitted_at: now, time_taken: timeTaken })
+        .eq("id", attemptId)
+        .select()
+    );
 
-  window.location.href = `/mock/result.html?attempt=${attemptId}`;
+    window.location.href = `/mock/result.html?attempt=${attemptId}`;
+
+  } catch (err) {
+    console.error("Submit failed after retries:", err);
+    _hideSubmittingOverlay();
+    // Reset flags so student can try again
+    submitCalled = false;
+    isSubmitting = false;
+    _showSubmitErrorModal();
+  }
+}
+
+function _showSubmittingOverlay() {
+  const existing = document.getElementById("_submitOverlay");
+  if (existing) return;
+  const el = document.createElement("div");
+  el.id = "_submitOverlay";
+  el.style.cssText = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;";
+  el.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:spin .8s linear infinite">
+      <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+    </svg>
+    <div style="color:#fff;font-size:.95rem;font-weight:700;font-family:inherit">Submitting your test…</div>
+    <div style="color:#94a3b8;font-size:.78rem;font-family:inherit">Please don't close this page</div>
+  `;
+  document.body.appendChild(el);
+}
+
+function _hideSubmittingOverlay() {
+  document.getElementById("_submitOverlay")?.remove();
+}
+
+function _showSubmitErrorModal() {
+  const existing = document.getElementById("_submitErrorModal");
+  if (existing) return;
+  const el = document.createElement("div");
+  el.id = "_submitErrorModal";
+  el.style.cssText = "position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.8);display:flex;align-items:center;justify-content:center;padding:20px;";
+  el.innerHTML = `
+    <div style="background:#fff;border-radius:20px;max-width:380px;width:100%;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.3)">
+      <div style="background:linear-gradient(135deg,#dc2626,#b91c1c);padding:20px 24px;text-align:center">
+        <div style="width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008z"/></svg>
+        </div>
+        <div style="color:#fff;font-size:1rem;font-weight:800;font-family:inherit">Submission Failed</div>
+        <div style="color:#fca5a5;font-size:.78rem;margin-top:4px;font-family:inherit">Your answers are safe — please try again</div>
+      </div>
+      <div style="padding:20px 24px">
+        <p style="font-size:.82rem;color:#475569;line-height:1.55;margin-bottom:18px;font-family:inherit">
+          We couldn't submit your test due to a network issue. Your answers have been saved. Please check your internet connection and tap <strong>Try Again</strong>.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button id="_retrySubmitBtn" style="width:100%;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-weight:800;font-size:.88rem;cursor:pointer;font-family:inherit">
+            Try Again
+          </button>
+          <a href="/mock/dashboard.html" style="display:block;text-align:center;padding:10px;border-radius:12px;border:1.5px solid #e2e8f4;color:#64748b;font-size:.82rem;font-weight:600;text-decoration:none;font-family:inherit">
+            Back to Dashboard (answers saved)
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(el);
+  document.getElementById("_retrySubmitBtn").addEventListener("click", () => {
+    el.remove();
+    submitExam();
+  });
 }
 
 async function loadSavedAnswers() {
@@ -550,7 +682,9 @@ function updatePalette() {
   nav.innerHTML = "";
 
   const isLarge = questions.length > 60;
-  const btnSize = isLarge ? "h-8 w-8 rounded-md" : "h-10 w-10 rounded-lg";
+  // Keep minimum 40×40px (touch-friendly) even for large exams.
+  // Palette container is already max-h-[260px] with overflow-y-auto, so it scrolls.
+  const btnSize = isLarge ? "h-10 w-10 rounded-lg" : "h-10 w-10 rounded-lg";
 
   questions.forEach((q, index) => {
     let baseClass = `${btnSize} text-xs font-semibold flex items-center justify-center transition border cursor-pointer `;
@@ -623,6 +757,14 @@ document.addEventListener("DOMContentLoaded", () => {
   rulesModal.classList.remove("hidden");
   rulesModal.classList.add("flex");
   document.body.style.overflow = "hidden";
+
+  // Dismiss the page loading overlay now that auth resolved and modal is ready
+  const pageLoader = document.getElementById("examPageLoader");
+  if (pageLoader) {
+    pageLoader.style.transition = "opacity .25s";
+    pageLoader.style.opacity = "0";
+    setTimeout(() => pageLoader.remove(), 280);
+  }
 
   acceptCheckbox.addEventListener("change", () => {
     startBtn.disabled = !acceptCheckbox.checked;
