@@ -240,9 +240,11 @@
   }
 
   .lb-pill { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:999px; font-size:.75rem; font-weight:500; }
-  .lb-pill-score { background:#DBEAFE; color:#1E40AF; }
-  .lb-pill-acc   { background:#D1FAE5; color:#065F46; }
-  .lb-pill-time  { background:#F3F4F6; color:#374151; }
+  .lb-pill-score  { background:#DBEAFE; color:#1E40AF; }
+  .lb-pill-acc    { background:#D1FAE5; color:#065F46; }
+  .lb-pill-time   { background:#F3F4F6; color:#374151; }
+  .lb-pill-coin   { background:#FEF3C7; color:#92400E; }
+  .lb-pill-streak { background:#FFF7ED; color:#C2410C; }
 
   .lb-you-badge {
     background:#2563EB; color:white; font-size:.62rem; font-weight:700;
@@ -327,75 +329,172 @@
 
 <body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
 
-    <!-- ========== HEADER (identical to original) ========== -->
-    <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a class="flex items-center space-x-2" href="index.html">
-                <img src="/images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
-                <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+  <svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- Gradients -->
+    <linearGradient id="cl-rim" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2af8ef"/>
+      <stop offset="45%" stop-color="#00c8c0"/>
+      <stop offset="100%" stop-color="#007a78"/>
+    </linearGradient>
+
+    <linearGradient id="cl-face" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00d8d0"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-stamp" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00cfc7"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-coin-shine" x1="0.06" y1="0.03" x2="0.42" y2="0.38">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="cl-logo-shine" x1="0.06" y1="0.04" x2="0.5" y2="0.44">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- LARGE COIN -->
+    <symbol id="CLcoin-lg" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-lg">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <circle cx="80" cy="80" r="60.5" fill="none" stroke="#009090" stroke-width="0.6" opacity="0.25"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-lg)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.88" transform="translate(6,7)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.55"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="none" stroke="#00e8e0" stroke-width="0.8" opacity="0.45"/>
+        <ellipse cx="66" cy="56" rx="14" ry="9" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- SMALL COIN -->
+    <symbol id="CLcoin-sm" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-sm">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-sm)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.85" transform="translate(5,6)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.50"/>
+        <ellipse cx="66" cy="56" rx="11" ry="7" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- ── Level Badge Symbols ── -->
+    <symbol id="badge-seeker" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="lbsk-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#3030a0"/><stop offset="100%" stop-color="#12124a"/></radialGradient>
+        <linearGradient id="lbsk-sh" x1="0.1" y1="0.1" x2="0.6" y2="0.6"><stop offset="0%" stop-color="#fff" stop-opacity="0.18"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lbsk-bg)" stroke="#4040b0" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lbsk-sh)"/>
+      <circle cx="32" cy="32" r="8" fill="none" stroke="#5050c0" stroke-width="1.5" opacity="0.6"/>
+      <line x1="32" y1="20" x2="32" y2="26" stroke="#8080c0" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="32" y1="38" x2="32" y2="44" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="20" y1="32" x2="26" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="38" y1="32" x2="44" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="32" cy="32" r="2.5" fill="#8080c0"/>
+    </symbol>
+    <symbol id="badge-scholar" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="lbsc-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#0077c8"/><stop offset="100%" stop-color="#003a6e"/></radialGradient>
+        <linearGradient id="lbsc-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.25"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lbsc-bg)" stroke="#0ea5e9" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lbsc-sh)"/>
+      <rect x="19" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <rect x="33" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <line x1="32" y1="23" x2="32" y2="37" stroke="#38bdf8" stroke-width="1.2" opacity="0.7"/>
+      <line x1="22" y1="28" x2="28" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="22" y1="31" x2="28" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="28" x2="42" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="31" x2="42" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <circle cx="32" cy="17" r="1.8" fill="#38bdf8"/>
+      <circle cx="27" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+      <circle cx="37" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+    </symbol>
+    <symbol id="badge-luminary" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="lblm-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#2e0a5e"/></radialGradient>
+        <linearGradient id="lblm-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.28"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lblm-bg)" stroke="#a855f7" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lblm-sh)"/>
+      <path d="M32 16 C26 16 22 21 22 27 C22 31 24 34 27 36 L27 40 L37 40 L37 36 C40 34 42 31 42 27 C42 21 38 16 32 16 Z" fill="none" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="40" x2="28" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="36" y1="40" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="43" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <ellipse cx="32" cy="27" rx="5" ry="6" fill="#a855f7" opacity="0.4"/>
+      <line x1="32" y1="10" x2="32" y2="13" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+    </symbol>
+    <symbol id="badge-legend" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="lblg-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#c4720a"/><stop offset="100%" stop-color="#5a2e00"/></radialGradient>
+        <linearGradient id="lblg-sh" x1="0.05" y1="0.05" x2="0.5" y2="0.5"><stop offset="0%" stop-color="#fff" stop-opacity="0.35"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="lblg-st" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lblg-bg)" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="32,10 50,21 50,43 32,54 14,43 14,21" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.4"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lblg-sh)"/>
+      <polygon points="32,15 34.9,24.1 44.4,24.1 36.8,29.6 39.6,38.7 32,33.1 24.4,38.7 27.2,29.6 19.6,24.1 29.1,24.1" fill="url(#lblg-st)" opacity="0.95"/>
+      <path d="M25 16 L28 20 L32 14 L36 20 L39 16 L39 22 L25 22 Z" fill="#fde68a" opacity="0.9"/>
+      <circle cx="25" cy="16" r="1.5" fill="#fde68a"/>
+      <circle cx="32" cy="13" r="1.5" fill="#fde68a"/>
+      <circle cx="39" cy="16" r="1.5" fill="#fde68a"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+    <!-- ── HEADER (post-exam — no marketing links) ── -->
+    <nav class="bg-white/95 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="/index.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-xl font-bold text-blue-700">Courage Library</span>
             </a>
-            <div class="space-x-6 hidden md:flex items-center">
-                <a href="index.html#features" class="hover:text-blue-600">Features</a>
-                <a href="index.html#courses" class="hover:text-blue-600">Courses</a>
-                <a href="index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
-                <a href="Blog/Blog.html" class="hover:text-blue-600">Blog</a>
-                <a href="index.html#contact" class="hover:text-blue-600">Contact Us</a>
-                <a href="index.html"
-                    class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">
-                    Home
+            <div class="flex items-center gap-3">
+                <a href="#" id="navResultLink"
+                    class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-600 transition px-3 py-2 rounded-lg hover:bg-blue-50">
+                    <i class="fas fa-chart-bar text-blue-500"></i> My Result
                 </a>
-            </div>
-            <!-- mobile menu -->
-            <div class="md:hidden" x-data="{ open: false }">
-                <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu"
-                    aria-label="Toggle mobile menu">
-                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <div x-show="open" @click.away="open = false"
-                    class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
-                    <a href="index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
-                        </svg>
-                        Courses
-                    </a>
-                    <a href="index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
-                        </svg>
-                        Features
-                    </a>
-                    <a href="index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-                        </svg>
-                        Reviews
-                    </a>
-                    <a href="/Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
-                        </svg>
-                        Blog
-                    </a>
-                    <a href="index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                        </svg>
-                        Contact Us
-                    </a>
-                </div>
+                <a href="/mock/dashboard.html"
+                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm">
+                    <i class="fas fa-th-large"></i>
+                    <span class="hidden sm:inline">Dashboard</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -480,7 +579,8 @@
         </div>
         <div class="relative w-full sm:w-60">
           <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-          <input id="lb-search" class="lb-search" placeholder="Search by name…" oninput="lbFilter()">
+          <input id="lb-search" class="lb-search" placeholder="Search by name…" oninput="lbFilter();document.getElementById('lb-clear').style.display=this.value?'flex':'none'">
+          <button id="lb-clear" onclick="document.getElementById('lb-search').value='';lbFilter();this.style.display='none'" style="display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#94a3b8;font-size:.85rem;align-items:center;padding:4px" aria-label="Clear search"><i class="fas fa-times"></i></button>
         </div>
       </div>
 
@@ -527,11 +627,28 @@
 <!-- SCRIPTS -->
 <script src="/js/supabaseClient.js"></script>
 <script src="/js/leaderboardEngine.js"></script>
+<script>
+  // Wire "My Result" nav link to current attempt
+  (function() {
+    const p = new URLSearchParams(window.location.search);
+    const a = p.get("attempt");
+    const el = document.getElementById("navResultLink");
+    if (a && el) el.href = "/mock/result.html?attempt=" + a;
+  })();
+  // Error fallback: if skeleton still visible after 10s show error
+  setTimeout(function() {
+    const sk = document.getElementById("lb-skeleton");
+    const list = document.getElementById("lb-list");
+    if (sk && sk.style.display !== "none" && list && list.innerHTML.trim() === "") {
+      sk.innerHTML = '<div style="text-align:center;padding:40px 20px;color:#64748b"><i class="fas fa-exclamation-circle" style="font-size:2rem;color:#dc2626;display:block;margin-bottom:12px"></i><p style="font-weight:700;margin-bottom:6px">Could not load leaderboard</p><p style="font-size:.85rem">Check your connection and try refreshing.</p></div>';
+    }
+  }, 10000);
+</script>
 
     <!-- ========== FOOTER (identical to original) ========== -->
     <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+            <p class="mb-4 md:mb-0">&copy; 2026 Courage Library. All rights reserved.</p>
             <div class="flex space-x-6">
                 <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
                     target="_blank" rel="noopener noreferrer" title="Follow us on Facebook"

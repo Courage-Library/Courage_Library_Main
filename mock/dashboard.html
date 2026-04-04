@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mock Test Dashboard | Courage Library</title>
-  <link rel="icon" type="image/png" href="../images/logo.png"/>
+  <link rel="icon" type="image/png" href="../images/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
@@ -12,181 +13,1547 @@
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
   <script>
-    window.dataLayer=window.dataLayer||[];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js',new Date());
-    gtag('config','G-HDZDTH2P22');
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-HDZDTH2P22');
   </script>
 
   <style>
-    *,*::before,*::after{box-sizing:border-box;}
-    body{font-family:inherit;background:#eef2f9;min-height:100vh;-webkit-font-smoothing:antialiased;}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-    .glass{background:rgba(255,255,255,.85);box-shadow:0 8px 32px 0 rgba(31,38,135,.18);backdrop-filter:blur(12px);border-radius:1.5rem;border:1px solid rgba(200,200,255,.12);}
-    .glass-card{background:rgba(255,255,255,.75);backdrop-filter:blur(4px);border-radius:1.5rem;border:1px solid rgba(255,255,255,.3);box-shadow:0 20px 40px -12px rgba(0,0,0,.1);transition:all .2s ease;}
-    .glass-card:hover{transform:scale(1.02);background:rgba(255,255,255,.9);border-color:#bfdbfe;}
-    .ripple{position:relative;overflow:hidden;}
-    .ripple:after{content:'';display:block;position:absolute;border-radius:50%;width:100%;height:100%;top:0;left:0;pointer-events:none;background:rgba(59,130,246,.2);opacity:0;transition:opacity .6s,transform .6s;transform:scale(.5);}
-    .ripple:active:after{opacity:1;transform:scale(1.2);transition:0s;}
+    body {
+      font-family: inherit;
+      background: #eef2f9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, .85);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, .18);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(200, 200, 255, .12);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(4px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, .3);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, .1);
+      transition: all .2s ease;
+    }
+
+    .glass-card:hover {
+      transform: scale(1.02);
+      background: rgba(255, 255, 255, .9);
+      border-color: #bfdbfe;
+    }
+
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple:after {
+      content: '';
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background: rgba(59, 130, 246, .2);
+      opacity: 0;
+      transition: opacity .6s, transform .6s;
+      transform: scale(.5);
+    }
+
+    .ripple:active:after {
+      opacity: 1;
+      transform: scale(1.2);
+      transition: 0s;
+    }
 
     /* ── animations ── */
-    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-    @keyframes spin{to{transform:rotate(360deg);}}
-    @keyframes livepulse{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.7);}50%{box-shadow:0 0 0 6px rgba(52,211,153,0);}}
-    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-    @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
 
-    .fade-in{animation:fadeUp .6s ease both;}
-    .d1{animation-delay:.04s;}.d2{animation-delay:.08s;}.d3{animation-delay:.12s;}
-    .d4{animation-delay:.16s;}.d5{animation-delay:.22s;}.d6{animation-delay:.28s;}
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes livepulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(52, 211, 153, .7);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+      }
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .3;
+      }
+    }
+
+    /* Keyboard nav focus rings */
+    body.kb-nav *:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    body:not(.kb-nav) *:focus {
+      outline: none;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    .fade-in {
+      animation: fadeUp .6s ease both;
+    }
+
+    .d1 {
+      animation-delay: .04s;
+    }
+
+    .d2 {
+      animation-delay: .08s;
+    }
+
+    .d3 {
+      animation-delay: .12s;
+    }
+
+    .d4 {
+      animation-delay: .16s;
+    }
+
+    .d5 {
+      animation-delay: .22s;
+    }
+
+    .d6 {
+      animation-delay: .28s;
+    }
 
     /* ── HERO ── */
-    .dash-hero{background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 60%,#1a1d6e 100%);padding:36px 24px 72px;position:relative;overflow:hidden;}
-    .dash-hero::before{content:'';position:absolute;width:380px;height:380px;background:rgba(255,255,255,.05);border-radius:50%;right:-100px;top:-100px;pointer-events:none;}
-    .dash-hero::after{content:'';position:absolute;width:220px;height:220px;background:rgba(96,165,250,.1);border-radius:50%;left:-60px;bottom:-80px;pointer-events:none;}
-    .hero-inner{position:relative;z-index:1;max-width:1152px;margin:0 auto;}
-    .hero-eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#bfdbfe;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:14px;}
-    .hero-live-dot{width:7px;height:7px;border-radius:50%;background:#34d399;animation:livepulse 1.8s ease-in-out infinite;}
-    .dash-hero h1{font-family:'Sora',sans-serif;font-size:clamp(1.55rem,4.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;}
-    .dash-hero p{font-size:.9rem;color:#93c5fd;line-height:1.55;}
+    .dash-hero {
+      background: linear-gradient(135deg, #1a56db 0%, #1e3a8a 60%, #1a1d6e 100%);
+      padding: 36px 24px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dash-hero::before {
+      content: '';
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      background: rgba(255, 255, 255, .05);
+      border-radius: 50%;
+      right: -100px;
+      top: -100px;
+      pointer-events: none;
+    }
+
+    .dash-hero::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: rgba(96, 165, 250, .1);
+      border-radius: 50%;
+      left: -60px;
+      bottom: -80px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1152px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+      color: #bfdbfe;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .hero-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #34d399;
+      animation: livepulse 1.8s ease-in-out infinite;
+    }
+
+    .dash-hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.55rem, 4.5vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .dash-hero p {
+      font-size: .9rem;
+      color: #93c5fd;
+      line-height: 1.55;
+    }
 
     /* ── STAT CARDS ── */
-    .stat-float{max-width:1152px;margin:-48px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;position:relative;z-index:10;}
-    @media(min-width:560px){.stat-float{grid-template-columns:repeat(4,1fr);gap:14px;}}
+    .stat-float {
+      max-width: 1152px;
+      margin: -48px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      position: relative;
+      z-index: 10;
+    }
 
-    .stat-card{background:#fff;border-radius:18px;border:1px solid #e2e8f4;padding:16px 14px 14px;box-shadow:0 4px 20px rgba(15,23,42,.12),0 1px 4px rgba(15,23,42,.06);display:flex;flex-direction:column;gap:10px;transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;animation:fadeUp .5s ease both;}
-    .stat-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,86,219,.18);}
-    .stat-card::after{content:'';position:absolute;right:-10px;bottom:-10px;width:64px;height:64px;border-radius:50%;opacity:.07;}
-    .sc-blue::after{background:#1d4ed8;}.sc-green::after{background:#059669;}.sc-indigo::after{background:#4f46e5;}.sc-amber::after{background:#d97706;}
+    @media(min-width:560px) {
+      .stat-float {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+    }
 
-    .stat-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.88rem;}
-    .si-blue{background:#dbeafe;color:#1d4ed8;}.si-green{background:#d1fae5;color:#059669;}.si-indigo{background:#e0e7ff;color:#4f46e5;}.si-amber{background:#fef3c7;color:#d97706;}
-    .stat-val{font-family:'Sora',sans-serif;font-size:1.65rem;font-weight:800;line-height:1;}
-    .sv-blue{color:#1d4ed8;}.sv-green{color:#059669;}.sv-indigo{color:#4f46e5;}.sv-amber{color:#d97706;}
-    .stat-lbl{font-size:.67rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;}
+    .stat-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #e2e8f4;
+      padding: 16px 14px 14px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, .12), 0 1px 4px rgba(15, 23, 42, .06);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform .22s, box-shadow .22s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .5s ease both;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(26, 86, 219, .18);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      bottom: -10px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      opacity: .07;
+    }
+
+    .sc-blue::after {
+      background: #1d4ed8;
+    }
+
+    .sc-green::after {
+      background: #059669;
+    }
+
+    .sc-indigo::after {
+      background: #4f46e5;
+    }
+
+    .sc-amber::after {
+      background: #0d9488;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .88rem;
+    }
+
+    .si-blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .si-green {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .si-indigo {
+      background: #e0e7ff;
+      color: #4f46e5;
+    }
+
+    .si-amber {
+      background: #ccfbf1;
+      color: #0d9488;
+    }
+
+    .stat-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .sv-blue {
+      color: #1d4ed8;
+    }
+
+    .sv-green {
+      color: #059669;
+    }
+
+    .sv-indigo {
+      color: #4f46e5;
+    }
+
+    .sv-amber {
+      color: #0d9488;
+    }
+
+    .stat-lbl {
+      font-size: .67rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
 
     /* ── MAIN BODY ── */
-    .dash-body{max-width:1152px;margin:0 auto;padding:36px 24px 80px;}
+    .dash-body {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
 
     /* ── EXAM GRID ── */
-    .exam-grid{display:grid;grid-template-columns:1fr;gap:14px;}
-    @media(min-width:540px){.exam-grid{grid-template-columns:repeat(2,1fr);}}
-    @media(min-width:860px){.exam-grid{grid-template-columns:repeat(3,1fr);}}
+    .exam-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media(min-width:540px) {
+      .exam-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(min-width:860px) {
+      .exam-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
     /* ── EXAM CARD ── */
-    .exam-card{background:#fff;border-radius:18px;border:1px solid #e2e8f4;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 10px rgba(15,23,42,.07);transition:transform .22s ease,box-shadow .22s ease;}
-    .exam-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(26,86,219,.15);}
-    .exam-card-accent{height:4px;background:linear-gradient(90deg,#1a56db,#60a5fa);}
-    .exam-card-accent.expired{background:linear-gradient(90deg,#cbd5e1,#e2e8f0);}
-    .exam-card-accent.locked{background:linear-gradient(90deg,#e2e8f0,#cbd5e1);}
-    .exam-card-body{padding:18px 18px 14px;flex:1;display:flex;flex-direction:column;gap:12px;}
-    .exam-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
-    .exam-card-title{font-family:'Sora',sans-serif;font-size:.93rem;font-weight:700;color:#0f172a;line-height:1.35;}
-    .exam-type-badge{font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;flex-shrink:0;margin-top:2px;white-space:nowrap;}
-    .badge-live{background:#dcfce7;color:#166534;}.badge-weekly{background:#dbeafe;color:#1e40af;}.badge-practice{background:#f1f5f9;color:#475569;}.badge-expired{background:#fee2e2;color:#991b1b;}
-    .exam-avail{display:flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;}
-    .exam-avail.ok{color:#059669;}.exam-avail.exp{color:#dc2626;}
-    .avail-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-    .ok .avail-dot{background:#10b981;animation:blink 1.8s ease-in-out infinite;}.exp .avail-dot{background:#ef4444;}
-    .exam-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-    .meta-chip{background:#f7f9ff;border:1px solid #e8edf5;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:8px;}
-    .meta-chip-icon{width:26px;height:26px;border-radius:7px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0;}
-    .meta-chip-icon.green{background:#d1fae5;color:#059669;}.meta-chip-icon.amber{background:#fef3c7;color:#b45309;}.meta-chip-icon.indigo{background:#e0e7ff;color:#4338ca;}
-    .meta-chip-label{font-size:.58rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.04em;line-height:1;}
-    .meta-chip-value{font-size:.82rem;font-weight:800;color:#0f172a;margin-top:2px;line-height:1;}
-    .exam-card-footer{padding:0 18px 16px;}
-    .btn-start-exam{width:100%;height:44px;border-radius:12px;border:none;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s;letter-spacing:.01em;}
-    .btn-start-exam.active{background:linear-gradient(135deg,#1a56db 0%,#2563eb 100%);color:#fff;box-shadow:0 4px 16px rgba(26,86,219,.35);}
-    .btn-start-exam.active:hover{background:linear-gradient(135deg,#1e40af 0%,#1a56db 100%);box-shadow:0 6px 24px rgba(26,86,219,.45);transform:translateY(-1px);}
-    .btn-start-exam.active:active{transform:scale(.98);}
-    .btn-start-exam.disabled-btn{background:#f1f5f9;color:#94a3b8;cursor:not-allowed;}
+    .exam-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #e2e8f4;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, .07);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .exam-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(26, 86, 219, .15);
+    }
+
+    .exam-card-accent {
+      height: 4px;
+      background: linear-gradient(90deg, #1a56db, #60a5fa);
+    }
+
+    .exam-card-accent.expired {
+      background: linear-gradient(90deg, #cbd5e1, #e2e8f0);
+    }
+
+    .exam-card-accent.locked {
+      background: linear-gradient(90deg, #e2e8f0, #cbd5e1);
+    }
+
+    .exam-card-body {
+      padding: 18px 18px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exam-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .exam-card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: .93rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+    }
+
+    .exam-type-badge {
+      font-size: .58rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .badge-live {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-weekly {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .badge-practice {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .badge-expired {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .exam-avail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .74rem;
+      font-weight: 700;
+    }
+
+    .exam-avail.ok {
+      color: #059669;
+    }
+
+    .exam-avail.exp {
+      color: #dc2626;
+    }
+
+    .avail-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .ok .avail-dot {
+      background: #10b981;
+      animation: blink 1.8s ease-in-out infinite;
+    }
+
+    .exp .avail-dot {
+      background: #ef4444;
+    }
+
+    .exam-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .meta-chip {
+      background: #f7f9ff;
+      border: 1px solid #e8edf5;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta-chip-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .65rem;
+      flex-shrink: 0;
+    }
+
+    .meta-chip-icon.green {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .meta-chip-icon.amber {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .meta-chip-icon.indigo {
+      background: #e0e7ff;
+      color: #4338ca;
+    }
+
+    .meta-chip-label {
+      font-size: .58rem;
+      color: #94a3b8;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      line-height: 1;
+    }
+
+    .meta-chip-value {
+      font-size: .82rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 2px;
+      line-height: 1;
+    }
+
+    .exam-card-footer {
+      padding: 0 18px 16px;
+    }
+
+    .btn-start-exam {
+      width: 100%;
+      height: 44px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: .9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .18s;
+      letter-spacing: .01em;
+    }
+
+    .btn-start-exam.active {
+      background: linear-gradient(135deg, #1a56db 0%, #2563eb 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(26, 86, 219, .35);
+    }
+
+    .btn-start-exam.active:hover {
+      background: linear-gradient(135deg, #1e40af 0%, #1a56db 100%);
+      box-shadow: 0 6px 24px rgba(26, 86, 219, .45);
+      transform: translateY(-1px);
+    }
+
+    .btn-start-exam.active:active {
+      transform: scale(.98);
+    }
+
+    .btn-start-exam.disabled-btn {
+      background: #f1f5f9;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
 
     /* ── SECTION HEADER ── */
-    .sec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-    .sec-title{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:10px;}
-    .sec-bar{width:4px;height:20px;border-radius:99px;flex-shrink:0;background:linear-gradient(180deg,#1a56db,#60a5fa);}
-    .sec-sub{font-size:.72rem;font-weight:600;color:#94a3b8;}
+    .sec-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .sec-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sec-bar {
+      width: 4px;
+      height: 20px;
+      border-radius: 99px;
+      flex-shrink: 0;
+      background: linear-gradient(180deg, #1a56db, #60a5fa);
+    }
+
+    .sec-sub {
+      font-size: .72rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
 
     /* ── ATTEMPTS SHELL ── */
-    .attempts-shell{background:#fff;border-radius:20px;border:1px solid #e2e8f4;box-shadow:0 2px 10px rgba(15,23,42,.07);overflow:hidden;}
-    .attempts-thead{display:grid;grid-template-columns:1fr 80px 90px 70px;padding:10px 20px;background:#f7f9ff;border-bottom:1px solid #e8edf5;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;gap:12px;}
-    .attempt-row{display:grid;grid-template-columns:1fr 80px 90px 70px;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid #f1f5f9;transition:background .15s;}
-    .attempt-row:last-child{border-bottom:none;}
-    .attempt-row:hover{background:#f8faff;}
-    .attempt-name{font-weight:800;font-size:.88rem;color:#0f172a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .attempt-date{font-size:.68rem;color:#94a3b8;margin-top:2px;font-weight:600;}
-    .a-pill{display:inline-flex;align-items:center;justify-content:center;padding:5px 12px;border-radius:100px;font-weight:800;font-size:.76rem;white-space:nowrap;}
-    .p-blue{background:#dbeafe;color:#1e40af;}.p-green{background:#d1fae5;color:#065f46;}.p-amber{background:#fef3c7;color:#92400e;}.p-red{background:#fee2e2;color:#991b1b;}
-    .attempt-time{font-size:.8rem;font-weight:700;color:#475569;}
-    .attempt-mob{display:none;}
+    .attempts-shell {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f4;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, .07);
+      overflow: hidden;
+    }
 
-    @media(max-width:580px){
-      .attempts-thead,.attempt-row{display:none;}
-      .attempt-mob{display:block;padding:16px;border-bottom:1px solid #f1f5f9;}
-      .attempt-mob:last-child{border-bottom:none;}
-      .amb-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px;}
-      .amb-name{font-family:'Sora',sans-serif;font-size:.92rem;font-weight:700;color:#0f172a;line-height:1.3;flex:1;}
-      .amb-date{font-size:.7rem;font-weight:600;color:#94a3b8;white-space:nowrap;padding-top:2px;}
-      .amb-chips{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-      .amb-chip{border-radius:10px;padding:10px 6px;text-align:center;border:1px solid #e8edf5;}
-      .amb-chip-val{font-family:'Sora',sans-serif;font-size:.95rem;font-weight:800;line-height:1;}
-      .amb-chip-lbl{font-size:.58rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-top:5px;line-height:1;}
-      .amb-chip.score{background:#eff6ff;border-color:#bfdbfe;}.amb-chip.score .amb-chip-val{color:#1e40af;}
-      .amb-chip.acc-green{background:#f0fdf4;border-color:#bbf7d0;}.amb-chip.acc-green .amb-chip-val{color:#059669;}
-      .amb-chip.acc-amber{background:#fffbeb;border-color:#fde68a;}.amb-chip.acc-amber .amb-chip-val{color:#d97706;}
-      .amb-chip.acc-red{background:#fff1f2;border-color:#fecdd3;}.amb-chip.acc-red .amb-chip-val{color:#dc2626;}
-      .amb-chip.time{background:#f7f9ff;border-color:#e2e8f4;}.amb-chip.time .amb-chip-val{color:#334155;font-size:.85rem;}
+    .attempts-thead {
+      display: grid;
+      grid-template-columns: 1fr 80px 90px 70px;
+      padding: 10px 20px;
+      background: #f7f9ff;
+      border-bottom: 1px solid #e8edf5;
+      font-size: .62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #94a3b8;
+      gap: 12px;
+    }
+
+    .attempt-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 90px 70px;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background .15s;
+    }
+
+    .attempt-row:last-child {
+      border-bottom: none;
+    }
+
+    .attempt-row:hover {
+      background: #f8faff;
+    }
+
+    .attempt-name {
+      font-weight: 800;
+      font-size: .88rem;
+      color: #0f172a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .attempt-date {
+      font-size: .68rem;
+      color: #94a3b8;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .a-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: .76rem;
+      white-space: nowrap;
+    }
+
+    .p-blue {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .p-green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .p-amber {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .p-red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .attempt-time {
+      font-size: .8rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .attempt-mob {
+      display: none;
+    }
+
+    @media(max-width:580px) {
+
+      .attempts-thead,
+      .attempt-row {
+        display: none;
+      }
+
+      .attempt-mob {
+        display: block;
+        padding: 16px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .attempt-mob:last-child {
+        border-bottom: none;
+      }
+
+      .amb-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .amb-name {
+        font-family: 'Sora', sans-serif;
+        font-size: .92rem;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.3;
+        flex: 1;
+      }
+
+      .amb-date {
+        font-size: .7rem;
+        font-weight: 600;
+        color: #94a3b8;
+        white-space: nowrap;
+        padding-top: 2px;
+      }
+
+      .amb-chips {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+      }
+
+      .amb-chip {
+        border-radius: 10px;
+        padding: 10px 6px;
+        text-align: center;
+        border: 1px solid #e8edf5;
+      }
+
+      .amb-chip-val {
+        font-family: 'Sora', sans-serif;
+        font-size: .95rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .amb-chip-lbl {
+        font-size: .58rem;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        margin-top: 5px;
+        line-height: 1;
+      }
+
+      .amb-chip.score {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+      }
+
+      .amb-chip.score .amb-chip-val {
+        color: #1e40af;
+      }
+
+      .amb-chip.acc-green {
+        background: #f0fdf4;
+        border-color: #bbf7d0;
+      }
+
+      .amb-chip.acc-green .amb-chip-val {
+        color: #059669;
+      }
+
+      .amb-chip.acc-amber {
+        background: #fffbeb;
+        border-color: #fde68a;
+      }
+
+      .amb-chip.acc-amber .amb-chip-val {
+        color: #d97706;
+      }
+
+      .amb-chip.acc-red {
+        background: #fff1f2;
+        border-color: #fecdd3;
+      }
+
+      .amb-chip.acc-red .amb-chip-val {
+        color: #dc2626;
+      }
+
+      .amb-chip.time {
+        background: #f7f9ff;
+        border-color: #e2e8f4;
+      }
+
+      .amb-chip.time .amb-chip-val {
+        color: #334155;
+        font-size: .85rem;
+      }
     }
 
     /* ── EMPTY + SKELETON ── */
-    .empty-box{padding:52px 24px;text-align:center;}
-    .empty-ico{width:60px;height:60px;border-radius:16px;background:#eff6ff;color:#1a56db;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 16px;}
-    .empty-box h3{font-family:'Sora',sans-serif;font-size:.98rem;font-weight:800;color:#0f172a;margin-bottom:6px;}
-    .empty-box p{font-size:.82rem;color:#94a3b8;line-height:1.6;max-width:260px;margin:0 auto;}
-    .skel{background:linear-gradient(90deg,#edf1f9 25%,#e2e8f4 50%,#edf1f9 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+    .empty-box {
+      padding: 52px 24px;
+      text-align: center;
+    }
+
+    .empty-ico {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: #eff6ff;
+      color: #1a56db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 16px;
+    }
+
+    .empty-box h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: .98rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .empty-box p {
+      font-size: .82rem;
+      color: #94a3b8;
+      line-height: 1.6;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+
+    .skel {
+      background: linear-gradient(90deg, #edf1f9 25%, #e2e8f4 50%, #edf1f9 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px;
+    }
 
     /* ── Show More ── */
-    .hidden-card{display:none !important;}
-    .hidden-attempt{display:none;}
+    .hidden-card {
+      display: none !important;
+    }
+
+    .hidden-attempt {
+      display: none;
+    }
+
+    /* ── STREAK CARD ── */
+    @keyframes flicker {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scaleY(1) scaleX(1);
+      }
+
+      25% {
+        opacity: .92;
+        transform: scaleY(1.04) scaleX(.97);
+      }
+
+      50% {
+        opacity: .96;
+        transform: scaleY(.97) scaleX(1.03);
+      }
+
+      75% {
+        opacity: .89;
+        transform: scaleY(1.06) scaleX(.96);
+      }
+    }
+
+    @keyframes flicker2 {
+
+      0%,
+      100% {
+        opacity: .75;
+        transform: scaleY(1) scaleX(1);
+      }
+
+      33% {
+        opacity: .6;
+        transform: scaleY(1.08) scaleX(.95);
+      }
+
+      66% {
+        opacity: .82;
+        transform: scaleY(.94) scaleX(1.04);
+      }
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scaleX(1);
+        opacity: .55;
+      }
+
+      50% {
+        transform: translateY(-6px) scaleX(.9);
+        opacity: .3;
+      }
+
+      100% {
+        transform: translateY(-12px) scaleX(.8);
+        opacity: 0;
+      }
+    }
+
+    @keyframes streak-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(251, 146, 60, .0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(251, 146, 60, .18);
+      }
+    }
+
+    .streak-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f4;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, .07);
+      padding: 18px 20px;
+      margin-top: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .streak-card.at-risk {
+      border-color: #fca5a5;
+      background: linear-gradient(135deg, #fff7f7 0%, #fff 60%);
+    }
+
+    .streak-card.milestone {
+      animation: streak-pulse 2.4s ease-in-out infinite;
+    }
+
+    .streak-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .streak-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .flame-wrap {
+      position: relative;
+      width: 48px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    .flame-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .flame-main {
+      animation: flicker 1.3s ease-in-out infinite;
+      transform-origin: 50% 100%;
+    }
+
+    .flame-inner {
+      animation: flicker2 1.7s ease-in-out infinite .2s;
+      transform-origin: 50% 100%;
+    }
+
+    .flame-particle {
+      animation: rise 1.4s ease-out infinite;
+      transform-origin: 50% 100%;
+    }
+
+    .flame-particle:nth-child(3) {
+      animation-delay: .5s;
+    }
+
+    .flame-particle:nth-child(4) {
+      animation-delay: .9s;
+    }
+
+    .streak-info {
+      flex: 1;
+    }
+
+    .streak-count {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #ea580c;
+      line-height: 1;
+    }
+
+    .streak-count span {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f97316;
+    }
+
+    .streak-label {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-top: 2px;
+    }
+
+    .streak-best {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .streak-best-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #1d4ed8;
+    }
+
+    .streak-best-lbl {
+      font-size: .65rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .streak-milestone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: .7rem;
+      font-weight: 800;
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+
+    .streak-at-risk-banner {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #be123c;
+    }
+
+    .streak-at-risk-banner i {
+      font-size: .8rem;
+      flex-shrink: 0;
+    }
+
+    .streak-at-risk-banner a {
+      margin-left: auto;
+      padding: 4px 12px;
+      border-radius: 8px;
+      background: #be123c;
+      color: #fff;
+      text-decoration: none;
+      font-size: .7rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .streak-milestones {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .smstone {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: .68rem;
+      font-weight: 700;
+      border: 1px solid #e2e8f4;
+      color: #94a3b8;
+      background: #f8faff;
+    }
+
+    .smstone.reached {
+      background: #fff7ed;
+      color: #c2410c;
+      border-color: #fed7aa;
+    }
+
+    .smstone i {
+      font-size: .62rem;
+    }
+
+    /* Floating coin burst label */
+    @keyframes clBurst {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      60% {
+        opacity: 1;
+        transform: translateY(-28px) scale(1.1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-52px) scale(0.9);
+      }
+    }
+
+    .cl-burst {
+      position: absolute;
+      pointer-events: none;
+      font-family: 'Syne', 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #00d8d0;
+      /* matches CL coin teal */
+      letter-spacing: .04em;
+      white-space: nowrap;
+      animation: clBurst 1.25s cubic-bezier(.22, 1, .36, 1) forwards;
+      z-index: 9999;
+    }
+    /* ── Level + Reward row ── */
+    #levelReferralRow { grid-template-columns: 1fr 1fr; }
+    @media(max-width: 560px) {
+      #levelReferralRow { grid-template-columns: 1fr !important; }
+    }
+
+    /* ── Stat float: better spacing on small screens ── */
+    @media(max-width: 359px) {
+      .stat-val { font-size: 1.3rem; }
+      .stat-card { padding: 12px 10px; }
+    }
+
+    @media (min-width: 768px) { #desktopNav { display: flex !important; } }
+    #mobileNavSheet a:hover, #mobileNavSheet button:hover { background:#f8faff !important; }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
 
+  <svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+
+      <!-- Gradients -->
+      <linearGradient id="cl-rim" x1="0.1" y1="0" x2="0.9" y2="1">
+        <stop offset="0%" stop-color="#2af8ef" />
+        <stop offset="45%" stop-color="#00c8c0" />
+        <stop offset="100%" stop-color="#007a78" />
+      </linearGradient>
+
+      <linearGradient id="cl-face" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+        <stop offset="0%" stop-color="#00d8d0" />
+        <stop offset="100%" stop-color="#00bdb5" />
+      </linearGradient>
+
+      <linearGradient id="cl-stamp" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+        <stop offset="0%" stop-color="#00cfc7" />
+        <stop offset="100%" stop-color="#00bdb5" />
+      </linearGradient>
+
+      <linearGradient id="cl-coin-shine" x1="0.06" y1="0.03" x2="0.42" y2="0.38">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </linearGradient>
+
+      <linearGradient id="cl-logo-shine" x1="0.06" y1="0.04" x2="0.5" y2="0.44">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </linearGradient>
+
+      <!-- LARGE COIN -->
+      <symbol id="CLcoin-lg" viewBox="0 0 160 160">
+        <defs>
+          <clipPath id="cl-clip-lg">
+            <circle cx="80" cy="80" r="71" />
+          </clipPath>
+        </defs>
+
+        <circle cx="80" cy="80" r="76" fill="url(#cl-rim)" />
+        <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30" />
+        <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)" />
+        <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55" />
+        <circle cx="80" cy="80" r="60.5" fill="none" stroke="#009090" stroke-width="0.6" opacity="0.25" />
+        <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)" />
+
+        <g clip-path="url(#cl-clip-lg)">
+          <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+            fill="#1a005e" opacity="0.88" transform="translate(6,7)" />
+          <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+            fill="url(#cl-stamp)" />
+          <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+            fill="#1fe0d7" opacity="0.55" />
+          <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z" fill="none"
+            stroke="#00e8e0" stroke-width="0.8" opacity="0.45" />
+          <ellipse cx="66" cy="56" rx="14" ry="9" fill="url(#cl-logo-shine)" />
+        </g>
+      </symbol>
+
+      <!-- SMALL COIN -->
+      <symbol id="CLcoin-sm" viewBox="0 0 160 160">
+        <defs>
+          <clipPath id="cl-clip-sm">
+            <circle cx="80" cy="80" r="71" />
+          </clipPath>
+        </defs>
+
+        <circle cx="80" cy="80" r="76" fill="url(#cl-rim)" />
+        <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30" />
+        <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)" />
+        <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55" />
+        <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)" />
+
+        <g clip-path="url(#cl-clip-sm)">
+          <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+            fill="#1a005e" opacity="0.85" transform="translate(5,6)" />
+          <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+            fill="url(#cl-stamp)" />
+          <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+            fill="#1fe0d7" opacity="0.50" />
+          <ellipse cx="66" cy="56" rx="11" ry="7" fill="url(#cl-logo-shine)" />
+        </g>
+      </symbol>
+
+      <!-- ── Level Badge Symbols ── -->
+      <symbol id="badge-seeker" viewBox="0 0 64 64">
+        <defs>
+          <radialGradient id="sk-bg-d" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#3030a0"/>
+            <stop offset="100%" stop-color="#12124a"/>
+          </radialGradient>
+          <linearGradient id="sk-shine-d" x1="0.1" y1="0.1" x2="0.6" y2="0.6">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#sk-bg-d)" stroke="#4040b0" stroke-width="1.5"/>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#sk-shine-d)"/>
+        <circle cx="32" cy="32" r="8" fill="none" stroke="#5050c0" stroke-width="1.5" opacity="0.6"/>
+        <line x1="32" y1="20" x2="32" y2="26" stroke="#8080c0" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="32" y1="38" x2="32" y2="44" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <line x1="20" y1="32" x2="26" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <line x1="38" y1="32" x2="44" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <circle cx="32" cy="32" r="2.5" fill="#8080c0"/>
+      </symbol>
+
+      <symbol id="badge-scholar" viewBox="0 0 64 64">
+        <defs>
+          <radialGradient id="sc-bg-d" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#0077c8"/>
+            <stop offset="100%" stop-color="#003a6e"/>
+          </radialGradient>
+          <linearGradient id="sc-shine-d" x1="0.1" y1="0.1" x2="0.55" y2="0.55">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#sc-bg-d)" stroke="#0ea5e9" stroke-width="1.5"/>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#sc-shine-d)"/>
+        <rect x="19" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+        <rect x="33" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+        <line x1="32" y1="23" x2="32" y2="37" stroke="#38bdf8" stroke-width="1.2" opacity="0.7"/>
+        <line x1="22" y1="28" x2="28" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+        <line x1="22" y1="31" x2="28" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+        <line x1="36" y1="28" x2="42" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+        <line x1="36" y1="31" x2="42" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+        <circle cx="32" cy="17" r="1.8" fill="#38bdf8"/>
+        <circle cx="27" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+        <circle cx="37" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+      </symbol>
+
+      <symbol id="badge-luminary" viewBox="0 0 64 64">
+        <defs>
+          <radialGradient id="lm-bg-d" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#2e0a5e"/>
+          </radialGradient>
+          <linearGradient id="lm-shine-d" x1="0.1" y1="0.1" x2="0.55" y2="0.55">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lm-bg-d)" stroke="#a855f7" stroke-width="1.5"/>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lm-shine-d)"/>
+        <path d="M32 16 C26 16 22 21 22 27 C22 31 24 34 27 36 L27 40 L37 40 L37 36 C40 34 42 31 42 27 C42 21 38 16 32 16 Z" fill="none" stroke="#c084fc" stroke-width="1.8"/>
+        <line x1="28" y1="40" x2="28" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+        <line x1="36" y1="40" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+        <line x1="28" y1="43" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+        <ellipse cx="32" cy="27" rx="5" ry="6" fill="#a855f7" opacity="0.4"/>
+        <line x1="32" y1="10" x2="32" y2="13" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+        <line x1="19" y1="15" x2="21" y2="17" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <line x1="45" y1="15" x2="43" y2="17" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      </symbol>
+
+      <symbol id="badge-legend" viewBox="0 0 64 64">
+        <defs>
+          <radialGradient id="lg-bg-d" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#c4720a"/>
+            <stop offset="100%" stop-color="#5a2e00"/>
+          </radialGradient>
+          <linearGradient id="lg-shine-d" x1="0.05" y1="0.05" x2="0.5" y2="0.5">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="lg-star-d" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fde68a"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+          </linearGradient>
+        </defs>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lg-bg-d)" stroke="#f59e0b" stroke-width="2"/>
+        <polygon points="32,10 50,21 50,43 32,54 14,43 14,21" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.4"/>
+        <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#lg-shine-d)"/>
+        <polygon points="32,15 34.9,24.1 44.4,24.1 36.8,29.6 39.6,38.7 32,33.1 24.4,38.7 27.2,29.6 19.6,24.1 29.1,24.1" fill="url(#lg-star-d)" opacity="0.95"/>
+        <path d="M25 16 L28 20 L32 14 L36 20 L39 16 L39 22 L25 22 Z" fill="#fde68a" opacity="0.9"/>
+        <circle cx="25" cy="16" r="1.5" fill="#fde68a"/>
+        <circle cx="32" cy="13" r="1.5" fill="#fde68a"/>
+        <circle cx="39" cy="16" r="1.5" fill="#fde68a"/>
+      </symbol>
+
+    </defs>
+  </svg>
+
   <!-- ════════ HEADER ════════ -->
-  <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+  <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50" style="position:relative;">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <a class="flex items-center space-x-2" href="../index.html">
         <img src="../images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer">
         <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
       </a>
-      <div class="space-x-6 hidden md:flex items-center">
+      <div class="space-x-6 hidden md:flex items-center" id="desktopNav" style="display:none">
         <a href="../index.html#features" class="hover:text-blue-600">Features</a>
         <a href="../index.html#courses" class="hover:text-blue-600">Courses</a>
         <a href="../index.html#testimonials" class="hover:text-blue-600">Testimonials</a>
         <a href="../Blog/Blog.html" class="hover:text-blue-600">Blog</a>
         <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
-        <a href="../index.html" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">Home</a>
+
+
+
+        <!-- 💎 Coin pill (nav) -->
+        <a href="wallet.html" id="navCoinPill" title="View Coin Wallet"
+           style="display:inline-flex;align-items:center;gap:6px;
+                  background:rgba(251,191,36,0.12);
+                  border:0.5px solid rgba(251,191,36,0.35);
+                  border-radius:100px;padding:5px 12px 5px 8px;
+                  font-family:'Syne','Sora',sans-serif;font-size:.75rem;font-weight:800;
+                  color:#b45309;text-decoration:none;
+                  transition:background .2s,transform .15s"
+           onmouseenter="this.style.background='rgba(251,191,36,0.22)';this.style.transform='scale(1.04)'"
+           onmouseleave="this.style.background='rgba(251,191,36,0.12)';this.style.transform='scale(1)'">
+          <svg width="16" height="16" viewBox="0 0 160 160"><use href="#CLcoin-sm"/></svg>
+          <span id="navCoins">—</span>
+        </a>
+        <span id="navLevelBadge" style="display:none"></span>
+        <!-- 🔔 Notification Bell -->
+        <div class="relative">
+          <button id="notificationBell" class="relative text-blue-600 hover:text-blue-800 text-lg">
+
+            <i class="fas fa-bell"></i>
+
+            <!-- Badge -->
+            <span id="notificationCount"
+              class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-[10px] px-1.5 py-[1px] rounded-full">
+              0
+            </span>
+          </button>
+
+          <!-- Dropdown -->
+          <div id="notificationDropdown"
+            class="hidden absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-lg border z-50">
+
+            <div class="flex justify-between items-center p-3 border-b">
+              <span class="text-sm font-semibold">Notifications</span>
+              <button id="markAllReadBtn" class="text-xs text-blue-600 hover:underline">
+                Mark all read
+              </button>
+            </div>
+
+            <div id="notificationList" class="max-h-80 overflow-y-auto">
+              <p class="p-3 text-sm text-gray-500">Loading...</p>
+            </div>
+          </div>
+        </div>
+        <a href="../index.html"
+          class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">Home</a>
       </div>
-      <div class="md:hidden" x-data="{ open: false }">
-        <button type="button" @click="open = !open" class="focus:outline-none" title="Toggle mobile menu" aria-label="Toggle mobile menu">
+      <!-- Mobile: hamburger button only — sheet rendered below nav -->
+      <div class="md:hidden flex items-center gap-3">
+
+        <button id="mobileMenuBtn" onclick="openMobileMenu()" aria-label="Open menu"
+          style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;border:none;background:transparent;cursor:pointer;">
           <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <div x-show="open" @click.away="open = false" class="absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
-          <a href="../index.html#courses1" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>Courses</a>
-          <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z"/></svg>Features</a>
-          <a href="../index.html#testimonials" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>Reviews</a>
-          <a href="../Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>Blog</a>
-          <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
-            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact Us</a>
-        </div>
+      </div>
+
+      <!-- ── MOBILE DROPDOWN (nav) ── -->
+      <div id="mobileNavOverlay" onclick="closeMobileMenu()"
+        style="display:none;position:fixed;inset:0;z-index:200;"></div>
+      <div id="mobileNavSheet"
+        style="display:none;position:absolute;top:100%;right:12px;z-index:201;
+               background:#fff;border-radius:16px;min-width:220px;
+               box-shadow:0 8px 32px rgba(15,23,42,.18);
+               border:1px solid #e2e8f0;
+               transform:translateY(-8px);opacity:0;
+               transition:transform .2s ease,opacity .2s ease;">
+        <nav style="padding:8px;display:flex;flex-direction:column;gap:2px;">
+          <a href="../index.html#courses1" onclick="closeMobileMenu()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:600;font-size:.88rem;">
+            <i class="fas fa-book-open" style="color:#1d4ed8;width:16px;text-align:center"></i> Courses
+          </a>
+          <a href="../index.html#features" onclick="closeMobileMenu()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:600;font-size:.88rem;">
+            <i class="fas fa-star" style="color:#1d4ed8;width:16px;text-align:center"></i> Features
+          </a>
+          <a href="../index.html#testimonials" onclick="closeMobileMenu()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:600;font-size:.88rem;">
+            <i class="fas fa-comment-dots" style="color:#1d4ed8;width:16px;text-align:center"></i> Reviews
+          </a>
+          <a href="../Blog/Blog.html" onclick="closeMobileMenu()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:600;font-size:.88rem;">
+            <i class="fas fa-newspaper" style="color:#1d4ed8;width:16px;text-align:center"></i> Blog
+          </a>
+          <button onclick="closeMobileMenu();openMobileNotifications();"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:transparent;border:none;color:#1e40af;font-weight:600;font-size:.88rem;width:100%;text-align:left;cursor:pointer;position:relative;">
+            <i class="fas fa-bell" style="color:#1d4ed8;width:16px;text-align:center"></i> Notifications
+            <span id="notificationCountMobile" style="display:none;position:absolute;left:22px;top:6px;background:#ef4444;color:#fff;font-size:9px;font-weight:800;border-radius:99px;padding:1px 5px;min-width:16px;text-align:center">0</span>
+          </button>
+          <a href="../index.html#contact" onclick="closeMobileMenu()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:600;font-size:.88rem;">
+            <i class="fas fa-envelope" style="color:#1d4ed8;width:16px;text-align:center"></i> Contact Us
+          </a>
+          <div style="height:1px;background:#dbeafe;margin:4px 0;"></div>
+          <a href="wallet.html" onclick="closeMobileMenu()"
+            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:700;font-size:.88rem;">
+            <i class="fas fa-wallet" style="color:#1d4ed8;width:16px;text-align:center"></i>
+            Wallet <span id="mobileSheetCoins" style="margin-left:auto;font-size:.78rem;font-weight:800;color:#1d4ed8">—</span>
+          </a>
+          <a href="../index.html"
+            style="display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0 2px;padding:10px 12px;border-radius:10px;text-decoration:none;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;font-weight:700;font-size:.88rem;">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </nav>
       </div>
     </div>
   </nav>
@@ -219,10 +1586,137 @@
         <div class="stat-val sv-indigo" id="bestScore">—</div>
         <div class="stat-lbl">Best Score</div>
       </div>
-      <div class="stat-card sc-amber d4">
-        <div class="stat-icon si-amber"><i class="fas fa-clock"></i></div>
-        <div class="stat-val sv-amber" id="totalTime">—</div>
-        <div class="stat-lbl">Study Time</div>
+      <div class="stat-card sc-amber fade-in d6">
+        <div class="stat-icon si-amber">
+          <svg width="20" height="20">
+            <use href="#CLcoin-sm" />
+          </svg>
+        </div>
+        <div class="stat-val sv-amber" id="userCoins">0</div>
+        <div id="streakMultiplierPill" style="display:none;margin-top:4px">
+          <span style="
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:10px;font-weight:700;
+    background:rgba(251,146,60,0.15);
+    color:#fb923c;
+    border:0.5px solid rgba(251,146,60,0.35);
+    border-radius:20px;
+    padding:2px 8px;
+    letter-spacing:.03em;
+    font-family:'Syne','Sora',sans-serif;
+  ">
+            🔥 <span id="streakMultiplierVal"></span> streak
+          </span>
+        </div>
+        <div class="stat-lbl">Courage Coins</div>
+
+      </div>
+    </div>
+
+    <!-- LEVEL + REWARD ROW -->
+    <div style="max-width:1152px;margin:16px auto 0;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:12px"
+      id="levelReferralRow">
+
+      <!-- Level & Badges Card -->
+      <div style="background:#fff;border-radius:18px;border:1px solid #e2e8f4;padding:18px 16px;box-shadow:0 4px 20px rgba(15,23,42,.1);display:flex;flex-direction:column;gap:12px;">
+        <div style="font-size:.62rem;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;">Your Level</div>
+        <div id="userLevel" style="display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;">
+          <span style="font-size:.8rem;color:#cbd5e1">Loading...</span>
+        </div>
+        <!-- Level progress bar — rendered by renderUserLevel() -->
+        <div id="levelProgressWrap" style="display:none;flex-direction:column;gap:5px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span id="levelProgressLabel" style="font-size:.65rem;color:#64748b;font-weight:600;"></span>
+            <span id="levelProgressPct" style="font-family:'Syne',sans-serif;font-size:.65rem;font-weight:800;color:#94a3b8;"></span>
+          </div>
+          <div style="background:#e2e8f0;border-radius:100px;height:6px;overflow:hidden;">
+            <div id="levelProgressBar" style="height:100%;border-radius:100px;width:0%;transition:width .8s cubic-bezier(.4,0,.2,1);"></div>
+          </div>
+        </div>
+        <div style="font-size:.62rem;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;">Earned Badges</div>
+        <div id="userBadges" style="display:flex;flex-wrap:wrap;gap:6px;min-height:24px;">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Next Reward Progress Card -->
+      <div style="background:#fff;border-radius:18px;border:1px solid #e2e8f4;padding:18px 16px;box-shadow:0 4px 20px rgba(15,23,42,.1);display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:.62rem;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:5px;">
+            <i class="fas fa-gift" style="color:#3b82f6;"></i> Next Reward
+          </div>
+          <a href="/mock/reward.html" style="font-size:.68rem;color:#2563eb;font-weight:700;text-decoration:none;">View all →</a>
+        </div>
+        <div style="font-size:.78rem;color:#64748b;font-weight:600;" id="rewardText">Loading...</div>
+        <div style="background:#e2e8f0;border-radius:100px;height:8px;overflow:hidden;">
+          <div id="rewardBar" style="height:100%;background:linear-gradient(90deg,#2563eb,#60a5fa);border-radius:100px;width:0%;transition:width .6s ease;"></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <a href="/mock/reward.html" id="claimRewardBtn"
+            style="display:none;flex:1;text-align:center;background:#2563eb;color:#fff;padding:8px;border-radius:10px;font-size:.78rem;font-weight:700;text-decoration:none;">
+            <i class="fas fa-gift"></i> Claim
+          </a>
+          <a href="/mock/reward.html" id="viewRewardsBtn"
+            style="flex:1;text-align:center;border:1px solid #bfdbfe;color:#2563eb;padding:8px;border-radius:10px;font-size:.78rem;font-weight:700;text-decoration:none;">
+            <i class="fas fa-trophy"></i> View Rewards
+          </a>
+        </div>
+        <!-- Referral Coins Trail -->
+        <div id="referralTrail" style="display:none;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(16,185,129,.05));border:0.5px solid rgba(52,211,153,.25);">
+          <div style="font-size:.62rem;font-weight:800;color:#059669;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Your Referral Impact</div>
+          <div style="font-size:.78rem;font-weight:700;color:#065f46;line-height:1.4;" id="referralTrailText"></div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;" id="referralTrailList"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- STREAK CARD -->
+    <div style="max-width:1152px;margin:16px auto 0;padding:0 24px">
+      <div class="streak-card" id="streakCard">
+        <div class="streak-top">
+          <div class="streak-left">
+            <div class="flame-wrap" id="flameWrap">
+              <svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse class="flame-particle" cx="16" cy="10" rx="2.5" ry="3.5" fill="#fb923c" opacity=".55" />
+                <ellipse class="flame-particle" cx="32" cy="8" rx="2" ry="3" fill="#fbbf24" opacity=".45" />
+                <path class="flame-main" d="M24 54C13 54 6 46 6 37c0-8 5-14 9-19 1 5 3 8 6 10
+                   -1-6 2-13 7-19 2 8 6 12 10 14
+                   3-4 4-9 3-14 5 5 7 13 7 21
+                   0 9-7 24-18 24z" fill="#f97316" />
+                <path class="flame-inner" d="M24 52C16 52 11 45 11 38c0-5 3-10 6-13
+                   0 4 2 7 5 9 0-5 2-10 5-14
+                   1 6 4 9 7 11 2-3 3-7 2-11
+                   4 4 5 10 5 16 0 7-5 16-17 16z" fill="#fbbf24" />
+                <ellipse cx="24" cy="42" rx="5" ry="7" fill="#fef9c3" opacity=".7" />
+              </svg>
+            </div>
+            <div class="streak-info">
+              <div class="streak-count" id="streakCount">— <span>days</span></div>
+              <div class="streak-label">Current Streak</div>
+            </div>
+          </div>
+          <div class="streak-best">
+            <div class="streak-best-num" id="streakBest">—</div>
+            <div class="streak-best-lbl">Best streak</div>
+          </div>
+        </div>
+
+        <!-- Milestone chips -->
+        <div class="streak-milestones" id="streakMilestones">
+          <div class="smstone" data-ms="7"><i class="fas fa-fire"></i> 7 days</div>
+          <div class="smstone" data-ms="14"><i class="fas fa-fire"></i> 14 days</div>
+          <div class="smstone" data-ms="30"><i class="fas fa-star"></i> 30 days</div>
+          <div class="smstone" data-ms="50"><i class="fas fa-crown"></i> 50 days</div>
+        </div>
+
+        <!-- At-risk warning -->
+        <div class="streak-at-risk-banner" id="streakAtRisk" style="display:none">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Streak breaks today! Attempt today's mock to keep it alive.</span>
+          <a href="#examList">Attempt now</a>
+        </div>
       </div>
     </div>
 
@@ -245,7 +1739,9 @@
                 <div class="skel" style="height:50px;border-radius:10px"></div>
               </div>
             </div>
-            <div class="exam-card-footer"><div class="skel" style="height:44px;border-radius:12px"></div></div>
+            <div class="exam-card-footer">
+              <div class="skel" style="height:44px;border-radius:12px"></div>
+            </div>
           </div>
           <div class="exam-card">
             <div class="exam-card-accent"></div>
@@ -259,7 +1755,9 @@
                 <div class="skel" style="height:50px;border-radius:10px"></div>
               </div>
             </div>
-            <div class="exam-card-footer"><div class="skel" style="height:44px;border-radius:12px"></div></div>
+            <div class="exam-card-footer">
+              <div class="skel" style="height:44px;border-radius:12px"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -281,48 +1779,359 @@
         </div>
       </div>
 
+
+      <!-- CL Coins — SaaS-level banner -->
+      <style>
+        .cl-banner { position:relative;overflow:hidden;background:linear-gradient(135deg,#0f3dc7 0%,#1a56db 40%,#1e2fa8 100%);border-radius:24px;box-shadow:0 16px 48px rgba(15,61,199,0.35),0 2px 8px rgba(15,61,199,0.2); }
+        .cl-banner::before { content:'';position:absolute;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.06);right:-80px;top:-100px;pointer-events:none; }
+        .cl-banner::after  { content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(96,165,250,0.07);left:-40px;bottom:-60px;pointer-events:none; }
+        .cl-banner-inner { position:relative;z-index:1; }
+
+        /* Top strip */
+        /* Top row — identity left, actions right, BOTH wrap on mobile */
+        .cl-top { display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:22px 28px 20px; }
+        .cl-identity { display:flex;align-items:center;gap:16px;min-width:0; }
+        .cl-coin-icon { width:52px;height:52px;border-radius:18px;background:rgba(255,255,255,0.11);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:inset 0 1px 0 rgba(255,255,255,0.15); }
+        .cl-title { font-family:'Sora',sans-serif;font-size:1.12rem;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.01em; }
+        .cl-subtitle { font-size:.76rem;color:rgba(147,197,253,0.9);margin-top:4px;font-weight:500;letter-spacing:.01em; }
+        .cl-actions { display:flex;gap:10px; }
+        .cl-btn-primary { display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:none;border-radius:12px;padding:10px 20px;font-size:.84rem;font-weight:800;color:#1a41c7;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.18),0 1px 4px rgba(0,0,0,0.12);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s; }
+        .cl-btn-primary:hover { transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.22); }
+        .cl-btn-ghost { display:inline-flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:12px;padding:10px 20px;font-size:.84rem;font-weight:700;color:#fff;text-decoration:none;white-space:nowrap;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s; }
+        .cl-btn-ghost:hover { transform:translateY(-2px);background:rgba(255,255,255,0.2); }
+
+        /* Referral strip */
+        .cl-ref-strip { display:flex;align-items:stretch;border-top:1px solid rgba(255,255,255,0.1);margin:0 28px;padding:16px 0 20px;gap:0; }
+        .cl-ref-block { flex:1;min-width:0; }
+        .cl-ref-block + .cl-ref-block { border-left:1px solid rgba(255,255,255,0.12);padding-left:28px; }
+        .cl-ref-label { font-size:.58rem;font-weight:800;color:rgba(147,197,253,0.7);text-transform:uppercase;letter-spacing:.11em;margin-bottom:9px; }
+
+        /* Code pill */
+        .cl-code-row { display:flex;align-items:center;gap:10px; }
+        .cl-code { font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:900;color:#fff;letter-spacing:.12em;line-height:1; }
+        .cl-copy-btn { display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.85);cursor:pointer;font-size:.75rem;flex-shrink:0;transition:all .15s; }
+        .cl-copy-btn:hover { background:rgba(255,255,255,0.24);color:#fff;transform:scale(1.08); }
+
+        /* Share btn */
+        .cl-share-btn { display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:11px;padding:8px 18px;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .18s cubic-bezier(.34,1.56,.64,1); }
+        .cl-share-btn:hover { background:rgba(255,255,255,0.22);transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,0.15); }
+
+        /* Mobile responsive */
+        @media(max-width:600px) {
+          /* Stack everything on mobile — grid becomes 1 column */
+          .cl-top { grid-template-columns:1fr;gap:14px;padding:18px 18px 16px; }
+          .cl-actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%; }
+          .cl-btn-primary, .cl-btn-ghost { padding:11px 8px;font-size:.82rem; }
+          .cl-ref-strip { flex-direction:column;gap:0;margin:0 18px;padding:14px 0 18px; }
+          .cl-ref-block { padding:0 !important; }
+          .cl-ref-block + .cl-ref-block { border-left:none;border-top:1px solid rgba(255,255,255,0.1);padding-top:14px !important;margin-top:14px; }
+          .cl-code { font-size:1.2rem;letter-spacing:.08em; }
+          #referralStatus { padding-left:0 !important;margin-top:8px; }
+        }
+      </style>
+
+      <div style="max-width:1152px;margin:32px auto 0;padding:0 24px;">
+        <div class="cl-banner">
+          <div class="cl-banner-inner">
+
+            <!-- Top: identity + actions -->
+            <div class="cl-top">
+              <div class="cl-identity">
+                <div class="cl-coin-icon">
+                  <svg width="28" height="28" viewBox="0 0 160 160"><use href="#CLcoin-lg"/></svg>
+                </div>
+                <div>
+                  <div class="cl-title">Earn CL Coins</div>
+                  <div class="cl-subtitle">Complete mocks &nbsp;·&nbsp; Build streaks &nbsp;·&nbsp; Refer friends</div>
+                </div>
+              </div>
+              <div class="cl-actions">
+                <button class="cl-btn-primary" onclick="openEarnModal()">
+                  <i class="fas fa-coins" style="font-size:.78rem;"></i> How to Earn
+                </button>
+                <a href="wallet.html" class="cl-btn-ghost">
+                  <i class="fas fa-wallet" style="font-size:.78rem;"></i> View Wallet
+                </a>
+              </div>
+            </div>
+
+            <!-- Referral strip -->
+            <div class="cl-ref-strip">
+
+              <!-- Code block -->
+              <div class="cl-ref-block">
+                <div class="cl-ref-label">Your Referral Code</div>
+                <div class="cl-code-row">
+                  <span class="cl-code" id="userReferralCode">—</span>
+                  <button class="cl-copy-btn" onclick="copyReferralCode()" title="Copy code">
+                    <i class="fas fa-copy" id="referralCopyIcon"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Share block -->
+              <div class="cl-ref-block" style="padding-left:28px;display:flex;flex-direction:column;justify-content:flex-start;">
+                <div class="cl-ref-label">Share Link</div>
+                <button class="cl-share-btn" onclick="shareReferralLink()" id="referralShareBtn">
+                  <i class="fas fa-share-alt" style="font-size:.76rem;"></i> Share with friends
+                </button>
+                <a id="referralLink" href="#" target="_blank" style="display:none;">—</a>
+              </div>
+
+              <!-- Status (if any) -->
+              <div id="referralStatus" style="display:flex;align-items:center;font-size:.67rem;color:#93c5fd;font-weight:700;padding-left:16px;flex-shrink:0;"></div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- 📱 Mobile Notification Panel -->
+  <div id="mobileNotificationPanel" class="hidden fixed inset-0 bg-black/40 z-50">
+
+    <div id="mobileSheet"
+      class="absolute bottom-0 w-full bg-white rounded-t-2xl p-4 transform translate-y-full transition">
+
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="font-semibold">Notifications</h3>
+        <button onclick="closeMobileNotifications()">✕</button>
+      </div>
+
+      <div id="notificationListMobile" class="max-h-[60vh] overflow-y-auto">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function copyReferralCode() {
+      const code = document.getElementById("userReferralCode").textContent.trim();
+      if (!code || code === "—") return;
+      navigator.clipboard.writeText(code).then(() => {
+        const icon = document.getElementById("referralCopyIcon");
+        if (icon) { icon.className = "fas fa-check"; setTimeout(() => { icon.className = "fas fa-copy"; }, 1800); }
+      });
+    }
+    function shareReferralLink() {
+      const link = document.getElementById("referralLink");
+      const url = link ? link.href : "";
+      if (!url || url === "#") return;
+      if (navigator.share) {
+        navigator.share({ title: "Join Courage Library", url });
+      } else {
+        navigator.clipboard.writeText(url).then(() => {
+          const btn = document.getElementById("referralShareBtn");
+          if (btn) { btn.innerHTML = '<i class="fas fa-check"></i> Copied!'; setTimeout(() => { btn.innerHTML = '<i class="fas fa-share-alt"></i> Share'; }, 1800); }
+        });
+      }
+    }
+  </script>
+  <!-- ════ HOW TO EARN CL COINS MODAL ════ -->
+  <div id="earnModal" onclick="if(event.target===this)closeEarnModal()"
+    style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:300;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(6px)">
+    <div style="background:#fff;border-radius:24px;max-width:440px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(15,23,42,.25);animation:fadeInUp .25s ease">
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 100%);padding:24px 24px 20px;border-radius:24px 24px 0 0;position:relative">
+        <button onclick="closeEarnModal()" style="position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.18);border:none;color:#fff;cursor:pointer;font-size:.85rem">✕</button>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="24" height="24" viewBox="0 0 160 160"><use href="#CLcoin-sm"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#fff">How to earn CL Coins</div>
+            <div style="font-size:.72rem;color:#93c5fd;font-weight:600;margin-top:2px">Every coin takes you closer to a real reward</div>
+          </div>
+        </div>
+      </div>
+      <!-- Body -->
+      <div style="padding:20px 24px 28px;display:flex;flex-direction:column;gap:14px">
+
+        <!-- Base coins per day -->
+        <div style="background:#f7f9ff;border:1px solid #e8edf5;border-radius:14px;padding:14px 16px">
+          <div style="font-size:.65rem;font-weight:800;color:#1a56db;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Base coins per mock</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+            <div style="text-align:center;background:#fff;border:1px solid #e2e8f4;border-radius:10px;padding:10px 6px">
+              <div style="font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:900;color:#1d4ed8">20</div>
+              <div style="font-size:.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-top:3px">Mon–Fri</div>
+            </div>
+            <div style="text-align:center;background:#fff;border:1px solid #e2e8f4;border-radius:10px;padding:10px 6px">
+              <div style="font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:900;color:#7c3aed">30</div>
+              <div style="font-size:.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-top:3px">Saturday</div>
+            </div>
+            <div style="text-align:center;background:#fff;border:1px solid #e2e8f4;border-radius:10px;padding:10px 6px">
+              <div style="font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:900;color:#ea580c">40</div>
+              <div style="font-size:.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em;margin-top:3px">Sunday</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accuracy bonus -->
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:14px 16px">
+          <div style="font-size:.65rem;font-weight:800;color:#059669;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Accuracy bonus</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.82rem;font-weight:700;color:#0f172a">Accuracy ≥ 80%</span>
+              <span style="font-family:'Sora',sans-serif;font-weight:800;color:#059669;font-size:.95rem">+100% of base</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:.82rem;font-weight:700;color:#0f172a">Accuracy ≥ 60%</span>
+              <span style="font-family:'Sora',sans-serif;font-weight:800;color:#16a34a;font-size:.95rem">+50% of base</span>
+            </div>
+            <div style="font-size:.72rem;color:#6b7280;margin-top:2px">Example: Sunday mock (40 base) with ≥80% = <strong style="color:#0f172a">80 CL total</strong></div>
+          </div>
+        </div>
+
+        <!-- Streak milestones -->
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:14px 16px">
+          <div style="font-size:.65rem;font-weight:800;color:#c2410c;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">🔥 Streak milestone bonuses</div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px">
+            <div style="display:flex;justify-content:space-between;padding:6px 8px;background:#fff;border-radius:8px;border:1px solid #fed7aa">
+              <span style="font-size:.8rem;font-weight:700;color:#0f172a">5 days</span><span style="font-weight:800;color:#c2410c;font-size:.82rem">+30 CL</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:6px 8px;background:#fff;border-radius:8px;border:1px solid #fed7aa">
+              <span style="font-size:.8rem;font-weight:700;color:#0f172a">10 days</span><span style="font-weight:800;color:#c2410c;font-size:.82rem">+80 CL</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:6px 8px;background:#fff;border-radius:8px;border:1px solid #fed7aa">
+              <span style="font-size:.8rem;font-weight:700;color:#0f172a">25 days</span><span style="font-weight:800;color:#c2410c;font-size:.82rem">+200 CL</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:6px 8px;background:#fff;border-radius:8px;border:1px solid #fed7aa">
+              <span style="font-size:.8rem;font-weight:700;color:#0f172a">50 days</span><span style="font-weight:800;color:#c2410c;font-size:.82rem">+500 CL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Referral -->
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:14px 16px">
+          <div style="font-size:.65rem;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Referral bonus</div>
+          <div style="font-size:.85rem;font-weight:700;color:#0f172a">Refer a friend → they complete <strong>3 mocks</strong> → you earn <strong style="color:#1d4ed8">+150 CL</strong></div>
+          <div style="font-size:.72rem;color:#6b7280;margin-top:4px">Share your referral code from the dashboard. Coins are awarded automatically once your friend qualifies.</div>
+        </div>
+
+        <!-- First mock bonus -->
+        <div style="background:#fdf4ff;border:1px solid #e9d5ff;border-radius:14px;padding:14px 16px">
+          <div style="font-size:.65rem;font-weight:800;color:#7c3aed;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">First mock bonus</div>
+          <div style="font-size:.85rem;font-weight:700;color:#0f172a">Complete your very first mock → <strong style="color:#7c3aed">+30 CL</strong> one-time bonus</div>
+        </div>
+
+        <!-- Level thresholds -->
+        <div style="background:#f8faff;border:1px solid #e2e8f4;border-radius:14px;padding:14px 16px">
+          <div style="font-size:.65rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Level thresholds (lifetime coins)</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <span style="padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:800;background:#f1f5f9;color:#64748b">Seeker: 0</span>
+            <span style="padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:800;background:#dbeafe;color:#1e40af">Scholar: 1,000</span>
+            <span style="padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:800;background:#ede9fe;color:#5b21b6">Luminary: 3,000</span>
+            <span style="padding:4px 12px;border-radius:100px;font-size:.75rem;font-weight:800;background:#fef3c7;color:#92400e">Legend: 6,000</span>
+          </div>
+        </div>
+
+        <a href="/mock/reward.html" onclick="closeEarnModal()"
+          style="display:flex;align-items:center;justify-content:center;gap:8px;height:46px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:14px;font-weight:800;font-size:.9rem;text-decoration:none;box-shadow:0 4px 16px rgba(26,86,219,.3)">
+          <i class="fas fa-gift"></i> View Rewards →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openEarnModal()  { const m=document.getElementById('earnModal'); m.style.display='flex'; document.body.style.overflow='hidden'; }
+    function closeEarnModal() { document.getElementById('earnModal').style.display='none'; document.body.style.overflow=''; }
+
+    function openMobileMenu() {
+      const overlay = document.getElementById('mobileNavOverlay');
+      const sheet   = document.getElementById('mobileNavSheet');
+      overlay.style.display = 'block';
+      sheet.style.display   = 'block';
+      requestAnimationFrame(() => {
+        sheet.style.transform = 'translateY(0)';
+        sheet.style.opacity   = '1';
+      });
+      const nd = document.getElementById('navCoins');
+      const ms = document.getElementById('mobileSheetCoins');
+      if (nd && ms) ms.textContent = nd.textContent;
+    }
+    function closeMobileMenu() {
+      const sheet = document.getElementById('mobileNavSheet');
+      sheet.style.transform = 'translateY(-8px)';
+      sheet.style.opacity   = '0';
+      setTimeout(() => {
+        sheet.style.display = 'none';
+        document.getElementById('mobileNavOverlay').style.display = 'none';
+      }, 200);
+    }
+    // Sync mobile coin pill from same data source as desktop
+    const _origAnimateCount = window.animateCount;
+    document.addEventListener('DOMContentLoaded', () => {
+      const mo = document.getElementById('navCoinsMobile');
+      const nd = document.getElementById('navCoins');
+      if (mo && nd) {
+        new MutationObserver(() => { mo.textContent = nd.textContent; }).observe(nd, { childList:true, characterData:true, subtree:true });
+      }
+    });
+  </script>
+
   <script src="/js/studentDashboard.js"></script>
   <script>
-    // Show guest banner if not logged in (checked after auth resolves)
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        if (!_currentUser) {
-          const banner = document.createElement("div");
-          banner.id = "guestBanner";
-          banner.style = "background:linear-gradient(135deg,#1e3a8a,#1a56db);padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,86,219,.3);";
-          banner.innerHTML = `
-            <span style="font-size:.82rem;color:#bfdbfe;font-weight:600"><i class="fas fa-eye" style="margin-right:6px"></i>You're browsing as a guest — <strong style="color:#fff">sign up free</strong> to attempt tests & track progress</span>
-            <div style="display:flex;gap:8px;flex-shrink:0">
-              <a href="/index.html?action=signup" style="padding:6px 16px;background:#fff;color:#1d4ed8;border-radius:100px;font-weight:800;font-size:.75rem;text-decoration:none;">Sign Up Free</a>
-              <a href="/index.html?action=login" style="padding:6px 14px;background:rgba(255,255,255,.15);color:#fff;border-radius:100px;font-weight:700;font-size:.75rem;text-decoration:none;border:1px solid rgba(255,255,255,.3)">Log In</a>
-            </div>`;
-          // Insert after nav
-          const nav = document.querySelector("nav");
-          if (nav && nav.nextSibling) {
-            nav.parentNode.insertBefore(banner, nav.nextSibling);
-          } else {
-            document.body.prepend(banner);
-          }
-        }
-      }, 600); // slight delay to let checkAuth resolve
+    // Attempt button loading state — show spinner immediately on click
+    document.addEventListener("click", function(e) {
+      const btn = e.target.closest("[data-exam-btn]");
+      if (!btn) return;
+      if (btn.disabled) return;
+      btn.disabled = true;
+      const origHTML = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Starting…';
+      // Re-enable after 8s as safety net if something goes wrong
+      setTimeout(function() {
+        btn.disabled = false;
+        btn.innerHTML = origHTML;
+      }, 8000);
     });
+    // Focus ring fix — ensure keyboard users see focus on interactive elements
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Tab") document.body.classList.add("kb-nav");
+    });
+    document.addEventListener("mousedown", function() {
+      document.body.classList.remove("kb-nav");
+    });
+  </script>
+  <script>
+    // Show guest banner — driven by cl:authReady event from studentDashboard.js
+    // (no fragile setTimeout; fires as soon as checkAuth() resolves)
+document.addEventListener("cl:authReady", (e) => {
+  if (e.detail && e.detail.user) return; // logged-in, nothing to do
+  const banner = document.createElement("div");
+  banner.id = "guestBanner";
+  banner.style = "background:linear-gradient(135deg,#1e3a8a,#1a56db);padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,86,219,.3);";
+  banner.innerHTML = `
+    <span style="font-size:.82rem;color:#bfdbfe;font-weight:600"><i class="fas fa-eye" style="margin-right:6px"></i>You're browsing as a guest — <strong style="color:#fff">sign up free</strong> to attempt tests & track progress</span>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <a href="/index.html?action=signup" style="padding:6px 16px;background:#fff;color:#1d4ed8;border-radius:100px;font-weight:800;font-size:.75rem;text-decoration:none;">Sign Up Free</a>
+      <a href="/index.html?action=login" style="padding:6px 14px;background:rgba(255,255,255,.15);color:#fff;border-radius:100px;font-weight:700;font-size:.75rem;text-decoration:none;border:1px solid rgba(255,255,255,.3)">Log In</a>
+    </div>`;
+  const nav = document.querySelector("nav");
+  if (nav && nav.nextSibling) nav.parentNode.insertBefore(banner, nav.nextSibling);
+  else document.body.prepend(banner);
+});
   </script>
 
   <!-- ════════ FOOTER ════════ -->
   <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 fade-in z-10">
     <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-      <p class="mb-4 md:mb-0">&copy; 2025 Courage Library. All rights reserved.</p>
+      <p class="mb-4 md:mb-0">&copy; 2026 Courage Library. All rights reserved.</p>
       <div class="flex space-x-6">
-        <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL" target="_blank"
+          rel="noopener noreferrer" class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer"
+          class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
+          class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
+          class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
   </footer>
 
 </body>
+
 </html>

@@ -31,6 +31,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* ─────────────────────────────────────────
    STEP 1 — CALCULATE & SAVE RESULT
 ───────────────────────────────────────── */
+function showRewardUnlockPopup(title, message) {
+  document.getElementById('rewardUnlockPopup')?.remove();
+  const popup = document.createElement('div');
+  popup.id = 'rewardUnlockPopup';
+  popup.style.cssText = `
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:#1a1a2e;color:#fff;padding:16px 24px;
+    border-radius:14px;text-align:center;z-index:9999;
+    min-width:280px;max-width:360px;
+    box-shadow:0 8px 32px rgba(0,0,0,.4);
+    animation:slideUp .3s ease-out;
+  `;
+  popup.innerHTML = `
+    <div style="font-size:18px;margin-bottom:6px">${title}</div>
+    <div style="font-size:13px;opacity:.85;line-height:1.4">${message}</div>
+    <button
+      onclick="this.closest('#rewardUnlockPopup').remove();window.location.href='/mock/reward.html';"
+      style="margin-top:12px;background:#f59e0b;color:#1a1a2e;border:none;padding:8px 20px;
+             border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;"
+    >Claim Now &rarr;</button>
+  `;
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 8000);
+}
+
 async function calculateResult() {
   const { data: attempt, error: attemptErr } = await client
     .from("attempts")
@@ -122,11 +147,18 @@ async function calculateResult() {
     totalAttempted === 0 ? 0 : +((correct / totalAttempted) * 100).toFixed(2);
 
   // Save to DB only once — don't overwrite on refresh
-  if (attempt.total_score == null) {
+  const isFirstVisit = attempt.total_score == null;
+  if (isFirstVisit) {
     await client
       .from("attempts")
       .update({ total_score: score, accuracy, time_taken: timeTaken })
       .eq("id", attemptId);
+  }
+
+  // Only call giveCoins on the first visit — the Edge Function also has an
+  // already_rewarded guard, but this prevents an unnecessary round-trip on refresh
+  if (isFirstVisit) {
+    await giveCoins(attemptId);
   }
 
   displayResult({
@@ -559,6 +591,303 @@ function animateCount(id, target, duration) {
   }
   requestAnimationFrame(step);
 }
+
+async function giveCoins(attemptId) {
+  const { data: { user, session } } = await client.auth.getSession();
+  if (!user || !session) return;
+
+  // Fetch lifetime coins BEFORE reward so we can detect level-up
+  let prevLifetime = 0;
+  try {
+    const { data: prof } = await client
+      .from("user_profiles")
+      .select("lifetime_coins, total_coins")
+      .eq("id", user.id)
+      .single();
+    prevLifetime = prof?.lifetime_coins || prof?.total_coins || 0;
+  } catch (_) {}
+
+  let data;
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/functions/v1/submit-test-and-reward`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":  "application/json",
+          "Authorization": `Bearer ${session.access_token}`,
+          "apikey":        SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({ attempt_id: attemptId }),
+      }
+    );
+    data = await res.json();
+  } catch (err) {
+    console.error("giveCoins fetch failed:", err);
+    return;
+  }
+
+  if (!data || (!data.coins && !data.already_rewarded)) return;
+  if (data.already_rewarded) return; // coins already given for this attempt
+
+  // Show the breakdown popup
+  showCoinPopup(data.coins, data.streak, data.breakdown);
+
+  // Fetch updated lifetime coins and check for level-up
+  try {
+    const { data: updated } = await client
+      .from("user_profiles")
+      .select("lifetime_coins, total_coins")
+      .eq("id", user.id)
+      .single();
+    const newLifetime = updated?.lifetime_coins || updated?.total_coins || 0;
+    const prevLevel   = getResultLevel(prevLifetime);
+    const newLevel    = getResultLevel(newLifetime);
+    if (newLevel.label !== prevLevel.label) {
+      setTimeout(() => showLevelUpToast(newLevel, newLifetime), 2800);
+    } else {
+      // Show current level pill quietly
+      renderResultLevelPill(newLifetime);
+    }
+    // If a reward milestone was also crossed, chain it after level toast
+    if (data.reward_unlocked) {
+      setTimeout(() => showRewardUnlockPopup(
+        `<i class="fas fa-gift" style="margin-right:6px"></i>${data.reward_unlocked} unlocked!`,
+        `You now have ${data.total_coins} coins -- enough to claim your ${data.reward_unlocked}. Go to Rewards to claim it!`
+      ), newLevel.label !== prevLevel.label ? 5500 : 2200);
+    }
+  } catch (_) {
+    if (data.reward_unlocked) {
+      setTimeout(() => showRewardUnlockPopup(
+        `<i class="fas fa-gift" style="margin-right:6px"></i>${data.reward_unlocked} unlocked!`,
+        `You now have ${data.total_coins} coins -- enough to claim your ${data.reward_unlocked}. Go to Rewards to claim it!`
+      ), 2200);
+    }
+  }
+}
+
+// ── Level helpers ────────────────────────────────────────────────────────────
+function getResultLevel(coins) {
+  if (coins >= 6000) return { label: "Legend",   color: "#f59e0b", bg: "rgba(245,158,11,0.12)", border: "#b45309",  tagline: "The rarest rank. Your consistency is your identity." };
+  if (coins >= 3000) return { label: "Luminary",  color: "#c084fc", bg: "rgba(168,85,247,0.12)",  border: "#7c3aed",  tagline: "You illuminate the path for those around you." };
+  if (coins >= 1000) return { label: "Scholar",   color: "#38bdf8", bg: "rgba(0,168,255,0.10)",   border: "#0284c7",  tagline: "Knowledge is accumulating. The foundations are solid." };
+  return               { label: "Seeker",    color: "#8080c0", bg: "rgba(80,80,180,0.10)",   border: "#3030a0",  tagline: "Every journey begins with curiosity. You've started yours." };
+}
+
+function renderResultLevelPill(lifetimeCoins) {
+  const el = document.getElementById("resultLevelPill");
+  if (!el) return;
+  const { label, color, bg, border } = getResultLevel(lifetimeCoins);
+  el.style.display = "inline-flex";
+  el.style.background = bg;
+  el.style.borderColor = border;
+  el.style.color = color;
+  el.innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 64 64"><use href="#badge-${label.toLowerCase()}"/></svg>
+    ${label}
+    <span style="font-size:.68rem;opacity:.7;font-weight:500;margin-left:2px">${lifetimeCoins.toLocaleString("en-IN")} lifetime CL</span>`;
+}
+
+function showLevelUpToast(level, lifetimeCoins) {
+  document.getElementById("levelUpToast")?.remove();
+  const toast = document.createElement("div");
+  toast.id = "levelUpToast";
+  toast.style.cssText = `
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:linear-gradient(135deg,#1a1a2e,#16213e);
+    border:1px solid ${level.border};
+    color:#fff;padding:18px 24px 16px;
+    border-radius:18px;text-align:center;z-index:9999;
+    min-width:300px;max-width:380px;
+    box-shadow:0 8px 40px rgba(0,0,0,.5), 0 0 0 1px ${level.border};
+    animation:lvlUpIn .4s cubic-bezier(.34,1.56,.64,1) forwards;
+  `;
+  toast.innerHTML = `
+    <style>
+      @keyframes lvlUpIn { from{opacity:0;transform:translateX(-50%) translateY(30px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+      @keyframes lvlUpOut { to{opacity:0;transform:translateX(-50%) translateY(20px)} }
+    </style>
+    <div style="font-size:13px;font-weight:700;color:${level.color};letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">
+      🎉 Level Up!
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#badge-${level.label.toLowerCase()}"/></svg>
+      <div style="text-align:left">
+        <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:${level.color};line-height:1">${level.label}</div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,.55);margin-top:3px">${lifetimeCoins.toLocaleString("en-IN")} lifetime CL</div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.4;margin-bottom:14px">${level.tagline}</div>
+    <button onclick="this.closest('#levelUpToast').style.animation='lvlUpOut .3s ease forwards';setTimeout(()=>this.closest('#levelUpToast')?.remove(),300)"
+      style="background:${level.bg};border:1px solid ${level.border};color:${level.color};
+             padding:7px 20px;border-radius:100px;font-family:'Syne',sans-serif;
+             font-size:.75rem;font-weight:800;cursor:pointer;letter-spacing:.04em">
+      Awesome! 🚀
+    </button>
+  `;
+  document.body.appendChild(toast);
+  renderResultLevelPill(lifetimeCoins);
+  // Auto-dismiss after 8s
+  setTimeout(() => {
+    if (toast.parentNode) {
+      toast.style.animation = "lvlUpOut .3s ease forwards";
+      setTimeout(() => toast.remove(), 300);
+    }
+  }, 8000);
+}
+
+function showCoinPopup(coins, streak, breakdown) {
+  // Build breakdown rows -- only show non-zero components
+  const rows = [
+    { label: 'Base coins',       val: breakdown?.base,             icon: '<i class="fas fa-calendar-day"></i>' },
+    { label: 'Accuracy bonus',   val: breakdown?.accuracy_bonus,   icon: '<i class="fas fa-bullseye"></i>' },
+    { label: 'First test bonus', val: breakdown?.first_test_bonus, icon: '<i class="fas fa-star"></i>' },
+    { label: 'Streak bonus',     val: breakdown?.streak_bonus,     icon: '<i class="fas fa-fire"></i>' },
+  ].filter(r => r.val > 0);
+
+  const breakdownHTML = rows.length > 1
+    ? `<div style="
+        margin-top:14px;
+        background:rgba(255,255,255,.08);
+        border-radius:12px;
+        padding:12px 16px;
+        display:flex;
+        flex-direction:column;
+        gap:6px;
+      ">
+        ${rows.map(r => `
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+            <span style="opacity:.75">${r.icon} ${r.label}</span>
+            <span style="font-weight:700;color:#fbbf24">+${r.val}</span>
+          </div>`).join('')}
+        <div style="
+          margin-top:8px;
+          padding-top:8px;
+          border-top:1px solid rgba(255,255,255,.15);
+          display:flex;
+          justify-content:space-between;
+          font-size:14px;
+          font-weight:800;
+        ">
+          <span>Total earned</span>
+          <span style="color:#fbbf24">${coins} coins</span>
+        </div>
+      </div>`
+    : '';
+
+  // Remove any existing popup
+  document.getElementById('coinPopup')?.remove();
+
+  const popup = document.createElement('div');
+  popup.id = 'coinPopup';
+  popup.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: linear-gradient(140deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 28px 28px 24px;
+    border-radius: 24px;
+    text-align: center;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 360px;
+    width: 90vw;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+  `;
+
+  popup.innerHTML = `
+    <div style="font-size:2.8rem;line-height:1;margin-bottom:6px"><svg width="16" height="16"><use href="#CLcoin-sm"/></svg></div>
+    <div style="
+      font-family:'Sora',sans-serif;
+      font-size:2rem;
+      font-weight:900;
+      color:#fbbf24;
+      line-height:1.1;
+    ">+${coins} coins</div>
+    <div style="font-size:13px;opacity:0.65;margin-top:4px">
+      <i class="fas fa-fire" style="color:#fb923c;margin-right:4px"></i>${streak} day streak
+    </div>
+    ${breakdownHTML}
+    <div style="
+      margin-top:18px;
+      font-size:11px;
+      opacity:0.35;
+      letter-spacing:.04em;
+    ">Tap anywhere to dismiss</div>
+  `;
+
+  popup.addEventListener('click', () => popup.remove());
+
+  // Backdrop
+  const backdrop = document.createElement('div');
+  backdrop.id = 'coinPopupBackdrop';
+  backdrop.style.cssText = `
+    position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9998;
+    backdrop-filter:blur(3px);
+  `;
+  backdrop.addEventListener('click', () => {
+    popup.remove();
+    backdrop.remove();
+  });
+
+  document.body.appendChild(backdrop);
+  document.body.appendChild(popup);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    popup.style.transform = 'translate(-50%, -50%) scale(1)';
+    popup.style.opacity = '1';
+  });
+
+  // Floating coins
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      const coin = document.createElement('div');
+      coin.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fbbf24"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e" font-family="sans-serif">C</text></svg>';
+      coin.style.cssText = `
+        position:fixed;
+        left:${20 + Math.random() * 60}vw;
+        top:${30 + Math.random() * 30}vh;
+        width:28px;height:28px;
+        animation:floatUp 1.5s ease-out forwards;
+        pointer-events:none;
+        z-index:10000;
+      `;
+      document.body.appendChild(coin);
+      setTimeout(() => coin.remove(), 1500);
+    }, i * 120);
+  }
+
+  // Auto-dismiss after 6 seconds
+  setTimeout(() => { popup.remove(); backdrop.remove(); }, 6000);
+}
+
+function animateCoins() {
+  for (let i = 0; i < 8; i++) {
+    const coin = document.createElement("div");
+    coin.innerHTML = '<svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fbbf24"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e" font-family="sans-serif">C</text></svg>';
+
+    coin.style = `
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 20px;
+      height: 20px;
+      z-index: 9999;
+      animation: floatCoin 1.5s ease forwards;
+      transform: translate(${Math.random()*40}px, 0);
+    `;
+
+    document.body.appendChild(coin);
+
+    setTimeout(() => coin.remove(), 1500);
+  }
+}
+
 
 /* Prevent back navigation to exam page */
 history.pushState(null, null, location.href);

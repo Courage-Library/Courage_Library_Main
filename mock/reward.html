@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rewards Store | Courage Library</title>
+  <link rel="icon" type="image/png" href="../images/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: #eef2f9;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .rewards-hero {
+      background: linear-gradient(135deg, #1a56db 0%, #1e3a8a 60%, #1a1d6e 100%);
+      padding: 40px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rewards-hero::before {
+      content: '';
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      background: rgba(255, 255, 255, .05);
+      border-radius: 50%;
+      right: -120px;
+      top: -120px;
+      pointer-events: none;
+    }
+
+    .rewards-hero::after {
+      content: '';
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      background: rgba(251, 191, 36, .08);
+      border-radius: 50%;
+      left: -60px;
+      bottom: -80px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1152px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .18);
+      color: #bfdbfe;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .hero-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fbbf24;
+      animation: coinpulse 1.8s ease-in-out infinite;
+    }
+
+    .rewards-hero h1 {
+      font-size: clamp(1.6rem, 4.5vw, 2.3rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .rewards-hero h1 span {
+      color: #fbbf24;
+    }
+
+    .rewards-hero p {
+      font-size: .9rem;
+      color: #93c5fd;
+      line-height: 1.55;
+      max-width: 480px;
+    }
+
+    /* ── COIN BALANCE FLOAT ── */
+    .coin-float {
+      max-width: 1152px;
+      margin: -52px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media(min-width: 400px) {
+      .coin-float {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+
+    @media(min-width: 560px) {
+      .coin-float {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #e2e8f4;
+      padding: 16px 14px 14px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, .12), 0 1px 4px rgba(15, 23, 42, .06);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform .22s, box-shadow .22s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .5s ease both;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(26, 86, 219, .18);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      bottom: -10px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      opacity: .07;
+    }
+
+    .sc-amber::after {
+      background: #d97706;
+    }
+
+    .sc-green::after {
+      background: #059669;
+    }
+
+    .sc-blue::after {
+      background: #1d4ed8;
+    }
+
+    .sc-indigo::after {
+      background: #4f46e5;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .88rem;
+    }
+
+    .si-amber {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .si-green {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .si-blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .si-indigo {
+      background: #e0e7ff;
+      color: #4338ca;
+    }
+
+    .stat-val {
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .sv-amber {
+      color: #d97706;
+    }
+
+    .sv-green {
+      color: #059669;
+    }
+
+    .sv-blue {
+      color: #1d4ed8;
+    }
+
+    .sv-indigo {
+      color: #4338ca;
+    }
+
+    .stat-lbl {
+      font-size: .67rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── BODY ── */
+    .rewards-body {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── NEXT REWARD PROGRESS BANNER ── */
+    .progress-banner {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f4;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, .07);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pb-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 1px solid #fcd34d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .pb-text {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .pb-label {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 4px;
+    }
+
+    .pb-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .pb-sub {
+      font-size: .8rem;
+      color: #64748b;
+    }
+
+    .pb-bar-wrap {
+      flex: 2;
+      min-width: 200px;
+    }
+
+    .pb-bar-track {
+      background: #f1f5f9;
+      border-radius: 99px;
+      height: 10px;
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+
+    .pb-bar-fill {
+      height: 10px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #1a56db, #60a5fa);
+      transition: width 1s cubic-bezier(.4, 0, .2, 1);
+      position: relative;
+    }
+
+    .pb-bar-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 14px;
+      height: 10px;
+      background: rgba(255, 255, 255, .4);
+      border-radius: 99px;
+      animation: shimmer-bar 1.5s ease-in-out infinite;
+    }
+
+    .pb-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: .72rem;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* ── SECTION HEADER ── */
+    .sec-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .sec-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sec-bar {
+      width: 4px;
+      height: 22px;
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+
+    .sec-sub {
+      font-size: .75rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    /* ── HOW TO EARN STRIP ── */
+    .earn-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    @media(min-width: 640px) {
+      .earn-strip {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .earn-chip {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #e2e8f4;
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform .18s, box-shadow .18s;
+    }
+
+    .earn-chip:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26, 86, 219, .1);
+    }
+
+    .earn-chip-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+    }
+
+    .earn-chip-val {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .earn-chip-lbl {
+      font-size: .7rem;
+      font-weight: 700;
+      color: #64748b;
+      line-height: 1.3;
+    }
+
+    /* ── REWARD GRID ── */
+    .reward-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    @media(min-width: 540px) {
+      .reward-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(min-width: 860px) {
+      .reward-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ── REWARD CARD ── */
+    .reward-card {
+      background: #fff;
+      border-radius: 22px;
+      border: 1.5px solid #e2e8f4;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, .07);
+      transition: transform .22s ease, box-shadow .22s ease;
+      position: relative;
+    }
+
+    .reward-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 52px rgba(26, 86, 219, .14);
+    }
+
+    .reward-card.locked {
+      opacity: .75;
+    }
+
+    .reward-card.claimed {
+      border-color: #bbf7d0;
+    }
+
+    .reward-card.claimable {
+      border-color: #fbbf24;
+      border-width: 2px;
+    }
+
+    .reward-card.claimable::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      box-shadow: 0 0 0 4px rgba(251, 191, 36, .15);
+      pointer-events: none;
+    }
+
+    /* ribbon */
+    .ribbon {
+      position: absolute;
+      top: 16px;
+      right: -8px;
+      padding: 4px 16px 4px 12px;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-radius: 4px 0 0 4px;
+      z-index: 2;
+    }
+
+    .ribbon::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: -6px;
+      border-width: 6px 8px 0 0;
+      border-style: solid;
+    }
+
+    .ribbon-gold {
+      background: #fbbf24;
+      color: #78350f;
+    }
+
+    .ribbon-gold::after {
+      border-color: #b45309 transparent transparent transparent;
+    }
+
+    .ribbon-blue {
+      background: #1a56db;
+      color: #fff;
+    }
+
+    .ribbon-blue::after {
+      border-color: #1e3a8a transparent transparent transparent;
+    }
+
+    .ribbon-green {
+      background: #059669;
+      color: #fff;
+    }
+
+    .ribbon-green::after {
+      border-color: #065f46 transparent transparent transparent;
+    }
+
+    .ribbon-gray {
+      background: #94a3b8;
+      color: #fff;
+    }
+
+    .ribbon-gray::after {
+      border-color: #64748b transparent transparent transparent;
+    }
+
+    .reward-visual {
+      padding: 32px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      position: relative;
+    }
+
+    .rv-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .06;
+    }
+
+    .reward-emoji {
+      font-size: 4rem;
+      line-height: 1;
+      margin-bottom: 12px;
+      position: relative;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, .12));
+      transition: transform .3s ease;
+    }
+
+    .reward-card:hover .reward-emoji {
+      transform: scale(1.08) rotate(-3deg);
+    }
+
+    .reward-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .reward-desc {
+      font-size: .78rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .reward-body {
+      padding: 0 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* mini progress inside card */
+    .reward-progress {}
+
+    .rp-bar-track {
+      background: #f1f5f9;
+      border-radius: 99px;
+      height: 7px;
+      margin: 6px 0 4px;
+      overflow: hidden;
+    }
+
+    .rp-bar-fill {
+      height: 7px;
+      border-radius: 99px;
+      transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .rp-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: .68rem;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    .rp-pct {
+      font-size: .75rem;
+      font-weight: 800;
+    }
+
+    /* coin cost badge */
+    .coin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff8ed;
+      border: 1.5px solid #fde68a;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: .85rem;
+      font-weight: 800;
+      color: #92400e;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .coin-badge .coin-ico {
+      font-size: 1rem;
+    }
+
+    /* claim button */
+    .btn-claim {
+      width: 100%;
+      height: 46px;
+      border-radius: 13px;
+      border: none;
+      font-family: 'Sora', sans-serif;
+      font-size: .9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .18s;
+      letter-spacing: .01em;
+    }
+
+    .btn-claim.active {
+      background: linear-gradient(135deg, #1a56db 0%, #2563eb 100%);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(26, 86, 219, .35);
+    }
+
+    .btn-claim.active:hover {
+      background: linear-gradient(135deg, #1e40af 0%, #1a56db 100%);
+      box-shadow: 0 8px 28px rgba(26, 86, 219, .45);
+      transform: translateY(-1px);
+    }
+
+    .btn-claim.gold-active {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      color: #78350f;
+      box-shadow: 0 4px 18px rgba(245, 158, 11, .4);
+    }
+
+    .btn-claim.gold-active:hover {
+      background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+      box-shadow: 0 8px 28px rgba(245, 158, 11, .5);
+      transform: translateY(-1px);
+    }
+
+    .btn-claim.locked-btn {
+      background: #f1f5f9;
+      color: #94a3b8;
+      cursor: not-allowed;
+      border: 1.5px dashed #cbd5e1;
+      opacity: .7;
+    }
+    .btn-claim.locked-btn .lock-icon {
+      display: inline-block;
+    }
+    .btn-claim:not(.locked-btn) .lock-icon {
+      display: none;
+    }
+
+    .btn-claim.claimed-btn {
+      background: #f0fdf4;
+      color: #059669;
+      border: 1.5px solid #bbf7d0;
+      cursor: default;
+    }
+
+    .btn-claim.pending-btn {
+      background: #fff8ed;
+      color: #d97706;
+      border: 1.5px solid #fde68a;
+      cursor: default;
+    }
+
+    /* ── COIN HISTORY TABLE ── */
+    .history-shell {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f4;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, .07);
+      overflow: hidden;
+    }
+
+    .history-thead {
+      display: grid;
+      grid-template-columns: 1fr 100px 90px;
+      padding: 10px 20px;
+      background: #f7f9ff;
+      border-bottom: 1px solid #e8edf5;
+      font-size: .62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #94a3b8;
+      gap: 12px;
+    }
+
+    .history-row {
+      display: grid;
+      grid-template-columns: 1fr 100px 90px;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background .15s;
+    }
+
+    .history-row:last-child {
+      border-bottom: none;
+    }
+
+    .history-row:hover {
+      background: #f8faff;
+    }
+
+    .h-reason {
+      font-weight: 700;
+      font-size: .88rem;
+      color: #0f172a;
+    }
+
+    .h-date {
+      font-size: .68rem;
+      color: #94a3b8;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .h-amount {
+      font-weight: 800;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .h-pos {
+      color: #d97706;
+    }
+
+    .h-neg {
+      color: #dc2626;
+    }
+
+    .h-type-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: .7rem;
+    }
+
+    .p-earn {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .p-redeem {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .p-bonus {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    /* ── REWARD CLAIM HISTORY ── */
+    .claim-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background .15s;
+    }
+
+    .claim-row:last-child {
+      border-bottom: none;
+    }
+
+    .claim-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .claim-name {
+      font-weight: 800;
+      font-size: .9rem;
+      color: #0f172a;
+    }
+
+    .claim-date {
+      font-size: .7rem;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .claim-status {
+      margin-left: auto;
+      font-size: .72rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .cs-pending {
+      background: #fff8ed;
+      color: #d97706;
+    }
+
+    .cs-approved {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .cs-shipped {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    /* ── EMPTY BOX ── */
+    .empty-box {
+      padding: 52px 24px;
+      text-align: center;
+    }
+
+    .empty-ico {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: #fef3c7;
+      color: #d97706;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 16px;
+    }
+
+    .empty-box h3 {
+      font-size: .98rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .empty-box p {
+      font-size: .82rem;
+      color: #94a3b8;
+      line-height: 1.6;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+
+    /* ── GUEST WALL ── */
+    .guest-wall {
+      background: linear-gradient(135deg, #f8faff, #eff6ff);
+      border: 1.5px solid #bfdbfe;
+      border-radius: 20px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .guest-wall h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .guest-wall p {
+      font-size: .85rem;
+      color: #64748b;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* ── SKELETON ── */
+    .skel {
+      background: linear-gradient(90deg, #edf1f9 25%, #e2e8f4 50%, #edf1f9 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes coinpulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, .7);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(251, 191, 36, 0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    @keyframes shimmer-bar {
+
+      0%,
+      100% {
+        opacity: .4;
+      }
+
+      50% {
+        opacity: .9;
+      }
+    }
+
+    @keyframes coinFly {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.6);
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(.6);
+      }
+
+      60% {
+        opacity: 1;
+        transform: scale(1.08);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .fade-in {
+      animation: fadeUp .6s ease both;
+    }
+
+    .d1 {
+      animation-delay: .04s;
+    }
+
+    .d2 {
+      animation-delay: .08s;
+    }
+
+    .d3 {
+      animation-delay: .12s;
+    }
+
+    .d4 {
+      animation-delay: .18s;
+    }
+
+    .d5 {
+      animation-delay: .24s;
+    }
+
+    /* ── TOAST ── */
+    .cl-toast {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: .88rem;
+      font-weight: 700;
+      z-index: 9999;
+      animation: bounceIn .3s ease;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .15);
+      max-width: 320px;
+    }
+
+    .toast-success {
+      background: #065f46;
+      color: #fff;
+    }
+
+    .toast-error {
+      background: #991b1b;
+      color: #fff;
+    }
+
+    .toast-info {
+      background: #1e40af;
+      color: #fff;
+    }
+
+    /* ── COIN FLOAT ANIM ── */
+    .coin-float-anim {
+      position: fixed;
+      font-size: 1.4rem;
+      pointer-events: none;
+      z-index: 9999;
+      animation: coinFly .8s ease forwards;
+    }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      backdrop-filter: blur(4px);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 400px;
+      width: 100%;
+      overflow: hidden;
+      animation: bounceIn .3s ease;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #1a56db 0%, #1e3a8a 100%);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .modal-header p {
+      font-size: .8rem;
+      color: #93c5fd;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-footer {
+      padding: 0 24px 24px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-cancel {
+      flex: 1;
+      height: 44px;
+      border-radius: 12px;
+      border: 1.5px solid #e2e8f4;
+      background: #f7f9ff;
+      color: #64748b;
+      font-family: 'Sora', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .btn-cancel:hover {
+      background: #eef2f9;
+    }
+
+    .btn-confirm {
+      flex: 2;
+      height: 44px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      color: #78350f;
+      font-family: 'Sora', sans-serif;
+      font-size: .88rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all .18s;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, .35);
+    }
+
+    .btn-confirm:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, .45);
+    }
+
+    .btn-confirm:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .field-label {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 44px;
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f4;
+      padding: 0 14px;
+      font-family: 'Sora', sans-serif;
+      font-size: .88rem;
+      color: #0f172a;
+      outline: none;
+      transition: border-color .15s;
+      margin-bottom: 14px;
+    }
+
+    .field-input:focus {
+      border-color: #1a56db;
+    }
+
+    .field-textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1.5px solid #e2e8f4;
+      padding: 10px 14px;
+      font-family: 'Sora', sans-serif;
+      font-size: .88rem;
+      color: #0f172a;
+      outline: none;
+      resize: none;
+      transition: border-color .15s;
+      margin-bottom: 14px;
+    }
+
+    .field-textarea:focus {
+      border-color: #1a56db;
+    }
+
+    /* Nav uses Tailwind default font (Inter) — exactly like dashboard.html which has NO google fonts in nav */
+    nav,
+    nav a,
+    nav span,
+    nav button {
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif !important;
+    }
+
+    /* ── TRANSACTION HISTORY ── */
+    .txn-shell {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f4;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, .07);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .txn-thead {
+      display: grid;
+      grid-template-columns: 1fr 90px 90px 80px;
+      padding: 10px 20px;
+      background: #f8faff;
+      border-bottom: 1px solid #e2e8f4;
+      font-size: .67rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    @media(max-width: 520px) {
+      .txn-thead {
+        grid-template-columns: 1fr 72px 72px;
+      }
+
+      .txn-thead .txn-col-bal {
+        display: none;
+      }
+    }
+
+    .txn-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 90px 80px;
+      align-items: center;
+      padding: 13px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background .12s;
+      animation: fadeUp .3s ease both;
+    }
+
+    .txn-row:last-child {
+      border-bottom: none;
+    }
+
+    .txn-row:hover {
+      background: #f8faff;
+    }
+
+    @media(max-width: 520px) {
+      .txn-row {
+        grid-template-columns: 1fr 72px 72px;
+      }
+
+      .txn-row .txn-bal {
+        display: none;
+      }
+    }
+
+    .txn-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .82rem;
+      flex-shrink: 0;
+    }
+
+    .ti-earn {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .ti-claim {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .ti-streak {
+      background: #fff7ed;
+      color: #d97706;
+    }
+
+    .ti-bonus {
+      background: #ede9fe;
+      color: #7c3aed;
+    }
+
+    .ti-other {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    .txn-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .txn-desc {
+      font-size: .82rem;
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .txn-date {
+      font-size: .7rem;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .txn-amount {
+      font-size: .92rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ta-pos {
+      color: #059669;
+    }
+
+    .ta-neg {
+      color: #dc2626;
+    }
+
+    .txn-type-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+
+    .tp-earn {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tp-claim {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .tp-streak {
+      background: #fff7ed;
+      color: #92400e;
+    }
+
+    .tp-bonus {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .tp-other {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .txn-bal {
+      font-size: .78rem;
+      font-weight: 700;
+      color: #64748b;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .txn-load-more {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      font-size: .82rem;
+      font-weight: 800;
+      color: #1a56db;
+      background: #f8faff;
+      border: none;
+      border-top: 1px solid #e2e8f4;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .txn-load-more:hover {
+      background: #dbeafe;
+    }
+
+    .txn-load-more:disabled {
+      color: #94a3b8;
+      cursor: not-allowed;
+      background: #f8faff;
+    }
+
+    .txn-empty {
+      padding: 40px 24px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .txn-empty i {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 10px;
+      opacity: .4;
+    }
+  
+    @keyframes rewardBurst {
+      0%   { opacity: 1; transform: translateX(-50%) translateY(0);   }
+      80%  { opacity: 1; transform: translateX(-50%) translateY(-28px);}
+      100% { opacity: 0; transform: translateX(-50%) translateY(-36px);}
+    }
+</style>
+</head>
+
+<body class="min-h-screen flex flex-col text-gray-900">
+
+  <svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- Gradients -->
+    <linearGradient id="cl-rim" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2af8ef"/>
+      <stop offset="45%" stop-color="#00c8c0"/>
+      <stop offset="100%" stop-color="#007a78"/>
+    </linearGradient>
+
+    <linearGradient id="cl-face" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00d8d0"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-stamp" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00cfc7"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-coin-shine" x1="0.06" y1="0.03" x2="0.42" y2="0.38">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="cl-logo-shine" x1="0.06" y1="0.04" x2="0.5" y2="0.44">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- LARGE COIN -->
+    <symbol id="CLcoin-lg" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-lg">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <circle cx="80" cy="80" r="60.5" fill="none" stroke="#009090" stroke-width="0.6" opacity="0.25"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-lg)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.88" transform="translate(6,7)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.55"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="none" stroke="#00e8e0" stroke-width="0.8" opacity="0.45"/>
+        <ellipse cx="66" cy="56" rx="14" ry="9" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- SMALL COIN -->
+    <symbol id="CLcoin-sm" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-sm">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-sm)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.85" transform="translate(5,6)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.50"/>
+        <ellipse cx="66" cy="56" rx="11" ry="7" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+  </defs>
+</svg>
+
+  <!-- ════════ NAV (matches dashboard.html exactly) ════════ -->
+  <nav class="bg-white/90 backdrop-blur-xl backdrop-filter shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a class="flex items-center space-x-2" href="../index.html">
+        <img src="../images/logo.png" alt="Logo" class="w-8 h-8 cursor-pointer" onerror="this.style.display='none'">
+        <span class="text-3xl font-bold text-blue-700 cursor-pointer">Courage Library</span>
+      </a>
+      <div class="space-x-6 hidden md:flex items-center">
+        <a href="../index.html#features" class="hover:text-blue-600">Features</a>
+        <a href="../index.html#courses" class="hover:text-blue-600">Courses</a>
+        <a href="./dashboard.html" class="font-bold text-gray-900 hover:text-blue-600">Dashboard</a>
+        <a href="../Blog/Blog.html" class="hover:text-blue-600">Blog</a>
+        <a href="../index.html#contact" class="hover:text-blue-600">Contact Us</a>
+        <a href="./dashboard.html"
+          class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">←
+          Back to Dashboard</a>
+      </div>
+      <div class="md:hidden">
+        <button type="button" onclick="document.getElementById('rewardMobileMenu').classList.toggle('hidden')"
+          class="focus:outline-none" title="Toggle mobile menu">
+          <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div id="rewardMobileMenu"
+          class="hidden absolute right-4 mt-4 w-40 bg-white rounded-lg shadow-md py-2 px-2 z-50 space-y-3">
+          <a href="../index.html#courses" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
+            </svg>Courses</a>
+          <a href="../index.html#features" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path d="M12 2L8.56 8.22 1 9.27l5.5 5.47-1.3 7.72L12 18.78l7.8 4.68-1.3-7.72L23 9.27l-7.56-1.05z" />
+            </svg>Features</a>
+          <a href="../Blog/Blog.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 7V3.5L20.5 9H15zM8 12h8v2H8v-2zm0 4h5v2H8v-2z" />
+            </svg>Blog</a>
+          <a href="../index.html#contact" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>Contact Us</a>
+          <a href="./dashboard.html" class="hover:text-blue-600 flex items-center gap-2 relative pl-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-0 w-5 h-5 text-blue-500" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+            </svg>Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex-grow">
+
+    <!-- ════ HERO ════ -->
+    <div class="rewards-hero fade-in">
+      <div class="hero-inner">
+      <a href="/mock/dashboard.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.65);font-size:.78rem;font-weight:600;text-decoration:none;margin-bottom:16px;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,1)'" onmouseout="this.style.color='rgba(255,255,255,.65)'">
+        <i class="fas fa-arrow-left" style="font-size:.7rem"></i> Back to Dashboard
+      </a>
+        <div class="hero-eyebrow">
+          <span class="hero-live-dot"></span>
+          Rewards Store
+        </div>
+        <h1>Mehnat karo,<br><span>Rewards lo.</span></h1>
+        <p>Every coin you earn is real effort — converted into real rewards. Attempt daily mocks, build streaks, and
+          unlock physical gifts delivered to your door.</p>
+      </div>
+    </div>
+
+    <!-- ════ STAT CARDS FLOAT ════ -->
+    <div class="coin-float">
+      <div class="stat-card sc-amber d1">
+        <div class="stat-icon si-amber"><svg width="16" height="16"><use href="#CLcoin-sm"/></svg></div>
+        <div class="stat-val sv-amber" id="statCoins">—</div>
+        <div class="stat-lbl">Your Coins</div>
+      </div>
+      <div class="stat-card sc-green d2">
+        <div class="stat-icon si-green"><i class="fas fa-fire"></i></div>
+        <div class="stat-val sv-green" id="statStreak">—</div>
+        <div class="stat-lbl">Day Streak</div>
+      </div>
+      <div class="stat-card sc-blue d3">
+        <div class="stat-icon si-blue"><i class="fas fa-gift"></i></div>
+        <div class="stat-val sv-blue" id="statClaimed">—</div>
+        <div class="stat-lbl">Rewards Claimed</div>
+      </div>
+      <div class="stat-card sc-indigo d4">
+        <div class="stat-icon si-indigo"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-val sv-indigo" id="statEarned">—</div>
+        <div class="stat-lbl">Total Earned</div>
+      </div>
+    </div>
+
+    <!-- ════ BODY ════ -->
+    <div class="rewards-body">
+
+      <!-- NEXT REWARD PROGRESS BANNER -->
+      <div class="progress-banner fade-in d4" id="progressBanner" style="display:none">
+        <div class="pb-icon" id="pbIcon">🎯</div>
+        <div class="pb-text">
+          <div class="pb-label">Next reward</div>
+          <div class="pb-title" id="pbTitle">Loading...</div>
+          <div class="pb-sub" id="pbSub"></div>
+        </div>
+        <div class="pb-bar-wrap">
+          <div class="pb-bar-track">
+            <div class="pb-bar-fill" id="pbBar" style="width:0%"></div>
+          </div>
+          <div class="pb-bar-labels">
+            <span id="pbCoinsNow">0 coins</span>
+            <span id="pbPct">0%</span>
+            <span id="pbTarget">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GUEST WALL (shown if not logged in) -->
+      <div id="guestWall" style="display:none" class="guest-wall fade-in d4 mb-8">
+        <div class="empty-ico" style="background:#dbeafe;color:#1d4ed8;margin:0 auto 16px">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h3>Sign in to view your rewards</h3>
+        <p>Create a free account and start earning coins through daily mock tests. Physical rewards await you at
+          milestones!</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <a href="../index.html?action=signup"
+            style="padding:10px 24px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:12px;font-weight:800;font-size:.9rem;text-decoration:none;box-shadow:0 4px 14px rgba(26,86,219,.35)">
+            Sign Up Free
+          </a>
+          <a href="../index.html?action=login"
+            style="padding:10px 24px;background:#fff;color:#1d4ed8;border-radius:12px;font-weight:800;font-size:.9rem;text-decoration:none;border:1.5px solid #bfdbfe">
+            Log In
+          </a>
+        </div>
+      </div>
+
+      <!-- ── HOW TO EARN COINS ── -->
+      <div class="sec-row fade-in d3">
+        <div class="sec-title">
+          <span class="sec-bar" style="background:linear-gradient(180deg,#f59e0b,#fbbf24)"></span>
+          How to Earn Coins
+        </div>
+      </div>
+      <div class="earn-strip fade-in d3">
+        <div class="earn-chip">
+          <div class="earn-chip-icon" style="background:#dbeafe;color:#1d4ed8"><i class="fas fa-clipboard-check"></i>
+          </div>
+          <div class="earn-chip-val sv-blue">+20</div>
+          <div class="earn-chip-lbl">Complete any daily mock test</div>
+        </div>
+        <div class="earn-chip">
+          <div class="earn-chip-icon" style="background:#d1fae5;color:#059669"><i class="fas fa-bullseye"></i></div>
+          <div class="earn-chip-val sv-green">+15</div>
+          <div class="earn-chip-lbl">Score 80%+ accuracy bonus</div>
+        </div>
+        <div class="earn-chip">
+          <div class="earn-chip-icon" style="background:#fff8ed;color:#d97706"><i class="fas fa-fire"></i></div>
+          <div class="earn-chip-val sv-amber">+50</div>
+          <div class="earn-chip-lbl">7-day streak milestone</div>
+        </div>
+        <div class="earn-chip">
+          <div class="earn-chip-icon" style="background:#ede9fe;color:#4338ca"><i class="fas fa-star"></i></div>
+          <div class="earn-chip-val" style="color:#4338ca">+200</div>
+          <div class="earn-chip-lbl">30-day streak bonus</div>
+        </div>
+      </div>
+
+      <!-- ── REWARDS STORE ── -->
+      <div class="sec-row fade-in d4">
+        <div class="sec-title">
+          <span class="sec-bar" style="background:linear-gradient(180deg,#1a56db,#60a5fa)"></span>
+          Available Rewards
+        </div>
+        <span class="sec-sub" id="storeSubtitle">Earn coins → Claim physical gifts</span>
+      </div>
+
+      <div class="reward-grid fade-in d4" id="rewardGrid">
+        <!-- Skeleton -->
+        <div class="reward-card">
+          <div style="padding:32px 24px 20px;display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div class="skel" style="width:72px;height:72px;border-radius:16px"></div>
+            <div class="skel" style="height:14px;width:70%"></div>
+            <div class="skel" style="height:10px;width:50%"></div>
+          </div>
+          <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:12px">
+            <div class="skel" style="height:40px;border-radius:10px"></div>
+            <div class="skel" style="height:7px;border-radius:99px"></div>
+            <div class="skel" style="height:44px;border-radius:13px"></div>
+          </div>
+        </div>
+        <div class="reward-card">
+          <div style="padding:32px 24px 20px;display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div class="skel" style="width:72px;height:72px;border-radius:16px"></div>
+            <div class="skel" style="height:14px;width:65%"></div>
+            <div class="skel" style="height:10px;width:45%"></div>
+          </div>
+          <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:12px">
+            <div class="skel" style="height:40px;border-radius:10px"></div>
+            <div class="skel" style="height:7px;border-radius:99px"></div>
+            <div class="skel" style="height:44px;border-radius:13px"></div>
+          </div>
+        </div>
+        <div class="reward-card">
+          <div style="padding:32px 24px 20px;display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div class="skel" style="width:72px;height:72px;border-radius:16px"></div>
+            <div class="skel" style="height:14px;width:60%"></div>
+            <div class="skel" style="height:10px;width:40%"></div>
+          </div>
+          <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:12px">
+            <div class="skel" style="height:40px;border-radius:10px"></div>
+            <div class="skel" style="height:7px;border-radius:99px"></div>
+            <div class="skel" style="height:44px;border-radius:13px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── YOUR CLAIM HISTORY ── -->
+      <div class="sec-row fade-in d5" id="claimHistSec" style="display:none">
+        <div class="sec-title">
+          <span class="sec-bar" style="background:linear-gradient(180deg,#059669,#34d399)"></span>
+          Your Reward Claims
+        </div>
+      </div>
+      <div class="history-shell fade-in d5" id="claimHistShell" style="display:none">
+        <div id="claimHistList"></div>
+      </div>
+
+      <!-- ── COIN TRANSACTION HISTORY ── -->
+      <div class="sec-row fade-in d5" style="margin-top:36px;display:none" id="txnSec">
+        <div class="sec-title">
+          <span class="sec-bar" style="background:linear-gradient(180deg,#4f46e5,#818cf8)"></span>
+          Coin History
+        </div>
+        <span class="sec-sub" id="txnSubtitle"></span>
+      </div>
+      <div class="txn-shell fade-in d5" id="txnShell" style="display:none">
+        <div class="txn-thead">
+          <div>Activity</div>
+          <div>Coins</div>
+          <div>Type</div>
+          <div class="txn-col-bal">Balance</div>
+        </div>
+        <div id="txnList"></div>
+        <button class="txn-load-more" id="txnLoadMore" style="display:none" onclick="loadMoreTxns()">
+          <i class="fas fa-chevron-down" style="margin-right:6px"></i> Load more
+        </button>
+      </div>
+
+    </div><!-- /rewards-body -->
+  </div>
+
+  <!-- ════ CLAIM MODAL ════ -->
+  <div class="modal-bg" id="claimModal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div style="font-size:2.5rem;margin-bottom:10px" id="modalEmoji">🎁</div>
+        <h3 id="modalTitle">Claim your reward</h3>
+        <p id="modalSubtitle">Fill in your delivery details</p>
+      </div>
+      <div class="modal-body">
+        <div class="field-label">Full Name *</div>
+        <input type="text" class="field-input" id="claimName" placeholder="Ramesh Kumar">
+        <div class="field-label">Phone Number *</div>
+        <input type="tel" class="field-input" id="claimPhone" placeholder="9876543210" maxlength="10">
+        <div class="field-label">Full Address (House No., Street, Locality) *</div>
+        <textarea class="field-textarea" id="claimAddress" rows="2"
+          placeholder="House No., Street, Locality / Area"></textarea>
+        <!-- City + State row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+          <div>
+            <div class="field-label">City *</div>
+            <input type="text" class="field-input" id="claimCity" placeholder="Lucknow" style="margin-bottom:0">
+          </div>
+          <div>
+            <div class="field-label">State *</div>
+            <select class="field-input" id="claimState" style="appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;margin-bottom:0">
+              <option value="">Select state</option>
+              <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option>
+              <option>Bihar</option><option>Chhattisgarh</option><option>Goa</option>
+              <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+              <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+              <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option>
+              <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option>
+              <option>Odisha</option><option>Punjab</option><option>Rajasthan</option>
+              <option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+              <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+              <option>West Bengal</option>
+              <option>Andaman &amp; Nicobar Islands</option><option>Chandigarh</option>
+              <option>Dadra &amp; Nagar Haveli</option><option>Daman &amp; Diu</option>
+              <option>Delhi</option><option>Jammu &amp; Kashmir</option><option>Ladakh</option>
+              <option>Lakshadweep</option><option>Puducherry</option>
+            </select>
+          </div>
+        </div>
+        <!-- Pincode -->
+        <div class="field-label">PIN Code *</div>
+        <input type="tel" class="field-input" id="claimPincode" placeholder="226001" maxlength="6"
+          style="letter-spacing:.1em;font-family:'Sora',sans-serif;font-weight:700">
+        <div style="font-size:.75rem;color:#94a3b8;line-height:1.5;margin-top:4px">
+          <i class="fas fa-info-circle" style="color:#1a56db;margin-right:4px"></i>
+          Your address is only used for reward delivery. Admin will verify &amp; dispatch within 7–10 working days.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-confirm" id="modalConfirmBtn" onclick="submitClaim()">
+          <i class="fas fa-gift" style="margin-right:6px"></i> Confirm Claim
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 z-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+      <p class="mb-4 md:mb-0">&copy; 2026 Courage Library. All rights reserved.</p>
+      <div class="flex space-x-6">
+        <a href="https://www.facebook.com/people/Courage-Library/61561969000820/" target="_blank" rel="noopener"
+          class="hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener" class="hover:text-white text-2xl"><i
+            class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener"
+          class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener"
+          class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Supabase ─────────────────────────────────────────────────
+    const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const TXN_PAGE_SIZE = 20;
+    let _txnOffset = 0;
+    let _txnTotal = 0;
+    let _txnRunningBal = 0;
+
+    // ─── Reward definitions (matches your backend thresholds exactly) ───
+    const REWARDS = [
+      {
+        id: 'bottle',
+        name: 'Courage Bottle',
+        emoji: '🍶',
+        desc: 'Premium steel bottle — your hydration partner on every exam day.',
+        coins: 1800,
+        bg: '#dbeafe',
+        barColor: '#1a56db',
+        ribbon: { text: 'Starter', cls: 'ribbon-blue' },
+        streakHint: '~50 days of daily mocks'
+      },
+      {
+        id: 'diary',
+        name: 'Courage Diary',
+        emoji: '📓',
+        desc: 'Hardbound ruled diary — track your preparation, notes & goals.',
+        coins: 2600,
+        bg: '#fef3c7',
+        barColor: '#f59e0b',
+        ribbon: { text: 'Popular', cls: 'ribbon-gold' },
+        streakHint: '~75 days of daily mocks'
+      },
+      {
+        id: 'tshirt',
+        name: 'Courage T-Shirt',
+        emoji: '👕',
+        desc: 'Premium branded tee — wear your discipline with pride.',
+        coins: 3500,
+        bg: '#d1fae5',
+        barColor: '#059669',
+        ribbon: { text: 'Elite', cls: 'ribbon-green' },
+        streakHint: '~100 days of daily mocks'
+      }
+    ];
+
+    let _user = null;
+    let _coins = 0;
+    let _pendingClaim = null;
+    let _pendingReward = null;
+
+    // ─── Init ──────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      const { data: { user } } = await db.auth.getUser();
+      _user = user;
+
+      if (!_user) {
+        document.getElementById('guestWall').style.display = 'block';
+        renderRewardGrid(0, null, []);
+        return;
+      }
+
+      await Promise.all([loadProfile(), loadClaimHistory(), loadCoinHistory()]);
+    });
+
+    function clCoinIcon(size = 14, variant = 'sm') {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 160 160" style="vertical-align:middle;display:inline-block;flex-shrink:0">
+    <use href="#CLcoin-${variant}"/>
+  </svg>`;
+}
+
+
+    // ── Animated counter (reward page) ───────────────────────────────────────
+    function _animateCount(from, to, duration, el) {
+      if (!el) return;
+      const start = performance.now();
+      const delta = to - from;
+      if (delta === 0) { el.textContent = to.toLocaleString('en-IN'); return; }
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(from + delta * eased).toLocaleString('en-IN');
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function _showCoinBurst(amount, anchorEl) {
+      if (!anchorEl || amount <= 0) return;
+      const rect  = anchorEl.getBoundingClientRect();
+      const burst = document.createElement('div');
+      burst.textContent = '+' + amount.toLocaleString('en-IN') + ' CL';
+      Object.assign(burst.style, {
+        position: 'fixed',
+        left: (rect.left + rect.width / 2) + 'px',
+        top:  (rect.top - 8) + 'px',
+        transform: 'translateX(-50%)',
+        fontFamily: "'Syne','Sora',sans-serif",
+        fontWeight: '800',
+        fontSize: '13px',
+        color: '#f59e0b',
+        textShadow: '0 1px 6px rgba(245,158,11,0.5)',
+        pointerEvents: 'none',
+        zIndex: '9999',
+        animation: 'rewardBurst 1.2s ease forwards',
+      });
+      document.body.appendChild(burst);
+      setTimeout(() => burst.remove(), 1250);
+    }
+
+    async function loadProfile() {
+      const { data: profile } = await db
+        .from('user_profiles')
+        .select('total_coins, current_streak')
+        .eq('id', _user.id)
+        .single();
+
+      if (!profile) return;
+      _coins = profile.total_coins || 0;
+
+      _animateCount(0, _coins, 700, document.getElementById('statCoins'));
+      // Trigger coin burst visually on page load
+      setTimeout(() => _showCoinBurst(_coins, document.getElementById('statCoins')), 400);
+      document.getElementById('statStreak').textContent = (profile.current_streak || 0);
+
+      // Check for active pending claim
+      const { data: pending } = await db
+        .from('reward_claims')
+        .select('*')
+        .eq('user_id', _user.id)
+        .in('status', ['pending', 'approved'])
+        .order('created_at', { ascending: false })
+        .limit(1);
+
+      _pendingClaim = pending && pending.length > 0 ? pending[0] : null;
+
+      updateProgressBanner(_coins);
+      renderRewardGrid(_coins, _pendingClaim, []);
+
+      // Total ever earned = sum of all positive coin_transactions
+      const { data: earnedRows } = await db
+        .from('coin_transactions')
+        .select('coins')          // ← correct column name (not "amount")
+        .eq('user_id', _user.id)
+        .gt('coins', 0);
+
+      const totalEarned = earnedRows
+        ? earnedRows.reduce((s, r) => s + (r.coins || 0), 0)
+        : _coins;
+
+      document.getElementById('statEarned').textContent = totalEarned.toLocaleString('en-IN');
+    }
+
+    async function loadClaimHistory() {
+      const { data: claims } = await db
+        .from('reward_claims')
+        .select('*')
+        .eq('user_id', _user.id)
+        .order('created_at', { ascending: false });
+
+      document.getElementById('statClaimed').textContent = claims ? claims.length : 0;
+
+      if (!claims || claims.length === 0) return;
+
+      document.getElementById('claimHistSec').style.display = 'flex';
+      document.getElementById('claimHistShell').style.display = 'block';
+
+      const listEl = document.getElementById('claimHistList');
+      const emojiMap = { Bottle: '🍶', Diary: '📓', 'T-shirt': '👕', 'Courage Bottle': '🍶', 'Courage Diary': '📓', 'Courage T-Shirt': '👕' };
+      const bgMap = { Bottle: '#dbeafe', Diary: '#fef3c7', 'T-shirt': '#d1fae5', 'Courage Bottle': '#dbeafe', 'Courage Diary': '#fef3c7', 'Courage T-Shirt': '#d1fae5' };
+
+      claims.forEach(c => {
+        const emoji = emojiMap[c.reward_name] || '🎁';
+        const bg = bgMap[c.reward_name] || '#f1f5f9';
+        const stCls = c.status === 'pending' ? 'cs-pending' : c.status === 'approved' ? 'cs-approved' : 'cs-shipped';
+        const stTxt = c.status === 'pending' ? '⏳ Pending' : c.status === 'approved' ? '✅ Approved' : '🚚 Shipped';
+        const date = new Date(c.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        listEl.innerHTML += `
+          <div class="claim-row">
+            <div class="claim-icon" style="background:${bg}">${emoji}</div>
+            <div>
+              <div class="claim-name">${c.reward_name}</div>
+              <div class="claim-date">Claimed on ${date} · ${c.coins_used} coins used</div>
+            </div>
+            <span class="claim-status ${stCls}">${stTxt}</span>
+          </div>`;
+      });
+    }
+
+    async function loadCoinHistory() {
+      // Get total count first so we know whether to show "load more"
+      const { count } = await db
+        .from('coin_transactions')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', _user.id);
+
+      _txnTotal = count || 0;
+      _txnOffset = 0;
+      _txnRunningBal = _coins;  // start from current balance and work backwards
+
+      if (_txnTotal === 0) return;
+
+      // Show the section
+      document.getElementById('txnSec').style.display = 'flex';
+      document.getElementById('txnShell').style.display = 'block';
+      document.getElementById('txnSubtitle').textContent =
+        `${_txnTotal.toLocaleString('en-IN')} transaction${_txnTotal !== 1 ? 's' : ''}`;
+
+      await fetchTxnPage();
+    }
+
+    // ─── Progress Banner ───────────────────────────────────────────
+    function updateProgressBanner(coins) {
+      const banner = document.getElementById('progressBanner');
+      const nextR = REWARDS.find(r => coins < r.coins) || REWARDS[REWARDS.length - 1];
+      const prev = REWARDS[REWARDS.indexOf(nextR) - 1];
+      const base = prev ? prev.coins : 0;
+      const pct = Math.min(((coins - base) / (nextR.coins - base)) * 100, 100);
+      const rem = Math.max(nextR.coins - coins, 0);
+
+      banner.style.display = 'flex';
+      document.getElementById('pbIcon').textContent = nextR.emoji;
+      document.getElementById('pbTitle').textContent = rem > 0 ? `${rem.toLocaleString('en-IN')} coins more → ${nextR.name}` : `🎉 Claim ${nextR.name} now!`;
+      document.getElementById('pbSub').textContent = nextR.streakHint;
+      document.getElementById('pbBar').style.width = pct.toFixed(1) + '%';
+      document.getElementById('pbCoinsNow').textContent = coins.toLocaleString('en-IN') + ' coins';
+      document.getElementById('pbPct').textContent = Math.round(pct) + '%';
+      document.getElementById('pbTarget').textContent = nextR.coins.toLocaleString('en-IN');
+    }
+
+    // ─── Render Reward Grid ────────────────────────────────────────
+    function renderRewardGrid(coins, pendingClaim, _) {
+      const grid = document.getElementById('rewardGrid');
+      grid.innerHTML = '';
+
+      REWARDS.forEach(r => {
+        const earned = coins >= r.coins;
+        const isPending = pendingClaim && (pendingClaim.reward_name === r.name || pendingClaim.reward_name === r.id);
+        const isClaimed = pendingClaim && pendingClaim.status === 'shipped' &&
+          (pendingClaim.reward_name === r.name || pendingClaim.reward_name === r.id);
+
+        let pct = Math.min((coins / r.coins) * 100, 100);
+        if (coins > r.coins) pct = 100;
+
+        let cardCls = 'reward-card';
+        if (!earned && !_user) cardCls += ' locked';
+        if (earned && !isPending && !isClaimed) cardCls += ' claimable';
+        if (isClaimed) cardCls += ' claimed';
+
+        let btnHtml = '';
+        if (!_user) {
+          btnHtml = `<button class="btn-claim locked-btn" onclick="window.location='../index.html?action=signup'"><i class="fas fa-lock" style="margin-right:6px"></i>Sign up to claim</button>`;
+        } else if (isClaimed) {
+          btnHtml = `<button class="btn-claim claimed-btn"><i class="fas fa-check-circle" style="margin-right:6px"></i>Delivered!</button>`;
+        } else if (isPending) {
+          btnHtml = `<button class="btn-claim pending-btn"><i class="fas fa-clock" style="margin-right:6px"></i>Claim pending review</button>`;
+        } else if (earned) {
+          btnHtml = `<button class="btn-claim gold-active" onclick="openClaimModal('${r.id}')"><i class="fas fa-gift" style="margin-right:6px"></i>Claim Now — ${r.coins.toLocaleString('en-IN')} coins</button>`;
+        } else {
+          const rem = r.coins - coins;
+          btnHtml = `<button class="btn-claim locked-btn" disabled><i class="fas fa-lock" style="margin-right:6px"></i>${rem.toLocaleString('en-IN')} more coins needed</button>`;
+        }
+
+        grid.innerHTML += `
+          <div class="${cardCls}" id="rcard-${r.id}">
+            ${earned && !isClaimed && !isPending ? `<div class="ribbon ${r.ribbon.cls}">${r.ribbon.text}</div>` : ''}
+            <div class="reward-visual">
+              <div class="rv-bg" style="background:${r.bg}"></div>
+              <div class="reward-emoji">${r.emoji}</div>
+              <div class="reward-name">${r.name}</div>
+              <div class="reward-desc">${r.desc}</div>
+            </div>
+            <div class="reward-body">
+              <div class="coin-badge">
+                <span class="coin-ico">🪙</span>
+                ${r.coins.toLocaleString('en-IN')} Courage Coins
+              </div>
+              <div class="reward-progress">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                  <span style="font-size:.7rem;font-weight:700;color:#64748b">Progress</span>
+                  <span class="rp-pct" style="color:${r.barColor}">${Math.round(pct)}%</span>
+                </div>
+                <div class="rp-bar-track">
+                  <div class="rp-bar-fill" style="width:${pct}%;background:${r.barColor}"></div>
+                </div>
+                <div class="rp-labels">
+                  <span>${r.streakHint}</span>
+                  <span style="color:${r.barColor};font-weight:800">${earned ? '✓ Unlocked!' : ''}</span>
+                </div>
+              </div>
+              ${btnHtml}
+            </div>
+          </div>`;
+      });
+    }
+
+    // ─── Claim Modal ───────────────────────────────────────────────
+    function openClaimModal(rewardId) {
+      if (!_user) { window.location = '../index.html?action=signup'; return; }
+      _pendingReward = REWARDS.find(r => r.id === rewardId);
+      if (!_pendingReward) return;
+
+      document.getElementById('modalEmoji').textContent = _pendingReward.emoji;
+      document.getElementById('modalTitle').textContent = `Claim ${_pendingReward.name}`;
+      document.getElementById('modalSubtitle').textContent = `${_pendingReward.coins.toLocaleString('en-IN')} coins · Delivered in 7–10 working days`;
+      document.getElementById('claimName').value = '';
+      document.getElementById('claimPhone').value = '';
+      document.getElementById('claimAddress').value = '';
+      document.getElementById('claimCity').value = '';
+      document.getElementById('claimState').value = '';
+      document.getElementById('claimPincode').value = '';
+      document.getElementById('claimModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('claimModal').style.display = 'none';
+      _pendingReward = null;
+    }
+
+    async function submitClaim() {
+      const name    = document.getElementById("claimName").value.trim();
+      const phone   = document.getElementById("claimPhone").value.trim();
+      const address = document.getElementById("claimAddress").value.trim();
+      const city    = document.getElementById("claimCity").value.trim();
+      const state   = document.getElementById("claimState").value.trim();
+      const pincode = document.getElementById("claimPincode").value.trim();
+
+      if (!name || !phone || !address || !city || !state || !pincode) {
+        showToast("Please fill all delivery fields", "error");
+        return;
+      }
+      if (!/^\d{10}$/.test(phone)) {
+        showToast("Enter a valid 10-digit phone number", "error");
+        return;
+      }
+      if (!/^\d{6}$/.test(pincode)) {
+        showToast("Enter a valid 6-digit PIN code", "error");
+        return;
+      }
+
+      const fullAddress = `${address}, ${city}, ${state} - ${pincode}`;
+
+      const btn = document.getElementById("modalConfirmBtn");
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:6px"></i>Submitting...';
+
+      try {
+        const { data: { session } } = await db.auth.getSession();
+
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/claim-reward`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session.access_token}`,
+            "apikey": SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({
+            user_id: _user.id,
+            reward_name: _pendingReward.name,
+            delivery_name: name,
+            delivery_phone: phone,
+            delivery_address: fullAddress,
+            delivery_city: city,
+            delivery_state: state,
+            delivery_pincode: pincode,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          showToast(result.error || "Error submitting claim. Try again.", "error");
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-gift" style="margin-right:6px"></i>Confirm Claim';
+          return;
+        }
+
+        closeModal();
+        spawnCoinAnimation();
+
+        showToast(
+          `🎉 ${result.reward_name} claimed! Admin will review & dispatch within 7–10 days.`,
+          "success"
+        );
+
+        // ✅ Update UI properly
+        const coinsEl = document.getElementById("statCoins");
+        if (coinsEl) coinsEl.innerText = result.coins_remaining;
+
+        updateProgressBanner(result.coins_remaining);
+        renderRewardGrid(result.coins_remaining, null, []);
+
+        setTimeout(() => window.location.reload(), 2200);
+
+      } catch (err) {
+        console.error("claim-reward fetch failed:", err);
+        showToast("Network error. Please try again.", "error");
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-gift" style="margin-right:6px"></i>Confirm Claim';
+      }
+    }
+    // ─── Toast ─────────────────────────────────────────────────────
+    function showToast(msg, type = 'info') {
+      const t = document.createElement('div');
+      t.className = `cl-toast toast-${type}`;
+      t.innerHTML = msg;
+      document.body.appendChild(t);
+      setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .4s'; setTimeout(() => t.remove(), 400); }, 3200);
+    }
+
+    // ─── Coin fly animation ────────────────────────────────────────
+    function spawnCoinAnimation() {
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'coin-float-anim';
+          el.textContent = '🪙';
+          el.style.left = (30 + Math.random() * 40) + 'vw';
+          el.style.top = (40 + Math.random() * 20) + 'vh';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 900);
+        }, i * 80);
+      }
+    }
+
+    async function fetchTxnPage() {
+      const { data: txns } = await db
+        .from('coin_transactions')
+        .select('*')
+        .eq('user_id', _user.id)
+        .order('created_at', { ascending: false })
+        .range(_txnOffset, _txnOffset + TXN_PAGE_SIZE - 1);
+
+      if (!txns || txns.length === 0) return;
+
+      const listEl = document.getElementById('txnList');
+      const loadMore = document.getElementById('txnLoadMore');
+
+      txns.forEach(t => {
+        const coins = t.coins ?? t.amount ?? 0;   // handle both column names gracefully
+        const isPos = coins > 0;
+        const bal = _txnRunningBal;              // balance AFTER this transaction
+        _txnRunningBal -= coins;                   // balance BEFORE (going backwards in time)
+
+        const date = new Date(t.created_at).toLocaleDateString('en-IN', {
+          day: 'numeric', month: 'short', year: 'numeric'
+        });
+
+        const { iconCls, typeCls, typeLabel, icon } = txnMeta(t.type, isPos);
+
+        listEl.innerHTML += `
+      <div class="txn-row">
+        <div class="txn-info">
+          <div class="txn-icon ${iconCls}"><i class="${icon}"></i></div>
+          <div>
+            <div class="txn-desc">${t.description || defaultDesc(t.type, isPos)}</div>
+            <div class="txn-date">${date}</div>
+          </div>
+        </div>
+        <div class="txn-amount ${isPos ? 'ta-pos' : 'ta-neg'}">
+          <i class="fas fa-coins" style="font-size:.7rem;opacity:.7"></i>
+          ${isPos ? '+' : ''}${coins.toLocaleString('en-IN')}
+        </div>
+        <div><span class="txn-type-pill ${typeCls}">${typeLabel}</span></div>
+        <div class="txn-bal">${bal.toLocaleString('en-IN')}</div>
+      </div>`;
+      });
+
+      _txnOffset += txns.length;
+
+      // Show/hide "load more" button
+      if (_txnOffset < _txnTotal) {
+        loadMore.style.display = 'block';
+        loadMore.disabled = false;
+        loadMore.innerHTML = `<i class="fas fa-chevron-down" style="margin-right:6px"></i>
+      Load more (${(_txnTotal - _txnOffset).toLocaleString('en-IN')} remaining)`;
+      } else {
+        loadMore.style.display = 'none';
+      }
+    }
+
+    // ─── ADD: called by "load more" button ───────────────────────────────────────
+    async function loadMoreTxns() {
+      const btn = document.getElementById('txnLoadMore');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin" style="margin-right:6px"></i> Loading...`;
+      await fetchTxnPage();
+    }
+
+    // ─── ADD: maps transaction type to display metadata ──────────────────────────
+    function txnMeta(type, isPos) {
+      const map = {
+        test: { iconCls: 'ti-earn', typeCls: 'tp-earn', typeLabel: 'Test', icon: 'fas fa-clipboard-check' },
+        earn: { iconCls: 'ti-earn', typeCls: 'tp-earn', typeLabel: 'Earned', icon: 'cl-coin-icon' },
+        claim: { iconCls: 'ti-claim', typeCls: 'tp-claim', typeLabel: 'Claim', icon: 'fas fa-gift' },
+        redeem: { iconCls: 'ti-claim', typeCls: 'tp-claim', typeLabel: 'Redeem', icon: 'fas fa-gift' },
+        streak: { iconCls: 'ti-streak', typeCls: 'tp-streak', typeLabel: 'Streak', icon: 'fas fa-fire' },
+        bonus: { iconCls: 'ti-bonus', typeCls: 'tp-bonus', typeLabel: 'Bonus', icon: 'fas fa-star' },
+      };
+      return map[type] || (isPos
+        ? { iconCls: 'ti-earn', typeCls: 'tp-earn', typeLabel: 'Earned', icon: 'cl-coin-icon' }
+        : { iconCls: 'ti-claim', typeCls: 'tp-claim', typeLabel: 'Spent', icon: 'fas fa-minus-circle' }
+      );
+    }
+
+    // ─── ADD: fallback description when none stored ───────────────────────────────
+    function defaultDesc(type, isPos) {
+      const map = {
+        test: 'Mock test completion',
+        earn: 'Coins earned',
+        claim: 'Reward claimed',
+        redeem: 'Reward redeemed',
+        streak: 'Streak milestone bonus',
+        bonus: 'Bonus coins',
+      };
+      return map[type] || (isPos ? 'Coins earned' : 'Coins spent');
+    }
+
+    // ─── Close modal on bg click ───────────────────────────────────
+    document.getElementById('claimModal').addEventListener('click', function (e) {
+      if (e.target === this) closeModal();
+    });
+
+    // ─── Refresh coin balance when user returns to this tab ───────
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && _user) {
+        client.from('user_profiles')
+          .select('total_coins')
+          .eq('id', _user.id)
+          .single()
+          .then(({ data }) => {
+            if (!data) return;
+            const el = document.getElementById('statCoins');
+            if (el) el.textContent = (data.total_coins || 0).toLocaleString('en-IN');
+          });
+      }
+    });
+  </script>
+
+</body>
+
+</html>
