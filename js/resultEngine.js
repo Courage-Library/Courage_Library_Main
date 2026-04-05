@@ -11,6 +11,28 @@ window.addEventListener("popstate", () => {
   window.location.href = "/mock/dashboard.html";
 });
 
+// ── FIX #4: Inject missing keyframes for coin animations ──────────────────────
+(function injectAnimations() {
+  if (document.getElementById("_resultAnimStyles")) return;
+  const style = document.createElement("style");
+  style.id = "_resultAnimStyles";
+  style.textContent = `
+    @keyframes floatUp {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-130px) scale(0.5); }
+    }
+    @keyframes floatCoin {
+      0%   { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-110px); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
 let attemptId;
 let allReviewItems = [];
 
@@ -66,6 +88,7 @@ async function calculateResult() {
       submitted_at,
       total_score,
       accuracy,
+      coins_given,
       scheduled_exams(
         exam_patterns(
           negative_marking,
@@ -146,19 +169,38 @@ async function calculateResult() {
   const accuracy =
     totalAttempted === 0 ? 0 : +((correct / totalAttempted) * 100).toFixed(2);
 
-  // Save to DB only once — don't overwrite on refresh
-  const isFirstVisit = attempt.total_score == null;
-  if (isFirstVisit) {
+  // FIX #3: Use coins_given (the authoritative flag set by Edge Function) as the
+  // source of truth for "first visit", NOT total_score which can be null for
+  // other reasons (e.g. exam engine already wrote time_taken but not score yet).
+  // We also keep total_score == null as a fallback for backwards compatibility.
+  const isFirstVisit = attempt.total_score == null || attempt.coins_given === false;
+
+  if (attempt.total_score == null) {
+    // Only write score/accuracy on first visit to avoid overwriting
     await client
       .from("attempts")
       .update({ total_score: score, accuracy, time_taken: timeTaken })
       .eq("id", attemptId);
   }
 
-  // Only call giveCoins on the first visit — the Edge Function also has an
-  // already_rewarded guard, but this prevents an unnecessary round-trip on refresh
-  if (isFirstVisit) {
+  // FIX #3: Only call giveCoins when coins have NOT been given yet.
+  // The Edge Function has its own guard too, but we avoid the round-trip on refresh.
+  if (!attempt.coins_given) {
     await giveCoins(attemptId);
+  } else {
+    // On refresh: coins already given — still render the level pill quietly
+    try {
+      const { data: { session } } = await client.auth.getSession();
+      if (session) {
+        const { data: prof } = await client
+          .from("user_profiles")
+          .select("lifetime_coins, total_coins")
+          .eq("id", session.user.id)
+          .single();
+        const lifetime = prof?.lifetime_coins || prof?.total_coins || 0;
+        renderResultLevelPill(lifetime);
+      }
+    } catch (_) {}
   }
 
   displayResult({
@@ -284,12 +326,10 @@ function renderOptionValue(value, optionsType) {
   if (!value) return "";
 
   if (optionsType === "image") {
-    // value is a URL string
     return `<img src="${value}" alt="Option" class="h-14 max-w-full object-contain rounded-lg border border-gray-200 my-0.5">`;
   }
 
   if (optionsType === "mixed") {
-    // value is { text, image }
     const parts = [];
     if (value.image) {
       parts.push(
@@ -302,7 +342,6 @@ function renderOptionValue(value, optionsType) {
     return parts.join("");
   }
 
-  // Default: plain text
   return `<span style="flex:1;line-height:1.45">${value}</span>`;
 }
 
@@ -341,14 +380,12 @@ function renderReviewList(items) {
       const chipLabel = isSkip ? "Skipped" : isOk ? "Correct" : "Wrong";
       const sectionName = q.pattern_sections?.section_name || "";
 
-      // ── PYQ badge ──
       const pyqBadge = q.pyq_year
         ? `<span style="font-size:.65rem;font-weight:700;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;padding:2px 8px;border-radius:999px;white-space:nowrap">
            PYQ${q.pyq_source ? " · " + q.pyq_source : ""} ${q.pyq_year}
          </span>`
         : "";
 
-      // ── Question figure image ──
       const questionImageHtml = q.question_image
         ? `<div style="padding:0 18px 10px">
            <img src="${q.question_image}" alt="Question figure"
@@ -357,7 +394,6 @@ function renderReviewList(items) {
          </div>`
         : "";
 
-      // ── Options ──
       const optionKeys = Object.keys(opts).sort();
       const optionsHTML = optionKeys
         .map((key) => {
@@ -435,7 +471,6 @@ function renderReviewList(items) {
    IMAGE ZOOM (for result page)
 ───────────────────────────────────────── */
 window.openResultImgZoom = function (src) {
-  // Reuse exam zoom overlay if exists, else create one inline
   let overlay = document.getElementById("resultImgZoom");
   if (!overlay) {
     overlay = document.createElement("div");
@@ -592,9 +627,44 @@ function animateCount(id, target, duration) {
   requestAnimationFrame(step);
 }
 
+/* ─────────────────────────────────────────
+   GIVE COINS — calls Edge Function
+   FIX #1: Use getSession() properly and
+   guard against null session correctly.
+   FIX #2: Retry once on session miss
+   (tab freshly loaded, token still hydrating).
+───────────────────────────────────────── */
 async function giveCoins(attemptId) {
-  const { data: { user, session } } = await client.auth.getSession();
-  if (!user || !session) return;
+  // FIX #1: getSession() returns { data: { session } } — destructure correctly.
+  // The old code destructured `user` from it which doesn't exist on session object.
+  let session = null;
+  try {
+    const { data, error } = await client.auth.getSession();
+    if (error) {
+      console.error("giveCoins: getSession error:", error);
+      return;
+    }
+    session = data?.session;
+  } catch (err) {
+    console.error("giveCoins: getSession threw:", err);
+    return;
+  }
+
+  // FIX #2: If session is null on first try (token still hydrating), wait 1.2s and retry once
+  if (!session) {
+    await new Promise(r => setTimeout(r, 1200));
+    try {
+      const { data } = await client.auth.getSession();
+      session = data?.session;
+    } catch (_) {}
+  }
+
+  if (!session) {
+    console.error("giveCoins: no session after retry — coins not awarded");
+    return;
+  }
+
+  const user = session.user;
 
   // Fetch lifetime coins BEFORE reward so we can detect level-up
   let prevLifetime = 0;
@@ -621,16 +691,24 @@ async function giveCoins(attemptId) {
         body: JSON.stringify({ attempt_id: attemptId }),
       }
     );
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error("giveCoins: Edge Function returned", res.status, errText);
+      return;
+    }
+
     data = await res.json();
   } catch (err) {
     console.error("giveCoins fetch failed:", err);
     return;
   }
 
-  if (!data || (!data.coins && !data.already_rewarded)) return;
-  if (data.already_rewarded) return; // coins already given for this attempt
+  if (!data) return;
+  if (data.already_rewarded) return; // coins already given for this attempt — silent
+  if (!data.coins) return;           // unexpected empty response
 
-  // Show the breakdown popup
+  // Show the breakdown popup + floating coin animation
   showCoinPopup(data.coins, data.streak, data.breakdown);
 
   // Fetch updated lifetime coins and check for level-up
@@ -643,51 +721,190 @@ async function giveCoins(attemptId) {
     const newLifetime = updated?.lifetime_coins || updated?.total_coins || 0;
     const prevLevel   = getResultLevel(prevLifetime);
     const newLevel    = getResultLevel(newLifetime);
+
     if (newLevel.label !== prevLevel.label) {
       setTimeout(() => showLevelUpToast(newLevel, newLifetime), 2800);
     } else {
-      // Show current level pill quietly
       renderResultLevelPill(newLifetime);
     }
-    // If a reward milestone was also crossed, chain it after level toast
+
     if (data.reward_unlocked) {
       setTimeout(() => showRewardUnlockPopup(
         `<i class="fas fa-gift" style="margin-right:6px"></i>${data.reward_unlocked} unlocked!`,
-        `You now have ${data.total_coins} coins -- enough to claim your ${data.reward_unlocked}. Go to Rewards to claim it!`
+        `You now have ${data.total_coins} coins — enough to claim your ${data.reward_unlocked}. Go to Rewards to claim it!`
       ), newLevel.label !== prevLevel.label ? 5500 : 2200);
     }
   } catch (_) {
     if (data.reward_unlocked) {
       setTimeout(() => showRewardUnlockPopup(
         `<i class="fas fa-gift" style="margin-right:6px"></i>${data.reward_unlocked} unlocked!`,
-        `You now have ${data.total_coins} coins -- enough to claim your ${data.reward_unlocked}. Go to Rewards to claim it!`
+        `You now have ${data.total_coins} coins — enough to claim your ${data.reward_unlocked}. Go to Rewards to claim it!`
       ), 2200);
     }
   }
 }
 
-// ── Level helpers ────────────────────────────────────────────────────────────
-function getResultLevel(coins) {
-  if (coins >= 6000) return { label: "Legend",   color: "#f59e0b", bg: "rgba(245,158,11,0.12)", border: "#b45309",  tagline: "The rarest rank. Your consistency is your identity." };
-  if (coins >= 3000) return { label: "Luminary",  color: "#c084fc", bg: "rgba(168,85,247,0.12)",  border: "#7c3aed",  tagline: "You illuminate the path for those around you." };
-  if (coins >= 1000) return { label: "Scholar",   color: "#38bdf8", bg: "rgba(0,168,255,0.10)",   border: "#0284c7",  tagline: "Knowledge is accumulating. The foundations are solid." };
-  return               { label: "Seeker",    color: "#8080c0", bg: "rgba(80,80,180,0.10)",   border: "#3030a0",  tagline: "Every journey begins with curiosity. You've started yours." };
+/* ─────────────────────────────────────────
+   COIN POPUP — animated modal + floating coins
+───────────────────────────────────────── */
+function showCoinPopup(coins, streak, breakdown) {
+  const rows = [
+    { label: 'Base coins',       val: breakdown?.base,             icon: '<i class="fas fa-calendar-day"></i>' },
+    { label: 'Accuracy bonus',   val: breakdown?.accuracy_bonus,   icon: '<i class="fas fa-bullseye"></i>' },
+    { label: 'First test bonus', val: breakdown?.first_test_bonus, icon: '<i class="fas fa-star"></i>' },
+    { label: 'Streak bonus',     val: breakdown?.streak_bonus,     icon: '<i class="fas fa-fire"></i>' },
+  ].filter(r => r.val > 0);
+
+  const breakdownHTML = rows.length > 1
+    ? `<div style="
+        margin-top:14px;
+        background:rgba(255,255,255,.08);
+        border-radius:12px;
+        padding:12px 16px;
+        display:flex;
+        flex-direction:column;
+        gap:6px;
+      ">
+        ${rows.map(r => `
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
+            <span style="opacity:.75">${r.icon} ${r.label}</span>
+            <span style="font-weight:700;color:#fbbf24">+${r.val}</span>
+          </div>`).join('')}
+        <div style="
+          margin-top:8px;
+          padding-top:8px;
+          border-top:1px solid rgba(255,255,255,.15);
+          display:flex;
+          justify-content:space-between;
+          font-size:14px;
+          font-weight:800;
+        ">
+          <span>Total earned</span>
+          <span style="color:#fbbf24">${coins} coins</span>
+        </div>
+      </div>`
+    : '';
+
+  document.getElementById('coinPopup')?.remove();
+  document.getElementById('coinPopupBackdrop')?.remove();
+
+  const popup = document.createElement('div');
+  popup.id = 'coinPopup';
+  popup.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: linear-gradient(140deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 28px 28px 24px;
+    border-radius: 24px;
+    text-align: center;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 360px;
+    width: 90vw;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+  `;
+
+  popup.innerHTML = `
+    <div style="font-size:2.8rem;line-height:1;margin-bottom:6px">🪙</div>
+    <div style="
+      font-family:'Sora',sans-serif;
+      font-size:2rem;
+      font-weight:900;
+      color:#fbbf24;
+      line-height:1.1;
+    ">+${coins} coins</div>
+    <div style="font-size:13px;opacity:0.65;margin-top:4px">
+      <i class="fas fa-fire" style="color:#fb923c;margin-right:4px"></i>${streak} day streak
+    </div>
+    ${breakdownHTML}
+    <div style="
+      margin-top:18px;
+      font-size:11px;
+      opacity:0.35;
+      letter-spacing:.04em;
+    ">Tap anywhere to dismiss</div>
+  `;
+
+  popup.addEventListener('click', () => { popup.remove(); backdrop.remove(); });
+
+  const backdrop = document.createElement('div');
+  backdrop.id = 'coinPopupBackdrop';
+  backdrop.style.cssText = `
+    position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9998;
+    backdrop-filter:blur(3px);
+  `;
+  backdrop.addEventListener('click', () => {
+    popup.remove();
+    backdrop.remove();
+  });
+
+  document.body.appendChild(backdrop);
+  document.body.appendChild(popup);
+
+  // Animate in (double rAF ensures transition fires after paint)
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    popup.style.transform = 'translate(-50%, -50%) scale(1)';
+    popup.style.opacity = '1';
+  }));
+
+  // FIX #4: Floating coins — uses `floatUp` keyframe now defined in injectAnimations()
+  for (let i = 0; i < 8; i++) {
+    setTimeout(() => {
+      const coin = document.createElement('div');
+      coin.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fbbf24"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e" font-family="sans-serif">C</text></svg>';
+      coin.style.cssText = `
+        position:fixed;
+        left:${20 + Math.random() * 60}vw;
+        top:${30 + Math.random() * 30}vh;
+        width:28px;height:28px;
+        animation:floatUp 1.5s ease-out forwards;
+        pointer-events:none;
+        z-index:10000;
+      `;
+      document.body.appendChild(coin);
+      setTimeout(() => coin.remove(), 1500);
+    }, i * 120);
+  }
+
+  // Auto-dismiss after 6 seconds
+  setTimeout(() => {
+    popup.remove();
+    backdrop.remove();
+  }, 6000);
 }
 
-function renderResultLevelPill(lifetimeCoins) {
-  const el = document.getElementById("resultLevelPill");
-  if (!el) return;
-  const { label, color, bg, border } = getResultLevel(lifetimeCoins);
-  el.style.display = "inline-flex";
-  el.style.background = bg;
-  el.style.borderColor = border;
-  el.style.color = color;
-  el.innerHTML = `
-    <svg width="18" height="18" viewBox="0 0 64 64"><use href="#badge-${label.toLowerCase()}"/></svg>
-    ${label}
-    <span style="font-size:.68rem;opacity:.7;font-weight:500;margin-left:2px">${lifetimeCoins.toLocaleString("en-IN")} lifetime CL</span>`;
+/* ─────────────────────────────────────────
+   LEGACY animateCoins — kept for any other
+   call sites, uses the now-defined floatCoin
+───────────────────────────────────────── */
+function animateCoins() {
+  for (let i = 0; i < 8; i++) {
+    const coin = document.createElement("div");
+    coin.innerHTML = '<svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fbbf24"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e" font-family="sans-serif">C</text></svg>';
+    coin.style.cssText = `
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 20px;
+      height: 20px;
+      z-index: 9999;
+      animation: floatCoin 1.5s ease forwards;
+      transform: translate(${Math.random() * 40}px, 0);
+      pointer-events: none;
+    `;
+    document.body.appendChild(coin);
+    setTimeout(() => coin.remove(), 1500);
+  }
 }
 
+/* ─────────────────────────────────────────
+   LEVEL UP TOAST
+───────────────────────────────────────── */
 function showLevelUpToast(level, lifetimeCoins) {
   document.getElementById("levelUpToast")?.remove();
   const toast = document.createElement("div");
@@ -727,7 +944,6 @@ function showLevelUpToast(level, lifetimeCoins) {
   `;
   document.body.appendChild(toast);
   renderResultLevelPill(lifetimeCoins);
-  // Auto-dismiss after 8s
   setTimeout(() => {
     if (toast.parentNode) {
       toast.style.animation = "lvlUpOut .3s ease forwards";
@@ -736,158 +952,29 @@ function showLevelUpToast(level, lifetimeCoins) {
   }, 8000);
 }
 
-function showCoinPopup(coins, streak, breakdown) {
-  // Build breakdown rows -- only show non-zero components
-  const rows = [
-    { label: 'Base coins',       val: breakdown?.base,             icon: '<i class="fas fa-calendar-day"></i>' },
-    { label: 'Accuracy bonus',   val: breakdown?.accuracy_bonus,   icon: '<i class="fas fa-bullseye"></i>' },
-    { label: 'First test bonus', val: breakdown?.first_test_bonus, icon: '<i class="fas fa-star"></i>' },
-    { label: 'Streak bonus',     val: breakdown?.streak_bonus,     icon: '<i class="fas fa-fire"></i>' },
-  ].filter(r => r.val > 0);
-
-  const breakdownHTML = rows.length > 1
-    ? `<div style="
-        margin-top:14px;
-        background:rgba(255,255,255,.08);
-        border-radius:12px;
-        padding:12px 16px;
-        display:flex;
-        flex-direction:column;
-        gap:6px;
-      ">
-        ${rows.map(r => `
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px">
-            <span style="opacity:.75">${r.icon} ${r.label}</span>
-            <span style="font-weight:700;color:#fbbf24">+${r.val}</span>
-          </div>`).join('')}
-        <div style="
-          margin-top:8px;
-          padding-top:8px;
-          border-top:1px solid rgba(255,255,255,.15);
-          display:flex;
-          justify-content:space-between;
-          font-size:14px;
-          font-weight:800;
-        ">
-          <span>Total earned</span>
-          <span style="color:#fbbf24">${coins} coins</span>
-        </div>
-      </div>`
-    : '';
-
-  // Remove any existing popup
-  document.getElementById('coinPopup')?.remove();
-
-  const popup = document.createElement('div');
-  popup.id = 'coinPopup';
-  popup.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background: linear-gradient(140deg, #1a1a2e 0%, #16213e 100%);
-    color: white;
-    padding: 28px 28px 24px;
-    border-radius: 24px;
-    text-align: center;
-    z-index: 9999;
-    min-width: 300px;
-    max-width: 360px;
-    width: 90vw;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.55);
-    opacity: 0;
-    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
-  `;
-
-  popup.innerHTML = `
-    <div style="font-size:2.8rem;line-height:1;margin-bottom:6px"><svg width="16" height="16"><use href="#CLcoin-sm"/></svg></div>
-    <div style="
-      font-family:'Sora',sans-serif;
-      font-size:2rem;
-      font-weight:900;
-      color:#fbbf24;
-      line-height:1.1;
-    ">+${coins} coins</div>
-    <div style="font-size:13px;opacity:0.65;margin-top:4px">
-      <i class="fas fa-fire" style="color:#fb923c;margin-right:4px"></i>${streak} day streak
-    </div>
-    ${breakdownHTML}
-    <div style="
-      margin-top:18px;
-      font-size:11px;
-      opacity:0.35;
-      letter-spacing:.04em;
-    ">Tap anywhere to dismiss</div>
-  `;
-
-  popup.addEventListener('click', () => popup.remove());
-
-  // Backdrop
-  const backdrop = document.createElement('div');
-  backdrop.id = 'coinPopupBackdrop';
-  backdrop.style.cssText = `
-    position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9998;
-    backdrop-filter:blur(3px);
-  `;
-  backdrop.addEventListener('click', () => {
-    popup.remove();
-    backdrop.remove();
-  });
-
-  document.body.appendChild(backdrop);
-  document.body.appendChild(popup);
-
-  // Animate in
-  requestAnimationFrame(() => {
-    popup.style.transform = 'translate(-50%, -50%) scale(1)';
-    popup.style.opacity = '1';
-  });
-
-  // Floating coins
-  for (let i = 0; i < 8; i++) {
-    setTimeout(() => {
-      const coin = document.createElement('div');
-      coin.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fbbf24"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e" font-family="sans-serif">C</text></svg>';
-      coin.style.cssText = `
-        position:fixed;
-        left:${20 + Math.random() * 60}vw;
-        top:${30 + Math.random() * 30}vh;
-        width:28px;height:28px;
-        animation:floatUp 1.5s ease-out forwards;
-        pointer-events:none;
-        z-index:10000;
-      `;
-      document.body.appendChild(coin);
-      setTimeout(() => coin.remove(), 1500);
-    }, i * 120);
-  }
-
-  // Auto-dismiss after 6 seconds
-  setTimeout(() => { popup.remove(); backdrop.remove(); }, 6000);
+/* ─────────────────────────────────────────
+   LEVEL HELPERS
+───────────────────────────────────────── */
+function getResultLevel(coins) {
+  if (coins >= 6000) return { label: "Legend",   color: "#f59e0b", bg: "rgba(245,158,11,0.12)", border: "#b45309",  tagline: "The rarest rank. Your consistency is your identity." };
+  if (coins >= 3000) return { label: "Luminary",  color: "#c084fc", bg: "rgba(168,85,247,0.12)",  border: "#7c3aed",  tagline: "You illuminate the path for those around you." };
+  if (coins >= 1000) return { label: "Scholar",   color: "#38bdf8", bg: "rgba(0,168,255,0.10)",   border: "#0284c7",  tagline: "Knowledge is accumulating. The foundations are solid." };
+  return               { label: "Seeker",    color: "#8080c0", bg: "rgba(80,80,180,0.10)",   border: "#3030a0",  tagline: "Every journey begins with curiosity. You've started yours." };
 }
 
-function animateCoins() {
-  for (let i = 0; i < 8; i++) {
-    const coin = document.createElement("div");
-    coin.innerHTML = '<svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#fbbf24"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><text x="14" y="19" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e" font-family="sans-serif">C</text></svg>';
-
-    coin.style = `
-      position: fixed;
-      bottom: 40px;
-      right: 40px;
-      width: 20px;
-      height: 20px;
-      z-index: 9999;
-      animation: floatCoin 1.5s ease forwards;
-      transform: translate(${Math.random()*40}px, 0);
-    `;
-
-    document.body.appendChild(coin);
-
-    setTimeout(() => coin.remove(), 1500);
-  }
+function renderResultLevelPill(lifetimeCoins) {
+  const el = document.getElementById("resultLevelPill");
+  if (!el) return;
+  const { label, color, bg, border } = getResultLevel(lifetimeCoins);
+  el.style.display = "inline-flex";
+  el.style.background = bg;
+  el.style.borderColor = border;
+  el.style.color = color;
+  el.innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 64 64"><use href="#badge-${label.toLowerCase()}"/></svg>
+    ${label}
+    <span style="font-size:.68rem;opacity:.7;font-weight:500;margin-left:2px">${lifetimeCoins.toLocaleString("en-IN")} lifetime CL</span>`;
 }
-
 
 /* Prevent back navigation to exam page */
 history.pushState(null, null, location.href);
