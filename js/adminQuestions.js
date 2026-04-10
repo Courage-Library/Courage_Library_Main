@@ -2,7 +2,7 @@ const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
 
-const { createClient } = supabase;
+const { createClient } = window.supabase;
 const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── Admin auth guard — verified against user_profiles table ──

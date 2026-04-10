@@ -129,6 +129,60 @@
             }
         }
 
+        /* ── RESULT LOADING OVERLAY ── */
+        @keyframes rl-spin { to { transform: rotate(360deg); } }
+        @keyframes rl-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.93)} }
+        @keyframes rl-bar { 0%{width:0%} 60%{width:72%} 85%{width:88%} 100%{width:95%} }
+
+        #resultLoadingOverlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: linear-gradient(150deg, #1a56db 0%, #1e3a8a 55%, #172554 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .rl-logo-wrap {
+            width: 56px; height: 56px; border-radius: 16px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.22);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 26px; overflow: hidden;
+        }
+        .rl-logo-wrap img {
+            width: 38px; height: 38px; object-fit: contain;
+            border-radius: 10px;
+        }
+        .rl-spinner-wrap {
+            position: relative; width: 72px; height: 72px; margin-bottom: 26px;
+        }
+        .rl-spinner-wrap svg { animation: rl-spin 1.1s linear infinite; }
+        .rl-coin-icon {
+            position: absolute; inset: 0; display: flex; align-items: center;
+            justify-content: center; font-size: 1.6rem;
+            animation: rl-pulse 1.4s ease-in-out infinite;
+        }
+        .rl-title {
+            font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800;
+            color: #fff; margin-bottom: 5px; text-align: center; padding: 0 24px;
+        }
+        .rl-subtitle { font-size: .78rem; color: rgba(255,255,255,.5); margin-bottom: 28px; }
+        .rl-progress-track {
+            width: min(280px, 72vw); height: 4px;
+            background: rgba(255,255,255,.15); border-radius: 100px;
+            overflow: hidden; margin-bottom: 20px;
+        }
+        .rl-progress-bar {
+            height: 100%; border-radius: 100px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            animation: rl-bar 3.5s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        .rl-steps { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+        .rl-step {
+            font-size: .72rem; color: rgba(255,255,255,.35);
+            display: flex; align-items: center; gap: 8px; transition: color .3s;
+        }
+        .rl-step.active { color: rgba(255,255,255,.9); }
+        .rl-step.done { color: #86efac; }
+        .rl-step-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
         .fade-up {
             animation: fadeUp .45s ease both;
         }
@@ -1068,6 +1122,33 @@
 
   </defs>
 </svg>
+
+    <!-- ── RESULT LOADING OVERLAY ── -->
+    <div id="resultLoadingOverlay">
+        <div class="rl-logo-wrap">
+            <img src="/images/logo.png" alt="CL">
+        </div>
+        <div class="rl-spinner-wrap">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="30" stroke="rgba(255,255,255,0.12)" stroke-width="4"/>
+                <path d="M36 6 A30 30 0 0 1 66 36" stroke="url(#rls-g)" stroke-width="4" stroke-linecap="round"/>
+                <defs>
+                    <linearGradient id="rls-g" x1="36" y1="6" x2="66" y2="36" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="rl-coin-icon">🏆</div>
+        </div>
+        <div class="rl-title">Calculating your result…</div>
+        <div class="rl-subtitle">Hang tight, this takes just a moment</div>
+        <div class="rl-progress-track"><div class="rl-progress-bar"></div></div>
+        <div class="rl-steps">
+            <div class="rl-step active" id="rlStep1"><div class="rl-step-dot"></div>Fetching your answers</div>
+            <div class="rl-step" id="rlStep2"><div class="rl-step-dot"></div>Scoring & calculating accuracy</div>
+            <div class="rl-step" id="rlStep3"><div class="rl-step-dot"></div>Awarding coins & updating rank</div>
+        </div>
+    </div>
 
     <!-- ── HEADER (post-exam — no marketing links) ── -->
     <nav class="bg-white/95 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-100">

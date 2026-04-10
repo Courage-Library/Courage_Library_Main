@@ -553,8 +553,18 @@
                 <!-- Question Text -->
                 <div>
                     <label class="field-label">Question Text</label>
+                    <div class="flex items-center gap-1 mb-1">
+                        <button type="button" onclick="applyEditFormat('underline')"
+                            title="Underline selected text"
+                            class="flex items-center gap-1 px-2 py-1 text-xs font-semibold border border-gray-200 rounded-lg bg-white hover:bg-blue-50 hover:border-blue-400 text-gray-600 hover:text-blue-600 transition">
+                            <span class="underline">U</span>
+                            <span class="text-gray-400 font-normal">Underline</span>
+                        </button>
+                        <span class="text-xs text-gray-400 ml-1">← Select text then click</span>
+                    </div>
                     <textarea id="editQuestionText" rows="3"
-                        class="w-full p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 resize-none"></textarea>
+                        class="w-full p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-400 resize-none font-mono"></textarea>
+                    <p class="text-xs text-gray-400 mt-1">Underlined parts are stored as <code class="bg-gray-100 px-1 rounded">&lt;u&gt;text&lt;/u&gt;</code></p>
                 </div>
 
                 <!-- Question Image -->
@@ -698,6 +708,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function applyEditFormat(type) {
+            const ta = document.getElementById('editQuestionText');
+            const start = ta.selectionStart;
+            const end = ta.selectionEnd;
+            if (start === end) {
+                alert('Pehle text select karo, phir button click karo.');
+                return;
+            }
+            const selected = ta.value.substring(start, end);
+            let wrapped = selected;
+            if (type === 'underline') {
+                wrapped = `<u>${selected}</u>`;
+            }
+            ta.value = ta.value.substring(0, start) + wrapped + ta.value.substring(end);
+            // Restore cursor after inserted text
+            ta.selectionStart = start;
+            ta.selectionEnd = start + wrapped.length;
+            ta.focus();
+        }
+    </script>
 </body>
 
 </html>
