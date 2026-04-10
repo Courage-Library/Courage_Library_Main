@@ -236,6 +236,16 @@ const DAY_LABELS = {
 
 document.addEventListener("DOMContentLoaded", async () => {
   await checkAuth();
+  // ── Guest experience: modal for ad traffic, sticky banner for organic ──
+  if (!window._currentUser) {
+    const params = new URLSearchParams(window.location.search);
+    const hasUTM = params.has("utm_source") || params.has("utm_medium") || params.has("utm_campaign");
+    if (hasUTM) {
+      showAdWelcomeModal();
+    } else {
+      showGuestStickyBanner();
+    }
+  }
   await loadPerformanceAnalytics();
   await loadAvailableExams();
   await loadCoinsAndProgress();
@@ -252,7 +262,7 @@ async function checkAuth() {
   document.dispatchEvent(new CustomEvent("cl:authReady", { detail: { user: window._currentUser } }));
 }
 
-// ─── Guest Auth Prompt ────────────────────────────────────────────────────────
+// ─── Guest Auth Prompt (Attempt Gate — upgraded with social proof) ────────────
 window.showGuestAuthPrompt = function () {
   if (document.getElementById("guestAuthOverlay")) return;
 
@@ -267,51 +277,40 @@ window.showGuestAuthPrompt = function () {
       <div style="background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 100%);padding:28px 24px 24px;text-align:center;position:relative">
         <button onclick="document.getElementById('guestAuthOverlay').remove()" style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center">✕</button>
         <img src="/images/logo.png" alt="Courage Library" style="width:48px;height:48px;border-radius:14px;margin:0 auto 12px;display:block;background:#fff;padding:5px;box-shadow:0 4px 16px rgba(0,0,0,.2);">
-        <div style="font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">Join Free to Attempt</div>
-        <div style="font-size:.75rem;color:#93c5fd;font-weight:500">Track your progress · All tests free · Daily mocks</div>
+        <div style="font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;margin-bottom:6px">Free Account chahiye sirf ek baar 🚀</div>
+        <div style="font-size:.75rem;color:#93c5fd;font-weight:500">Progress track hoga · Coins milenge · Streaks banenge</div>
+        <!-- Social proof -->
+        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border-radius:100px;padding:5px 12px 5px 7px;">
+          <div style="display:flex;">
+            ${["🧑","👩","👨","🧒","👩"].map((e,i)=>`<span style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;margin-left:${i===0?0:-6}px">${e}</span>`).join("")}
+          </div>
+          <span style="font-size:.7rem;font-weight:700;color:#e0f2fe">500+ students already practicing</span>
+        </div>
       </div>
 
       <!-- Body -->
-      <div style="padding:24px 24px 28px;">
+      <div style="padding:20px 24px 26px;">
 
         <!-- Value props -->
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:20px;">
           ${[
-            [
-              "fas fa-clipboard-check",
-              "#dbeafe",
-              "#1d4ed8",
-              "Free daily & weekly mock tests",
-            ],
-            [
-              "fas fa-chart-line",
-              "#d1fae5",
-              "#059669",
-              "Track accuracy & score history",
-            ],
-            [
-              "fas fa-fire",
-              "#fff7ed",
-              "#c2410c",
-              "Build streaks, stay consistent",
-            ],
-          ]
-            .map(
-              ([icon, bg, color, text]) => `
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f8faff;border-radius:12px;border:1px solid #e8edf5;">
-              <span style="width:30px;height:30px;border-radius:9px;background:${bg};color:${color};display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0"><i class="${icon}"></i></span>
-              <span style="font-size:.82rem;font-weight:700;color:#0f172a">${text}</span>
-            </div>`,
-            )
-            .join("")}
+            ["fas fa-clipboard-check","#dbeafe","#1d4ed8","Daily & weekly free mock tests"],
+            ["fas fa-chart-line","#d1fae5","#059669","Score history & accuracy tracking"],
+            ["fas fa-fire","#fff7ed","#c2410c","Streaks, coins & physical rewards"],
+            ["fas fa-trophy","#fef3c7","#92400e","Leaderboard ranking among peers"],
+          ].map(([icon,bg,color,text])=>`
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#f8faff;border-radius:12px;border:1px solid #e8edf5;">
+              <span style="width:28px;height:28px;border-radius:8px;background:${bg};color:${color};display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0"><i class="${icon}"></i></span>
+              <span style="font-size:.81rem;font-weight:700;color:#0f172a">${text}</span>
+            </div>`).join("")}
         </div>
 
         <!-- Buttons -->
-        <a href="/index.html?action=signup" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:14px;font-weight:800;font-size:.95rem;text-decoration:none;margin-bottom:10px;box-shadow:0 4px 16px rgba(26,86,219,.35);">
-          <i class="fas fa-user-plus"></i> Create Free Account
+        <a href="/index.html?action=signup" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:14px;font-weight:800;font-size:.95rem;text-decoration:none;margin-bottom:10px;box-shadow:0 4px 16px rgba(26,86,219,.35);">
+          <i class="fas fa-user-plus"></i> Create Free Account — 30 sec
         </a>
         <a href="/index.html?action=login" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;background:#fff;color:#1d4ed8;border:1.5px solid #bfdbfe;border-radius:14px;font-weight:800;font-size:.9rem;text-decoration:none;">
-          <i class="fas fa-sign-in-alt"></i> Already have an account? Log In
+          <i class="fas fa-sign-in-alt"></i> Already have account? Log In
         </a>
       </div>
     </div>`;
@@ -321,6 +320,115 @@ window.showGuestAuthPrompt = function () {
   });
   document.body.appendChild(overlay);
 };
+
+// ─── Ad Traffic Welcome Modal (shown when UTM params detected) ────────────────
+function showAdWelcomeModal() {
+  if (document.getElementById("adWelcomeModal")) return;
+
+  const overlay = document.createElement("div");
+  overlay.id = "adWelcomeModal";
+  overlay.style = "position:fixed;inset:0;z-index:10000;background:rgba(10,15,30,.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;";
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:28px;max-width:420px;width:100%;box-shadow:0 40px 100px rgba(10,15,30,.4);overflow:hidden;animation:fadeInUp .3s cubic-bezier(.34,1.56,.64,1);">
+
+      <!-- Hero header -->
+      <div style="background:linear-gradient(145deg,#0f2a6e 0%,#1a56db 60%,#2563eb 100%);padding:32px 24px 26px;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none"></div>
+        <img src="/images/logo.png" alt="Courage Library" style="width:56px;height:56px;border-radius:16px;margin:0 auto 14px;display:block;background:#fff;padding:6px;box-shadow:0 6px 20px rgba(0,0,0,.25);">
+        <div style="font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:6px;letter-spacing:-.01em">Courage Library</div>
+        <div style="font-size:.82rem;color:#93c5fd;font-weight:600;margin-bottom:16px">India's Free Govt Exam Prep Platform 🇮🇳</div>
+        <!-- Stats strip -->
+        <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;">
+          ${[["🎯","Free Mock Tests","Daily"],["🔥","Streaks & Coins","Earn rewards"],["🏆","Leaderboard","Rank yourself"]].map(([emoji,label,sub])=>`
+            <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 12px;text-align:center;min-width:90px;">
+              <div style="font-size:1rem;margin-bottom:2px">${emoji}</div>
+              <div style="font-size:.7rem;font-weight:800;color:#fff">${label}</div>
+              <div style="font-size:.6rem;color:#93c5fd;font-weight:600">${sub}</div>
+            </div>`).join("")}
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div style="padding:22px 24px 26px;">
+        <div style="font-family:'Sora',sans-serif;font-size:.95rem;font-weight:800;color:#0f172a;text-align:center;margin-bottom:4px">SSC · Banking · Railway · Defence</div>
+        <div style="font-size:.78rem;color:#64748b;text-align:center;margin-bottom:18px;font-weight:500">Har roz naye mock tests · Bilkul free · Score track karo</div>
+
+        <!-- Social proof -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px;padding:10px 14px;background:#f0f9ff;border-radius:12px;border:1px solid #bae6fd;">
+          <div style="display:flex;">
+            ${["🧑","👩","👨","🧒","👩","🧑"].map((e,i)=>`<span style="width:24px;height:24px;border-radius:50%;background:#dbeafe;border:2px solid #fff;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;margin-left:${i===0?0:-7}px">${e}</span>`).join("")}
+          </div>
+          <span style="font-size:.74rem;font-weight:700;color:#0369a1">500+ students already on platform</span>
+        </div>
+
+        <!-- CTAs -->
+        <a href="/index.html?action=signup" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:50px;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;border-radius:16px;font-weight:800;font-size:1rem;text-decoration:none;margin-bottom:10px;box-shadow:0 6px 20px rgba(26,86,219,.4);">
+          <i class="fas fa-user-plus"></i> Join Free — 30 seconds
+        </a>
+        <a href="/index.html?action=login" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;background:#fff;color:#1d4ed8;border:2px solid #bfdbfe;border-radius:16px;font-weight:800;font-size:.92rem;text-decoration:none;margin-bottom:14px;">
+          <i class="fas fa-sign-in-alt"></i> Already have account? Log In
+        </a>
+        <div style="text-align:center;">
+          <button onclick="document.getElementById('adWelcomeModal').remove()" style="background:none;border:none;color:#94a3b8;font-size:.75rem;font-weight:600;cursor:pointer;text-decoration:underline;padding:4px 8px;">
+            Browse as Guest →
+          </button>
+        </div>
+      </div>
+    </div>`;
+
+  document.body.appendChild(overlay);
+}
+
+// ─── Organic Guest Sticky Banner ──────────────────────────────────────────────
+function showGuestStickyBanner() {
+  if (document.getElementById("guestStickyBanner")) return;
+
+  // Inject keyframe
+  if (!document.getElementById("guestBannerStyle")) {
+    const style = document.createElement("style");
+    style.id = "guestBannerStyle";
+    style.textContent = `
+      @keyframes slideUpBanner {
+        from { transform: translateY(100%); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+      }`;
+    document.head.appendChild(style);
+  }
+
+  const banner = document.createElement("div");
+  banner.id = "guestStickyBanner";
+  banner.style = `
+    position:fixed;bottom:0;left:0;right:0;z-index:9998;
+    background:linear-gradient(135deg,#0f2a6e,#1a56db);
+    padding:12px 16px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    box-shadow:0 -4px 24px rgba(15,23,42,.25);
+    animation:slideUpBanner .35s cubic-bezier(.34,1.56,.64,1);
+  `;
+  banner.innerHTML = `
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:.8rem;font-weight:800;color:#fff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+        🔒 Progress track karne ke liye Sign Up karo — Free hai!
+      </div>
+      <div style="font-size:.68rem;color:#93c5fd;font-weight:500">Coins · Streaks · Rewards · Leaderboard</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+      <a href="/index.html?action=signup" style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#1a56db;border-radius:100px;padding:8px 16px;font-weight:800;font-size:.78rem;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.15);">
+        <i class="fas fa-user-plus"></i> Join Free
+      </a>
+      <button id="guestBannerClose" style="width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">✕</button>
+    </div>
+  `;
+
+  document.body.appendChild(banner);
+  document.body.style.paddingBottom = "64px";
+
+  document.getElementById("guestBannerClose").addEventListener("click", () => {
+    banner.remove();
+    document.body.style.paddingBottom = "";
+  });
+}
 
 async function loadPerformanceAnalytics() {
   // Guest users — show placeholder stats with a subtle sign-in nudge
