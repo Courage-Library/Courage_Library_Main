@@ -638,6 +638,39 @@
       cursor: not-allowed;
     }
 
+    /* ── View Result button — secondary action below Completed ── */
+    .btn-view-result {
+      width: 100%;
+      height: 40px;
+      border-radius: 12px;
+      border: 1.5px solid #bfdbfe;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-family: 'Nunito', sans-serif;
+      font-size: .85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all .18s;
+      text-decoration: none;
+      letter-spacing: .01em;
+    }
+
+    .btn-view-result:hover {
+      background: #dbeafe;
+      border-color: #93c5fd;
+      box-shadow: 0 3px 12px rgba(26, 86, 219, .18);
+      transform: translateY(-1px);
+      color: #1e40af;
+    }
+
+    .btn-view-result:active {
+      transform: scale(.98);
+    }
+
     /* ── SECTION HEADER ── */
     .sec-row {
       display: flex;
@@ -1248,6 +1281,18 @@
     @media (min-width: 768px) { #desktopNav { display: flex !important; } }
     #mobileNavSheet a:hover, #mobileNavSheet button:hover { background:#f8faff !important; }
   </style>
+<!-- z-index-fix -->  <style>
+    /* ── Z-index hierarchy fix ── */
+    /* Guest banner must sit below sticky nav to avoid overlap on iOS Safari */
+    .guest-banner, #guestBanner, [data-guest-banner] {
+      z-index: 40 !important;
+      position: sticky !important;
+    }
+    /* Sticky nav always on top */
+    nav, header, .nav-bar, #mainNav {
+      z-index: 100 !important;
+    }
+  </style>
 </head>
 
 <body class="min-h-screen flex flex-col text-gray-900 overflow-x-hidden">
@@ -1465,34 +1510,97 @@
         </a>
         <span id="navLevelBadge" style="display:none"></span>
         <!-- 🔔 Notification Bell -->
-        <div class="relative">
-          <button id="notificationBell" class="relative text-blue-600 hover:text-blue-800 text-lg">
-
+        <div class="relative" id="notifWrapper">
+          <button id="notificationBell" style="
+            position:relative;
+            width:38px;height:38px;
+            display:flex;align-items:center;justify-content:center;
+            border-radius:10px;border:none;
+            background:rgba(219,234,254,0.5);
+            color:#1d4ed8;font-size:1rem;
+            cursor:pointer;
+            transition:background .18s,box-shadow .18s;
+          "
+          onmouseenter="this.style.background='rgba(219,234,254,0.9)';this.style.boxShadow='0 0 0 4px rgba(59,130,246,0.12)'"
+          onmouseleave="this.style.background='rgba(219,234,254,0.5)';this.style.boxShadow='none'">
             <i class="fas fa-bell"></i>
-
-            <!-- Badge -->
-            <span id="notificationCount"
-              class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-[10px] px-1.5 py-[1px] rounded-full">
-              0
-            </span>
+            <!-- Badge — perfect circle -->
+            <span id="notificationCount" style="
+              display:none;
+              position:absolute;
+              top:-5px;right:-5px;
+              width:18px;height:18px;
+              background:#ef4444;
+              color:#fff;
+              font-size:9px;font-weight:800;
+              border-radius:50%;
+              border:2px solid #fff;
+              box-shadow:0 1px 4px rgba(239,68,68,.4);
+              align-items:center;justify-content:center;
+              line-height:1;
+            ">0</span>
           </button>
 
           <!-- Dropdown -->
-          <div id="notificationDropdown"
-            class="hidden absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-lg border z-50">
-
-            <div class="flex justify-between items-center p-3 border-b">
-              <span class="text-sm font-semibold">Notifications</span>
-              <button id="markAllReadBtn" class="text-xs text-blue-600 hover:underline">
-                Mark all read
+          <div id="notificationDropdown" style="
+            display:none;
+            position:absolute;right:0;top:calc(100% + 10px);
+            width:340px;
+            background:#fff;
+            border-radius:18px;
+            box-shadow:0 20px 60px rgba(15,23,42,.18),0 2px 8px rgba(15,23,42,.08);
+            border:1px solid rgba(226,232,240,0.8);
+            z-index:9999;
+            overflow:hidden;
+            transform-origin:top right;
+          ">
+            <!-- Header -->
+            <div style="
+              padding:14px 16px 12px;
+              background:linear-gradient(135deg,#1a56db,#2563eb);
+              display:flex;align-items:center;justify-content:space-between;
+            ">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff">
+                  <i class="fas fa-bell"></i>
+                </div>
+                <span style="font-family:'Sora',sans-serif;font-size:.88rem;font-weight:700;color:#fff">Notifications</span>
+                <span id="notifHeaderCount" style="display:none;background:rgba(255,255,255,.22);color:#fff;font-size:.65rem;font-weight:800;border-radius:100px;padding:2px 8px"></span>
+              </div>
+              <button id="markAllReadBtn" style="
+                font-size:.68rem;font-weight:700;color:rgba(255,255,255,.8);
+                background:rgba(255,255,255,.15);border:none;
+                border-radius:100px;padding:4px 10px;cursor:pointer;
+                transition:background .15s,color .15s;
+              "
+              onmouseenter="this.style.background='rgba(255,255,255,.28)';this.style.color='#fff'"
+              onmouseleave="this.style.background='rgba(255,255,255,.15)';this.style.color='rgba(255,255,255,.8)'">
+                ✓ Mark all read
               </button>
             </div>
 
-            <div id="notificationList" class="max-h-80 overflow-y-auto">
-              <p class="p-3 text-sm text-gray-500">Loading...</p>
+            <div id="notificationList" style="max-height:340px;overflow-y:auto;scroll-behavior:smooth">
+              <div style="padding:32px 16px;text-align:center">
+                <div style="font-size:1.4rem;margin-bottom:6px;opacity:.4">🔔</div>
+                <div style="font-size:.75rem;color:#94a3b8;font-weight:500">Loading…</div>
+              </div>
+            </div>
+
+            <div style="padding:10px 14px;border-top:1px solid #f1f5f9;background:#f8faff;text-align:center">
+              <span style="font-size:.68rem;color:#94a3b8;font-weight:600">Showing last 10 notifications</span>
             </div>
           </div>
         </div>
+
+        <style>
+          @keyframes notifDrop {
+            from { opacity:0; transform:scale(.92) translateY(-6px); }
+            to   { opacity:1; transform:scale(1)  translateY(0); }
+          }
+          #notificationList::-webkit-scrollbar { width:4px; }
+          #notificationList::-webkit-scrollbar-track { background:transparent; }
+          #notificationList::-webkit-scrollbar-thumb { background:#e2e8f0; border-radius:99px; }
+        </style>
         <a href="../index.html"
           class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-5 py-2 rounded-full shadow hover:scale-110 transform transition ripple">Home</a>
       </div>
@@ -1537,7 +1645,7 @@
           <button onclick="closeMobileMenu();openMobileNotifications();"
             style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:transparent;border:none;color:#1e40af;font-weight:600;font-size:.88rem;width:100%;text-align:left;cursor:pointer;position:relative;">
             <i class="fas fa-bell" style="color:#1d4ed8;width:16px;text-align:center"></i> Notifications
-            <span id="notificationCountMobile" style="display:none;position:absolute;left:22px;top:6px;background:#ef4444;color:#fff;font-size:9px;font-weight:800;border-radius:99px;padding:1px 5px;min-width:16px;text-align:center">0</span>
+            <span id="notificationCountMobile" style="display:none;position:absolute;left:20px;top:4px;background:#ef4444;color:#fff;font-size:9px;font-weight:800;border-radius:50%;width:16px;height:16px;text-align:center;line-height:16px;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(239,68,68,.4)">0</span>
           </button>
           <a href="../index.html#contact" onclick="closeMobileMenu()"
             style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:#1e40af;font-weight:600;font-size:.88rem;">
@@ -1890,20 +1998,75 @@
   </div>
 
   <!-- 📱 Mobile Notification Panel -->
-  <div id="mobileNotificationPanel" class="hidden fixed inset-0 bg-black/40 z-50">
+  <!-- ════ MOBILE NOTIFICATION BOTTOM SHEET ════ -->
+  <div id="mobileNotificationPanel" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(15,23,42,.5);backdrop-filter:blur(4px);"
+       onclick="if(event.target===this)closeMobileNotifications()">
 
-    <div id="mobileSheet"
-      class="absolute bottom-0 w-full bg-white rounded-t-2xl p-4 transform translate-y-full transition">
-
-      <div class="flex justify-between items-center mb-3">
-        <h3 class="font-semibold">Notifications</h3>
-        <button onclick="closeMobileNotifications()">✕</button>
+    <div id="mobileSheet" style="
+      position:absolute;bottom:0;left:0;right:0;
+      background:#fff;
+      border-radius:22px 22px 0 0;
+      box-shadow:0 -8px 40px rgba(15,23,42,.2);
+      transform:translateY(100%);
+      transition:transform .28s cubic-bezier(.32,1,.6,1);
+      display:flex;flex-direction:column;
+      max-height:82vh;
+      overflow:hidden;
+    ">
+      <!-- Drag handle -->
+      <div style="display:flex;justify-content:center;padding:10px 0 0">
+        <div style="width:36px;height:4px;border-radius:99px;background:#e2e8f0"></div>
       </div>
 
-      <div id="notificationListMobile" class="max-h-[60vh] overflow-y-auto">
+      <!-- Header -->
+      <div style="
+        padding:14px 18px 12px;
+        background:linear-gradient(135deg,#1a56db,#2563eb);
+        margin:10px 12px 0;
+        border-radius:14px;
+        display:flex;align-items:center;justify-content:space-between;
+        flex-shrink:0;
+      ">
+        <div style="display:flex;align-items:center;gap:9px">
+          <div style="width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div>
+            <div style="font-family:'Sora',sans-serif;font-size:.88rem;font-weight:700;color:#fff">Notifications</div>
+            <div id="mobileNotifSubtitle" style="font-size:.62rem;color:rgba(255,255,255,.7);font-weight:600;margin-top:1px"></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button onclick="markAllRead();loadNotificationsMobile();" style="
+            font-size:.68rem;font-weight:700;color:rgba(255,255,255,.85);
+            background:rgba(255,255,255,.18);border:none;
+            border-radius:100px;padding:5px 11px;cursor:pointer;
+          ">✓ Mark all read</button>
+          <button onclick="closeMobileNotifications()" style="
+            width:28px;height:28px;border-radius:8px;
+            background:rgba(255,255,255,.15);border:none;
+            color:#fff;cursor:pointer;font-size:.8rem;
+            display:flex;align-items:center;justify-content:center;
+          ">✕</button>
+        </div>
+      </div>
+
+      <!-- List -->
+      <div id="notificationListMobile" style="
+        overflow-y:auto;
+        flex:1;
+        padding:8px 12px 24px;
+        -webkit-overflow-scrolling:touch;
+      ">
+        <!-- populated by JS -->
       </div>
     </div>
   </div>
+
+  <style>
+    #notificationListMobile::-webkit-scrollbar { width:3px; }
+    #notificationListMobile::-webkit-scrollbar-thumb { background:#e2e8f0;border-radius:99px; }
+  </style>
 
   <script>
     function copyReferralCode() {
@@ -2102,7 +2265,7 @@ document.addEventListener("cl:authReady", (e) => {
   if (e.detail && e.detail.user) return; // logged-in, nothing to do
   const banner = document.createElement("div");
   banner.id = "guestBanner";
-  banner.style = "background:linear-gradient(135deg,#1e3a8a,#1a56db);padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(26,86,219,.3);";
+  banner.style = "background:linear-gradient(135deg,#1e3a8a,#1a56db);padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(26,86,219,.3);";
   banner.innerHTML = `
     <span style="font-size:.82rem;color:#bfdbfe;font-weight:600"><i class="fas fa-eye" style="margin-right:6px"></i>You're browsing as a guest — <strong style="color:#fff">sign up free</strong> to attempt tests & track progress</span>
     <div style="display:flex;gap:8px;flex-shrink:0">

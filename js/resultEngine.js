@@ -36,6 +36,33 @@ window.addEventListener("popstate", () => {
 let attemptId;
 let allReviewItems = [];
 
+// ── Loading Overlay ───────────────────────────────────────────────────────────
+function rlStep(n) {
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById("rlStep" + i);
+    if (!el) continue;
+    if (i < n) {
+      // Save text content before overwriting innerHTML
+      const label = el.textContent.trim();
+      el.className = "rl-step done";
+      el.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0"><circle cx="6" cy="6" r="6" fill="#86efac" opacity=".25"/><path d="M3.5 6l1.8 1.8 3-3.6" stroke="#86efac" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${label}`;
+    } else if (i === n) {
+      el.className = "rl-step active";
+    } else {
+      el.className = "rl-step";
+    }
+  }
+}
+
+function rlDismiss() {
+  const overlay = document.getElementById("resultLoadingOverlay");
+  if (!overlay) return;
+  overlay.style.transition = "opacity .5s ease";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  setTimeout(() => overlay.remove(), 520);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   attemptId = params.get("attempt");
@@ -79,11 +106,22 @@ function showRewardUnlockPopup(title, message) {
 }
 
 async function calculateResult() {
+  // ── Auth + ownership guard — mirror examEngine.js ──────────────────────────
+  const { data: { user } } = await client.auth.getUser();
+  if (!user) {
+    rlDismiss();
+    showFatalError("Please log in to view your result.");
+    setTimeout(() => { window.location.href = "/index.html?action=login"; }, 2000);
+    return;
+  }
+
+  // Fetch attempt first to decide if overlay should show
   const { data: attempt, error: attemptErr } = await client
     .from("attempts")
     .select(
       `
       id,
+      user_id,
       started_at,
       submitted_at,
       total_score,
@@ -102,7 +140,16 @@ async function calculateResult() {
     .single();
 
   if (attemptErr || !attempt) {
+    rlDismiss();
     showFatalError("Could not load attempt. Please try again.");
+    return;
+  }
+
+  // Ownership check — prevent viewing another student's result
+  if (attempt.user_id !== user.id) {
+    rlDismiss();
+    showFatalError("Access denied. This result belongs to another account.");
+    setTimeout(() => { window.location.href = "/mock/dashboard.html"; }, 2500);
     return;
   }
 
@@ -110,6 +157,12 @@ async function calculateResult() {
   if (!attempt.submitted_at) {
     window.location.href = `/mock/exam.html?attempt=${attemptId}`;
     return;
+  }
+
+  // Revisit (coins already given) — skip "Calculating" overlay entirely
+  const isFirstVisit = !attempt.coins_given;
+  if (!isFirstVisit) {
+    rlDismiss();
   }
 
   const negative =
@@ -127,6 +180,8 @@ async function calculateResult() {
             1000,
         )
       : null;
+
+  if (isFirstVisit) rlStep(2); // Step 2: Scoring
 
   const { data: answers } = await client
     .from("answers")
@@ -169,26 +224,18 @@ async function calculateResult() {
   const accuracy =
     totalAttempted === 0 ? 0 : +((correct / totalAttempted) * 100).toFixed(2);
 
-  // FIX #3: Use coins_given (the authoritative flag set by Edge Function) as the
-  // source of truth for "first visit", NOT total_score which can be null for
-  // other reasons (e.g. exam engine already wrote time_taken but not score yet).
-  // We also keep total_score == null as a fallback for backwards compatibility.
-  const isFirstVisit = attempt.total_score == null || attempt.coins_given === false;
-
   if (attempt.total_score == null) {
-    // Only write score/accuracy on first visit to avoid overwriting
     await client
       .from("attempts")
       .update({ total_score: score, accuracy, time_taken: timeTaken })
       .eq("id", attemptId);
   }
 
-  // FIX #3: Only call giveCoins when coins have NOT been given yet.
-  // The Edge Function has its own guard too, but we avoid the round-trip on refresh.
+  if (isFirstVisit) rlStep(3); // Step 3: Coins & rank
+
   if (!attempt.coins_given) {
     await giveCoins(attemptId);
   } else {
-    // On refresh: coins already given — still render the level pill quietly
     try {
       const { data: { session } } = await client.auth.getSession();
       if (session) {
@@ -202,6 +249,9 @@ async function calculateResult() {
       }
     } catch (_) {}
   }
+
+  // Dismiss overlay (only relevant on first visit; revisit already dismissed above)
+  if (isFirstVisit) rlDismiss();
 
   displayResult({
     score,

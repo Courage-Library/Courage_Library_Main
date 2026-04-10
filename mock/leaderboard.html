@@ -109,23 +109,43 @@
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
 
   .lb-hero {
-    background: linear-gradient(135deg, #1E40AF 0%, #2563EB 55%, #4338CA 100%);
+    background: linear-gradient(135deg, #1a56db 0%, #1e3a8a 60%, #1a1d6e 100%);
+    padding: 52px 24px 60px;
     position: relative;
     overflow: hidden;
+    /* Hard straight bottom — no curve, no wave */
   }
+  /* Large decorative circle — top-right, matches dashboard */
   .lb-hero::before {
     content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 55% 45% at 85% 15%, rgba(99,102,241,.1) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 55% at 10% 85%, rgba(37,99,235,.08) 0%, transparent 65%);
+    position: absolute;
+    width: 420px; height: 420px;
+    background: rgba(255,255,255,.06);
+    border-radius: 50%;
+    right: -110px; top: -110px;
     pointer-events: none;
   }
+  /* Small circle — bottom-left, matches dashboard */
   .lb-hero::after {
     content: '';
-    position: absolute; bottom: -1px; left: 0; right: 0; height: 56px;
-    background: #F4F6FB;
-    clip-path: ellipse(55% 100% at 50% 100%);
+    position: absolute;
+    width: 260px; height: 260px;
+    background: rgba(96,165,250,.08);
+    border-radius: 50%;
+    left: -70px; bottom: -100px;
+    pointer-events: none;
+  }
+  /* Subtle dot-grid overlay for depth */
+  .lb-hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  /* Bottom border line — clean separator instead of wave */
+  .lb-hero-divider {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(99,165,250,.35) 30%, rgba(99,165,250,.35) 70%, transparent);
+    pointer-events: none;
   }
 
   /* PODIUM */
@@ -275,7 +295,7 @@
   /* SKELETON */
   .lb-skeleton {
     background:linear-gradient(90deg,#E2E8F0 25%,#F1F5F9 50%,#E2E8F0 75%);
-    background-size:200% 100%; animation:lb-shimmer 1.4s infinite; border-radius:10px;
+    background-size:300% 100%; animation:lb-shimmer 1.6s infinite; border-radius:10px;
   }
   @keyframes lb-shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
@@ -309,6 +329,11 @@
     opacity:0; pointer-events:none; transform:translateY(8px); transition:all .3s;
   }
   #lb-toast.show { opacity:1; transform:translateY(0); pointer-events:auto; }
+
+  @keyframes livepulse {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.5;transform:scale(.8)}
+  }
 
   /* stagger */
   .lb-row:nth-child(1){animation-delay:.04s}.lb-row:nth-child(2){animation-delay:.08s}
@@ -502,39 +527,74 @@
 <div class="flex-grow" style="background:#F4F6FB;">
 
   <!-- HERO BANNER -->
-  <div class="lb-hero px-4 pt-14 pb-24">
+  <div class="lb-hero">
+    <div class="lb-hero-grid"></div>
+    <div class="lb-hero-divider"></div>
+
     <div class="relative z-10 max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur px-4 py-1.5 rounded-full text-sm mb-5 border border-white/25 text-white font-semibold">
-        <i class="fas fa-trophy text-yellow-400"></i>
-        <span>Live Results</span>
+
+      <!-- eyebrow pill -->
+      <div class="inline-flex items-center gap-2 mb-5"
+           style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+                  color:#bfdbfe;font-size:.7rem;font-weight:700;letter-spacing:.1em;
+                  text-transform:uppercase;padding:5px 16px;border-radius:100px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#34d399;display:inline-block;
+                     animation:livepulse 1.8s ease-in-out infinite;flex-shrink:0;"></span>
+        <i class="fas fa-trophy" style="color:#fbbf24;font-size:.8rem;"></i>
+        Live Rankings
       </div>
-      <h1 style="font-family:'Syne',sans-serif;" class="text-4xl md:text-5xl font-extrabold mb-2 tracking-tight text-white">
+
+      <h1 style="font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;
+                 color:#fff;line-height:1.15;letter-spacing:-.01em;margin-bottom:10px;">
         Exam Leaderboard
       </h1>
-      <p class="text-blue-200 text-base" id="lb-subtitle">Loading…</p>
 
-      <!-- quick stats -->
-      <div class="mt-8 flex justify-center gap-8">
-        <div class="text-center">
-          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold text-white" id="lb-stat-total">—</div>
-          <div class="text-xs text-blue-200 mt-1">Participants</div>
+      <!-- subtitle — plain text only, no pill/box, shimmer while loading -->
+      <div style="min-height:22px;margin-bottom:0;">
+        <span id="lb-subtitle-skeleton"
+              style="display:inline-block;width:260px;height:14px;border-radius:6px;
+                     background:linear-gradient(90deg,rgba(255,255,255,.1) 25%,rgba(255,255,255,.2) 50%,rgba(255,255,255,.1) 75%);
+                     background-size:300% 100%;animation:lb-shimmer 1.6s infinite;vertical-align:middle;"></span>
+        <span id="lb-subtitle" style="display:none;color:rgba(147,197,253,.85);font-size:.88rem;line-height:1.5;"></span>
+      </div>
+
+      <!-- slim divider -->
+      <div style="width:44px;height:2px;background:rgba(255,255,255,.18);margin:20px auto 20px;border-radius:2px;"></div>
+
+      <!-- stats row — equal thirds, tighter separators -->
+      <div style="display:flex;justify-content:center;align-items:center;max-width:360px;margin:0 auto;">
+        <div style="flex:1;text-align:center;">
+          <div id="lb-stat-total" style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#fff;line-height:1;">
+            <span class="lb-stat-skel" style="display:inline-block;width:44px;height:30px;border-radius:6px;
+                  background:linear-gradient(90deg,rgba(255,255,255,.12) 25%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.12) 75%);
+                  background-size:300% 100%;animation:lb-shimmer 1.6s infinite;vertical-align:middle;"></span>
+          </div>
+          <div style="font-size:.68rem;color:rgba(147,197,253,.75);margin-top:5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Participants</div>
         </div>
-        <div class="w-px bg-white/25"></div>
-        <div class="text-center">
-          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold text-white" id="lb-stat-avg">—</div>
-          <div class="text-xs text-blue-200 mt-1">Avg Score</div>
+        <div style="width:1px;height:34px;background:rgba(255,255,255,.16);flex-shrink:0;"></div>
+        <div style="flex:1;text-align:center;">
+          <div id="lb-stat-avg" style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#fff;line-height:1;">
+            <span class="lb-stat-skel" style="display:inline-block;width:44px;height:30px;border-radius:6px;
+                  background:linear-gradient(90deg,rgba(255,255,255,.12) 25%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.12) 75%);
+                  background-size:300% 100%;animation:lb-shimmer 1.6s infinite;vertical-align:middle;"></span>
+          </div>
+          <div style="font-size:.68rem;color:rgba(147,197,253,.75);margin-top:5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Avg Score</div>
         </div>
-        <div class="w-px bg-white/25"></div>
-        <div class="text-center">
-          <div style="font-family:'Syne',sans-serif;" class="text-3xl font-extrabold text-white" id="lb-stat-top">—</div>
-          <div class="text-xs text-blue-200 mt-1">Top Score</div>
+        <div style="width:1px;height:34px;background:rgba(255,255,255,.16);flex-shrink:0;"></div>
+        <div style="flex:1;text-align:center;">
+          <div id="lb-stat-top" style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#fff;line-height:1;">
+            <span class="lb-stat-skel" style="display:inline-block;width:44px;height:30px;border-radius:6px;
+                  background:linear-gradient(90deg,rgba(255,255,255,.12) 25%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.12) 75%);
+                  background-size:300% 100%;animation:lb-shimmer 1.6s infinite;vertical-align:middle;"></span>
+          </div>
+          <div style="font-size:.68rem;color:rgba(147,197,253,.75);margin-top:5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Top Score</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- MAIN CONTENT -->
-  <div class="max-w-3xl mx-auto w-full px-4 -mt-6 pb-20 relative z-10">
+  <div class="max-w-3xl mx-auto w-full px-4 pt-8 pb-20 relative z-10">
 
     <!-- YOUR RANK CARD -->
     <div class="lb-your-card mb-8 shadow-2xl" id="lb-your-card" style="display:none">
@@ -635,6 +695,34 @@
     const el = document.getElementById("navResultLink");
     if (a && el) el.href = "/mock/result.html?attempt=" + a;
   })();
+
+  // Intercept stat/subtitle DOM mutations to remove skeletons cleanly
+  (function() {
+    const revealStat = (el) => {
+      if (!el) return;
+      const skel = el.querySelector('.lb-stat-skel');
+      if (skel) skel.remove();
+    };
+
+    const obs = new MutationObserver(() => {
+      // Stats
+      ['lb-stat-total','lb-stat-avg','lb-stat-top'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.querySelector('.lb-stat-skel') && el.textContent.replace(/\s/g,'') !== '') {
+          revealStat(el);
+        }
+      });
+      // Subtitle
+      const subText = document.getElementById('lb-subtitle');
+      const subSkel = document.getElementById('lb-subtitle-skeleton');
+      if (subText && subSkel && subText.textContent.trim()) {
+        subSkel.style.display = 'none';
+        subText.style.display = '';
+      }
+    });
+    obs.observe(document.body, { subtree: true, childList: true, characterData: true });
+  })();
+
   // Error fallback: if skeleton still visible after 10s show error
   setTimeout(function() {
     const sk = document.getElementById("lb-skeleton");
@@ -642,6 +730,10 @@
     if (sk && sk.style.display !== "none" && list && list.innerHTML.trim() === "") {
       sk.innerHTML = '<div style="text-align:center;padding:40px 20px;color:#64748b"><i class="fas fa-exclamation-circle" style="font-size:2rem;color:#dc2626;display:block;margin-bottom:12px"></i><p style="font-weight:700;margin-bottom:6px">Could not load leaderboard</p><p style="font-size:.85rem">Check your connection and try refreshing.</p></div>';
     }
+    // Also clear any remaining hero skeletons
+    document.querySelectorAll('.lb-stat-skel').forEach(el => { el.closest('[id]').textContent = '—'; });
+    const subSkel = document.getElementById('lb-subtitle-skeleton');
+    if (subSkel) { subSkel.style.display = 'none'; document.getElementById('lb-subtitle').style.display = ''; }
   }, 10000);
 </script>
 

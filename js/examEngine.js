@@ -142,6 +142,21 @@ async function loadExam() {
 }
 
 async function loadQuestionsAndStart() {
+  // Show skeleton loader while questions load
+  const container = document.getElementById("questionContainer");
+  if (container) {
+    container.innerHTML = `
+      <div id="questionSkeleton" style="animation:pulse 1.5s ease-in-out infinite">
+        <div style="height:12px;background:#e2e8f0;border-radius:6px;width:30%;margin-bottom:16px"></div>
+        <div style="height:18px;background:#e2e8f0;border-radius:6px;width:90%;margin-bottom:8px"></div>
+        <div style="height:18px;background:#e2e8f0;border-radius:6px;width:75%;margin-bottom:24px"></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${[...Array(4)].map((_,i) => `<div style="height:52px;background:#e2e8f0;border-radius:12px"></div>`).join('')}
+        </div>
+      </div>
+      <style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}</style>
+    `;
+  }
   await loadQuestions();
   showQuestion(0);
   setTimeout(() => { startTimer(); }, 100);
@@ -245,7 +260,7 @@ function showQuestion(index) {
   // ── Question image ──
   const questionImageHtml = q.question_image
     ? `<div class="my-4 flex justify-center">
-        <img src="${q.question_image}" alt="Question figure"
+        <img src="${q.question_image}" alt="Question ${index + 1} figure"
              class="max-w-full max-h-64 rounded-xl border border-gray-200 shadow-sm object-contain cursor-zoom-in"
              onclick="openImageZoom('${q.question_image}')" />
         <p class="text-xs text-gray-400 text-center mt-1">Click image to enlarge</p>
@@ -261,7 +276,7 @@ function showQuestion(index) {
     if (optionsType === "image") {
       optionContent = `
         <div class="flex-1 flex items-center justify-center py-1">
-          <img src="${value}" alt="Option ${key}"
+          <img src="${value}" alt="Option ${key} figure for Question ${index + 1}"
                class="max-h-20 max-w-full rounded-lg object-contain cursor-zoom-in"
                onclick="openImageZoom('${value}')" />
         </div>`;
@@ -329,16 +344,100 @@ function debounce(fn, delay) {
   };
 }
 
+// ── Offline Queue Helpers ─────────────────────────────────────────────────────
+// Every answer is stored in localStorage under a key specific to this attempt.
+// If Supabase save fails (offline), the answer stays in the queue.
+// When internet returns, the queue is flushed automatically.
+
+function _offlineQueueKey() {
+  return `cl_answer_queue_${attemptId}`;
+}
+
+function _addToOfflineQueue(questionId, selected) {
+  try {
+    const raw = localStorage.getItem(_offlineQueueKey());
+    const queue = raw ? JSON.parse(raw) : {};
+    queue[questionId] = selected;
+    localStorage.setItem(_offlineQueueKey(), JSON.stringify(queue));
+  } catch (e) {
+    // localStorage full or unavailable — silently ignore, memory still has it
+  }
+}
+
+function _removeFromOfflineQueue(questionId) {
+  try {
+    const raw = localStorage.getItem(_offlineQueueKey());
+    if (!raw) return;
+    const queue = JSON.parse(raw);
+    delete queue[questionId];
+    if (Object.keys(queue).length === 0) {
+      localStorage.removeItem(_offlineQueueKey());
+    } else {
+      localStorage.setItem(_offlineQueueKey(), JSON.stringify(queue));
+    }
+  } catch (e) {}
+}
+
+function _getOfflineQueue() {
+  try {
+    const raw = localStorage.getItem(_offlineQueueKey());
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function _clearOfflineQueue() {
+  try {
+    localStorage.removeItem(_offlineQueueKey());
+  } catch (e) {}
+}
+
+// Flush all pending offline answers to Supabase
+// Called when internet comes back OR before submit
+async function flushOfflineQueue() {
+  const queue = _getOfflineQueue();
+  const entries = Object.entries(queue);
+  if (entries.length === 0) return;
+
+  const rows = entries.map(([questionId, selected]) => ({
+    attempt_id: attemptId,
+    question_id: questionId,
+    selected_option: selected,
+  }));
+
+  try {
+    const { error } = await client.from("answers").upsert(rows, {
+      onConflict: ["attempt_id", "question_id"],
+    });
+    if (error) throw error;
+    _clearOfflineQueue();
+    // Sync savedAnswers in memory too (already there, but just in case)
+    entries.forEach(([qId, sel]) => { savedAnswers[qId] = sel; });
+    showSavedToast();
+  } catch (err) {
+    // Still offline — queue stays, will retry next time
+  }
+}
+
+// ── Answer Save (online-first, queue fallback) ────────────────────────────────
 const debouncedUpsertAnswer = debounce(async (attemptId, questionId, selected) => {
+  // Always write to offline queue first as safety net
+  _addToOfflineQueue(questionId, selected);
+
   try {
     const { error } = await client.from("answers").upsert(
       [{ attempt_id: attemptId, question_id: questionId, selected_option: selected }],
       { onConflict: ["attempt_id", "question_id"] }
     );
     if (error) throw error;
+    // Success — remove from pending queue
+    _removeFromOfflineQueue(questionId);
     showSavedToast();
   } catch (err) {
-    showAlert("Answer not saved — check your internet connection.", "error");
+    // Failed (offline) — answer already in queue, will sync when internet returns
+    // Show a subtle indicator instead of a loud error alert
+    _showOfflineBadge();
   }
 }, 300);
 
@@ -372,18 +471,80 @@ window.saveAnswer = async function (questionId, selected) {
   updatePalette();
 };
 
+// ── Offline / Online badge UI ─────────────────────────────────────────────────
+let _offlineBadgeTimer;
+function _showOfflineBadge() {
+  let badge = document.getElementById("_offlineBadge");
+  if (!badge) {
+    badge = document.createElement("div");
+    badge.id = "_offlineBadge";
+    badge.style.cssText = `
+      position:fixed;bottom:70px;left:50%;transform:translateX(-50%);
+      z-index:9990;background:#1e293b;color:#f8fafc;
+      font-size:.75rem;font-weight:700;font-family:inherit;
+      padding:7px 14px;border-radius:20px;
+      display:flex;align-items:center;gap:6px;
+      box-shadow:0 4px 16px rgba(0,0,0,.25);
+      pointer-events:none;
+    `;
+    badge.innerHTML = `
+      <span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;flex-shrink:0"></span>
+      Offline — answers saved locally
+    `;
+    document.body.appendChild(badge);
+  }
+  clearTimeout(_offlineBadgeTimer);
+  _offlineBadgeTimer = setTimeout(() => badge?.remove(), 4000);
+}
+
+function _hideOfflineBadge() {
+  document.getElementById("_offlineBadge")?.remove();
+}
+
+// ── Online event — flush queue when internet returns ─────────────────────────
+window.addEventListener("online", async () => {
+  _hideOfflineBadge();
+  const queue = _getOfflineQueue();
+  const pendingCount = Object.keys(queue).length;
+  if (pendingCount > 0) {
+    showAlert(`Back online — syncing ${pendingCount} saved answer${pendingCount > 1 ? "s" : ""}…`, "warning");
+    await flushOfflineQueue();
+    showAlert("All answers synced successfully!", "success");
+    updatePalette();
+  }
+});
+
 function startTimer() {
   const timerEl = document.getElementById("timer");
+  let beepedAt5  = false;
+  let beepedAt1  = false;
   timerInterval = setInterval(() => {
     durationSeconds--;
     const minutes = Math.floor(durationSeconds / 60);
     const seconds = durationSeconds % 60;
     timerEl.innerText = `${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
+
+    // Audio beep at 5 minutes remaining
+    if (durationSeconds === 300 && !beepedAt5) {
+      beepedAt5 = true;
+      try { CL_AUDIO.beep(0.3); } catch(e) { CL_AUDIO.clink(); }
+      showAlert("5 minutes remaining!", "warning");
+    }
+    // Audio beep at 1 minute remaining — muted flag already present
+    if (durationSeconds === 60 && !beepedAt1) {
+      beepedAt1 = true;
+      try { CL_AUDIO.beep(0.5); } catch(e) { CL_AUDIO.clink(); }
+      showAlert("1 minute remaining — wrap up!", "warning");
+    }
+
     if (durationSeconds <= 0) { clearInterval(timerInterval); submitExam(); }
   }, 1000);
 }
 
 document.getElementById("submitExamBtn").addEventListener("click", () => {
+  // Disable button immediately to prevent double-fire
+  document.getElementById("submitExamBtn").disabled = true;
+  setTimeout(() => { document.getElementById("submitExamBtn").disabled = false; }, 3000);
   const total = questions.length;
   const answered = Object.keys(savedAnswers).length;
   const marked = Object.keys(markedQuestions).filter(k => markedQuestions[k]).length;
@@ -487,6 +648,47 @@ document.addEventListener("keydown", function(e) {
       (e.ctrlKey && e.shiftKey && e.key === "I")) {
     e.preventDefault();
   }
+
+  // Keyboard shortcuts — only when exam has started and no modal is open
+  if (!examStarted || document.getElementById("submitModal")?.classList.contains("flex")) return;
+
+  // Don't fire if user is typing in an input/textarea
+  if (["INPUT","TEXTAREA","SELECT"].includes(document.activeElement?.tagName)) return;
+
+  const optionKeys = ["A","B","C","D"];
+  const q = questions[currentIndex];
+  if (!q) return;
+
+  // 1-4 / A-D → select option
+  if (!e.ctrlKey && !e.altKey) {
+    const numToOpt = {"1":"A","2":"B","3":"C","4":"D"};
+    const selected = numToOpt[e.key] || (optionKeys.includes(e.key.toUpperCase()) ? e.key.toUpperCase() : null);
+    if (selected && q.options?.[selected] !== undefined) {
+      saveAnswer(q.id, selected);
+      return;
+    }
+  }
+
+  // → or + → next question
+  if (e.key === "ArrowRight" || e.key === "+") {
+    if (currentIndex < questions.length - 1) showQuestion(currentIndex + 1);
+    return;
+  }
+  // ← or - → previous question
+  if (e.key === "ArrowLeft" || e.key === "-") {
+    if (currentIndex > 0) showQuestion(currentIndex - 1);
+    return;
+  }
+  // M → mark for review
+  if (e.key.toLowerCase() === "m") {
+    document.getElementById("markBtn")?.click();
+    return;
+  }
+  // C → clear response
+  if (e.key.toLowerCase() === "c") {
+    document.getElementById("clearBtn")?.click();
+    return;
+  }
 });
 
 window.openImageZoom = function(src) {
@@ -522,6 +724,7 @@ document.getElementById("clearBtn").addEventListener("click", async () => {
   const q = questions[currentIndex];
   if (!q || !savedAnswers[q.id]) return;
 
+  const prevAnswer = savedAnswers[q.id];
   delete savedAnswers[q.id];
 
   document.querySelectorAll("#questionContainer label").forEach((label) => {
@@ -535,16 +738,45 @@ document.getElementById("clearBtn").addEventListener("click", async () => {
     input.checked = false;
   });
 
-  try {
-    await client.from("answers").delete()
-      .eq("attempt_id", attemptId)
-      .eq("question_id", q.id);
-  } catch (err) {
-    showAlert("Could not clear answer — check your connection.", "error");
-  }
-
   updatePalette();
+
+  // 2-second undo toast
+  _showUndoClearToast(q.id, prevAnswer);
+
+  // Delayed DB delete — wait for potential undo
+  const deleteTimer = setTimeout(async () => {
+    try {
+      await client.from("answers").delete()
+        .eq("attempt_id", attemptId)
+        .eq("question_id", q.id);
+    } catch (err) {
+      showAlert("Could not clear answer — check your connection.", "error");
+      // Restore in memory
+      savedAnswers[q.id] = prevAnswer;
+      updatePalette();
+    }
+  }, 2200);
+
+  window._clearUndoTimer = deleteTimer;
+  window._clearUndoData  = { qId: q.id, answer: prevAnswer };
 });
+
+function _showUndoClearToast(qId, prevAnswer) {
+  document.getElementById("_undoClearToast")?.remove();
+  const t = document.createElement("div");
+  t.id = "_undoClearToast";
+  t.style.cssText = "position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9995;background:#1e293b;color:#fff;font-size:.78rem;font-weight:700;padding:9px 16px;border-radius:20px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap";
+  t.innerHTML = `Cleared — <button style="background:#3b82f6;border:none;color:#fff;padding:3px 10px;border-radius:10px;cursor:pointer;font-weight:800;font-size:.75rem" onclick="_undoClear('${qId}','${prevAnswer}')">Undo</button>`;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2200);
+}
+
+window._undoClear = function(qId, answer) {
+  clearTimeout(window._clearUndoTimer);
+  document.getElementById("_undoClearToast")?.remove();
+  // Restore answer
+  saveAnswer(qId, answer);
+};
 
 document.getElementById("markBtn").addEventListener("click", () => {
   const q = questions[currentIndex];
@@ -563,6 +795,9 @@ async function submitExam() {
 
   // Show a submitting overlay so the student knows something is happening
   _showSubmittingOverlay();
+
+  // Flush any offline-queued answers before marking as submitted
+  await flushOfflineQueue().catch(() => {});
 
   const now = new Date();
 
@@ -671,10 +906,23 @@ async function loadSavedAnswers() {
     .eq("attempt_id", attemptId);
 
   savedAnswers = {};
-  data.forEach((a) => {
+  (data || []).forEach((a) => {
     savedAnswers[a.question_id] = a.selected_option;
     visitedQuestions[a.question_id] = true;
   });
+
+  // Restore any answers that were saved locally but never reached Supabase
+  // (e.g. from a previous offline session on this attempt)
+  const queue = _getOfflineQueue();
+  const queueEntries = Object.entries(queue);
+  if (queueEntries.length > 0) {
+    queueEntries.forEach(([qId, sel]) => {
+      savedAnswers[qId] = sel;
+      visitedQuestions[qId] = true;
+    });
+    // Try to flush them now while we have connection
+    flushOfflineQueue().catch(() => {});
+  }
 }
 
 function updatePalette() {
@@ -708,6 +956,30 @@ function updatePalette() {
   document.getElementById("statAnswered").innerText  = answered;
   document.getElementById("statMarked").innerText    = marked;
   document.getElementById("statRemaining").innerText = questions.length - answered;
+
+  // "Jump to question" input — only shows on small screens when > 60 questions
+  const existingJump = document.getElementById("jumpToQInput");
+  if (questions.length > 60) {
+    if (!existingJump) {
+      const jumpWrap = document.createElement("div");
+      jumpWrap.id = "jumpToQWrap";
+      jumpWrap.style.cssText = "display:flex;align-items:center;gap:8px;margin-top:8px;";
+      jumpWrap.innerHTML = `
+        <label style="font-size:.72rem;color:#64748b;font-weight:600;white-space:nowrap">Jump to Q:</label>
+        <input id="jumpToQInput" type="number" min="1" max="${questions.length}"
+          placeholder="1-${questions.length}"
+          style="width:80px;padding:5px 8px;border:1.5px solid #e2e8f4;border-radius:8px;font-size:.8rem;outline:none"
+          onkeydown="if(event.key==='Enter'){const v=parseInt(this.value);if(v>=1&&v<=${questions.length})showQuestion(v-1);}"
+        >
+        <button onclick="const v=parseInt(document.getElementById('jumpToQInput').value);if(v>=1&&v<=${questions.length})showQuestion(v-1);"
+          style="padding:5px 10px;background:#1a56db;color:#fff;border:none;border-radius:8px;font-size:.75rem;font-weight:700;cursor:pointer">Go</button>
+      `;
+      const nav = document.getElementById("questionNav");
+      if (nav && nav.parentNode) nav.parentNode.insertBefore(jumpWrap, nav);
+    }
+  } else if (existingJump) {
+    document.getElementById("jumpToQWrap")?.remove();
+  }
 
   const q       = questions[currentIndex];
   const markBtn  = document.getElementById("markBtn");
@@ -815,11 +1087,54 @@ setInterval(() => {
   if (widthDiff > 220 || heightDiff > 220) showAlert("Developer tools detected.", "warning");
 }, 3000);
 
-window.addEventListener("offline", () => { showAlert("Internet connection lost.", "warning"); });
+window.addEventListener("offline", () => { showAlert("Internet lost — your answers are being saved locally.", "warning"); });
 
 document.addEventListener("visibilitychange", () => {
   document.body.style.filter = document.hidden ? "blur(20px)" : "none";
 });
+
+// ── Local audio shim for exam page (beep at timer milestones) ────────────────
+const CL_AUDIO = window.CL_AUDIO || {
+  muted: sessionStorage.getItem("cl-mute") === "1",
+  ctx: null,
+  _ensure() {
+    if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (this.ctx.state === "suspended") this.ctx.resume();
+  },
+  clink(vol = 0.25) {
+    if (this.muted) return;
+    try {
+      this._ensure();
+      const now = this.ctx.currentTime;
+      [[1320, 0], [1760, 0.018]].forEach(([freq, delay]) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + delay);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.85, now + delay + 0.12);
+        gain.gain.setValueAtTime(vol, now + delay);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + 0.15);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now + delay); osc.stop(now + delay + 0.16);
+      });
+    } catch(e) {}
+  },
+  beep(vol = 0.4) {
+    if (this.muted) return;
+    try {
+      this._ensure();
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(vol, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+      osc.connect(gain); gain.connect(this.ctx.destination);
+      osc.start(now); osc.stop(now + 0.32);
+    } catch(e) {}
+  }
+};
 
 const heartbeatInterval = setInterval(async () => {
   if (isSubmitting) return;

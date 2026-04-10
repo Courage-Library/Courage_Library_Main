@@ -155,6 +155,20 @@ async function lbLoad() {
 
     lbRenderAll(lbAttempts, badgeMap);
 
+    // If very few attempts — show encouraging context message
+    if (lbAttempts.length <= 2) {
+      const subtitle = document.getElementById("lb-subtitle");
+      if (subtitle && !document.getElementById("lb-early-msg")) {
+        const msg = document.createElement("div");
+        msg.id = "lb-early-msg";
+        msg.style.cssText = "text-align:center;font-size:.78rem;color:#6b7280;margin:8px 0 16px;padding:10px 16px;background:#f8faff;border-radius:10px;border:1px solid #e8edf5;";
+        msg.innerHTML = `<i class="fas fa-info-circle" style="color:#3b82f6;margin-right:5px"></i>
+          Only ${lbAttempts.length} attempt${lbAttempts.length !== 1 ? "s" : ""} so far — results update live!
+          Share the exam link to see more students on the board.`;
+        subtitle.insertAdjacentElement("afterend", msg);
+      }
+    }
+
     // Award top-10 badge if current user qualifies
     const myIdx  = lbAttempts.findIndex(a => a.id === lbAttemptId);
     const myRank = myIdx + 1;
@@ -357,7 +371,21 @@ function lbRenderList(source, rankMap, badgeMap = new Map()) {
   const myInList = list.some((a) => a.id === lbAttemptId);
 
   if (list.length === 0) {
-    document.getElementById("lb-empty")?.classList.remove("hidden");
+    // Show encouraging empty state
+    const emptyEl = document.getElementById("lb-empty");
+    if (emptyEl) {
+      emptyEl.classList.remove("hidden");
+      emptyEl.innerHTML = `
+        <div style="text-align:center;padding:40px 20px">
+          <div style="font-size:2.5rem;margin-bottom:12px">🏆</div>
+          <div style="font-weight:700;font-size:1rem;color:#374151;margin-bottom:6px">
+            Be the first to complete this test!
+          </div>
+          <div style="font-size:.82rem;color:#6b7280;max-width:260px;margin:0 auto;line-height:1.55">
+            The first to finish — results update live! You could top the leaderboard.
+          </div>
+        </div>`;
+    }
     return;
   }
   document.getElementById("lb-empty")?.classList.add("hidden");

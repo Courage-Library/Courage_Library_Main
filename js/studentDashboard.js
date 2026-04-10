@@ -95,6 +95,28 @@ const CL_AUDIO = {
     sessionStorage.setItem('cl-mute', this.muted ? '1' : '0');
     return this.muted;
   },
+
+  /** Short beep — used by exam timer at 5-min and 1-min warnings */
+  beep(volume = 0.4) {
+    if (this.muted) return;
+    try {
+      this._ensure();
+      const ctx = this.ctx;
+      const now = ctx.currentTime;
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(volume, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.30);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.32);
+    } catch (e) {
+      // AudioContext blocked or unavailable — silent fail
+    }
+  },
 };
 
 function clCoinIcon(size = 14, variant = "sm") {
@@ -773,15 +795,22 @@ async function loadAvailableExams() {
       accentClass = "done";
       badgeText = mockLabel ? `Done / T${mockLabel}` : "Done";
       badgeStyle = "background:#d1fae5;color:#065f46;";
-      const completedScore =
-        completedAttempts[completedAttempts.length - 1]?.total_score ?? null;
+      const lastAttempt = completedAttempts[completedAttempts.length - 1];
+      const completedScore = lastAttempt?.total_score ?? null;
+      const lastAttemptId = lastAttempt?.id ?? null;
       const totalPossible = (pattern.total_questions || 0) * 2;
       const scoreText =
         completedScore !== null
           ? ` · Score: ${completedScore}/${totalPossible}`
           : "";
       availHtml = `<div class="exam-avail ok"><span class="avail-dot" style="background:#10b981"></span>Completed today ✓${scoreText}</div>`;
-      btnHtml = `<button class="btn-start-exam disabled-btn" disabled style="background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7;"><i class="fas fa-check-circle mr-1"></i> Completed${completedScore !== null ? ` · ${completedScore}/${totalPossible}` : ""}</button>`;
+      const viewResultBtn = lastAttemptId
+        ? `<a href="/mock/result.html?attempt=${lastAttemptId}" class="btn-view-result"><i class="fas fa-chart-bar"></i> View Result & Explanations</a>`
+        : "";
+      btnHtml = `<div style="display:flex;flex-direction:column;gap:7px;width:100%">
+        <button class="btn-start-exam disabled-btn" disabled style="background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7;"><i class="fas fa-check-circle mr-1"></i> Completed${completedScore !== null ? ` · ${completedScore}/${totalPossible}` : ""}</button>
+        ${viewResultBtn}
+      </div>`;
     } else if (incompleteAttempt && !isAbandoned) {
       badgeText = mockLabel ? `Today / T${mockLabel}` : "Today";
       badgeStyle = "background:#dcfce7;color:#166534;";
@@ -984,6 +1013,12 @@ async function loadAvailableExams() {
           : `<button class="btn-start-exam active" onclick="startExam('${exam.id}', this)"><i class="fas fa-play"></i> Start Exam</button>`;
       }
 
+      // View Result button — shown whenever at least one attempt is completed
+      const lastCompletedAttempt = completedAttempts[completedAttempts.length - 1];
+      const viewResultBtnManual = lastCompletedAttempt
+        ? `<a href="/mock/result.html?attempt=${lastCompletedAttempt.id}" class="btn-view-result" style="margin-top:7px"><i class="fas fa-chart-bar"></i> View Result & Explanations</a>`
+        : "";
+
       const attemptsInfo = exam.attempt_limit
         ? `<span style="font-size:.65rem;color:#94a3b8;font-weight:700">${completedAttempts.length}/${exam.attempt_limit} attempts</span>`
         : completedAttempts.length > 0
@@ -1012,7 +1047,7 @@ async function loadAvailableExams() {
             <div class="meta-chip"><div class="meta-chip-icon indigo"><i class="fas fa-layer-group"></i></div><div><div class="meta-chip-label">Mode</div><div class="meta-chip-value">${exam.mode || "—"}</div></div></div>
           </div>
         </div>
-        <div class="exam-card-footer">${btnHtml}</div>`;
+        <div class="exam-card-footer" style="flex-direction:column;align-items:stretch;gap:7px">${btnHtml}${viewResultBtnManual}</div>`;
       container.appendChild(card);
     });
   }
@@ -2008,15 +2043,24 @@ async function initNotifications() {
         if (typeof window.showGuestAuthPrompt === "function") window.showGuestAuthPrompt();
         return;
       }
-      const isHidden = dropdown.classList.contains("hidden");
-      dropdown.classList.toggle("hidden");
-      if (isHidden) loadNotifications();
+      const isHidden = dropdown.style.display === 'none' || !dropdown.style.display;
+      if (isHidden) {
+        dropdown.style.display = 'block';
+        dropdown.style.animation = 'notifDrop .18s cubic-bezier(.34,1.56,.64,1) both';
+        loadNotifications();
+        // Auto mark all as read after a short delay
+        setTimeout(() => {
+          markAllRead();
+        }, 1200);
+      } else {
+        dropdown.style.display = 'none';
+      }
     });
 
     document.addEventListener("click", (e) => {
-      if (!dropdown.classList.contains("hidden") &&
+      if (dropdown.style.display !== 'none' &&
           !dropdown.contains(e.target) && !bell.contains(e.target)) {
-        dropdown.classList.add("hidden");
+        dropdown.style.display = 'none';
       }
     });
 
@@ -2046,13 +2090,31 @@ async function loadNotificationCount() {
     .eq("is_read", false);
 
   const badge = document.getElementById("notificationCount");
+  const headerCount = document.getElementById("notifHeaderCount");
+  const mobileBadge = document.getElementById("notificationCountMobile");
 
   if (badge) {
     if (count > 0) {
-      badge.innerText = count;
-      badge.classList.remove("hidden");
+      badge.textContent = count > 99 ? '99+' : count;
+      badge.style.display = 'flex';
     } else {
-      badge.classList.add("hidden");
+      badge.style.display = 'none';
+    }
+  }
+  if (headerCount) {
+    if (count > 0) {
+      headerCount.textContent = `${count} unread`;
+      headerCount.style.display = 'inline';
+    } else {
+      headerCount.style.display = 'none';
+    }
+  }
+  if (mobileBadge) {
+    if (count > 0) {
+      mobileBadge.textContent = count > 99 ? '99+' : count;
+      mobileBadge.style.display = 'block';
+    } else {
+      mobileBadge.style.display = 'none';
     }
   }
 }
@@ -2075,52 +2137,64 @@ async function loadNotifications() {
 
   if (!data || data.length === 0) {
     list.innerHTML = `
-      <div style="padding:24px 16px;text-align:center">
-        <div style="font-size:1.6rem;margin-bottom:6px">🔔</div>
-        <div style="font-size:.78rem;color:#94a3b8;font-weight:500">No notifications yet</div>
+      <div style="padding:36px 16px;text-align:center">
+        <div style="width:52px;height:52px;border-radius:14px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 10px">🔔</div>
+        <div style="font-size:.8rem;font-weight:700;color:#1e293b;margin-bottom:4px">All caught up!</div>
+        <div style="font-size:.72rem;color:#94a3b8;font-weight:500">No notifications yet — keep going!</div>
       </div>`;
     return;
   }
 
   const typeStyle = {
-    coins:   { bg: 'rgba(251,191,36,0.10)', border: 'rgba(251,191,36,0.25)', icon: '🪙' },
-    streak:  { bg: 'rgba(251,146,60,0.10)', border: 'rgba(251,146,60,0.25)', icon: '🔥' },
-    reward:  { bg: 'rgba(52,211,153,0.10)', border: 'rgba(52,211,153,0.25)', icon: '🎁' },
-    badge:   { bg: 'rgba(129,140,248,0.10)', border: 'rgba(129,140,248,0.25)', icon: '🏅' },
-    referral:{ bg: 'rgba(52,211,153,0.10)', border: 'rgba(52,211,153,0.25)', icon: '🎉' },
+    coins:   { bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.2)', icon: '🪙', accent: '#d97706' },
+    streak:  { bg: 'rgba(251,146,60,0.08)', border: 'rgba(251,146,60,0.2)', icon: '🔥', accent: '#ea580c' },
+    reward:  { bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.2)', icon: '🎁', accent: '#059669' },
+    badge:   { bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.2)', icon: '🏅', accent: '#6d28d9' },
+    referral:{ bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.2)', icon: '🎉', accent: '#059669' },
   };
-  const fallback = { bg: 'rgba(148,163,184,0.08)', border: 'rgba(148,163,184,0.20)', icon: '📌' };
+  const fallback = { bg: 'rgba(148,163,184,0.06)', border: 'rgba(148,163,184,0.15)', icon: '📌', accent: '#64748b' };
 
-  data.forEach((n) => {
-    const s   = typeStyle[n.type] || fallback;
+  const unread = data.filter(n => !n.is_read);
+  const read   = data.filter(n =>  n.is_read);
+
+  const renderItem = (n) => {
+    const s = typeStyle[n.type] || fallback;
     const ago = _timeAgo(n.created_at);
-    const unreadDot = !n.is_read
-      ? `<span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:3px"></span>`
-      : '';
-    list.innerHTML += `
+    return `
       <div style="
         display:flex;align-items:flex-start;gap:10px;
-        padding:12px 14px;
-        background:${s.bg};
-        border-bottom:0.5px solid rgba(148,163,184,0.12);
-        transition:background .15s;
-      " onmouseenter="this.style.background='rgba(241,245,249,0.7)'"
-         onmouseleave="this.style.background='${s.bg}'">
+        padding:12px 16px;
+        background:${n.is_read ? '#fff' : s.bg};
+        border-bottom:1px solid #f1f5f9;
+        transition:background .15s;cursor:default;
+        position:relative;
+      "
+      onmouseenter="this.style.background='#f8faff'"
+      onmouseleave="this.style.background='${n.is_read ? '#fff' : s.bg}'">
+        ${!n.is_read ? `<span style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${s.accent};border-radius:0 2px 2px 0"></span>` : ''}
         <div style="
-          width:34px;height:34px;border-radius:10px;flex-shrink:0;
-          background:rgba(255,255,255,0.7);border:0.5px solid ${s.border};
-          display:flex;align-items:center;justify-content:center;font-size:1rem;
+          width:36px;height:36px;border-radius:10px;flex-shrink:0;
+          background:${n.is_read ? '#f1f5f9' : 'rgba(255,255,255,0.9)'};
+          border:1px solid ${n.is_read ? '#e2e8f0' : s.border};
+          display:flex;align-items:center;justify-content:center;font-size:.95rem;
         ">${s.icon}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:.78rem;font-weight:700;color:#1e293b;line-height:1.3;
-                      font-family:'Syne','Sora',sans-serif;margin-bottom:2px">${n.title}</div>
-          <div style="font-size:.7rem;color:#64748b;line-height:1.4">${n.message}</div>
-          <div style="font-size:.64rem;color:#94a3b8;margin-top:4px">${ago}</div>
+          <div style="font-size:.78rem;font-weight:${n.is_read ? 600 : 700};color:${n.is_read ? '#475569' : '#0f172a'};line-height:1.35;margin-bottom:2px">${n.title}</div>
+          <div style="font-size:.69rem;color:#64748b;line-height:1.4">${n.message}</div>
+          <div style="font-size:.62rem;color:#94a3b8;margin-top:5px;font-weight:500">${ago}</div>
         </div>
-        ${unreadDot}
-      </div>
-    `;
-  });
+        ${!n.is_read ? `<span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:5px;box-shadow:0 0 0 2px rgba(59,130,246,0.2)"></span>` : ''}
+      </div>`;
+  };
+
+  if (unread.length > 0) {
+    list.innerHTML += `<div style="padding:8px 16px 4px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8">Unread</div>`;
+    unread.forEach(n => { list.innerHTML += renderItem(n); });
+  }
+  if (read.length > 0) {
+    list.innerHTML += `<div style="padding:8px 16px 4px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#cbd5e1">Earlier</div>`;
+    read.forEach(n => { list.innerHTML += renderItem(n); });
+  }
 }
 
 function _timeAgo(iso) {
@@ -2222,23 +2296,24 @@ function openMobileNotifications() {
   const panel = document.getElementById("mobileNotificationPanel");
   const sheet = document.getElementById("mobileSheet");
 
-  panel.classList.remove("hidden");
-
+  panel.style.display = 'block';
   setTimeout(() => {
-    sheet.classList.remove("translate-y-full");
+    sheet.style.transform = 'translateY(0)';
   }, 10);
 
   loadNotificationsMobile();
+
+  // Auto mark all as read after short delay
+  setTimeout(() => {
+    markAllRead();
+  }, 1200);
 }
 
 function closeMobileNotifications() {
-  const panel = document.getElementById("mobileNotificationPanel");
   const sheet = document.getElementById("mobileSheet");
-
-  sheet.classList.add("translate-y-full");
-
+  sheet.style.transform = 'translateY(100%)';
   setTimeout(() => {
-    panel.classList.add("hidden");
+    document.getElementById("mobileNotificationPanel").style.display = 'none';
   }, 300);
 }
 
@@ -2253,45 +2328,71 @@ async function loadNotificationsMobile() {
     .limit(10);
 
   const list = document.getElementById('notificationListMobile');
+  const subtitle = document.getElementById('mobileNotifSubtitle');
   list.innerHTML = '';
 
   if (!data || data.length === 0) {
     list.innerHTML = `
-      <div style="padding:28px 16px;text-align:center;font-size:13px;color:#4b5563">
-        No notifications yet
+      <div style="padding:40px 16px;text-align:center">
+        <div style="width:56px;height:56px;border-radius:16px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 12px">🔔</div>
+        <div style="font-size:.88rem;font-weight:700;color:#1e293b;margin-bottom:5px">All caught up!</div>
+        <div style="font-size:.75rem;color:#94a3b8;font-weight:500">No notifications yet — keep going!</div>
       </div>`;
+    if (subtitle) subtitle.textContent = 'Nothing new';
     return;
   }
 
-  data.forEach((n) => {
-    const icon = notifIcon(n.type);
-    list.innerHTML += `
+  const unread = data.filter(n => !n.is_read);
+  if (subtitle) subtitle.textContent = unread.length > 0 ? `${unread.length} unread` : 'All read';
+
+  const typeStyle = {
+    coins:   { bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.22)', icon: '🪙', accent: '#d97706' },
+    streak:  { bg: 'rgba(251,146,60,0.08)', border: 'rgba(251,146,60,0.22)', icon: '🔥', accent: '#ea580c' },
+    reward:  { bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.22)', icon: '🎁', accent: '#059669' },
+    badge:   { bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.22)', icon: '🏅', accent: '#6d28d9' },
+    referral:{ bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.22)', icon: '🎉', accent: '#059669' },
+  };
+  const fallback = { bg: 'rgba(148,163,184,0.06)', border: 'rgba(148,163,184,0.18)', icon: '📌', accent: '#64748b' };
+
+  const renderMobileItem = (n) => {
+    const s = typeStyle[n.type] || fallback;
+    const ago = _timeAgo(n.created_at);
+    return `
       <div style="
         display:flex;align-items:flex-start;gap:12px;
-        padding:13px 16px;
-        border-bottom:0.5px solid rgba(255,255,255,0.06);
+        padding:13px 4px;
+        border-bottom:1px solid #f1f5f9;
+        position:relative;
       ">
+        ${!n.is_read ? `<span style="position:absolute;left:-12px;top:0;bottom:0;width:3px;background:${s.accent};border-radius:0 2px 2px 0"></span>` : ''}
         <div style="
-          flex-shrink:0;width:36px;height:36px;border-radius:50%;
-          background:${icon.bg};
-          display:flex;align-items:center;justify-content:center;
-          font-size:16px;
-        ">${icon.emoji}</div>
+          width:40px;height:40px;border-radius:12px;flex-shrink:0;
+          background:${n.is_read ? '#f8faff' : 'rgba(255,255,255,0.9)'};
+          border:1px solid ${n.is_read ? '#e2e8f0' : s.border};
+          display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+          box-shadow:${n.is_read ? 'none' : '0 2px 8px rgba(0,0,0,.06)'};
+        ">${s.icon}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:13.5px;font-weight:700;color:#0f172a;
-                      margin-bottom:3px;line-height:1.3">
-            ${n.title}
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:3px">
+            <div style="font-size:.84rem;font-weight:${n.is_read ? 600 : 700};color:${n.is_read ? '#475569' : '#0f172a'};line-height:1.3;flex:1">${n.title}</div>
+            ${!n.is_read ? `<span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:4px;box-shadow:0 0 0 2px rgba(59,130,246,0.2)"></span>` : ''}
           </div>
-          <div style="font-size:12px;color:#6b7280;line-height:1.5">
-            ${n.message}
-          </div>
-          <div style="font-size:10.5px;color:#374151;margin-top:4px;
-                      font-family:'DM Mono',monospace">
-            ${relativeTime(n.created_at)}
-          </div>
+          <div style="font-size:.74rem;color:#64748b;line-height:1.45">${n.message}</div>
+          <div style="font-size:.66rem;color:#94a3b8;margin-top:5px;font-weight:500">${ago}</div>
         </div>
       </div>`;
-  });
+  };
+
+  const read = data.filter(n => n.is_read);
+
+  if (unread.length > 0) {
+    list.innerHTML += `<div style="padding:12px 4px 6px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8">Unread</div>`;
+    unread.forEach(n => { list.innerHTML += renderMobileItem(n); });
+  }
+  if (read.length > 0) {
+    list.innerHTML += `<div style="padding:12px 4px 6px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#cbd5e1">Earlier</div>`;
+    read.forEach(n => { list.innerHTML += renderMobileItem(n); });
+  }
 }
 
 function renderStreakMultiplierPill(currentStreak) {
