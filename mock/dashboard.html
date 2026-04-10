@@ -2297,12 +2297,18 @@
       position: relative;
     }
     #guestModalHeader .gm-logo {
-      width: 56px; height: 56px;
-      background: rgba(255,255,255,.18);
+      width: 72px; height: 72px;
+      background: rgba(255,255,255,.95);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 14px;
-      font-size: 1.6rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,.22);
+      padding: 7px;
+    }
+    #guestModalHeader .gm-logo img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
     }
     #guestModalHeader h2 {
       font-size: 1.35rem; font-weight: 800;
@@ -2352,49 +2358,61 @@
       font-size: .74rem; color: #64748b; line-height: 1.4;
     }
 
-    /* CTA buttons */
-    .gm-btn-signup {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; padding: 13px;
-      background: linear-gradient(135deg, #1a56db, #2563eb);
-      color: #fff; border-radius: 12px;
-      font-weight: 800; font-size: .9rem;
+    /* CTA button — single animated */
+    @keyframes gmPulse {
+      0%   { box-shadow: 0 4px 16px rgba(26,86,219,.35), 0 0 0 0 rgba(37,99,235,.55); }
+      60%  { box-shadow: 0 4px 16px rgba(26,86,219,.35), 0 0 0 14px rgba(37,99,235,0); }
+      100% { box-shadow: 0 4px 16px rgba(26,86,219,.35), 0 0 0 0 rgba(37,99,235,0); }
+    }
+    @keyframes gmArrow {
+      0%, 100% { transform: translateX(0); }
+      50%       { transform: translateX(5px); }
+    }
+    .gm-btn-start {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, #1a56db 0%, #2563eb 60%, #7c3aed 100%);
+      color: #fff; border-radius: 14px;
+      font-weight: 800; font-size: .95rem;
       text-decoration: none;
-      box-shadow: 0 4px 16px rgba(26,86,219,.3);
-      transition: filter .18s, transform .18s;
-      margin-bottom: 10px;
+      animation: gmPulse 1.8s ease-out infinite;
+      transition: transform .18s, filter .18s;
+      position: relative; overflow: hidden;
+      letter-spacing: .01em;
     }
-    .gm-btn-signup:hover { filter: brightness(1.08); transform: translateY(-1px); }
-
-    .gm-btn-login {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; padding: 12px;
-      background: transparent;
-      color: #2563eb;
-      border: 1.5px solid #bfdbfe;
-      border-radius: 12px;
-      font-weight: 700; font-size: .88rem;
-      text-decoration: none;
-      transition: background .18s, border-color .18s;
+    .gm-btn-start:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+      animation: none;
+      box-shadow: 0 8px 28px rgba(26,86,219,.45);
     }
-    .gm-btn-login:hover { background: #eff6ff; border-color: #93c5fd; }
-
-    .gm-divider {
-      display: flex; align-items: center; gap: 10px;
-      margin: 10px 0;
+    .gm-btn-start .btn-arrow {
+      animation: gmArrow 1s ease-in-out infinite;
+      display: inline-block;
     }
-    .gm-divider::before, .gm-divider::after {
-      content: ''; flex: 1;
-      height: 1px; background: #e2e8f0;
+    /* Shimmer sweep on load */
+    .gm-btn-start::after {
+      content: '';
+      position: absolute; top: 0; left: -60%;
+      width: 40%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      animation: gmShimmer 2.4s ease-in-out infinite;
     }
-    .gm-divider span { font-size: .72rem; color: #94a3b8; font-weight: 600; }
+    @keyframes gmShimmer {
+      0%   { left: -60%; }
+      100% { left: 130%; }
+    }
+    .gm-btn-hint {
+      text-align: center; margin-top: 10px;
+      font-size: .72rem; color: #94a3b8; font-weight: 500;
+    }
   </style>
 
   <!-- Modal markup -->
   <div id="guestModal" role="dialog" aria-modal="true" aria-labelledby="guestModalTitle">
     <div id="guestModalCard">
       <div id="guestModalHeader">
-        <div class="gm-logo">📚</div>
+        <div class="gm-logo"><img src="../images/logo.png" alt="Courage Library"></div>
         <h2 id="guestModalTitle">Welcome to Courage Library Mock Tests!</h2>
         <p>India's smartest mock-test platform — practice smarter, rank higher.</p>
       </div>
@@ -2423,14 +2441,13 @@
           </div>
         </div>
 
-        <!-- CTAs -->
-        <a href="/index.html?action=signup" class="gm-btn-signup">
-          <i class="fas fa-rocket"></i> Sign Up Free — It's Quick!
+        <!-- Single CTA -->
+        <a href="/index.html" class="gm-btn-start">
+          <i class="fas fa-bolt"></i>
+          Get Started — It's Free!
+          <span class="btn-arrow">→</span>
         </a>
-        <div class="gm-divider"><span>already have an account?</span></div>
-        <a href="/index.html?action=login" class="gm-btn-login">
-          <i class="fas fa-sign-in-alt"></i> Log In to Your Account
-        </a>
+        <p class="gm-btn-hint">Login or Sign up — takes less than a minute ✨</p>
       </div>
     </div>
   </div>
