@@ -1246,6 +1246,8 @@ question_text, options, options_type, correct_answer, difficulty, topic, explana
 
 STRICT RULES:
 1. question_text   — Full question text. Escape internal double quotes by doubling them ("").
+                     For underlined text use [[u]]text[[/u]] markers — do NOT use HTML tags like <u>.
+                     Use actual newlines (line breaks) inside question_text for multi-line questions — do not put everything on one line.
 2. options         — JSON object wrapped in double quotes. Every " inside MUST be escaped as "".
                      Text example:  "{""A"":""Paris"",""B"":""London"",""C"":""Rome"",""D"":""Berlin""}"
                      Image example: "{""A"":""https://example.com/q1_A.png"",""B"":""https://example.com/q1_B.png"",""C"":""https://example.com/q1_C.png"",""D"":""https://example.com/q1_D.png""}"

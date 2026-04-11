@@ -370,6 +370,22 @@ async function loadReview(answerMap) {
 }
 
 /* ─────────────────────────────────────────
+   RENDER QUESTION TEXT — handles [[u]] underline markers + newlines
+───────────────────────────────────────── */
+function renderQuestionText(text) {
+  if (!text) return "";
+  // Step 1: Escape HTML to prevent XSS
+  const div = document.createElement("div");
+  div.textContent = text;
+  let escaped = div.innerHTML;
+  // Step 2: Convert [[u]]...[[/u]] markers → <u> tags (underline support)
+  escaped = escaped.replace(/\[\[u\]\](.*?)\[\[\/u\]\]/gs, "<u>$1</u>");
+  // Step 3: Convert newlines → <br> so multi-line questions render correctly
+  escaped = escaped.replace(/\n/g, "<br>");
+  return escaped;
+}
+
+/* ─────────────────────────────────────────
    RENDER OPTION VALUE — handles text / image / mixed
 ───────────────────────────────────────── */
 function renderOptionValue(value, optionsType) {
@@ -500,7 +516,7 @@ function renderReviewList(items) {
             ${chipIcon} ${chipLabel}
           </span>
         </div>
-        <div class="q-text">${q.question_text}</div>
+        <div class="q-text">${renderQuestionText(q.question_text)}</div>
         ${questionImageHtml}
         <div class="q-options">${optionsHTML}</div>
         <div class="q-footer">

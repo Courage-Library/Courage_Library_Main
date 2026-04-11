@@ -721,7 +721,7 @@
             const selected = ta.value.substring(start, end);
             let wrapped = selected;
             if (type === 'underline') {
-                wrapped = `<u>${selected}</u>`;
+                wrapped = `[[u]]${selected}[[/u]]`;
             }
             ta.value = ta.value.substring(0, start) + wrapped + ta.value.substring(end);
             // Restore cursor after inserted text

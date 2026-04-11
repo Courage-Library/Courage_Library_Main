@@ -222,6 +222,19 @@ function sanitizeText(str) {
   return div.innerHTML;
 }
 
+function renderQuestionText(text) {
+  if (!text) return "";
+  // Step 1: Escape HTML to prevent XSS (same as sanitizeText)
+  const div = document.createElement("div");
+  div.textContent = text;
+  let escaped = div.innerHTML;
+  // Step 2: Convert [[u]]...[[/u]] markers → <u> tags (underline support)
+  escaped = escaped.replace(/\[\[u\]\](.*?)\[\[\/u\]\]/gs, "<u>$1</u>");
+  // Step 3: Convert newlines → <br> so multi-line questions render correctly
+  escaped = escaped.replace(/\n/g, "<br>");
+  return escaped;
+}
+
 function showQuestion(index) {
   if (!questions[index]) return;
   currentIndex = index;
@@ -315,7 +328,7 @@ function showQuestion(index) {
       </div>
       <div class="flex items-start gap-2">
         <span style="font-size:.72rem;font-weight:700;color:#94a3b8;background:#f1f5f9;padding:2px 7px;border-radius:6px;flex-shrink:0;margin-top:3px;letter-spacing:.02em">Q${index + 1}</span>
-        <p style="font-size:1rem;font-weight:500;color:#1e293b;line-height:1.65;flex:1;margin:0">${sanitizeText(q.question_text)}</p>
+        <p style="font-size:1rem;font-weight:500;color:#1e293b;line-height:1.65;flex:1;margin:0">${renderQuestionText(q.question_text)}</p>
         <button id="reportBtn" title="Report Issue"
           style="flex-shrink:0;width:26px;height:26px;border-radius:7px;background:#fff5f5;border:1px solid #fecaca;color:#dc2626;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;margin-top:2px;transition:all .15s"
           onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fff5f5'">
