@@ -408,7 +408,7 @@ function renderOptionValue(value, optionsType) {
     return parts.join("");
   }
 
-  return `<span style="flex:1;line-height:1.45">${value}</span>`;
+  return `<span style="flex:1;line-height:1.45">${renderQuestionText(value)}</span>`;
 }
 
 /* ─────────────────────────────────────────
