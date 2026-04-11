@@ -224,7 +224,7 @@ function sanitizeText(str) {
 
 function renderQuestionText(text) {
   if (!text) return "";
-  // Step 1: Escape HTML to prevent XSS (same as sanitizeText)
+  // Step 1: Escape HTML to prevent XSS
   const div = document.createElement("div");
   div.textContent = text;
   let escaped = div.innerHTML;
@@ -302,7 +302,7 @@ function showQuestion(index) {
           ${optText  ? `<span class="text-gray-700 text-sm sm:text-base leading-snug">${optText}</span>` : ""}
         </div>`;
     } else {
-      optionContent = `<span class="text-gray-700 text-sm sm:text-base leading-snug flex-1">${sanitizeText(value)}</span>`;
+      optionContent = `<span class="text-gray-700 text-sm sm:text-base leading-snug flex-1">${renderQuestionText(value)}</span>`;
     }
 
     return `

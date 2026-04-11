@@ -1253,6 +1253,7 @@ STRICT RULES:
                      Image example: "{""A"":""https://example.com/q1_A.png"",""B"":""https://example.com/q1_B.png"",""C"":""https://example.com/q1_C.png"",""D"":""https://example.com/q1_D.png""}"
                      NEVER output raw JSON without the outer quotes and inner "" escaping.
                      NEVER format URLs as markdown links like [text](url) — use the plain URL string only.
+                     For underlined text inside any option value, use [[u]]text[[/u]] markers — do NOT use HTML tags like <u>.
 3. options_type    — "text" | "image" | "mixed"
 4. correct_answer  — Single uppercase letter: A, B, C, or D only. NOTHING else in this column.
 5. difficulty      — ${diffNote}
