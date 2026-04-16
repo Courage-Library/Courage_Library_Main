@@ -15,7 +15,7 @@ function animateCount(
   from,
   to,
   duration = 600,
-  el = document.getElementById("userCoins")
+  el = document.getElementById("userCoins"),
 ) {
   if (!el) return;
   const start = performance.now();
@@ -36,31 +36,35 @@ function animateCount(
   requestAnimationFrame(tick);
 }
 
-function showCoinBurst(amount, anchorEl = document.getElementById('userCoins')) {
+function showCoinBurst(
+  amount,
+  anchorEl = document.getElementById("userCoins"),
+) {
   CL_AUDIO.clink();
   if (!anchorEl || amount <= 0) return;
 
-  const rect  = anchorEl.getBoundingClientRect();
-  const burst = document.createElement('div');
-  burst.className = 'cl-burst';
-  burst.textContent = `+${amount.toLocaleString('en-IN')} CL`;
+  const rect = anchorEl.getBoundingClientRect();
+  const burst = document.createElement("div");
+  burst.className = "cl-burst";
+  burst.textContent = `+${amount.toLocaleString("en-IN")} CL`;
 
   // Position centred above the element, accounting for scroll
-  burst.style.left = (rect.left + rect.width / 2 + window.scrollX) + 'px';
-  burst.style.top  = (rect.top  + window.scrollY - 4) + 'px';
-  burst.style.transform = 'translateX(-50%)';
+  burst.style.left = rect.left + rect.width / 2 + window.scrollX + "px";
+  burst.style.top = rect.top + window.scrollY - 4 + "px";
+  burst.style.transform = "translateX(-50%)";
 
   document.body.appendChild(burst);
   setTimeout(() => burst.remove(), 1300);
 }
 
 const CL_AUDIO = {
-  ctx:   null,
-  muted: sessionStorage.getItem('cl-mute') === '1',
+  ctx: null,
+  muted: sessionStorage.getItem("cl-mute") === "1",
 
   _ensure() {
-    if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-    if (this.ctx.state === 'suspended') this.ctx.resume();
+    if (!this.ctx)
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (this.ctx.state === "suspended") this.ctx.resume();
   },
 
   /** Metallic clink — two detuned sine waves, fast exponential decay */
@@ -71,13 +75,19 @@ const CL_AUDIO = {
       const ctx = this.ctx;
       const now = ctx.currentTime;
 
-      [[1320, 0], [1760, 0.018]].forEach(([freq, delay]) => {
-        const osc  = ctx.createOscillator();
+      [
+        [1320, 0],
+        [1760, 0.018],
+      ].forEach(([freq, delay]) => {
+        const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type      = 'sine';
+        osc.type = "sine";
         osc.frequency.setValueAtTime(freq, now + delay);
         // Brief pitch drop for metallic feel
-        osc.frequency.exponentialRampToValueAtTime(freq * 0.85, now + delay + 0.12);
+        osc.frequency.exponentialRampToValueAtTime(
+          freq * 0.85,
+          now + delay + 0.12,
+        );
         gain.gain.setValueAtTime(volume, now + delay);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + 0.15);
         osc.connect(gain);
@@ -92,7 +102,7 @@ const CL_AUDIO = {
 
   toggleMute() {
     this.muted = !this.muted;
-    sessionStorage.setItem('cl-mute', this.muted ? '1' : '0');
+    sessionStorage.setItem("cl-mute", this.muted ? "1" : "0");
     return this.muted;
   },
 
@@ -103,12 +113,12 @@ const CL_AUDIO = {
       this._ensure();
       const ctx = this.ctx;
       const now = ctx.currentTime;
-      const osc  = ctx.createOscillator();
+      const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'square';
+      osc.type = "square";
       osc.frequency.setValueAtTime(880, now);
       gain.gain.setValueAtTime(volume, now);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.30);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(now);
@@ -249,7 +259,9 @@ async function checkAuth() {
   window._currentUser = user || null;
   // No redirect here — guests can browse freely; gate is on the Attempt button
   // Dispatch a custom event so dashboard.html does not need a fragile setTimeout
-  document.dispatchEvent(new CustomEvent("cl:authReady", { detail: { user: window._currentUser } }));
+  document.dispatchEvent(
+    new CustomEvent("cl:authReady", { detail: { user: window._currentUser } }),
+  );
 }
 
 // ─── Guest Auth Prompt ────────────────────────────────────────────────────────
@@ -1014,7 +1026,8 @@ async function loadAvailableExams() {
       }
 
       // View Result button — shown whenever at least one attempt is completed
-      const lastCompletedAttempt = completedAttempts[completedAttempts.length - 1];
+      const lastCompletedAttempt =
+        completedAttempts[completedAttempts.length - 1];
       const viewResultBtnManual = lastCompletedAttempt
         ? `<a href="/mock/result.html?attempt=${lastCompletedAttempt.id}" class="btn-view-result" style="margin-top:7px"><i class="fas fa-chart-bar"></i> View Result & Explanations</a>`
         : "";
@@ -1063,58 +1076,78 @@ function shuffleArray(arr) {
   return a;
 }
 
-const DIFFICULTY_RATIO = { easy: 0.6, medium: 0.3, hard: 0.1 };
+// Easy 40% · Medium 40% · Hard 20% — balanced difficulty for competitive exam prep
+const DIFFICULTY_RATIO = { easy: 0.4, medium: 0.4, hard: 0.2 };
 
-function pickQuestionsForSection(allQuestions, section) {
+// ─── Smart Question Picker ────────────────────────────────────────────────────
+// Picks N questions — shuffles within same total_served bucket so equal-served
+// questions are randomized but lower-served ones always come first globally.
+function smartPick(questions, needed) {
+  if (questions.length <= needed) return shuffleArray(questions);
+
+  const buckets = {};
+  questions.forEach((q) => {
+    const key = q.total_served || 0;
+    if (!buckets[key]) buckets[key] = [];
+    buckets[key].push(q);
+  });
+
+  const sorted = Object.keys(buckets).sort((a, b) => a - b);
+  let result = [];
+  for (const key of sorted) {
+    if (result.length >= needed) break;
+    const bucket = shuffleArray(buckets[key]);
+    const take = Math.min(bucket.length, needed - result.length);
+    result = result.concat(bucket.slice(0, take));
+  }
+  return result;
+}
+
+// ─── Pick Questions For Section ───────────────────────────────────────────────
+// Priority: unseen questions first (sorted by least globally served),
+// then seen questions (sorted by least times seen by this student).
+function pickQuestionsForSection(allQuestions, section, seenMap) {
   const needed = section.question_count || 0;
   if (needed === 0) return [];
+
   const pool = allQuestions.filter((q) => q.pattern_section_id === section.id);
   if (pool.length === 0) {
     console.warn(`No questions for section: ${section.section_name}`);
     return [];
   }
-  const hasTopics = pool.some((q) => q.topic && q.topic.trim() !== "");
+
+  // Split into unseen and seen for this student
+  const unseen = pool.filter((q) => !seenMap[q.id]);
+  const seen = pool.filter((q) => seenMap[q.id]);
+
+  // Sort seen by how many times this student has seen them (least first)
+  seen.sort((a, b) => (seenMap[a.id] || 0) - (seenMap[b.id] || 0));
+
   let selected = [];
-  if (hasTopics) {
-    const byTopic = {};
-    pool.forEach((q) => {
-      const t = q.topic?.trim() ? q.topic.trim() : "__untagged__";
-      if (!byTopic[t]) byTopic[t] = [];
-      byTopic[t].push(q);
-    });
-    const topics = Object.keys(byTopic);
-    const fairShare = Math.ceil(needed / topics.length);
-    let topicPicked = [],
-      overflow = [];
-    topics.forEach((topic) => {
-      const shuffled = shuffleArray(byTopic[topic]);
-      const take = Math.min(shuffled.length, fairShare);
-      topicPicked = topicPicked.concat(shuffled.slice(0, take));
-      if (shuffled.length > take)
-        overflow = overflow.concat(shuffled.slice(take));
-    });
-    topicPicked = shuffleArray(topicPicked);
-    if (topicPicked.length >= needed) {
-      selected = topicPicked.slice(0, needed);
-    } else {
-      selected = topicPicked.concat(
-        shuffleArray(overflow).slice(0, needed - topicPicked.length),
-      );
-    }
+  if (unseen.length >= needed) {
+    // Enough unseen — pick least globally served first
+    selected = smartPick(unseen, needed);
   } else {
-    selected = shuffleArray(pool).slice(0, needed);
+    // Take all unseen + fill remaining from least-repeated seen
+    selected = unseen.concat(smartPick(seen, needed - unseen.length));
   }
+
   return applyDifficultyBalance(selected, pool, needed);
 }
 
+// ─── Difficulty Balance ───────────────────────────────────────────────────────
+// Enforces DIFFICULTY_RATIO across final selection.
+// If a difficulty tier has insufficient questions, fills deficit from leftovers.
 function applyDifficultyBalance(currentSelection, fullPool, needed) {
   const targets = {
     easy: Math.round(needed * DIFFICULTY_RATIO.easy),
     medium: Math.round(needed * DIFFICULTY_RATIO.medium),
     hard: Math.floor(needed * DIFFICULTY_RATIO.hard),
   };
+  // Fix rounding so targets always sum to needed
   const tSum = targets.easy + targets.medium + targets.hard;
   targets.easy += needed - tSum;
+
   const poolByDiff = { easy: [], medium: [], hard: [] };
   fullPool.forEach((q) => {
     const d = (q.difficulty || "easy").toLowerCase();
@@ -1123,6 +1156,7 @@ function applyDifficultyBalance(currentSelection, fullPool, needed) {
   Object.keys(poolByDiff).forEach((d) => {
     poolByDiff[d] = shuffleArray(poolByDiff[d]);
   });
+
   let result = [],
     deficit = 0;
   ["easy", "medium", "hard"].forEach((diff) => {
@@ -1132,11 +1166,14 @@ function applyDifficultyBalance(currentSelection, fullPool, needed) {
     result = result.concat(available.slice(0, take));
     deficit += want - take;
   });
+
+  // Fill any deficit from questions not already selected
   if (deficit > 0) {
     const already = new Set(result.map((q) => q.id));
     const leftover = shuffleArray(fullPool.filter((q) => !already.has(q.id)));
     result = result.concat(leftover.slice(0, deficit));
   }
+
   return shuffleArray(result).slice(0, needed);
 }
 
@@ -1333,7 +1370,9 @@ window.startExam = async function (examId, btn, chosenLanguage = null) {
 
     let qQuery = client
       .from("questions")
-      .select("id, pattern_section_id, topic, difficulty, language")
+      .select(
+        "id, pattern_section_id, topic, difficulty, language, question_stats(total_served)",
+      )
       .in("pattern_section_id", sectionIds)
       .eq("is_active", true);
 
@@ -1344,10 +1383,32 @@ window.startExam = async function (examId, btn, chosenLanguage = null) {
     if (!allQuestions || allQuestions.length === 0)
       throw new Error("No active questions found for this exam.");
 
+    // Flatten nested question_stats into top-level total_served
+    const questionsWithStats = allQuestions.map((q) => ({
+      ...q,
+      total_served: q.question_stats?.total_served || 0,
+    }));
+
+    // Fetch this student's seen questions from the pool
+    const { data: seenData } = await client
+      .from("user_question_seen")
+      .select("question_id, times_seen")
+      .eq("user_id", user.id)
+      .in(
+        "question_id",
+        questionsWithStats.map((q) => q.id),
+      );
+
+    // Build seenMap: { question_id: times_seen }
+    const seenMap = {};
+    (seenData || []).forEach((s) => {
+      seenMap[s.question_id] = s.times_seen;
+    });
+
     let finalQuestions = [];
     sections.forEach((section) => {
       finalQuestions = finalQuestions.concat(
-        pickQuestionsForSection(allQuestions, section),
+        pickQuestionsForSection(questionsWithStats, section, seenMap),
       );
     });
 
@@ -1624,13 +1685,13 @@ function renderUserLevel(lifetimeCoins) {
 
   // Tier thresholds
   const TIERS = [
-    { label: "Seeker",   min: 0,    max: 1000 },
-    { label: "Scholar",  min: 1000, max: 3000 },
+    { label: "Seeker", min: 0, max: 1000 },
+    { label: "Scholar", min: 1000, max: 3000 },
     { label: "Luminary", min: 3000, max: 6000 },
-    { label: "Legend",   min: 6000, max: null  },
+    { label: "Legend", min: 6000, max: null },
   ];
-  const currentTier = TIERS.find(t => t.label === label);
-  const nextTier    = TIERS.find(t => t.min === currentTier?.max);
+  const currentTier = TIERS.find((t) => t.label === label);
+  const nextTier = TIERS.find((t) => t.min === currentTier?.max);
 
   el.innerHTML = `
     <span style="display:inline-flex;align-items:center;gap:6px;flex-shrink:0;
@@ -1647,22 +1708,26 @@ function renderUserLevel(lifetimeCoins) {
 
   // Render progress bar toward next tier
   const wrap = document.getElementById("levelProgressWrap");
-  const bar  = document.getElementById("levelProgressBar");
-  const lbl  = document.getElementById("levelProgressLabel");
-  const pct  = document.getElementById("levelProgressPct");
+  const bar = document.getElementById("levelProgressBar");
+  const lbl = document.getElementById("levelProgressLabel");
+  const pct = document.getElementById("levelProgressPct");
   if (wrap && bar && lbl && pct) {
     if (nextTier) {
-      const range    = currentTier.max - currentTier.min;
+      const range = currentTier.max - currentTier.min;
       const progress = Math.min(lifetimeCoins - currentTier.min, range);
-      const percent  = Math.round((progress / range) * 100);
-      const coinsLeft= (currentTier.max - lifetimeCoins).toLocaleString("en-IN");
+      const percent = Math.round((progress / range) * 100);
+      const coinsLeft = (currentTier.max - lifetimeCoins).toLocaleString(
+        "en-IN",
+      );
       lbl.textContent = `${coinsLeft} CL to ${nextTier.label}`;
       pct.textContent = `${percent}%`;
       bar.style.background = color;
       wrap.style.display = "flex";
       // Animate after paint
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => { bar.style.width = percent + "%"; });
+        requestAnimationFrame(() => {
+          bar.style.width = percent + "%";
+        });
       });
     } else {
       // Legend — max tier reached
@@ -1707,13 +1772,17 @@ function renderUserBadges(badges) {
 }
 
 async function loadCoinsAndProgress() {
-  const { data: { user } } = await client.auth.getUser();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
   if (!user) return;
 
   // ← fetch ALL needed fields in one query
   const { data: profile } = await client
     .from("user_profiles")
-    .select("total_coins, lifetime_coins, current_streak, max_streak, last_test_date, referral_code")
+    .select(
+      "total_coins, lifetime_coins, current_streak, max_streak, last_test_date, referral_code",
+    )
     .eq("id", user.id)
     .single();
 
@@ -1734,7 +1803,10 @@ async function loadCoinsAndProgress() {
     const codeEl = document.getElementById("userReferralCode");
     const linkEl = document.getElementById("referralLink");
     if (codeEl) codeEl.textContent = profile.referral_code;
-    if (linkEl) { linkEl.href = link; linkEl.textContent = link; }
+    if (linkEl) {
+      linkEl.href = link;
+      linkEl.textContent = link;
+    }
     loadReferralTrail(user.id);
   }
 
@@ -1750,7 +1822,7 @@ async function loadCoinsAndProgress() {
   renderUserBadges(badges || []);
 
   // Nav coin pill
-  const _navCoins = document.getElementById('navCoins');
+  const _navCoins = document.getElementById("navCoins");
   if (_navCoins) animateCount(0, profile.total_coins || 0, 700, _navCoins);
 
   // Nav level badge — intentionally NOT shown in header; level shown only on dashboard card
@@ -1855,45 +1927,48 @@ function updateRewardProgress(coins) {
 /** Map notification type → emoji + background tint */
 function notifIcon(type) {
   const map = {
-    coins:          { emoji: '🪙', bg: 'rgba(0,200,192,0.15)'   },
-    streak:         { emoji: '🔥', bg: 'rgba(251,146,60,0.15)'  },
-    reward_unlocked:{ emoji: '🎁', bg: 'rgba(245,158,11,0.15)'  },
-    reward_nudge:   { emoji: '🎯', bg: 'rgba(99,102,241,0.15)'  },
-    claim:          { emoji: '📦', bg: 'rgba(16,185,129,0.15)'  },
-    badge:          { emoji: '🏅', bg: 'rgba(168,85,247,0.15)'  },
-    level_up:       { emoji: '⭐', bg: 'rgba(253,224,71,0.12)'  },
-    referral:       { emoji: '🎉', bg: 'rgba(52,211,153,0.15)'  },
+    coins: { emoji: "🪙", bg: "rgba(0,200,192,0.15)" },
+    streak: { emoji: "🔥", bg: "rgba(251,146,60,0.15)" },
+    reward_unlocked: { emoji: "🎁", bg: "rgba(245,158,11,0.15)" },
+    reward_nudge: { emoji: "🎯", bg: "rgba(99,102,241,0.15)" },
+    claim: { emoji: "📦", bg: "rgba(16,185,129,0.15)" },
+    badge: { emoji: "🏅", bg: "rgba(168,85,247,0.15)" },
+    level_up: { emoji: "⭐", bg: "rgba(253,224,71,0.12)" },
+    referral: { emoji: "🎉", bg: "rgba(52,211,153,0.15)" },
   };
-  return map[type] || { emoji: '📬', bg: 'rgba(255,255,255,0.06)' };
+  return map[type] || { emoji: "📬", bg: "rgba(255,255,255,0.06)" };
 }
 
 /** Human-readable relative timestamp: "2 min ago", "Yesterday", etc. */
 function relativeTime(isoString) {
   const diff = Date.now() - new Date(isoString).getTime();
-  const min  = Math.floor(diff / 60000);
-  if (min < 1)   return 'Just now';
-  if (min < 60)  return `${min} min ago`;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return "Just now";
+  if (min < 60) return `${min} min ago`;
   const hr = Math.floor(min / 60);
-  if (hr  < 24)  return `${hr} hr ago`;
-  const dy = Math.floor(hr  / 24);
-  if (dy === 1)  return 'Yesterday';
-  if (dy < 7)   return `${dy} days ago`;
-  return new Date(isoString).toLocaleDateString('en-IN', { day:'numeric', month:'short' });
+  if (hr < 24) return `${hr} hr ago`;
+  const dy = Math.floor(hr / 24);
+  if (dy === 1) return "Yesterday";
+  if (dy < 7) return `${dy} days ago`;
+  return new Date(isoString).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+  });
 }
 
 async function loadNotifications() {
   if (!notificationUser) return;
 
   const { data } = await client
-    .from('notifications')
-    .select('*')
-    .eq('user_id', notificationUser.id)
-    .order('created_at', { ascending: false })
+    .from("notifications")
+    .select("*")
+    .eq("user_id", notificationUser.id)
+    .order("created_at", { ascending: false })
     .limit(10);
 
-  const list = document.getElementById('notificationList');
+  const list = document.getElementById("notificationList");
   if (!list) return;
-  list.innerHTML = '';
+  list.innerHTML = "";
 
   if (!data || data.length === 0) {
     list.innerHTML = `
@@ -1947,16 +2022,18 @@ async function loadNotifications() {
 
 // ─── Referral Coins Trail ─────────────────────────────────────────────────
 async function loadReferralTrail(userId) {
-  const trail  = document.getElementById('referralTrail');
-  const textEl = document.getElementById('referralTrailText');
-  const listEl = document.getElementById('referralTrailList');
+  const trail = document.getElementById("referralTrail");
+  const textEl = document.getElementById("referralTrailText");
+  const listEl = document.getElementById("referralTrailList");
   if (!trail || !textEl || !listEl) return;
 
   const { data: refs } = await client
-    .from('referrals')
-    .select('referred_id, coins_awarded, created_at, user_profiles!referred_id(full_name)')
-    .eq('referrer_id', userId)
-    .order('created_at', { ascending: false });
+    .from("referrals")
+    .select(
+      "referred_id, coins_awarded, created_at, user_profiles!referred_id(full_name)",
+    )
+    .eq("referrer_id", userId)
+    .order("created_at", { ascending: false });
 
   if (!refs || refs.length === 0) return;
 
@@ -1964,14 +2041,22 @@ async function loadReferralTrail(userId) {
   const count = refs.length;
 
   textEl.innerHTML = `
-    You've helped <strong>${count}</strong> friend${count !== 1 ? 's' : ''} join
-    &amp; earned <strong style="color:#059669">+${totalCoins.toLocaleString('en-IN')} CL</strong> from referrals.
+    You've helped <strong>${count}</strong> friend${count !== 1 ? "s" : ""} join
+    &amp; earned <strong style="color:#059669">+${totalCoins.toLocaleString("en-IN")} CL</strong> from referrals.
   `;
 
-  listEl.innerHTML = refs.slice(0, 5).map(r => {
-    const name = r.user_profiles?.full_name || 'Friend';
-    const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-    return `
+  listEl.innerHTML =
+    refs
+      .slice(0, 5)
+      .map((r) => {
+        const name = r.user_profiles?.full_name || "Friend";
+        const initials = name
+          .split(" ")
+          .map((w) => w[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        return `
       <div title="${name}" style="
         display:inline-flex;align-items:center;gap:5px;
         background:rgba(255,255,255,0.8);border:0.5px solid rgba(52,211,153,.3);
@@ -1980,40 +2065,42 @@ async function loadReferralTrail(userId) {
         <span style="width:18px;height:18px;border-radius:50%;background:#d1fae5;
                      display:inline-flex;align-items:center;justify-content:center;
                      font-size:.55rem;font-weight:900;color:#059669">${initials}</span>
-        ${name.split(' ')[0]}
+        ${name.split(" ")[0]}
       </div>`;
-  }).join('') + (refs.length > 5
-    ? `<span style="font-size:.68rem;color:#94a3b8;padding:3px 0;align-self:center">+${refs.length - 5} more</span>`
-    : '');
+      })
+      .join("") +
+    (refs.length > 5
+      ? `<span style="font-size:.68rem;color:#94a3b8;padding:3px 0;align-self:center">+${refs.length - 5} more</span>`
+      : "");
 
-  trail.style.display = 'block';
+  trail.style.display = "block";
 }
 
 // ─── Top 10% Earner Badge ──────────────────────────────────────────────────
 async function checkTop10Badge(userId, userCoins) {
   // Count users with more coins than current user
   const { count: above } = await client
-    .from('user_profiles')
-    .select('id', { count: 'exact', head: true })
-    .gt('total_coins', userCoins);
+    .from("user_profiles")
+    .select("id", { count: "exact", head: true })
+    .gt("total_coins", userCoins);
 
   const { count: total } = await client
-    .from('user_profiles')
-    .select('id', { count: 'exact', head: true });
+    .from("user_profiles")
+    .select("id", { count: "exact", head: true });
 
   if (!total || total < 10) return; // not enough users yet
 
-  const isTop10 = above !== null && above / total <= 0.10;
+  const isTop10 = above !== null && above / total <= 0.1;
 
-  const badgesEl = document.getElementById('userBadges');
+  const badgesEl = document.getElementById("userBadges");
   if (!isTop10 || !badgesEl) return;
 
   // Check if badge already rendered
-  if (document.getElementById('top10EarnerBadge')) return;
+  if (document.getElementById("top10EarnerBadge")) return;
 
-  const badge = document.createElement('span');
-  badge.id = 'top10EarnerBadge';
-  badge.title = 'Top 10% CL Earner on Courage Library';
+  const badge = document.createElement("span");
+  badge.id = "top10EarnerBadge";
+  badge.title = "Top 10% CL Earner on Courage Library";
   badge.innerHTML = `
     <span style="
       display:inline-flex;align-items:center;gap:4px;
@@ -2033,34 +2120,40 @@ async function checkTop10Badge(userId, userCoins) {
 
 async function initNotifications() {
   // ── Wire bell unconditionally (guests get login prompt) ──
-  const bell     = document.getElementById("notificationBell");
+  const bell = document.getElementById("notificationBell");
   const dropdown = document.getElementById("notificationDropdown");
 
   if (bell && dropdown) {
     bell.addEventListener("click", (e) => {
       e.stopPropagation();
       if (!notificationUser) {
-        if (typeof window.showGuestAuthPrompt === "function") window.showGuestAuthPrompt();
+        if (typeof window.showGuestAuthPrompt === "function")
+          window.showGuestAuthPrompt();
         return;
       }
-      const isHidden = dropdown.style.display === 'none' || !dropdown.style.display;
+      const isHidden =
+        dropdown.style.display === "none" || !dropdown.style.display;
       if (isHidden) {
-        dropdown.style.display = 'block';
-        dropdown.style.animation = 'notifDrop .18s cubic-bezier(.34,1.56,.64,1) both';
+        dropdown.style.display = "block";
+        dropdown.style.animation =
+          "notifDrop .18s cubic-bezier(.34,1.56,.64,1) both";
         loadNotifications();
         // Auto mark all as read after a short delay
         setTimeout(() => {
           markAllRead();
         }, 1200);
       } else {
-        dropdown.style.display = 'none';
+        dropdown.style.display = "none";
       }
     });
 
     document.addEventListener("click", (e) => {
-      if (dropdown.style.display !== 'none' &&
-          !dropdown.contains(e.target) && !bell.contains(e.target)) {
-        dropdown.style.display = 'none';
+      if (
+        dropdown.style.display !== "none" &&
+        !dropdown.contains(e.target) &&
+        !bell.contains(e.target)
+      ) {
+        dropdown.style.display = "none";
       }
     });
 
@@ -2070,7 +2163,9 @@ async function initNotifications() {
   const markBtn = document.getElementById("markAllReadBtn");
   if (markBtn) markBtn.addEventListener("click", markAllRead);
 
-  const { data: { user } } = await client.auth.getUser();
+  const {
+    data: { user },
+  } = await client.auth.getUser();
   if (!user) return;
 
   notificationUser = user;
@@ -2095,26 +2190,26 @@ async function loadNotificationCount() {
 
   if (badge) {
     if (count > 0) {
-      badge.textContent = count > 99 ? '99+' : count;
-      badge.style.display = 'flex';
+      badge.textContent = count > 99 ? "99+" : count;
+      badge.style.display = "flex";
     } else {
-      badge.style.display = 'none';
+      badge.style.display = "none";
     }
   }
   if (headerCount) {
     if (count > 0) {
       headerCount.textContent = `${count} unread`;
-      headerCount.style.display = 'inline';
+      headerCount.style.display = "inline";
     } else {
-      headerCount.style.display = 'none';
+      headerCount.style.display = "none";
     }
   }
   if (mobileBadge) {
     if (count > 0) {
-      mobileBadge.textContent = count > 99 ? '99+' : count;
-      mobileBadge.style.display = 'block';
+      mobileBadge.textContent = count > 99 ? "99+" : count;
+      mobileBadge.style.display = "block";
     } else {
-      mobileBadge.style.display = 'none';
+      mobileBadge.style.display = "none";
     }
   }
 }
@@ -2146,16 +2241,46 @@ async function loadNotifications() {
   }
 
   const typeStyle = {
-    coins:   { bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.2)', icon: '🪙', accent: '#d97706' },
-    streak:  { bg: 'rgba(251,146,60,0.08)', border: 'rgba(251,146,60,0.2)', icon: '🔥', accent: '#ea580c' },
-    reward:  { bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.2)', icon: '🎁', accent: '#059669' },
-    badge:   { bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.2)', icon: '🏅', accent: '#6d28d9' },
-    referral:{ bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.2)', icon: '🎉', accent: '#059669' },
+    coins: {
+      bg: "rgba(251,191,36,0.08)",
+      border: "rgba(251,191,36,0.2)",
+      icon: "🪙",
+      accent: "#d97706",
+    },
+    streak: {
+      bg: "rgba(251,146,60,0.08)",
+      border: "rgba(251,146,60,0.2)",
+      icon: "🔥",
+      accent: "#ea580c",
+    },
+    reward: {
+      bg: "rgba(52,211,153,0.08)",
+      border: "rgba(52,211,153,0.2)",
+      icon: "🎁",
+      accent: "#059669",
+    },
+    badge: {
+      bg: "rgba(129,140,248,0.08)",
+      border: "rgba(129,140,248,0.2)",
+      icon: "🏅",
+      accent: "#6d28d9",
+    },
+    referral: {
+      bg: "rgba(52,211,153,0.08)",
+      border: "rgba(52,211,153,0.2)",
+      icon: "🎉",
+      accent: "#059669",
+    },
   };
-  const fallback = { bg: 'rgba(148,163,184,0.06)', border: 'rgba(148,163,184,0.15)', icon: '📌', accent: '#64748b' };
+  const fallback = {
+    bg: "rgba(148,163,184,0.06)",
+    border: "rgba(148,163,184,0.15)",
+    icon: "📌",
+    accent: "#64748b",
+  };
 
-  const unread = data.filter(n => !n.is_read);
-  const read   = data.filter(n =>  n.is_read);
+  const unread = data.filter((n) => !n.is_read);
+  const read = data.filter((n) => n.is_read);
 
   const renderItem = (n) => {
     const s = typeStyle[n.type] || fallback;
@@ -2164,46 +2289,50 @@ async function loadNotifications() {
       <div style="
         display:flex;align-items:flex-start;gap:10px;
         padding:12px 16px;
-        background:${n.is_read ? '#fff' : s.bg};
+        background:${n.is_read ? "#fff" : s.bg};
         border-bottom:1px solid #f1f5f9;
         transition:background .15s;cursor:default;
         position:relative;
       "
       onmouseenter="this.style.background='#f8faff'"
-      onmouseleave="this.style.background='${n.is_read ? '#fff' : s.bg}'">
-        ${!n.is_read ? `<span style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${s.accent};border-radius:0 2px 2px 0"></span>` : ''}
+      onmouseleave="this.style.background='${n.is_read ? "#fff" : s.bg}'">
+        ${!n.is_read ? `<span style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${s.accent};border-radius:0 2px 2px 0"></span>` : ""}
         <div style="
           width:36px;height:36px;border-radius:10px;flex-shrink:0;
-          background:${n.is_read ? '#f1f5f9' : 'rgba(255,255,255,0.9)'};
-          border:1px solid ${n.is_read ? '#e2e8f0' : s.border};
+          background:${n.is_read ? "#f1f5f9" : "rgba(255,255,255,0.9)"};
+          border:1px solid ${n.is_read ? "#e2e8f0" : s.border};
           display:flex;align-items:center;justify-content:center;font-size:.95rem;
         ">${s.icon}</div>
         <div style="flex:1;min-width:0">
-          <div style="font-size:.78rem;font-weight:${n.is_read ? 600 : 700};color:${n.is_read ? '#475569' : '#0f172a'};line-height:1.35;margin-bottom:2px">${n.title}</div>
+          <div style="font-size:.78rem;font-weight:${n.is_read ? 600 : 700};color:${n.is_read ? "#475569" : "#0f172a"};line-height:1.35;margin-bottom:2px">${n.title}</div>
           <div style="font-size:.69rem;color:#64748b;line-height:1.4">${n.message}</div>
           <div style="font-size:.62rem;color:#94a3b8;margin-top:5px;font-weight:500">${ago}</div>
         </div>
-        ${!n.is_read ? `<span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:5px;box-shadow:0 0 0 2px rgba(59,130,246,0.2)"></span>` : ''}
+        ${!n.is_read ? `<span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:5px;box-shadow:0 0 0 2px rgba(59,130,246,0.2)"></span>` : ""}
       </div>`;
   };
 
   if (unread.length > 0) {
     list.innerHTML += `<div style="padding:8px 16px 4px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8">Unread</div>`;
-    unread.forEach(n => { list.innerHTML += renderItem(n); });
+    unread.forEach((n) => {
+      list.innerHTML += renderItem(n);
+    });
   }
   if (read.length > 0) {
     list.innerHTML += `<div style="padding:8px 16px 4px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#cbd5e1">Earlier</div>`;
-    read.forEach(n => { list.innerHTML += renderItem(n); });
+    read.forEach((n) => {
+      list.innerHTML += renderItem(n);
+    });
   }
 }
 
 function _timeAgo(iso) {
-  if (!iso) return '';
+  if (!iso) return "";
   const diff = Math.floor((Date.now() - new Date(iso)) / 1000);
-  if (diff < 60)  return 'just now';
-  if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
-  return `${Math.floor(diff/86400)}d ago`;
+  if (diff < 60) return "just now";
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
 }
 
 // Mark all read
@@ -2242,12 +2371,12 @@ function setupRealtimeNotifications() {
 }
 
 // Simple toast
-function showToast(title, message = '', type = 'coins') {
-  document.getElementById('cl-toast')?.remove();
+function showToast(title, message = "", type = "coins") {
+  document.getElementById("cl-toast")?.remove();
 
   const icon = notifIcon(type);
-  const toast = document.createElement('div');
-  toast.id = 'cl-toast';
+  const toast = document.createElement("div");
+  toast.id = "cl-toast";
   toast.style.cssText = `
     position:fixed;top:72px;right:16px;
     display:flex;align-items:center;gap:10px;
@@ -2273,21 +2402,25 @@ function showToast(title, message = '', type = 'coins') {
                   white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
         ${title}
       </div>
-      ${message ? `<div style="font-size:11px;color:#6b7280;margin-top:1px;
+      ${
+        message
+          ? `<div style="font-size:11px;color:#6b7280;margin-top:1px;
                                white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
                     ${message}
-                  </div>` : ''}
+                  </div>`
+          : ""
+      }
     </div>
   `;
 
   document.body.appendChild(toast);
   requestAnimationFrame(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(0)';
+    toast.style.opacity = "1";
+    toast.style.transform = "translateX(0)";
   });
   setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(18px)';
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(18px)";
     setTimeout(() => toast.remove(), 250);
   }, 3500);
 }
@@ -2296,9 +2429,9 @@ function openMobileNotifications() {
   const panel = document.getElementById("mobileNotificationPanel");
   const sheet = document.getElementById("mobileSheet");
 
-  panel.style.display = 'block';
+  panel.style.display = "block";
   setTimeout(() => {
-    sheet.style.transform = 'translateY(0)';
+    sheet.style.transform = "translateY(0)";
   }, 10);
 
   loadNotificationsMobile();
@@ -2311,9 +2444,9 @@ function openMobileNotifications() {
 
 function closeMobileNotifications() {
   const sheet = document.getElementById("mobileSheet");
-  sheet.style.transform = 'translateY(100%)';
+  sheet.style.transform = "translateY(100%)";
   setTimeout(() => {
-    document.getElementById("mobileNotificationPanel").style.display = 'none';
+    document.getElementById("mobileNotificationPanel").style.display = "none";
   }, 300);
 }
 
@@ -2321,15 +2454,15 @@ async function loadNotificationsMobile() {
   if (!notificationUser) return;
 
   const { data } = await client
-    .from('notifications')
-    .select('*')
-    .eq('user_id', notificationUser.id)
-    .order('created_at', { ascending: false })
+    .from("notifications")
+    .select("*")
+    .eq("user_id", notificationUser.id)
+    .order("created_at", { ascending: false })
     .limit(10);
 
-  const list = document.getElementById('notificationListMobile');
-  const subtitle = document.getElementById('mobileNotifSubtitle');
-  list.innerHTML = '';
+  const list = document.getElementById("notificationListMobile");
+  const subtitle = document.getElementById("mobileNotifSubtitle");
+  list.innerHTML = "";
 
   if (!data || data.length === 0) {
     list.innerHTML = `
@@ -2338,21 +2471,53 @@ async function loadNotificationsMobile() {
         <div style="font-size:.88rem;font-weight:700;color:#1e293b;margin-bottom:5px">All caught up!</div>
         <div style="font-size:.75rem;color:#94a3b8;font-weight:500">No notifications yet — keep going!</div>
       </div>`;
-    if (subtitle) subtitle.textContent = 'Nothing new';
+    if (subtitle) subtitle.textContent = "Nothing new";
     return;
   }
 
-  const unread = data.filter(n => !n.is_read);
-  if (subtitle) subtitle.textContent = unread.length > 0 ? `${unread.length} unread` : 'All read';
+  const unread = data.filter((n) => !n.is_read);
+  if (subtitle)
+    subtitle.textContent =
+      unread.length > 0 ? `${unread.length} unread` : "All read";
 
   const typeStyle = {
-    coins:   { bg: 'rgba(251,191,36,0.08)', border: 'rgba(251,191,36,0.22)', icon: '🪙', accent: '#d97706' },
-    streak:  { bg: 'rgba(251,146,60,0.08)', border: 'rgba(251,146,60,0.22)', icon: '🔥', accent: '#ea580c' },
-    reward:  { bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.22)', icon: '🎁', accent: '#059669' },
-    badge:   { bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.22)', icon: '🏅', accent: '#6d28d9' },
-    referral:{ bg: 'rgba(52,211,153,0.08)', border: 'rgba(52,211,153,0.22)', icon: '🎉', accent: '#059669' },
+    coins: {
+      bg: "rgba(251,191,36,0.08)",
+      border: "rgba(251,191,36,0.22)",
+      icon: "🪙",
+      accent: "#d97706",
+    },
+    streak: {
+      bg: "rgba(251,146,60,0.08)",
+      border: "rgba(251,146,60,0.22)",
+      icon: "🔥",
+      accent: "#ea580c",
+    },
+    reward: {
+      bg: "rgba(52,211,153,0.08)",
+      border: "rgba(52,211,153,0.22)",
+      icon: "🎁",
+      accent: "#059669",
+    },
+    badge: {
+      bg: "rgba(129,140,248,0.08)",
+      border: "rgba(129,140,248,0.22)",
+      icon: "🏅",
+      accent: "#6d28d9",
+    },
+    referral: {
+      bg: "rgba(52,211,153,0.08)",
+      border: "rgba(52,211,153,0.22)",
+      icon: "🎉",
+      accent: "#059669",
+    },
   };
-  const fallback = { bg: 'rgba(148,163,184,0.06)', border: 'rgba(148,163,184,0.18)', icon: '📌', accent: '#64748b' };
+  const fallback = {
+    bg: "rgba(148,163,184,0.06)",
+    border: "rgba(148,163,184,0.18)",
+    icon: "📌",
+    accent: "#64748b",
+  };
 
   const renderMobileItem = (n) => {
     const s = typeStyle[n.type] || fallback;
@@ -2364,18 +2529,18 @@ async function loadNotificationsMobile() {
         border-bottom:1px solid #f1f5f9;
         position:relative;
       ">
-        ${!n.is_read ? `<span style="position:absolute;left:-12px;top:0;bottom:0;width:3px;background:${s.accent};border-radius:0 2px 2px 0"></span>` : ''}
+        ${!n.is_read ? `<span style="position:absolute;left:-12px;top:0;bottom:0;width:3px;background:${s.accent};border-radius:0 2px 2px 0"></span>` : ""}
         <div style="
           width:40px;height:40px;border-radius:12px;flex-shrink:0;
-          background:${n.is_read ? '#f8faff' : 'rgba(255,255,255,0.9)'};
-          border:1px solid ${n.is_read ? '#e2e8f0' : s.border};
+          background:${n.is_read ? "#f8faff" : "rgba(255,255,255,0.9)"};
+          border:1px solid ${n.is_read ? "#e2e8f0" : s.border};
           display:flex;align-items:center;justify-content:center;font-size:1.1rem;
-          box-shadow:${n.is_read ? 'none' : '0 2px 8px rgba(0,0,0,.06)'};
+          box-shadow:${n.is_read ? "none" : "0 2px 8px rgba(0,0,0,.06)"};
         ">${s.icon}</div>
         <div style="flex:1;min-width:0">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:3px">
-            <div style="font-size:.84rem;font-weight:${n.is_read ? 600 : 700};color:${n.is_read ? '#475569' : '#0f172a'};line-height:1.3;flex:1">${n.title}</div>
-            ${!n.is_read ? `<span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:4px;box-shadow:0 0 0 2px rgba(59,130,246,0.2)"></span>` : ''}
+            <div style="font-size:.84rem;font-weight:${n.is_read ? 600 : 700};color:${n.is_read ? "#475569" : "#0f172a"};line-height:1.3;flex:1">${n.title}</div>
+            ${!n.is_read ? `<span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;flex-shrink:0;margin-top:4px;box-shadow:0 0 0 2px rgba(59,130,246,0.2)"></span>` : ""}
           </div>
           <div style="font-size:.74rem;color:#64748b;line-height:1.45">${n.message}</div>
           <div style="font-size:.66rem;color:#94a3b8;margin-top:5px;font-weight:500">${ago}</div>
@@ -2383,33 +2548,37 @@ async function loadNotificationsMobile() {
       </div>`;
   };
 
-  const read = data.filter(n => n.is_read);
+  const read = data.filter((n) => n.is_read);
 
   if (unread.length > 0) {
     list.innerHTML += `<div style="padding:12px 4px 6px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8">Unread</div>`;
-    unread.forEach(n => { list.innerHTML += renderMobileItem(n); });
+    unread.forEach((n) => {
+      list.innerHTML += renderMobileItem(n);
+    });
   }
   if (read.length > 0) {
     list.innerHTML += `<div style="padding:12px 4px 6px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#cbd5e1">Earlier</div>`;
-    read.forEach(n => { list.innerHTML += renderMobileItem(n); });
+    read.forEach((n) => {
+      list.innerHTML += renderMobileItem(n);
+    });
   }
 }
 
 function renderStreakMultiplierPill(currentStreak) {
-  const pill   = document.getElementById('streakMultiplierPill');
-  const valEl  = document.getElementById('streakMultiplierVal');
+  const pill = document.getElementById("streakMultiplierPill");
+  const valEl = document.getElementById("streakMultiplierVal");
   if (!pill || !valEl) return;
 
   let label = null;
-  if      (currentStreak >= 50) label = '×3.0';
-  else if (currentStreak >= 25) label = '×2.0';
-  else if (currentStreak >= 10) label = '×1.5';
-  else if (currentStreak >= 5)  label = '×1.25';
+  if (currentStreak >= 50) label = "×3.0";
+  else if (currentStreak >= 25) label = "×2.0";
+  else if (currentStreak >= 10) label = "×1.5";
+  else if (currentStreak >= 5) label = "×1.25";
 
   if (label) {
     valEl.textContent = label;
-    pill.style.display = 'block';
+    pill.style.display = "block";
   } else {
-    pill.style.display = 'none';
+    pill.style.display = "none";
   }
 }
