@@ -438,27 +438,57 @@ function getMockNumber(launchDate, dayOfWeek) {
 }
 
 // ─── Schedule Info Popup ─────────────────────────────────────────────────────
-function injectScheduleInfoPopup() {
-  if (document.getElementById("schedInfoOverlay")) return;
+
+// Add new series schedules here as you expand — no other code needs to change
+const SCHEDULE_DATA = {
+  "SSC GD": {
+    rows: [
+      ["Monday",    "General Awareness",  "20",  "40",  "20m", false],
+      ["Tuesday",   "Reasoning",          "20",  "40",  "20m", false],
+      ["Wednesday", "Quant Aptitude",     "20",  "40",  "20m", false],
+      ["Thursday",  "English Grammar",    "20",  "40",  "20m", false],
+      ["Friday",    "Hindi",              "20",  "40",  "20m", false],
+      ["Saturday",  "Mixed (All 5)",      "50",  "100", "30m", false],
+      ["Sunday",    "Full Mock Test",     "100", "200", "60m", true],
+    ],
+  },
+  "UP Police Constable": {
+    rows: [
+      ["Monday",    "Hindi",                        "37",  "74",  "30m", false],
+      ["Tuesday",   "General Knowledge",            "38",  "76",  "30m", false],
+      ["Wednesday", "Numerical Ability",            "25",  "50",  "25m", false],
+      ["Thursday",  "Mental Aptitude",              "50",  "100", "40m", false],
+      ["Friday",    "Mental Aptitude + Numerical",  "50",  "100", "40m", false],
+      ["Saturday",  "Mixed — All 4 Subjects",       "75",  "150", "60m", false],
+      ["Sunday",    "Full Mock Test",               "150", "300", "120m", true],
+    ],
+  },
+};
+
+function injectScheduleInfoPopup(categoryName) {
+  // Remove existing so it re-renders with correct category data
+  document.getElementById("schedInfoOverlay")?.remove();
+
+  const key = Object.keys(SCHEDULE_DATA).find(k =>
+    (categoryName || "").toUpperCase().includes(k.toUpperCase())
+  ) || "SSC GD";
+
+  const { rows } = SCHEDULE_DATA[key];
+
   const overlay = document.createElement("div");
   overlay.id = "schedInfoOverlay";
   overlay.style =
     "display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;";
   overlay.innerHTML = `
     <div style="background:#fff;border-radius:20px;max-width:520px;width:100%;box-shadow:0 24px 64px rgba(15,23,42,.2);overflow:hidden;animation:fadeInUp .25s ease;max-height:90vh;overflow-y:auto;">
-
-      <!-- Header -->
       <div style="background:linear-gradient(135deg,#1a56db,#1e3a8a);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1">
         <div>
-          <div style="font-size:.62rem;font-weight:700;color:#93c5fd;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px">SSC GD Daily Schedule</div>
+          <div style="font-size:.62rem;font-weight:700;color:#93c5fd;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px">${key} Daily Schedule</div>
           <div style="font-size:.98rem;font-weight:800;color:#fff">Weekly Mock Test Plan</div>
         </div>
         <button onclick="document.getElementById('schedInfoOverlay').style.display='none'" style="width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center">✕</button>
       </div>
-
       <div style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:16px">
-
-        <!-- Schedule Table -->
         <div>
           <div style="font-size:.68rem;font-weight:800;color:#1a56db;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px"><i class="fas fa-calendar-alt mr-1"></i> Weekly Schedule</div>
           <div style="border-radius:12px;overflow:hidden;border:1px solid #e2e8f4;">
@@ -473,67 +503,30 @@ function injectScheduleInfoPopup() {
                 </tr>
               </thead>
               <tbody>
-                ${[
-                  ["Monday", "General Awareness", "20", "40", "20m", false],
-                  ["Tuesday", "Reasoning", "20", "40", "20m", false],
-                  ["Wednesday", "Quant Aptitude", "20", "40", "20m", false],
-                  ["Thursday", "English Grammar", "20", "40", "20m", false],
-                  ["Friday", "Hindi", "20", "40", "20m", false],
-                  ["Saturday", "Mixed (All 5)", "50", "100", "30m", false],
-                  ["Sunday", "Full Mock Test", "100", "200", "60m", true],
-                ]
-                  .map(
-                    ([day, subj, q, marks, time, highlight], i) => `
+                ${rows.map(([day, subj, q, marks, time, highlight], i) => `
                   <tr style="background:${highlight ? "#fff7ed" : i % 2 === 0 ? "#fff" : "#f8faff"};border-bottom:1px solid #f1f5f9">
                     <td style="padding:7px 12px;font-weight:700;color:${highlight ? "#c2410c" : "#0f172a"}">${day}</td>
                     <td style="padding:7px 12px;color:#374151">${subj}</td>
                     <td style="padding:7px 12px;text-align:center;font-weight:700;color:#1d4ed8">${q}</td>
                     <td style="padding:7px 12px;text-align:center;font-weight:700;color:#059669">${marks}</td>
                     <td style="padding:7px 12px;text-align:center;color:#64748b">${time}</td>
-                  </tr>`,
-                  )
-                  .join("")}
+                  </tr>`).join("")}
               </tbody>
             </table>
           </div>
         </div>
-
-        <!-- Rules -->
         <div style="background:#f8faff;border:1px solid #e8edf5;border-radius:12px;overflow:hidden">
           <div style="padding:10px 14px;background:#f0f6ff;border-bottom:1px solid #e2e8f4;font-size:.68rem;font-weight:800;color:#1a56db;text-transform:uppercase;letter-spacing:.08em"><i class="fas fa-shield-alt mr-1"></i> Rules</div>
           ${[
-            [
-              "fas fa-clock",
-              "#dbeafe",
-              "#1d4ed8",
-              "5:00 AM – 11:59 PM only",
-              "Tests lock outside this window every day.",
-            ],
-            [
-              "fas fa-ban",
-              "#fee2e2",
-              "#dc2626",
-              "One attempt per day",
-              "No retakes. Missed = gone. Real exam discipline.",
-            ],
-            [
-              "fas fa-minus-circle",
-              "#fef3c7",
-              "#d97706",
-              "Negative marking −0.5",
-              "Wrong answer costs half a mark. Attempt wisely.",
-            ],
-          ]
-            .map(
-              ([icon, bg, color, title, desc], i, arr) => `
+            ["fas fa-clock",        "#dbeafe", "#1d4ed8", "5:00 AM – 11:59 PM only",  "Tests lock outside this window every day."],
+            ["fas fa-ban",          "#fee2e2", "#dc2626", "One attempt per day",       "No retakes. Missed = gone. Real exam discipline."],
+            ["fas fa-minus-circle", "#fef3c7", "#d97706", "Negative marking −0.5",    "Wrong answer costs half a mark. Attempt wisely."],
+          ].map(([icon, bg, color, title, desc], i, arr) => `
             <div style="display:flex;gap:10px;align-items:center;padding:10px 14px;${i < arr.length - 1 ? "border-bottom:1px solid #f1f5f9" : ""}">
               <span style="width:26px;height:26px;border-radius:7px;background:${bg};color:${color};display:flex;align-items:center;justify-content:center;font-size:.68rem;flex-shrink:0"><i class="${icon}"></i></span>
               <div style="flex:1"><span style="font-size:.78rem;font-weight:800;color:#0f172a">${title}</span><span style="font-size:.72rem;color:#64748b;margin-left:6px">${desc}</span></div>
-            </div>`,
-            )
-            .join("")}
+            </div>`).join("")}
         </div>
-
       </div>
     </div>`;
   overlay.addEventListener("click", (e) => {
@@ -542,8 +535,8 @@ function injectScheduleInfoPopup() {
   document.body.appendChild(overlay);
 }
 
-window.openScheduleInfo = function () {
-  injectScheduleInfoPopup();
+window.openScheduleInfo = function (categoryName) {
+  injectScheduleInfoPopup(categoryName);
   document.getElementById("schedInfoOverlay").style.display = "flex";
 };
 
@@ -620,35 +613,216 @@ function startCountdown(elementId, getMs, urgent = false) {
   _countdownIntervals.push(id);
 }
 
+// ─── Explore More Series (pulse dot discovery) ────────────────────────────────
+// Fetches unenrolled series and injects them at the bottom of the exam list
+// with a pulsing orange dot + count pill on the section header.
+// Also updates page <title> with "(N New)" when unenrolled series exist.
+// Zero banners. Zero popups. Zero annoyance.
+async function loadExploreSeries(enrolledCategoryIds, container) {
+  const { data: allCategories } = await client
+    .from("exam_categories")
+    .select("id, name")
+    .order("created_at", { ascending: false });
+
+  const unenrolledSeries = (allCategories || []).filter(c =>
+    !enrolledCategoryIds.includes(c.id) &&
+    c.name !== "DEMO"
+  );
+
+  if (unenrolledSeries.length === 0) return;
+
+  // ── 1. Update page title quietly ─────────────────────────────────────────
+  const baseTitle = "Dashboard • Courage Library";
+  document.title = `(${unenrolledSeries.length} New) ${baseTitle}`;
+
+  // ── 2. Inject CSS for pulse dot (once) ───────────────────────────────────
+  if (!document.getElementById("cl-pulse-style")) {
+    const style = document.createElement("style");
+    style.id = "cl-pulse-style";
+    style.textContent = `
+      @keyframes cl-pulse-ring {
+        0%   { transform: scale(1);   opacity: .8; }
+        70%  { transform: scale(2.4); opacity: 0;  }
+        100% { transform: scale(2.4); opacity: 0;  }
+      }
+      .cl-pulse-dot {
+        position: relative;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #f97316;
+        flex-shrink: 0;
+        display: inline-block;
+      }
+      .cl-pulse-dot::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(249,115,22,0.5);
+        animation: cl-pulse-ring 1.6s ease-out infinite;
+        pointer-events: none;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // ── 3. Section header — pulse dot inside pill ─────────────────────────
+  const exploreHeader = document.createElement("div");
+  exploreHeader.style = "grid-column:1/-1;margin-top:32px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;";
+  exploreHeader.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;min-width:0">
+      <span style="width:4px;height:20px;border-radius:99px;background:linear-gradient(180deg,#f59e0b,#f97316);display:inline-block;flex-shrink:0"></span>
+      <span style="font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;white-space:nowrap">Explore More Series</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;flex-shrink:0;background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:2px 8px 2px 6px;">
+        <span class="cl-pulse-dot"></span>
+        <span style="font-size:.68rem;font-weight:700;color:#c2410c;line-height:1">${unenrolledSeries.length} New</span>
+      </span>
+    </div>
+    <a href="/mock-test-series.html" style="font-size:.72rem;font-weight:700;color:#1a56db;text-decoration:none;white-space:nowrap;flex-shrink:0">View All</a>`;
+  container.appendChild(exploreHeader);
+
+  // ── 4. Series page slug map — add new entries as new series pages are created ──
+  const SERIES_SLUG = {
+    "SSC GD":    "/mock/ssc-gd.html",
+    "SSC CGL":   "/mock/ssc-cgl.html",
+    "UP Police Constable": "/mock/up-police.html",
+  };
+
+  // ── 5. Explore cards — clicking opens the series info page ──────────────
+  unenrolledSeries.forEach(series => {
+    const seriesUrl = Object.entries(SERIES_SLUG).find(([key]) =>
+      series.name.toUpperCase().includes(key.toUpperCase())
+    )?.[1] || "/mock-test-series.html";
+
+    const card = document.createElement("div");
+    card.className = "exam-card";
+    card.innerHTML = `
+      <div class="exam-card-accent" style="background:linear-gradient(180deg,#f59e0b,#f97316)"></div>
+      <div class="exam-card-body">
+        <div class="exam-card-head">
+          <div class="exam-card-title">${series.name}</div>
+          <span class="exam-type-badge" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;">Not Enrolled</span>
+        </div>
+        <div class="exam-avail" style="color:#64748b;">
+          <span class="avail-dot" style="background:#f59e0b"></span>
+          Daily mock tests available — enroll to start
+        </div>
+        <div class="exam-meta-grid">
+          <div class="meta-chip">
+            <div class="meta-chip-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div><div class="meta-chip-label">Schedule</div><div class="meta-chip-value">Daily</div></div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-icon green"><i class="fas fa-infinity"></i></div>
+            <div><div class="meta-chip-label">Cost</div><div class="meta-chip-value">Free</div></div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-icon amber"><i class="fas fa-trophy"></i></div>
+            <div><div class="meta-chip-label">Leaderboard</div><div class="meta-chip-value">Live</div></div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-icon indigo"><i class="fas fa-coins"></i></div>
+            <div><div class="meta-chip-label">Rewards</div><div class="meta-chip-value">CL Coins</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="exam-card-footer">
+        <a href="${seriesUrl}"
+          class="btn-start-exam active"
+          style="background:linear-gradient(135deg,#f59e0b,#f97316);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;">
+          <i class="fas fa-arrow-right"></i> Know More & Enroll
+        </a>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+// ─── Enroll from Dashboard (kept for legacy/future use) ──────────────────────
+window.enrollFromDashboard = async function(categoryId, seriesName, btn) {
+  if (!_currentUser) { showGuestAuthPrompt(); return; }
+  btn.disabled = true;
+  btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i> Enrolling...`;
+  const { error } = await client
+    .from("user_exam_enrollments")
+    .insert({ user_id: _currentUser.id, category_id: categoryId });
+  if (error && error.code !== "23505") {
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fas fa-plus mr-1"></i> Enroll Free`;
+    showToast("Could not enroll. Try again.", "error");
+    return;
+  }
+  showToast(`Enrolled in ${seriesName}! Reloading...`, "success");
+  setTimeout(() => loadAvailableExams(), 1500);
+};
+
 // ─── Toggle Scheduled Cards ──────────────────────────────────────────────────
 
 // ─── Load Available Exams ─────────────────────────────────────────────────────
 async function loadAvailableExams() {
-  // For guests, fetch exams publicly (no user-specific attempt data)
   const user = _currentUser;
 
-  const { data, error } = await client
+  // Step 1 — fetch enrollments
+  let enrolledCategoryIds = [];
+  if (user) {
+    const { data: enrollments } = await client
+      .from("user_exam_enrollments")
+      .select("category_id")
+      .eq("user_id", user.id);
+    enrolledCategoryIds = (enrollments || []).map(e => e.category_id);
+  }
+
+  // Step 2 — declare container FIRST before any usage
+  clearAllCountdowns();
+  const container = document.getElementById("examList");
+  container.innerHTML = "";
+
+  // Step 3 — now safe to use container for empty state
+  // AFTER — show banner first, then show browse CTA below it
+if (user && enrolledCategoryIds.length === 0) {
+  await loadExploreSeries(enrolledCategoryIds, container);
+  const emptyDiv = document.createElement("div");
+  emptyDiv.style = "grid-column:1/-1";
+  emptyDiv.innerHTML = `
+    <div class="empty-box">
+      <div class="empty-ico"><i class="fas fa-layer-group"></i></div>
+      <h3>No Series Enrolled</h3>
+      <p>Browse our mock test series and enroll to start practicing.</p>
+      <a href="/mock-test-series.html" style="margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.5rem;background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border-radius:999px;font-weight:700;font-size:.875rem;text-decoration:none;">
+        Browse Series →
+      </a>
+    </div>`;
+  container.appendChild(emptyDiv);
+  return;
+}
+
+  // Step 4 — real query with real select string + enrollment filter
+  let query = client
     .from("scheduled_exams")
-    .select(
-      `
+    .select(`
       id, mode, availability_type, is_active,
       start_datetime, end_datetime, is_premium, attempt_limit,
       schedule_type, day_of_week, exam_type, launch_date, category_id,
       language,
       exam_patterns ( pattern_name, duration_minutes, negative_marking, total_questions ),
       exam_categories ( name )
-    `,
-    )
+    `)
     .eq("is_active", true);
+
+  // Only filter by enrollment if user is logged in
+  if (user && enrolledCategoryIds.length > 0) {
+    query = query.in("category_id", enrolledCategoryIds);
+  }
+
+  // (Explore More Series injected at end of loadAvailableExams — see below)
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);
     return;
   }
 
-  clearAllCountdowns();
-  const container = document.getElementById("examList");
-  container.innerHTML = "";
+  // rest of your existing code continues unchanged...
 
   if (!data || data.length === 0) {
     container.innerHTML = `
@@ -763,8 +937,10 @@ async function loadAvailableExams() {
     const alreadyDone = completedAttempts.length > 0;
     const isLive = isToday && windowOpen;
     const dayLabel = DAY_LABELS[exam.day_of_week] || exam.day_of_week;
-    const subjectName =
-      SUBJECT_NAMES[exam.day_of_week] || pattern.pattern_name || "Mock Test";
+    const subjectName = exam.active_section 
+  || SUBJECT_NAMES[exam.day_of_week] 
+  || pattern.pattern_name 
+  || "Mock Test";
     const subjectIcon = SUBJECT_ICONS[exam.day_of_week] || "fas fa-file-alt";
     const categoryName = exam.exam_categories?.name || "";
     const mockLabel = mockNumber ? `${mockNumber}` : "";
@@ -862,7 +1038,8 @@ async function loadAvailableExams() {
           <div style="flex:1;min-width:0">
             <div class="exam-card-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cardTitle}</div>
           </div>
-          <span class="exam-type-badge" style="${badgeStyle};margin-left:8px;flex-shrink:0">${badgeText}</span>
+          <button onclick="openScheduleInfo('${categoryName}')" title="View weekly schedule" style="width:22px;height:22px;border-radius:50%;background:#e0e7ff;border:none;color:#4338ca;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;transition:background .15s" onmouseover="this.style.background='#c7d2fe'" onmouseout="this.style.background='#e0e7ff'"><i class="fas fa-info"></i></button>
+          <span class="exam-type-badge" style="${badgeStyle};margin-left:6px;flex-shrink:0">${badgeText}</span>
         </div>
         ${availHtml}
         <div class="exam-meta-grid">
@@ -905,34 +1082,32 @@ async function loadAvailableExams() {
     return ar - br;
   });
 
-  const todayExams = dailyExams.filter((e) => e.day_of_week === todayName);
-  const scheduledExams = dailyExams.filter((e) => e.day_of_week !== todayName);
+  // FIND and REPLACE the entire today exams block with this:
 
-  // ── SECTION 1: Today's Test ──
-  if (todayExams.length > 0) {
-    const sec = document.createElement("div");
-    sec.style = "grid-column:1/-1;";
-    sec.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="width:4px;height:20px;border-radius:99px;background:linear-gradient(180deg,#1a56db,#60a5fa);display:inline-block;flex-shrink:0"></span>
-          <span style="font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a">Today's Test</span>
-          <button onclick="openScheduleInfo()" title="How it works" style="width:22px;height:22px;border-radius:50%;background:#e0e7ff;border:none;color:#4338ca;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;transition:background .15s" onmouseover="this.style.background='#c7d2fe'" onmouseout="this.style.background='#e0e7ff'"><i class="fas fa-info"></i></button>
-        </div>
-        <span style="font-size:.72rem;font-weight:600;color:#94a3b8">${windowOpen ? "✓ Open · 5:00 AM – 11:59 PM" : "Opens at 5:00 AM"}</span>
-      </div>`;
-    container.appendChild(sec);
-    // Today card spans full width
-    const todayWrapper = document.createElement("div");
-    todayWrapper.style = "grid-column:1/-1;max-width:420px;";
-    container.appendChild(todayWrapper);
-    todayExams.forEach((exam, i) => {
-      const card = buildDailyCard(exam, i);
-      todayWrapper.appendChild(card);
-      // Start live closing countdown
-      setTimeout(() => startCountdown(`cd-${exam.id}`, getClosingMs, true), 50);
-    });
-  }
+const todayExams = dailyExams.filter((e) => e.day_of_week === todayName);
+const scheduledExams = dailyExams.filter((e) => e.day_of_week !== todayName);
+
+// ── SECTION 1: Today's Test ──
+if (todayExams.length > 0) {
+  const sec = document.createElement("div");
+  sec.style = "grid-column:1/-1;";
+  sec.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:4px;height:20px;border-radius:99px;background:linear-gradient(180deg,#1a56db,#60a5fa);display:inline-block;flex-shrink:0"></span>
+        <span style="font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a">Today's Test</span>
+      </div>
+      <span style="font-size:.72rem;font-weight:600;color:#94a3b8">${windowOpen ? "✓ Open · 5:00 AM – 11:59 PM" : "Opens at 5:00 AM"}</span>
+    </div>`;
+  container.appendChild(sec);
+
+  // ← No todayWrapper — cards go directly into container grid
+  todayExams.forEach((exam, i) => {
+    const card = buildDailyCard(exam, i);
+    container.appendChild(card);
+    setTimeout(() => startCountdown(`cd-${exam.id}`, getClosingMs, true), 50);
+  });
+}
 
   // ── SECTION 2: Scheduled Mock Tests ──
   if (scheduledExams.length > 0) {
@@ -1063,6 +1238,13 @@ async function loadAvailableExams() {
         <div class="exam-card-footer" style="flex-direction:column;align-items:stretch;gap:7px">${btnHtml}${viewResultBtnManual}</div>`;
       container.appendChild(card);
     });
+  }
+
+  // ── SECTION: Explore More Series ──
+  // Only for logged-in users who have at least one enrollment.
+  // (Zero-enrollment case already handled above via early return.)
+  if (user && enrolledCategoryIds.length > 0) {
+    await loadExploreSeries(enrolledCategoryIds, container);
   }
 }
 
@@ -1355,12 +1537,8 @@ window.startExam = async function (examId, btn, chosenLanguage = null) {
     if (!sections || sections.length === 0)
       throw new Error("No sections found for this exam pattern.");
 
-    // Override question_count only for daily_auto Mixed & Full Mock
-    if (isDaily && examCheck.exam_type === "mixed") {
-      sections = sections.map((s) => ({ ...s, question_count: 10 }));
-    } else if (isDaily && examCheck.exam_type === "full_mock") {
-      sections = sections.map((s) => ({ ...s, question_count: 20 }));
-    }
+    // question_count is taken directly from pattern_sections in DB
+    // No overrides needed — each pattern defines its own counts
 
     const examLang = examCheck.language || "english";
     // Use student's chosen language for "both" exams

@@ -10,6 +10,15 @@ const PATTERN_IDS = {
   daily:     'aaaaaaaa-0001-0001-0001-000000000001', // SSC GD - Daily Sectional (20Q)
   mixed:     'aaaaaaaa-0002-0002-0002-000000000002', // SSC GD - Mixed Sectional (10Q×5=50Q)
   full_mock: 'aaaaaaaa-0003-0003-0003-000000000003', // SSC GD - Full Mock Test (20Q×5=100Q)
+
+  
+  upp_daily_hindi:     '8f5a2ab1-e495-48c4-9bed-b2d6017666f2',
+  upp_daily_gk:        '03e5999a-0ab6-4b7c-9062-8371f8cac94c',
+  upp_daily_numerical: 'f58821b2-603d-4b90-af86-0b729e845080',
+  upp_daily_mental:    '53ecd881-bca5-49b3-ad11-fb094454cbea',
+  upp_friday:          '6e3f3071-f907-433b-92f2-2fff7103fe43',
+  upp_mixed:           'b1d79e0e-1604-468f-b4b4-46c73c0f079b',
+  upp_mock:            'c6a53484-9bdc-4144-a00f-9492ce0b16ea',
 };
 
 const DAILY_SCHEDULE = [
@@ -21,6 +30,24 @@ const DAILY_SCHEDULE = [
   { day: "saturday",  label: "Saturday",  subject: "Mixed Sectional",      exam_type: "mixed",           pattern_key: "mixed",     active_section: null,                   questions: 50,  duration: 30, language: "both" },
   { day: "sunday",    label: "Sunday",    subject: "Full Mock Test",       exam_type: "full_mock",       pattern_key: "full_mock", active_section: null,                   questions: 100, duration: 60, language: "both" },
 ];
+
+const UPP_DAILY_SCHEDULE = [
+  { day: "monday",    label: "Monday",    subject: "Hindi",                      exam_type: "daily_sectional", pattern_key: "upp_daily_hindi",     active_section: "Hindi",             questions: 37,  duration: 30,  language: "hindi" },
+  { day: "tuesday",   label: "Tuesday",   subject: "General Knowledge",          exam_type: "daily_sectional", pattern_key: "upp_daily_gk",        active_section: "General Knowledge", questions: 38,  duration: 30,  language: "both"  },
+  { day: "wednesday", label: "Wednesday", subject: "Numerical Ability",          exam_type: "daily_sectional", pattern_key: "upp_daily_numerical", active_section: "Numerical Ability", questions: 25,  duration: 25,  language: "both"  },
+  { day: "thursday",  label: "Thursday",  subject: "Mental Aptitude",            exam_type: "daily_sectional", pattern_key: "upp_daily_mental",    active_section: "Mental Aptitude",   questions: 50,  duration: 40,  language: "both"  },
+  { day: "friday",    label: "Friday",    subject: "Mental Aptitude + Numerical",exam_type: "mixed",           pattern_key: "upp_friday",          active_section: null,                questions: 50,  duration: 40,  language: "both"  },
+  { day: "saturday",  label: "Saturday",  subject: "Mixed — All 4 Subjects",     exam_type: "mixed",           pattern_key: "upp_mixed",           active_section: null,                questions: 75,  duration: 60,  language: "both"  },
+  { day: "sunday",    label: "Sunday",    subject: "Full Mock Test",             exam_type: "full_mock",       pattern_key: "upp_mock",            active_section: null,                questions: 150, duration: 120, language: "both"  },
+];
+
+// Returns the correct schedule config based on selected category name
+async function getScheduleConfig(categoryId) {
+  const { data } = await client.from("exam_categories").select("name").eq("id", categoryId).single();
+  const name = (data?.name || "").toLowerCase();
+  if (name.includes("up police") || name.includes("upp")) return UPP_DAILY_SCHEDULE;
+  return DAILY_SCHEDULE;
+}
 
 // ─── Admin auth check ────────────────────────────────────────────────────────
 async function checkAdminAuth() {
@@ -117,7 +144,8 @@ async function loadDailyPreview() {
   (existing || []).forEach(e => { existingMap[e.day_of_week] = e; });
 
   let rows = "";
-  DAILY_SCHEDULE.forEach(d => {
+  const scheduleConfig = await getScheduleConfig(categoryId);
+scheduleConfig.forEach(d => {
     const exists  = existingMap[d.day];
     const status  = exists
       ? `<span class="text-xs font-bold ${exists.is_active ? "text-green-600" : "text-gray-400"}">${exists.is_active ? "✓ Active" : "⏸ Inactive"}</span>`
@@ -183,7 +211,8 @@ async function setupDailySchedule() {
   try {
     // Build insert rows — each day uses its own pattern_id
     // daily → Daily Sectional pattern, mixed → Mixed pattern, full_mock → Full Mock pattern
-    const rows = DAILY_SCHEDULE.map(d => ({
+    const scheduleConfig = await getScheduleConfig(categoryId);
+const rows = scheduleConfig.map(d => ({
       pattern_id:         PATTERN_IDS[d.pattern_key],
       category_id:        categoryId,
       schedule_type:      "daily_auto",

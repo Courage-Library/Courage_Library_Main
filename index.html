@@ -1127,8 +1127,9 @@
             <div class="hidden md:flex items-center gap-6">
                 <a href="#courses" data-section="courses"
                     class="nav-link text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Courses</a>
-                <a href="#mock-tests" data-section="mock-tests"
-                    class="nav-link text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Mock Tests</a>
+                <a href="#" data-section="mock-tests"
+                    class="nav-link text-sm font-semibold text-slate-600 hover:text-blue-600 transition"
+                    onclick="handleMockTestNav(event)">Mock Tests</a>
                 <a href="#features" data-section="features"
                     class="nav-link text-sm font-semibold text-slate-600 hover:text-blue-600 transition">Features</a>
                 <a href="#testimonials" data-section="testimonials"
@@ -1158,7 +1159,7 @@
                         class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-book text-blue-400 w-4 text-center text-xs"></i> Courses
                     </a>
-                    <a href="#mock-tests"
+                    <a href="#" onclick="handleMockTestNav(event)"
                         class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
                         <i class="fas fa-pencil-alt text-blue-400 w-4 text-center text-xs"></i> Mock Tests
                     </a>
@@ -1420,7 +1421,7 @@
                 <div id="hero-cta-wrap" class="flex justify-center w-full sm:w-auto">
                     <div class="shimmer" aria-hidden="true"></div>
                 </div>
-                <a href="/mock/dashboard.html"
+                <a href="#" onclick="handleMockTestNav(event)"
                     class="btn-outline text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 gap-2 w-full sm:w-auto justify-center">
                     <i class="fas fa-pencil-alt text-sm"></i> Mock Tests
                 </a>
@@ -1969,7 +1970,7 @@
                 <!-- Populated by renderMockTestPill() -->
             </div>
 
-            <a href="/mock/dashboard.html" class="btn-primary text-sm px-7 py-3 inline-flex gap-2">
+            <a href="#" onclick="handleMockTestNav(event)" class="btn-primary text-sm px-7 py-3 inline-flex gap-2">
                 Join Mock Test <i class="fas fa-arrow-right text-xs"></i>
             </a>
             <p class="text-xs text-slate-400 mt-3">New mock tests scheduled regularly for continuous practice.</p>
@@ -2990,6 +2991,30 @@
                     }
                 });
             });
+        }
+
+        /* ── MOCK TEST NAV ────────────────────────────────────── */
+        async function handleMockTestNav(e) {
+            if (e) e.preventDefault();
+            const el = e?.currentTarget;
+            if (el) el.style.opacity = '0.7';
+            try {
+                if (!currentSession) {
+                    window.location.href = '/mock-test-series.html';
+                    return;
+                }
+                const { data } = await supaClient
+                    .from('user_exam_enrollments')
+                    .select('category_id')
+                    .eq('user_id', currentSession.user.id)
+                    .limit(1)
+                    .maybeSingle();
+                window.location.href = data ? '/mock/dashboard.html' : '/mock-test-series.html';
+            } catch (err) {
+                window.location.href = '/mock-test-series.html';
+            } finally {
+                if (el) el.style.opacity = '1';
+            }
         }
 
         /* ── AUTO LOGIN CHECK ─────────────────────────────────── */
