@@ -1402,7 +1402,7 @@ window.startExam = async function (examId, btn, chosenLanguage = null) {
     const { data: examCheck } = await client
       .from("scheduled_exams")
       .select(
-        "is_active, start_datetime, end_datetime, is_premium, attempt_limit, language, schedule_type, day_of_week, active_section, exam_type, exam_patterns(id, duration_minutes, question_source_pattern_id)",
+        "is_active, start_datetime, end_datetime, is_premium, attempt_limit, language, schedule_type, day_of_week, active_section, exam_type, category_id, exam_patterns(id, duration_minutes, question_source_pattern_id)",
       )
       .eq("id", examId)
       .single();
