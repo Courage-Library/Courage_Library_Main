@@ -1292,7 +1292,7 @@ function pickQuestionsForSection(allQuestions, section, seenMap) {
   const needed = section.question_count || 0;
   if (needed === 0) return [];
 
-  const pool = allQuestions.filter((q) => q.pattern_section_id === section.id);
+  const pool = allQuestions.filter((q) => q.section_name === section.section_name);
   if (pool.length === 0) {
     console.warn(`No questions for section: ${section.section_name}`);
     return [];
@@ -1545,13 +1545,15 @@ window.startExam = async function (examId, btn, chosenLanguage = null) {
     const langToFetch =
       examLang === "both" ? chosenLanguage || "hindi" : examLang;
     const sectionIds = sections.map((s) => s.id);
+    const sectionNames = sections.map((s) => s.section_name);
 
     let qQuery = client
       .from("questions")
       .select(
-        "id, pattern_section_id, topic, difficulty, language, question_stats(total_served)",
+        "id, pattern_section_id, section_name, topic, difficulty, language, question_stats(total_served)",
       )
-      .in("pattern_section_id", sectionIds)
+      .eq("category_id", examCheck.category_id)
+      .in("section_name", sectionNames)
       .eq("is_active", true);
 
     if (langToFetch) qQuery = qQuery.eq("language", langToFetch);
