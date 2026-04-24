@@ -350,10 +350,11 @@ async function loadPerformanceAnalytics() {
     .from("attempts")
     .select(
       `total_score, accuracy, time_taken, submitted_at,
-      scheduled_exams ( schedule_type, active_section, exam_categories ( name ), exam_patterns ( pattern_name ) )`,
+      scheduled_exams ( schedule_type, active_section, exam_type, category_id, exam_categories ( name ), exam_patterns ( pattern_name ) )`,
     )
     .eq("user_id", user.id)
-    .not("submitted_at", "is", null);
+    .not("submitted_at", "is", null)
+    .order("submitted_at", { ascending: false });
 
   if (!data || data.length === 0) {
     document.getElementById("totalAttempts").textContent = "0";
@@ -373,7 +374,7 @@ async function loadPerformanceAnalytics() {
     ...data.map((a) => a.total_score || 0),
   );
   const totalSeconds = data.reduce((s, a) => s + (a.time_taken || 0), 0);
-  renderRecentAttempts(data.slice(-5).reverse());
+  renderRecentAttempts(data.slice(0, 5));
 }
 
 // ─── Daily Time Window Check ──────────────────────────────────────────────────
@@ -938,14 +939,14 @@ if (user && enrolledCategoryIds.length === 0) {
     const isLive = isToday && windowOpen;
     const dayLabel = DAY_LABELS[exam.day_of_week] || exam.day_of_week;
     const subjectName = exam.active_section 
-  || SUBJECT_NAMES[exam.day_of_week] 
+  || (exam.exam_type === "daily_sectional" ? SUBJECT_NAMES[exam.day_of_week] : null)
   || pattern.pattern_name 
   || "Mock Test";
     const subjectIcon = SUBJECT_ICONS[exam.day_of_week] || "fas fa-file-alt";
     const categoryName = exam.exam_categories?.name || "";
     const mockLabel = mockNumber ? `${mockNumber}` : "";
-    // Title = "SSC GD - Mixed Sectional" (no number — shown as badge)
-    const cardTitle = categoryName
+    // Only prepend category for daily_sectional — mixed/mock pattern_name already has context
+    const cardTitle = categoryName && exam.exam_type === "daily_sectional"
       ? `${categoryName} - ${subjectName}`
       : subjectName;
     const negVal =
@@ -1664,8 +1665,8 @@ function renderRecentAttempts(attempts, isGuest = false) {
       const se = a.scheduled_exams || {};
       const isDaily = se.schedule_type === "daily_auto";
       const catName = se.exam_categories?.name || "";
-      const name =
-        isDaily && se.active_section && catName
+      const isSSCGD = se.category_id === "4183570e-eeec-4fe9-8ab6-77e6e83a3ecf";
+      const name = isSSCGD && se.active_section && catName
           ? `${catName} - ${se.active_section}`
           : se.exam_patterns?.pattern_name || "Mock";
       const date = a.submitted_at
@@ -1690,8 +1691,8 @@ function renderRecentAttempts(attempts, isGuest = false) {
       const se = a.scheduled_exams || {};
       const isDaily = se.schedule_type === "daily_auto";
       const catName = se.exam_categories?.name || "";
-      const name =
-        isDaily && se.active_section && catName
+      const isSSCGD = se.category_id === "4183570e-eeec-4fe9-8ab6-77e6e83a3ecf";
+      const name = isSSCGD && se.active_section && catName
           ? `${catName} - ${se.active_section}`
           : se.exam_patterns?.pattern_name || "Mock";
       const date = a.submitted_at
