@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSC CGL Mock Test Series | Courage Library — Free Daily Tests</title>
+    <meta name="description"
+        content="Free SSC CGL Tier I mock test series — daily sectional tests, full mocks, live leaderboard, PYQ-based questions. 100% free forever." />
+    <meta name="keywords"
+        content="SSC CGL mock test free, SSC CGL Tier I preparation, SSC CGL daily test, free mock test SSC CGL 2025" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://couragelibrary.in/mock/ssc-cgl.html" />
+    <meta property="og:title" content="SSC CGL Mock Test Series | Courage Library" />
+    <meta property="og:description"
+        content="Free daily SSC CGL Tier I mock tests — real exam pattern, live leaderboard, PYQ-based. 100% free." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://couragelibrary.in/mock/ssc-cgl.html" />
+    <meta property="og:image" content="https://couragelibrary.in/images/logo.png" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-TC5KC77W');</script>
+    <style>
+        :root {
+            --primary: #0369a1;
+            --primary-mid: #0ea5e9;
+            --primary-light: #f0f9ff;
+            --accent: #6366f1;
+            --green: #059669;
+            --amber: #d97706;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e0f2fe;
+            --radius: 1.25rem;
+            --shadow: 0 4px 24px rgba(3, 105, 161, .10);
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 68px;
+        }
+
+        body {
+            font-family: var(--font);
+            background: #fff;
+            color: var(--text);
+            overflow-x: clip;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(52, 211, 153, .6)
+            }
+
+            50% {
+                box-shadow: 0 0 0 7px rgba(52, 211, 153, 0)
+            }
+        }
+
+        /* ── NAVBAR — matching mock-test-series.html ─────────────── */
+        .nav {
+            background: rgba(255, 255, 255, .97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid #eef2f9;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            width: 100%;
+            transition: box-shadow .2s;
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 4px 24px rgba(15, 23, 42, .08);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: .75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-logo img {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+        }
+
+        .nav-logo span {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1d4ed8;
+            letter-spacing: -.025em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: .25rem;
+        }
+
+        .nav-links a {
+            font-size: .82rem;
+            font-weight: 600;
+            color: #475569;
+            text-decoration: none;
+            padding: .42rem .72rem;
+            border-radius: .6rem;
+            transition: color .15s, background .15s;
+        }
+
+        .nav-links a:hover {
+            color: #1d4ed8;
+            background: #f0f5ff;
+        }
+
+        .nav-links a.active {
+            color: #1d4ed8;
+            background: #eff6ff;
+            font-weight: 700;
+        }
+
+        .nav-links button {
+            font-family: inherit;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .15s;
+        }
+
+        .nav-back:hover {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: .72rem 1.9rem;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: .9rem;
+            color: #fff;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            border-radius: 9999px;
+            box-shadow: 0 6px 22px rgba(59, 130, 246, .30);
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform .18s ease, box-shadow .18s ease;
+            text-decoration: none;
+            isolation: isolate;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .22), transparent);
+            transform: skewX(-12deg) translateX(-140%);
+            transition: transform .7s ease;
+            pointer-events: none;
+        }
+
+        .btn-primary:hover::after {
+            transform: skewX(-12deg) translateX(140%);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 10px 32px rgba(59, 130, 246, .4);
+        }
+
+        .btn-primary:active {
+            transform: scale(.97);
+        }
+
+        .btn-primary:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: .72rem 1.9rem;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: .9rem;
+            color: #1d4ed8;
+            border: 2px solid #bfdbfe;
+            border-radius: 9999px;
+            background: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background .18s, border-color .18s, transform .18s;
+        }
+
+        .btn-outline:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            transform: scale(1.03);
+        }
+
+        .hero {
+            background: linear-gradient(150deg, #0369a1 0%, #1e3a8a 55%, #1a1d6e 100%);
+            padding: 48px 24px 100px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .hero-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, .055) 1px, transparent 1px);
+            background-size: 26px 26px;
+            pointer-events: none;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 380px;
+            height: 380px;
+            background: rgba(99, 102, 241, .2);
+            border-radius: 50%;
+            filter: blur(72px);
+            pointer-events: none;
+        }
+
+        .hero-glow2 {
+            position: absolute;
+            bottom: -60px;
+            left: -40px;
+            width: 260px;
+            height: 260px;
+            background: rgba(14, 165, 233, .12);
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255, 255, 255, .11);
+            border: 1px solid rgba(255, 255, 255, .18);
+            color: #bae6fd;
+            font-size: .67rem;
+            font-weight: 700;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #34d399;
+            display: inline-block;
+            flex-shrink: 0;
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.85rem, 5vw, 2.8rem);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.12;
+            letter-spacing: -.03em;
+            margin-bottom: 14px;
+        }
+
+        .hero-sub {
+            font-size: .88rem;
+            color: rgba(186, 230, 253, .9);
+            line-height: 1.75;
+            max-width: 540px;
+            margin: 0 auto 26px;
+        }
+
+        .hero-pills {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .45rem;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: .38rem;
+            background: rgba(255, 255, 255, .09);
+            border: 1px solid rgba(255, 255, 255, .15);
+            color: #bae6fd;
+            font-size: .69rem;
+            font-weight: 700;
+            padding: .3rem .75rem;
+            border-radius: 999px;
+        }
+
+        .hero-pill svg {
+            stroke: #34d399;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+
+        .float-cards {
+            max-width: 900px;
+            margin: -52px auto 0;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        @media(min-width:560px) {
+            .float-cards {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .fc {
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f4;
+            padding: 15px 13px 13px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, .11);
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            animation: fadeUp .5s ease both;
+        }
+
+        .fc-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fc-icon svg {
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .fc-val {
+            font-size: 1.45rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -.02em;
+        }
+
+        .fc-lbl {
+            font-size: .62rem;
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.25rem 5rem;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media(min-width:768px) {
+            .two-col {
+                grid-template-columns: 1fr 340px;
+                align-items: start;
+            }
+        }
+
+        .sec-label {
+            font-size: .65rem;
+            font-weight: 800;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid #bae6fd;
+            display: inline-block;
+            padding: .22rem .7rem;
+            border-radius: 999px;
+            margin-bottom: .65rem;
+        }
+
+        .sec-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -.02em;
+            margin-bottom: 1.2rem;
+            line-height: 1.25;
+        }
+
+        .sched-wrap {
+            overflow-x: auto;
+            border-radius: 1rem;
+            border: 1.5px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: inherit;
+        }
+
+        thead tr {
+            background: linear-gradient(135deg, #0369a1, #1e3a8a);
+        }
+
+        th {
+            padding: .75rem 1rem;
+            text-align: left;
+            font-size: .72rem;
+            font-weight: 700;
+            color: #bae6fd;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: .72rem 1rem;
+            font-size: .8rem;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) td {
+            background: #f0f9ff;
+        }
+
+        .day-chip {
+            display: inline-block;
+            font-size: .68rem;
+            font-weight: 700;
+            padding: .18rem .52rem;
+            border-radius: .35rem;
+        }
+
+        .sunday-row td {
+            background: #fce7f3 !important;
+        }
+
+        .rules-grid {
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: .9rem;
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 1rem;
+            padding: 1rem 1.1rem;
+        }
+
+        .rule-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rule-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .rule-title {
+            font-size: .83rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: .18rem;
+        }
+
+        .rule-desc {
+            font-size: .74rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .feat-list {
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+        }
+
+        .feat-item {
+            display: flex;
+            align-items: flex-start;
+            gap: .65rem;
+            font-size: .8rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+
+        .feat-check {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: .05rem;
+        }
+
+        .feat-check svg {
+            width: 9px;
+            height: 9px;
+            stroke: var(--primary-mid);
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .demo-wrap {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 1.5px solid #bae6fd;
+            border-radius: var(--radius);
+            padding: 1.5rem 1.35rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-q {
+            font-size: .85rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .demo-opts {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-opt {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .55rem .85rem;
+            border-radius: .75rem;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            cursor: pointer;
+            font-size: .79rem;
+            font-weight: 600;
+            color: #334155;
+            transition: all .15s;
+            font-family: inherit;
+            text-align: left;
+        }
+
+        .demo-opt:hover {
+            border-color: #bae6fd;
+            background: var(--primary-light);
+        }
+
+        .demo-opt.correct {
+            border-color: #bbf7d0;
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .demo-opt.wrong {
+            border-color: #fecaca;
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .demo-opt-key {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .demo-result {
+            font-size: .75rem;
+            font-weight: 600;
+            padding: .5rem .85rem;
+            border-radius: .65rem;
+            display: none;
+        }
+
+        .faq-item {
+            border: 1.5px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color .2s;
+        }
+
+        .faq-item+.faq-item {
+            margin-top: .6rem;
+        }
+
+        .faq-item:hover,
+        .faq-item.open {
+            border-color: #bae6fd;
+        }
+
+        .faq-q {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            padding: .95rem 1.15rem;
+            font-size: .83rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .faq-arrow {
+            width: 15px;
+            height: 15px;
+            stroke: var(--primary-mid);
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform .22s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease, padding .3s ease;
+            font-size: .79rem;
+            color: var(--muted);
+            line-height: 1.7;
+            padding: 0 1.15rem;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 200px;
+            padding: .2rem 1.15rem 1rem;
+        }
+
+        .enroll-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: sticky;
+            top: 82px;
+        }
+
+        .enroll-card-stripe {
+            height: 4px;
+            background: linear-gradient(90deg, #0369a1, #6366f1);
+        }
+
+        .enroll-card-body {
+            padding: 1.4rem 1.35rem;
+        }
+
+        .enroll-price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green);
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .enroll-price-sub {
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: .2rem;
+        }
+
+        .enroll-divider {
+            border: none;
+            border-top: 1px solid #f1f5f9;
+            margin: 1rem 0;
+        }
+
+        .enroll-meta {
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .enroll-meta-row {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            font-size: .78rem;
+            color: #334155;
+        }
+
+        .enroll-meta-row svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--primary-mid);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .sticky-cta {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 40;
+            display: none;
+            background: linear-gradient(135deg, #0369a1, #6366f1);
+            color: #fff;
+            border-radius: 999px;
+            padding: .78rem 2rem;
+            font-weight: 800;
+            font-size: .86rem;
+            box-shadow: 0 10px 36px rgba(3, 105, 161, .32);
+            white-space: nowrap;
+            gap: .5rem;
+            align-items: center;
+            font-family: inherit;
+            border: none;
+            cursor: pointer;
+        }
+
+        .sticky-cta.show {
+            display: flex;
+        }
+
+        .cta-banner {
+            background: linear-gradient(150deg, #0369a1 0%, #1e3a8a 60%, #1a1d6e 100%);
+            border-radius: 1.5rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 3rem;
+        }
+
+        .cta-banner h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: .6rem;
+        }
+
+        .cta-banner p {
+            font-size: .82rem;
+            color: #bae6fd;
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* ── HAMBURGER NAV ── */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color .15s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            background: #f8faff;
+            border: 1.5px solid #e8f0fe;
+            border-radius: .65rem;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background .15s, border-color .15s;
+        }
+
+        .hamburger:hover {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+
+        .hamburger svg {
+            transition: transform .25s ease;
+        }
+
+        .hamburger.open svg {
+            transform: rotate(90deg);
+        }
+
+        .mob-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 1rem;
+            right: 1rem;
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 16px 48px rgba(15, 23, 42, .14), 0 2px 8px rgba(15, 23, 42, .06);
+            border: 1px solid #e8f0fe;
+            padding: .65rem;
+            z-index: 200;
+        }
+
+        .mob-menu.open {
+            display: block;
+            animation: mobMenuIn .2s ease;
+        }
+
+        @keyframes mobMenuIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px) scale(.98)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .mob-menu a {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            padding: .52rem .78rem;
+            border-radius: .75rem;
+            font-size: .84rem;
+            font-weight: 600;
+            color: #475569;
+            text-decoration: none;
+            border-bottom: none;
+            transition: background .15s, color .15s;
+        }
+
+        .mob-menu a:hover {
+            background: #f8faff;
+            color: #1d4ed8;
+        }
+
+        .mob-menu a.active {
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+
+        .mob-menu a svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            opacity: .55;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .mob-nav-divider {
+            height: 1px;
+            background: #f1f5f9;
+            margin: .45rem .1rem;
+        }
+
+        .mob-menu-cta {
+            display: flex;
+            flex-direction: column;
+            gap: .45rem;
+            padding: .2rem .1rem 0;
+        }
+
+        #mob-login-btn,
+        #mob-dashboard-btn {
+            display: none;
+        }
+
+        #mob-menu {
+            display: none;
+        }
+
+        @media(max-width:767px) {
+            #mob-menu-btn {
+                display: flex !important;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: none !important;
+            }
+
+            .nav-inner {
+                padding: .75rem 1rem;
+                justify-content: space-between;
+            }
+
+            #mob-login-btn {
+                display: none !important;
+            }
+
+            #nav-login-btn {
+                display: none !important;
+            }
+
+            #nav-dashboard-btn {
+                display: none !important;
+            }
+
+            /* HERO */
+            .hero {
+                padding: 24px 16px 72px;
+            }
+
+            .hero h1 {
+                font-size: 1.6rem;
+                letter-spacing: -.025em;
+            }
+
+            .hero-sub {
+                font-size: .81rem;
+                margin-bottom: 20px;
+            }
+
+            .hero-pills {
+                gap: .28rem;
+                margin-bottom: 20px;
+            }
+
+            .hero-pill {
+                font-size: .62rem;
+                padding: .22rem .55rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: stretch;
+                gap: .55rem;
+            }
+
+            .hero-ctas .btn-primary,
+            .hero-ctas .btn-outline {
+                justify-content: center;
+                padding: .72rem 1.2rem;
+                font-size: .86rem;
+            }
+
+            .hero-badge {
+                font-size: .6rem;
+                padding: 4px 10px;
+            }
+
+            /* FLOAT CARDS */
+            .float-cards {
+                margin: -32px auto 0;
+                padding: 0 14px;
+                gap: 8px;
+            }
+
+            .fc {
+                padding: 10px 9px;
+                gap: 5px;
+                border-radius: 11px;
+            }
+
+            .fc-val {
+                font-size: 1.1rem;
+            }
+
+            .fc-lbl {
+                font-size: .54rem;
+            }
+
+            .fc-icon {
+                width: 26px;
+                height: 26px;
+                border-radius: 6px;
+            }
+
+            .fc-icon svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            /* MAIN CONTENT */
+            .main {
+                padding: 1.75rem .9rem 3.5rem;
+            }
+
+            .sec-title {
+                font-size: 1.05rem;
+                line-height: 1.3;
+            }
+
+            .two-col {
+                gap: 1.5rem;
+            }
+
+            /* TABLE */
+            .sched-wrap {
+                border-radius: .75rem;
+            }
+
+            th {
+                font-size: .62rem;
+                padding: .55rem .6rem;
+                white-space: nowrap;
+            }
+
+            td {
+                font-size: .71rem;
+                padding: .55rem .6rem;
+            }
+
+            .day-chip {
+                font-size: .58rem;
+                padding: .1rem .32rem;
+            }
+
+            /* RULES */
+            .rule-item {
+                padding: .8rem .85rem;
+                gap: .6rem;
+            }
+
+            .rule-icon {
+                width: 28px;
+                height: 28px;
+                border-radius: 7px;
+                flex-shrink: 0;
+            }
+
+            .rule-title {
+                font-size: .79rem;
+            }
+
+            .rule-desc {
+                font-size: .71rem;
+            }
+
+            /* DEMO */
+            .demo-wrap {
+                padding: 1rem .9rem;
+            }
+
+            .demo-q {
+                font-size: .81rem;
+            }
+
+            .demo-opt {
+                font-size: .72rem;
+                padding: .44rem .65rem;
+            }
+
+            .demo-opt-key {
+                width: 19px;
+                height: 19px;
+                font-size: .6rem;
+            }
+
+            /* FAQ */
+            .faq-q {
+                font-size: .77rem;
+                padding: .8rem .9rem;
+            }
+
+            .faq-a {
+                font-size: .72rem;
+            }
+
+            .faq-item.open .faq-a {
+                padding: .12rem .9rem .8rem;
+            }
+
+            /* ENROLL CARD */
+            .enroll-card {
+                position: static;
+            }
+
+            .enroll-card-body {
+                padding: 1rem .9rem;
+            }
+
+            .enroll-price {
+                font-size: 1.7rem;
+            }
+
+            /* CTA BANNER */
+            .cta-banner {
+                padding: 1.6rem 1rem;
+                border-radius: .85rem;
+                margin-top: 1.5rem;
+            }
+
+            .cta-banner h2 {
+                font-size: 1.1rem;
+            }
+
+            .cta-banner p {
+                font-size: .78rem;
+                margin-bottom: 1.1rem;
+            }
+
+            /* STICKY CTA — hide when enroll card is visible */
+            .sticky-cta {
+                font-size: .79rem;
+                padding: .62rem 1.4rem;
+                bottom: .85rem;
+                max-width: 240px;
+            }
+
+            /* FEAT LIST */
+            .feat-item {
+                font-size: .76rem;
+            }
+        }
+
+        @media(max-width:380px) {
+            .hero h1 {
+                font-size: 1.4rem;
+            }
+
+            .float-cards {
+                grid-template-columns: repeat(2, 1fr);
+                margin: -24px auto 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC5KC77W" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- NAVBAR -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-inner">
+            <a href="/index.html" class="nav-logo">
+                <img src="/images/logo.png" alt="Courage Library" width="34" height="34" />
+                <span>Courage Library</span>
+            </a>
+            <div class="nav-links">
+                <a href="/mock-test-series.html">All Series</a>
+                <a href="/index.html#courses">Courses</a>
+                <a href="/index.html#features">Features</a>
+                <a href="/Blog/blog.html">Blog</a>
+                <a href="/index.html#contact">Contact</a>
+            </div>
+            <div style="display:flex;align-items:center;gap:.6rem;">
+                <button id="nav-login-btn" class="btn-outline" style="padding:.52rem 1.25rem;font-size:.82rem;"
+                    onclick="openAuth('signup')">Login</button>
+                <button id="nav-logout-btn" onclick="doLogout()"
+                    style="display:none;font-size:.8rem;font-weight:700;color:#94a3b8;background:none;border:none;cursor:pointer;font-family:inherit;padding:.4rem .5rem;border-radius:.5rem;">Logout</button>
+                <a id="nav-dashboard-btn" href="/mock/dashboard.html" class="btn-primary"
+                    style="display:none;padding:.52rem 1.25rem;font-size:.82rem;">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                    </svg>
+                    Dashboard
+                </a>
+                <button class="hamburger" id="mob-menu-btn" onclick="toggleMenu()" aria-label="Menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"
+                        stroke-linecap="round">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mob-menu" class="mob-menu">
+            <a href="/index.html#courses" class="mob-nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg>
+                Courses
+            </a>
+            <a href="/mock-test-series.html" class="mob-nav-link active">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                Mock Tests
+            </a>
+            <a href="/index.html#features" class="mob-nav-link">
+                <svg viewBox="0 0 24 24">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                Features
+            </a>
+            <a href="/Blog/blog.html" class="mob-nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                </svg>
+                Blog
+            </a>
+            <a href="/index.html#contact" class="mob-nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z" />
+                </svg>
+                Contact
+            </a>
+            <div class="mob-nav-divider"></div>
+            <div class="mob-menu-cta">
+                <button id="mob-login-btn" class="btn-outline"
+                    style="width:100%;justify-content:center;padding:.6rem;font-size:.84rem;"
+                    onclick="openAuth('signup')">Login</button>
+                <a id="mob-dashboard-btn" href="/mock/dashboard.html" class="btn-primary"
+                    style="display:none;width:100%;justify-content:center;padding:.6rem;font-size:.84rem;">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <section class="hero">
+        <div class="hero-dots"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-glow2"></div>
+        <div class="hero-inner" style="animation:fadeUp .5s ease both;">
+            <div class="hero-badge"><span class="live-dot"></span><svg width="10" height="10" viewBox="0 0 24 24"
+                    fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>ACTIVE · SSC · Free Forever</div>
+            <h1>SSC CGL Tier I<br /><span style="color:#7dd3fc;">Mock Test Series</span></h1>
+            <p class="hero-sub">Daily sectional tests + Sunday full mocks. 4 subjects, real Tier I pattern, −0.5
+                negative marking, live leaderboard. 7 tests every week. 100% free.</p>
+            <div class="hero-pills">
+                <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>7 tests/week</span>
+                <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>4 subjects · Tier I</span>
+                <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>Opens 5 AM daily</span>
+                <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
+                        <line x1="12" y1="1" x2="12" y2="23" />
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>₹0 forever</span>
+            </div>
+            <div class="hero-ctas">
+                <button id="hero-enroll-btn" class="btn-primary" onclick="handleEnroll()"
+                    style="font-size:.92rem;padding:.78rem 2.2rem;"><svg width="14" height="14" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>Enroll Free</button>
+                <a href="#schedule" class="btn-outline"
+                    style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:#bae6fd;font-size:.88rem;">View
+                    Schedule</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="float-cards">
+        <div class="fc" style="animation-delay:.04s;">
+            <div class="fc-icon" style="background:#e0f2fe;"><svg viewBox="0 0 24 24" stroke="#0369a1">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg></div>
+            <div class="fc-val" style="color:#0369a1;">7</div>
+            <div class="fc-lbl">Tests / Week</div>
+        </div>
+        <div class="fc" style="animation-delay:.08s;">
+            <div class="fc-icon" style="background:#d1fae5;"><svg viewBox="0 0 24 24" stroke="#059669">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg></div>
+            <div class="fc-val" style="color:#059669;">4</div>
+            <div class="fc-lbl">Subjects</div>
+        </div>
+        <div class="fc" style="animation-delay:.12s;">
+            <div class="fc-icon" style="background:#fef3c7;"><svg viewBox="0 0 24 24" stroke="#d97706">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg></div>
+            <div class="fc-val" style="color:#d97706;">100</div>
+            <div class="fc-lbl">Q · Full Mock</div>
+        </div>
+        <div class="fc" style="animation-delay:.16s;">
+            <div class="fc-icon" style="background:#ede9fe;"><svg viewBox="0 0 24 24" stroke="#7c3aed">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                </svg></div>
+            <div class="fc-val" style="color:#7c3aed;">−0.5</div>
+            <div class="fc-lbl">Negative Mark</div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="two-col">
+            <div>
+                <div
+                    style="margin-bottom:2.5rem;animation:fadeUp .5s ease both .1s;opacity:0;animation-fill-mode:forwards;">
+                    <span class="sec-label">About This Series</span>
+                    <h2 class="sec-title">Structured daily preparation for SSC CGL Tier I</h2>
+                    <p style="font-size:.86rem;color:#475569;line-height:1.8;margin-bottom:1.25rem;">SSC CGL Combined
+                        Graduate Level is one of the most prestigious SSC examinations. It opens pathways to Group B and
+                        Group C posts across central government ministries. Tier I is the gateway — and it demands sharp
+                        accuracy across 4 subjects in 60 minutes.</p>
+                    <p style="font-size:.86rem;color:#475569;line-height:1.8;margin-bottom:1.5rem;">This series builds
+                        that sharpness through daily, structured practice. Each test is calibrated to Tier I difficulty
+                        — not easier, not harder. The goal is that exam day feels like just another test.</p>
+                    <div class="feat-list">
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>4 subjects — Quant, Reasoning, English, General Awareness</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>PYQ-based questions calibrated to Tier I difficulty</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>−0.5 negative marking, exactly like the official paper</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>Live leaderboard + your rank after every submission</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>Full analysis — subject-wise accuracy + percentile rank</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>CL Coins earned every test — redeem for physical rewards</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>Hindi + English bilingual — choose your medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="schedule"
+                    style="margin-bottom:2.5rem;animation:fadeUp .5s ease both .15s;opacity:0;animation-fill-mode:forwards;">
+                    <span class="sec-label">Weekly Schedule</span>
+                    <h2 class="sec-title">7 tests every week — full Tier I subject coverage</h2>
+                    <div class="sched-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Subject</th>
+                                    <th style="text-align:center;">Questions</th>
+                                    <th style="text-align:center;">Marks</th>
+                                    <th style="text-align:center;">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="day-chip" style="background:#dbeafe;color:#1e40af;">Monday</span>
+                                    </td>
+                                    <td style="font-weight:600;">Quantitative Aptitude</td>
+                                    <td style="text-align:center;">25</td>
+                                    <td style="text-align:center;">50</td>
+                                    <td style="text-align:center;">25 min</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="day-chip" style="background:#ede9fe;color:#5b21b6;">Tuesday</span>
+                                    </td>
+                                    <td style="font-weight:600;">General Intelligence</td>
+                                    <td style="text-align:center;">25</td>
+                                    <td style="text-align:center;">50</td>
+                                    <td style="text-align:center;">20 min</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="day-chip"
+                                            style="background:#d1fae5;color:#065f46;">Wednesday</span></td>
+                                    <td style="font-weight:600;">English Comprehension</td>
+                                    <td style="text-align:center;">25</td>
+                                    <td style="text-align:center;">50</td>
+                                    <td style="text-align:center;">20 min</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="day-chip" style="background:#fef3c7;color:#92400e;">Thursday</span>
+                                    </td>
+                                    <td style="font-weight:600;">General Awareness</td>
+                                    <td style="text-align:center;">25</td>
+                                    <td style="text-align:center;">50</td>
+                                    <td style="text-align:center;">20 min</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="day-chip" style="background:#fee2e2;color:#991b1b;">Friday</span>
+                                    </td>
+                                    <td style="font-weight:600;">Quant + English</td>
+                                    <td style="text-align:center;">50</td>
+                                    <td style="text-align:center;">100</td>
+                                    <td style="text-align:center;">40 min</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="day-chip" style="background:#f3e8ff;color:#6b21a8;">Saturday</span>
+                                    </td>
+                                    <td style="font-weight:600;">Mixed — All 4 Subjects</td>
+                                    <td style="text-align:center;">60</td>
+                                    <td style="text-align:center;">120</td>
+                                    <td style="text-align:center;">45 min</td>
+                                </tr>
+                                <tr class="sunday-row">
+                                    <td><span class="day-chip"
+                                            style="background:#fce7f3;color:#9d174d;font-weight:800;">Sunday</span></td>
+                                    <td style="font-weight:800;">Full Mock Test</td>
+                                    <td style="text-align:center;font-weight:700;">100</td>
+                                    <td style="text-align:center;font-weight:700;">200</td>
+                                    <td style="text-align:center;font-weight:700;">60 min</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-bottom:2.5rem;animation:fadeUp .5s ease both .2s;opacity:0;animation-fill-mode:forwards;">
+                    <span class="sec-label">Rules & Discipline</span>
+                    <h2 class="sec-title">Designed to simulate real Tier I pressure</h2>
+                    <div class="rules-grid">
+                        <div class="rule-item">
+                            <div class="rule-icon" style="background:#fef3c7;"><svg viewBox="0 0 24 24"
+                                    stroke="#d97706">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg></div>
+                            <div>
+                                <div class="rule-title">5:00 AM – 11:59 PM Only</div>
+                                <div class="rule-desc">Tests open at 5 AM and lock at midnight. No retakes after the
+                                    window. SSC CGL Tier I is time-bound — practice with the same pressure.</div>
+                            </div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-icon" style="background:#e0f2fe;"><svg viewBox="0 0 24 24"
+                                    stroke="#0369a1">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <circle cx="12" cy="12" r="6" />
+                                    <circle cx="12" cy="12" r="2" />
+                                </svg></div>
+                            <div>
+                                <div class="rule-title">One Attempt Per Day</div>
+                                <div class="rule-desc">No retakes. A missed test is permanently gone. Treat every daily
+                                    test like a real exam attempt.</div>
+                            </div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-icon" style="background:#fef2f2;"><svg viewBox="0 0 24 24"
+                                    stroke="#dc2626">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg></div>
+                            <div>
+                                <div class="rule-title">Negative Marking −0.5</div>
+                                <div class="rule-desc">Every wrong answer deducts 0.5 marks, matching the official SSC
+                                    CGL Tier I pattern. Accuracy is rewarded — random attempts are penalised.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-bottom:2.5rem;animation:fadeUp .5s ease both .25s;opacity:0;animation-fill-mode:forwards;">
+                    <span class="sec-label">Try a Question</span>
+                    <h2 class="sec-title">Sample question — no login needed</h2>
+                    <div class="demo-wrap">
+                        <p
+                            style="font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;">
+                            Quantitative Aptitude · SSC CGL Level</p>
+                        <p class="demo-q">If the simple interest on a sum of money for 3 years at 8% per annum is
+                            ₹1,200, what is the principal?</p>
+                        <div class="demo-opts">
+                            <button class="demo-opt" onclick="demoAnswer(this,'A','C')"><span
+                                    class="demo-opt-key">A</span>₹4,000</button>
+                            <button class="demo-opt" onclick="demoAnswer(this,'B','C')"><span
+                                    class="demo-opt-key">B</span>₹4,500</button>
+                            <button class="demo-opt" onclick="demoAnswer(this,'C','C')"><span
+                                    class="demo-opt-key">C</span>₹5,000</button>
+                            <button class="demo-opt" onclick="demoAnswer(this,'D','C')"><span
+                                    class="demo-opt-key">D</span>₹6,000</button>
+                        </div>
+                        <div class="demo-result" id="demoResult"></div>
+                        <p style="font-size:.7rem;color:var(--muted);margin-top:.75rem;">Enroll free to access 25+
+                            questions daily across all 4 subjects.</p>
+                    </div>
+                </div>
+
+                <div style="animation:fadeUp .5s ease both .3s;opacity:0;animation-fill-mode:forwards;">
+                    <span class="sec-label">Common Questions</span>
+                    <h2 class="sec-title">Frequently asked about this series</h2>
+                    <div id="faqWrap">
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q"><span>What posts can I get through SSC CGL?</span><svg class="faq-arrow"
+                                    viewBox="0 0 24 24">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg></div>
+                            <div class="faq-a">SSC CGL recruitment covers posts like Income Tax Inspector, Assistant
+                                Section Officer, Sub-Inspector CBI, Junior Statistical Officer, and many more across
+                                Group B and Group C central government positions.</div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q"><span>Does this cover Tier I only or Tier II also?</span><svg
+                                    class="faq-arrow" viewBox="0 0 24 24">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg></div>
+                            <div class="faq-a">Currently this series focuses on Tier I — Quantitative Aptitude, General
+                                Intelligence, English Comprehension, and General Awareness. Tier II series will be added
+                                once Tier I notification is live.</div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q"><span>Is this series free?</span><svg class="faq-arrow"
+                                    viewBox="0 0 24 24">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg></div>
+                            <div class="faq-a">Completely free — every test, every analysis, every leaderboard rank. No
+                                subscription, no trial period, no premium tier. Free forever.</div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q"><span>What is the Tier I exam pattern?</span><svg class="faq-arrow"
+                                    viewBox="0 0 24 24">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg></div>
+                            <div class="faq-a">SSC CGL Tier I has 100 questions (25 per subject), 200 marks, 60 minutes.
+                                Each correct answer is +2 marks, each wrong answer is −0.5. Our full Sunday mock mirrors
+                                this exactly.</div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-q"><span>When is SSC CGL Tier I notification expected?</span><svg
+                                    class="faq-arrow" viewBox="0 0 24 24">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg></div>
+                            <div class="faq-a">SSC CGL notifications are released annually by the Staff Selection
+                                Commission. The Tier I notification is expected soon based on the current cycle. Start
+                                now — the leaderboard is small and your rank matters.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="enroll-card">
+                    <div class="enroll-card-stripe"></div>
+                    <div class="enroll-card-body">
+                        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.1rem;">
+                            <img src="/images/ssc-cgl.png" alt="SSC CGL"
+                                style="width:44px;height:44px;object-fit:contain;" />
+                            <div>
+                                <div style="font-size:1rem;font-weight:800;color:var(--text);">SSC CGL</div>
+                                <div style="font-size:.7rem;color:var(--muted);margin-top:.08rem;">Tier I · 7 tests/week
+                                    · 4 subjects</div>
+                            </div>
+                        </div>
+                        <div class="enroll-price">₹0</div>
+                        <div class="enroll-price-sub">Free forever · No card required</div>
+                        <hr class="enroll-divider" />
+                        <div class="enroll-meta">
+                            <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>7 tests every week</div>
+                            <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>Opens 5 AM · closes 11:59 PM</div>
+                            <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>−0.5 negative marking</div>
+                            <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>Live leaderboard after submit</div>
+                            <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
+                                    <path d="M20 12V22H4V12" />
+                                    <path d="M22 7H2v5h20V7z" />
+                                    <path d="M12 22V7" />
+                                </svg>Earn CL Coins · physical rewards</div>
+                            <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="2" y1="12" x2="22" y2="12" />
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                </svg>Hindi + English bilingual</div>
+                        </div>
+                        <button id="enroll-btn" class="btn-primary" onclick="handleEnroll()"
+                            style="width:100%;justify-content:center;border-radius:.85rem;padding:.78rem;"><svg
+                                width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>Enroll Free</button>
+                        <p style="font-size:.68rem;color:var(--muted);text-align:center;margin-top:.65rem;">No payment ·
+                            No expiry · Cancel anytime</p>
+                    </div>
+                </div>
+                <div
+                    style="background:linear-gradient(150deg,#0369a1,#1a1d6e);border-radius:var(--radius);padding:1.25rem;margin-top:1rem;color:#fff;">
+                    <div
+                        style="font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#7dd3fc;margin-bottom:.6rem;">
+                        Earn While You Prepare</div>
+                    <div style="font-size:.82rem;font-weight:700;margin-bottom:.85rem;">Score well. Build streaks. Win
+                        rewards.</div>
+                    <div style="display:flex;flex-direction:column;gap:.5rem;">
+                        <div style="display:flex;align-items:center;gap:.6rem;font-size:.74rem;color:#bae6fd;"><svg
+                                width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>1,800 coins — Courage Bottle</div>
+                        <div style="display:flex;align-items:center;gap:.6rem;font-size:.74rem;color:#bae6fd;"><svg
+                                width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>2,600 coins — Courage Diary</div>
+                        <div style="display:flex;align-items:center;gap:.6rem;font-size:.74rem;color:#bae6fd;"><svg
+                                width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>3,500 coins — CL T-Shirt</div>
+                    </div>
+                    <a href="/mock/reward.html"
+                        style="display:inline-flex;align-items:center;gap:.35rem;margin-top:1rem;font-size:.72rem;font-weight:700;color:#7dd3fc;text-decoration:none;">View
+                        full rewards system <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-banner">
+            <div style="position:relative;z-index:1;">
+                <h2>Ready to crack SSC CGL Tier I?</h2>
+                <p>Daily tests. Free forever. Your rank is waiting.</p>
+                <button onclick="handleEnroll()" class="btn-primary" style="font-size:.9rem;padding:.78rem 2.2rem;"><svg
+                        width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>Enroll Free — SSC CGL Series</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="stickyCta" class="sticky-cta" onclick="handleEnroll()"><svg width="14" height="14" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+        </svg>Enroll Free — SSC CGL</button>
+
+    <div id="auth-overlay"
+        style="position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;"
+        onclick="if(event.target===this)closeAuth()">
+        <div
+            style="background:#fff;border-radius:1.5rem;padding:2rem 1.75rem;width:100%;max-width:400px;box-shadow:0 24px 80px rgba(15,23,42,.2);position:relative;">
+            <button onclick="closeAuth()"
+                style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;color:#94a3b8;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;"><svg
+                    width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg></button>
+            <div id="auth-login" style="display:none;">
+                <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">Login to your account</h2>
+                <div style="display:flex;flex-direction:column;gap:.72rem;">
+                    <input type="email" id="login-email" placeholder="Email address"
+                        style="padding:.65rem .9rem;border:1.5px solid #e2e8f0;border-radius:.85rem;font-family:inherit;font-size:.875rem;outline:none;" />
+                    <input type="password" id="login-password" placeholder="Password"
+                        style="padding:.65rem .9rem;border:1.5px solid #e2e8f0;border-radius:.85rem;font-family:inherit;font-size:.875rem;outline:none;" />
+                    <button onclick="doLogin()" class="btn-primary"
+                        style="width:100%;justify-content:center;border-radius:.85rem;padding:.7rem;">Login</button>
+                    <button onclick="doGoogle()"
+                        style="width:100%;display:flex;align-items:center;justify-content:center;gap:.65rem;padding:.65rem;border-radius:.85rem;border:1.5px solid #dadce0;background:#fff;font-size:.875rem;font-weight:600;cursor:pointer;font-family:inherit;"><img
+                            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:18px;"
+                            alt="" />Continue with Google</button>
+                    <p style="text-align:center;font-size:.78rem;color:#64748b;">No account? <button
+                            onclick="switchAuth('signup')"
+                            style="color:#0369a1;font-weight:700;background:none;border:none;cursor:pointer;font-family:inherit;">Sign
+                            Up Free</button></p>
+                </div>
+            </div>
+            <div id="auth-signup" style="display:none;">
+                <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">Create free account</h2>
+                <div style="display:flex;flex-direction:column;gap:.72rem;">
+                    <input type="text" id="signup-name" placeholder="Full name"
+                        style="padding:.65rem .9rem;border:1.5px solid #e2e8f0;border-radius:.85rem;font-family:inherit;font-size:.875rem;outline:none;" />
+                    <input type="email" id="signup-email" placeholder="Email address"
+                        style="padding:.65rem .9rem;border:1.5px solid #e2e8f0;border-radius:.85rem;font-family:inherit;font-size:.875rem;outline:none;" />
+                    <input type="password" id="signup-password" placeholder="Password (min 6 characters)"
+                        style="padding:.65rem .9rem;border:1.5px solid #e2e8f0;border-radius:.85rem;font-family:inherit;font-size:.875rem;outline:none;" />
+                    <button onclick="doSignup()" class="btn-primary"
+                        style="width:100%;justify-content:center;border-radius:.85rem;padding:.7rem;">Create Free
+                        Account</button>
+                    <button onclick="doGoogle()"
+                        style="width:100%;display:flex;align-items:center;justify-content:center;gap:.65rem;padding:.65rem;border-radius:.85rem;border:1.5px solid #dadce0;background:#fff;font-size:.875rem;font-weight:600;cursor:pointer;font-family:inherit;"><img
+                            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:18px;"
+                            alt="" />Continue with Google</button>
+                    <p style="text-align:center;font-size:.78rem;color:#64748b;">Have account? <button
+                            onclick="switchAuth('login')"
+                            style="color:#0369a1;font-weight:700;background:none;border:none;cursor:pointer;font-family:inherit;">Login</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast"
+        style="position:fixed;bottom:5rem;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;font-size:.8rem;font-weight:600;padding:.6rem 1.25rem;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.2);display:none;z-index:300;white-space:nowrap;">
+    </div>
+
+    <footer style="background:linear-gradient(135deg,#0369a1,#1a1d6e);padding:2rem 1.25rem;">
+        <div
+            style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;">
+            <div style="display:flex;align-items:center;gap:.6rem;"><img src="/images/logo.png"
+                    style="width:26px;height:26px;border-radius:6px;" alt="" /><span
+                    style="color:#fff;font-weight:800;">Courage Library</span></div>
+            <span style="color:#7dd3fc;font-size:.82rem;">© <span id="yr"></span> Courage Library. All rights
+                reserved.</span>
+            <div style="display:flex;gap:1rem;"><a href="https://www.instagram.com/couragelibrary1" target="_blank"
+                    style="color:#7dd3fc;font-size:1rem;"><i class="fab fa-instagram"></i></a><a
+                    href="https://www.facebook.com/people/Courage-Library/61561969000820" target="_blank"
+                    style="color:#7dd3fc;font-size:1rem;"><i class="fab fa-facebook-f"></i></a><a
+                    href="https://x.com/CourageLibrary" target="_blank" style="color:#7dd3fc;font-size:1rem;"><i
+                        class="fab fa-twitter"></i></a></div>
+        </div>
+    </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://sgagswxzsxlgcspwiuoh.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4';
+        const SERIES_NAME = 'SSC CGL';
+        let client = null, currentUser = null, categoryId = null, enrolled = false, pendingEnroll = false;
+        document.getElementById('yr').textContent = new Date().getFullYear();
+        window.addEventListener('scroll', () => { const sc = document.getElementById('stickyCta'); if (window.scrollY > 320) sc.classList.add('show'); else sc.classList.remove('show'); }, { passive: true });
+        function waitForSupabase(cb, n = 20) { if (typeof supabase !== 'undefined' && supabase.createClient) cb(); else if (n > 0) setTimeout(() => waitForSupabase(cb, n - 1), 100); }
+        document.addEventListener('DOMContentLoaded', () => { waitForSupabase(async () => { const { createClient } = supabase; client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY); const { data: { session } } = await client.auth.getSession(); if (session?.user) { currentUser = session.user; updateNavUser(); await loadEnrollment(); } client.auth.onAuthStateChange(async (e, s) => { if (e === 'SIGNED_IN' && s?.user) { currentUser = s.user; updateNavUser(); closeAuth(); await loadEnrollment(); if (pendingEnroll) { pendingEnroll = false; await doEnroll(); } } if (e === 'SIGNED_OUT') { currentUser = null; enrolled = false; updateNavGuest(); updateEnrollBtn(); } }); await loadCategory(); }); });
+        async function loadCategory() { if (!client) return; const { data } = await client.from('exam_categories').select('id').eq('name', SERIES_NAME).single(); if (data) categoryId = data.id; }
+        async function loadEnrollment() { if (!client || !currentUser || !categoryId) return; const { data } = await client.from('user_exam_enrollments').select('id').eq('user_id', currentUser.id).eq('category_id', categoryId).single(); enrolled = !!data; updateEnrollBtn(); }
+        function updateEnrollBtn() { const btns = ['hero-enroll-btn', 'enroll-btn', 'stickyCta']; btns.forEach(id => { const b = document.getElementById(id); if (!b) return; if (enrolled) { b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Enrolled — Go to Dashboard`; b.onclick = () => window.location.href = '/mock/dashboard.html'; } else { b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Enroll Free`; b.onclick = handleEnroll; } }); }
+        async function handleEnroll() { if (enrolled) { window.location.href = '/mock/dashboard.html'; return; } if (!currentUser) { pendingEnroll = true; openAuth('signup'); return; } await doEnroll(); }
+        async function doEnroll() { if (!categoryId) { showToast('Could not load series. Please refresh.'); return; } const { error } = await client.from('user_exam_enrollments').insert({ user_id: currentUser.id, category_id: categoryId }); if (error && error.code !== '23505') { showToast('Could not enroll. Please try again.'); return; } enrolled = true; updateEnrollBtn(); showToast('Enrolled! Head to your dashboard to start today\'s test.'); }
+        function toggleMenu() { const h = document.getElementById('mob-menu-btn'); const m = document.getElementById('mob-menu'); h.classList.toggle('open'); m.classList.toggle('open'); }
+        document.addEventListener('click', e => { const m = document.getElementById('mob-menu'); const h = document.getElementById('mob-menu-btn'); if (m && m.classList.contains('open') && !m.contains(e.target) && !h.contains(e.target)) { m.classList.remove('open'); h.classList.remove('open'); } });
+        window.addEventListener('scroll', () => { document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 10); }, { passive: true });
+        document.addEventListener('click', e => { const m = document.getElementById('mob-menu'); const btn = document.getElementById('mob-menu-btn'); if (m && m.style.display === 'block' && !m.contains(e.target) && btn && !btn.contains(e.target)) { m.style.display = 'none'; } });
+        function updateNavUser() {
+            const el = (id) => document.getElementById(id);
+            if (el('nav-login-btn')) el('nav-login-btn').style.display = 'none';
+            if (el('nav-dashboard-btn')) el('nav-dashboard-btn').style.display = '';
+            if (el('nav-logout-btn')) el('nav-logout-btn').style.display = '';
+            if (el('mob-login-btn')) el('mob-login-btn').style.display = 'none';
+            if (el('mob-dashboard-btn')) el('mob-dashboard-btn').style.display = '';
+        }
+        function updateNavGuest() {
+            const el = (id) => document.getElementById(id);
+            if (el('nav-login-btn')) el('nav-login-btn').style.display = '';
+            if (el('nav-dashboard-btn')) el('nav-dashboard-btn').style.display = 'none';
+            if (el('nav-logout-btn')) el('nav-logout-btn').style.display = 'none';
+            if (el('mob-login-btn')) el('mob-login-btn').style.display = '';
+            if (el('mob-dashboard-btn')) el('mob-dashboard-btn').style.display = 'none';
+        }
+        function openAuth(mode) { document.getElementById('auth-overlay').style.display = 'flex'; switchAuth(mode); document.body.style.overflow = 'hidden'; }
+        function closeAuth() { document.getElementById('auth-overlay').style.display = 'none'; document.body.style.overflow = ''; }
+        function switchAuth(mode) { document.getElementById('auth-login').style.display = mode === 'login' ? '' : 'none'; document.getElementById('auth-signup').style.display = mode === 'signup' ? '' : 'none'; }
+        async function doLogin() { const email = document.getElementById('login-email').value.trim(); const password = document.getElementById('login-password').value; if (!email || !password) { showToast('Enter email and password.'); return; } const { error } = await client.auth.signInWithPassword({ email, password }); if (error) showToast(error.message); }
+        async function doSignup() { const name = document.getElementById('signup-name').value.trim(); const email = document.getElementById('signup-email').value.trim(); const password = document.getElementById('signup-password').value; if (!name || !email || !password) { showToast('Fill in all fields.'); return; } if (password.length < 6) { showToast('Password must be at least 6 characters.'); return; } const { error } = await client.auth.signUp({ email, password, options: { data: { full_name: name } } }); if (error) { showToast(error.message); return; } showToast('Account created! Check your email to verify.'); }
+        async function doGoogle() { const { error } = await client.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } }); if (error) showToast(error.message); }
+        async function doLogout() { await client.auth.signOut(); showToast('Logged out successfully.'); }
+        function toggleFaq(el) { el.classList.toggle('open'); }
+        let demoAnswered = false;
+        function demoAnswer(btn, selected, correct) { if (demoAnswered) return; demoAnswered = true; document.querySelectorAll('.demo-opt').forEach(b => b.disabled = true); const res = document.getElementById('demoResult'); if (selected === correct) { btn.classList.add('correct'); res.style.display = 'block'; res.style.background = '#f0fdf4'; res.style.color = '#15803d'; res.style.border = '1px solid #bbf7d0'; res.textContent = 'Correct! SI = (P × R × T)/100 → P = (1200 × 100)/(8 × 3) = ₹5,000.'; } else { btn.classList.add('wrong'); document.querySelectorAll('.demo-opt').forEach(b => { if (b.textContent.includes('5,000')) b.classList.add('correct'); }); res.style.display = 'block'; res.style.background = '#fef2f2'; res.style.color = '#b91c1c'; res.style.border = '1px solid #fecaca'; res.textContent = 'Incorrect. Using SI = (P × R × T)/100 → P = (1200 × 100)/(8 × 3) = ₹5,000.'; } }
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.style.display = 'block'; setTimeout(() => { t.style.display = 'none'; }, 3000); }
+    </script>
+</body>
+
+</html>
