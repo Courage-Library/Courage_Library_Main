@@ -455,9 +455,9 @@ const SCHEDULE_DATA = {
   },
   "UP Police Constable": {
     rows: [
-      ["Monday",    "Hindi",                        "37",  "74",  "30m", false],
-      ["Tuesday",   "General Knowledge",            "38",  "76",  "30m", false],
-      ["Wednesday", "Numerical Ability",            "25",  "50",  "25m", false],
+      ["Monday",    "Hindi",                        "37",  "74",  "25m", false],
+      ["Tuesday",   "General Knowledge",            "38",  "76",  "25m", false],
+      ["Wednesday", "Numerical Ability",            "25",  "50",  "35m", false],
       ["Thursday",  "Mental Aptitude",              "50",  "100", "40m", false],
       ["Friday",    "Mental Aptitude + Numerical",  "50",  "100", "40m", false],
       ["Saturday",  "Mixed — All 4 Subjects",       "75",  "150", "60m", false],
@@ -516,17 +516,13 @@ function injectScheduleInfoPopup(categoryName) {
             </table>
           </div>
         </div>
-        <div style="background:#f8faff;border:1px solid #e8edf5;border-radius:12px;overflow:hidden">
-          <div style="padding:10px 14px;background:#f0f6ff;border-bottom:1px solid #e2e8f4;font-size:.68rem;font-weight:800;color:#1a56db;text-transform:uppercase;letter-spacing:.08em"><i class="fas fa-shield-alt mr-1"></i> Rules</div>
-          ${[
-            ["fas fa-clock",        "#dbeafe", "#1d4ed8", "5:00 AM – 11:59 PM only",  "Tests lock outside this window every day."],
-            ["fas fa-ban",          "#fee2e2", "#dc2626", "One attempt per day",       "No retakes. Missed = gone. Real exam discipline."],
-            ["fas fa-minus-circle", "#fef3c7", "#d97706", "Negative marking −0.5",    "Wrong answer costs half a mark. Attempt wisely."],
-          ].map(([icon, bg, color, title, desc], i, arr) => `
-            <div style="display:flex;gap:10px;align-items:center;padding:10px 14px;${i < arr.length - 1 ? "border-bottom:1px solid #f1f5f9" : ""}">
-              <span style="width:26px;height:26px;border-radius:7px;background:${bg};color:${color};display:flex;align-items:center;justify-content:center;font-size:.68rem;flex-shrink:0"><i class="${icon}"></i></span>
-              <div style="flex:1"><span style="font-size:.78rem;font-weight:800;color:#0f172a">${title}</span><span style="font-size:.72rem;color:#64748b;margin-left:6px">${desc}</span></div>
-            </div>`).join("")}
+        <div style="display:flex;gap:10px;padding:0 20px 20px;">
+          <a href="${key.includes('UP') ? '/mock/up-police.html' : '/mock/ssc-gd.html'}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0f6ff;border:1px solid #bfdbfe;color:#1a56db;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#f0f6ff'">
+            <i class="fas fa-layer-group"></i> View Series
+          </a>
+          <a href="${key.includes('UP') ? '/mock/up-police.html' : '/mock/ssc-gd.html'}#schedule" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0fff4;border:1px solid #bbf7d0;color:#065f46;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fff4'">
+            <i class="fas fa-info-circle"></i> Know More
+          </a>
         </div>
       </div>
     </div>`;
@@ -1399,7 +1395,7 @@ window.startExam = async function (examId, btn, chosenLanguage = null) {
       data: { user },
     } = await client.auth.getUser();
 
-    // Fetch exam details
+    // Fetch Know More
     const { data: examCheck } = await client
       .from("scheduled_exams")
       .select(
