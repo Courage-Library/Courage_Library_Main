@@ -27,34 +27,50 @@ interface SubmitRequest {
 
 interface BadgeCtx {
   attemptCount: number;
-  accuracy:     number;
-  newStreak:    number;
-  isNewDay:     boolean;
-  newLifetime:  number;
-  oldLifetime:  number;
+  accuracy: number;
+  newStreak: number;
+  isNewDay: boolean;
+  newLifetime: number;
+  oldLifetime: number;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const CORS_HEADERS = {
-  "Access-Control-Allow-Origin":  "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
 
 const REWARD_MILESTONES = [
-  { coins: 1800, name: "Bottle"  },
-  { coins: 2600, name: "Diary"   },
+  { coins: 1800, name: "Bottle" },
+  { coins: 2600, name: "Diary" },
   { coins: 3500, name: "T-shirt" },
 ];
 
 const BADGES = [
-  { type: "first_mock",  check: (ctx: BadgeCtx) => ctx.attemptCount === 1 },
+  { type: "first_mock", check: (ctx: BadgeCtx) => ctx.attemptCount === 1 },
   { type: "accuracy_80", check: (ctx: BadgeCtx) => ctx.accuracy >= 80 },
-  { type: "streak_7",    check: (ctx: BadgeCtx) => ctx.newStreak >= 7  && ctx.isNewDay },
-  { type: "streak_14",   check: (ctx: BadgeCtx) => ctx.newStreak >= 14 && ctx.isNewDay },
-  { type: "streak_30",   check: (ctx: BadgeCtx) => ctx.newStreak >= 30 && ctx.isNewDay },
-  { type: "coins_1000",  check: (ctx: BadgeCtx) => ctx.newLifetime >= 1000 && ctx.oldLifetime < 1000 },
-  { type: "coins_3000",  check: (ctx: BadgeCtx) => ctx.newLifetime >= 3000 && ctx.oldLifetime < 3000 },
+  {
+    type: "streak_7",
+    check: (ctx: BadgeCtx) => ctx.newStreak >= 7 && ctx.isNewDay,
+  },
+  {
+    type: "streak_14",
+    check: (ctx: BadgeCtx) => ctx.newStreak >= 14 && ctx.isNewDay,
+  },
+  {
+    type: "streak_30",
+    check: (ctx: BadgeCtx) => ctx.newStreak >= 30 && ctx.isNewDay,
+  },
+  {
+    type: "coins_1000",
+    check: (ctx: BadgeCtx) => ctx.newLifetime >= 1000 && ctx.oldLifetime < 1000,
+  },
+  {
+    type: "coins_3000",
+    check: (ctx: BadgeCtx) => ctx.newLifetime >= 3000 && ctx.oldLifetime < 3000,
+  },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -109,10 +125,13 @@ serve(async (req) => {
   const supabaseUser = createClient(
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_ANON_KEY")!,
-    { global: { headers: { Authorization: authHeader } } }
+    { global: { headers: { Authorization: authHeader } } },
   );
 
-  const { data: { user }, error: authErr } = await supabaseUser.auth.getUser();
+  const {
+    data: { user },
+    error: authErr,
+  } = await supabaseUser.auth.getUser();
   if (authErr || !user) {
     return error("Unauthorized", 401);
   }
@@ -133,7 +152,7 @@ serve(async (req) => {
   // ── 3. Service-role client ────────────────────────────────────────────────────
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
   );
 
   // ── 4. Load attempt — verify ownership ───────────────────────────────────────
@@ -150,7 +169,10 @@ serve(async (req) => {
 
   // ── 5. Prevent duplicate reward on same attempt ───────────────────────────────
   if (attempt.coins_given) {
-    return json({ already_rewarded: true, message: "Coins already awarded for this attempt." });
+    return json({
+      already_rewarded: true,
+      message: "Coins already awarded for this attempt.",
+    });
   }
 
   // ── 6. ANTI-ABUSE (Step 10): one reward per scheduled_exam per user ───────────
@@ -163,7 +185,10 @@ serve(async (req) => {
     .limit(1);
 
   if (priorRewarded && priorRewarded.length > 0) {
-    return json({ already_rewarded: true, message: "Coins already awarded for this exam." });
+    return json({
+      already_rewarded: true,
+      message: "Coins already awarded for this exam.",
+    });
   }
 
   // ── 7. Load scheduled exam ────────────────────────────────────────────────────
@@ -180,7 +205,9 @@ serve(async (req) => {
   // ── 8. Load user profile ──────────────────────────────────────────────────────
   const { data: profile, error: profileErr } = await supabase
     .from("user_profiles")
-    .select("id, total_coins, lifetime_coins, current_streak, max_streak, last_test_date")
+    .select(
+      "id, total_coins, lifetime_coins, current_streak, max_streak, last_test_date",
+    )
     .eq("id", user_id)
     .single();
 
@@ -198,7 +225,7 @@ serve(async (req) => {
   // 9b. Accuracy bonus
   let accuracyBonus = 0;
   const accuracy = Number(attempt.accuracy ?? 0);
-  if (accuracy >= 80)      accuracyBonus = base;
+  if (accuracy >= 80) accuracyBonus = base;
   else if (accuracy >= 60) accuracyBonus = Math.round(base / 2);
 
   // 9c. First test bonus
@@ -213,13 +240,13 @@ serve(async (req) => {
   // ── 10. Streak calculation (IST-aware, edge function is sole source of truth) ──
   const today = todayIST();
   let newStreak = 1;
-  let isNewDay  = true;
+  let isNewDay = true;
 
   if (profile.last_test_date) {
     const diff = dayDiff(profile.last_test_date, today);
     if (diff === 0) {
       newStreak = profile.current_streak;
-      isNewDay  = false;
+      isNewDay = false;
     } else if (diff === 1) {
       newStreak = profile.current_streak + 1;
     } else {
@@ -230,7 +257,7 @@ serve(async (req) => {
   // 10a. Streak milestone bonus
   let streakBonus = 0;
   if (isNewDay) {
-    if (newStreak === 5)  streakBonus = 30;
+    if (newStreak === 5) streakBonus = 30;
     if (newStreak === 10) streakBonus = 80;
     if (newStreak === 25) streakBonus = 200;
     if (newStreak === 50) streakBonus = 500;
@@ -241,32 +268,30 @@ serve(async (req) => {
 
   const breakdown = {
     base,
-    accuracy_bonus:   accuracyBonus,
+    accuracy_bonus: accuracyBonus,
     first_test_bonus: firstTestBonus,
-    streak_bonus:     streakBonus,
-    total:            totalCoins,
+    streak_bonus: streakBonus,
+    total: totalCoins,
   };
 
   // ── 12. Computed values ───────────────────────────────────────────────────────
-  const oldTotal    = profile.total_coins    ?? 0;
-  const newTotal    = oldTotal + totalCoins;
+  const oldTotal = profile.total_coins ?? 0;
+  const newTotal = oldTotal + totalCoins;
   const oldLifetime = profile.lifetime_coins ?? 0;
   const newLifetime = oldLifetime + totalCoins; // lifetime never decremented
   const newMaxStreak = Math.max(newStreak, profile.max_streak ?? 0);
-  const oldLevel    = getLevel(oldLifetime);
-  const newLevel    = getLevel(newLifetime);
+  const oldLevel = getLevel(oldLifetime);
+  const newLevel = getLevel(newLifetime);
 
   // ── 13. Atomic DB writes ──────────────────────────────────────────────────────
 
   // 13a. Log earn transaction
-  const { error: txErr } = await supabase
-    .from("coin_transactions")
-    .insert({
-      user_id,
-      coins:       totalCoins,
-      type:        "test",
-      description: `Test reward — ${base} base + ${accuracyBonus} accuracy + ${firstTestBonus} first-test + ${streakBonus} streak`,
-    });
+  const { error: txErr } = await supabase.from("coin_transactions").insert({
+    user_id,
+    coins: totalCoins,
+    type: "test",
+    description: `Test reward — ${base} base + ${accuracyBonus} accuracy + ${firstTestBonus} first-test + ${streakBonus} streak`,
+  });
 
   if (txErr) {
     console.error("coin_transactions insert failed:", txErr);
@@ -277,10 +302,10 @@ serve(async (req) => {
   const { error: profileUpdateErr } = await supabase
     .from("user_profiles")
     .update({
-      total_coins:    newTotal,
+      total_coins: newTotal,
       lifetime_coins: newLifetime,
       current_streak: newStreak,
-      max_streak:     newMaxStreak,
+      max_streak: newMaxStreak,
       ...(isNewDay && { last_test_date: today }),
     })
     .eq("id", user_id);
@@ -307,11 +332,14 @@ serve(async (req) => {
   if (attemptUpdateErr) {
     console.error("attempt coins_given flag failed:", attemptUpdateErr);
     // Coins were awarded correctly — log for admin reconciliation
-    await supabase.from("admin_logs").insert({
-      admin_id:   user_id,
-      action:     "coins_given_flag_failed",
-      target_id:  attempt_id,
-    }).catch(() => {}); // non-fatal
+    await supabase
+      .from("admin_logs")
+      .insert({
+        admin_id: user_id,
+        action: "coins_given_flag_failed",
+        target_id: attempt_id,
+      })
+      .catch(() => {}); // non-fatal
   }
 
   // ── 14. Notifications ─────────────────────────────────────────────────────────
@@ -319,18 +347,18 @@ serve(async (req) => {
   // 14a. Main coin notification
   await supabase.from("notifications").insert({
     user_id,
-    title:   `🪙 You earned ${totalCoins} coins!`,
+    title: `🪙 You earned ${totalCoins} coins!`,
     message: `${base} base + ${accuracyBonus} accuracy bonus. Streak: ${newStreak} days.`,
-    type:    "coins",
+    type: "coins",
   });
 
   // 14b. Streak milestone notification
   if (streakBonus > 0) {
     await supabase.from("notifications").insert({
       user_id,
-      title:   `🔥 ${newStreak}-day streak bonus!`,
+      title: `🔥 ${newStreak}-day streak bonus!`,
       message: `You earned ${streakBonus} extra coins for your ${newStreak}-day streak. Keep going!`,
-      type:    "streak",
+      type: "streak",
     });
   }
 
@@ -338,7 +366,8 @@ serve(async (req) => {
   let unlockedReward: { coins: number; name: string } | null = null;
 
   for (const milestone of REWARD_MILESTONES) {
-    const justCrossed = oldTotal < milestone.coins && newTotal >= milestone.coins;
+    const justCrossed =
+      oldTotal < milestone.coins && newTotal >= milestone.coins;
     if (!justCrossed) continue;
 
     const { data: existingClaim } = await supabase
@@ -352,9 +381,9 @@ serve(async (req) => {
 
     await supabase.from("notifications").insert({
       user_id,
-      title:   `🎁 ${milestone.name} unlocked!`,
+      title: `🎁 ${milestone.name} unlocked!`,
       message: `You now have ${newTotal} coins — enough to claim your ${milestone.name}. Go to Rewards to claim it!`,
-      type:    "reward_unlocked",
+      type: "reward_unlocked",
     });
 
     unlockedReward = milestone;
@@ -367,7 +396,9 @@ serve(async (req) => {
       const gap = milestone.coins - newTotal;
       if (gap <= 0 || gap > 100) continue;
 
-      const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
+      const threeDaysAgo = new Date(
+        Date.now() - 3 * 24 * 60 * 60 * 1000,
+      ).toISOString();
       const { data: recentNudge } = await supabase
         .from("notifications")
         .select("id")
@@ -381,9 +412,9 @@ serve(async (req) => {
 
       await supabase.from("notifications").insert({
         user_id,
-        title:   `🎯 Almost there!`,
+        title: `🎯 Almost there!`,
         message: `Just ${gap} more coins to claim your ${milestone.name}. Attempt tomorrow's mock to get there!`,
-        type:    "reward_nudge",
+        type: "reward_nudge",
       });
       break;
     }
@@ -405,7 +436,7 @@ serve(async (req) => {
     .eq("user_id", user_id);
 
   const alreadyHas = new Set(
-    (existingBadges ?? []).map((b: { badge_type: string }) => b.badge_type)
+    (existingBadges ?? []).map((b: { badge_type: string }) => b.badge_type),
   );
 
   const newBadges: string[] = [];
@@ -422,9 +453,9 @@ serve(async (req) => {
       newBadges.push(badge.type);
       await supabase.from("notifications").insert({
         user_id,
-        title:   `🏅 Badge unlocked: ${badge.type.replace(/_/g, " ")}`,
+        title: `🏅 Badge unlocked: ${badge.type.replace(/_/g, " ")}`,
         message: `You earned the "${badge.type.replace(/_/g, " ")}" badge. Keep it up!`,
-        type:    "badge",
+        type: "badge",
       });
     }
   }
@@ -433,9 +464,9 @@ serve(async (req) => {
   if (oldLevel !== newLevel) {
     await supabase.from("notifications").insert({
       user_id,
-      title:   `⭐ Level up — ${newLevel}!`,
+      title: `⭐ Level up — ${newLevel}!`,
       message: `You've reached ${newLevel} tier with ${newLifetime} lifetime coins earned. Amazing progress!`,
-      type:    "level_up",
+      type: "level_up",
     });
   }
 
@@ -445,28 +476,28 @@ serve(async (req) => {
     fetch(
       `${Deno.env.get("SUPABASE_URL")}/functions/v1/process-referral-reward`,
       {
-        method:  "POST",
+        method: "POST",
         headers: {
-          "Content-Type":      "application/json",
+          "Content-Type": "application/json",
           "x-internal-secret": internalSecret,
         },
         body: JSON.stringify({ referee_id: user_id }),
-      }
-    ).catch(err => console.warn("referral check failed (non-fatal):", err));
+      },
+    ).catch((err) => console.warn("referral check failed (non-fatal):", err));
   }
 
   // ── 20. Return ────────────────────────────────────────────────────────────────
   return json({
-    success:          true,
-    coins:            totalCoins,
-    breakdown,                                      // Step 09 — result page breakdown
-    streak:           newStreak,
-    max_streak:       newMaxStreak,
-    total_coins:      newTotal,
-    lifetime_coins:   newLifetime,
-    level:            newLevel,
-    level_up:         oldLevel !== newLevel,
-    badges_earned:    newBadges,
-    reward_unlocked:  unlockedReward ? unlockedReward.name : null,
+    success: true,
+    coins: totalCoins,
+    breakdown, // Step 09 — result page breakdown
+    streak: newStreak,
+    max_streak: newMaxStreak,
+    total_coins: newTotal,
+    lifetime_coins: newLifetime,
+    level: newLevel,
+    level_up: oldLevel !== newLevel,
+    badges_earned: newBadges,
+    reward_unlocked: unlockedReward ? unlockedReward.name : null,
   });
 });

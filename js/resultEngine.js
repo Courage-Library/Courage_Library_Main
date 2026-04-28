@@ -1047,3 +1047,371 @@ history.pushState(null, null, location.href);
 window.onpopstate = () => {
   window.location.href = "/mock/dashboard.html";
 };
+/* ══════════════════════════════════════════════════════
+   FEEDBACK SYSTEM — 10 flashcard questions, 1 CL each
+══════════════════════════════════════════════════════ */
+const FB_QUESTIONS = [
+  {
+    id: 'mood', type: 'emoji',
+    q: 'How are you feeling after this test?',
+    opts: [
+      { e: '😤', l: 'Frustrated' },
+      { e: '😩', l: 'Disappointed' },
+      { e: '😐', l: 'Neutral' },
+      { e: '😊', l: 'Happy' },
+      { e: '🔥', l: 'Crushed it!' }
+    ]
+  },
+  {
+    id: 'difficulty', type: 'choice',
+    q: 'How hard was this paper?',
+    opts: [
+      { k: 'A', t: 'Very easy — no struggle at all' },
+      { k: 'B', t: 'Easy — manageable' },
+      { k: 'C', t: 'Hard — took real effort' },
+      { k: 'D', t: 'Very hard — felt lost' }
+    ]
+  },
+  {
+    id: 'time', type: 'choice',
+    q: 'Did you get enough time to attempt all questions?',
+    opts: [
+      { k: 'A', t: 'Yes, had extra time' },
+      { k: 'B', t: 'Just enough' },
+      { k: 'C', t: 'Ran out of time' },
+      { k: 'D', t: 'Left many unanswered' }
+    ]
+  },
+  {
+    id: 'prepared', type: 'choice',
+    q: 'How prepared did you feel before this test?',
+    opts: [
+      { k: 'A', t: 'Very prepared' },
+      { k: 'B', t: 'Somewhat prepared' },
+      { k: 'C', t: 'Not really prepared' },
+      { k: 'D', t: 'Came in without preparation' }
+    ]
+  },
+  {
+    id: 'clarity', type: 'choice',
+    q: 'Were the questions easy to read and understand?',
+    opts: [
+      { k: 'A', t: 'Yes, all clear' },
+      { k: 'B', t: 'Most were clear' },
+      { k: 'C', t: 'Some were confusing' },
+      { k: 'D', t: 'Many were confusing' }
+    ]
+  },
+  {
+    id: 'syllabus', type: 'choice',
+    q: 'Did the questions match your exam syllabus?',
+    opts: [
+      { k: 'A', t: 'Yes, perfectly matched' },
+      { k: 'B', t: 'Mostly matched' },
+      { k: 'C', t: 'Some out-of-syllabus questions' },
+      { k: 'D', t: 'Many out-of-syllabus questions' }
+    ]
+  },
+  {
+    id: 'explanations', type: 'choice',
+    q: 'Were the answer explanations useful?',
+    opts: [
+      { k: 'A', t: 'Very useful — learned something' },
+      { k: 'B', t: 'Somewhat useful' },
+      { k: 'C', t: 'Not very useful' },
+      { k: 'D', t: 'Did not read them' }
+    ]
+  },
+  {
+    id: 'frequency', type: 'choice',
+    q: 'How often should tests like this be given?',
+    opts: [
+      { k: 'A', t: 'Every day' },
+      { k: 'B', t: 'Every 2–3 days' },
+      { k: 'C', t: 'Once a week' },
+      { k: 'D', t: 'Less often' }
+    ]
+  },
+  {
+    id: 'recommend', type: 'choice',
+    q: 'Would you recommend Courage Library to a friend?',
+    opts: [
+      { k: 'A', t: 'Yes, definitely' },
+      { k: 'B', t: 'Maybe' },
+      { k: 'C', t: 'Not sure yet' },
+      { k: 'D', t: 'No' }
+    ]
+  },
+  {
+    id: 'suggestion', type: 'text',
+    q: 'One thing we should improve?',
+    sub: 'Optional — we read every single response',
+    placeholder: 'Type anything...'
+  }
+];
+
+let _fbCur = 0;
+let _fbCoins = 0;
+let _fbAnswered = 0;
+const _fbAns = {};
+let _fbSubmitted = false;
+
+function fbRenderCard(idx) {
+  const vp = document.getElementById('fbVp');
+  const old = vp.querySelector('.fb-card');
+  const q = FB_QUESTIONS[idx];
+  const div = document.createElement('div');
+  div.className = 'fb-card hr';
+
+  let body = '';
+  if (q.type === 'emoji') {
+    body = `<div style="display:flex;gap:7px">${q.opts.map((o, i) =>
+      `<button class="fb-eb${_fbAns[q.id]===String(i)?' sel':''}" data-i="${i}" onclick="fbPickEmo(this)">
+        <span style="font-size:26px;line-height:1">${o.e}</span><span class="fb-el">${o.l}</span>
+      </button>`).join('')}</div>`;
+  } else if (q.type === 'choice') {
+    body = `<div>${q.opts.map(o =>
+      `<button class="fb-opt${_fbAns[q.id]===o.k?' sel':''}" data-k="${o.k}" onclick="fbPickOpt(this)">
+        <span class="fb-okey">${o.k}</span>${o.t}
+      </button>`).join('')}</div>`;
+  } else {
+    body = `<textarea class="fb-txt" id="fbTxa" rows="3" placeholder="${q.placeholder}" oninput="fbOnTxt(this)" style="margin-top:4px">${_fbAns[q.id]||''}</textarea>`;
+  }
+
+  div.innerHTML =
+    `<div style="font-size:.62rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'DM Sans',sans-serif">Question ${idx + 1} of ${FB_QUESTIONS.length}</div>` +
+    `<div style="font-size:1.05rem;font-weight:700;color:#0f172a;line-height:1.5;margin-bottom:${q.sub?'4px':'14px'};font-family:'Sora',sans-serif">${q.q}</div>` +
+    (q.sub ? `<div style="font-size:.72rem;color:#94a3b8;margin-bottom:12px;font-family:'DM Sans',sans-serif">${q.sub}</div>` : '') +
+    body;
+
+  vp.appendChild(div);
+  if (old) {
+    old.classList.remove('vis');
+    old.classList.add('hl');
+    setTimeout(() => old.remove(), 340);
+  }
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    div.classList.remove('hr');
+    div.classList.add('vis');
+  }));
+
+  const nb = document.getElementById('fbNxtBtn');
+  const isLast = idx === FB_QUESTIONS.length - 1;
+  const nbEnabled = (q.type === 'text' || _fbAns[q.id] !== undefined);
+  nb.disabled = !nbEnabled;
+  nb.style.opacity = nbEnabled ? '1' : '.35';
+  nb.style.cursor = nbEnabled ? 'pointer' : 'not-allowed';
+  nb.style.background = '#1a56db';
+  nb.innerHTML = isLast
+    ? `Submit &amp; Claim ${_fbCoins + (nb.disabled ? 0 : 1)} CL &#127881;`
+    : 'Next &rarr;';
+
+  document.getElementById('fbQNum').textContent = `${idx + 1} / ${FB_QUESTIONS.length}`;
+  document.getElementById('fbProgFill').style.width = `${(idx / FB_QUESTIONS.length) * 100}%`;
+}
+
+function fbPickEmo(el) {
+  // el could be the button or a child span — walk up to button
+  const btn = el.closest('button[data-i]') || el;
+  document.getElementById('fbVp').querySelectorAll('.fb-eb').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  _fbAns[FB_QUESTIONS[_fbCur].id] = btn.dataset.i;
+  const nb = document.getElementById('fbNxtBtn');
+  nb.disabled = false; nb.style.opacity = '1'; nb.style.cursor = 'pointer';
+  fbUpdateLastBtn();
+}
+
+function fbPickOpt(el) {
+  // el could be the button or a child span — walk up to button
+  const btn = el.closest('button[data-k]') || el;
+  document.getElementById('fbVp').querySelectorAll('.fb-opt').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  _fbAns[FB_QUESTIONS[_fbCur].id] = btn.dataset.k;
+  const nb = document.getElementById('fbNxtBtn');
+  nb.disabled = false; nb.style.opacity = '1'; nb.style.cursor = 'pointer';
+  fbUpdateLastBtn();
+}
+
+function fbOnTxt(el) {
+  _fbAns[FB_QUESTIONS[_fbCur].id] = el.value;
+  fbUpdateLastBtn();
+}
+
+function fbUpdateLastBtn() {
+  if (_fbCur === FB_QUESTIONS.length - 1) {
+    const nb = document.getElementById('fbNxtBtn');
+    const willEarn = _fbCoins + ((_fbAns[FB_QUESTIONS[_fbCur].id] !== undefined) ? 1 : 0);
+    nb.innerHTML = `Submit &amp; Claim ${willEarn} CL &#127881;`;
+  }
+}
+
+function fbAwardCoin() {
+  _fbCoins++;
+  const el = document.getElementById('fbCoinCount');
+  if (!el) return;
+  el.textContent = _fbCoins;
+  el.style.animation = 'none';
+  void el.offsetWidth;
+  el.style.animation = 'fbNumPop .3s cubic-bezier(.34,1.56,.64,1)';
+  // coin flies up to counter
+  const fly = document.createElement('div');
+  fly.className = 'fb-coin-fly';
+  fly.textContent = '🪙';
+  document.getElementById('fbPopup').appendChild(fly);
+  setTimeout(() => fly.remove(), 600);
+}
+
+function fbGo(skip) {
+  const q = FB_QUESTIONS[_fbCur];
+  const hasAns = _fbAns[q.id] !== undefined && _fbAns[q.id] !== '';
+  if (!skip && _fbCur === FB_QUESTIONS.length - 1) {
+    if (hasAns) fbAwardCoin();
+    fbSubmit();
+    return;
+  }
+  if (!skip && hasAns) fbAwardCoin();
+  if (_fbCur < FB_QUESTIONS.length - 1) {
+    _fbCur++;
+    fbRenderCard(_fbCur);
+  }
+}
+
+function fbSpawnCoins() {
+  const p = document.getElementById('fbPopup');
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.style.cssText = `position:absolute;left:${10 + Math.random() * 80}%;bottom:22%;z-index:10;pointer-events:none;font-size:18px;animation:fbFu 1s ease-out forwards`;
+      c.textContent = '🪙';
+      p.appendChild(c);
+      setTimeout(() => c.remove(), 1000);
+    }, i * 80);
+  }
+}
+
+async function fbSubmit() {
+  if (_fbSubmitted) return;
+  const nb = document.getElementById('fbNxtBtn');
+  nb.disabled = true;
+  nb.textContent = 'Saving...';
+
+  try {
+    const { data: { user } } = await client.auth.getUser();
+    if (user) {
+      // Save feedback
+      await client.from('exam_feedback').upsert({
+        attempt_id: attemptId,
+        user_id: user.id,
+        rating: _fbAns.mood !== undefined ? Number(_fbAns.mood) + 1 : null,
+        difficulty: _fbAns.difficulty || null,
+        liked_aspects: null,
+        comment: _fbAns.suggestion || null,
+        answers_json: JSON.stringify(_fbAns),
+        coins_awarded: _fbCoins
+      }, { onConflict: 'attempt_id,user_id' });
+
+      // Award coins to user wallet
+      if (_fbCoins > 0) {
+        await client.rpc('add_feedback_coins', {
+          p_user_id: user.id,
+          p_coins: _fbCoins,
+          p_attempt_id: attemptId
+        });
+      }
+    }
+  } catch (_) {}
+
+  _fbSubmitted = true;
+
+  setTimeout(() => {
+    fbSpawnCoins();
+    setTimeout(() => {
+      document.getElementById('fbFormWrap').style.display = 'none';
+      document.getElementById('fbDoneWrap').style.display = 'block';
+      document.getElementById('fbFinalCoins').textContent = `+${_fbCoins} CL`;
+      // Update trigger button to done state
+      const trigBtn = document.getElementById('fbTriggerBtn');
+      if (trigBtn) {
+        trigBtn.style.pointerEvents = 'none';
+        trigBtn.querySelector('div').style.background = 'linear-gradient(135deg,#062016,#0c3a22)';
+        trigBtn.querySelector('div').style.borderColor = 'rgba(52,211,153,.25)';
+        trigBtn.querySelector('div').style.boxShadow = '0 4px 16px rgba(52,211,153,.1)';
+        trigBtn.querySelector('div').innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px;flex:1">
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✅</div>
+            <div>
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#6ee7b7;line-height:1.2">Feedback submitted!</div>
+              <div style="font-family:'DM Sans',sans-serif;font-size:.72rem;color:rgba(110,231,183,.5);margin-top:2px">+${_fbCoins} CL coins credited to your wallet</div>
+            </div>
+          </div>`;
+      }
+    }, 600);
+  }, 700);
+}
+
+function fbOpenPopup() {
+  if (_fbSubmitted) return;
+  _fbCur = 0;
+  _fbCoins = 0;
+  Object.keys(_fbAns).forEach(k => delete _fbAns[k]);
+  document.getElementById('fbCoinCount').textContent = '0';
+  document.getElementById('fbFormWrap').style.display = 'block';
+  document.getElementById('fbDoneWrap').style.display = 'none';
+  document.getElementById('fbOverlay').style.display = 'flex';
+  // clear viewport
+  document.getElementById('fbVp').innerHTML = '';
+  fbRenderCard(0);
+}
+
+function fbClosePopup() {
+  document.getElementById('fbOverlay').style.display = 'none';
+}
+
+// Check if already submitted for this attempt
+async function fbCheckAlreadyDone() {
+  if (!attemptId) return;
+  try {
+    const { data: { user } } = await client.auth.getUser();
+    if (!user) return;
+    const { data } = await client
+      .from('exam_feedback')
+      .select('id, coins_awarded')
+      .eq('attempt_id', attemptId)
+      .eq('user_id', user.id)
+      .maybeSingle();
+    if (data) {
+      _fbSubmitted = true;
+      const trigBtn = document.getElementById('fbTriggerBtn');
+      if (trigBtn) {
+        trigBtn.style.pointerEvents = 'none';
+        trigBtn.querySelector('div').style.background = 'linear-gradient(135deg,#062016,#0c3a22)';
+        trigBtn.querySelector('div').style.borderColor = 'rgba(52,211,153,.25)';
+        trigBtn.querySelector('div').style.boxShadow = '0 4px 16px rgba(52,211,153,.1)';
+        trigBtn.querySelector('div').innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px;flex:1">
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✅</div>
+            <div>
+              <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#6ee7b7;line-height:1.2">Feedback submitted!</div>
+              <div style="font-family:'DM Sans',sans-serif;font-size:.72rem;color:rgba(110,231,183,.5);margin-top:2px">+${data.coins_awarded || 0} CL coins credited to your wallet</div>
+            </div>
+          </div>`;
+      }
+    }
+  } catch (_) {}
+}
+
+// Auto-pulse trigger button after 8s if not submitted
+function fbInitAutoPulse() {
+  setTimeout(() => {
+    if (_fbSubmitted) return;
+    const btn = document.getElementById('fbTriggerBtn');
+    if (btn && document.getElementById('fbOverlay').style.display === 'none') {
+      btn.style.animation = 'fbPulse 1.8s ease-in-out 3';
+    }
+  }, 8000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(fbCheckAlreadyDone, 900);
+  fbInitAutoPulse();
+});
