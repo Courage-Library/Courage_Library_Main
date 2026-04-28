@@ -1235,6 +1235,27 @@
                         <span class="btn-label">Share Score</span>
                     </button>
                 </div>
+
+
+            </div>
+
+            <!-- ── FEEDBACK TRIGGER CARD ── -->
+            <div class="fade-up s2" style="margin-top:14px">
+                <button id="fbTriggerBtn" onclick="fbOpenPopup()" style="width:100%;padding:0;background:transparent;border:none;border-radius:18px;cursor:pointer;display:block;text-align:left;transition:transform .15s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 60%,#2d1b69 100%);border-radius:18px;border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(26,86,219,.35);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+                        <div style="display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden">
+                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🪙</div>
+                            <div style="min-width:0">
+                                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;color:#fff;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Rate this test &amp; earn</div>
+                                <div style="font-family:'DM Sans',sans-serif;font-size:.68rem;color:rgba(255,255,255,.5);margin-top:1px;white-space:nowrap">10 questions &middot; 1 coin each &middot; 1 min</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;background:rgba(251,191,36,.18);border:1px solid rgba(251,191,36,.35);border-radius:100px;padding:7px 14px;white-space:nowrap">
+                            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3.5L12 5l-2.5 2.5.6 3.5L7 9.5 3.9 11l.6-3.5L2 5l3.5-.5L7 1z" fill="#fbbf24" stroke="#f59e0b" stroke-width=".5"/></svg>
+                            <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:.78rem;color:#fbbf24">Start +10 CL</span>
+                        </div>
+                    </div>
+                </button>
             </div>
 
             <!-- ── SECTION-WISE ACCURACY ── -->
@@ -1326,6 +1347,88 @@
             </div>
         </div>
     </footer>
+
+    <!-- ══════════════════════════════════════
+         FEEDBACK POPUP
+    ══════════════════════════════════════ -->
+    <!-- FEEDBACK POPUP — light mode, Tailwind-proof -->
+    <div id="fbOverlay" onclick="if(event.target===this)fbClosePopup()" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:10000;align-items:flex-end;justify-content:center;">
+      <div id="fbPopup" style="background:#fff;border-radius:28px 28px 0 0;border-top:1px solid #e2e8f0;width:100%;max-width:480px;overflow:hidden;position:relative;box-shadow:0 -8px 40px rgba(0,0,0,.12);animation:fbSlideUp .35s cubic-bezier(.34,1.2,.64,1)">
+        <style>
+          @keyframes fbSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+          @keyframes fbNumPop{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
+          @keyframes fbFu{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px)}}
+          .fb-card{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .22s}
+          .fb-card.hr{transform:translateX(100%);opacity:0}
+          .fb-card.hl{transform:translateX(-100%);opacity:0}
+          .fb-card.vis{transform:translateX(0);opacity:1}
+          .fb-opt{width:100%;padding:11px 14px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;color:#475569;font-size:.82rem;text-align:left;cursor:pointer;transition:all .16s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:10px;line-height:1.35;box-sizing:border-box;margin-bottom:7px}
+          .fb-opt:last-child{margin-bottom:0}
+          .fb-opt:hover{background:#eff6ff;border-color:#93c5fd;color:#1e40af}
+          .fb-opt.sel{border-color:#1a56db;background:#eff6ff;color:#1a56db}
+          .fb-okey{width:22px;height:22px;border-radius:7px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#94a3b8;flex-shrink:0;transition:all .16s;font-family:'Sora',sans-serif;font-weight:700}
+          .fb-opt.sel .fb-okey{background:#1a56db;color:#fff}
+          .fb-eb{flex:1;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:12px 4px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .16s}
+          .fb-eb:hover{background:#eff6ff;border-color:#93c5fd}
+          .fb-eb.sel{border-color:#1a56db;background:#eff6ff}
+          .fb-eb.sel .fb-el{color:#1a56db;font-weight:600}
+          .fb-el{font-size:.6rem;color:#94a3b8;text-align:center;line-height:1.3;transition:color .16s;font-family:'DM Sans',sans-serif}
+          .fb-txt{width:100%;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.82rem;color:#0f172a;resize:none;outline:none;transition:border-color .2s;line-height:1.5;box-sizing:border-box}
+          .fb-txt::placeholder{color:#cbd5e1}
+          .fb-txt:focus{border-color:#1a56db;background:#fff}
+        </style>
+
+        <!-- drag handle -->
+        <div style="width:40px;height:4px;background:#e2e8f0;border-radius:100px;margin:14px auto 0"></div>
+
+        <div id="fbFormWrap">
+          <!-- header -->
+          <div style="padding:14px 20px 0;display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:8px">
+              <img src="/images/logo.png" alt="CL" onerror="this.style.display='none'" style="width:28px;height:28px;border-radius:8px;object-fit:contain;background:#eff6ff;padding:3px;border:1px solid #dbeafe">
+              <span style="font-family:'Sora',sans-serif;font-size:.78rem;font-weight:700;color:#1e40af">Courage Library</span>
+            </div>
+            <button onclick="fbClosePopup()" style="background:#f1f5f9;border:none;border-radius:50%;width:28px;height:28px;color:#94a3b8;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .15s" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">&#10005;</button>
+          </div>
+
+          <!-- coins + q number -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:18px;line-height:1">🪙</span>
+              <span id="fbCoinCount" style="font-size:1.25rem;font-weight:700;font-family:'Sora',sans-serif;color:#d97706;display:inline-block">0</span>
+              <span style="font-size:.78rem;color:#94a3b8;font-family:'DM Sans',sans-serif;font-weight:500">/ 10 CL earned</span>
+            </div>
+            <div id="fbQNum" style="font-size:.68rem;font-weight:600;color:#94a3b8;font-family:'Sora',sans-serif;background:#f1f5f9;padding:3px 10px;border-radius:100px">1 / 10</div>
+          </div>
+
+          <!-- progress bar -->
+          <div style="margin:10px 20px 0;height:5px;background:#f1f5f9;border-radius:100px;overflow:hidden">
+            <div id="fbProgFill" style="height:100%;background:linear-gradient(90deg,#1a56db,#7c3aed);border-radius:100px;width:0%;transition:width .4s cubic-bezier(.34,1.2,.64,1)"></div>
+          </div>
+
+          <!-- card viewport -->
+          <div id="fbVp" style="height:272px;margin:14px 20px 0;position:relative;overflow:hidden"></div>
+
+          <!-- footer -->
+          <div style="padding:12px 20px 24px;display:flex;gap:9px;border-top:1px solid #f1f5f9;margin-top:4px">
+            <button onclick="fbGo(true)" style="padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:12px;background:#fff;color:#94a3b8;font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .2s" onmouseover="this.style.borderColor='#94a3b8';this.style.color='#64748b'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">Skip</button>
+            <button id="fbNxtBtn" onclick="fbGo(false)" disabled style="flex:1;padding:12px;border:none;border-radius:12px;background:#1a56db;color:#fff;font-size:.88rem;font-weight:700;cursor:not-allowed;font-family:'Sora',sans-serif;transition:background .2s,opacity .2s;display:flex;align-items:center;justify-content:center;gap:7px;opacity:.35;box-shadow:0 4px 14px rgba(26,86,219,.3)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- done state -->
+        <div id="fbDoneWrap" style="display:none;padding:32px 24px 28px;text-align:center">
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #86efac;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div id="fbFinalCoins" style="font-size:2.8rem;font-weight:800;color:#d97706;margin-bottom:6px;letter-spacing:-.03em;font-family:'Sora',sans-serif">+0 CL</div>
+          <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;font-family:'Sora',sans-serif">Coins added to your wallet!</div>
+          <div style="font-size:.8rem;color:#64748b;line-height:1.6">Your feedback helps us build better tests.<br>Thank you for being honest.</div>
+          <button onclick="fbClosePopup()" style="margin-top:20px;padding:11px 32px;border-radius:100px;border:1.5px solid #e2e8f0;background:#fff;color:#64748b;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#1a56db';this.style.color='#1a56db'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#64748b'">Close</button>
+        </div>
+
+      </div>
+    </div>
 </body>
 
 </html>
