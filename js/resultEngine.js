@@ -159,6 +159,9 @@ async function calculateResult() {
     return;
   }
 
+  // Store submitted_at globally for coin popup lookup
+  window._attemptSubmittedAt = attempt.submitted_at;
+
   // Revisit detection — sirf tab first visit hai jab score abhi DB mein save nahi hua
   // coins_given = false ho sakta hai purane attempts mein bhi — isliye woh reliable nahi hai
   const isFirstVisit = attempt.total_score == null;
@@ -773,34 +776,42 @@ async function giveCoins(attemptId) {
 
   if (!data) return;
 
-  // If already_rewarded — fetch today's coin transaction to show popup
-  // This handles cyclic exams where same scheduled_exam_id repeats weekly
+  // Session key — track if popup was shown for this attempt already
+  const popupShownKey = `coinPopupShown_${attemptId}`;
+
+  // If already_rewarded — fetch today's coin transaction to show popup ONCE
   if (data.already_rewarded) {
+    // Only show if not already shown in this browser session
+    if (sessionStorage.getItem(popupShownKey)) return;
     try {
       const { data: { session } } = await client.auth.getSession();
       if (session) {
-        // Fetch the coin transaction for this specific attempt from today
+        // Find transaction close to when this attempt was submitted
+        const submittedAt = window._attemptSubmittedAt || new Date().toISOString();
+        const fromTime = new Date(new Date(submittedAt).getTime() - 60000).toISOString(); // -1 min
+        const toTime   = new Date(new Date(submittedAt).getTime() + 60000).toISOString(); // +1 min
         const { data: tx } = await client
           .from('coin_transactions')
           .select('coins, description, created_at')
           .eq('user_id', session.user.id)
           .eq('type', 'test')
-          .gte('created_at', new Date(new Date().setHours(0,0,0,0)).toISOString())
+          .gte('created_at', fromTime)
+          .lte('created_at', toTime)
           .order('created_at', { ascending: false })
           .limit(1)
           .maybeSingle();
 
         if (tx && tx.coins > 0) {
-          // Parse breakdown from description
           const desc = tx.description || '';
           const baseMatch = desc.match(/(\d+) base/);
-          const accMatch = desc.match(/(\d+) accuracy/);
-          const streakMatch = desc.match(/(\d+) streak/);
+          const accMatch = desc.match(/\+ (\d+) accuracy/);
+          const streakMatch = desc.match(/\+ (\d+) streak/);
           const breakdown = {
             base: baseMatch ? +baseMatch[1] : tx.coins,
             accuracy_bonus: accMatch ? +accMatch[1] : 0,
             streak_bonus: streakMatch ? +streakMatch[1] : 0,
           };
+          sessionStorage.setItem(popupShownKey, '1');
           showCoinPopup(tx.coins, 0, breakdown);
         }
       }
@@ -810,6 +821,8 @@ async function giveCoins(attemptId) {
 
   if (!data.coins) return; // unexpected empty response
 
+  // Mark popup as shown for this attempt
+  sessionStorage.setItem(popupShownKey, '1');
   // Show the breakdown popup + floating coin animation
   showCoinPopup(data.coins, data.streak, data.breakdown);
 
