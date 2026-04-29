@@ -772,8 +772,43 @@ async function giveCoins(attemptId) {
   }
 
   if (!data) return;
-  if (data.already_rewarded) return; // coins already given for this attempt — silent
-  if (!data.coins) return;           // unexpected empty response
+
+  // If already_rewarded — fetch today's coin transaction to show popup
+  // This handles cyclic exams where same scheduled_exam_id repeats weekly
+  if (data.already_rewarded) {
+    try {
+      const { data: { session } } = await client.auth.getSession();
+      if (session) {
+        // Fetch the coin transaction for this specific attempt from today
+        const { data: tx } = await client
+          .from('coin_transactions')
+          .select('coins, description, created_at')
+          .eq('user_id', session.user.id)
+          .eq('type', 'test')
+          .gte('created_at', new Date(new Date().setHours(0,0,0,0)).toISOString())
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (tx && tx.coins > 0) {
+          // Parse breakdown from description
+          const desc = tx.description || '';
+          const baseMatch = desc.match(/(\d+) base/);
+          const accMatch = desc.match(/(\d+) accuracy/);
+          const streakMatch = desc.match(/(\d+) streak/);
+          const breakdown = {
+            base: baseMatch ? +baseMatch[1] : tx.coins,
+            accuracy_bonus: accMatch ? +accMatch[1] : 0,
+            streak_bonus: streakMatch ? +streakMatch[1] : 0,
+          };
+          showCoinPopup(tx.coins, 0, breakdown);
+        }
+      }
+    } catch (_) {}
+    return;
+  }
+
+  if (!data.coins) return; // unexpected empty response
 
   // Show the breakdown popup + floating coin animation
   showCoinPopup(data.coins, data.streak, data.breakdown);
