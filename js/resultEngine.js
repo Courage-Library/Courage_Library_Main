@@ -418,8 +418,14 @@ function renderOptionValue(value, optionsType) {
 /* ─────────────────────────────────────────
    RENDER REVIEW LIST
 ───────────────────────────────────────── */
-function renderReviewList(items) {
+const REVIEW_INITIAL_LIMIT = 5;
+let _currentReviewItems = [];
+
+function renderReviewList(items, showAll = false) {
+  _currentReviewItems = items;
   const container = document.getElementById("reviewSection");
+  const showAllWrap = document.getElementById("showAllWrap");
+  const showAllCount = document.getElementById("showAllCount");
 
   if (!items.length) {
     container.innerHTML = `
@@ -427,10 +433,24 @@ function renderReviewList(items) {
         <div class="ef-icon"><i class="fas fa-filter"></i></div>
         <p>No questions in this category</p>
       </div>`;
+    if (showAllWrap) showAllWrap.style.display = "none";
     return;
   }
 
-  container.innerHTML = items
+  const toRender = (!showAll && items.length > REVIEW_INITIAL_LIMIT)
+    ? items.slice(0, REVIEW_INITIAL_LIMIT)
+    : items;
+
+  if (showAllWrap) {
+    if (!showAll && items.length > REVIEW_INITIAL_LIMIT) {
+      showAllWrap.style.display = "block";
+      if (showAllCount) showAllCount.textContent = items.length;
+    } else {
+      showAllWrap.style.display = "none";
+    }
+  }
+
+  container.innerHTML = toRender
     .map(({ q, selected, correct, status, index }) => {
       const opts = q.options || {};
       const optionsType = q.options_type || "text";
@@ -586,7 +606,13 @@ window.filterReview = function (type, btn) {
       ? allReviewItems
       : allReviewItems.filter((i) => i.status === type);
 
-  renderReviewList(filtered);
+  renderReviewList(filtered, false);
+};
+
+window.expandAllReview = function() {
+  const wrap = document.getElementById("showAllWrap");
+  if (wrap) wrap.style.display = "none";
+  renderReviewList(_currentReviewItems, true);
 };
 
 /* ─────────────────────────────────────────
@@ -776,50 +802,15 @@ async function giveCoins(attemptId) {
 
   if (!data) return;
 
-  // Session key — show popup only once per attempt per session
+  // Show popup only once per attempt per session
   const popupShownKey = `coinPopupShown_${attemptId}`;
   if (sessionStorage.getItem(popupShownKey)) return;
 
-  if (data.already_rewarded) {
-    // Fetch the coin transaction for this attempt from coin_transactions
-    // Find the transaction on the same day as attempt submission
-    try {
-      const { data: { session } } = await client.auth.getSession();
-      if (session) {
-        const submittedAt = window._attemptSubmittedAt || new Date().toISOString();
-        const dayStart = new Date(submittedAt);
-        dayStart.setHours(0, 0, 0, 0);
-        const dayEnd = new Date(submittedAt);
-        dayEnd.setHours(23, 59, 59, 999);
-
-        const { data: tx } = await client
-          .from('coin_transactions')
-          .select('coins, description')
-          .eq('user_id', session.user.id)
-          .eq('type', 'test')
-          .gte('created_at', dayStart.toISOString())
-          .lte('created_at', dayEnd.toISOString())
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .maybeSingle();
-
-        if (tx && tx.coins > 0) {
-          const desc = tx.description || '';
-          const base = +(desc.match(/^(\d+) base/)?.[1] || tx.coins);
-          const acc  = +(desc.match(/\+ (\d+) accuracy/)?.[1] || 0);
-          const str  = +(desc.match(/\+ (\d+) streak/)?.[1] || 0);
-          sessionStorage.setItem(popupShownKey, '1');
-          showCoinPopup(tx.coins, 0, { base, accuracy_bonus: acc, streak_bonus: str });
-        }
-      }
-    } catch (_) {}
-    return;
-  }
-
+  // Both fresh reward and already_rewarded now return coins from edge function
   if (!data.coins) return;
 
   sessionStorage.setItem(popupShownKey, '1');
-  showCoinPopup(data.coins, data.streak, data.breakdown);
+  showCoinPopup(data.coins, data.streak || 0, data.breakdown);
 
   // Fetch updated lifetime coins and check for level-up
   try {
@@ -1354,12 +1345,20 @@ async function fbSubmit() {
         coins_awarded: _fbCoins
       }, { onConflict: 'attempt_id,user_id' });
 
-      // Award coins to user wallet
+      // Award coins + send notification
       if (_fbCoins > 0) {
         await client.rpc('add_feedback_coins', {
           p_user_id: user.id,
           p_coins: _fbCoins,
           p_attempt_id: attemptId
+        });
+
+        // Insert notification for feedback coins
+        await client.from('notifications').insert({
+          user_id: user.id,
+          type: 'coins',
+          title: `🪙 +${_fbCoins} CL — Feedback Bonus`,
+          message: `You answered ${_fbCoins} feedback questions and earned ${_fbCoins} CL coins. Keep sharing your thoughts!`
         });
       }
     }
@@ -1382,7 +1381,7 @@ async function fbSubmit() {
         trigBtn.querySelector('div').style.boxShadow = '0 4px 16px rgba(52,211,153,.1)';
         trigBtn.querySelector('div').innerHTML = `
           <div style="display:flex;align-items:center;gap:10px;flex:1">
-            <div style="width:38px;height:38px;border-radius:10px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✅</div>
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
               <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#6ee7b7;line-height:1.2">Feedback submitted!</div>
               <div style="font-family:'DM Sans',sans-serif;font-size:.72rem;color:rgba(110,231,183,.5);margin-top:2px">+${_fbCoins} CL coins credited to your wallet</div>
@@ -1433,7 +1432,7 @@ async function fbCheckAlreadyDone() {
         trigBtn.querySelector('div').style.boxShadow = '0 4px 16px rgba(52,211,153,.1)';
         trigBtn.querySelector('div').innerHTML = `
           <div style="display:flex;align-items:center;gap:10px;flex:1">
-            <div style="width:38px;height:38px;border-radius:10px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">✅</div>
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div>
               <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.88rem;color:#6ee7b7;line-height:1.2">Feedback submitted!</div>
               <div style="font-family:'DM Sans',sans-serif;font-size:.72rem;color:rgba(110,231,183,.5);margin-top:2px">+${data.coins_awarded || 0} CL coins credited to your wallet</div>
