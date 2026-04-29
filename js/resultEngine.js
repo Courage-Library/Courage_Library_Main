@@ -776,54 +776,49 @@ async function giveCoins(attemptId) {
 
   if (!data) return;
 
-  // Session key — track if popup was shown for this attempt already
+  // Session key — show popup only once per attempt per session
   const popupShownKey = `coinPopupShown_${attemptId}`;
+  if (sessionStorage.getItem(popupShownKey)) return;
 
-  // If already_rewarded — fetch today's coin transaction to show popup ONCE
   if (data.already_rewarded) {
-    // Only show if not already shown in this browser session
-    if (sessionStorage.getItem(popupShownKey)) return;
+    // Fetch the coin transaction for this attempt from coin_transactions
+    // Find the transaction on the same day as attempt submission
     try {
       const { data: { session } } = await client.auth.getSession();
       if (session) {
-        // Find transaction close to when this attempt was submitted
         const submittedAt = window._attemptSubmittedAt || new Date().toISOString();
-        const fromTime = new Date(new Date(submittedAt).getTime() - 60000).toISOString(); // -1 min
-        const toTime   = new Date(new Date(submittedAt).getTime() + 60000).toISOString(); // +1 min
+        const dayStart = new Date(submittedAt);
+        dayStart.setHours(0, 0, 0, 0);
+        const dayEnd = new Date(submittedAt);
+        dayEnd.setHours(23, 59, 59, 999);
+
         const { data: tx } = await client
           .from('coin_transactions')
-          .select('coins, description, created_at')
+          .select('coins, description')
           .eq('user_id', session.user.id)
           .eq('type', 'test')
-          .gte('created_at', fromTime)
-          .lte('created_at', toTime)
+          .gte('created_at', dayStart.toISOString())
+          .lte('created_at', dayEnd.toISOString())
           .order('created_at', { ascending: false })
           .limit(1)
           .maybeSingle();
 
         if (tx && tx.coins > 0) {
           const desc = tx.description || '';
-          const baseMatch = desc.match(/(\d+) base/);
-          const accMatch = desc.match(/\+ (\d+) accuracy/);
-          const streakMatch = desc.match(/\+ (\d+) streak/);
-          const breakdown = {
-            base: baseMatch ? +baseMatch[1] : tx.coins,
-            accuracy_bonus: accMatch ? +accMatch[1] : 0,
-            streak_bonus: streakMatch ? +streakMatch[1] : 0,
-          };
+          const base = +(desc.match(/^(\d+) base/)?.[1] || tx.coins);
+          const acc  = +(desc.match(/\+ (\d+) accuracy/)?.[1] || 0);
+          const str  = +(desc.match(/\+ (\d+) streak/)?.[1] || 0);
           sessionStorage.setItem(popupShownKey, '1');
-          showCoinPopup(tx.coins, 0, breakdown);
+          showCoinPopup(tx.coins, 0, { base, accuracy_bonus: acc, streak_bonus: str });
         }
       }
     } catch (_) {}
     return;
   }
 
-  if (!data.coins) return; // unexpected empty response
+  if (!data.coins) return;
 
-  // Mark popup as shown for this attempt
   sessionStorage.setItem(popupShownKey, '1');
-  // Show the breakdown popup + floating coin animation
   showCoinPopup(data.coins, data.streak, data.breakdown);
 
   // Fetch updated lifetime coins and check for level-up
