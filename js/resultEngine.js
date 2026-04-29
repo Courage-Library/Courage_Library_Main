@@ -159,8 +159,9 @@ async function calculateResult() {
     return;
   }
 
-  // Revisit (coins already given) — skip "Calculating" overlay entirely
-  const isFirstVisit = !attempt.coins_given;
+  // Revisit detection — sirf tab first visit hai jab score abhi DB mein save nahi hua
+  // coins_given = false ho sakta hai purane attempts mein bhi — isliye woh reliable nahi hai
+  const isFirstVisit = attempt.total_score == null;
   if (!isFirstVisit) {
     rlDismiss();
   }
@@ -233,7 +234,7 @@ async function calculateResult() {
 
   if (isFirstVisit) rlStep(3); // Step 3: Coins & rank
 
-  if (!attempt.coins_given) {
+  if (isFirstVisit || !attempt.coins_given) {
     await giveCoins(attemptId);
   } else {
     try {
