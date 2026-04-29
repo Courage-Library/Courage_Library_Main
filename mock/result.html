@@ -1314,6 +1314,17 @@
                         <div class="skeleton" style="height:12px;width:55%"></div>
                     </div>
                 </div>
+
+                <!-- Show All Questions Button -->
+                <div id="showAllWrap" style="display:none;text-align:center;margin-top:14px">
+                    <button onclick="expandAllReview()"
+                        style="display:inline-flex;align-items:center;gap:8px;padding:11px 28px;border:1.5px solid #e2e8f0;border-radius:100px;background:#fff;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:700;color:#1a56db;cursor:pointer;box-shadow:0 2px 8px rgba(26,86,219,.08);transition:all .2s"
+                        onmouseover="this.style.borderColor='#1a56db';this.style.boxShadow='0 4px 16px rgba(26,86,219,.15)'"
+                        onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow='0 2px 8px rgba(26,86,219,.08)'">
+                        <i class="fas fa-chevron-down"></i>
+                        Show all <span id="showAllCount"></span> questions
+                    </button>
+                </div>
             </div>
 
         </section>
@@ -1418,13 +1429,13 @@
 
         <!-- done state -->
         <div id="fbDoneWrap" style="display:none;padding:32px 24px 28px;text-align:center">
-          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #86efac;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #93c5fd;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#1a56db" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div id="fbFinalCoins" style="font-size:2.8rem;font-weight:800;color:#d97706;margin-bottom:6px;letter-spacing:-.03em;font-family:'Sora',sans-serif">+0 CL</div>
           <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;font-family:'Sora',sans-serif">Coins added to your wallet!</div>
           <div style="font-size:.8rem;color:#64748b;line-height:1.6">Your feedback helps us build better tests.<br>Thank you for being honest.</div>
-          <button onclick="fbClosePopup()" style="margin-top:20px;padding:11px 32px;border-radius:100px;border:1.5px solid #e2e8f0;background:#fff;color:#64748b;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#1a56db';this.style.color='#1a56db'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#64748b'">Close</button>
+          <button onclick="fbClosePopup()" style="margin-top:20px;padding:11px 32px;border-radius:100px;border:1.5px solid #dbeafe;background:#eff6ff;color:#1a56db;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">Close</button>
         </div>
 
       </div>

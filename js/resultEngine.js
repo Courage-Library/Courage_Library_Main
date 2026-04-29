@@ -1445,13 +1445,16 @@ async function fbCheckAlreadyDone() {
 
 // Auto-pulse trigger button after 8s if not submitted
 function fbInitAutoPulse() {
-  setTimeout(() => {
-    if (_fbSubmitted) return;
-    const btn = document.getElementById('fbTriggerBtn');
-    if (btn && document.getElementById('fbOverlay').style.display === 'none') {
-      btn.style.animation = 'fbPulse 1.8s ease-in-out 3';
-    }
-  }, 8000);
+  // Add attention animation immediately
+  const btn = document.getElementById('fbTriggerBtn');
+  if (btn) btn.classList.add('fb-attention');
+
+  // Stop animation once popup opened or submitted
+  const stopAnim = () => {
+    if (btn) btn.classList.remove('fb-attention');
+  };
+
+  document.getElementById('fbTriggerBtn')?.addEventListener('click', stopAnim, { once: true });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

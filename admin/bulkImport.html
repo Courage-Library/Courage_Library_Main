@@ -340,6 +340,170 @@
       animation: spin 1s linear infinite;
       display: inline-block
     }
+
+    /* ── Exam Preview Modal ── */
+    #examPreviewModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(15,23,42,0.72);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #examPreviewModal.open { display: flex; }
+
+    .exam-modal-box {
+      background: #f1f5fb;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+
+    .exam-modal-header {
+      background: linear-gradient(135deg,#1a56db,#6366f1);
+      color:#fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .exam-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .exam-q-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      padding: 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+
+    .exam-q-text {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .exam-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 10px;
+      cursor: default;
+      transition: all .15s;
+      font-size: .9rem;
+    }
+
+    .exam-option.correct {
+      border-color: #16a34a;
+      background: #f0fdf4;
+      color: #15803d;
+      font-weight: 600;
+    }
+
+    .exam-option-key {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .82rem;
+      flex-shrink: 0;
+      font-family: 'Sora', sans-serif;
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    .exam-option.correct .exam-option-key {
+      background: #16a34a;
+      color: #fff;
+    }
+
+    .exam-explanation {
+      margin-top: 14px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: .82rem;
+      color: #92400e;
+      line-height: 1.6;
+    }
+
+    .exam-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .exam-modal-footer {
+      flex-shrink: 0;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .ep-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+      font-weight: 700;
+      font-size: .82rem;
+      cursor: pointer;
+      background: #fff;
+      color: #374151;
+      transition: all .15s;
+    }
+    .ep-nav-btn:hover:not(:disabled) { background: #f1f5fb; border-color: #1a56db; color: #1a56db; }
+    .ep-nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+    .ep-counter {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+      color: #374151;
+    }
+
+    .diff-badge {
+      font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em
+    }
+    .diff-easy{background:#dcfce7;color:#15803d}
+    .diff-medium{background:#fef3c7;color:#92400e}
+    .diff-hard{background:#fee2e2;color:#b91c1c}
+    .diff-default{background:#e0e7ff;color:#3730a3}
+    .lang-badge{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:999px;background:#f1f5f9;color:#475569}
   </style>
 </head>
 
@@ -794,15 +958,21 @@
           </div>
 
           <div id="importSection" class="hidden">
-            <div class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between gap-4">
+            <div class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
               <div>
                 <p class="text-sm font-bold text-green-800">Ready to import!</p>
                 <p class="text-xs text-green-600 mt-0.5" id="importReadyLabel"></p>
               </div>
-              <button id="importBtn" onclick="importToDB()"
-                class="flex-shrink-0 bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2">
-                <i class="fas fa-database"></i> Import to Supabase
-              </button>
+              <div class="flex gap-2 flex-shrink-0 flex-wrap">
+                <button onclick="openExamPreview()"
+                  class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2">
+                  <i class="fas fa-eye"></i> Preview in Exam View
+                </button>
+                <button id="importBtn" onclick="importToDB()"
+                  class="bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2">
+                  <i class="fas fa-database"></i> Import to Supabase
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -817,6 +987,39 @@
           <div id="importLog" class="space-y-1 max-h-64 overflow-y-auto"></div>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ EXAM PREVIEW MODAL ══ -->
+  <div id="examPreviewModal">
+    <div class="exam-modal-box">
+      <!-- Header -->
+      <div class="exam-modal-header">
+        <div>
+          <div class="text-xs font-bold opacity-75 mb-0.5 uppercase tracking-widest">Exam View Preview</div>
+          <div class="text-base font-bold" id="epTitle">Question Preview</div>
+        </div>
+        <button onclick="closeExamPreview()"
+          class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition text-lg font-bold">
+          ×
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="exam-modal-body" id="epBody">
+        <!-- rendered by JS -->
+      </div>
+
+      <!-- Footer nav -->
+      <div class="exam-modal-footer">
+        <button class="ep-nav-btn" id="epPrevBtn" onclick="epNavigate(-1)">
+          <i class="fas fa-chevron-left"></i> Prev
+        </button>
+        <span class="ep-counter" id="epCounter">1 / 1</span>
+        <button class="ep-nav-btn" id="epNextBtn" onclick="epNavigate(1)">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -1556,6 +1759,117 @@ Paste your questions below this line:`;
       document.getElementById("importProgress").classList.add("hidden");
       parsedRows = [];
     }
+
+    // ════════════════════════════════════
+    //  EXAM PREVIEW MODAL
+    // ════════════════════════════════════
+    let epIndex = 0;
+
+    function openExamPreview() {
+      if (!parsedRows.length) return;
+      epIndex = 0;
+      document.getElementById("examPreviewModal").classList.add("open");
+      renderEpQuestion();
+    }
+
+    function closeExamPreview() {
+      document.getElementById("examPreviewModal").classList.remove("open");
+    }
+
+    function epNavigate(dir) {
+      epIndex = Math.max(0, Math.min(parsedRows.length - 1, epIndex + dir));
+      renderEpQuestion();
+    }
+
+    function renderEpQuestion() {
+      const r = parsedRows[epIndex];
+      const total = parsedRows.length;
+      document.getElementById("epCounter").textContent = `${epIndex + 1} / ${total}`;
+      document.getElementById("epTitle").textContent = `Q${epIndex + 1} — ${r.section_name || r.topic || "General"}`;
+      document.getElementById("epPrevBtn").disabled = epIndex === 0;
+      document.getElementById("epNextBtn").disabled = epIndex === total - 1;
+
+      // Parse options
+      let opts = {};
+      try { opts = JSON.parse(r.options); } catch {}
+
+      // Difficulty badge
+      const diff = (r.difficulty || "").toLowerCase();
+      const diffClass = diff === "easy" ? "diff-easy" : diff === "medium" ? "diff-medium" : diff === "hard" ? "diff-hard" : "diff-default";
+      const diffLabel = diff ? diff.charAt(0).toUpperCase() + diff.slice(1) : "—";
+
+      // Language badge
+      const lang = (r.language || "english").toLowerCase();
+
+      // Correct answer
+      const correct = (r.correct_answer || "").trim().toUpperCase();
+
+      // Build options HTML
+      const optKeys = ["A", "B", "C", "D"];
+      const optsHtml = optKeys.map(k => {
+        const isCorrect = k === correct;
+        const val = opts[k] || "";
+        // If options_type is image, show img
+        const optContent = (r.options_type || "text").toLowerCase() === "image" && val.startsWith("http")
+          ? `<img src="${val}" class="h-12 object-contain rounded" alt="Option ${k}">`
+          : `<span>${val}</span>`;
+        return `
+          <div class="exam-option ${isCorrect ? "correct" : ""}">
+            <div class="exam-option-key">${k}</div>
+            ${optContent}
+            ${isCorrect ? '<i class="fas fa-check-circle ml-auto text-green-600"></i>' : ""}
+          </div>`;
+      }).join("");
+
+      // Question image
+      const qImg = r.question_image?.trim();
+      const imgHtml = qImg ? `<img src="${qImg}" class="w-full rounded-xl mb-4 border border-gray-100 object-contain max-h-56" alt="Question image">` : "";
+
+      // Explanation
+      const expHtml = r.explanation?.trim()
+        ? `<div class="exam-explanation"><strong><i class="fas fa-lightbulb mr-1"></i>Explanation:</strong> ${r.explanation.trim()}</div>`
+        : "";
+
+      // PYQ badge
+      const pyqHtml = r.pyq_year
+        ? `<span class="pill pill-amber">PYQ ${r.pyq_year}${r.pyq_source ? " · " + r.pyq_source : ""}</span>`
+        : "";
+
+      // Topic pill
+      const topicHtml = r.topic?.trim()
+        ? `<span class="pill pill-blue">${r.topic.trim()}</span>`
+        : "";
+
+      document.getElementById("epBody").innerHTML = `
+        <div class="exam-q-card fade-up">
+          <div class="exam-meta-row">
+            <span class="diff-badge ${diffClass}">${diffLabel}</span>
+            <span class="lang-badge">${lang === "hindi" ? "🇮🇳 Hindi" : "🇬🇧 English"}</span>
+            ${topicHtml}
+            ${pyqHtml}
+          </div>
+          ${imgHtml}
+          <div class="exam-q-text">${r.question_text || ""}</div>
+          <div>${optsHtml}</div>
+          ${expHtml}
+        </div>
+        <div class="text-center text-xs text-gray-400 pb-2">
+          This is exactly how this question will appear in your Exam Engine.
+        </div>`;
+    }
+
+    // Close modal on backdrop click
+    document.getElementById("examPreviewModal").addEventListener("click", function(e) {
+      if (e.target === this) closeExamPreview();
+    });
+
+    // Keyboard nav
+    document.addEventListener("keydown", function(e) {
+      if (!document.getElementById("examPreviewModal").classList.contains("open")) return;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") epNavigate(1);
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") epNavigate(-1);
+      if (e.key === "Escape") closeExamPreview();
+    });
 
     function loadSampleCsv() {
       document.getElementById("csvInput").value =
