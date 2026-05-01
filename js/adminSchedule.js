@@ -19,6 +19,11 @@ const PATTERN_IDS = {
   upp_friday:          '6e3f3071-f907-433b-92f2-2fff7103fe43',
   upp_mixed:           'b1d79e0e-1604-468f-b4b4-46c73c0f079b',
   upp_mock:            'c6a53484-9bdc-4144-a00f-9492ce0b16ea',
+
+  agni_daily:   '528e5f5b-1478-4f36-ad63-cd370de07f7a',
+  agni_friday:  'a99448c3-be67-47e9-ab47-ff2663f8ded7',
+  agni_mixed:   '27cf51e8-a9a7-42b2-bbeb-aab7aeadf84b',
+  agni_mock:    'f1b63d19-ea80-4687-a659-f2855357c310',
 };
 
 const DAILY_SCHEDULE = [
@@ -41,12 +46,23 @@ const UPP_DAILY_SCHEDULE = [
   { day: "sunday",    label: "Sunday",    subject: "Full Mock Test",             exam_type: "full_mock",       pattern_key: "upp_mock",            active_section: null,                questions: 150, duration: 120, language: "both"  },
 ];
 
+const AGNIVEER_DAILY_SCHEDULE = [
+  { day: "monday",    label: "Monday",    subject: "General Knowledge",  exam_type: "daily_sectional", pattern_key: "agni_daily",  active_section: "General Knowledge", questions: 15, duration: 15, language: "both" },
+  { day: "tuesday",   label: "Tuesday",   subject: "General Science",    exam_type: "daily_sectional", pattern_key: "agni_daily",  active_section: "General Science",   questions: 15, duration: 15, language: "both" },
+  { day: "wednesday", label: "Wednesday", subject: "Maths",              exam_type: "daily_sectional", pattern_key: "agni_daily",  active_section: "Maths",             questions: 15, duration: 15, language: "both" },
+  { day: "thursday",  label: "Thursday",  subject: "Reasoning",          exam_type: "daily_sectional", pattern_key: "agni_daily",  active_section: "Reasoning",         questions: 5,  duration: 10, language: "both" },
+  { day: "friday",    label: "Friday",    subject: "Maths + Reasoning",  exam_type: "mixed",           pattern_key: "agni_friday", active_section: null,                questions: 25, duration: 25, language: "both" },
+  { day: "saturday",  label: "Saturday",  subject: "Mixed — All 4",      exam_type: "mixed",           pattern_key: "agni_mixed",  active_section: null,                questions: 35, duration: 35, language: "both" },
+  { day: "sunday",    label: "Sunday",    subject: "Full Mock Test",     exam_type: "full_mock",       pattern_key: "agni_mock",   active_section: null,                questions: 50, duration: 60, language: "both" },
+];
+
 // Returns the correct schedule config based on selected category name
 async function getScheduleConfig(categoryId) {
   const { data } = await client.from("exam_categories").select("name").eq("id", categoryId).single();
   const name = (data?.name || "").toLowerCase();
   if (name.includes("up police") || name.includes("upp")) return UPP_DAILY_SCHEDULE;
-  return DAILY_SCHEDULE;
+  if (name.includes("agniveer") || name.includes("army")) return AGNIVEER_DAILY_SCHEDULE;
+  return DAILY_SCHEDULE; // SSC GD default
 }
 
 // ─── Admin auth check ────────────────────────────────────────────────────────
