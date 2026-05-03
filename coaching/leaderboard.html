@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaderboard | Coaching</title>
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, body { font-family: 'Sora', sans-serif; }
+    body { background: #f1f5f9; min-height: 100vh; }
+    .card { background:#fff; border-radius:1.25rem; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .fade-up { animation: fadeUp 0.5s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="/images/logo.png" alt="Logo" class="w-7 h-7">
+        <span id="navCoachingBadge"
+          class="text-xs font-bold px-3 py-1 rounded-full border coaching-name"
+          style="background:#e0e7ff;color:#4338ca;border-color:#c7d2fe">
+          Loading...
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/coaching/dashboard.html" class="text-sm font-semibold text-blue-600 hover:text-blue-800">
+          <i class="fas fa-arrow-left mr-1"></i>Dashboard
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-5xl mx-auto px-4 py-8 fade-up">
+
+    <!-- Header banner -->
+    <div id="lbHeader" class="card p-7 mb-6 text-white" style="background:linear-gradient(135deg,#1a56db,#4f46e5)">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <p class="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-1">Coaching Leaderboard</p>
+          <h1 class="text-2xl font-extrabold coaching-name">Loading...</h1>
+          <p id="coachingCity" class="text-blue-200 text-sm mt-1"></p>
+        </div>
+        <!-- My rank card -->
+        <div id="myRankCard" class="hidden bg-white/15 backdrop-blur-sm rounded-2xl px-6 py-4 text-center border border-white/20">
+          <p class="text-blue-100 text-xs font-semibold uppercase tracking-wider mb-1">Your Rank</p>
+          <p class="text-3xl font-extrabold" id="myRankDisplay">—</p>
+          <p class="text-blue-200 text-xs mt-0.5" id="myRankOf"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="card p-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+      <label class="text-sm font-bold text-gray-600 flex-shrink-0">
+        <i class="fas fa-filter mr-1 text-blue-400"></i> Filter by Exam:
+      </label>
+      <select id="examFilter"
+        class="flex-1 text-sm border border-blue-100 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-400 outline-none bg-white font-semibold text-gray-700">
+        <option value="all">All Exams (Overall)</option>
+      </select>
+      <p class="text-xs text-gray-400">Rankings are scoped to your coaching only.</p>
+    </div>
+
+    <!-- Leaderboard table -->
+    <div class="card overflow-hidden">
+      <div id="lbContainer" class="divide-y divide-gray-50">
+        <div class="text-center py-12 text-gray-300">
+          <i class="fas fa-spinner fa-spin text-3xl"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-8 text-xs text-gray-400">
+      <p>Rankings are updated in real-time and are only visible to <span class="coaching-name font-semibold text-gray-500"></span> students.</p>
+      <p class="mt-1">Powered by <a href="https://couragelibrary.in" class="text-blue-500 hover:underline">Courage Library</a></p>
+    </div>
+
+  </main>
+
+  <script src="/js/coachingLeaderboard.js"></script>
+</body>
+</html>

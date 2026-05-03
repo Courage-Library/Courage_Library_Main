@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Coaching</title>
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, body { font-family: 'Sora', sans-serif; }
+    body { background: #f1f5f9; min-height: 100vh; }
+
+    .card {
+      background: #fff;
+      border-radius: 1.25rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-2px); }
+
+    .exam-card {
+      animation: fadeUp 0.4s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(16px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* Nav */
+    .nav-link { font-size: 0.85rem; font-weight: 600; color: #64748b; transition: color 0.15s; }
+    .nav-link:hover { color: #1a56db; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
+
+      <!-- Logo + Coaching badge -->
+      <div class="flex items-center gap-3">
+        <img src="/images/logo.png" alt="Courage Library" class="w-7 h-7">
+        <div class="hidden sm:block">
+          <span class="text-xs font-semibold text-gray-400">Powered by</span>
+          <span class="text-sm font-bold text-blue-700 ml-1">Courage Library</span>
+        </div>
+        <span id="navCoachingBadge"
+          class="text-xs font-bold px-3 py-1 rounded-full border coaching-name"
+          style="background:#e0e7ff;color:#4338ca;border-color:#c7d2fe">
+          Loading...
+        </span>
+      </div>
+
+      <!-- Nav links -->
+      <div class="flex items-center gap-4">
+        <a href="/coaching/leaderboard.html" class="nav-link hidden sm:block">
+          <i class="fas fa-trophy mr-1"></i>Leaderboard
+        </a>
+        <span class="text-xs font-semibold text-gray-500 hidden sm:block">
+          <i class="fas fa-coins mr-1 text-amber-500"></i><span id="statCoins">—</span>
+        </span>
+        <button onclick="logout()"
+          class="text-xs font-semibold text-red-500 hover:text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-50 transition">
+          <i class="fas fa-sign-out-alt mr-1"></i>Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+    <!-- ── COACHING HEADER BANNER ── -->
+    <div id="coachingHeader" class="card p-6 mb-6 border border-blue-50" style="background:linear-gradient(135deg,#eff6ff,#eef2ff)">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <img class="coaching-logo hidden w-14 h-14 rounded-2xl object-cover shadow-md border-2 border-white" src="" alt="Coaching Logo">
+          <div>
+            <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-0.5">Welcome back</p>
+            <h1 class="text-2xl font-extrabold text-gray-800">
+              <span id="greetingName">Student</span> 👋
+            </h1>
+            <p class="text-sm text-gray-500 mt-0.5">
+              <span class="coaching-name font-semibold"></span>
+              <span id="coachingCity" class="ml-2 text-xs text-gray-400"></span>
+            </p>
+          </div>
+        </div>
+        <a href="/coaching/leaderboard.html"
+          class="hidden sm:flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-xl text-white shadow hover:scale-105 transition coaching-color-bg"
+          style="background:linear-gradient(135deg,#1a56db,#4f46e5)">
+          <i class="fas fa-trophy"></i> View Leaderboard
+        </a>
+      </div>
+    </div>
+
+    <!-- ── STATS ROW ── -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="stat-card text-center">
+        <div class="text-2xl font-extrabold text-blue-600" id="statAttempts">—</div>
+        <div class="text-xs text-gray-400 font-semibold mt-1">Exams Attempted</div>
+      </div>
+      <div class="stat-card text-center">
+        <div class="text-2xl font-extrabold text-green-600" id="statAvgScore">—</div>
+        <div class="text-xs text-gray-400 font-semibold mt-1">Avg Accuracy</div>
+      </div>
+      <div class="stat-card text-center">
+        <div class="text-2xl font-extrabold text-purple-600" id="statBestScore">—</div>
+        <div class="text-xs text-gray-400 font-semibold mt-1">Best Score</div>
+      </div>
+      <div class="stat-card text-center">
+        <div class="text-2xl font-extrabold text-amber-500" id="myRank">—</div>
+        <div class="text-xs text-gray-400 font-semibold mt-1">My Rank</div>
+      </div>
+    </div>
+
+    <!-- ── MAIN GRID ── -->
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- LEFT: Exams (2/3 width) -->
+      <div class="md:col-span-2">
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-lg font-extrabold text-gray-800 flex items-center gap-2">
+              <i class="fas fa-clipboard-list coaching-color-text" style="color:#1a56db"></i>
+              My Exams
+            </h2>
+            <span class="text-xs text-gray-400 font-medium">Scheduled by your coaching</span>
+          </div>
+          <div id="examList" class="space-y-4">
+            <!-- Exam cards injected here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Stats sidebar (1/3 width) -->
+      <div class="space-y-5">
+
+        <!-- Leaderboard preview -->
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-extrabold text-gray-800 text-sm flex items-center gap-2">
+              <i class="fas fa-trophy text-amber-500"></i> Top Performers
+            </h3>
+            <a href="/coaching/leaderboard.html" class="text-xs text-blue-500 font-semibold hover:text-blue-700">
+              Full Board →
+            </a>
+          </div>
+          <div id="leaderboardPreview" class="space-y-1">
+            <!-- top 5 rows injected here -->
+          </div>
+        </div>
+
+        <!-- Recent Results -->
+        <div class="card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-extrabold text-gray-800 text-sm flex items-center gap-2">
+              <i class="fas fa-history text-blue-400"></i> Recent Results
+            </h3>
+          </div>
+          <div id="recentResults">
+            <!-- Result rows injected here -->
+          </div>
+        </div>
+
+        <!-- Streak card -->
+        <div class="card p-5 text-center">
+          <div class="text-3xl mb-1">🔥</div>
+          <div class="text-2xl font-extrabold text-orange-500" id="statStreak">—</div>
+          <div class="text-xs text-gray-400 font-semibold">Current Streak</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <div class="text-center mt-10 text-xs text-gray-400 space-y-1">
+      <p>Exams on this dashboard are exclusively for <strong class="coaching-name text-gray-500"></strong> students.</p>
+      <p>Powered by <a href="https://couragelibrary.in" class="text-blue-500 hover:underline">Courage Library</a></p>
+    </div>
+
+  </main>
+
+  <script src="/js/coachingDashboard.js"></script>
+</body>
+</html>
