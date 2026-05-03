@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result | Coaching</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+        :root {
+            --brand: #1a56db;
+            --brand-dark: #1e40af;
+            --brand-light: #eff6ff;
+            --green: #16a34a;
+            --green-light: #f0fdf4;
+            --red: #dc2626;
+            --red-light: #fef2f2;
+            --amber: #d97706;
+            --amber-light: #fffbeb;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --muted: #64748b;
+            --radius: 16px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', inherit, sans-serif;
+            background: #f1f5fb;
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        h1,
+        h2,
+        h3,
+        .score-num {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* ── RIPPLE ── */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: rgba(59, 130, 246, .2);
+            opacity: 0;
+            transition: opacity .6s, transform .6s;
+            transform: scale(.5);
+        }
+
+        .ripple:active::after {
+            opacity: 1;
+            transform: scale(1.2);
+            transition: 0s;
+        }
+
+        /* ── KEYFRAMES ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scoreReveal {
+            from {
+                opacity: 0;
+                transform: scale(.65);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(.5);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ── RESULT LOADING OVERLAY ── */
+        @keyframes rl-spin { to { transform: rotate(360deg); } }
+        @keyframes rl-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.93)} }
+        @keyframes rl-bar { 0%{width:0%} 60%{width:72%} 85%{width:88%} 100%{width:95%} }
+
+        #resultLoadingOverlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: linear-gradient(150deg, #1a56db 0%, #1e3a8a 55%, #172554 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .rl-logo-wrap {
+            width: 56px; height: 56px; border-radius: 16px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.22);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 26px; overflow: hidden;
+        }
+        .rl-logo-wrap img {
+            width: 38px; height: 38px; object-fit: contain;
+            border-radius: 10px;
+        }
+        .rl-spinner-wrap {
+            position: relative; width: 72px; height: 72px; margin-bottom: 26px;
+        }
+        .rl-spinner-wrap svg { animation: rl-spin 1.1s linear infinite; }
+        .rl-coin-icon {
+            position: absolute; inset: 0; display: flex; align-items: center;
+            justify-content: center; font-size: 1.6rem;
+            animation: rl-pulse 1.4s ease-in-out infinite;
+        }
+        .rl-title {
+            font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 800;
+            color: #fff; margin-bottom: 5px; text-align: center; padding: 0 24px;
+        }
+        .rl-subtitle { font-size: .78rem; color: rgba(255,255,255,.5); margin-bottom: 28px; }
+        .rl-progress-track {
+            width: min(280px, 72vw); height: 4px;
+            background: rgba(255,255,255,.15); border-radius: 100px;
+            overflow: hidden; margin-bottom: 20px;
+        }
+        .rl-progress-bar {
+            height: 100%; border-radius: 100px;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            animation: rl-bar 3.5s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        .rl-steps { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+        .rl-step {
+            font-size: .72rem; color: rgba(255,255,255,.35);
+            display: flex; align-items: center; gap: 8px; transition: color .3s;
+        }
+        .rl-step.active { color: rgba(255,255,255,.9); }
+        .rl-step.done { color: #86efac; }
+        .rl-step-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+        .fade-up {
+            animation: fadeUp .45s ease both;
+        }
+
+        .s1 {
+            animation-delay: .04s;
+        }
+
+        .s2 {
+            animation-delay: .12s;
+        }
+
+        .s3 {
+            animation-delay: .20s;
+        }
+
+        /* ── SCORE HERO ── */
+        .score-hero {
+            background: linear-gradient(140deg, #1a56db 0%, #1e3a8a 55%, #172554 100%);
+            border-radius: 20px;
+            padding: 32px 16px 28px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 56px rgba(26, 86, 219, .38);
+        }
+
+        @media (min-width: 480px) {
+            .score-hero {
+                padding: 48px 32px 38px;
+                border-radius: 24px;
+            }
+        }
+
+        .score-hero::before {
+            content: '';
+            position: absolute;
+            top: -70px;
+            right: -70px;
+            width: 240px;
+            height: 240px;
+            background: rgba(255, 255, 255, .055);
+            border-radius: 50%;
+        }
+
+        .score-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -90px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, .035);
+            border-radius: 50%;
+        }
+
+        .score-hero>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .score-label {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            opacity: .65;
+            margin-bottom: 10px;
+        }
+
+        .score-num {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            animation: scoreReveal .55s cubic-bezier(.34, 1.56, .64, 1) both;
+            animation-delay: .18s;
+        }
+
+        @media (min-width: 480px) {
+            .score-num {
+                font-size: 5.5rem;
+            }
+        }
+
+        .score-denom {
+            font-size: 1rem;
+            opacity: .5;
+            margin-top: 7px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* verdict badge */
+        .verdict-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 7px 20px;
+            border-radius: 100px;
+            font-size: .82rem;
+            font-weight: 700;
+            animation: popIn .5s cubic-bezier(.34, 1.56, .64, 1) both;
+            animation-delay: .5s;
+        }
+
+        .verdict-excellent {
+            background: rgba(22, 163, 74, .22);
+            color: #bbf7d0;
+            border: 1px solid rgba(22, 163, 74, .38);
+        }
+
+        .verdict-good {
+            background: rgba(59, 130, 246, .22);
+            color: #bfdbfe;
+            border: 1px solid rgba(59, 130, 246, .38);
+        }
+
+        .verdict-average {
+            background: rgba(217, 119, 6, .22);
+            color: #fde68a;
+            border: 1px solid rgba(217, 119, 6, .38);
+        }
+
+        .verdict-poor {
+            background: rgba(220, 38, 38, .22);
+            color: #fca5a5;
+            border: 1px solid rgba(220, 38, 38, .38);
+        }
+
+        /* ── STAT CHIPS (inside hero) ── */
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 22px;
+            width: 100%;
+        }
+        /* 4th and 5th chips span naturally on mobile in a second row */
+        @media (min-width: 480px) {
+            .stat-row {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+
+        .stat-chip {
+            flex: 1;
+            min-width: 0;
+            background: rgba(255, 255, 255, .11);
+            border: 1px solid rgba(255, 255, 255, .16);
+            border-radius: 11px;
+            padding: 10px 4px 9px;
+            text-align: center;
+        }
+
+        .stat-chip .sc-icon {
+            font-size: .75rem;
+            opacity: .75;
+            margin-bottom: 5px;
+        }
+
+        .stat-chip .sc-val {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(.72rem, 2.8vw, 1.15rem);
+            font-weight: 800;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .stat-chip .sc-lbl {
+            font-size: .48rem;
+            opacity: .6;
+            margin-top: 3px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        /* larger on wider screens */
+        @media (min-width: 480px) {
+            .stat-row {
+                gap: 10px;
+            }
+
+            .stat-chip {
+                padding: 13px 8px 11px;
+                border-radius: 13px;
+            }
+
+            .stat-chip .sc-val {
+                font-size: 1.4rem;
+            }
+
+            .stat-chip .sc-lbl {
+                font-size: .6rem;
+            }
+
+            .stat-chip .sc-icon {
+                font-size: .85rem;
+            }
+        }
+
+        .scv-green {
+            color: #86efac;
+        }
+
+        .scv-red {
+            color: #fca5a5;
+        }
+
+        .scv-sky {
+            color: #bae6fd;
+        }
+
+        .scv-amber {
+            color: #fde68a;
+        }
+
+        .scv-white {
+            color: #fff;
+        }
+
+        /* ── ACTION BUTTONS ── */
+        .action-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Mobile: icon-only circles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            padding: 0;
+            font-size: .95rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: transform .15s, box-shadow .15s, background .15s;
+            text-decoration: none;
+            font-family: 'Sora', sans-serif;
+            flex-shrink: 0;
+            letter-spacing: .01em;
+        }
+
+        .btn-label {
+            display: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Desktop: icon + label */
+        @media (min-width: 400px) {
+            .btn {
+                width: auto;
+                height: auto;
+                border-radius: 10px;
+                padding: 9px 15px;
+                font-size: .78rem;
+                gap: 6px;
+            }
+
+            .btn-label {
+                display: inline;
+            }
+
+            .action-row {
+                gap: 8px;
+            }
+        }
+
+        @media (min-width: 480px) {
+            .btn {
+                padding: 11px 20px;
+                font-size: .84rem;
+                gap: 8px;
+            }
+
+            .action-row {
+                gap: 10px;
+                margin-top: 28px;
+            }
+        }
+
+        .btn-white {
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            border: 1.5px solid rgba(255, 255, 255, .3);
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-white:hover {
+            background: rgba(255, 255, 255, .25);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .2);
+        }
+
+        .btn-outline-white {
+            background: #fff;
+            color: var(--brand-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+        }
+
+        .btn-outline-white:hover {
+            background: #f0f6ff;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, .35);
+        }
+
+        .btn-whatsapp:hover {
+            background: #1fb855;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, .45);
+        }
+
+        /* ── INFO CARD ── */
+        .info-card {
+            background: #fff;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 18px 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+        }
+
+        @media (min-width: 480px) {
+            .info-card {
+                padding: 24px 26px;
+            }
+        }
+
+        .info-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .title-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: var(--brand-light);
+            color: var(--brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .84rem;
+            flex-shrink: 0;
+        }
+
+        /* ── SECTION ACCURACY BARS ── */
+        .sub-bar {
+            margin-bottom: 16px;
+        }
+
+        .sub-bar:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-bar-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: .78rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sub-bar-head>span:first-child {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sub-bar-tag {
+            font-size: .62rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .tag-strong {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .tag-average {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-weak {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .bar-track {
+            height: 10px;
+            background: #eef2f7;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 1.1s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        /* ── FILTER TABS ── */
+        .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .review-header h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: nowrap;
+            margin-bottom: 18px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .ftab {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 11px;
+            border-radius: 8px;
+            font-size: .75rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--muted);
+            transition: all .15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .ftab:hover {
+            border-color: #94a3b8;
+            color: var(--text);
+        }
+
+        .ftab-count {
+            background: #f1f5f9;
+            color: var(--muted);
+            border-radius: 999px;
+            padding: 1px 7px;
+            font-size: .68rem;
+            font-weight: 800;
+        }
+
+        .ftab.active-all {
+            background: var(--brand);
+            color: #fff;
+            border-color: var(--brand);
+        }
+
+        .ftab.active-correct {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green);
+        }
+
+        .ftab.active-wrong {
+            background: var(--red);
+            color: #fff;
+            border-color: var(--red);
+        }
+
+        .ftab.active-skipped {
+            background: #64748b;
+            color: #fff;
+            border-color: #64748b;
+        }
+
+        .ftab.active-all .ftab-count,
+        .ftab.active-correct .ftab-count,
+        .ftab.active-wrong .ftab-count,
+        .ftab.active-skipped .ftab-count {
+            background: rgba(255, 255, 255, .25);
+            color: #fff;
+        }
+
+        /* ── QUESTION CARDS ── */
+        .q-card {
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            border-left-width: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
+            transition: box-shadow .2s;
+        }
+
+        .q-card:hover {
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .09);
+        }
+
+        .q-card.correct {
+            border-left-color: #16a34a;
+            background: #f8fbff;
+        }
+
+        .q-card.wrong {
+            border-left-color: #dc2626;
+            background: #fff8f8;
+        }
+
+        .q-card.skipped {
+            border-left-color: #94a3b8;
+            background: #fff;
+        }
+
+        .q-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 18px 9px;
+            gap: 10px;
+        }
+
+        .q-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .q-num {
+            font-size: .72rem;
+            font-weight: 800;
+            color: var(--muted);
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .q-section-tag {
+            font-size: .65rem;
+            font-weight: 600;
+            background: var(--brand-light);
+            color: var(--brand);
+            padding: 2px 8px;
+            border-radius: 100px;
+        }
+
+        .q-status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: .65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 100px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .chip-correct {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .chip-wrong {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .chip-skipped {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .q-text {
+            padding: 2px 18px 14px;
+            font-size: .9rem;
+            font-weight: 600;
+            line-height: 1.65;
+            color: var(--text);
+        }
+
+        .q-options {
+            padding: 0 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .q-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 10px;
+            border: 1.5px solid #edf0f5;
+            font-size: .84rem;
+            background: #f8fafc;
+            color: var(--text);
+            transition: background .12s;
+        }
+
+        .q-option.opt-correct {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .q-option.opt-wrong {
+            background: #fff5f5;
+            border-color: #fca5a5;
+        }
+
+        .opt-key {
+            font-weight: 800;
+            font-size: .75rem;
+            min-width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .opt-key.key-correct {
+            background: var(--green);
+            color: #fff;
+        }
+
+        .opt-key.key-wrong {
+            background: var(--red);
+            color: #fff;
+        }
+
+        .q-footer {
+            padding: 10px 16px 13px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+            background: #fafbfc;
+        }
+
+        .qa-item {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        .qa-item strong {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .qa-correct-ans {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .q-explanation {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            background: #f0f7ff;
+            border-top: 1px solid #bfdbfe;
+            padding: 11px 16px;
+            font-size: .81rem;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+
+        .exp-icon {
+            color: #60a5fa;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── SKELETON ── */
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.4s infinite;
+            border-radius: 8px;
+        }
+
+        /* ── EMPTY FILTER STATE ── */
+        .empty-filter {
+            text-align: center;
+            padding: 44px 20px;
+        }
+
+        .empty-filter .ef-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin: 0 auto 14px;
+        }
+
+        .empty-filter p {
+            font-size: .88rem;
+            color: var(--muted);
+        }
+
+        @keyframes floatCoin {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(1.5);
+            }
+        }
+
+        @keyframes floatUp {
+            0%   { opacity:1; transform:translateY(0) scale(1); }
+            100% { opacity:0; transform:translateY(-140px) scale(1.4); }
+        }
+
+        @keyframes slideUp {
+            from { opacity:0; transform:translate(-50%, 20px); }
+            to   { opacity:1; transform:translate(-50%, 0); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-HDZDTH2P22');
+    </script>
+</head>
+
+<body class="min-h-screen flex flex-col overflow-x-hidden">
+
+    <svg width="0" height="0" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- Gradients -->
+    <linearGradient id="cl-rim" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#2af8ef"/>
+      <stop offset="45%" stop-color="#00c8c0"/>
+      <stop offset="100%" stop-color="#007a78"/>
+    </linearGradient>
+
+    <linearGradient id="cl-face" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00d8d0"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-stamp" x1="0.1" y1="0.05" x2="0.88" y2="0.95">
+      <stop offset="0%" stop-color="#00cfc7"/>
+      <stop offset="100%" stop-color="#00bdb5"/>
+    </linearGradient>
+
+    <linearGradient id="cl-coin-shine" x1="0.06" y1="0.03" x2="0.42" y2="0.38">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="cl-logo-shine" x1="0.06" y1="0.04" x2="0.5" y2="0.44">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- LARGE COIN -->
+    <symbol id="CLcoin-lg" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-lg">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <circle cx="80" cy="80" r="60.5" fill="none" stroke="#009090" stroke-width="0.6" opacity="0.25"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-lg)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.88" transform="translate(6,7)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.55"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="none" stroke="#00e8e0" stroke-width="0.8" opacity="0.45"/>
+        <ellipse cx="66" cy="56" rx="14" ry="9" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- SMALL COIN -->
+    <symbol id="CLcoin-sm" viewBox="0 0 160 160">
+      <defs>
+        <clipPath id="cl-clip-sm">
+          <circle cx="80" cy="80" r="71"/>
+        </clipPath>
+      </defs>
+
+      <circle cx="80" cy="80" r="76" fill="url(#cl-rim)"/>
+      <circle cx="80" cy="81.5" r="72.5" fill="#005858" opacity="0.30"/>
+      <circle cx="80" cy="80" r="72.5" fill="url(#cl-face)"/>
+      <circle cx="80" cy="80" r="65.5" fill="none" stroke="#00e8e0" stroke-width="1.2" opacity="0.55"/>
+      <ellipse cx="56" cy="48" rx="24" ry="15" fill="url(#cl-coin-shine)"/>
+
+      <g clip-path="url(#cl-clip-sm)">
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="#1a005e" opacity="0.85" transform="translate(5,6)"/>
+        <path d="M40 44 C40 30,52 24,64 31 L116 60 C126 66,126 86,116 92 L64 121 C52 128,40 122,40 108 Z"
+              fill="url(#cl-stamp)"/>
+        <path d="M43 47 C43 34,54 28,66 35 L112 63 C120 69,120 83,112 89 L66 117 C54 124,43 118,43 105 Z"
+              fill="#1fe0d7" opacity="0.50"/>
+        <ellipse cx="66" cy="56" rx="11" ry="7" fill="url(#cl-logo-shine)"/>
+      </g>
+    </symbol>
+
+    <!-- ── Level Badge Symbols ── -->
+    <symbol id="badge-seeker" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rsk-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#3030a0"/><stop offset="100%" stop-color="#12124a"/></radialGradient>
+        <linearGradient id="rsk-sh" x1="0.1" y1="0.1" x2="0.6" y2="0.6"><stop offset="0%" stop-color="#fff" stop-opacity="0.18"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsk-bg)" stroke="#4040b0" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsk-sh)"/>
+      <circle cx="32" cy="32" r="8" fill="none" stroke="#5050c0" stroke-width="1.5" opacity="0.6"/>
+      <line x1="32" y1="20" x2="32" y2="26" stroke="#8080c0" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="32" y1="38" x2="32" y2="44" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="20" y1="32" x2="26" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="38" y1="32" x2="44" y2="32" stroke="#8080c0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="32" cy="32" r="2.5" fill="#8080c0"/>
+    </symbol>
+    <symbol id="badge-scholar" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rsc-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#0077c8"/><stop offset="100%" stop-color="#003a6e"/></radialGradient>
+        <linearGradient id="rsc-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.25"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsc-bg)" stroke="#0ea5e9" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rsc-sh)"/>
+      <rect x="19" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <rect x="33" y="23" width="12" height="14" rx="1.5" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+      <line x1="32" y1="23" x2="32" y2="37" stroke="#38bdf8" stroke-width="1.2" opacity="0.7"/>
+      <line x1="22" y1="28" x2="28" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="22" y1="31" x2="28" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="28" x2="42" y2="28" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <line x1="36" y1="31" x2="42" y2="31" stroke="#7dd3fc" stroke-width="1" opacity="0.7"/>
+      <circle cx="32" cy="17" r="1.8" fill="#38bdf8"/>
+      <circle cx="27" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+      <circle cx="37" cy="19" r="1.2" fill="#38bdf8" opacity="0.6"/>
+    </symbol>
+    <symbol id="badge-luminary" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rlm-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#2e0a5e"/></radialGradient>
+        <linearGradient id="rlm-sh" x1="0.1" y1="0.1" x2="0.55" y2="0.55"><stop offset="0%" stop-color="#fff" stop-opacity="0.28"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlm-bg)" stroke="#a855f7" stroke-width="1.5"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlm-sh)"/>
+      <path d="M32 16 C26 16 22 21 22 27 C22 31 24 34 27 36 L27 40 L37 40 L37 36 C40 34 42 31 42 27 C42 21 38 16 32 16 Z" fill="none" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="40" x2="28" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="36" y1="40" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <line x1="28" y1="43" x2="36" y2="43" stroke="#c084fc" stroke-width="1.8"/>
+      <ellipse cx="32" cy="27" rx="5" ry="6" fill="#a855f7" opacity="0.4"/>
+      <line x1="32" y1="10" x2="32" y2="13" stroke="#c084fc" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+    </symbol>
+    <symbol id="badge-legend" viewBox="0 0 64 64">
+      <defs>
+        <radialGradient id="rlg-bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#c4720a"/><stop offset="100%" stop-color="#5a2e00"/></radialGradient>
+        <linearGradient id="rlg-sh" x1="0.05" y1="0.05" x2="0.5" y2="0.5"><stop offset="0%" stop-color="#fff" stop-opacity="0.35"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="rlg-st" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#f59e0b"/></linearGradient>
+      </defs>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlg-bg)" stroke="#f59e0b" stroke-width="2"/>
+      <polygon points="32,10 50,21 50,43 32,54 14,43 14,21" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.4"/>
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rlg-sh)"/>
+      <polygon points="32,15 34.9,24.1 44.4,24.1 36.8,29.6 39.6,38.7 32,33.1 24.4,38.7 27.2,29.6 19.6,24.1 29.1,24.1" fill="url(#rlg-st)" opacity="0.95"/>
+      <path d="M25 16 L28 20 L32 14 L36 20 L39 16 L39 22 L25 22 Z" fill="#fde68a" opacity="0.9"/>
+      <circle cx="25" cy="16" r="1.5" fill="#fde68a"/>
+      <circle cx="32" cy="13" r="1.5" fill="#fde68a"/>
+      <circle cx="39" cy="16" r="1.5" fill="#fde68a"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+    <!-- ── RESULT LOADING OVERLAY ── -->
+    <div id="resultLoadingOverlay">
+        <div class="rl-logo-wrap">
+            <img src="/images/logo.png" alt="CL">
+        </div>
+        <div class="rl-spinner-wrap">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="30" stroke="rgba(255,255,255,0.12)" stroke-width="4"/>
+                <path d="M36 6 A30 30 0 0 1 66 36" stroke="url(#rls-g)" stroke-width="4" stroke-linecap="round"/>
+                <defs>
+                    <linearGradient id="rls-g" x1="36" y1="6" x2="66" y2="36" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#60a5fa"/><stop offset="1" stop-color="#a78bfa"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="rl-coin-icon">🏆</div>
+        </div>
+        <div class="rl-title">Calculating your result…</div>
+        <div class="rl-subtitle">Hang tight, this takes just a moment</div>
+        <div class="rl-progress-track"><div class="rl-progress-bar"></div></div>
+        <div class="rl-steps">
+            <div class="rl-step active" id="rlStep1"><div class="rl-step-dot"></div>Fetching your answers</div>
+            <div class="rl-step" id="rlStep2"><div class="rl-step-dot"></div>Scoring & calculating accuracy</div>
+            <div class="rl-step" id="rlStep3"><div class="rl-step-dot"></div>Awarding coins & updating rank</div>
+        </div>
+    </div>
+
+    <!-- ── HEADER (post-exam — no marketing links) ── -->
+    <nav class="bg-white/95 backdrop-blur-xl shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a class="flex items-center space-x-2" href="/coaching/dashboard.html">
+                <img src="/images/logo.png" alt="Logo" class="w-8 h-8">
+                <span class="text-xl font-bold text-blue-700" id="navCoachingName">Courage Library</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="/coaching/leaderboard.html" id="navLeaderboardLink"
+                    class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-600 transition px-3 py-2 rounded-lg hover:bg-blue-50">
+                    <i class="fas fa-trophy text-yellow-500"></i> Leaderboard
+                </a>
+                <a href="/coaching/dashboard.html"
+                    class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-xl transition shadow-sm">
+                    <i class="fas fa-th-large"></i>
+                    <span class="hidden sm:inline">Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex-grow">
+        <section class="py-6 px-3 max-w-4xl mx-auto">
+
+            <!-- ── SCORE HERO ── -->
+            <div class="score-hero fade-up s1">
+                <div class="score-label">Your Score</div>
+                <div class="score-num" id="score">—</div>
+                <div class="score-denom" id="scoreDenom"></div>
+                <div class="verdict-badge" id="verdictBadge" style="display:none"></div>
+                <!-- Level pill — populated by resultEngine after coins are awarded -->
+                <div id="resultLevelPill" style="
+                  display:none;
+                  align-items:center;gap:6px;
+                  padding:5px 14px 5px 8px;border-radius:100px;
+                  font-family:'Syne',sans-serif;font-size:.8rem;font-weight:800;
+                  letter-spacing:.04em;margin-top:10px;
+                  border:1px solid;
+                  animation:fadeUp .5s ease both;
+                "></div>
+
+                <!-- 5 stat chips -->
+                <div class="stat-row">
+                    <div class="stat-chip">
+                        <div class="sc-icon"><i class="fas fa-check-circle scv-green"></i></div>
+                        <div class="sc-val scv-green" id="correctCount">—</div>
+                        <div class="sc-lbl">Correct</div>
+                    </div>
+                    <div class="stat-chip">
+                        <div class="sc-icon"><i class="fas fa-times-circle scv-red"></i></div>
+                        <div class="sc-val scv-red" id="wrongCount">—</div>
+                        <div class="sc-lbl">Wrong</div>
+                    </div>
+                    <div class="stat-chip">
+                        <div class="sc-icon"><i class="fas fa-minus-circle scv-sky"></i></div>
+                        <div class="sc-val scv-sky" id="skippedCount">—</div>
+                        <div class="sc-lbl">Skipped</div>
+                    </div>
+                    <div class="stat-chip">
+                        <div class="sc-icon"><i class="fas fa-bullseye scv-amber"></i></div>
+                        <div class="sc-val scv-amber" id="accuracy">—</div>
+                        <div class="sc-lbl">Accuracy</div>
+                    </div>
+                    <div class="stat-chip">
+                        <div class="sc-icon"><i class="fas fa-clock scv-white"></i></div>
+                        <div class="sc-val scv-white" id="timeTaken">—</div>
+                        <div class="sc-lbl">Time Taken</div>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="action-row">
+                    <a href="/coaching/dashboard.html" class="btn btn-white">
+                        <i class="fas fa-th-large"></i>
+                        <span class="btn-label">Dashboard</span>
+                    </a>
+                    <a href="#" class="btn btn-outline-white" id="leaderboardBtn">
+                        <i class="fas fa-trophy"></i>
+                        <span class="btn-label">Leaderboard</span>
+                    </a>
+                    <button class="btn btn-whatsapp" onclick="shareResult()">
+                        <i class="fab fa-whatsapp"></i>
+                        <span class="btn-label">Share Score</span>
+                    </button>
+                </div>
+
+
+            </div>
+
+            <!-- ── FEEDBACK TRIGGER CARD ── -->
+            <div class="fade-up s2" style="margin-top:14px">
+                <button id="fbTriggerBtn" onclick="fbOpenPopup()" style="width:100%;padding:0;background:transparent;border:none;border-radius:18px;cursor:pointer;display:block;text-align:left;transition:transform .15s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="background:linear-gradient(135deg,#1a56db 0%,#1e3a8a 60%,#2d1b69 100%);border-radius:18px;border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(26,86,219,.35);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+                        <div style="display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden">
+                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🪙</div>
+                            <div style="min-width:0">
+                                <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;color:#fff;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Rate this test &amp; earn</div>
+                                <div style="font-family:'DM Sans',sans-serif;font-size:.68rem;color:rgba(255,255,255,.5);margin-top:1px;white-space:nowrap">10 questions &middot; 1 coin each &middot; 1 min</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;background:rgba(251,191,36,.18);border:1px solid rgba(251,191,36,.35);border-radius:100px;padding:7px 14px;white-space:nowrap">
+                            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 1l1.5 3.5L12 5l-2.5 2.5.6 3.5L7 9.5 3.9 11l.6-3.5L2 5l3.5-.5L7 1z" fill="#fbbf24" stroke="#f59e0b" stroke-width=".5"/></svg>
+                            <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:.78rem;color:#fbbf24">Start +10 CL</span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- ── SECTION-WISE ACCURACY ── -->
+            <div class="info-card mt-5 fade-up s2" id="sectionAccuracyCard" style="display:none">
+                <div class="info-card-title">
+                    <span class="title-icon"><i class="fas fa-chart-bar"></i></span>
+                    Section-wise Accuracy
+                </div>
+                <div id="sectionBars"></div>
+            </div>
+
+            <!-- ── QUESTION REVIEW ── -->
+            <div class="mt-7 fade-up s3">
+                <div class="review-header">
+                    <h2>Question Review</h2>
+                    <span class="text-sm text-gray-400" id="reviewSubtitle"></span>
+                </div>
+
+                <!-- Color legend -->
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap">
+                    <span style="font-size:.68rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em">Legend:</span>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#15803d"><span style="width:10px;height:10px;border-radius:2px;background:#16a34a;display:inline-block"></span>Correct</span>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#b91c1c"><span style="width:10px;height:10px;border-radius:2px;background:#dc2626;display:inline-block"></span>Wrong</span>
+                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#475569"><span style="width:10px;height:10px;border-radius:2px;background:#94a3b8;display:inline-block"></span>Skipped</span>
+                </div>
+                <!-- Filter tabs with live counts -->
+                <div class="filter-tabs">
+                    <button class="ftab active-all" onclick="filterReview('all', this)">
+                        <i class="fas fa-list-ul"></i> All
+                        <span class="ftab-count" id="cnt-all">—</span>
+                    </button>
+                    <button class="ftab" onclick="filterReview('correct', this)">
+                        <i class="fas fa-check"></i> Correct
+                        <span class="ftab-count" id="cnt-correct">—</span>
+                    </button>
+                    <button class="ftab" onclick="filterReview('wrong', this)">
+                        <i class="fas fa-times"></i> Wrong
+                        <span class="ftab-count" id="cnt-wrong">—</span>
+                    </button>
+                    <button class="ftab" onclick="filterReview('skipped', this)">
+                        <i class="fas fa-minus"></i> Skipped
+                        <span class="ftab-count" id="cnt-skipped">—</span>
+                    </button>
+                </div>
+
+                <!-- Review list (skeleton while loading) -->
+                <div id="reviewSection">
+                    <div class="q-card skipped" style="padding:20px 20px 20px 24px">
+                        <div class="skeleton" style="height:13px;width:32%;margin-bottom:12px"></div>
+                        <div class="skeleton" style="height:12px;width:82%;margin-bottom:8px"></div>
+                        <div class="skeleton" style="height:12px;width:62%"></div>
+                    </div>
+                    <div class="q-card skipped" style="padding:20px 20px 20px 24px">
+                        <div class="skeleton" style="height:13px;width:26%;margin-bottom:12px"></div>
+                        <div class="skeleton" style="height:12px;width:76%;margin-bottom:8px"></div>
+                        <div class="skeleton" style="height:12px;width:55%"></div>
+                    </div>
+                </div>
+
+                <!-- Show All Questions Button -->
+                <div id="showAllWrap" style="display:none;text-align:center;margin-top:14px">
+                    <button onclick="expandAllReview()"
+                        style="display:inline-flex;align-items:center;gap:8px;padding:11px 28px;border:1.5px solid #e2e8f0;border-radius:100px;background:#fff;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:700;color:#1a56db;cursor:pointer;box-shadow:0 2px 8px rgba(26,86,219,.08);transition:all .2s"
+                        onmouseover="this.style.borderColor='#1a56db';this.style.boxShadow='0 4px 16px rgba(26,86,219,.15)'"
+                        onmouseout="this.style.borderColor='#e2e8f0';this.style.boxShadow='0 2px 8px rgba(26,86,219,.08)'">
+                        <i class="fas fa-chevron-down"></i>
+                        Show all <span id="showAllCount"></span> questions
+                    </button>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="/js/coachingResultEngine.js"></script>
+    <script>
+      // Wire nav leaderboard link to current attempt
+      (function() {
+        const p = new URLSearchParams(window.location.search);
+        const a = p.get("attempt");
+        const el = document.getElementById("navLeaderboardLink");
+        if (a && el) el.href = "/coaching/leaderboard.html?attempt=" + a;
+      })();
+
+      // Load coaching name into nav
+      (async function loadCoachingName() {
+        const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+        const { createClient } = supabase;
+        const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        try {
+          const { data: { user } } = await client.auth.getUser();
+          if (!user) return;
+          const { data: profile } = await client
+            .from("user_profiles").select("coaching_id").eq("id", user.id).single();
+          if (!profile?.coaching_id) return;
+          const { data: coaching } = await client
+            .from("coaching_centers").select("name").eq("id", profile.coaching_id).single();
+          if (!coaching) return;
+          const nameEl = document.getElementById("navCoachingName");
+          if (nameEl) nameEl.textContent = "Courage Library";
+          document.title = `Result | ${coaching.name}`;
+        } catch(e) {}
+      })();
+    </script>
+
+    <!-- ── FOOTER ── -->
+    <footer class="bg-gradient-to-r from-blue-700 to-indigo-700 text-gray-100 py-5 mt-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Courage Library. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <a href="https://www.facebook.com/people/Courage-Library/61561969000820/?mibextid=ZbWKwL"
+                    target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-white text-2xl"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/CourageLibrary" target="_blank" rel="noopener noreferrer" aria-label="Twitter"
+                    class="hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/courage-library" target="_blank" rel="noopener noreferrer"
+                    aria-label="LinkedIn" class="hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/couragelibrary1" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════
+         FEEDBACK POPUP
+    ══════════════════════════════════════ -->
+    <!-- FEEDBACK POPUP — light mode, Tailwind-proof -->
+    <div id="fbOverlay" onclick="if(event.target===this)fbClosePopup()" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:10000;align-items:flex-end;justify-content:center;">
+      <div id="fbPopup" style="background:#fff;border-radius:28px 28px 0 0;border-top:1px solid #e2e8f0;width:100%;max-width:480px;overflow:hidden;position:relative;box-shadow:0 -8px 40px rgba(0,0,0,.12);animation:fbSlideUp .35s cubic-bezier(.34,1.2,.64,1)">
+        <style>
+          @keyframes fbSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+          @keyframes fbNumPop{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
+          @keyframes fbFu{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-60px)}}
+          .fb-card{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .22s}
+          .fb-card.hr{transform:translateX(100%);opacity:0}
+          .fb-card.hl{transform:translateX(-100%);opacity:0}
+          .fb-card.vis{transform:translateX(0);opacity:1}
+          .fb-opt{width:100%;padding:11px 14px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;color:#475569;font-size:.82rem;text-align:left;cursor:pointer;transition:all .16s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:10px;line-height:1.35;box-sizing:border-box;margin-bottom:7px}
+          .fb-opt:last-child{margin-bottom:0}
+          .fb-opt:hover{background:#eff6ff;border-color:#93c5fd;color:#1e40af}
+          .fb-opt.sel{border-color:#1a56db;background:#eff6ff;color:#1a56db}
+          .fb-okey{width:22px;height:22px;border-radius:7px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#94a3b8;flex-shrink:0;transition:all .16s;font-family:'Sora',sans-serif;font-weight:700}
+          .fb-opt.sel .fb-okey{background:#1a56db;color:#fff}
+          .fb-eb{flex:1;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:12px 4px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .16s}
+          .fb-eb:hover{background:#eff6ff;border-color:#93c5fd}
+          .fb-eb.sel{border-color:#1a56db;background:#eff6ff}
+          .fb-eb.sel .fb-el{color:#1a56db;font-weight:600}
+          .fb-el{font-size:.6rem;color:#94a3b8;text-align:center;line-height:1.3;transition:color .16s;font-family:'DM Sans',sans-serif}
+          .fb-txt{width:100%;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.82rem;color:#0f172a;resize:none;outline:none;transition:border-color .2s;line-height:1.5;box-sizing:border-box}
+          .fb-txt::placeholder{color:#cbd5e1}
+          .fb-txt:focus{border-color:#1a56db;background:#fff}
+        </style>
+
+        <!-- drag handle -->
+        <div style="width:40px;height:4px;background:#e2e8f0;border-radius:100px;margin:14px auto 0"></div>
+
+        <div id="fbFormWrap">
+          <!-- header -->
+          <div style="padding:14px 20px 0;display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:8px">
+              <img src="/images/logo.png" alt="CL" onerror="this.style.display='none'" style="width:28px;height:28px;border-radius:8px;object-fit:contain;background:#eff6ff;padding:3px;border:1px solid #dbeafe">
+              <span style="font-family:'Sora',sans-serif;font-size:.78rem;font-weight:700;color:#1e40af">Courage Library</span>
+            </div>
+            <button onclick="fbClosePopup()" style="background:#f1f5f9;border:none;border-radius:50%;width:28px;height:28px;color:#94a3b8;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .15s" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">&#10005;</button>
+          </div>
+
+          <!-- coins + q number -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:18px;line-height:1">🪙</span>
+              <span id="fbCoinCount" style="font-size:1.25rem;font-weight:700;font-family:'Sora',sans-serif;color:#d97706;display:inline-block">0</span>
+              <span style="font-size:.78rem;color:#94a3b8;font-family:'DM Sans',sans-serif;font-weight:500">/ 10 CL earned</span>
+            </div>
+            <div id="fbQNum" style="font-size:.68rem;font-weight:600;color:#94a3b8;font-family:'Sora',sans-serif;background:#f1f5f9;padding:3px 10px;border-radius:100px">1 / 10</div>
+          </div>
+
+          <!-- progress bar -->
+          <div style="margin:10px 20px 0;height:5px;background:#f1f5f9;border-radius:100px;overflow:hidden">
+            <div id="fbProgFill" style="height:100%;background:linear-gradient(90deg,#1a56db,#7c3aed);border-radius:100px;width:0%;transition:width .4s cubic-bezier(.34,1.2,.64,1)"></div>
+          </div>
+
+          <!-- card viewport -->
+          <div id="fbVp" style="height:272px;margin:14px 20px 0;position:relative;overflow:hidden"></div>
+
+          <!-- footer -->
+          <div style="padding:12px 20px 24px;display:flex;gap:9px;border-top:1px solid #f1f5f9;margin-top:4px">
+            <button onclick="fbGo(true)" style="padding:11px 16px;border:1.5px solid #e2e8f0;border-radius:12px;background:#fff;color:#94a3b8;font-size:.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .2s" onmouseover="this.style.borderColor='#94a3b8';this.style.color='#64748b'" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#94a3b8'">Skip</button>
+            <button id="fbNxtBtn" onclick="fbGo(false)" disabled style="flex:1;padding:12px;border:none;border-radius:12px;background:#1a56db;color:#fff;font-size:.88rem;font-weight:700;cursor:not-allowed;font-family:'Sora',sans-serif;transition:background .2s,opacity .2s;display:flex;align-items:center;justify-content:center;gap:7px;opacity:.35;box-shadow:0 4px 14px rgba(26,86,219,.3)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- done state -->
+        <div id="fbDoneWrap" style="display:none;padding:32px 24px 28px;text-align:center">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #93c5fd;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 9-9" stroke="#1a56db" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div id="fbFinalCoins" style="font-size:2.8rem;font-weight:800;color:#d97706;margin-bottom:6px;letter-spacing:-.03em;font-family:'Sora',sans-serif">+0 CL</div>
+          <div style="font-size:1rem;font-weight:700;color:#0f172a;margin-bottom:8px;font-family:'Sora',sans-serif">Coins added to your wallet!</div>
+          <div style="font-size:.8rem;color:#64748b;line-height:1.6">Your feedback helps us build better tests.<br>Thank you for being honest.</div>
+          <button onclick="fbClosePopup()" style="margin-top:20px;padding:11px 32px;border-radius:100px;border:1.5px solid #dbeafe;background:#eff6ff;color:#1a56db;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">Close</button>
+        </div>
+
+      </div>
+    </div>
+</body>
+
+</html>

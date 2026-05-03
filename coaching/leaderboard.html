@@ -3,85 +3,452 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaderboard | Coaching</title>
+  <title>Leaderboard | Courage Library</title>
   <link rel="icon" type="image/png" href="/images/logo.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    *, body { font-family: 'Sora', sans-serif; }
-    body { background: #f1f5f9; min-height: 100vh; }
-    .card { background:#fff; border-radius:1.25rem; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-    .fade-up { animation: fadeUp 0.5s ease both; }
+    :root {
+      --brand: #1a56db;
+      --border: #e4ecf7;
+      --bg: #f0f4fa;
+      --surface: #ffffff;
+      --text: #0d1829;
+      --text-2: #4a6080;
+      --text-3: #94a3b8;
+      --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-md: 0 2px 6px rgba(0,0,0,0.05), 0 8px 28px rgba(0,0,0,0.09);
+      --radius: 20px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #c8d8ee; border-radius: 10px; }
+
+    /* ── Nav ── */
+    .nav-bar {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(228,236,247,0.8);
+      position: sticky; top: 0; z-index: 200;
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 20px; height: 58px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 30px; height: 30px; border-radius: 8px; object-fit: contain; }
+    .nav-brand-name { font-size: 15px; font-weight: 800; color: var(--brand); letter-spacing: -0.3px; }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700;
+      color: var(--brand);
+      background: #eff6ff; border: 1px solid #bfdbfe;
+      padding: 7px 14px; border-radius: 100px;
+      text-decoration: none; transition: all 0.18s;
+    }
+    .nav-back:hover { background: #dbeafe; }
+
+    /* ── Live dot ── */
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.5);
+      animation: pulse-ring 1.6s ease-out infinite;
+      display: inline-block;
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      70%  { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .hero-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-size: 200px; pointer-events: none;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: nowrap; }
+    .hero-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .hero-title {
+      font-size: clamp(19px,4vw,26px);
+      font-weight: 800; line-height: 1.2; letter-spacing: -0.4px;
+    }
+    .hero-sub {
+      font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 6px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .hero-meta {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 6px; margin-top: 14px;
+    }
+    .hero-meta-pill {
+      font-size: 11px; font-weight: 600;
+      background: rgba(255,255,255,0.11);
+      border: 0.5px solid rgba(255,255,255,0.2);
+      padding: 5px 11px; border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.85);
+    }
+    .live-pill-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80; flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(74,222,128,0.25);
+    }
+    .rank-badge {
+      background: rgba(255,255,255,0.13);
+      border: 0.5px solid rgba(255,255,255,0.22);
+      border-radius: 16px; padding: 14px 18px;
+      text-align: center; flex-shrink: 0; min-width: 100px;
+    }
+    .rank-badge-label { font-size: 10px; font-weight: 600; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 6px; }
+    .rank-badge-val { font-size: 36px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+    .rank-badge-of { font-size: 11px; opacity: 0.4; margin-top: 5px; }
+
+    /* ── Live update bar ── */
+    .live-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      overflow: hidden;
+    }
+    .live-label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 800; color: #22c55e;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+    .live-bar-scroll { flex: 1; overflow: hidden; position: relative; height: 20px; }
+    .live-bar-item {
+      position: absolute; top: 0; left: 0; width: 100%;
+      font-size: 12px; font-weight: 600; color: var(--text-2);
+      white-space: nowrap;
+      opacity: 0; transform: translateY(100%);
+      transition: all 0.5s ease;
+    }
+    .live-bar-item.active { opacity: 1; transform: translateY(0); }
+    .live-bar-item.exit  { opacity: 0; transform: translateY(-100%); }
+    #lbUpdateTime {
+      font-size: 11px; font-weight: 700; color: var(--text-3);
+      flex-shrink: 0;
+    }
+
+    /* ── Podium ── */
+    .podium-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 24px 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .podium-card-header {
+      text-align: center; margin-bottom: 0;
+    }
+    .podium-card-header-label {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .podium-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: end;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .podium-slot {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .podium-avatar-wrap { position: relative; margin-bottom: 10px; }
+    .podium-avatar {
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; color: #fff;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.16);
+      font-family: 'Outfit', sans-serif;
+    }
+    .podium-crown {
+      position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+      font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    .podium-medal {
+      position: absolute; bottom: -3px; right: -3px;
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fff;
+      border: 2px solid #fff;
+    }
+    .podium-name {
+      font-size: 12px; font-weight: 800; color: var(--text);
+      text-align: center; max-width: 88px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .podium-score {
+      font-size: 19px; font-weight: 900; color: var(--text);
+      margin-top: 2px; font-family: 'JetBrains Mono', monospace;
+    }
+    .podium-acc {
+      font-size: 10px; color: var(--text-3); margin-top: 1px; margin-bottom: 10px; text-align: center;
+    }
+    .podium-step {
+      width: 100%; border-radius: 14px 14px 0 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .podium-rank-num { font-size: 22px; font-weight: 900; }
+
+    /* 1st */
+    .slot-1st .podium-avatar { width: 74px; height: 74px; font-size: 24px; }
+    .slot-1st .podium-step { height: 90px; background: linear-gradient(180deg,#fef3c7,#fde68a); border-top: 2px solid #fcd34d; }
+    .slot-1st .podium-rank-num { color: #b45309; }
+    .slot-1st .podium-score { color: #92400e; }
+    /* 2nd */
+    .slot-2nd .podium-avatar { width: 60px; height: 60px; font-size: 18px; }
+    .slot-2nd .podium-step { height: 66px; background: linear-gradient(180deg,#f1f5f9,#e2e8f0); border-top: 2px solid #cbd5e1; }
+    .slot-2nd .podium-rank-num { color: #64748b; }
+    /* 3rd */
+    .slot-3rd .podium-avatar { width: 52px; height: 52px; font-size: 15px; }
+    .slot-3rd .podium-step { height: 50px; background: linear-gradient(180deg,#fff7ed,#fed7aa); border-top: 2px solid #fb923c; }
+    .slot-3rd .podium-rank-num { color: #c2410c; }
+
+    .podium-empty .podium-step { opacity: 0.15; }
+    .podium-empty .podium-avatar {
+      background: linear-gradient(135deg,#f1f5f9,#e2e8f0) !important;
+      border: 2px dashed #cbd5e1 !important;
+      box-shadow: none !important;
+    }
+    .podium-empty .podium-avatar-inner {
+      font-size: 18px; opacity: 0.3;
+    }
+    .podium-empty .podium-name { color: #cbd5e1 !important; font-weight: 600; font-style: italic; }
+    .podium-empty .podium-score { color: #e2e8f0 !important; font-size: 13px; }
+    .podium-empty .podium-acc { color: #e2e8f0 !important; }
+
+    /* ── Rank table ── */
+    .rank-table {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .rank-table-head {
+      display: grid;
+      grid-template-columns: 52px 1fr 80px 90px;
+      padding: 10px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+    .rank-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 80px 90px;
+      padding: 13px 20px;
+      align-items: center;
+      border-bottom: 1px solid #f4f7fb;
+      transition: background 0.15s;
+    }
+    .rank-row:last-child { border-bottom: none; }
+    .rank-row:hover { background: #f8fafc; }
+    .rank-row.is-me {
+      background: #eff6ff !important;
+      border-left: 3px solid var(--brand);
+      padding-left: 17px;
+    }
+    .rank-number { text-align: center; font-size: 12px; font-weight: 800; color: var(--text-3); }
+    .rank-name-col { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .rank-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .rank-name { font-size: 13px; font-weight: 800; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rank-sub { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+    .rank-score { text-align: right; font-size: 15px; font-weight: 900; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+    .acc-pill {
+      font-size: 11px; font-weight: 800;
+      padding: 3px 10px; border-radius: 100px;
+      display: inline-block; float: right;
+    }
+
+    /* ── Flash animation for rank changes ── */
+    @keyframes rankFlash {
+      0%   { background-color: #fef3c7; }
+      50%  { background-color: #fde68a; }
+      100% { background-color: transparent; }
+    }
+    .rank-changed { animation: rankFlash 1.2s ease; }
+
+    /* ── Skeleton ── */
+    .sk {
+      background: linear-gradient(90deg, #edf2f9 25%, #e2eaf5 50%, #edf2f9 75%);
+      background-size: 300% 100%;
+      animation: sh 1.5s infinite; border-radius: 8px;
+    }
+    @keyframes sh { 0%{background-position:200% 0} 100%{background-position:-100% 0} }
+
+    .fade-up { animation: fu 0.45s ease both; }
+    @keyframes fu { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+    @media (max-width: 500px) {
+      .rank-table-head { display: none; }
+      .rank-row { grid-template-columns: 44px 1fr auto; }
+      .rank-col-score { display: none; }
+      .rank-row.is-me { padding-left: 14px; }
+      .nav-brand-name { font-size: 13px; }
+      .nav-back { padding: 6px 10px; font-size: 11px; }
+      .hero { padding: 20px 18px 18px; }
+      .rank-badge { padding: 12px 16px; min-width: 88px; }
+      .rank-badge-val { font-size: 30px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-    <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <img src="/images/logo.png" alt="Logo" class="w-7 h-7">
-        <span id="navCoachingBadge"
-          class="text-xs font-bold px-3 py-1 rounded-full border coaching-name"
-          style="background:#e0e7ff;color:#4338ca;border-color:#c7d2fe">
-          Loading...
-        </span>
-      </div>
-      <div class="flex items-center gap-3">
-        <a href="/coaching/dashboard.html" class="text-sm font-semibold text-blue-600 hover:text-blue-800">
-          <i class="fas fa-arrow-left mr-1"></i>Dashboard
-        </a>
-      </div>
+  <!-- NAVBAR -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="/images/logo.png" alt="Courage Library Logo">
+        <span class="nav-brand-name">Courage Library</span>
+      </a>
+      <a href="/coaching/dashboard.html" class="nav-back">
+        <i class="fas fa-arrow-left" style="font-size:10px"></i> Dashboard
+      </a>
     </div>
   </nav>
 
-  <main class="max-w-5xl mx-auto px-4 py-8 fade-up">
+  <main class="fade-up" style="max-width:860px;margin:0 auto;padding:20px 20px 40px;display:flex;flex-direction:column;gap:18px">
 
-    <!-- Header banner -->
-    <div id="lbHeader" class="card p-7 mb-6 text-white" style="background:linear-gradient(135deg,#1a56db,#4f46e5)">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <p class="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-1">Coaching Leaderboard</p>
-          <h1 class="text-2xl font-extrabold coaching-name">Loading...</h1>
-          <p id="coachingCity" class="text-blue-200 text-sm mt-1"></p>
+    <!-- HERO -->
+    <div id="lbHero" class="hero" style="background:linear-gradient(135deg,#1a56db 0%,#3b4fd8 100%)">
+      <div class="hero-noise"></div>
+      <div class="hero-orb" style="width:280px;height:280px;top:-110px;right:-70px"></div>
+      <div class="hero-orb" style="width:120px;height:120px;bottom:-50px;left:30px;opacity:0.5"></div>
+      <div class="hero-content">
+        <div style="flex:1;min-width:0">
+          <div class="hero-label">
+            <i class="fas fa-trophy" style="color:#fbbf24;font-size:11px"></i>
+            Coaching Leaderboard
+          </div>
+          <h1 class="coaching-name hero-title">Loading…</h1>
+          <p class="hero-sub" id="coachingCity"></p>
+          <div class="hero-meta" id="heroMeta" style="display:none">
+            <div class="hero-meta-pill">
+              <span class="live-pill-dot"></span>
+              Live rankings
+            </div>
+            <div class="hero-meta-pill" id="heroStudentCount">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="opacity:0.75"><path d="M2 13c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5" r="3" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/></svg>
+              — students
+            </div>
+          </div>
         </div>
-        <!-- My rank card -->
-        <div id="myRankCard" class="hidden bg-white/15 backdrop-blur-sm rounded-2xl px-6 py-4 text-center border border-white/20">
-          <p class="text-blue-100 text-xs font-semibold uppercase tracking-wider mb-1">Your Rank</p>
-          <p class="text-3xl font-extrabold" id="myRankDisplay">—</p>
-          <p class="text-blue-200 text-xs mt-0.5" id="myRankOf"></p>
+        <div class="rank-badge" id="myRankCard" style="display:none">
+          <div class="rank-badge-label">Your Rank</div>
+          <div class="rank-badge-val" id="myRankDisplay">—</div>
+          <div class="rank-badge-of" id="myRankOf"></div>
         </div>
       </div>
     </div>
 
-    <!-- Filter bar -->
-    <div class="card p-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-      <label class="text-sm font-bold text-gray-600 flex-shrink-0">
-        <i class="fas fa-filter mr-1 text-blue-400"></i> Filter by Exam:
-      </label>
-      <select id="examFilter"
-        class="flex-1 text-sm border border-blue-100 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-blue-400 outline-none bg-white font-semibold text-gray-700">
-        <option value="all">All Exams (Overall)</option>
-      </select>
-      <p class="text-xs text-gray-400">Rankings are scoped to your coaching only.</p>
+    <!-- LIVE BAR -->
+    <div class="live-bar">
+      <div class="live-label">
+        <span class="live-dot"></span>
+        LIVE
+      </div>
+      <div class="live-bar-scroll" id="liveBarScroll">
+        <div class="live-bar-item active" id="liveBarDefault">Watching for score changes in real time…</div>
+      </div>
+      <div id="lbUpdateTime"></div>
     </div>
 
-    <!-- Leaderboard table -->
-    <div class="card overflow-hidden">
-      <div id="lbContainer" class="divide-y divide-gray-50">
-        <div class="text-center py-12 text-gray-300">
-          <i class="fas fa-spinner fa-spin text-3xl"></i>
+    <!-- PODIUM -->
+    <div class="podium-card">
+      <div class="podium-card-header">
+        <p class="podium-card-header-label">
+          <i class="fas fa-trophy" style="color:#f59e0b;margin-right:6px"></i>
+          Top Performers
+        </p>
+      </div>
+      <div class="podium-grid" id="podiumGrid">
+        <!-- Skeleton -->
+        <div class="podium-slot slot-2nd">
+          <div class="podium-avatar-wrap"><div class="sk" style="width:60px;height:60px;border-radius:50%"></div></div>
+          <div class="sk" style="height:12px;width:60px;margin-bottom:4px"></div>
+          <div class="sk" style="height:16px;width:36px;margin-bottom:10px"></div>
+          <div class="podium-step"></div>
+        </div>
+        <div class="podium-slot slot-1st">
+          <div class="podium-avatar-wrap"><div class="sk" style="width:74px;height:74px;border-radius:50%"></div></div>
+          <div class="sk" style="height:13px;width:74px;margin-bottom:4px"></div>
+          <div class="sk" style="height:20px;width:44px;margin-bottom:10px"></div>
+          <div class="podium-step"></div>
+        </div>
+        <div class="podium-slot slot-3rd">
+          <div class="podium-avatar-wrap"><div class="sk" style="width:52px;height:52px;border-radius:50%"></div></div>
+          <div class="sk" style="height:12px;width:52px;margin-bottom:4px"></div>
+          <div class="sk" style="height:14px;width:32px;margin-bottom:10px"></div>
+          <div class="podium-step"></div>
         </div>
       </div>
+    </div>
+
+    <!-- RANK TABLE (4th onwards) -->
+    <div class="rank-table" id="rankListWrap" style="display:none">
+      <div class="rank-table-head">
+        <div style="text-align:center">Rank</div>
+        <div>Student</div>
+        <div style="text-align:right" class="rank-col-score">Best Score</div>
+        <div style="text-align:right">Accuracy</div>
+      </div>
+      <div id="rankListBody"></div>
     </div>
 
     <!-- Footer -->
-    <div class="text-center mt-8 text-xs text-gray-400">
-      <p>Rankings are updated in real-time and are only visible to <span class="coaching-name font-semibold text-gray-500"></span> students.</p>
-      <p class="mt-1">Powered by <a href="https://couragelibrary.in" class="text-blue-500 hover:underline">Courage Library</a></p>
+    <div style="text-align:center;font-size:12px;color:var(--text-3);padding-bottom:20px">
+      <p>Rankings scoped to <span class="coaching-name" style="font-weight:800;color:var(--text-2)"></span> students only.</p>
+      <p style="margin-top:4px">Powered by <a href="https://couragelibrary.in" style="color:var(--brand);font-weight:700;text-decoration:none">Courage Library</a></p>
     </div>
 
   </main>

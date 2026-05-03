@@ -1,4 +1,5 @@
-// coachingDashboard.js — Courage Library B2B Coaching Student Dashboard
+// coachingDashboard.js — Courage Library B2B Coaching Dashboard
+// Features: Live Supabase Realtime subscription, auto-refresh on new exam submissions
 
 const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
 const SUPABASE_ANON_KEY =
@@ -9,8 +10,12 @@ const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── State ──
 let currentUser = null;
-let coachingProfile = null; // { id, name, slug, primary_color, logo_url }
+let coachingProfile = null;
 let userProfile = null;
+let coachingExamIds = [];   // used for realtime filter
+let realtimeChannel = null;
+let lbRefreshDebounce = null;
+let statsRefreshDebounce = null;
 
 // ── Entry point ──
 document.addEventListener("DOMContentLoaded", async () => {
@@ -18,15 +23,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function initDashboard() {
-  // 1. Auth check
   const { data: { user } } = await client.auth.getUser();
-  if (!user) {
-    window.location.href = "/index.html?action=login";
-    return;
-  }
+  if (!user) { window.location.href = "/index.html?action=login"; return; }
   currentUser = user;
 
-  // 2. Fetch user profile + coaching info
   const { data: profile } = await client
     .from("user_profiles")
     .select("full_name, coaching_id, total_coins, current_streak, max_streak")
@@ -36,42 +36,42 @@ async function initDashboard() {
   if (!profile) { window.location.href = "/index.html"; return; }
   userProfile = profile;
 
-  // 3. If no coaching linked → redirect to regular dashboard
-  if (!profile.coaching_id) {
-    window.location.href = "/mock/dashboard.html";
-    return;
-  }
+  if (!profile.coaching_id) { window.location.href = "/mock/dashboard.html"; return; }
 
-  // 4. Fetch coaching center details
   const { data: coaching } = await client
     .from("coaching_centers")
     .select("id, name, slug, primary_color, logo_url, city")
     .eq("id", profile.coaching_id)
     .single();
 
-  if (!coaching || !coaching.is_active === false) {
-    showError("Your coaching center is currently inactive.");
-    return;
-  }
-
+  if (!coaching) { showError("Your coaching center is currently inactive."); return; }
   coachingProfile = coaching;
 
-  // 5. Apply coaching branding
   applyBranding(coaching);
 
-  // 6. Populate user greeting
   const firstName = (profile.full_name || "Student").split(" ")[0];
   setText("greetingName", firstName);
-  setText("statCoins", (profile.total_coins || 0).toLocaleString("en-IN"));
-  setText("statStreak", `${profile.current_streak || 0} days`);
 
-  // 7. Load all sections in parallel
+  const coins = profile.total_coins || 0;
+  if (coins > 0) {
+    setText("statCoins", coins.toLocaleString("en-IN"));
+    const badge = document.getElementById("coinsBadge");
+    if (badge) badge.style.display = "flex";
+  }
+
+  const streak = profile.current_streak || 0;
+  setText("statStreak", streak ? `${streak}d` : "0d");
+  setText("sideStreak", streak);
+
   await Promise.all([
     loadUpcomingExams(coaching.id),
     loadRecentResults(user.id, coaching.id),
     loadLeaderboardPreview(coaching.id),
     loadStudentStats(user.id, coaching.id),
   ]);
+
+  // ── Start live realtime channel ──
+  subscribeToLive(coaching.id);
 }
 
 // ── Apply coaching branding ──
@@ -79,52 +79,123 @@ function applyBranding(coaching) {
   const color = coaching.primary_color || "#1a56db";
   const name = coaching.name;
 
-  // Update all branded elements
   document.querySelectorAll(".coaching-name").forEach(el => el.textContent = name);
-  document.querySelectorAll(".coaching-color-bg").forEach(el => el.style.background = color);
-  document.querySelectorAll(".coaching-color-text").forEach(el => el.style.color = color);
-  document.querySelectorAll(".coaching-color-border").forEach(el => el.style.borderColor = color);
-
-  // Header gradient
-  const header = document.getElementById("coachingHeader");
-  if (header) header.style.background = `linear-gradient(135deg, ${color}22, ${color}11)`;
-
-  // Nav accent
-  const navAccent = document.getElementById("navCoachingBadge");
-  if (navAccent) {
-    navAccent.textContent = name;
-    navAccent.style.background = color + "20";
-    navAccent.style.color = color;
-    navAccent.style.borderColor = color + "50";
-  }
-
-  // Favicon title
   document.title = `Dashboard | ${name}`;
 
-  // Logo (if provided)
+  const hero = document.getElementById("heroBanner");
+  if (hero) hero.style.background = `linear-gradient(135deg, ${color} 0%, ${shiftHex(color, -25)} 100%)`;
+
+  const examIcon = document.getElementById("examIconWrap");
+  if (examIcon) { examIcon.style.background = color + "18"; examIcon.querySelector("i").style.color = color; }
+
   if (coaching.logo_url) {
-    const logoEls = document.querySelectorAll(".coaching-logo");
-    logoEls.forEach(el => { el.src = coaching.logo_url; el.classList.remove("hidden"); });
+    document.querySelectorAll(".coaching-logo").forEach(el => {
+      el.src = coaching.logo_url; el.style.display = "block";
+    });
   }
 
-  if (coaching.city) {
-    setText("coachingCity", `📍 ${coaching.city}`);
-  }
+  if (coaching.city) setText("coachingCity", `📍 ${coaching.city}`);
 }
 
-// ── Load upcoming exams for this coaching ──
+// ─────────────────────────────────────────────────────────────
+//  REALTIME: subscribe to attempts table changes for this coaching
+// ─────────────────────────────────────────────────────────────
+async function subscribeToLive(coachingId) {
+  // We need exam IDs to filter
+  const { data: exams } = await client
+    .from("scheduled_exams").select("id").eq("coaching_id", coachingId);
+  coachingExamIds = (exams || []).map(e => e.id);
+
+  if (!coachingExamIds.length) return;
+
+  // Unsubscribe any prior channel
+  if (realtimeChannel) { await client.removeChannel(realtimeChannel); }
+
+  realtimeChannel = client
+    .channel("dashboard-live-" + coachingId)
+    .on(
+      "postgres_changes",
+      {
+        event: "UPDATE",
+        schema: "public",
+        table: "attempts",
+        // Filter: submitted_at goes from null → value (exam submitted)
+      },
+      async (payload) => {
+        const row = payload.new;
+        if (!row) return;
+
+        // Only care about this coaching's exams
+        if (!coachingExamIds.includes(row.scheduled_exam_id)) return;
+
+        // Only care when it's just been submitted
+        if (!row.submitted_at || payload.old?.submitted_at) return;
+
+        // If it's our own submission, refresh stats & results
+        if (row.user_id === currentUser.id) {
+          debouncedRefresh(() => {
+            loadRecentResults(currentUser.id, coachingProfile.id);
+            loadStudentStats(currentUser.id, coachingProfile.id);
+          }, statsRefreshDebounce, 800);
+        }
+
+        // Always refresh leaderboard (someone's score changed)
+        debouncedRefresh(() => {
+          loadLeaderboardPreview(coachingProfile.id);
+        }, lbRefreshDebounce, 1200);
+
+        // Push live ticker message
+        const name = await getDisplayName(row.user_id);
+        const scoreStr = row.total_score !== null ? ` · ${row.total_score} pts` : "";
+        const isMe = row.user_id === currentUser.id;
+        const msg = isMe
+          ? `✅ You just submitted an exam${scoreStr}`
+          : `🎯 ${name} submitted an exam${scoreStr} — leaderboard updated`;
+
+        if (window.pushTickerEvent) window.pushTickerEvent(msg);
+      }
+    )
+    .on(
+      "postgres_changes",
+      { event: "INSERT", schema: "public", table: "attempts" },
+      async (payload) => {
+        const row = payload.new;
+        if (!row || !coachingExamIds.includes(row.scheduled_exam_id)) return;
+        if (row.user_id === currentUser.id) return; // don't announce own start
+
+        const name = await getDisplayName(row.user_id);
+        if (window.pushTickerEvent) window.pushTickerEvent(`📝 ${name} started an exam`);
+      }
+    )
+    .subscribe();
+}
+
+// Cache for user display names (avoid repeated fetches)
+const nameCache = {};
+async function getDisplayName(userId) {
+  if (nameCache[userId]) return nameCache[userId];
+  const { data } = await client.from("user_profiles").select("full_name").eq("id", userId).single();
+  const name = data?.full_name?.split(" ")[0] || "A student";
+  nameCache[userId] = name;
+  return name;
+}
+
+function debouncedRefresh(fn, timerRef, delay) {
+  if (timerRef) clearTimeout(timerRef);
+  timerRef = setTimeout(fn, delay);
+  return timerRef;
+}
+
+// ── Load upcoming exams ──
 async function loadUpcomingExams(coachingId) {
   const container = document.getElementById("examList");
-  container.innerHTML = loadingHTML();
-
-  const now = new Date().toISOString();
 
   const { data: exams, error } = await client
     .from("scheduled_exams")
     .select(`
       id, mode, schedule_type, day_of_week, is_active,
       start_datetime, end_datetime, attempt_limit,
-      exam_patterns ( pattern_name, duration_minutes, total_questions, negative_marking ),
+      exam_patterns!pattern_id ( pattern_name, duration_minutes, total_questions, negative_marking ),
       exam_categories ( name )
     `)
     .eq("coaching_id", coachingId)
@@ -135,19 +206,18 @@ async function loadUpcomingExams(coachingId) {
 
   if (!exams || exams.length === 0) {
     container.innerHTML = `
-      <div class="col-span-full text-center py-12 text-gray-400">
-        <i class="fas fa-calendar-times text-4xl mb-3 block opacity-40"></i>
-        <p class="font-semibold">No exams scheduled yet</p>
-        <p class="text-sm mt-1">Your coaching will schedule tests soon. Check back!</p>
+      <div class="empty">
+        <i class="fas fa-calendar-times empty-icon"></i>
+        <p class="empty-msg">No exams scheduled yet</p>
+        <small class="empty-sub">Your coaching will schedule tests soon. Check back!</small>
       </div>`;
     return;
   }
 
-  // Fetch user's attempts for these exams
   const examIds = exams.map(e => e.id);
   const { data: attempts } = await client
     .from("attempts")
-    .select("id, scheduled_exam_id, submitted_at, started_at, total_score")
+    .select("id, scheduled_exam_id, submitted_at, started_at, total_score, accuracy")
     .eq("user_id", currentUser.id)
     .in("scheduled_exam_id", examIds);
 
@@ -170,93 +240,115 @@ function buildExamCard(exam, myAttempts, index) {
   const completed = myAttempts.filter(a => a.submitted_at);
   const incomplete = myAttempts.find(a => !a.submitted_at);
   const now = new Date();
+  const color = coachingProfile?.primary_color || "#1a56db";
 
-  const isExpired = exam.end_datetime && new Date(exam.end_datetime) < now;
+  const isExpired  = exam.end_datetime && new Date(exam.end_datetime) < now;
   const notStarted = exam.start_datetime && new Date(exam.start_datetime) > now;
   const limitReached = exam.attempt_limit && completed.length >= exam.attempt_limit;
-  const alreadyDone = completed.length > 0;
-
+  const alreadyDone  = completed.length > 0;
+  const lastAttempt  = completed[completed.length - 1];
   const negVal = pattern.negative_marking > 0 ? `-${pattern.negative_marking}` : "None";
-  const lastAttempt = completed[completed.length - 1];
 
-  let statusBadge = "";
-  let btnHtml = "";
-  let cardBorder = coachingProfile?.primary_color || "#1a56db";
+  let stripeColor = color;
+  let badgeHtml   = "";
+  let btnHtml     = "";
+  let resultStrip = "";
 
   if (isExpired) {
-    statusBadge = `<span class="text-xs bg-red-50 text-red-600 px-2 py-0.5 rounded-full font-semibold">Expired</span>`;
-    btnHtml = `<button disabled class="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 text-sm font-semibold cursor-not-allowed"><i class="fas fa-lock mr-1"></i>Expired</button>`;
-    cardBorder = "#e5e7eb";
+    stripeColor = "#9ca3af";
+    badgeHtml = badge("Expired", "#dc2626", "#fef2f2");
+    btnHtml = disabledBtn("fa-lock", "Expired", "#9ca3af");
   } else if (notStarted) {
     const startStr = new Date(exam.start_datetime).toLocaleString("en-IN", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" });
-    statusBadge = `<span class="text-xs bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full font-semibold">Upcoming</span>`;
-    btnHtml = `<button disabled class="w-full py-2.5 rounded-xl bg-amber-50 text-amber-600 text-sm font-semibold cursor-not-allowed"><i class="fas fa-clock mr-1"></i>Starts ${startStr}</button>`;
-    cardBorder = "#f59e0b";
+    stripeColor = "#f59e0b";
+    badgeHtml = badge("Upcoming", "#d97706", "#fffbeb");
+    btnHtml = disabledBtn("fa-clock", `Starts ${startStr}`, "#f59e0b");
   } else if (limitReached) {
-    statusBadge = `<span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-semibold">Limit Reached</span>`;
-    btnHtml = `<button disabled class="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 text-sm font-semibold cursor-not-allowed"><i class="fas fa-ban mr-1"></i>Limit Reached</button>`;
-  } else if (alreadyDone) {
-    statusBadge = `<span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full font-semibold">✓ Completed · ${lastAttempt.total_score ?? 0} pts</span>`;
+    stripeColor = "#9ca3af";
+    badgeHtml = badge("Limit Reached", "#6b7280", "#f3f4f6");
+    btnHtml = disabledBtn("fa-ban", "Limit Reached", "#9ca3af");
+  } else if (alreadyDone && !incomplete) {
+    stripeColor = "#10b981";
+    badgeHtml = badge("✓ Completed", "#059669", "#f0fdf4");
+    const acc = Number(lastAttempt.accuracy || 0).toFixed(1);
+    resultStrip = `
+      <div class="exam-result-strip">
+        <span class="score">${lastAttempt.total_score ?? 0}</span>
+        <span style="font-size:11px;color:#059669;font-weight:600;margin-left:6px">pts</span>
+        <span class="acc">${acc}% accuracy</span>
+      </div>`;
     btnHtml = `
-      <button disabled class="w-full py-2 rounded-xl bg-green-50 text-green-700 text-sm font-semibold border border-green-200"><i class="fas fa-check-circle mr-1"></i>Completed</button>
-      ${lastAttempt ? `<a href="/mock/result.html?attempt=${lastAttempt.id}" class="block text-center mt-2 text-sm font-semibold text-blue-600 hover:text-blue-800"><i class="fas fa-chart-bar mr-1"></i>View Result & Analysis</a>` : ""}`;
-    cardBorder = "#10b981";
+      <button disabled class="btn" style="background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;cursor:default">
+        <i class="fas fa-check-circle"></i> Completed
+      </button>
+      ${lastAttempt ? `<a href="/coaching/result.html?attempt=${lastAttempt.id}" class="btn btn-ghost" style="text-decoration:none"><i class="fas fa-chart-bar"></i> View Result & Analysis</a>` : ""}`;
   } else if (incomplete) {
-    statusBadge = `<span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold animate-pulse">In Progress</span>`;
-    btnHtml = `<button onclick="resumeExam('${incomplete.id}', this)" class="w-full py-2.5 rounded-xl text-white text-sm font-bold shadow hover:scale-105 transition" style="background:linear-gradient(135deg,#059669,#10b981)"><i class="fas fa-redo mr-1"></i>Resume Exam</button>`;
+    stripeColor = "#3b82f6";
+    badgeHtml = `<span class="exam-badge" style="background:#eff6ff;color:#2563eb;animation:pulse 1.5s infinite">
+      <span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse-ring 1.4s infinite;display:inline-block"></span>
+      In Progress</span>`;
+    btnHtml = `<button onclick="resumeExam('${incomplete.id}', this)" class="btn btn-primary" style="background:linear-gradient(135deg,#059669,#10b981)">
+      <i class="fas fa-redo"></i> Resume Exam
+    </button>`;
   } else {
-    statusBadge = `<span class="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-semibold">Live</span>`;
-    btnHtml = `<button onclick="startExam('${exam.id}', this)" class="w-full py-2.5 rounded-xl text-white text-sm font-bold shadow hover:scale-105 transition coaching-color-bg"><i class="fas fa-play mr-1"></i>Start Exam</button>`;
+    badgeHtml = badge("Live", color, color + "15");
+    btnHtml = `<button onclick="startExam('${exam.id}', this)" class="btn btn-primary" style="background:linear-gradient(135deg,${color},${shiftHex(color, -20)})">
+      <i class="fas fa-play"></i> Start Exam
+    </button>`;
   }
 
   const div = document.createElement("div");
-  div.className = "bg-white rounded-2xl p-5 shadow-sm border-l-4 hover:shadow-md transition-all duration-200";
-  div.style.borderLeftColor = cardBorder;
-  div.style.animationDelay = `${index * 0.06}s`;
+  div.className = "exam-card";
+  div.style.animationDelay = `${index * 0.07}s`;
   div.innerHTML = `
-    <div class="flex items-start justify-between gap-3 mb-3">
-      <div class="flex-1 min-w-0">
-        <p class="text-xs text-gray-400 font-medium mb-0.5">${exam.exam_categories?.name || ""}</p>
-        <h3 class="font-bold text-gray-800 text-base leading-tight">${pattern.pattern_name || "Mock Test"}</h3>
+    <div class="exam-card-stripe" style="background:${stripeColor}"></div>
+    <div class="exam-card-body">
+      <div class="exam-header">
+        <div style="flex:1;min-width:0">
+          <p class="exam-category">${exam.exam_categories?.name || ""}</p>
+          <h3 class="exam-name">${pattern.pattern_name || "Mock Test"}</h3>
+        </div>
+        ${badgeHtml}
       </div>
-      ${statusBadge}
-    </div>
-    <div class="grid grid-cols-3 gap-2 mb-4">
-      <div class="bg-gray-50 rounded-xl p-2 text-center">
-        <div class="text-xs text-gray-400">Duration</div>
-        <div class="text-sm font-bold text-gray-700">${pattern.duration_minutes ?? "—"}m</div>
+      <div class="exam-stats">
+        <div class="exam-stat-box">
+          <div class="val">${pattern.duration_minutes ?? "—"}m</div>
+          <div class="lbl">Duration</div>
+        </div>
+        <div class="exam-stat-box">
+          <div class="val">${pattern.total_questions ?? "—"}</div>
+          <div class="lbl">Questions</div>
+        </div>
+        <div class="exam-stat-box">
+          <div class="val">${negVal}</div>
+          <div class="lbl">Negative</div>
+        </div>
       </div>
-      <div class="bg-gray-50 rounded-xl p-2 text-center">
-        <div class="text-xs text-gray-400">Questions</div>
-        <div class="text-sm font-bold text-gray-700">${pattern.total_questions ?? "—"}</div>
-      </div>
-      <div class="bg-gray-50 rounded-xl p-2 text-center">
-        <div class="text-xs text-gray-400">Negative</div>
-        <div class="text-sm font-bold text-gray-700">${negVal}</div>
-      </div>
-    </div>
-    ${btnHtml}`;
-
-  // Apply brand color to coaching-color-bg elements in this card
-  if (coachingProfile?.primary_color) {
-    div.querySelectorAll(".coaching-color-bg").forEach(el => {
-      el.style.background = `linear-gradient(135deg, ${coachingProfile.primary_color}, ${coachingProfile.primary_color}cc)`;
-    });
-  }
+      ${resultStrip}
+      ${btnHtml}
+    </div>`;
 
   return div;
 }
 
-// ── Load student's recent results ──
+function badge(text, color, bg) {
+  return `<span class="exam-badge" style="color:${color};background:${bg}">${text}</span>`;
+}
+function disabledBtn(icon, label, color) {
+  return `<button disabled class="btn" style="background:#f8fafc;color:${color};border:1px solid #e4ecf7;cursor:not-allowed">
+    <i class="fas ${icon}"></i> ${label}
+  </button>`;
+}
+
+// ── Load recent results ──
 async function loadRecentResults(userId, coachingId) {
   const container = document.getElementById("recentResults");
-  container.innerHTML = loadingHTML("small");
 
   const { data, error } = await client
     .from("attempts")
     .select(`
-      id, total_score, accuracy, time_taken, submitted_at,
-      scheduled_exams!inner ( coaching_id, exam_patterns ( pattern_name ), exam_categories ( name ) )
+      id, total_score, accuracy, submitted_at,
+      scheduled_exams!inner ( coaching_id, exam_patterns!pattern_id ( pattern_name ) )
     `)
     .eq("user_id", userId)
     .eq("scheduled_exams.coaching_id", coachingId)
@@ -265,16 +357,13 @@ async function loadRecentResults(userId, coachingId) {
     .limit(5);
 
   if (error || !data || data.length === 0) {
-    container.innerHTML = `<p class="text-sm text-gray-400 text-center py-4">No results yet. Attempt your first exam!</p>`;
-
-    // Update summary stats
+    container.innerHTML = `<p style="font-size:12px;color:var(--text-3);text-align:center;padding:16px 0;font-weight:600">No results yet. Attempt your first exam!</p>`;
     setText("statAttempts", "0");
     setText("statAvgScore", "0%");
     setText("statBestScore", "—");
     return;
   }
 
-  // Update summary stats
   setText("statAttempts", data.length);
   const avgAcc = data.reduce((s, a) => s + Number(a.accuracy || 0), 0) / data.length;
   setText("statAvgScore", avgAcc.toFixed(1) + "%");
@@ -283,52 +372,44 @@ async function loadRecentResults(userId, coachingId) {
   container.innerHTML = "";
   data.forEach(attempt => {
     const acc = Number(attempt.accuracy || 0);
-    const accColor = acc >= 80 ? "#10b981" : acc >= 60 ? "#f59e0b" : "#ef4444";
-    const se = attempt.scheduled_exams || {};
-    const name = se.exam_patterns?.pattern_name || "Mock Test";
+    const accColor = acc >= 80 ? "#059669" : acc >= 60 ? "#d97706" : "#dc2626";
+    const accBg    = acc >= 80 ? "#f0fdf4" : acc >= 60 ? "#fffbeb" : "#fef2f2";
+    const name = attempt.scheduled_exams?.exam_patterns?.pattern_name || "Mock Test";
     const date = attempt.submitted_at
-      ? new Date(attempt.submitted_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
+      ? new Date(attempt.submitted_at).toLocaleDateString("en-IN", { day:"numeric", month:"short" })
       : "—";
 
     const row = document.createElement("div");
-    row.className = "flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0";
+    row.className = "result-row";
     row.innerHTML = `
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-semibold text-gray-800 truncate">${name}</p>
-        <p class="text-xs text-gray-400">${date}</p>
+      <div class="result-dot" style="background:${accColor}"></div>
+      <div class="result-info">
+        <p class="result-name">${name}</p>
+        <p class="result-date">${date}</p>
       </div>
-      <div class="flex items-center gap-3 flex-shrink-0">
-        <span class="text-sm font-bold text-gray-700">${attempt.total_score ?? 0}</span>
-        <span class="text-xs font-bold px-2 py-0.5 rounded-full" style="color:${accColor};background:${accColor}18">
-          ${acc.toFixed(1)}%
-        </span>
-        <a href="/mock/result.html?attempt=${attempt.id}" class="text-blue-500 hover:text-blue-700 text-xs">
-          <i class="fas fa-external-link-alt"></i>
-        </a>
+      <div class="result-right">
+        <span class="result-score">${attempt.total_score ?? 0}</span>
+        <span class="acc-pill" style="color:${accColor};background:${accBg}">${acc.toFixed(1)}%</span>
+        <a href="/coaching/result.html?attempt=${attempt.id}" class="result-link"><i class="fas fa-external-link-alt"></i></a>
       </div>`;
     container.appendChild(row);
   });
 }
 
-// ── Load leaderboard preview (top 5 in coaching) ──
+// ── Load leaderboard preview ──
 async function loadLeaderboardPreview(coachingId) {
   const container = document.getElementById("leaderboardPreview");
-  container.innerHTML = loadingHTML("small");
 
-  // Get all completed attempts for this coaching's exams
   const { data: examIds } = await client
-    .from("scheduled_exams")
-    .select("id")
-    .eq("coaching_id", coachingId);
+    .from("scheduled_exams").select("id").eq("coaching_id", coachingId);
 
-  if (!examIds || examIds.length === 0) {
-    container.innerHTML = `<p class="text-sm text-gray-400 text-center py-4">No exams yet.</p>`;
+  if (!examIds?.length) {
+    container.innerHTML = `<p style="font-size:12px;color:var(--text-3);text-align:center;padding:12px 0;font-weight:600">No exams yet.</p>`;
     return;
   }
 
   const ids = examIds.map(e => e.id);
 
-  // Get top performers: aggregate by user, sum of best scores
   const { data: attempts } = await client
     .from("attempts")
     .select("user_id, total_score, accuracy")
@@ -336,84 +417,95 @@ async function loadLeaderboardPreview(coachingId) {
     .not("submitted_at", "is", null)
     .order("total_score", { ascending: false });
 
-  if (!attempts || attempts.length === 0) {
-    container.innerHTML = `<p class="text-sm text-gray-400 text-center py-4">No attempts yet. Be the first!</p>`;
+  if (!attempts?.length) {
+    container.innerHTML = `<p style="font-size:12px;color:var(--text-3);text-align:center;padding:12px 0;font-weight:600">No attempts yet. Be first!</p>`;
     return;
   }
 
-  // Aggregate: best score per user
   const userBest = {};
   attempts.forEach(a => {
     if (!userBest[a.user_id] || a.total_score > userBest[a.user_id].score) {
-      userBest[a.user_id] = { score: a.total_score || 0, accuracy: a.accuracy || 0 };
+      userBest[a.user_id] = { score: a.total_score || 0 };
     }
   });
 
-  // Sort by score descending, take top 5
   const sorted = Object.entries(userBest)
     .sort((a, b) => b[1].score - a[1].score)
     .slice(0, 5);
 
-  // Fetch names
-  const userIds = sorted.map(([id]) => id);
   const { data: profiles } = await client
     .from("user_profiles")
     .select("id, full_name")
-    .in("id", userIds);
+    .in("id", sorted.map(([id]) => id));
 
   const nameMap = {};
   (profiles || []).forEach(p => { nameMap[p.id] = p.full_name || "Student"; });
 
-  container.innerHTML = "";
-  const medals = ["🥇", "🥈", "🥉"];
-
-  sorted.forEach(([userId, stats], i) => {
-    const name = nameMap[userId] || "Student";
-    const isMe = userId === currentUser.id;
-    const row = document.createElement("div");
-    row.className = `flex items-center gap-3 py-2 px-3 rounded-xl transition ${isMe ? "bg-blue-50 border border-blue-100" : "hover:bg-gray-50"}`;
-    row.innerHTML = `
-      <span class="text-base w-5 text-center flex-shrink-0">${medals[i] || `#${i + 1}`}</span>
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-bold text-gray-800 truncate">${name}${isMe ? " <span class='text-blue-500 text-xs'>(You)</span>" : ""}</p>
-      </div>
-      <span class="text-sm font-bold text-gray-700">${stats.score}</span>`;
-    container.appendChild(row);
-  });
-
-  // Find current user rank
-  const myRank = sorted.findIndex(([id]) => id === currentUser.id);
-  if (myRank !== -1) {
-    setText("myRank", `#${myRank + 1}`);
+  // My rank
+  const myIdx = sorted.findIndex(([id]) => id === currentUser.id);
+  if (myIdx !== -1) {
+    setText("myRank", `#${myIdx + 1}`);
+    const rankBadge = document.getElementById("heroRankBadge");
+    if (rankBadge) {
+      rankBadge.style.display = "block";
+      // count all users
+      setText("myRankOf", `of ${Object.keys(userBest).length}`);
+    }
   } else {
     setText("myRank", "—");
   }
+
+  const medals = ["🥇", "🥈", "🥉"];
+  const color = coachingProfile?.primary_color || "#1a56db";
+
+  container.innerHTML = "";
+  sorted.forEach(([userId, stats], i) => {
+    const name = nameMap[userId] || "Student";
+    const isMe = userId === currentUser.id;
+    const initials = name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+    const avatarBg = isMe ? color : `hsl(${(userId.charCodeAt(0)*53 + userId.charCodeAt(1)*37) % 360},55%,52%)`;
+
+    const row = document.createElement("div");
+    row.className = `lb-row${isMe ? " is-me" : ""}`;
+    row.innerHTML = `
+      <span class="lb-rank">${medals[i] || `#${i+1}`}</span>
+      <div class="lb-avatar" style="background:${avatarBg}">${initials}</div>
+      <span class="lb-name">${name}${isMe ? ' <span style="font-size:10px;color:var(--brand)">(You)</span>' : ""}</span>
+      <span class="lb-score">${stats.score}</span>`;
+    container.appendChild(row);
+  });
 }
 
-// ── Load aggregate stats for this student ──
+// ── Load student aggregate stats ──
 async function loadStudentStats(userId, coachingId) {
-  // Already partially done in loadRecentResults
-  // This fills in the streak
-  setText("statStreak", `${userProfile?.current_streak || 0} days`);
+  setText("statStreak", userProfile?.current_streak ? `${userProfile.current_streak}d` : "0d");
 }
 
-// ── Start exam ──
+// ─────────────────────────────────────────────────────────────
+//  Start / Resume Exam
+// ─────────────────────────────────────────────────────────────
 window.startExam = async function(examId, btn) {
   btn.disabled = true;
-  btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i>Preparing...`;
+  btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Preparing…`;
 
   try {
     const { data: examCheck } = await client
       .from("scheduled_exams")
-      .select("is_active, start_datetime, end_datetime, attempt_limit, exam_patterns(id, duration_minutes, question_source_pattern_id), category_id, coaching_id")
+      .select(`
+        is_active, start_datetime, end_datetime, attempt_limit,
+        exam_patterns!pattern_id( id, duration_minutes, pattern_sections( id, section_name, question_count ) ),
+        coaching_id
+      `)
       .eq("id", examId)
       .single();
 
     if (!examCheck?.is_active) throw new Error("This exam is no longer available.");
 
     const now = new Date();
-    if (examCheck.start_datetime && new Date(examCheck.start_datetime) > now) throw new Error("This exam hasn't started yet.");
-    if (examCheck.end_datetime && new Date(examCheck.end_datetime) < now) throw new Error("This exam has expired.");
+    if (examCheck.start_datetime && new Date(examCheck.start_datetime) > now)
+      throw new Error("This exam hasn't started yet.");
+    if (examCheck.end_datetime && new Date(examCheck.end_datetime) < now)
+      throw new Error("This exam has expired.");
 
     const { data: existingAttempts } = await client
       .from("attempts")
@@ -424,56 +516,60 @@ window.startExam = async function(examId, btn) {
     const incomplete = (existingAttempts || []).find(a => !a.submitted_at);
     if (incomplete) {
       const maxMs = (examCheck.exam_patterns?.duration_minutes || 60) * 60 * 1000 * 1.5;
-      const elapsed = Date.now() - new Date(incomplete.started_at).getTime();
-      if (elapsed <= maxMs) {
-        window.location.href = `/mock/exam.html?attempt=${incomplete.id}`;
-        return;
+      if (Date.now() - new Date(incomplete.started_at).getTime() <= maxMs) {
+        const { data: aqCheck } = await client
+          .from("attempt_questions").select("id").eq("attempt_id", incomplete.id).limit(1);
+        if (aqCheck?.length > 0) {
+          window.location.href = `/coaching/exam.html?attempt=${incomplete.id}`;
+          return;
+        }
+        await client.from("attempts").delete().eq("id", incomplete.id);
       }
     }
 
     if (examCheck.attempt_limit) {
       const done = (existingAttempts || []).filter(a => a.submitted_at).length;
-      if (done >= examCheck.attempt_limit) throw new Error(`Attempt limit reached (${examCheck.attempt_limit}).`);
+      if (done >= examCheck.attempt_limit)
+        throw new Error(`Attempt limit reached (${examCheck.attempt_limit}).`);
     }
 
     const { data: newAttempt, error: ae } = await client
       .from("attempts")
       .insert([{ user_id: currentUser.id, scheduled_exam_id: examId, started_at: new Date() }])
-      .select()
-      .single();
+      .select().single();
 
     if (ae) throw new Error(ae.message);
 
-    const patternId = examCheck.exam_patterns?.question_source_pattern_id || examCheck.exam_patterns?.id;
+    const sections = examCheck.exam_patterns?.pattern_sections || [];
+    if (!sections.length) throw new Error("No sections found for this exam.");
 
-    const { data: sections } = await client
-      .from("pattern_sections")
-      .select("id, section_name, question_count")
-      .eq("pattern_id", patternId);
-
-    if (!sections || sections.length === 0) throw new Error("No sections found for this exam.");
-
-    const sectionNames = sections.map(s => s.section_name);
-    const { data: questions } = await client
+    const sectionIds = sections.map(s => s.id);
+    const { data: allQRaw, error: qErr } = await client
       .from("questions")
-      .select("id, section_name, difficulty")
-      .eq("category_id", examCheck.category_id)
-      .eq("coaching_id", examCheck.coaching_id)
-      .in("section_name", sectionNames)
-      .eq("is_active", true);
+      .select("id, pattern_section_id, difficulty, is_active")
+      .in("pattern_section_id", sectionIds);
 
-    if (!questions || questions.length === 0) throw new Error("No questions found. Please contact your admin.");
+    if (qErr) throw new Error("Could not fetch questions: " + qErr.message);
+
+    const allQuestions = (allQRaw || []).filter(q =>
+      q.is_active !== false && q.is_active !== "false" && q.is_active !== null
+    );
+
+    if (!allQuestions.length)
+      throw new Error("No active questions found. Please contact your admin.");
 
     let finalQuestions = [];
     sections.forEach(sec => {
-      const pool = (questions || []).filter(q => q.section_name === sec.section_name);
-      const shuffled = pool.sort(() => Math.random() - 0.5).slice(0, sec.question_count || 0);
-      finalQuestions = finalQuestions.concat(shuffled);
+      const pool = allQuestions
+        .filter(q => q.pattern_section_id === sec.id)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, sec.question_count);
+      finalQuestions = finalQuestions.concat(pool);
     });
 
-    if (finalQuestions.length === 0) throw new Error("Could not assign questions. Contact admin.");
+    if (!finalQuestions.length) throw new Error("Could not assign questions. Contact admin.");
 
-    await client.from("attempt_questions").insert(
+    const { error: aqErr } = await client.from("attempt_questions").insert(
       finalQuestions.map((q, idx) => ({
         attempt_id: newAttempt.id,
         question_id: q.id,
@@ -481,21 +577,28 @@ window.startExam = async function(examId, btn) {
       }))
     );
 
-    window.location.href = `/mock/exam.html?attempt=${newAttempt.id}`;
+    if (aqErr) throw new Error("Failed to prepare exam: " + aqErr.message);
+
+    window.location.href = `/coaching/exam.html?attempt=${newAttempt.id}`;
+
   } catch (err) {
+    console.error("startExam error:", err);
     btn.disabled = false;
-    btn.innerHTML = `<i class="fas fa-play mr-1"></i>Start Exam`;
-    alert(err.message);
+    const color = coachingProfile?.primary_color || "#1a56db";
+    btn.innerHTML = `<i class="fas fa-play"></i> Start Exam`;
+    btn.style.background = `linear-gradient(135deg,${color},${shiftHex(color,-20)})`;
+    alert("Error: " + err.message);
   }
 };
 
 window.resumeExam = function(attemptId, btn) {
   btn.disabled = true;
-  btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i>Loading...`;
-  window.location.href = `/mock/exam.html?attempt=${attemptId}`;
+  btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Loading…`;
+  window.location.href = `/coaching/exam.html?attempt=${attemptId}`;
 };
 
 window.logout = async function() {
+  if (realtimeChannel) await client.removeChannel(realtimeChannel);
   await client.auth.signOut();
   window.location.href = "/index.html";
 };
@@ -506,23 +609,27 @@ function setText(id, val) {
   if (el) el.textContent = val;
 }
 
-function loadingHTML(size = "normal") {
-  const sz = size === "small" ? "text-xl" : "text-3xl";
-  return `<div class="text-center py-6 text-gray-300"><i class="fas fa-spinner fa-spin ${sz}"></i></div>`;
+function shiftHex(hex, amount) {
+  try {
+    const num = parseInt(hex.replace("#",""), 16);
+    const r = Math.min(255, Math.max(0, (num >> 16) + amount));
+    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xFF) + amount));
+    const b = Math.min(255, Math.max(0, (num & 0xFF) + amount));
+    return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+  } catch { return hex; }
 }
 
 function errorHTML(msg) {
-  return `<p class="text-red-500 text-sm text-center py-4">${msg}</p>`;
+  return `<p style="color:#dc2626;font-size:12px;text-align:center;padding:16px">${msg}</p>`;
 }
 
 function showError(msg) {
   document.body.innerHTML = `
-    <div class="min-h-screen flex items-center justify-center">
-      <div class="text-center p-8">
-        <div class="text-5xl mb-4">⚠️</div>
-        <h2 class="text-xl font-bold text-gray-700 mb-2">Error</h2>
-        <p class="text-gray-500">${msg}</p>
-        <a href="/index.html" class="mt-6 inline-block bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700">Go Home</a>
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center">
+      <div style="text-align:center;padding:40px">
+        <div style="font-size:48px;margin-bottom:16px">⚠️</div>
+        <p style="color:#64748b;margin-bottom:20px;font-family:'Outfit',sans-serif">${msg}</p>
+        <a href="/index.html" style="background:#1a56db;color:#fff;padding:10px 24px;border-radius:100px;font-weight:700;text-decoration:none;font-family:'Outfit',sans-serif">Go Home</a>
       </div>
     </div>`;
 }
