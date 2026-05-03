@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join | Courage Library</title>
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%); min-height: 100vh; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { animation: spin 0.8s linear infinite; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 py-10">
+
+  <!-- Loading state -->
+  <div id="loadingState" class="text-center fade-up">
+    <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full spinner mx-auto mb-4"></div>
+    <p class="text-gray-500 font-medium">Loading coaching details...</p>
+  </div>
+
+  <!-- Error state -->
+  <div id="errorState" class="hidden text-center fade-up max-w-sm">
+    <div class="text-5xl mb-4">😕</div>
+    <h2 class="text-xl font-bold text-gray-800 mb-2">Link Not Found</h2>
+    <p id="errorMsg" class="text-gray-500 text-sm mb-6">This coaching link doesn't seem to be valid.</p>
+    <a href="/index.html" class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-blue-700 transition">
+      <i class="fas fa-home"></i> Go to Home
+    </a>
+  </div>
+
+  <!-- Main coaching card -->
+  <div id="mainCard" class="hidden fade-up w-full max-w-md">
+    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+      <!-- Coaching header (branded) -->
+      <div id="coachingHeader" class="p-8 text-center text-white" style="background: linear-gradient(135deg, #1a56db, #1e3a8a);">
+        <img src="/images/logo.png" alt="Logo" class="w-12 h-12 rounded-2xl mx-auto mb-3 bg-white p-1.5 shadow-lg">
+        <p class="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-1">Powered by Courage Library</p>
+        <h1 id="coachingName" class="text-2xl font-extrabold">Loading...</h1>
+        <p id="coachingCity" class="text-blue-200 text-sm mt-1 hidden"></p>
+      </div>
+
+      <!-- Status message -->
+      <div class="px-8 py-6">
+
+        <!-- Already logged in — link account -->
+        <div id="alreadyLoggedIn" class="hidden">
+          <div class="bg-green-50 border border-green-200 rounded-2xl p-4 mb-5 text-center">
+            <p class="text-green-700 font-semibold text-sm">You're already logged in!</p>
+            <p id="linkedStatus" class="text-green-600 text-xs mt-1"></p>
+          </div>
+          <button id="linkBtn"
+            onclick="linkCoaching()"
+            class="w-full py-3 rounded-full font-bold text-white text-sm shadow transition hover:scale-105"
+            style="background: linear-gradient(135deg, #1a56db, #4f46e5);">
+            <i class="fas fa-link mr-2"></i> Link to This Coaching
+          </button>
+          <a href="/coaching/dashboard.html"
+            class="block text-center mt-3 text-sm text-blue-600 font-semibold hover:text-blue-800">
+            Go to My Dashboard →
+          </a>
+        </div>
+
+        <!-- Not logged in — sign up or login -->
+        <div id="notLoggedIn" class="hidden">
+          <p class="text-gray-600 text-sm text-center mb-5 leading-relaxed">
+            Create a free account to access mock tests organized by
+            <strong id="coachingNameInline">your coaching</strong>.
+          </p>
+
+          <a id="signupBtn" href="#"
+            class="flex items-center justify-center gap-2 w-full py-3 rounded-full font-bold text-white text-sm shadow hover:scale-105 transition mb-3"
+            style="background: linear-gradient(135deg, #1a56db, #4f46e5);">
+            <i class="fas fa-user-plus"></i> Create Free Account
+          </a>
+          <a id="loginBtn" href="#"
+            class="flex items-center justify-center gap-2 w-full py-3 rounded-full font-bold text-sm border-2 border-blue-200 text-blue-700 hover:bg-blue-50 transition">
+            <i class="fas fa-sign-in-alt"></i> Already have an account? Log In
+          </a>
+
+          <p class="text-center text-xs text-gray-400 mt-4">
+            Your account will be linked to <strong id="coachingNameFooter"></strong> automatically.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
+
+    const { createClient } = supabase;
+    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let coachingData = null;
+
+    // ── Extract slug from URL path: /c/ssc-pathshala ──
+    function getSlugFromPath() {
+      const parts = window.location.pathname.split("/c/");
+      return parts[1]?.split("/")[0]?.trim() || null;
+    }
+
+    function showError(msg) {
+      document.getElementById("loadingState").classList.add("hidden");
+      document.getElementById("errorState").classList.remove("hidden");
+      document.getElementById("errorMsg").textContent = msg;
+    }
+
+    async function init() {
+      const slug = getSlugFromPath();
+      if (!slug) { showError("No coaching slug found in this link."); return; }
+
+      // Fetch coaching center
+      const { data: coaching, error } = await client
+        .from("coaching_centers")
+        .select("id, name, slug, city, primary_color, is_active")
+        .eq("slug", slug)
+        .single();
+
+      if (error || !coaching) { showError("This coaching center link is not valid or has been deactivated."); return; }
+      if (!coaching.is_active) { showError(`"${coaching.name}" is currently inactive. Please contact them.`); return; }
+
+      coachingData = coaching;
+
+      // Store slug in sessionStorage so login/signup page can read it after redirect
+      sessionStorage.setItem("join_coaching_id", coaching.id);
+      sessionStorage.setItem("join_coaching_name", coaching.name);
+      sessionStorage.setItem("join_coaching_slug", coaching.slug);
+
+      // Apply branding
+      const color = coaching.primary_color || "#1a56db";
+      document.getElementById("coachingHeader").style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+      document.getElementById("coachingName").textContent = coaching.name;
+      document.getElementById("coachingNameInline").textContent = coaching.name;
+      document.getElementById("coachingNameFooter").textContent = coaching.name;
+
+      if (coaching.city) {
+        document.getElementById("coachingCity").textContent = `📍 ${coaching.city}`;
+        document.getElementById("coachingCity").classList.remove("hidden");
+      }
+
+      // Build auth links with coaching context
+      const base = "/index.html";
+      const coachingParam = `&coaching=${coaching.slug}`;
+      document.getElementById("signupBtn").href = `${base}?action=signup${coachingParam}`;
+      document.getElementById("loginBtn").href = `${base}?action=login${coachingParam}`;
+
+      // Show main card
+      document.getElementById("loadingState").classList.add("hidden");
+      document.getElementById("mainCard").classList.remove("hidden");
+
+      // Check if already logged in
+      const { data: { user } } = await client.auth.getUser();
+      if (user) {
+        // Check if already linked to a coaching
+        const { data: profile } = await client
+          .from("user_profiles")
+          .select("coaching_id")
+          .eq("id", user.id)
+          .single();
+
+        document.getElementById("alreadyLoggedIn").classList.remove("hidden");
+
+        if (profile?.coaching_id === coaching.id) {
+          document.getElementById("linkedStatus").textContent = `Already linked to ${coaching.name}`;
+          document.getElementById("linkBtn").textContent = "Go to My Dashboard";
+          document.getElementById("linkBtn").onclick = () => {
+            window.location.href = "/coaching/dashboard.html";
+          };
+        } else if (profile?.coaching_id && profile.coaching_id !== coaching.id) {
+          document.getElementById("linkedStatus").textContent = "You are already linked to a different coaching center.";
+          document.getElementById("linkBtn").disabled = true;
+          document.getElementById("linkBtn").style.opacity = "0.5";
+          document.getElementById("linkBtn").textContent = "Already linked to another coaching";
+        }
+      } else {
+        document.getElementById("notLoggedIn").classList.remove("hidden");
+      }
+    }
+
+    // ── Link already-logged-in user to coaching ──
+    window.linkCoaching = async function() {
+      if (!coachingData) return;
+      const btn = document.getElementById("linkBtn");
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Linking...`;
+
+      const { data: { user } } = await client.auth.getUser();
+      if (!user) { window.location.href = `/index.html?action=login&coaching=${coachingData.slug}`; return; }
+
+      const { error } = await client
+        .from("user_profiles")
+        .update({ coaching_id: coachingData.id })
+        .eq("id", user.id);
+
+      if (error) {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-link mr-2"></i> Link to This Coaching`;
+        alert("Could not link. Please try again.");
+        return;
+      }
+
+      // Clear session storage, redirect to coaching dashboard
+      sessionStorage.removeItem("join_coaching_id");
+      window.location.href = "/coaching/dashboard.html";
+    };
+
+    init();
+  </script>
+
+</body>
+</html>
