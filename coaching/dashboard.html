@@ -3,199 +3,688 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Coaching</title>
+  <title>Dashboard | Courage Library</title>
   <link rel="icon" type="image/png" href="/images/logo.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    *, body { font-family: 'Sora', sans-serif; }
-    body { background: #f1f5f9; min-height: 100vh; }
-
-    .card {
-      background: #fff;
-      border-radius: 1.25rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    :root {
+      --brand: #1a56db;
+      --brand-dark: #1240a8;
+      --brand-light: #eff6ff;
+      --gold: #f59e0b;
+      --surface: #ffffff;
+      --bg: #f0f4fa;
+      --border: #e4ecf7;
+      --text: #0d1829;
+      --text-2: #4a6080;
+      --text-3: #94a3b8;
+      --radius: 20px;
+      --radius-sm: 14px;
+      --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-md: 0 2px 6px rgba(0,0,0,0.05), 0 8px 28px rgba(0,0,0,0.09);
+      --shadow-lg: 0 4px 16px rgba(0,0,0,0.06), 0 20px 50px rgba(0,0,0,0.12);
     }
 
-    .stat-card {
-      background: #fff;
-      border-radius: 1rem;
-      padding: 1.25rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
     }
-    .stat-card:hover { transform: translateY(-2px); }
 
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #c8d8ee; border-radius: 10px; }
+
+    /* ── LIVE INDICATOR ── */
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.5);
+      animation: pulse-ring 1.6s ease-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      70%  { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+
+    /* ── Nav ── */
+    .nav-bar {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(228,236,247,0.8);
+      position: sticky; top: 0; z-index: 200;
+    }
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto;
+      padding: 0 20px;
+      height: 58px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .nav-brand img {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    .nav-brand-name {
+      font-size: 15px; font-weight: 800;
+      color: var(--brand);
+      letter-spacing: -0.3px;
+    }
+    .nav-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-chip {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700;
+      padding: 6px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.18s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-chip:hover { background: var(--bg); }
+    .nav-chip.trophy { color: #92400e; background: #fffbeb; border-color: #fde68a; }
+    .nav-chip.trophy:hover { background: #fef3c7; }
+    .nav-chip.danger { color: #dc2626; background: #fef2f2; border-color: #fecaca; }
+    .nav-chip.danger:hover { background: #fee2e2; }
+
+    /* ── Hero ── */
+    .hero {
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; }
+    .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .hero-greeting { font-size: 12px; font-weight: 600; opacity: 0.65; margin-bottom: 4px; letter-spacing: 0.02em; }
+    .hero-name {
+      font-size: clamp(20px, 4vw, 28px);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+    .hero-coaching {
+      margin-top: 6px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .hero-coaching-name {
+      font-size: 13px; font-weight: 600; opacity: 0.8;
+    }
+    .hero-city { font-size: 12px; opacity: 0.55; }
+    .hero-stat-strip {
+      display: flex; gap: 3px;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 3px;
+    }
+    .hero-stat {
+      flex: 1; text-align: center;
+      padding: 10px 8px;
+      border-radius: 11px;
+      transition: background 0.2s;
+    }
+    .hero-stat:hover { background: rgba(255,255,255,0.08); }
+    .hero-stat-val {
+      font-size: 20px; font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .hero-stat-lbl {
+      font-size: 10px; font-weight: 600;
+      opacity: 0.6; margin-top: 3px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero-rank-badge {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 16px;
+      padding: 14px 20px;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 90px;
+    }
+    .hero-rank-badge p:first-child { font-size: 10px; font-weight: 700; opacity: 0.55; text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-rank-val { font-size: 36px; font-weight: 800; line-height: 1.1; }
+    .hero-rank-of { font-size: 11px; opacity: 0.5; margin-top: 2px; }
+
+    /* ── LIVE TICKER ── */
+    .live-ticker {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      overflow: hidden;
+    }
+    .ticker-label {
+      font-size: 11px; font-weight: 800; color: #22c55e;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 5px;
+      flex-shrink: 0;
+    }
+    .ticker-scroll {
+      flex: 1; overflow: hidden;
+      position: relative; height: 20px;
+    }
+    .ticker-item {
+      font-size: 12px; font-weight: 600; color: var(--text-2);
+      white-space: nowrap;
+      position: absolute; top: 0; left: 0;
+      width: 100%; opacity: 0;
+      transform: translateY(100%);
+      transition: all 0.5s ease;
+    }
+    .ticker-item.active {
+      opacity: 1; transform: translateY(0);
+    }
+    .ticker-item.exit {
+      opacity: 0; transform: translateY(-100%);
+    }
+
+    /* ── Main Grid ── */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 13px; font-weight: 800;
+      color: var(--text);
+      display: flex; align-items: center; gap: 7px;
+    }
+    .section-title-icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+    .section-link {
+      font-size: 12px; font-weight: 700;
+      color: var(--brand);
+      text-decoration: none;
+      opacity: 0.8;
+    }
+    .section-link:hover { opacity: 1; }
+
+    /* ── Exam Cards ── */
     .exam-card {
-      animation: fadeUp 0.4s ease both;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      animation: slideUp 0.35s ease both;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
-    @keyframes fadeUp {
-      from { opacity:0; transform: translateY(16px); }
-      to   { opacity:1; transform: translateY(0); }
+    .exam-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .exam-card-stripe {
+      height: 4px;
+    }
+    .exam-card-body { padding: 18px 18px 16px; }
+    .exam-header {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .exam-category {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--text-3); margin-bottom: 3px;
+    }
+    .exam-name {
+      font-size: 15px; font-weight: 800;
+      color: var(--text); line-height: 1.3;
+    }
+    .exam-badge {
+      font-size: 10px; font-weight: 800;
+      padding: 4px 10px; border-radius: 100px;
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .exam-stats {
+      display: flex; gap: 6px; margin-bottom: 14px;
+    }
+    .exam-stat-box {
+      flex: 1; background: var(--bg);
+      border-radius: 10px; padding: 8px 10px;
+      text-align: center; border: 1px solid var(--border);
+    }
+    .exam-stat-box .val {
+      font-size: 14px; font-weight: 800;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .exam-stat-box .lbl {
+      font-size: 10px; color: var(--text-3);
+      font-weight: 600; margin-top: 1px;
+    }
+    .exam-result-strip {
+      display: flex; gap: 6px;
+      background: #f0fdf4;
+      border-radius: 10px;
+      padding: 8px 12px;
+      border: 1px solid #bbf7d0;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .exam-result-strip .score { font-size: 18px; font-weight: 900; color: #065f46; font-family: 'JetBrains Mono', monospace; }
+    .exam-result-strip .acc { font-size: 11px; font-weight: 700; color: #059669; margin-left: auto; }
+
+    /* ── Buttons ── */
+    .btn {
+      width: 100%; border: none; border-radius: 11px;
+      font-size: 13px; font-weight: 800;
+      padding: 11px 16px;
+      cursor: pointer; transition: all 0.18s;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      letter-spacing: 0.02em;
+      font-family: 'Outfit', sans-serif;
+    }
+    .btn-primary { color: #fff; }
+    .btn-primary:hover:not(:disabled) {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+    .btn-ghost {
+      background: var(--bg);
+      color: var(--text-2);
+      border: 1px solid var(--border);
+      margin-top: 7px;
+      font-size: 12px;
+    }
+    .btn-ghost:hover { background: var(--border); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+    /* ── Sidebar cards ── */
+    .side-card {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .side-card-header {
+      padding: 14px 16px 0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .side-card-title {
+      font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--text-3);
+    }
+    .side-card-body { padding: 14px 16px; }
+
+    /* ── Streak card ── */
+    .streak-card {
+      background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%);
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      text-align: center;
+    }
+    .streak-emoji { font-size: 38px; line-height: 1; display: block; margin-bottom: 6px; }
+    .streak-val { font-size: 32px; font-weight: 900; color: #c2410c; letter-spacing: -1px; }
+    .streak-lbl { font-size: 11px; font-weight: 700; color: #92400e; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── Leaderboard preview rows ── */
+    .lb-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f4f7fb;
+    }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-rank { font-size: 12px; font-weight: 800; color: var(--text-3); width: 18px; text-align: center; flex-shrink: 0; }
+    .lb-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff;
+      flex-shrink: 0;
+    }
+    .lb-name { font-size: 13px; font-weight: 700; color: var(--text); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lb-score { font-size: 13px; font-weight: 800; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+    .lb-row.is-me { background: #eff6ff; margin: 0 -16px; padding: 8px 16px; border-radius: 0; border-bottom-color: #dbeafe; }
+
+    /* ── Recent results ── */
+    .result-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid #f4f7fb;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .result-info { flex: 1; min-width: 0; }
+    .result-name { font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .result-date { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+    .result-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .result-score { font-size: 14px; font-weight: 800; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+    .acc-pill {
+      font-size: 10px; font-weight: 800;
+      padding: 2px 8px; border-radius: 100px;
+    }
+    .result-link { font-size: 11px; color: var(--brand); opacity: 0.7; }
+    .result-link:hover { opacity: 1; }
+
+    /* ── Coins chip in nav ── */
+    .coins-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 700;
     }
 
-    /* Nav */
-    .nav-link { font-size: 0.85rem; font-weight: 600; color: #64748b; transition: color 0.15s; }
-    .nav-link:hover { color: #1a56db; }
+    /* ── Skeleton ── */
+    .sk {
+      background: linear-gradient(90deg, #edf2f9 25%, #e2eaf5 50%, #edf2f9 75%);
+      background-size: 300% 100%;
+      animation: sh 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes sh { 0%{background-position:200% 0} 100%{background-position:-100% 0} }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    /* ── Empty state ── */
+    .empty { text-align: center; padding: 40px 16px; color: var(--text-3); }
+    .empty-icon { font-size: 32px; opacity: 0.25; display: block; margin-bottom: 10px; }
+    .empty-msg { font-size: 13px; font-weight: 700; }
+    .empty-sub { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+    /* ── Live update flash ── */
+    @keyframes flashGreen {
+      0% { background-color: #f0fdf4; }
+      50% { background-color: #dcfce7; }
+      100% { background-color: transparent; }
+    }
+    .flash-new { animation: flashGreen 1s ease; }
+
+    /* ── Coins ── */
+    #coinsBadge {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      .hero-stat-strip { gap: 2px; }
+      .hero-stat { padding: 8px 4px; }
+      .hero-stat-val { font-size: 17px; }
+      .hero-rank-badge { display: none; }
+      .nav-chip.trophy span { display: none; }
+      .nav-brand-name { font-size: 13px; }
+      .nav-chip { padding: 5px 9px; gap: 4px; font-size: 11px; }
+      #coinsBadge .coins-chip { max-width: 52px; overflow: hidden; text-overflow: ellipsis; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ── NAVBAR ── -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
-
-      <!-- Logo + Coaching badge -->
-      <div class="flex items-center gap-3">
-        <img src="/images/logo.png" alt="Courage Library" class="w-7 h-7">
-        <div class="hidden sm:block">
-          <span class="text-xs font-semibold text-gray-400">Powered by</span>
-          <span class="text-sm font-bold text-blue-700 ml-1">Courage Library</span>
+  <!-- NAVBAR -->
+  <nav class="nav-bar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="/images/logo.png" alt="Courage Library Logo">
+        <span class="nav-brand-name">Courage Library</span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-chip" id="coinsBadge">
+          <i class="fas fa-coins" style="color:#f59e0b;font-size:11px"></i>
+          <span class="coins-chip" id="statCoins">—</span>
         </div>
-        <span id="navCoachingBadge"
-          class="text-xs font-bold px-3 py-1 rounded-full border coaching-name"
-          style="background:#e0e7ff;color:#4338ca;border-color:#c7d2fe">
-          Loading...
-        </span>
-      </div>
-
-      <!-- Nav links -->
-      <div class="flex items-center gap-4">
-        <a href="/coaching/leaderboard.html" class="nav-link hidden sm:block">
-          <i class="fas fa-trophy mr-1"></i>Leaderboard
+        <a href="/coaching/leaderboard.html" class="nav-chip trophy">
+          <i class="fas fa-trophy" style="font-size:11px"></i>
+          <span>Leaderboard</span>
         </a>
-        <span class="text-xs font-semibold text-gray-500 hidden sm:block">
-          <i class="fas fa-coins mr-1 text-amber-500"></i><span id="statCoins">—</span>
-        </span>
-        <button onclick="logout()"
-          class="text-xs font-semibold text-red-500 hover:text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-50 transition">
-          <i class="fas fa-sign-out-alt mr-1"></i>Logout
+        <button onclick="logout()" class="nav-chip danger">
+          <i class="fas fa-sign-out-alt" style="font-size:11px"></i>
         </button>
       </div>
     </div>
   </nav>
 
-  <main class="max-w-6xl mx-auto px-4 py-8">
+  <main style="max-width:1080px;margin:0 auto;padding:20px 20px 40px;display:flex;flex-direction:column;gap:18px">
 
-    <!-- ── COACHING HEADER BANNER ── -->
-    <div id="coachingHeader" class="card p-6 mb-6 border border-blue-50" style="background:linear-gradient(135deg,#eff6ff,#eef2ff)">
-      <div class="flex items-center justify-between gap-4">
-        <div class="flex items-center gap-4">
-          <img class="coaching-logo hidden w-14 h-14 rounded-2xl object-cover shadow-md border-2 border-white" src="" alt="Coaching Logo">
-          <div>
-            <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider mb-0.5">Welcome back</p>
-            <h1 class="text-2xl font-extrabold text-gray-800">
-              <span id="greetingName">Student</span> 👋
-            </h1>
-            <p class="text-sm text-gray-500 mt-0.5">
-              <span class="coaching-name font-semibold"></span>
-              <span id="coachingCity" class="ml-2 text-xs text-gray-400"></span>
-            </p>
+    <!-- HERO -->
+    <div id="heroBanner" class="hero" style="background:linear-gradient(135deg,#1a56db 0%,#3b4fd8 100%)">
+      <div class="hero-noise"></div>
+      <div class="hero-orb" style="width:300px;height:300px;top:-120px;right:-80px"></div>
+      <div class="hero-orb" style="width:140px;height:140px;bottom:-60px;left:20px;opacity:0.5"></div>
+      <div class="hero-content">
+        <div class="hero-top">
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+              <img class="coaching-logo" style="display:none;width:42px;height:42px;border-radius:11px;object-fit:cover;border:2px solid rgba(255,255,255,0.3)" src="" alt="">
+              <div>
+                <p class="hero-greeting">👋 Welcome back</p>
+                <h1 class="hero-name" id="greetingName">Student</h1>
+              </div>
+            </div>
+            <div class="hero-coaching">
+              <span class="hero-coaching-name coaching-name"></span>
+              <span class="hero-city" id="coachingCity"></span>
+            </div>
+          </div>
+          <div class="hero-rank-badge" id="heroRankBadge" style="display:none">
+            <p>Your Rank</p>
+            <div class="hero-rank-val" id="myRank">—</div>
+            <p class="hero-rank-of" id="myRankOf"></p>
           </div>
         </div>
-        <a href="/coaching/leaderboard.html"
-          class="hidden sm:flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-xl text-white shadow hover:scale-105 transition coaching-color-bg"
-          style="background:linear-gradient(135deg,#1a56db,#4f46e5)">
-          <i class="fas fa-trophy"></i> View Leaderboard
-        </a>
-      </div>
-    </div>
 
-    <!-- ── STATS ROW ── -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <div class="stat-card text-center">
-        <div class="text-2xl font-extrabold text-blue-600" id="statAttempts">—</div>
-        <div class="text-xs text-gray-400 font-semibold mt-1">Exams Attempted</div>
-      </div>
-      <div class="stat-card text-center">
-        <div class="text-2xl font-extrabold text-green-600" id="statAvgScore">—</div>
-        <div class="text-xs text-gray-400 font-semibold mt-1">Avg Accuracy</div>
-      </div>
-      <div class="stat-card text-center">
-        <div class="text-2xl font-extrabold text-purple-600" id="statBestScore">—</div>
-        <div class="text-xs text-gray-400 font-semibold mt-1">Best Score</div>
-      </div>
-      <div class="stat-card text-center">
-        <div class="text-2xl font-extrabold text-amber-500" id="myRank">—</div>
-        <div class="text-xs text-gray-400 font-semibold mt-1">My Rank</div>
-      </div>
-    </div>
-
-    <!-- ── MAIN GRID ── -->
-    <div class="grid md:grid-cols-3 gap-6">
-
-      <!-- LEFT: Exams (2/3 width) -->
-      <div class="md:col-span-2">
-        <div class="card p-6">
-          <div class="flex items-center justify-between mb-5">
-            <h2 class="text-lg font-extrabold text-gray-800 flex items-center gap-2">
-              <i class="fas fa-clipboard-list coaching-color-text" style="color:#1a56db"></i>
-              My Exams
-            </h2>
-            <span class="text-xs text-gray-400 font-medium">Scheduled by your coaching</span>
+        <div class="hero-stat-strip">
+          <div class="hero-stat">
+            <div class="hero-stat-val" id="statAttempts">—</div>
+            <div class="hero-stat-lbl">Exams Done</div>
           </div>
-          <div id="examList" class="space-y-4">
-            <!-- Exam cards injected here -->
+          <div class="hero-stat">
+            <div class="hero-stat-val" id="statAvgScore">—</div>
+            <div class="hero-stat-lbl">Avg Accuracy</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val" id="statBestScore">—</div>
+            <div class="hero-stat-lbl">Best Score</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val" id="statStreak">—</div>
+            <div class="hero-stat-lbl">🔥 Streak</div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- RIGHT: Stats sidebar (1/3 width) -->
-      <div class="space-y-5">
+    <!-- LIVE TICKER -->
+    <div class="live-ticker">
+      <span class="ticker-label">
+        <span class="live-dot"></span>
+        LIVE
+      </span>
+      <div class="ticker-scroll" id="tickerScroll">
+        <div class="ticker-item active" id="tickerDefault">Monitoring live exam activity in your batch…</div>
+      </div>
+    </div>
 
-        <!-- Leaderboard preview -->
-        <div class="card p-5">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="font-extrabold text-gray-800 text-sm flex items-center gap-2">
-              <i class="fas fa-trophy text-amber-500"></i> Top Performers
-            </h3>
-            <a href="/coaching/leaderboard.html" class="text-xs text-blue-500 font-semibold hover:text-blue-700">
-              Full Board →
-            </a>
+    <!-- MAIN GRID -->
+    <div class="main-grid">
+
+      <!-- LEFT: Exam List -->
+      <div>
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-title-icon" id="examIconWrap" style="background:#eff6ff">
+              <i class="fas fa-clipboard-list" style="color:#1a56db"></i>
+            </div>
+            My Exams
           </div>
-          <div id="leaderboardPreview" class="space-y-1">
-            <!-- top 5 rows injected here -->
+          <span style="font-size:11px;color:var(--text-3);font-weight:600">Assigned by your coaching</span>
+        </div>
+        <div id="examList" style="display:flex;flex-direction:column;gap:12px">
+          <!-- Skeleton -->
+          <div class="exam-card">
+            <div class="exam-card-stripe sk"></div>
+            <div class="exam-card-body">
+              <div class="sk" style="height:11px;width:30%;margin-bottom:8px"></div>
+              <div class="sk" style="height:17px;width:70%;margin-bottom:14px"></div>
+              <div style="display:flex;gap:6px;margin-bottom:14px">
+                <div class="sk" style="flex:1;height:52px;border-radius:10px"></div>
+                <div class="sk" style="flex:1;height:52px;border-radius:10px"></div>
+                <div class="sk" style="flex:1;height:52px;border-radius:10px"></div>
+              </div>
+              <div class="sk" style="height:42px;border-radius:11px"></div>
+            </div>
+          </div>
+          <div class="exam-card">
+            <div class="exam-card-stripe sk"></div>
+            <div class="exam-card-body">
+              <div class="sk" style="height:11px;width:25%;margin-bottom:8px"></div>
+              <div class="sk" style="height:17px;width:60%;margin-bottom:14px"></div>
+              <div style="display:flex;gap:6px;margin-bottom:14px">
+                <div class="sk" style="flex:1;height:52px;border-radius:10px"></div>
+                <div class="sk" style="flex:1;height:52px;border-radius:10px"></div>
+                <div class="sk" style="flex:1;height:52px;border-radius:10px"></div>
+              </div>
+              <div class="sk" style="height:42px;border-radius:11px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <div style="display:flex;flex-direction:column;gap:14px">
+
+        <!-- Streak -->
+        <div class="streak-card">
+          <span class="streak-emoji">🔥</span>
+          <div class="streak-val" id="sideStreak">—</div>
+          <div class="streak-lbl">Day Streak</div>
+        </div>
+
+        <!-- Leaderboard Preview -->
+        <div class="side-card">
+          <div class="side-card-header">
+            <span class="side-card-title">🏆 Top in Batch</span>
+            <a href="/coaching/leaderboard.html" class="section-link">See all →</a>
+          </div>
+          <div class="side-card-body" id="leaderboardPreview">
+            <div class="sk" style="height:32px;border-radius:8px;margin-bottom:6px"></div>
+            <div class="sk" style="height:32px;border-radius:8px;margin-bottom:6px"></div>
+            <div class="sk" style="height:32px;border-radius:8px"></div>
           </div>
         </div>
 
         <!-- Recent Results -->
-        <div class="card p-5">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="font-extrabold text-gray-800 text-sm flex items-center gap-2">
-              <i class="fas fa-history text-blue-400"></i> Recent Results
-            </h3>
+        <div class="side-card">
+          <div class="side-card-header">
+            <span class="side-card-title">📋 Recent Results</span>
           </div>
-          <div id="recentResults">
-            <!-- Result rows injected here -->
+          <div class="side-card-body" id="recentResults">
+            <div class="sk" style="height:28px;border-radius:8px;margin-bottom:6px"></div>
+            <div class="sk" style="height:28px;border-radius:8px;margin-bottom:6px"></div>
+            <div class="sk" style="height:28px;border-radius:8px"></div>
           </div>
-        </div>
-
-        <!-- Streak card -->
-        <div class="card p-5 text-center">
-          <div class="text-3xl mb-1">🔥</div>
-          <div class="text-2xl font-extrabold text-orange-500" id="statStreak">—</div>
-          <div class="text-xs text-gray-400 font-semibold">Current Streak</div>
         </div>
 
       </div>
     </div>
 
-    <!-- Footer note -->
-    <div class="text-center mt-10 text-xs text-gray-400 space-y-1">
-      <p>Exams on this dashboard are exclusively for <strong class="coaching-name text-gray-500"></strong> students.</p>
-      <p>Powered by <a href="https://couragelibrary.in" class="text-blue-500 hover:underline">Courage Library</a></p>
+    <!-- Footer -->
+    <div style="text-align:center;font-size:12px;color:var(--text-3);padding-top:8px">
+      <p>Exams are exclusively for <strong class="coaching-name" style="color:var(--text-2)"></strong> students.</p>
+      <p style="margin-top:4px">Powered by <a href="https://couragelibrary.in" style="color:var(--brand);text-decoration:none;font-weight:700">Courage Library</a></p>
     </div>
 
   </main>
 
   <script src="/js/coachingDashboard.js"></script>
+  <script>
+    // ── LIVE TICKER ENGINE ──
+    const tickerMessages = [];
+    let tickerIndex = 0;
+    let tickerTimeout = null;
+
+    function addTickerMessage(msg) {
+      tickerMessages.push(msg);
+      if (tickerMessages.length === 1) rotateTicker();
+    }
+
+    function rotateTicker() {
+      const scroll = document.getElementById("tickerScroll");
+      if (!scroll || !tickerMessages.length) return;
+
+      const prev = scroll.querySelector(".ticker-item.active");
+      if (prev) {
+        prev.classList.remove("active");
+        prev.classList.add("exit");
+        setTimeout(() => prev.remove(), 500);
+      }
+
+      const item = document.createElement("div");
+      item.className = "ticker-item";
+      item.textContent = tickerMessages[tickerIndex % tickerMessages.length];
+      scroll.appendChild(item);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => item.classList.add("active"));
+      });
+
+      tickerIndex++;
+      if (tickerMessages.length > 1) {
+        tickerTimeout = setTimeout(rotateTicker, 4000);
+      }
+    }
+
+    // Expose for dashboard JS to call
+    window.pushTickerEvent = function(msg) {
+      // Remove default message if present
+      const def = document.getElementById("tickerDefault");
+      if (def) {
+        def.classList.remove("active");
+        def.classList.add("exit");
+        setTimeout(() => def.remove(), 500);
+      }
+      if (tickerTimeout) clearTimeout(tickerTimeout);
+      tickerMessages.push(msg);
+      tickerIndex = tickerMessages.length - 1;
+      rotateTicker();
+    };
+  </script>
 </body>
 </html>
