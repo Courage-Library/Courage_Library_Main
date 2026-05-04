@@ -514,280 +514,143 @@
         </div>
     </div>
 
-    <!-- ── RULES MODAL ── -->
-    <div id="rulesModal"
-        class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 px-3 py-4 sm:px-6 sm:py-8">
-        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[94vh] overflow-hidden">
+    <!-- ── COMPACT RULES MODAL ── -->
+    <div id="rulesModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 px-3 py-4">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
 
-            <!-- Header with gradient + close X (only mid-exam) -->
-            <div
-                class="bg-gradient-to-br from-blue-600 via-blue-600 to-indigo-700 px-6 pt-6 pb-6 text-white flex-shrink-0 relative">
-                <!-- decorative circles -->
-                <div
-                    class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none">
-                </div>
-                <div
-                    class="absolute bottom-0 left-8 w-20 h-20 bg-white/5 rounded-full translate-y-1/2 pointer-events-none">
-                </div>
-
-                <div class="relative flex items-start gap-4">
-                    <div
-                        class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                        </svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="text-blue-200 text-xs font-semibold uppercase tracking-widest mb-1">Exam
-                            Instructions</div>
-                        <h2 id="rulesExamTitle" class="text-lg sm:text-xl font-extrabold leading-tight">Test
-                            Instructions</h2>
-                        <p class="text-blue-200 text-xs mt-1">Please read all instructions carefully before you begin
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 3 quick-stat chips in header -->
-                <div class="relative grid grid-cols-3 gap-2 mt-5">
-                    <div class="bg-white/15 rounded-xl px-3 py-2.5 flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-200 flex-shrink-0" fill="none"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                        <div>
-                            <div class="text-white text-xs font-semibold leading-none">Timed</div>
-                            <div class="text-blue-300 text-xs mt-0.5 leading-none">Cannot pause</div>
-                        </div>
-                    </div>
-                    <div class="bg-white/15 rounded-xl px-3 py-2.5 flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-200 flex-shrink-0" fill="none"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" />
-                        </svg>
-                        <div>
-                            <div class="text-white text-xs font-semibold leading-none">Editable</div>
-                            <div class="text-blue-300 text-xs mt-0.5 leading-none">Change anytime</div>
-                        </div>
-                    </div>
-                    <div class="bg-white/15 rounded-xl px-3 py-2.5 flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-200 flex-shrink-0" fill="none"
-                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-                        </svg>
-                        <div>
-                            <div class="text-white text-xs font-semibold leading-none">Mark & Review</div>
-                            <div class="text-blue-300 text-xs mt-0.5 leading-none">Revisit later</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scrollable content -->
-            <div class="px-5 py-4 overflow-y-auto flex-1 space-y-3">
-
-                <!-- General -->
-                <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <div class="bg-blue-50 px-4 py-2.5 flex items-center gap-2.5 border-b border-blue-100">
-                        <div
-                            class="w-6 h-6 bg-blue-600 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">
-                            1</div>
-                        <span class="font-semibold text-gray-800 text-sm">General Guidelines</span>
-                    </div>
-                    <ul class="px-4 py-3 space-y-2 text-gray-600 text-xs">
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0 mt-1.5"></span>This test
-                            simulates real competitive exam conditions.</li>
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0 mt-1.5"></span>Timer starts
-                            immediately after clicking <span class="text-blue-700 font-semibold">Begin Test
-                                Session</span>.</li>
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0 mt-1.5"></span>Once started,
-                            the timer cannot be paused under any circumstance.</li>
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0 mt-1.5"></span>Test
-                            auto-submits when the time limit expires.</li>
-                    </ul>
-                </div>
-
-                <!-- Navigation -->
-                <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <div class="bg-green-50 px-4 py-2.5 flex items-center gap-2.5 border-b border-green-100">
-                        <div
-                            class="w-6 h-6 bg-green-600 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">
-                            2</div>
-                        <span class="font-semibold text-gray-800 text-sm">Navigation & Answers</span>
-                    </div>
-                    <ul class="px-4 py-3 space-y-2 text-gray-600 text-xs">
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0 mt-1.5"></span>Use <span
-                                class="text-green-700 font-semibold">Next</span> and <span
-                                class="text-green-700 font-semibold">Previous</span> buttons or the palette to jump
-                            between questions.</li>
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0 mt-1.5"></span>Answers can be
-                            changed anytime before final submission.</li>
-                        <li class="flex items-start gap-2.5"><span
-                                class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0 mt-1.5"></span>Use <span
-                                class="text-indigo-600 font-semibold">Mark for Review</span> to flag questions to
-                            revisit.</li>
-                    </ul>
-                </div>
-
-                <!-- Palette colours -->
-                <div class="border border-gray-100 rounded-xl overflow-hidden">
-                    <div class="bg-indigo-50 px-4 py-2.5 flex items-center gap-2.5 border-b border-indigo-100">
-                        <div
-                            class="w-6 h-6 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">
-                            3</div>
-                        <span class="font-semibold text-gray-800 text-sm">Question Palette Colours</span>
-                    </div>
-                    <div class="px-4 py-3 grid grid-cols-2 gap-2">
-                        <div class="flex items-center gap-2.5 bg-gray-50 rounded-lg px-3 py-2 border border-gray-200">
-                            <div class="w-4 h-4 rounded-md bg-gray-300 flex-shrink-0 border border-gray-400"></div>
-                            <span class="text-xs text-gray-600 font-medium">Not Visited</span>
-                        </div>
-                        <div class="flex items-center gap-2.5 bg-amber-50 rounded-lg px-3 py-2 border border-amber-200">
-                            <div class="w-4 h-4 rounded-md bg-amber-400 flex-shrink-0"></div>
-                            <span class="text-xs text-amber-700 font-medium">Visited</span>
-                        </div>
-                        <div class="flex items-center gap-2.5 bg-green-50 rounded-lg px-3 py-2 border border-green-200">
-                            <div class="w-4 h-4 rounded-md bg-green-500 flex-shrink-0"></div>
-                            <span class="text-xs text-green-700 font-medium">Answered</span>
-                        </div>
-                        <div
-                            class="flex items-center gap-2.5 bg-indigo-50 rounded-lg px-3 py-2 border border-indigo-200">
-                            <div class="w-4 h-4 rounded-md bg-indigo-500 flex-shrink-0"></div>
-                            <span class="text-xs text-indigo-700 font-medium">Marked</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Marking + Desktop rules side by side -->
-                <div class="grid sm:grid-cols-2 gap-3">
-                    <div class="border border-gray-100 rounded-xl overflow-hidden">
-                        <div class="bg-orange-50 px-4 py-2.5 flex items-center gap-2.5 border-b border-orange-100">
-                            <div
-                                class="w-6 h-6 bg-orange-500 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">
-                                4</div>
-                            <span class="font-semibold text-gray-800 text-sm">Marking Scheme</span>
-                        </div>
-                        <ul class="px-4 py-3 space-y-2 text-gray-600 text-xs">
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Equal
-                                marks per question unless stated.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Unanswered
-                                questions carry zero marks.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Negative
-                                marking follows the official pattern.</li>
-                        </ul>
-                    </div>
-                    <div class="border border-gray-100 rounded-xl overflow-hidden">
-                        <div class="bg-red-50 px-4 py-2.5 flex items-center gap-2.5 border-b border-red-100">
-                            <div
-                                class="w-6 h-6 bg-red-500 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">
-                                5</div>
-                            <span class="font-semibold text-gray-800 text-sm">Desktop Rules</span>
-                        </div>
-                        <ul class="px-4 py-3 space-y-2 text-gray-600 text-xs">
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0 mt-1.5"></span>Fullscreen
-                                mode is mandatory.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0 mt-1.5"></span>Tab
-                                switching is not allowed.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0 mt-1.5"></span>Developer
-                                tools are strictly prohibited.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0 mt-1.5"></span>3 violations
-                                trigger auto-submission.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Mobile rules -->
-                <div class="border border-orange-100 rounded-xl overflow-hidden">
-                    <div class="bg-orange-50 px-4 py-2.5 flex items-center gap-2.5 border-b border-orange-100">
-                        <div
-                            class="w-6 h-6 bg-orange-500 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">
-                            6</div>
-                        <span class="font-semibold text-gray-800 text-sm">Mobile Device Rules</span>
-                        <span
-                            class="ml-auto text-xs text-orange-500 font-semibold bg-orange-100 px-2 py-0.5 rounded-full">Phone
-                            / Tablet</span>
-                    </div>
-                    <div class="px-4 py-3 grid sm:grid-cols-2 gap-x-6 gap-y-2">
-                        <ul class="space-y-2 text-gray-600 text-xs">
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Do not
-                                switch to another app during the test.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Keep
-                                screen on — do not let it lock or sleep.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Incoming
-                                calls will be detected as app-switching.</li>
-                        </ul>
-                        <ul class="space-y-2 text-gray-600 text-xs">
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Use
-                                stable Wi-Fi or mobile data connection.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Enable Do
-                                Not Disturb mode before starting.</li>
-                            <li class="flex items-start gap-2.5"><span
-                                    class="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0 mt-1.5"></span>Answers
-                                are auto-saved — do not force-close the app.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Warning banner -->
-                <div class="flex items-start gap-3 bg-red-50 border border-red-200 rounded-xl p-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"
-                        fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                            clip-rule="evenodd" />
+            <!-- Compact Header with Close Button -->
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 px-6 py-5 text-white flex-shrink-0 relative">
+                <!-- Close button (X) for mid-exam viewing -->
+                <button id="closeRulesBtn" class="absolute top-4 right-4 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    <p class="text-xs text-red-700 leading-relaxed">
-                        <span class="font-semibold">This exam is monitored.</span> Any suspicious activity — tab
-                        switching, exiting fullscreen, or using developer tools — may result in automatic submission.
-                    </p>
-                </div>
+                </button>
 
+                <div class="flex items-center gap-3 pr-10">
+                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-blue-200 text-xs font-semibold uppercase tracking-wide mb-1">Quick Reference</div>
+                        <h2 id="rulesExamTitle" class="text-lg font-bold leading-tight">Test Guidelines</h2>
+                    </div>
+                </div>
             </div>
 
-            <!-- Footer — accept checkbox + centered CTA -->
-            <div class="px-4 sm:px-6 py-4 border-t border-gray-100 bg-gray-50/80 rounded-b-2xl flex-shrink-0">
+            <!-- Compact Content — Only essentials -->
+            <div class="px-6 py-5 overflow-y-auto flex-1">
+            
+                <!-- Key Points Grid — 2x2 compact boxes -->
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg px-3 py-3">
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-xs font-bold text-blue-900">Timer</span>
+                        </div>
+                        <p class="text-xs text-blue-700">Cannot pause once started</p>
+                    </div>
+
+                    <div class="bg-green-50 border border-green-200 rounded-lg px-3 py-3">
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            <span class="text-xs font-bold text-green-900">Editable</span>
+                        </div>
+                        <p class="text-xs text-green-700">Change answers anytime</p>
+                    </div>
+
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg px-3 py-3">
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                            <span class="text-xs font-bold text-indigo-900">Mark</span>
+                        </div>
+                        <p class="text-xs text-indigo-700">Flag to revisit later</p>
+                    </div>
+
+                    <div class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-3">
+                        <div class="flex items-center gap-2 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-xs font-bold text-orange-900">Auto-Save</span>
+                        </div>
+                        <p class="text-xs text-orange-700">Saved automatically</p>
+                    </div>
+                </div>
+
+                <!-- Palette Color Guide — Inline compact version -->
+                <div class="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 mb-4">
+                    <p class="text-xs font-semibold text-gray-700 mb-2.5">Question Palette Colors:</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3.5 h-3.5 rounded bg-gray-300 border border-gray-400"></div>
+                            <span class="text-xs text-gray-600">Not Visited</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3.5 h-3.5 rounded bg-amber-400"></div>
+                            <span class="text-xs text-amber-700">Visited</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3.5 h-3.5 rounded bg-green-500"></div>
+                            <span class="text-xs text-green-700">Answered</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3.5 h-3.5 rounded bg-indigo-500"></div>
+                            <span class="text-xs text-indigo-700">Marked</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Tips -->
+                <div class="bg-purple-50 border border-purple-200 rounded-lg px-4 py-3 mb-4">
+                    <p class="text-xs font-semibold text-purple-900 mb-2">Navigation:</p>
+                    <ul class="space-y-1.5 text-xs text-purple-700">
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-400 mt-0.5">•</span>
+                            <span>Use <strong>Next/Previous</strong> or click palette numbers</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-400 mt-0.5">•</span>
+                            <span>Click <strong>Submit Test</strong> when finished</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Important Note -->
+                <div class="bg-amber-50 border border-amber-300 rounded-lg px-3 py-2.5 flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75Zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5Z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-xs text-amber-800"><strong>Auto-submit:</strong> Test submits automatically when timer expires.</p>
+                </div>
+            </div>
+
+            <!-- Footer with Accept & Start Button -->
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex-shrink-0">
                 <div id="acceptRulesRow" class="flex items-start gap-2.5 mb-4">
-                    <input type="checkbox" id="acceptRules"
-                        class="mt-0.5 w-4 h-4 accent-blue-600 cursor-pointer flex-shrink-0">
+                    <input type="checkbox" id="acceptRules" class="mt-0.5 w-4 h-4 accent-blue-600 cursor-pointer flex-shrink-0">
                     <label for="acceptRules" class="text-sm text-gray-700 cursor-pointer select-none leading-snug">
                         I have read and understood all the instructions above.
                     </label>
                 </div>
-                <!-- Centered button -->
-                <div class="flex justify-center">
-                    <button id="startTestBtn"
-                        class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-10 py-3 rounded-xl text-sm font-bold transition disabled:opacity-40 disabled:cursor-not-allowed shadow-md flex items-center gap-2.5"
-                        disabled>
-                        Begin Test Session
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                            stroke-width="2.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                        </svg>
-                    </button>
-                </div>
+                <button id="startTestBtn" 
+                    class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3.5 rounded-xl font-bold shadow-md transition text-sm disabled:opacity-40 disabled:cursor-not-allowed" 
+                    disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Begin Test Session
+                </button>
+                <p class="text-center text-xs text-gray-500 mt-2">Timer starts immediately after clicking</p>
             </div>
 
         </div>
