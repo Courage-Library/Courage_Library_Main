@@ -9,11 +9,131 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
+    :root {
+      --radius-xl: 1.75rem;
+    }
     body { background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%); min-height: 100vh; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
     .fade-up { animation: fadeUp 0.6s ease both; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner { animation: spin 0.8s linear infinite; }
+
+    /* ══ AUTH MODAL ════════════════════════════════════════════ */
+    .cl-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .55);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .cl-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .cl-modal {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 380px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transform: scale(.94) translateY(12px);
+      transition: transform .25s ease;
+      box-shadow: 0 24px 80px rgba(30, 58, 138, .18);
+    }
+    .cl-overlay.open .cl-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    /* ══ BUTTONS ═══════════════════════════════════════════════ */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .7rem 1.75rem;
+      font-size: .92rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 6px 22px rgba(59, 130, 246, .30);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .22), transparent);
+      transform: skewX(-12deg) translateX(-140%);
+      transition: transform .6s ease;
+    }
+    .btn-primary:hover::after {
+      transform: skewX(-12deg) translateX(140%);
+    }
+    .btn-primary:hover {
+      transform: scale(1.04);
+      box-shadow: 0 10px 32px rgba(59, 130, 246, .4);
+    }
+    .btn-primary:active {
+      transform: scale(.97);
+    }
+    .btn-primary:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: .7rem 1rem;
+      font-size: .9rem;
+      font-weight: 600;
+      color: #334155;
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .btn-google:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .10);
+    }
+
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+      color: #94a3b8;
+      font-size: .8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center px-4 py-10">
@@ -74,15 +194,15 @@
             <strong id="coachingNameInline">your coaching</strong>.
           </p>
 
-          <a id="signupBtn" href="#"
+          <button onclick="openAuthModal('signup')"
             class="flex items-center justify-center gap-2 w-full py-3 rounded-full font-bold text-white text-sm shadow hover:scale-105 transition mb-3"
             style="background: linear-gradient(135deg, #1a56db, #4f46e5);">
             <i class="fas fa-user-plus"></i> Create Free Account
-          </a>
-          <a id="loginBtn" href="#"
+          </button>
+          <button onclick="openAuthModal('login')"
             class="flex items-center justify-center gap-2 w-full py-3 rounded-full font-bold text-sm border-2 border-blue-200 text-blue-700 hover:bg-blue-50 transition">
             <i class="fas fa-sign-in-alt"></i> Already have an account? Log In
-          </a>
+          </button>
 
           <p class="text-center text-xs text-gray-400 mt-4">
             Your account will be linked to <strong id="coachingNameFooter"></strong> automatically.
@@ -93,6 +213,130 @@
     </div>
   </div>
 
+  <!-- ══ AUTH MODAL ══════════════════════════════════════════ -->
+  <div id="auth-overlay" class="cl-overlay" onclick="if(event.target===this)closeAuthModal()">
+    <div class="cl-modal">
+
+      <button onclick="closeAuthModal()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 z-10">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="text-center mb-5">
+        <img src="/images/logo.png" alt="" class="w-14 mx-auto rounded-xl shadow-sm mb-2">
+        <p class="text-lg font-extrabold text-blue-700">Courage Library</p>
+        <p class="text-xs text-slate-500">Your self-paced learning space</p>
+      </div>
+
+      <!-- ── LOGIN ── -->
+      <div id="form-login">
+        <h2 class="text-base font-semibold text-center text-slate-800 mb-4">Login to your account</h2>
+        <div class="space-y-3">
+          <div>
+            <div class="relative">
+              <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="email" id="login-email" placeholder="Email address" autocomplete="email"
+                class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+            </div>
+          </div>
+          <div>
+            <div class="relative">
+              <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="password" id="login-password" placeholder="Password" autocomplete="current-password"
+                class="w-full pl-9 pr-10 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+              <button type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                onclick="togglePwd('login-password',this)">
+                <i class="fas fa-eye-slash text-sm"></i>
+              </button>
+            </div>
+          </div>
+          <div class="text-right">
+            <button type="button" onclick="openAuthModal('reset')"
+              class="text-xs text-slate-500 hover:text-blue-600 transition">Forgot password?</button>
+          </div>
+          <button id="login-submit" onclick="loginWithEmail()" class="btn-primary w-full justify-center">Login</button>
+          <div class="or-divider">or</div>
+          <button class="btn-google" onclick="loginWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="">
+            Continue with Google
+          </button>
+          <p class="text-xs text-center text-slate-500">No account?
+            <button type="button" onclick="openAuthModal('signup')"
+              class="text-blue-600 font-semibold hover:underline">Sign Up</button>
+          </p>
+        </div>
+      </div>
+
+      <!-- ── SIGNUP ── -->
+      <div id="form-signup" class="hidden">
+        <h2 class="text-base font-semibold text-center text-slate-800 mb-4">Create an account</h2>
+        <div class="space-y-3">
+          <div>
+            <div class="relative">
+              <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="text" id="signup-name" placeholder="Full name" autocomplete="name"
+                class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+            </div>
+          </div>
+          <div>
+            <div class="relative">
+              <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="email" id="signup-email" placeholder="Email address" autocomplete="email"
+                class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+            </div>
+          </div>
+          <div>
+            <div class="relative">
+              <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="password" id="signup-password" placeholder="Password (min 6 characters)"
+                autocomplete="new-password" minlength="6"
+                class="w-full pl-9 pr-10 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+              <button type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition"
+                onclick="togglePwd('signup-password',this)">
+                <i class="fas fa-eye-slash text-sm"></i>
+              </button>
+            </div>
+          </div>
+          <button id="signup-submit" onclick="signupWithEmail()" class="btn-primary w-full justify-center">Sign Up</button>
+          <div class="or-divider">or</div>
+          <button class="btn-google" onclick="loginWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="">
+            Continue with Google
+          </button>
+          <p class="text-xs text-center text-slate-500">Have an account?
+            <button type="button" onclick="openAuthModal('login')"
+              class="text-blue-600 font-semibold hover:underline">Login</button>
+          </p>
+        </div>
+      </div>
+
+      <!-- ── RESET ── -->
+      <div id="form-reset" class="hidden">
+        <h2 class="text-base font-semibold text-center text-slate-800 mb-4">Reset your password</h2>
+        <div class="space-y-3">
+          <div>
+            <div class="relative">
+              <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="email" id="reset-email" placeholder="Email address" autocomplete="email"
+                class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition" />
+            </div>
+          </div>
+          <button id="reset-submit" onclick="sendPasswordReset()" class="btn-primary w-full justify-center">Send Reset Link</button>
+          <p class="text-xs text-center text-slate-500">Remember it?
+            <button type="button" onclick="openAuthModal('login')"
+              class="text-blue-600 font-semibold hover:underline">Login</button>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" style="position:fixed;top:20px;right:20px;z-index:10000;"></div>
+
   <script>
     const SUPABASE_URL = "https://sgagswxzsxlgcspwiuoh.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNnYWdzd3h6c3hsZ2NzcHdpdW9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM5NTA1NTIsImV4cCI6MjA2OTUyNjU1Mn0.ZNfk5WNDPkjKcFsRO48rEYk3dhbLYm_m21aZ-wfywo4";
@@ -101,8 +345,203 @@
     const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let coachingData = null;
+    const AUTH_FORMS = ['login', 'signup', 'reset'];
 
-    // ── Extract slug from URL path: /c/ssc-pathshala ──
+    // ══ TOAST NOTIFICATION ═════════════════════════════════════
+    function showToast(msg, type = 'success') {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        padding: 12px 20px;
+        background: ${type === 'error' ? '#fee2e2' : '#d1fae5'};
+        color: ${type === 'error' ? '#991b1b' : '#065f46'};
+        border: 1px solid ${type === 'error' ? '#fca5a5' : '#6ee7b7'};
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        max-width: 320px;
+      `;
+      toast.textContent = msg;
+      document.getElementById('toast-container').appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+
+    // ══ AUTH MODAL FUNCTIONS ═══════════════════════════════════
+    function openAuthModal(mode) {
+      AUTH_FORMS.forEach(f => {
+        const form = document.getElementById('form-' + f);
+        if (form) form.classList.toggle('hidden', f !== mode);
+      });
+      const overlay = document.getElementById('auth-overlay');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => overlay.querySelector('input')?.focus(), 260);
+    }
+
+    function closeAuthModal() {
+      document.getElementById('auth-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function togglePwd(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      const isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      icon.classList.toggle('fa-eye-slash', !isHidden);
+      icon.classList.toggle('fa-eye', isHidden);
+    }
+
+    function setAuthBtnLoading(id, loading, label) {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      btn.disabled = loading;
+      btn.textContent = loading ? 'Please wait…' : label;
+    }
+
+    // ══ AUTH ACTIONS ═══════════════════════════════════════════
+    async function loginWithEmail() {
+      const email = document.getElementById('login-email').value.trim();
+      const pass = document.getElementById('login-password').value;
+      if (!email || !pass) return showToast('Please fill in all fields.', 'error');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('Please enter a valid email.', 'error');
+      
+      setAuthBtnLoading('login-submit', true, 'Login');
+      const { error } = await client.auth.signInWithPassword({ email, password: pass });
+      setAuthBtnLoading('login-submit', false, 'Login');
+      
+      if (error) return showToast(error.message, 'error');
+      
+      showToast('Login successful!');
+      closeAuthModal();
+      
+      // Link to coaching and redirect
+      if (coachingData) {
+        await linkUserToCoaching();
+      }
+    }
+
+    async function loginWithGoogle() {
+      try {
+        const redirectUrl = window.location.href; // Return to same join page
+        const { error } = await client.auth.signInWithOAuth({
+          provider: 'google',
+          options: { redirectTo: redirectUrl }
+        });
+        if (error) showToast(error.message, 'error');
+      } catch (err) {
+        showToast(err.message, 'error');
+      }
+    }
+
+    async function signupWithEmail() {
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const pass = document.getElementById('signup-password').value;
+      
+      if (!name) return showToast('Please enter your full name.', 'error');
+      if (!email || !pass) return showToast('Please fill in all fields.', 'error');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('Please enter a valid email.', 'error');
+      if (pass.length < 6) return showToast('Password must be at least 6 characters.', 'error');
+      
+      setAuthBtnLoading('signup-submit', true, 'Sign Up');
+      const { data, error } = await client.auth.signUp({
+        email,
+        password: pass,
+        options: {
+          redirectTo: window.location.href,
+          data: { full_name: name }
+        }
+      });
+      setAuthBtnLoading('signup-submit', false, 'Sign Up');
+      
+      if (error) return showToast(error.message, 'error');
+      
+      if (data?.user) {
+        try {
+          // Create profile with coaching_id
+          await client.from('user_profiles').upsert({
+            id: data.user.id,
+            full_name: name,
+            user_email: email,
+            coaching_id: coachingData?.id || null
+          }, { onConflict: 'id' });
+        } catch (e) {
+          console.error('Profile creation error:', e);
+        }
+      }
+      
+      showToast('Account created! Check your email to confirm.');
+      closeAuthModal();
+      setTimeout(() => {
+        showToast('Redirecting to your dashboard...');
+        window.location.href = '/coaching/dashboard.html';
+      }, 2000);
+    }
+
+    async function sendPasswordReset() {
+      const email = document.getElementById('reset-email').value.trim();
+      if (!email) return showToast('Please enter your email.', 'error');
+      
+      setAuthBtnLoading('reset-submit', true, 'Send Reset Link');
+      const { error } = await client.auth.resetPasswordForEmail(email, { 
+        redirectTo: window.location.origin 
+      });
+      setAuthBtnLoading('reset-submit', false, 'Send Reset Link');
+      
+      if (error) return showToast(error.message, 'error');
+      showToast('Reset link sent! Check your email.');
+    }
+
+    // ══ COACHING LINK ══════════════════════════════════════════
+    async function linkUserToCoaching() {
+      const { data: { user } } = await client.auth.getUser();
+      if (!user || !coachingData) return;
+
+      const { error } = await client
+        .from('user_profiles')
+        .update({ coaching_id: coachingData.id })
+        .eq('id', user.id);
+
+      if (!error) {
+        setTimeout(() => {
+          window.location.href = '/coaching/dashboard.html';
+        }, 800);
+      }
+    }
+
+    window.linkCoaching = async function() {
+      if (!coachingData) return;
+      const btn = document.getElementById('linkBtn');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Linking...`;
+
+      const { data: { user } } = await client.auth.getUser();
+      if (!user) {
+        openAuthModal('login');
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-link mr-2"></i> Link to This Coaching`;
+        return;
+      }
+
+      const { error } = await client
+        .from('user_profiles')
+        .update({ coaching_id: coachingData.id })
+        .eq('id', user.id);
+
+      if (error) {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fas fa-link mr-2"></i> Link to This Coaching`;
+        showToast('Could not link. Please try again.', 'error');
+        return;
+      }
+
+      showToast('Successfully linked!');
+      window.location.href = '/coaching/dashboard.html';
+    };
+
+    // ══ INIT ═══════════════════════════════════════════════════
     function getSlugFromPath() {
       const parts = window.location.pathname.split("/c/");
       return parts[1]?.split("/")[0]?.trim() || null;
@@ -125,15 +564,16 @@
         .eq("slug", slug)
         .single();
 
-      if (error || !coaching) { showError("This coaching center link is not valid or has been deactivated."); return; }
-      if (!coaching.is_active) { showError(`"${coaching.name}" is currently inactive. Please contact them.`); return; }
+      if (error || !coaching) {
+        showError("This coaching center link is not valid or has been deactivated.");
+        return;
+      }
+      if (!coaching.is_active) {
+        showError(`"${coaching.name}" is currently inactive. Please contact them.`);
+        return;
+      }
 
       coachingData = coaching;
-
-      // Store slug in sessionStorage so login/signup page can read it after redirect
-      sessionStorage.setItem("join_coaching_id", coaching.id);
-      sessionStorage.setItem("join_coaching_name", coaching.name);
-      sessionStorage.setItem("join_coaching_slug", coaching.slug);
 
       // Apply branding
       const color = coaching.primary_color || "#1a56db";
@@ -146,12 +586,6 @@
         document.getElementById("coachingCity").textContent = `📍 ${coaching.city}`;
         document.getElementById("coachingCity").classList.remove("hidden");
       }
-
-      // Build auth links with coaching context
-      const base = "/index.html";
-      const coachingParam = `&coaching=${coaching.slug}`;
-      document.getElementById("signupBtn").href = `${base}?action=signup${coachingParam}`;
-      document.getElementById("loginBtn").href = `${base}?action=login${coachingParam}`;
 
       // Show main card
       document.getElementById("loadingState").classList.add("hidden");
@@ -185,33 +619,6 @@
         document.getElementById("notLoggedIn").classList.remove("hidden");
       }
     }
-
-    // ── Link already-logged-in user to coaching ──
-    window.linkCoaching = async function() {
-      if (!coachingData) return;
-      const btn = document.getElementById("linkBtn");
-      btn.disabled = true;
-      btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Linking...`;
-
-      const { data: { user } } = await client.auth.getUser();
-      if (!user) { window.location.href = `/index.html?action=login&coaching=${coachingData.slug}`; return; }
-
-      const { error } = await client
-        .from("user_profiles")
-        .update({ coaching_id: coachingData.id })
-        .eq("id", user.id);
-
-      if (error) {
-        btn.disabled = false;
-        btn.innerHTML = `<i class="fas fa-link mr-2"></i> Link to This Coaching`;
-        alert("Could not link. Please try again.");
-        return;
-      }
-
-      // Clear session storage, redirect to coaching dashboard
-      sessionStorage.removeItem("join_coaching_id");
-      window.location.href = "/coaching/dashboard.html";
-    };
 
     init();
   </script>
