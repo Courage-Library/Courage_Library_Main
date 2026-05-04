@@ -482,18 +482,19 @@ async function loadStudentStats(userId, coachingId) {
 }
 
 // ─────────────────────────────────────────────────────────────
-//  Start / Resume Exam
+//  Start / Resume Exam — WITH PASSKEY SYSTEM
 // ─────────────────────────────────────────────────────────────
 window.startExam = async function(examId, btn) {
   btn.disabled = true;
   btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Preparing…`;
 
   try {
+    // ── Fetch exam to check if passkey is required ──
     const { data: examCheck } = await client
       .from("scheduled_exams")
       .select(`
-        is_active, start_datetime, end_datetime, attempt_limit,
-        exam_patterns!pattern_id( id, duration_minutes, pattern_sections( id, section_name, question_count ) ),
+        id, is_active, start_datetime, end_datetime, attempt_limit, passkey,
+        exam_patterns!pattern_id( id, pattern_name, duration_minutes ),
         coaching_id
       `)
       .eq("id", examId)
@@ -507,6 +508,7 @@ window.startExam = async function(examId, btn) {
     if (examCheck.end_datetime && new Date(examCheck.end_datetime) < now)
       throw new Error("This exam has expired.");
 
+    // ── Check for existing incomplete attempt (resume scenario) ──
     const { data: existingAttempts } = await client
       .from("attempts")
       .select("id, submitted_at, started_at")
@@ -520,6 +522,7 @@ window.startExam = async function(examId, btn) {
         const { data: aqCheck } = await client
           .from("attempt_questions").select("id").eq("attempt_id", incomplete.id).limit(1);
         if (aqCheck?.length > 0) {
+          // Resume existing attempt — no passkey needed
           window.location.href = `/coaching/exam.html?attempt=${incomplete.id}`;
           return;
         }
@@ -527,59 +530,23 @@ window.startExam = async function(examId, btn) {
       }
     }
 
+    // ── Check attempt limit ──
     if (examCheck.attempt_limit) {
       const done = (existingAttempts || []).filter(a => a.submitted_at).length;
       if (done >= examCheck.attempt_limit)
         throw new Error(`Attempt limit reached (${examCheck.attempt_limit}).`);
     }
 
-    const { data: newAttempt, error: ae } = await client
-      .from("attempts")
-      .insert([{ user_id: currentUser.id, scheduled_exam_id: examId, started_at: new Date() }])
-      .select().single();
-
-    if (ae) throw new Error(ae.message);
-
-    const sections = examCheck.exam_patterns?.pattern_sections || [];
-    if (!sections.length) throw new Error("No sections found for this exam.");
-
-    const sectionIds = sections.map(s => s.id);
-    const { data: allQRaw, error: qErr } = await client
-      .from("questions")
-      .select("id, pattern_section_id, difficulty, is_active")
-      .in("pattern_section_id", sectionIds);
-
-    if (qErr) throw new Error("Could not fetch questions: " + qErr.message);
-
-    const allQuestions = (allQRaw || []).filter(q =>
-      q.is_active !== false && q.is_active !== "false" && q.is_active !== null
-    );
-
-    if (!allQuestions.length)
-      throw new Error("No active questions found. Please contact your admin.");
-
-    let finalQuestions = [];
-    sections.forEach(sec => {
-      const pool = allQuestions
-        .filter(q => q.pattern_section_id === sec.id)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, sec.question_count);
-      finalQuestions = finalQuestions.concat(pool);
-    });
-
-    if (!finalQuestions.length) throw new Error("Could not assign questions. Contact admin.");
-
-    const { error: aqErr } = await client.from("attempt_questions").insert(
-      finalQuestions.map((q, idx) => ({
-        attempt_id: newAttempt.id,
-        question_id: q.id,
-        question_order: idx + 1,
-      }))
-    );
-
-    if (aqErr) throw new Error("Failed to prepare exam: " + aqErr.message);
-
-    window.location.href = `/coaching/exam.html?attempt=${newAttempt.id}`;
+    // ── PASSKEY FLOW ──
+    // If exam has passkey → show passkey modal
+    // If no passkey → directly call edge function (NULL passkey allowed)
+    if (examCheck.passkey) {
+      // Show passkey modal
+      showPasskeyModal(examId, examCheck, btn);
+    } else {
+      // No passkey required — call edge function with null passkey
+      await verifyAndStartExam(examId, null, btn);
+    }
 
   } catch (err) {
     console.error("startExam error:", err);
@@ -590,6 +557,148 @@ window.startExam = async function(examId, btn) {
     alert("Error: " + err.message);
   }
 };
+
+// ── Show Passkey Modal ──
+function showPasskeyModal(examId, examData, originalBtn) {
+  const modal = document.createElement("div");
+  modal.id = "passkeyModal";
+  modal.className = "fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4";
+  modal.innerHTML = `
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-5 text-white">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold">Passkey Required</h2>
+            <p class="text-blue-200 text-xs mt-0.5">Enter the code shared by your teacher</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="px-6 py-6">
+        <div class="mb-5">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Exam Passkey</label>
+          <input 
+            type="text" 
+            id="passkeyInput" 
+            maxlength="5"
+            placeholder="Enter 4-5 digit code"
+            class="w-full px-4 py-3 text-center text-2xl font-bold tracking-widest border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition"
+            style="letter-spacing: 0.3em"
+          />
+          <p id="passkeyError" class="text-red-600 text-xs mt-2 hidden font-medium"></p>
+        </div>
+
+        <div class="flex gap-3">
+          <button 
+            id="cancelPasskey"
+            class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition font-medium text-sm"
+          >
+            Cancel
+          </button>
+          <button 
+            id="submitPasskey"
+            class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition font-semibold text-sm shadow-sm"
+          >
+            Start Exam
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const input = document.getElementById("passkeyInput");
+  const submitBtn = document.getElementById("submitPasskey");
+  const cancelBtn = document.getElementById("cancelPasskey");
+  const errorEl = document.getElementById("passkeyError");
+
+  // Auto-focus input
+  setTimeout(() => input.focus(), 100);
+
+  // Only allow numbers
+  input.addEventListener("input", (e) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    errorEl.classList.add("hidden");
+  });
+
+  // Submit on Enter
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && input.value.trim()) {
+      submitBtn.click();
+    }
+  });
+
+  // Cancel button
+  cancelBtn.addEventListener("click", () => {
+    modal.remove();
+    originalBtn.disabled = false;
+    const color = coachingProfile?.primary_color || "#1a56db";
+    originalBtn.innerHTML = `<i class="fas fa-play"></i> Start Exam`;
+    originalBtn.style.background = `linear-gradient(135deg,${color},${shiftHex(color,-20)})`;
+  });
+
+  // Submit button
+  submitBtn.addEventListener("click", async () => {
+    const passkey = input.value.trim();
+    if (!passkey) {
+      errorEl.textContent = "Please enter the passkey";
+      errorEl.classList.remove("hidden");
+      input.classList.add("border-red-500");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Verifying…`;
+
+    try {
+      await verifyAndStartExam(examId, passkey, originalBtn);
+      modal.remove();
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "Start Exam";
+      errorEl.textContent = err.message;
+      errorEl.classList.remove("hidden");
+      input.classList.add("border-red-500");
+      input.value = "";
+      input.focus();
+    }
+  });
+}
+
+// ── Call Edge Function to Verify Passkey + Create Attempt ──
+async function verifyAndStartExam(examId, passkey, btn) {
+  const { data: { session } } = await client.auth.getSession();
+  if (!session) throw new Error("Authentication required");
+
+  const response = await fetch(
+    `${SUPABASE_URL}/functions/v1/verify-passkey-and-start`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${session.access_token}`
+      },
+      body: JSON.stringify({ exam_id: examId, passkey })
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok || !result.success) {
+    throw new Error(result.error || "Failed to start exam");
+  }
+
+  // Success — redirect to exam
+  window.location.href = `/coaching/exam.html?attempt=${result.attempt_id}`;
+}
 
 window.resumeExam = function(attemptId, btn) {
   btn.disabled = true;
