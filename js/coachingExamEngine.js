@@ -1391,3 +1391,18 @@ window.submitReport = async function(questionId, qNumber, selectedVal) {
     btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit Report';
   }
 };
+
+// ══════════════════════════════════════════════════════════════════════════════
+// COMPACT INSTRUCTIONS MODAL — Close Button Handler
+// ══════════════════════════════════════════════════════════════════════════════
+// Close button (X) for mid-exam viewing
+document.getElementById("closeRulesBtn")?.addEventListener("click", function() {
+  document.getElementById("rulesModal").style.display = "none";
+});
+
+// Also allow closing by clicking outside modal
+document.getElementById("rulesModal")?.addEventListener("click", function(e) {
+  if (e.target === this) {
+    this.style.display = "none";
+  }
+});
