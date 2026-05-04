@@ -560,59 +560,123 @@ window.startExam = async function(examId, btn) {
 
 // ── Show Passkey Modal ──
 function showPasskeyModal(examId, examData, originalBtn) {
+  // Create modal backdrop
   const modal = document.createElement("div");
   modal.id = "passkeyModal";
-  modal.className = "fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4";
-  modal.innerHTML = `
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-      <!-- Header -->
-      <div class="bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-5 text-white">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <div>
-            <h2 class="text-lg font-bold">Passkey Required</h2>
-            <p class="text-blue-200 text-xs mt-0.5">Enter the code shared by your teacher</p>
-          </div>
-        </div>
+  modal.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  `;
+
+  // Create modal content
+  const modalBox = document.createElement("div");
+  modalBox.style.cssText = `
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 440px;
+    overflow: hidden;
+  `;
+
+  // Header
+  const header = document.createElement("div");
+  header.style.cssText = `
+    background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+    padding: 24px;
+    color: white;
+  `;
+  header.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
       </div>
-
-      <!-- Body -->
-      <div class="px-6 py-6">
-        <div class="mb-5">
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Exam Passkey</label>
-          <input 
-            type="text" 
-            id="passkeyInput" 
-            maxlength="5"
-            placeholder="Enter 4-5 digit code"
-            class="w-full px-4 py-3 text-center text-2xl font-bold tracking-widest border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition"
-            style="letter-spacing: 0.3em"
-          />
-          <p id="passkeyError" class="text-red-600 text-xs mt-2 hidden font-medium"></p>
-        </div>
-
-        <div class="flex gap-3">
-          <button 
-            id="cancelPasskey"
-            class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition font-medium text-sm"
-          >
-            Cancel
-          </button>
-          <button 
-            id="submitPasskey"
-            class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition font-semibold text-sm shadow-sm"
-          >
-            Start Exam
-          </button>
-        </div>
+      <div>
+        <h2 style="font-size: 18px; font-weight: 700; margin: 0; line-height: 1.3;">Passkey Required</h2>
+        <p style="font-size: 11px; margin: 4px 0 0 0; color: rgba(255,255,255,0.8);">Enter the code shared by your teacher</p>
       </div>
     </div>
   `;
 
+  // Body
+  const body = document.createElement("div");
+  body.style.cssText = "padding: 24px;";
+  body.innerHTML = `
+    <div style="margin-bottom: 20px;">
+      <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px;">Exam Passkey</label>
+      <input 
+        type="text" 
+        id="passkeyInput" 
+        maxlength="5"
+        placeholder="Enter code"
+        style="
+          width: 100%;
+          padding: 14px 16px;
+          text-align: center;
+          font-size: 28px;
+          font-weight: 700;
+          letter-spacing: 0.3em;
+          border: 2px solid #e5e7eb;
+          border-radius: 12px;
+          outline: none;
+          transition: border-color 0.2s;
+          font-family: 'Courier New', monospace;
+        "
+      />
+      <p id="passkeyError" style="color: #dc2626; font-size: 12px; margin-top: 8px; display: none; font-weight: 500;"></p>
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <button 
+        id="cancelPasskey"
+        style="
+          flex: 1;
+          padding: 12px 16px;
+          background: #f3f4f6;
+          color: #374151;
+          border: none;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.2s;
+        "
+      >
+        Cancel
+      </button>
+      <button 
+        id="submitPasskey"
+        style="
+          flex: 1;
+          padding: 12px 16px;
+          background: #2563eb;
+          color: white;
+          border: none;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.2s;
+          box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        "
+      >
+        Start Exam
+      </button>
+    </div>
+  `;
+
+  modalBox.appendChild(header);
+  modalBox.appendChild(body);
+  modal.appendChild(modalBox);
   document.body.appendChild(modal);
 
   const input = document.getElementById("passkeyInput");
@@ -620,13 +684,39 @@ function showPasskeyModal(examId, examData, originalBtn) {
   const cancelBtn = document.getElementById("cancelPasskey");
   const errorEl = document.getElementById("passkeyError");
 
+  // Hover effects
+  submitBtn.addEventListener("mouseenter", () => {
+    submitBtn.style.background = "#1d4ed8";
+  });
+  submitBtn.addEventListener("mouseleave", () => {
+    submitBtn.style.background = "#2563eb";
+  });
+
+  cancelBtn.addEventListener("mouseenter", () => {
+    cancelBtn.style.background = "#e5e7eb";
+  });
+  cancelBtn.addEventListener("mouseleave", () => {
+    cancelBtn.style.background = "#f3f4f6";
+  });
+
+  // Input focus effect
+  input.addEventListener("focus", () => {
+    input.style.borderColor = "#2563eb";
+  });
+  input.addEventListener("blur", () => {
+    if (!errorEl.style.display || errorEl.style.display === "none") {
+      input.style.borderColor = "#e5e7eb";
+    }
+  });
+
   // Auto-focus input
   setTimeout(() => input.focus(), 100);
 
   // Only allow numbers
   input.addEventListener("input", (e) => {
     e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    errorEl.classList.add("hidden");
+    errorEl.style.display = "none";
+    input.style.borderColor = "#2563eb";
   });
 
   // Submit on Enter
@@ -650,23 +740,27 @@ function showPasskeyModal(examId, examData, originalBtn) {
     const passkey = input.value.trim();
     if (!passkey) {
       errorEl.textContent = "Please enter the passkey";
-      errorEl.classList.remove("hidden");
-      input.classList.add("border-red-500");
+      errorEl.style.display = "block";
+      input.style.borderColor = "#dc2626";
       return;
     }
 
     submitBtn.disabled = true;
     submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Verifying…`;
+    submitBtn.style.cursor = "not-allowed";
+    submitBtn.style.opacity = "0.7";
 
     try {
       await verifyAndStartExam(examId, passkey, originalBtn);
       modal.remove();
     } catch (err) {
       submitBtn.disabled = false;
+      submitBtn.style.cursor = "pointer";
+      submitBtn.style.opacity = "1";
       submitBtn.innerHTML = "Start Exam";
       errorEl.textContent = err.message;
-      errorEl.classList.remove("hidden");
-      input.classList.add("border-red-500");
+      errorEl.style.display = "block";
+      input.style.borderColor = "#dc2626";
       input.value = "";
       input.focus();
     }
