@@ -467,7 +467,7 @@ window.viewResults = async function(examId) {
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PDF REPORT GENERATION — ENHANCED VERSION
+// PDF REPORT GENERATION — PROFESSIONAL VERSION (No Emojis, Proper Layout)
 // ══════════════════════════════════════════════════════════════════════════════
 
 window.downloadPDFReport = async function(examId) {
@@ -502,103 +502,147 @@ window.downloadPDFReport = async function(examId) {
 
   const pageWidth = doc.internal.pageSize.width;
   const pageHeight = doc.internal.pageSize.height;
+  const margin = 20;
 
-  // ═══ HEADER WITH GRADIENT BACKGROUND ═══
-  doc.setFillColor(29, 78, 216); // Blue-700
-  doc.rect(0, 0, pageWidth, 45, 'F');
+  // ═══════════════════════════════════════════════════════════
+  // HEADER SECTION
+  // ═══════════════════════════════════════════════════════════
+  
+  // Blue header background
+  doc.setFillColor(30, 64, 175); // Dark blue
+  doc.rect(0, 0, pageWidth, 50, 'F');
 
-  // Logo placeholder (you can add actual logo later)
-  doc.setFillColor(255, 255, 255);
-  doc.circle(15, 15, 8, 'F');
-  doc.setFontSize(8);
-  doc.setTextColor(29, 78, 216);
-  doc.text('CL', 12, 17);
+  // White line separator
+  doc.setDrawColor(255, 255, 255);
+  doc.setLineWidth(0.5);
+  doc.line(margin, 48, pageWidth - margin, 48);
 
-  // Header text
-  doc.setFontSize(20);
+  // Title
+  doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
   doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 18, { align: 'center' });
 
+  // Coaching name
   doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text(coachingData.name, pageWidth / 2, 28, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.text(coachingData.name, pageWidth / 2, 30, { align: 'center' });
 
+  // City
   if (coachingData.city) {
     doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`📍 ${coachingData.city}`, pageWidth / 2, 36, { align: 'center' });
+    doc.text(coachingData.city, pageWidth / 2, 40, { align: 'center' });
   }
 
-  // ═══ EXAM DETAILS BOX ═══
-  let yPos = 55;
-  doc.setFillColor(239, 246, 255);
-  doc.roundedRect(15, yPos, pageWidth - 30, 22, 3, 3, 'F');
+  // ═══════════════════════════════════════════════════════════
+  // EXAM INFO SECTION
+  // ═══════════════════════════════════════════════════════════
+  
+  let yPos = 60;
 
-  doc.setFontSize(12);
+  // Exam name
+  doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(30, 64, 175);
-  doc.text(examName, 20, yPos + 7);
+  doc.text(examName, margin, yPos);
+  yPos += 10;
 
-  doc.setFontSize(9);
+  // Exam details
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(71, 85, 105);
-  doc.text(`Duration: ${duration} min  |  Total Marks: ${totalMarks}`, 20, yPos + 14);
+  doc.text(`Duration: ${duration} minutes  |  Total Marks: ${totalMarks}`, margin, yPos);
+  yPos += 6;
 
   if (exam.start_datetime) {
-    doc.text(`Date: ${formatDateTime(new Date(exam.start_datetime))}`, 20, yPos + 19);
+    const examDate = new Date(exam.start_datetime);
+    doc.text(`Date: ${examDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })} at ${examDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}`, margin, yPos);
+    yPos += 6;
   }
 
-  yPos += 30;
+  // Horizontal line
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.3);
+  doc.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
+  yPos += 10;
 
-  // ═══ QUICK STATS CARDS ═══
+  // ═══════════════════════════════════════════════════════════
+  // STATISTICS SECTION
+  // ═══════════════════════════════════════════════════════════
+
   const avgScore = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.total_score) || 0), 0) / submitted.length).toFixed(1) : 0;
   const avgAcc = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.accuracy) || 0), 0) / submitted.length).toFixed(1) : 0;
   const highest = submitted.length ? Math.max(...submitted.map(a => Number(a.total_score) || 0)) : 0;
   const lowest = submitted.length ? Math.min(...submitted.map(a => Number(a.total_score) || 0)) : 0;
 
-  doc.setFontSize(11);
+  // Section heading
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(15, 23, 42);
-  doc.text('📊 PERFORMANCE OVERVIEW', 20, yPos);
+  doc.setTextColor(30, 64, 175);
+  doc.text('PERFORMANCE SUMMARY', margin, yPos);
   yPos += 8;
 
-  // Stats cards in 2 rows
-  const cardWidth = (pageWidth - 40) / 2;
-  const cardHeight = 18;
-  const cardGap = 5;
+  // Stats grid - 3x2
+  const statBoxWidth = (pageWidth - 2 * margin - 10) / 3;
+  const statBoxHeight = 22;
+  const statGap = 5;
 
-  // Row 1
-  drawStatCard(doc, 15, yPos, cardWidth - 2.5, cardHeight, 'Total Students', allStudents.length.toString(), [59, 130, 246]);
-  drawStatCard(doc, 15 + cardWidth + 2.5, yPos, cardWidth - 2.5, cardHeight, 'Attempted', submitted.length.toString(), [34, 197, 94]);
-  yPos += cardHeight + cardGap;
+  const stats = [
+    { label: 'Total Students', value: allStudents.length.toString(), color: [59, 130, 246] },
+    { label: 'Attempted', value: submitted.length.toString(), color: [34, 197, 94] },
+    { label: 'Absent', value: notAttempted.length.toString(), color: [239, 68, 68] },
+    { label: 'Average Score', value: `${avgScore} / ${totalMarks}`, color: [99, 102, 241] },
+    { label: 'Highest Score', value: highest.toString(), color: [16, 185, 129] },
+    { label: 'Avg Accuracy', value: `${avgAcc}%`, color: [168, 85, 247] }
+  ];
 
-  // Row 2
-  drawStatCard(doc, 15, yPos, cardWidth - 2.5, cardHeight, 'Absent', notAttempted.length.toString(), [239, 68, 68]);
-  drawStatCard(doc, 15 + cardWidth + 2.5, yPos, cardWidth - 2.5, cardHeight, 'Avg Score', `${avgScore}/${totalMarks}`, [99, 102, 241]);
-  yPos += cardHeight + cardGap;
+  // Draw stats boxes
+  stats.forEach((stat, idx) => {
+    const row = Math.floor(idx / 3);
+    const col = idx % 3;
+    const x = margin + col * (statBoxWidth + statGap);
+    const y = yPos + row * (statBoxHeight + statGap);
 
-  // Row 3
-  drawStatCard(doc, 15, yPos, cardWidth - 2.5, cardHeight, 'Highest', highest.toString(), [16, 185, 129]);
-  drawStatCard(doc, 15 + cardWidth + 2.5, yPos, cardWidth - 2.5, cardHeight, 'Avg Accuracy', `${avgAcc}%`, [236, 72, 153]);
-  yPos += cardHeight + 10;
+    // Box border
+    doc.setDrawColor(...stat.color);
+    doc.setLineWidth(1);
+    doc.roundedRect(x, y, statBoxWidth, statBoxHeight, 2, 2, 'S');
 
-  // ═══ TOP PERFORMERS TABLE ═══
-  if (submitted.length) {
-    doc.setFontSize(11);
+    // Label
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 116, 139);
+    doc.text(stat.label, x + 5, y + 8);
+
+    // Value
+    doc.setFontSize(14);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(15, 23, 42);
-    doc.text('🏆 TOP PERFORMERS', 20, yPos);
+    doc.setTextColor(...stat.color);
+    doc.text(stat.value, x + 5, y + 17);
+  });
+
+  yPos += 2 * (statBoxHeight + statGap) + 10;
+
+  // ═══════════════════════════════════════════════════════════
+  // TOP PERFORMERS TABLE
+  // ═══════════════════════════════════════════════════════════
+
+  if (submitted.length > 0) {
+    // Section heading
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 64, 175);
+    doc.text('TOP PERFORMERS', margin, yPos);
     yPos += 5;
 
     const topPerformers = submitted.slice(0, Math.min(10, submitted.length));
     const tableData = topPerformers.map((attempt, idx) => {
       const student = allStudents.find(s => s.id === attempt.user_id);
-      const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)}m` : '—';
+      const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
       return [
         idx + 1,
-        student?.full_name || 'Unknown',
-        `${attempt.total_score || 0}/${totalMarks}`,
+        student?.full_name || 'Student',
+        `${attempt.total_score || 0} / ${totalMarks}`,
         `${(attempt.accuracy || 0).toFixed(1)}%`,
         timeTaken
       ];
@@ -610,161 +654,158 @@ window.downloadPDFReport = async function(examId) {
       body: tableData,
       theme: 'striped',
       headStyles: { 
-        fillColor: [37, 99, 235], 
+        fillColor: [30, 64, 175],
+        textColor: [255, 255, 255],
         fontSize: 9,
         fontStyle: 'bold',
         halign: 'center'
       },
       bodyStyles: { 
         fontSize: 9,
-        halign: 'center'
+        textColor: [51, 65, 85]
       },
       columnStyles: {
-        0: { cellWidth: 15, halign: 'center' },
+        0: { cellWidth: 20, halign: 'center' },
         1: { cellWidth: 70, halign: 'left' },
         2: { cellWidth: 30, halign: 'center' },
         3: { cellWidth: 30, halign: 'center' },
         4: { cellWidth: 25, halign: 'center' }
       },
-      margin: { left: 15, right: 15 },
-      alternateRowStyles: { fillColor: [248, 250, 252] }
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+      margin: { left: margin, right: margin }
     });
 
-    yPos = doc.lastAutoTable.finalY + 10;
+    yPos = doc.lastAutoTable.finalY + 12;
   }
 
-  // ═══ PERFORMANCE DISTRIBUTION ═══
+  // ═══════════════════════════════════════════════════════════
+  // SCORE DISTRIBUTION
+  // ═══════════════════════════════════════════════════════════
+
   if (submitted.length > 0 && yPos < 220) {
-    doc.setFontSize(11);
+    // Section heading
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(15, 23, 42);
-    doc.text('📈 SCORE DISTRIBUTION', 20, yPos);
+    doc.setTextColor(30, 64, 175);
+    doc.text('SCORE DISTRIBUTION', margin, yPos);
     yPos += 8;
 
-    // Calculate distribution
-    const ranges = [
-      { label: `${Math.floor(totalMarks * 0.9)}-${totalMarks}`, min: totalMarks * 0.9, color: [16, 185, 129] },
-      { label: `${Math.floor(totalMarks * 0.7)}-${Math.floor(totalMarks * 0.89)}`, min: totalMarks * 0.7, color: [59, 130, 246] },
-      { label: `${Math.floor(totalMarks * 0.5)}-${Math.floor(totalMarks * 0.69)}`, min: totalMarks * 0.5, color: [251, 191, 36] },
-      { label: `${Math.floor(totalMarks * 0.3)}-${Math.floor(totalMarks * 0.49)}`, min: totalMarks * 0.3, color: [249, 115, 22] },
-      { label: `0-${Math.floor(totalMarks * 0.29)}`, min: 0, color: [239, 68, 68] }
+    // Calculate distribution ranges
+    const excellent = submitted.filter(a => (a.total_score / totalMarks) >= 0.9).length;
+    const good = submitted.filter(a => (a.total_score / totalMarks) >= 0.7 && (a.total_score / totalMarks) < 0.9).length;
+    const average = submitted.filter(a => (a.total_score / totalMarks) >= 0.5 && (a.total_score / totalMarks) < 0.7).length;
+    const belowAvg = submitted.filter(a => (a.total_score / totalMarks) >= 0.3 && (a.total_score / totalMarks) < 0.5).length;
+    const poor = submitted.filter(a => (a.total_score / totalMarks) < 0.3).length;
+
+    const distribution = [
+      { label: 'Excellent (90-100%)', count: excellent, color: [16, 185, 129] },
+      { label: 'Good (70-89%)', count: good, color: [59, 130, 246] },
+      { label: 'Average (50-69%)', count: average, color: [251, 191, 36] },
+      { label: 'Below Average (30-49%)', count: belowAvg, color: [249, 115, 22] },
+      { label: 'Poor (0-29%)', count: poor, color: [239, 68, 68] }
     ];
 
-    ranges.forEach(range => {
-      const count = submitted.filter(a => {
-        const score = Number(a.total_score) || 0;
-        const nextRange = ranges[ranges.indexOf(range) - 1];
-        if (nextRange) {
-          return score >= range.min && score < nextRange.min;
-        } else {
-          return score >= range.min;
-        }
-      }).length;
+    distribution.forEach(range => {
+      if (range.count > 0) {
+        const percentage = (range.count / submitted.length) * 100;
+        const barWidth = (percentage / 100) * (pageWidth - 2 * margin - 80);
 
-      if (count > 0) {
-        const barWidth = (count / submitted.length) * 120;
-        
+        // Bar
         doc.setFillColor(...range.color);
-        doc.roundedRect(20, yPos, barWidth, 6, 1, 1, 'F');
-        
-        doc.setFontSize(8);
+        doc.roundedRect(margin, yPos - 4, barWidth, 6, 1, 1, 'F');
+
+        // Label
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
         doc.setTextColor(71, 85, 105);
-        doc.text(`${range.label}: ${count} student${count > 1 ? 's' : ''}`, 145, yPos + 4);
-        
-        yPos += 9;
+        doc.text(`${range.label}: ${range.count} student${range.count > 1 ? 's' : ''}`, margin + barWidth + 5, yPos);
+
+        yPos += 10;
       }
     });
 
     yPos += 5;
   }
 
-  // ═══ ABSENT STUDENTS (if any) ═══
+  // ═══════════════════════════════════════════════════════════
+  // ABSENT STUDENTS
+  // ═══════════════════════════════════════════════════════════
+
   if (notAttempted.length > 0) {
-    if (yPos > 250) {
+    if (yPos > 240) {
       doc.addPage();
-      yPos = 20;
+      yPos = 25;
     }
 
-    doc.setFontSize(11);
+    // Section heading
+    doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(220, 38, 38);
-    doc.text(`❌ ABSENT STUDENTS (${notAttempted.length})`, 20, yPos);
+    doc.text(`ABSENT STUDENTS (${notAttempted.length})`, margin, yPos);
     yPos += 8;
 
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(71, 85, 105);
-    
+
     notAttempted.forEach((student, idx) => {
-      if (yPos > 280) {
+      if (yPos > 275) {
         doc.addPage();
-        yPos = 20;
+        yPos = 25;
       }
-      doc.text(`${idx + 1}. ${student.full_name}`, 25, yPos);
+      doc.text(`${idx + 1}. ${student.full_name}`, margin + 5, yPos);
       yPos += 6;
     });
   }
 
-  // ═══ FOOTER ON ALL PAGES ═══
+  // ═══════════════════════════════════════════════════════════
+  // FOOTER ON ALL PAGES
+  // ═══════════════════════════════════════════════════════════
+
   const pageCount = doc.internal.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
-    
-    // Footer background
-    doc.setFillColor(248, 250, 252);
-    doc.rect(0, pageHeight - 15, pageWidth, 15, 'F');
-    
-    doc.setFontSize(8);
+
+    // Footer line
+    doc.setDrawColor(203, 213, 225);
+    doc.setLineWidth(0.3);
+    doc.line(margin, pageHeight - 20, pageWidth - margin, pageHeight - 20);
+
+    // Branding
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(59, 130, 246);
-    doc.text('Powered by Courage Library', pageWidth / 2, pageHeight - 8, { align: 'center' });
-    
+    doc.setTextColor(30, 64, 175);
+    doc.text('Powered by Courage Library', pageWidth / 2, pageHeight - 13, { align: 'center' });
+
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
-    doc.text('www.couragelibrary.in', pageWidth / 2, pageHeight - 4, { align: 'center' });
-    
-    // Page number
-    doc.setFontSize(7);
-    doc.text(`Page ${i} of ${pageCount}`, pageWidth - 20, pageHeight - 6, { align: 'right' });
-    
-    // Generated timestamp
-    doc.text(`Generated: ${new Date().toLocaleString('en-IN')}`, 20, pageHeight - 6);
+    doc.text('www.couragelibrary.in', pageWidth / 2, pageHeight - 8, { align: 'center' });
+
+    // Page number (right)
+    doc.setFontSize(8);
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
+
+    // Generated timestamp (left)
+    const timestamp = new Date().toLocaleString('en-IN', { 
+      day: '2-digit', 
+      month: 'short', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    doc.text(`Generated: ${timestamp}`, margin, pageHeight - 10);
   }
 
-  // ═══ SAVE PDF ═══
+  // ═══════════════════════════════════════════════════════════
+  // SAVE PDF
+  // ═══════════════════════════════════════════════════════════
+
   const fileName = `${coachingData.name.replace(/\s+/g, '_')}_${examName.replace(/\s+/g, '_')}_Report.pdf`;
   doc.save(fileName);
 
   showToast('PDF downloaded successfully!');
 };
-
-// Helper function to draw stat cards
-function drawStatCard(doc, x, y, width, height, label, value, color) {
-  // Card background
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(x, y, width, height, 2, 2, 'F');
-  
-  // Border
-  doc.setDrawColor(...color);
-  doc.setLineWidth(0.5);
-  doc.roundedRect(x, y, width, height, 2, 2, 'S');
-  
-  // Icon circle
-  doc.setFillColor(...color);
-  doc.circle(x + 8, y + height / 2, 4, 'F');
-  
-  // Label
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 116, 139);
-  doc.text(label, x + 15, y + height / 2 - 2);
-  
-  // Value
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(...color);
-  doc.text(value, x + 15, y + height / 2 + 5);
-}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // UTILITIES
