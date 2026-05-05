@@ -413,7 +413,6 @@ window.toggleExamActive = async function(examId, currentStatus) {
 };
 
 window.viewResults = async function(examId) {
-  // For now, show results in modal (can be expanded later)
   const exam = allExams.find(e => e.id === examId);
   if (!exam) return;
 
@@ -429,41 +428,106 @@ window.viewResults = async function(examId) {
     return;
   }
 
-  // Build results modal
   const pattern = exam.exam_patterns || {};
   const examName = pattern.pattern_name || 'Exam';
+  const totalMarks = pattern.total_marks || '—';
 
-  let resultsHTML = '<div class="space-y-2">';
+  // Create modal
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+  `;
+
+  let resultsHTML = '';
   
   if (!attempts.length) {
-    resultsHTML += '<p class="text-gray-500 text-center py-8">No submissions yet</p>';
+    resultsHTML = `
+      <div class="text-center py-12">
+        <i class="fas fa-inbox text-gray-300 text-5xl mb-3"></i>
+        <p class="text-gray-500">No submissions yet</p>
+      </div>
+    `;
   } else {
+    resultsHTML = `
+      <div style="max-height: 400px; overflow-y: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead style="position: sticky; top: 0; background: #1e40af; color: white;">
+            <tr>
+              <th style="padding: 10px; text-align: center; font-size: 12px;">Rank</th>
+              <th style="padding: 10px; text-align: left; font-size: 12px;">Student Name</th>
+              <th style="padding: 10px; text-align: center; font-size: 12px;">Score</th>
+              <th style="padding: 10px; text-align: center; font-size: 12px;">Accuracy</th>
+              <th style="padding: 10px; text-align: center; font-size: 12px;">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
     attempts.forEach((attempt, idx) => {
       const student = allStudents.find(s => s.id === attempt.user_id);
-      const name = student?.full_name || 'Unknown';
+      const name = student?.full_name || 'Student';
       const score = attempt.total_score || 0;
       const acc = attempt.accuracy || 0;
+      const time = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
+
+      const rowBg = idx % 2 === 0 ? '#f8fafc' : '#ffffff';
 
       resultsHTML += `
-        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-          <div class="flex items-center gap-3">
-            <span class="text-sm font-bold text-gray-500">#${idx + 1}</span>
-            <span class="font-semibold text-gray-900">${name}</span>
-          </div>
-          <div class="flex items-center gap-4 text-sm">
-            <span class="font-bold text-blue-600">${score}</span>
-            <span class="text-gray-500">${acc.toFixed(1)}%</span>
-          </div>
-        </div>
+        <tr style="background: ${rowBg};">
+          <td style="padding: 12px; text-align: center; font-weight: bold; color: #64748b; font-size: 13px;">#${idx + 1}</td>
+          <td style="padding: 12px; font-weight: 600; color: #1e293b; font-size: 13px;">${name}</td>
+          <td style="padding: 12px; text-align: center; font-weight: bold; color: #2563eb; font-size: 13px;">${score}/${totalMarks}</td>
+          <td style="padding: 12px; text-align: center; color: ${acc >= 80 ? '#16a34a' : acc >= 60 ? '#ea580c' : '#dc2626'}; font-weight: 600; font-size: 13px;">${acc.toFixed(1)}%</td>
+          <td style="padding: 12px; text-align: center; color: #64748b; font-size: 13px;">${time}</td>
+        </tr>
       `;
     });
+
+    resultsHTML += `
+          </tbody>
+        </table>
+      </div>
+    `;
   }
 
-  resultsHTML += '</div>';
+  modal.innerHTML = `
+    <div style="background: white; border-radius: 16px; padding: 0; max-width: 700px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column;">
+      <!-- Header -->
+      <div style="background: linear-gradient(135deg, #1e40af, #3730a3); padding: 24px; color: white;">
+        <h2 style="font-size: 20px; font-weight: bold; margin: 0 0 8px 0;">Results - ${examName}</h2>
+        <p style="font-size: 14px; opacity: 0.9; margin: 0;">${attempts.length} submission${attempts.length !== 1 ? 's' : ''}</p>
+      </div>
 
-  // Show modal (simplified version)
-  alert(`Results for ${examName}\n\n${attempts.length} submissions\n\nCheck console for details or download PDF for full report.`);
-  console.table(attempts);
+      <!-- Results -->
+      <div style="flex: 1; overflow: hidden;">
+        ${resultsHTML}
+      </div>
+
+      <!-- Footer -->
+      <div style="padding: 16px 24px; border-top: 1px solid #e2e8f0; background: #f8fafc;">
+        <button onclick="this.closest('div[style*=\\'position: fixed\\']').remove()"
+          style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+          Close
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Close on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
