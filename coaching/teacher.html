@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Portal | Courage Library</title>
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8fafc;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease both; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { animation: spin 0.8s linear infinite; }
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Loading -->
+  <div id="loadingState" class="min-h-screen flex items-center justify-center">
+    <div class="text-center">
+      <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full spinner mx-auto mb-4"></div>
+      <p class="text-gray-500 font-medium">Loading teacher portal...</p>
+    </div>
+  </div>
+
+  <!-- Main Dashboard -->
+  <div id="dashboard" class="hidden">
+    
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <img src="/images/logo.png" alt="CL" class="w-10 h-10 rounded-xl">
+            <div>
+              <h1 id="coachingName" class="text-lg font-bold text-gray-900">Loading...</h1>
+              <p class="text-xs text-gray-500">Teacher Portal</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="text-right hidden sm:block">
+              <p id="teacherName" class="text-sm font-semibold text-gray-900">Teacher</p>
+              <p class="text-xs text-gray-500">Instructor</p>
+            </div>
+            <button onclick="logout()" 
+              class="px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-lg transition">
+              <i class="fas fa-sign-out-alt mr-2"></i>Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+      <!-- Quick Stats -->
+      <div id="statsRow" class="grid grid-cols-1 sm:grid-cols-3 gap-4 fade-in">
+        <!-- Will be populated by JS -->
+      </div>
+
+      <!-- Exams Section -->
+      <div class="fade-in">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-900">
+            <i class="fas fa-clipboard-list text-blue-600 mr-2"></i>Scheduled Exams
+          </h2>
+        </div>
+        <div id="examsGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- Will be populated by JS -->
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast-container" style="position:fixed;top:20px;right:20px;z-index:10000;"></div>
+
+  <script src="/js/teacherDashboard.js"></script>
+
+</body>
+</html>
