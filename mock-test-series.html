@@ -1400,7 +1400,7 @@ function updateNavForGuest(){
 
 async function loadSeries(){
   try{
-    const{data,error}=await client.from('exam_categories').select('id,name,description').order('created_at',{ascending:true});
+    const{data,error}=await client.from('exam_categories').select('id,name,description').is('coaching_id',null).order('created_at',{ascending:true});
     
     // DEMO filter out
     const filtered = (data||[]).filter(s => s.name !== 'DEMO');
