@@ -731,34 +731,56 @@ function animateCount(id, target, duration) {
    (tab freshly loaded, token still hydrating).
 ───────────────────────────────────────── */
 async function giveCoins(attemptId) {
+  console.log("═══════════════════════════════════════════════════════");
+  console.log("🎯 [COIN DEBUG] giveCoins() called");
+  console.log("📋 [COIN DEBUG] Attempt ID:", attemptId);
+  console.log("═══════════════════════════════════════════════════════");
+  
   // FIX #1: getSession() returns { data: { session } } — destructure correctly.
   // The old code destructured `user` from it which doesn't exist on session object.
   let session = null;
   try {
+    console.log("🔑 [COIN DEBUG] Fetching session...");
     const { data, error } = await client.auth.getSession();
     if (error) {
-      console.error("giveCoins: getSession error:", error);
+      console.error("❌ [COIN ERROR] getSession error:", error);
       return;
     }
     session = data?.session;
+    console.log("🔑 [COIN DEBUG] Initial session fetch:", session ? "✅ Found" : "❌ Null");
   } catch (err) {
-    console.error("giveCoins: getSession threw:", err);
+    console.error("❌ [COIN ERROR] getSession threw:", err);
     return;
   }
 
   // FIX #2: If session is null on first try (token still hydrating), wait 1.2s and retry once
   if (!session) {
+    console.log("⏳ [COIN DEBUG] No session on first try, waiting 1.2s for token hydration...");
     await new Promise(r => setTimeout(r, 1200));
     try {
       const { data } = await client.auth.getSession();
       session = data?.session;
-    } catch (_) {}
+      console.log("🔄 [COIN DEBUG] Session after retry:", session ? "✅ Found" : "❌ Still null");
+    } catch (_) {
+      console.error("❌ [COIN ERROR] Session retry failed");
+    }
   }
 
   if (!session) {
-    console.error("giveCoins: no session after retry — coins not awarded");
+    console.error("❌ [COIN ERROR] NO SESSION FOUND - Coins cannot be awarded!");
+    console.error("⚠️ [COIN ERROR] User needs to refresh page to claim coins");
+    
+    // Show alert to user about session expiry
+    setTimeout(() => {
+      const alertMsg = "⚠️ Your session expired!\n\nPlease refresh this page to claim your coins.\n\nDon't worry - your test results are saved.";
+      alert(alertMsg);
+    }, 1500);
+    
     return;
   }
+
+  console.log("✅ [COIN DEBUG] Valid session found, proceeding with reward...");
+  console.log("👤 [COIN DEBUG] User ID:", session.user.id);
 
   const user = session.user;
 
@@ -775,6 +797,9 @@ async function giveCoins(attemptId) {
 
   let data;
   try {
+    console.log("🚀 [COIN DEBUG] Calling submit-test-and-reward edge function...");
+    console.log("📋 [COIN DEBUG] Attempt ID:", attemptId);
+    
     const res = await fetch(
       `${SUPABASE_URL}/functions/v1/submit-test-and-reward`,
       {
@@ -788,26 +813,56 @@ async function giveCoins(attemptId) {
       }
     );
 
+    console.log("📡 [COIN DEBUG] Edge function response status:", res.status, res.ok ? "OK" : "ERROR");
+
     if (!res.ok) {
       const errText = await res.text();
-      console.error("giveCoins: Edge Function returned", res.status, errText);
+      console.error("❌ [COIN ERROR] Edge function returned error:", res.status, errText);
+      
+      // Show error to user
+      setTimeout(() => {
+        alert(`⚠️ Coin reward failed (${res.status})\n\nPlease refresh the page to try again.`);
+      }, 1500);
+      
       return;
     }
 
     data = await res.json();
+    console.log("✅ [COIN DEBUG] Edge function response data:", data);
   } catch (err) {
-    console.error("giveCoins fetch failed:", err);
+    console.error("❌ [COIN ERROR] Edge function fetch failed:", err);
+    console.error("❌ [COIN ERROR] Error details:", err.message);
+    
+    // Show error to user
+    setTimeout(() => {
+      alert("⚠️ Network error - could not process coin reward.\n\nPlease check your connection and refresh the page.");
+    }, 1500);
+    
     return;
   }
 
-  if (!data) return;
+  if (!data) {
+    console.warn("⚠️ [COIN DEBUG] No data returned from edge function");
+    return;
+  }
 
   // Show popup only once per attempt per session
   const popupShownKey = `coinPopupShown_${attemptId}`;
-  if (sessionStorage.getItem(popupShownKey)) return;
+  if (sessionStorage.getItem(popupShownKey)) {
+    console.log("ℹ️ [COIN DEBUG] Popup already shown for this attempt in this session");
+    return;
+  }
 
   // Both fresh reward and already_rewarded now return coins from edge function
-  if (!data.coins) return;
+  if (!data.coins) {
+    console.warn("⚠️ [COIN DEBUG] No coins in response data:", data);
+    return;
+  }
+
+  console.log("🎉 [COIN DEBUG] Coins awarded successfully!");
+  console.log("🪙 [COIN DEBUG] Coins:", data.coins);
+  console.log("🔥 [COIN DEBUG] Streak:", data.streak || 0);
+  console.log("📊 [COIN DEBUG] Breakdown:", data.breakdown);
 
   sessionStorage.setItem(popupShownKey, '1');
   showCoinPopup(data.coins, data.streak || 0, data.breakdown);
