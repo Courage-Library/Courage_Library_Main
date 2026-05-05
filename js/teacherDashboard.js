@@ -567,7 +567,7 @@ window.downloadPDFReport = async function(examId) {
   yPos += 10;
 
   // ═══════════════════════════════════════════════════════════
-  // STATISTICS SECTION
+  // STATISTICS SECTION - REDESIGNED WITH VISUAL APPEAL
   // ═══════════════════════════════════════════════════════════
 
   const avgScore = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.total_score) || 0), 0) / submitted.length).toFixed(1) : 0;
@@ -580,48 +580,61 @@ window.downloadPDFReport = async function(examId) {
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(30, 64, 175);
   doc.text('PERFORMANCE SUMMARY', margin, yPos);
-  yPos += 8;
+  yPos += 10;
 
-  // Stats grid - 3x2
+  // Stats grid - 3 columns x 2 rows
   const statBoxWidth = (pageWidth - 2 * margin - 10) / 3;
-  const statBoxHeight = 22;
+  const statBoxHeight = 26;
   const statGap = 5;
 
   const stats = [
-    { label: 'Total Students', value: allStudents.length.toString(), color: [59, 130, 246] },
-    { label: 'Attempted', value: submitted.length.toString(), color: [34, 197, 94] },
-    { label: 'Absent', value: notAttempted.length.toString(), color: [239, 68, 68] },
-    { label: 'Average Score', value: `${avgScore} / ${totalMarks}`, color: [99, 102, 241] },
-    { label: 'Highest Score', value: highest.toString(), color: [16, 185, 129] },
-    { label: 'Avg Accuracy', value: `${avgAcc}%`, color: [168, 85, 247] }
+    { label: 'Total Students', value: allStudents.length.toString(), color: [59, 130, 246], bgColor: [239, 246, 255] },
+    { label: 'Attempted', value: submitted.length.toString(), color: [34, 197, 94], bgColor: [240, 253, 244] },
+    { label: 'Absent', value: notAttempted.length.toString(), color: [239, 68, 68], bgColor: [254, 242, 242] },
+    { label: 'Average Score', value: `${avgScore} / ${totalMarks}`, color: [99, 102, 241], bgColor: [238, 242, 255] },
+    { label: 'Highest Score', value: highest.toString(), color: [16, 185, 129], bgColor: [236, 253, 245] },
+    { label: 'Avg Accuracy', value: `${avgAcc}%`, color: [168, 85, 247], bgColor: [250, 245, 255] }
   ];
 
-  // Draw stats boxes
+  // Draw stats boxes with enhanced design
   stats.forEach((stat, idx) => {
     const row = Math.floor(idx / 3);
     const col = idx % 3;
     const x = margin + col * (statBoxWidth + statGap);
     const y = yPos + row * (statBoxHeight + statGap);
 
-    // Box border
-    doc.setDrawColor(...stat.color);
-    doc.setLineWidth(1);
-    doc.roundedRect(x, y, statBoxWidth, statBoxHeight, 2, 2, 'S');
+    // Shadow effect (subtle)
+    doc.setFillColor(200, 200, 200);
+    doc.roundedRect(x + 0.5, y + 0.5, statBoxWidth, statBoxHeight, 3, 3, 'F');
 
-    // Label
+    // Main box with gradient-like background
+    doc.setFillColor(...stat.bgColor);
+    doc.roundedRect(x, y, statBoxWidth, statBoxHeight, 3, 3, 'F');
+
+    // Left colored accent bar
+    doc.setFillColor(...stat.color);
+    doc.roundedRect(x, y, 3, statBoxHeight, 3, 3, 'F');
+
+    // Icon circle (simple geometric)
+    doc.setFillColor(...stat.color);
+    doc.setDrawColor(255, 255, 255);
+    doc.setLineWidth(1.5);
+    doc.circle(x + 10, y + statBoxHeight / 2, 5, 'FD');
+
+    // Label (smaller, gray)
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
-    doc.text(stat.label, x + 5, y + 8);
+    doc.text(stat.label, x + 18, y + 10);
 
-    // Value
-    doc.setFontSize(14);
+    // Value (large, colored, bold)
+    doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...stat.color);
-    doc.text(stat.value, x + 5, y + 17);
+    doc.text(stat.value, x + 18, y + 20);
   });
 
-  yPos += 2 * (statBoxHeight + statGap) + 10;
+  yPos += 2 * (statBoxHeight + statGap) + 12;
 
   // ═══════════════════════════════════════════════════════════
   // TOP PERFORMERS TABLE
