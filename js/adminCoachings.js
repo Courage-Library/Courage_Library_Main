@@ -204,6 +204,10 @@ function renderCoachings(data) {
 
         <!-- Actions -->
         <div class="flex flex-col gap-2 flex-shrink-0">
+          <button onclick="generateTeacherInvite('${c.id}', '${c.name.replace(/'/g, "\\'")}')"
+            class="text-xs px-3 py-1.5 rounded-lg font-semibold transition text-indigo-600 hover:bg-indigo-50">
+            <i class="fas fa-chalkboard-teacher mr-1"></i>Teacher Invite
+          </button>
           <button onclick="toggleCoachingStatus('${c.id}', ${c.is_active}, '${c.name}')"
             class="text-xs px-3 py-1.5 rounded-lg font-semibold transition ${c.is_active ? 'text-amber-600 hover:bg-amber-50' : 'text-green-600 hover:bg-green-50'}">
             <i class="fas fa-${c.is_active ? 'pause' : 'play'} mr-1"></i>${c.is_active ? 'Deactivate' : 'Activate'}
@@ -257,4 +261,99 @@ window.deleteCoaching = async function(id, name, studentCount) {
   if (error) { showToast(error.message, "error"); return; }
   showToast(`"${name}" deleted.`, "success");
   loadCoachings();
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// TEACHER INVITE GENERATOR
+// ══════════════════════════════════════════════════════════════════════════════
+
+window.generateTeacherInvite = async function(coachingId, coachingName) {
+  if (!confirm(`Generate a new teacher invite link for "${coachingName}"?`)) return;
+
+  // Generate random 8-character code
+  const code = Math.random().toString(36).substring(2, 10).toUpperCase();
+
+  const { data: { user } } = await client.auth.getUser();
+  
+  const { data, error } = await client
+    .from('teacher_invites')
+    .insert([{
+      coaching_id: coachingId,
+      invite_code: code,
+      created_by: user?.id
+    }])
+    .select()
+    .single();
+
+  if (error) {
+    showToast('Failed to generate invite: ' + error.message, 'error');
+    return;
+  }
+
+  // Show invite link in modal
+  showInviteLinkModal(data, coachingName);
+};
+
+function showInviteLinkModal(invite, coachingName) {
+  const inviteURL = `${window.location.origin}/coaching/teacher-invite.html?code=${invite.invite_code}`;
+
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="background: white; border-radius: 16px; padding: 30px; max-width: 500px; width: 100%;">
+      <h2 style="font-size: 20px; font-weight: bold; margin-bottom: 16px; color: #1f2937;">
+        <i class="fas fa-chalkboard-teacher" style="color: #6366f1; margin-right: 8px;"></i>
+        Teacher Invite Generated
+      </h2>
+      
+      <p style="color: #6b7280; font-size: 14px; margin-bottom: 4px;">
+        For: <strong>${coachingName}</strong>
+      </p>
+      
+      <p style="color: #6b7280; font-size: 14px; margin-bottom: 16px;">
+        Share this link with the teacher to give them access to the Teacher Portal:
+      </p>
+
+      <div style="background: #eff6ff; border: 2px solid #3b82f6; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+        <p style="font-size: 11px; color: #3b82f6; font-weight: 600; margin-bottom: 6px;">INVITE LINK</p>
+        <p id="inviteURL" style="font-family: monospace; font-size: 13px; color: #1e3a8a; word-break: break-all; margin-bottom: 12px;">
+          ${inviteURL}
+        </p>
+        <button onclick="copyInviteLink('${inviteURL}')"
+          style="width: 100%; padding: 10px; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+          <i class="fas fa-copy" style="margin-right: 6px;"></i>Copy Link
+        </button>
+      </div>
+
+      <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px; margin-bottom: 16px; border-radius: 6px;">
+        <p style="font-size: 12px; color: #92400e;">
+          <i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i>
+          <strong>Note:</strong> This link expires in 30 days and can only be used once.
+        </p>
+      </div>
+
+      <button onclick="this.closest('div[style*=\\"position: fixed\\"]').remove()"
+        style="width: 100%; padding: 10px; background: #f3f4f6; color: #374151; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px;">
+        Close
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
+
+window.copyInviteLink = function(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('Invite link copied to clipboard!');
+  });
 };
