@@ -326,7 +326,7 @@ function renderExamCard(exam) {
       </div>
 
       <!-- Toggle Active -->
-      <button onclick="toggleExamActive('${exam.id}', ${exam.is_active})"
+      <button id="toggleBtn_${exam.id}" onclick="toggleExamActive('${exam.id}', ${exam.is_active})"
         class="w-full mt-2 px-4 py-2 ${exam.is_active ? 'bg-red-50 hover:bg-red-100 text-red-600' : 'bg-green-50 hover:bg-green-100 text-green-600'} rounded-lg font-semibold text-sm transition">
         <i class="fas fa-${exam.is_active ? 'ban' : 'check-circle'} mr-2"></i>${exam.is_active ? 'Deactivate' : 'Activate'} Exam
       </button>
@@ -353,6 +353,12 @@ async function loadExamAttempts(examId) {
     <p><strong>${attempted}/${total}</strong> students attempted</p>
     ${attempted < total ? `<p class="text-orange-600 text-xs mt-1"><i class="fas fa-exclamation-triangle mr-1"></i>${total - attempted} students haven't attempted</p>` : ''}
   `;
+
+  // Hide/disable deactivate button if exam has attempts
+  const toggleBtn = document.getElementById(`toggleBtn_${examId}`);
+  if (toggleBtn && attempted > 0) {
+    toggleBtn.style.display = 'none';
+  }
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -461,7 +467,7 @@ window.viewResults = async function(examId) {
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PDF REPORT GENERATION
+// PDF REPORT GENERATION — ENHANCED VERSION
 // ══════════════════════════════════════════════════════════════════════════════
 
 window.downloadPDFReport = async function(examId) {
@@ -494,139 +500,271 @@ window.downloadPDFReport = async function(examId) {
   const duration = pattern.duration_minutes || '—';
   const totalMarks = pattern.total_marks || '—';
 
-  // === HEADER ===
-  doc.setFontSize(18);
-  doc.setFont('helvetica', 'bold');
-  doc.text('EXAM PERFORMANCE REPORT', 105, 20, { align: 'center' });
+  const pageWidth = doc.internal.pageSize.width;
+  const pageHeight = doc.internal.pageSize.height;
 
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  doc.text(coachingData.name, 105, 28, { align: 'center' });
+  // ═══ HEADER WITH GRADIENT BACKGROUND ═══
+  doc.setFillColor(29, 78, 216); // Blue-700
+  doc.rect(0, 0, pageWidth, 45, 'F');
+
+  // Logo placeholder (you can add actual logo later)
+  doc.setFillColor(255, 255, 255);
+  doc.circle(15, 15, 8, 'F');
+  doc.setFontSize(8);
+  doc.setTextColor(29, 78, 216);
+  doc.text('CL', 12, 17);
+
+  // Header text
+  doc.setFontSize(20);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 18, { align: 'center' });
+
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text(coachingData.name, pageWidth / 2, 28, { align: 'center' });
 
   if (coachingData.city) {
     doc.setFontSize(10);
-    doc.text(`📍 ${coachingData.city}`, 105, 34, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.text(`📍 ${coachingData.city}`, pageWidth / 2, 36, { align: 'center' });
   }
 
-  doc.setLineWidth(0.5);
-  doc.line(20, 38, 190, 38);
+  // ═══ EXAM DETAILS BOX ═══
+  let yPos = 55;
+  doc.setFillColor(239, 246, 255);
+  doc.roundedRect(15, yPos, pageWidth - 30, 22, 3, 3, 'F');
 
-  // === EXAM DETAILS ===
-  let yPos = 45;
-  doc.setFontSize(11);
+  doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
-  doc.text(`Exam: ${examName}`, 20, yPos);
-  yPos += 6;
+  doc.setTextColor(30, 64, 175);
+  doc.text(examName, 20, yPos + 7);
 
-  doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  doc.text(`Duration: ${duration} minutes  |  Total Marks: ${totalMarks}`, 20, yPos);
-  yPos += 6;
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(71, 85, 105);
+  doc.text(`Duration: ${duration} min  |  Total Marks: ${totalMarks}`, 20, yPos + 14);
 
   if (exam.start_datetime) {
-    doc.text(`Date: ${formatDateTime(new Date(exam.start_datetime))}`, 20, yPos);
-    yPos += 10;
-  } else {
-    yPos += 6;
+    doc.text(`Date: ${formatDateTime(new Date(exam.start_datetime))}`, 20, yPos + 19);
   }
 
-  // === QUICK STATS ===
+  yPos += 30;
+
+  // ═══ QUICK STATS CARDS ═══
   const avgScore = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.total_score) || 0), 0) / submitted.length).toFixed(1) : 0;
   const avgAcc = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.accuracy) || 0), 0) / submitted.length).toFixed(1) : 0;
   const highest = submitted.length ? Math.max(...submitted.map(a => Number(a.total_score) || 0)) : 0;
   const lowest = submitted.length ? Math.min(...submitted.map(a => Number(a.total_score) || 0)) : 0;
 
-  doc.setFillColor(239, 246, 255);
-  doc.rect(20, yPos, 170, 24, 'F');
-
-  doc.setFontSize(10);
+  doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.text('📊 QUICK STATS', 25, yPos + 6);
+  doc.setTextColor(15, 23, 42);
+  doc.text('📊 PERFORMANCE OVERVIEW', 20, yPos);
+  yPos += 8;
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.text(`Total Students: ${allStudents.length}    Attempted: ${submitted.length}    Absent: ${notAttempted.length}`, 25, yPos + 12);
-  doc.text(`Avg Score: ${avgScore}/${totalMarks}    Avg Accuracy: ${avgAcc}%`, 25, yPos + 18);
+  // Stats cards in 2 rows
+  const cardWidth = (pageWidth - 40) / 2;
+  const cardHeight = 18;
+  const cardGap = 5;
+
+  // Row 1
+  drawStatCard(doc, 15, yPos, cardWidth - 2.5, cardHeight, 'Total Students', allStudents.length.toString(), [59, 130, 246]);
+  drawStatCard(doc, 15 + cardWidth + 2.5, yPos, cardWidth - 2.5, cardHeight, 'Attempted', submitted.length.toString(), [34, 197, 94]);
+  yPos += cardHeight + cardGap;
+
+  // Row 2
+  drawStatCard(doc, 15, yPos, cardWidth - 2.5, cardHeight, 'Absent', notAttempted.length.toString(), [239, 68, 68]);
+  drawStatCard(doc, 15 + cardWidth + 2.5, yPos, cardWidth - 2.5, cardHeight, 'Avg Score', `${avgScore}/${totalMarks}`, [99, 102, 241]);
+  yPos += cardHeight + cardGap;
+
+  // Row 3
+  drawStatCard(doc, 15, yPos, cardWidth - 2.5, cardHeight, 'Highest', highest.toString(), [16, 185, 129]);
+  drawStatCard(doc, 15 + cardWidth + 2.5, yPos, cardWidth - 2.5, cardHeight, 'Avg Accuracy', `${avgAcc}%`, [236, 72, 153]);
+  yPos += cardHeight + 10;
+
+  // ═══ TOP PERFORMERS TABLE ═══
   if (submitted.length) {
-    doc.text(`Highest: ${highest}    Lowest: ${lowest}`, 120, yPos + 18);
-  }
-
-  yPos += 30;
-
-  // === TOP PERFORMERS ===
-  if (submitted.length) {
-    doc.setFontSize(10);
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
+    doc.setTextColor(15, 23, 42);
     doc.text('🏆 TOP PERFORMERS', 20, yPos);
-    yPos += 6;
+    yPos += 5;
 
     const topPerformers = submitted.slice(0, Math.min(10, submitted.length));
     const tableData = topPerformers.map((attempt, idx) => {
       const student = allStudents.find(s => s.id === attempt.user_id);
+      const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)}m` : '—';
       return [
         idx + 1,
         student?.full_name || 'Unknown',
         `${attempt.total_score || 0}/${totalMarks}`,
-        `${(attempt.accuracy || 0).toFixed(1)}%`
+        `${(attempt.accuracy || 0).toFixed(1)}%`,
+        timeTaken
       ];
     });
 
     doc.autoTable({
       startY: yPos,
-      head: [['Rank', 'Name', 'Score', 'Accuracy']],
+      head: [['Rank', 'Student Name', 'Score', 'Accuracy', 'Time']],
       body: tableData,
-      theme: 'grid',
-      headStyles: { fillColor: [37, 99, 235], fontSize: 9 },
-      bodyStyles: { fontSize: 9 },
-      margin: { left: 20, right: 20 },
+      theme: 'striped',
+      headStyles: { 
+        fillColor: [37, 99, 235], 
+        fontSize: 9,
+        fontStyle: 'bold',
+        halign: 'center'
+      },
+      bodyStyles: { 
+        fontSize: 9,
+        halign: 'center'
+      },
+      columnStyles: {
+        0: { cellWidth: 15, halign: 'center' },
+        1: { cellWidth: 70, halign: 'left' },
+        2: { cellWidth: 30, halign: 'center' },
+        3: { cellWidth: 30, halign: 'center' },
+        4: { cellWidth: 25, halign: 'center' }
+      },
+      margin: { left: 15, right: 15 },
+      alternateRowStyles: { fillColor: [248, 250, 252] }
     });
 
     yPos = doc.lastAutoTable.finalY + 10;
   }
 
-  // === ABSENT STUDENTS ===
-  if (notAttempted.length) {
-    if (yPos > 250) {
-      doc.addPage();
-      yPos = 20;
-    }
-
-    doc.setFontSize(10);
+  // ═══ PERFORMANCE DISTRIBUTION ═══
+  if (submitted.length > 0 && yPos < 220) {
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.text(`❌ ABSENT STUDENTS (${notAttempted.length})`, 20, yPos);
-    yPos += 6;
+    doc.setTextColor(15, 23, 42);
+    doc.text('📈 SCORE DISTRIBUTION', 20, yPos);
+    yPos += 8;
 
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    notAttempted.forEach(student => {
-      if (yPos > 280) {
-        doc.addPage();
-        yPos = 20;
+    // Calculate distribution
+    const ranges = [
+      { label: `${Math.floor(totalMarks * 0.9)}-${totalMarks}`, min: totalMarks * 0.9, color: [16, 185, 129] },
+      { label: `${Math.floor(totalMarks * 0.7)}-${Math.floor(totalMarks * 0.89)}`, min: totalMarks * 0.7, color: [59, 130, 246] },
+      { label: `${Math.floor(totalMarks * 0.5)}-${Math.floor(totalMarks * 0.69)}`, min: totalMarks * 0.5, color: [251, 191, 36] },
+      { label: `${Math.floor(totalMarks * 0.3)}-${Math.floor(totalMarks * 0.49)}`, min: totalMarks * 0.3, color: [249, 115, 22] },
+      { label: `0-${Math.floor(totalMarks * 0.29)}`, min: 0, color: [239, 68, 68] }
+    ];
+
+    ranges.forEach(range => {
+      const count = submitted.filter(a => {
+        const score = Number(a.total_score) || 0;
+        const nextRange = ranges[ranges.indexOf(range) - 1];
+        if (nextRange) {
+          return score >= range.min && score < nextRange.min;
+        } else {
+          return score >= range.min;
+        }
+      }).length;
+
+      if (count > 0) {
+        const barWidth = (count / submitted.length) * 120;
+        
+        doc.setFillColor(...range.color);
+        doc.roundedRect(20, yPos, barWidth, 6, 1, 1, 'F');
+        
+        doc.setFontSize(8);
+        doc.setTextColor(71, 85, 105);
+        doc.text(`${range.label}: ${count} student${count > 1 ? 's' : ''}`, 145, yPos + 4);
+        
+        yPos += 9;
       }
-      doc.text(`• ${student.full_name}`, 25, yPos);
-      yPos += 5;
     });
 
     yPos += 5;
   }
 
-  // === FOOTER ===
+  // ═══ ABSENT STUDENTS (if any) ═══
+  if (notAttempted.length > 0) {
+    if (yPos > 250) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(220, 38, 38);
+    doc.text(`❌ ABSENT STUDENTS (${notAttempted.length})`, 20, yPos);
+    yPos += 8;
+
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(71, 85, 105);
+    
+    notAttempted.forEach((student, idx) => {
+      if (yPos > 280) {
+        doc.addPage();
+        yPos = 20;
+      }
+      doc.text(`${idx + 1}. ${student.full_name}`, 25, yPos);
+      yPos += 6;
+    });
+  }
+
+  // ═══ FOOTER ON ALL PAGES ═══
   const pageCount = doc.internal.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
+    
+    // Footer background
+    doc.setFillColor(248, 250, 252);
+    doc.rect(0, pageHeight - 15, pageWidth, 15, 'F');
+    
     doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(59, 130, 246);
+    doc.text('Powered by Courage Library', pageWidth / 2, pageHeight - 8, { align: 'center' });
+    
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100);
-    doc.text('Powered by Courage Library | www.couragelibrary.in', 105, 285, { align: 'center' });
-    doc.text(`Generated on: ${new Date().toLocaleString('en-IN')}`, 105, 290, { align: 'center' });
+    doc.setTextColor(100, 116, 139);
+    doc.text('www.couragelibrary.in', pageWidth / 2, pageHeight - 4, { align: 'center' });
+    
+    // Page number
+    doc.setFontSize(7);
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth - 20, pageHeight - 6, { align: 'right' });
+    
+    // Generated timestamp
+    doc.text(`Generated: ${new Date().toLocaleString('en-IN')}`, 20, pageHeight - 6);
   }
 
-  // === SAVE PDF ===
+  // ═══ SAVE PDF ═══
   const fileName = `${coachingData.name.replace(/\s+/g, '_')}_${examName.replace(/\s+/g, '_')}_Report.pdf`;
   doc.save(fileName);
 
   showToast('PDF downloaded successfully!');
 };
+
+// Helper function to draw stat cards
+function drawStatCard(doc, x, y, width, height, label, value, color) {
+  // Card background
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(x, y, width, height, 2, 2, 'F');
+  
+  // Border
+  doc.setDrawColor(...color);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(x, y, width, height, 2, 2, 'S');
+  
+  // Icon circle
+  doc.setFillColor(...color);
+  doc.circle(x + 8, y + height / 2, 4, 'F');
+  
+  // Label
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text(label, x + 15, y + height / 2 - 2);
+  
+  // Value
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...color);
+  doc.text(value, x + 15, y + height / 2 + 5);
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // UTILITIES
