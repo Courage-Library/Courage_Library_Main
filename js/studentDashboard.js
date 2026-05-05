@@ -619,6 +619,7 @@ async function loadExploreSeries(enrolledCategoryIds, container) {
   const { data: allCategories } = await client
     .from("exam_categories")
     .select("id, name")
+    .is("coaching_id", null)           // ← only own platform categories
     .order("created_at", { ascending: false });
 
   const unenrolledSeries = (allCategories || []).filter(c =>
