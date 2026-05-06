@@ -388,12 +388,6 @@ function renderExamCard(exam) {
     </div>
   `;
 }
-        class="w-full mt-2 px-4 py-2 ${exam.is_active ? 'bg-red-50 hover:bg-red-100 text-red-600' : 'bg-green-50 hover:bg-green-100 text-green-600'} rounded-lg font-semibold text-sm transition">
-        <i class="fas fa-${exam.is_active ? 'ban' : 'check-circle'} mr-2"></i>${exam.is_active ? 'Deactivate' : 'Activate'} Exam
-      </button>
-    </div>
-  `;
-}
 
 async function loadExamAttempts(examId) {
   const { data, error } = await client
