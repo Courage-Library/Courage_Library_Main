@@ -112,7 +112,6 @@ async function loadStudents() {
     .from('user_profiles')
     .select('id, full_name, user_email, created_at')
     .eq('coaching_id', coachingData.id)
-    .eq('role', 'student')
     .order('full_name');
 
   if (!error && data) {
@@ -471,8 +470,7 @@ window.viewResults = async function(examId) {
     `;
 
     attempts.forEach((attempt, idx) => {
-      const student = allStudents.find(s => s.id === attempt.user_id);
-      const name = student?.full_name || 'Student';
+      const name = getStudentName(attempt.user_id);
       const score = attempt.total_score || 0;
       const acc = attempt.accuracy || 0;
       const time = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
@@ -714,11 +712,11 @@ window.downloadPDFReport = async function(examId) {
 
     const topPerformers = submitted.slice(0, Math.min(10, submitted.length));
     const tableData = topPerformers.map((attempt, idx) => {
-      const student = allStudents.find(s => s.id === attempt.user_id);
+      const name = getStudentName(attempt.user_id);
       const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
       return [
         idx + 1,
-        student?.full_name || 'Student',
+        name,
         `${attempt.total_score || 0} / ${totalMarks}`,
         `${(attempt.accuracy || 0).toFixed(1)}%`,
         timeTaken
@@ -896,6 +894,22 @@ function formatDateTime(date) {
     hour: '2-digit',
     minute: '2-digit'
   });
+}
+
+function getStudentName(userId) {
+  const student = allStudents.find(s => s.id === userId);
+  if (!student) return 'Unknown Student';
+  
+  // Try full_name first, then email username, then 'Student'
+  if (student.full_name && student.full_name.trim()) {
+    return student.full_name;
+  }
+  
+  if (student.user_email) {
+    return student.user_email.split('@')[0]; // Use email before @
+  }
+  
+  return 'Student';
 }
 
 function showToast(msg, type = 'success') {
