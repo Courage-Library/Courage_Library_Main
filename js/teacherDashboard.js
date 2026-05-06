@@ -20,6 +20,30 @@ let currentUser = null;
 let coachingData = null;
 let allExams = [];
 let allStudents = [];
+let liveUpdateInterval = null;
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LIVE UPDATE SYSTEM (Auto-refresh every 30 seconds)
+// ══════════════════════════════════════════════════════════════════════════════
+
+function startLiveUpdates() {
+  const indicator = document.getElementById('liveIndicator');
+  if (indicator) indicator.style.display = 'flex';
+
+  liveUpdateInterval = setInterval(async () => {
+    console.log('🔄 Auto-refreshing dashboard...');
+    await loadDashboard();
+  }, 30000); // 30 seconds
+}
+
+function stopLiveUpdates() {
+  if (liveUpdateInterval) {
+    clearInterval(liveUpdateInterval);
+    liveUpdateInterval = null;
+  }
+  const indicator = document.getElementById('liveIndicator');
+  if (indicator) indicator.style.display = 'none';
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // INITIALIZATION
@@ -81,9 +105,14 @@ async function init() {
 
   coachingData = coaching;
 
-  // Set header info
+  // Populate coaching info card
   document.getElementById('coachingName').textContent = coaching.name;
+  document.getElementById('coachingCity').innerHTML = `<i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>${coaching.city || 'India'}`;
   document.getElementById('teacherName').textContent = profile.full_name || 'Teacher';
+  
+  // Set join link
+  const joinUrl = `${window.location.origin}/c/${coaching.slug}`;
+  document.getElementById('joinLink').textContent = joinUrl;
 
   // Load dashboard data
   await loadDashboard();
@@ -91,6 +120,9 @@ async function init() {
   // Hide loading, show dashboard
   document.getElementById('loadingState').classList.add('hidden');
   document.getElementById('dashboard').classList.remove('hidden');
+
+  // Start live updates
+  startLiveUpdates();
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -153,6 +185,10 @@ function renderStats() {
   const totalStudents = allStudents.length;
   const totalExams = allExams.length;
   
+  // Update coaching info card counts
+  document.getElementById('studentCount').innerHTML = `<i class="fas fa-users text-blue-600 mr-1"></i>${totalStudents} Students`;
+  document.getElementById('examCount').innerHTML = `<i class="fas fa-clipboard-list text-green-600 mr-1"></i>${totalExams} Exams`;
+  
   // Calculate average score from all completed attempts
   let totalScore = 0;
   let attemptCount = 0;
@@ -200,6 +236,14 @@ function renderStats() {
     document.getElementById('statsRow').innerHTML = statsHTML;
   });
 }
+
+// Copy join link function
+window.copyJoinLink = function() {
+  const link = document.getElementById('joinLink').textContent;
+  navigator.clipboard.writeText(link).then(() => {
+    showToast('Join link copied!');
+  });
+};
 
 async function calculateAvgScore() {
   const examIds = allExams.map(e => e.id);
@@ -579,7 +623,7 @@ window.downloadPDFReport = async function(examId) {
   const failed = submitted.filter(a => a.total_score < passingScore).length;
 
   // ═══════════════════════════════════════════════════════════
-  // PAGE BORDER (Professional touch)
+  // PAGE BORDER (Optional - adds professional touch)
   // ═══════════════════════════════════════════════════════════
   
   doc.setDrawColor(30, 64, 175);
@@ -587,41 +631,16 @@ window.downloadPDFReport = async function(examId) {
   doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
 
   // ═══════════════════════════════════════════════════════════
-  // HEADER SECTION WITH LOGO
+  // HEADER SECTION
   // ═══════════════════════════════════════════════════════════
   
   // Blue header background
   doc.setFillColor(30, 64, 175);
   doc.rect(0, 0, pageWidth, 55, 'F');
 
-  // ── COURAGE LIBRARY LOGO (Left side) ──
-  // Using simple shapes to create a recognizable brand mark
-  // Logo: "CL" in a rounded square
-  const logoX = 15;
-  const logoY = 12;
-  const logoSize = 18;
-  
-  // Logo background - rounded square
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(logoX, logoY, logoSize, logoSize, 4, 4, 'F');
-  
-  // "CL" text inside logo
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 64, 175);
-  doc.text('CL', logoX + 4, logoY + 13);
-  
-  // "Courage Library" brand text next to logo
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 255, 255);
-  doc.text('COURAGE LIBRARY', logoX + logoSize + 5, logoY + 8);
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Making Education Accessible', logoX + logoSize + 5, logoY + 14);
-
   // Decorative corner elements
   doc.setFillColor(59, 130, 246);
+  doc.circle(10, 10, 5, 'F');
   doc.circle(pageWidth - 10, 10, 5, 'F');
 
   // White separator line
@@ -630,21 +649,21 @@ window.downloadPDFReport = async function(examId) {
   doc.line(margin, 52, pageWidth - margin, 52);
 
   // Title
-  doc.setFontSize(22);
+  doc.setFontSize(24);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 24, { align: 'center' });
+  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 20, { align: 'center' });
 
   // Coaching name
-  doc.setFontSize(15);
+  doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.text(coachingData.name, pageWidth / 2, 36, { align: 'center' });
+  doc.text(coachingData.name, pageWidth / 2, 32, { align: 'center' });
 
   // City & date
-  doc.setFontSize(9);
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   const reportDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-  doc.text(`${coachingData.city || 'India'} | Report Generated: ${reportDate}`, pageWidth / 2, 46, { align: 'center' });
+  doc.text(`${coachingData.city || 'India'} | Report Generated: ${reportDate}`, pageWidth / 2, 44, { align: 'center' });
 
   // ═══════════════════════════════════════════════════════════
   // EXAM INFO BOX
@@ -816,7 +835,7 @@ window.downloadPDFReport = async function(examId) {
       const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
       const score = attempt.total_score || 0;
       const isPassed = score >= passingScore;
-      const status = isPassed ? 'PASS' : 'FAIL';
+      const status = isPassed ? '✓ Pass' : '✗ Fail';
       
       return [
         idx + 1,
@@ -857,12 +876,10 @@ window.downloadPDFReport = async function(examId) {
       didParseCell: function(data) {
         // Color code the Status column
         if (data.column.index === 5) {
-          if (data.cell.text[0].includes('PASS')) {
+          if (data.cell.text[0].includes('Pass')) {
             data.cell.styles.textColor = [34, 197, 94]; // Green
-            data.cell.styles.fontStyle = 'bold';
-          } else if (data.cell.text[0].includes('FAIL')) {
+          } else {
             data.cell.styles.textColor = [239, 68, 68]; // Red
-            data.cell.styles.fontStyle = 'bold';
           }
         }
       }
@@ -1083,6 +1100,7 @@ function showToast(msg, type = 'success') {
 
 window.logout = async function() {
   if (!confirm('Logout from teacher portal?')) return;
+  stopLiveUpdates();
   await client.auth.signOut();
   window.location.href = '/index.html';
 };
