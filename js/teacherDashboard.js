@@ -20,6 +20,61 @@ let currentUser = null;
 let coachingData = null;
 let allExams = [];
 let allStudents = [];
+let liveUpdateInterval = null;
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LIVE UPDATE SYSTEM
+// ══════════════════════════════════════════════════════════════════════════════
+
+function startLiveUpdates() {
+  console.log('🟢 Starting live updates...');
+  
+  // Show live indicator
+  const indicator = document.getElementById('liveIndicator');
+  if (indicator) {
+    indicator.classList.remove('hidden');
+    setTimeout(() => {
+      indicator.style.transition = 'all 0.3s ease';
+    }, 100);
+  }
+
+  // Refresh data every 30 seconds
+  liveUpdateInterval = setInterval(async () => {
+    console.log('🔄 Auto-refreshing dashboard data...');
+    
+    try {
+      await loadStudents();
+      await loadExams();
+      
+      // Visual feedback - pulse effect
+      const indicator = document.getElementById('liveIndicator');
+      if (indicator) {
+        indicator.style.transform = 'scale(1.15)';
+        indicator.style.boxShadow = '0 6px 30px rgba(16, 185, 129, 0.3)';
+        setTimeout(() => {
+          indicator.style.transform = 'scale(1)';
+          indicator.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+        }, 300);
+      }
+    } catch (error) {
+      console.error('❌ Live update error:', error);
+    }
+  }, 30000); // 30 seconds
+}
+
+function stopLiveUpdates() {
+  console.log('🔴 Stopping live updates...');
+  
+  if (liveUpdateInterval) {
+    clearInterval(liveUpdateInterval);
+    liveUpdateInterval = null;
+  }
+  
+  const indicator = document.getElementById('liveIndicator');
+  if (indicator) {
+    indicator.classList.add('hidden');
+  }
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // INITIALIZATION
@@ -91,6 +146,9 @@ async function init() {
   // Hide loading, show dashboard
   document.getElementById('loadingState').classList.add('hidden');
   document.getElementById('dashboard').classList.remove('hidden');
+
+  // Start live updates (auto-refresh every 30 seconds)
+  startLiveUpdates();
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -154,46 +212,39 @@ function renderStats() {
   const totalExams = allExams.length;
   
   // Calculate average score from all completed attempts
-  let totalScore = 0;
-  let attemptCount = 0;
-
-  // We'll fetch this separately for now
   calculateAvgScore().then(avgScore => {
     const statsHTML = `
-      <div class="stat-card">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-            <i class="fas fa-users text-blue-600 text-xl"></i>
+      <div class="stat-card slide-in" style="animation-delay: 0s">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+            <i class="fas fa-users text-white text-2xl"></i>
           </div>
-          <div>
-            <p class="text-2xl font-bold text-gray-900">${totalStudents}</p>
-            <p class="text-sm text-gray-500">Total Students</p>
-          </div>
+          <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full">Total</span>
         </div>
+        <p class="text-3xl font-bold text-gray-900 mb-1">${totalStudents}</p>
+        <p class="text-sm text-gray-500 font-medium">Total Students</p>
       </div>
 
-      <div class="stat-card">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-            <i class="fas fa-clipboard-list text-green-600 text-xl"></i>
+      <div class="stat-card slide-in" style="animation-delay: 0.1s">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+            <i class="fas fa-clipboard-check text-white text-2xl"></i>
           </div>
-          <div>
-            <p class="text-2xl font-bold text-gray-900">${totalExams}</p>
-            <p class="text-sm text-gray-500">Scheduled Exams</p>
-          </div>
+          <span class="text-xs font-bold text-green-600 bg-green-50 px-3 py-1.5 rounded-full">Active</span>
         </div>
+        <p class="text-3xl font-bold text-gray-900 mb-1">${totalExams}</p>
+        <p class="text-sm text-gray-500 font-medium">Scheduled Exams</p>
       </div>
 
-      <div class="stat-card">
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-            <i class="fas fa-chart-line text-indigo-600 text-xl"></i>
+      <div class="stat-card slide-in" style="animation-delay: 0.2s">
+        <div class="flex items-center justify-between mb-3">
+          <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+            <i class="fas fa-chart-line text-white text-2xl"></i>
           </div>
-          <div>
-            <p class="text-2xl font-bold text-gray-900">${avgScore}%</p>
-            <p class="text-sm text-gray-500">Avg Score</p>
-          </div>
+          <span class="text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1.5 rounded-full">Average</span>
         </div>
+        <p class="text-3xl font-bold text-gray-900 mb-1">${avgScore}%</p>
+        <p class="text-sm text-gray-500 font-medium">Avg Score</p>
       </div>
     `;
 
@@ -248,14 +299,17 @@ function renderExamCard(exam) {
   const endTime = exam.end_datetime ? new Date(exam.end_datetime) : null;
 
   let statusBadge = '';
+  let cardClass = 'exam-card';
+  
   if (!exam.is_active) {
-    statusBadge = '<span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Inactive</span>';
+    statusBadge = '<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">Inactive</span>';
   } else if (endTime && endTime < now) {
-    statusBadge = '<span class="px-2 py-1 bg-red-100 text-red-600 text-xs font-semibold rounded-full">Expired</span>';
+    statusBadge = '<span class="px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-full">Expired</span>';
   } else if (startTime && startTime > now) {
-    statusBadge = '<span class="px-2 py-1 bg-blue-100 text-blue-600 text-xs font-semibold rounded-full">Upcoming</span>';
+    statusBadge = '<span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-full">Upcoming</span>';
   } else {
-    statusBadge = '<span class="px-2 py-1 bg-green-100 text-green-600 text-xs font-semibold rounded-full">Live</span>';
+    statusBadge = '<span class="px-3 py-1 bg-green-100 text-green-600 text-xs font-bold rounded-full flex items-center gap-1.5"><span class="live-dot w-2 h-2 bg-green-500 rounded-full"></span>Live</span>';
+    cardClass = 'exam-card live';
   }
 
   const pattern = exam.exam_patterns || {};
@@ -267,66 +321,73 @@ function renderExamCard(exam) {
   const endStr = endTime ? formatDateTime(endTime) : 'Not set';
 
   return `
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
+    <div class="${cardClass}">
       <!-- Header -->
       <div class="flex items-start justify-between mb-4">
         <div class="flex-1">
-          <h3 class="font-bold text-gray-900 text-lg mb-1">${examName}</h3>
-          <p class="text-sm text-gray-500">
-            <i class="fas fa-clock mr-1"></i>${duration} min  |  
-            <i class="fas fa-star mr-1"></i>${totalMarks} marks
-          </p>
+          <h3 class="font-bold text-gray-900 text-xl mb-2">${examName}</h3>
+          <div class="flex items-center gap-4 text-sm text-gray-500">
+            <span><i class="fas fa-clock mr-1.5 text-blue-500"></i>${duration} min</span>
+            <span><i class="fas fa-star mr-1.5 text-amber-500"></i>${totalMarks} marks</span>
+          </div>
         </div>
         ${statusBadge}
       </div>
 
       <!-- Time Info -->
-      <div class="bg-gray-50 rounded-xl p-3 mb-4 space-y-1 text-xs">
-        <p class="text-gray-600"><i class="fas fa-calendar-start w-4"></i> <strong>Start:</strong> ${startStr}</p>
-        <p class="text-gray-600"><i class="fas fa-calendar-check w-4"></i> <strong>End:</strong> ${endStr}</p>
+      <div class="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-3.5 mb-4 space-y-2 text-xs border border-gray-100">
+        <p class="text-gray-600 flex items-center"><i class="fas fa-calendar-day w-4 mr-2 text-blue-500"></i> <strong class="mr-2">Start:</strong> ${startStr}</p>
+        <p class="text-gray-600 flex items-center"><i class="fas fa-calendar-check w-4 mr-2 text-green-500"></i> <strong class="mr-2">End:</strong> ${endStr}</p>
       </div>
 
-      <!-- Passkey -->
+      <!-- Passkey with modern gradient -->
       ${exam.passkey ? `
-        <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-xs text-blue-600 font-semibold mb-1">Exam Passkey</p>
-              <p class="text-2xl font-mono font-bold text-blue-900 tracking-wider">${exam.passkey}</p>
-            </div>
-            <div class="flex gap-2">
-              <button onclick="copyPasskey('${exam.passkey}')"
-                class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg font-semibold transition">
-                <i class="fas fa-copy"></i>
-              </button>
-              <button onclick="regeneratePasskey('${exam.id}')"
-                class="px-3 py-2 bg-gray-600 hover:bg-gray-700 text-white text-xs rounded-lg font-semibold transition">
-                <i class="fas fa-sync"></i>
-              </button>
+        <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-50 border-2 border-blue-200 rounded-2xl p-4 mb-4 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-200 rounded-full filter blur-3xl opacity-30"></div>
+          <div class="relative">
+            <p class="text-xs text-blue-700 font-bold mb-1.5 uppercase tracking-wide">Exam Passkey</p>
+            <div class="flex items-center justify-between">
+              <p class="text-3xl font-mono font-black text-blue-900 tracking-widest">${exam.passkey}</p>
+              <div class="flex gap-2">
+                <button onclick="copyPasskey('${exam.passkey}')"
+                  class="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm rounded-xl font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                  <i class="fas fa-copy"></i>
+                </button>
+                <button onclick="regeneratePasskey('${exam.id}')"
+                  class="px-4 py-2.5 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white text-sm rounded-xl font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       ` : ''}
 
       <!-- Attempt Stats -->
-      <div id="examStats_${exam.id}" class="mb-4 text-sm text-gray-500">
+      <div id="examStats_${exam.id}" class="mb-4 text-sm text-gray-600 font-medium">
         <i class="fas fa-spinner fa-spin"></i> Loading stats...
       </div>
 
-      <!-- Actions -->
-      <div class="flex gap-2">
+      <!-- Modern Action Buttons -->
+      <div class="grid grid-cols-2 gap-3 mb-3">
         <button onclick="viewResults('${exam.id}')"
-          class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm transition">
-          <i class="fas fa-chart-bar mr-2"></i>View Results
+          class="px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          <i class="fas fa-list-alt mr-2"></i>View Results
         </button>
         <button onclick="downloadPDFReport('${exam.id}')"
-          class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm transition">
+          class="px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           <i class="fas fa-file-pdf mr-2"></i>Download PDF
         </button>
       </div>
 
-      <!-- Toggle Active -->
+      <!-- Toggle Button -->
       <button id="toggleBtn_${exam.id}" onclick="toggleExamActive('${exam.id}', ${exam.is_active})"
+        class="w-full px-4 py-3 ${exam.is_active ? 'bg-red-50 hover:bg-red-100 text-red-700 border-2 border-red-200' : 'bg-green-50 hover:bg-green-100 text-green-700 border-2 border-green-200'} rounded-xl font-bold text-sm transition-all">
+        <i class="fas fa-${exam.is_active ? 'ban' : 'check-circle'} mr-2"></i>${exam.is_active ? 'Deactivate' : 'Activate'} Exam
+      </button>
+    </div>
+  `;
+}
         class="w-full mt-2 px-4 py-2 ${exam.is_active ? 'bg-red-50 hover:bg-red-100 text-red-600' : 'bg-green-50 hover:bg-green-100 text-green-600'} rounded-lg font-semibold text-sm transition">
         <i class="fas fa-${exam.is_active ? 'ban' : 'check-circle'} mr-2"></i>${exam.is_active ? 'Deactivate' : 'Activate'} Exam
       </button>
@@ -1056,6 +1117,10 @@ function showToast(msg, type = 'success') {
 
 window.logout = async function() {
   if (!confirm('Logout from teacher portal?')) return;
+  
+  // Stop live updates
+  stopLiveUpdates();
+  
   await client.auth.signOut();
   window.location.href = '/index.html';
 };
