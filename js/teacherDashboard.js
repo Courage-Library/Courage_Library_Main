@@ -110,8 +110,9 @@ async function loadDashboard() {
 async function loadStudents() {
   const { data, error } = await client
     .from('user_profiles')
-    .select('id, full_name, user_email, created_at')
+    .select('id, full_name, user_email, created_at, role')
     .eq('coaching_id', coachingData.id)
+    .neq('role', 'teacher') // Exclude teachers!
     .order('full_name');
 
   if (!error && data) {
@@ -529,7 +530,7 @@ window.viewResults = async function(examId) {
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PDF REPORT GENERATION — PROFESSIONAL VERSION (No Emojis, Proper Layout)
+// PDF REPORT GENERATION — WORLD-CLASS PROFESSIONAL VERSION
 // ══════════════════════════════════════════════════════════════════════════════
 
 window.downloadPDFReport = async function(examId) {
@@ -566,87 +567,162 @@ window.downloadPDFReport = async function(examId) {
   const pageHeight = doc.internal.pageSize.height;
   const margin = 20;
 
+  // Calculate statistics
+  const avgScore = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.total_score) || 0), 0) / submitted.length).toFixed(1) : 0;
+  const avgAcc = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.accuracy) || 0), 0) / submitted.length).toFixed(1) : 0;
+  const highest = submitted.length ? Math.max(...submitted.map(a => Number(a.total_score) || 0)) : 0;
+  const lowest = submitted.length ? Math.min(...submitted.map(a => Number(a.total_score) || 0)) : 0;
+  
+  // Pass/Fail calculation (40% passing criteria)
+  const passingScore = totalMarks * 0.4;
+  const passed = submitted.filter(a => a.total_score >= passingScore).length;
+  const failed = submitted.filter(a => a.total_score < passingScore).length;
+
+  // ═══════════════════════════════════════════════════════════
+  // PAGE BORDER (Optional - adds professional touch)
+  // ═══════════════════════════════════════════════════════════
+  
+  doc.setDrawColor(30, 64, 175);
+  doc.setLineWidth(2);
+  doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
+
   // ═══════════════════════════════════════════════════════════
   // HEADER SECTION
   // ═══════════════════════════════════════════════════════════
   
   // Blue header background
-  doc.setFillColor(30, 64, 175); // Dark blue
-  doc.rect(0, 0, pageWidth, 50, 'F');
+  doc.setFillColor(30, 64, 175);
+  doc.rect(0, 0, pageWidth, 55, 'F');
 
-  // White line separator
+  // Decorative corner elements
+  doc.setFillColor(59, 130, 246);
+  doc.circle(10, 10, 5, 'F');
+  doc.circle(pageWidth - 10, 10, 5, 'F');
+
+  // White separator line
   doc.setDrawColor(255, 255, 255);
   doc.setLineWidth(0.5);
-  doc.line(margin, 48, pageWidth - margin, 48);
+  doc.line(margin, 52, pageWidth - margin, 52);
 
   // Title
-  doc.setFontSize(22);
+  doc.setFontSize(24);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 18, { align: 'center' });
+  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 20, { align: 'center' });
 
   // Coaching name
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'normal');
-  doc.text(coachingData.name, pageWidth / 2, 30, { align: 'center' });
-
-  // City
-  if (coachingData.city) {
-    doc.setFontSize(10);
-    doc.text(coachingData.city, pageWidth / 2, 40, { align: 'center' });
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  // EXAM INFO SECTION
-  // ═══════════════════════════════════════════════════════════
-  
-  let yPos = 60;
-
-  // Exam name
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 64, 175);
-  doc.text(examName, margin, yPos);
-  yPos += 10;
+  doc.text(coachingData.name, pageWidth / 2, 32, { align: 'center' });
 
-  // Exam details
+  // City & date
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
+  const reportDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+  doc.text(`${coachingData.city || 'India'} | Report Generated: ${reportDate}`, pageWidth / 2, 44, { align: 'center' });
+
+  // ═══════════════════════════════════════════════════════════
+  // EXAM INFO BOX
+  // ═══════════════════════════════════════════════════════════
+  
+  let yPos = 65;
+
+  // Light blue background box
+  doc.setFillColor(239, 246, 255);
+  doc.roundedRect(margin, yPos, pageWidth - 2 * margin, 20, 3, 3, 'F');
+
+  // Exam name
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 64, 175);
+  doc.text(examName, margin + 5, yPos + 7);
+
+  // Exam details
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
   doc.setTextColor(71, 85, 105);
-  doc.text(`Duration: ${duration} minutes  |  Total Marks: ${totalMarks}`, margin, yPos);
-  yPos += 6;
+  doc.text(`Duration: ${duration} min  |  Total Marks: ${totalMarks}  |  Passing: ${passingScore.toFixed(0)} marks (40%)`, margin + 5, yPos + 14);
 
-  if (exam.start_datetime) {
-    const examDate = new Date(exam.start_datetime);
-    doc.text(`Date: ${examDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })} at ${examDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}`, margin, yPos);
-    yPos += 6;
-  }
-
-  // Horizontal line
-  doc.setDrawColor(203, 213, 225);
-  doc.setLineWidth(0.3);
-  doc.line(margin, yPos + 2, pageWidth - margin, yPos + 2);
-  yPos += 10;
+  yPos += 28;
 
   // ═══════════════════════════════════════════════════════════
-  // STATISTICS SECTION - REDESIGNED WITH VISUAL APPEAL
+  // CLASS PERFORMANCE SUMMARY (NEW!)
   // ═══════════════════════════════════════════════════════════
 
-  const avgScore = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.total_score) || 0), 0) / submitted.length).toFixed(1) : 0;
-  const avgAcc = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.accuracy) || 0), 0) / submitted.length).toFixed(1) : 0;
-  const highest = submitted.length ? Math.max(...submitted.map(a => Number(a.total_score) || 0)) : 0;
-  const lowest = submitted.length ? Math.min(...submitted.map(a => Number(a.total_score) || 0)) : 0;
-
-  // Section heading
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(30, 64, 175);
-  doc.text('PERFORMANCE SUMMARY', margin, yPos);
-  yPos += 10;
+  doc.text('CLASS PERFORMANCE', margin, yPos);
+  yPos += 8;
+
+  // Pass/Fail summary boxes
+  const summaryBoxWidth = (pageWidth - 2 * margin - 10) / 3;
+  const summaryBoxHeight = 22;
+
+  // Passed box (Green)
+  doc.setFillColor(236, 253, 245);
+  doc.roundedRect(margin, yPos, summaryBoxWidth, summaryBoxHeight, 3, 3, 'F');
+  doc.setFillColor(34, 197, 94);
+  doc.roundedRect(margin, yPos, 3, summaryBoxHeight, 3, 3, 'F');
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text('Passed', margin + 8, yPos + 8);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(34, 197, 94);
+  doc.text(passed.toString(), margin + 8, yPos + 18);
+
+  // Failed box (Red)
+  doc.setFillColor(254, 242, 242);
+  doc.roundedRect(margin + summaryBoxWidth + 5, yPos, summaryBoxWidth, summaryBoxHeight, 3, 3, 'F');
+  doc.setFillColor(239, 68, 68);
+  doc.roundedRect(margin + summaryBoxWidth + 5, yPos, 3, summaryBoxHeight, 3, 3, 'F');
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text('Failed', margin + summaryBoxWidth + 13, yPos + 8);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(239, 68, 68);
+  doc.text(failed.toString(), margin + summaryBoxWidth + 13, yPos + 18);
+
+  // Pass Percentage (Blue)
+  doc.setFillColor(239, 246, 255);
+  doc.roundedRect(margin + 2 * (summaryBoxWidth + 5), yPos, summaryBoxWidth, summaryBoxHeight, 3, 3, 'F');
+  doc.setFillColor(59, 130, 246);
+  doc.roundedRect(margin + 2 * (summaryBoxWidth + 5), yPos, 3, summaryBoxHeight, 3, 3, 'F');
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text('Pass Rate', margin + 2 * (summaryBoxWidth + 5) + 8, yPos + 8);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(59, 130, 246);
+  const passRate = submitted.length ? ((passed / submitted.length) * 100).toFixed(0) : 0;
+  doc.text(`${passRate}%`, margin + 2 * (summaryBoxWidth + 5) + 8, yPos + 18);
+
+  yPos += summaryBoxHeight + 12;
+
+  // Decorative separator
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.5);
+  doc.line(margin, yPos, pageWidth - margin, yPos);
+  yPos += 8;
+
+  // ═══════════════════════════════════════════════════════════
+  // DETAILED STATISTICS
+  // ═══════════════════════════════════════════════════════════
+
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 64, 175);
+  doc.text('DETAILED STATISTICS', margin, yPos);
+  yPos += 8;
 
   // Stats grid - 3 columns x 2 rows
   const statBoxWidth = (pageWidth - 2 * margin - 10) / 3;
-  const statBoxHeight = 26;
+  const statBoxHeight = 24;
   const statGap = 5;
 
   const stats = [
@@ -658,42 +734,42 @@ window.downloadPDFReport = async function(examId) {
     { label: 'Avg Accuracy', value: `${avgAcc}%`, color: [168, 85, 247], bgColor: [250, 245, 255] }
   ];
 
-  // Draw stats boxes with enhanced design
+  // Draw enhanced stat boxes
   stats.forEach((stat, idx) => {
     const row = Math.floor(idx / 3);
     const col = idx % 3;
     const x = margin + col * (statBoxWidth + statGap);
     const y = yPos + row * (statBoxHeight + statGap);
 
-    // Shadow effect (subtle)
+    // Shadow effect
     doc.setFillColor(200, 200, 200);
     doc.roundedRect(x + 0.5, y + 0.5, statBoxWidth, statBoxHeight, 3, 3, 'F');
 
-    // Main box with gradient-like background
+    // Main box
     doc.setFillColor(...stat.bgColor);
     doc.roundedRect(x, y, statBoxWidth, statBoxHeight, 3, 3, 'F');
 
-    // Left colored accent bar
+    // Left accent bar
     doc.setFillColor(...stat.color);
     doc.roundedRect(x, y, 3, statBoxHeight, 3, 3, 'F');
 
-    // Icon circle (simple geometric)
+    // Icon circle
     doc.setFillColor(...stat.color);
     doc.setDrawColor(255, 255, 255);
     doc.setLineWidth(1.5);
     doc.circle(x + 10, y + statBoxHeight / 2, 5, 'FD');
 
-    // Label (smaller, gray)
+    // Label
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
     doc.text(stat.label, x + 18, y + 10);
 
-    // Value (large, colored, bold)
-    doc.setFontSize(16);
+    // Value
+    doc.setFontSize(15);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...stat.color);
-    doc.text(stat.value, x + 18, y + 20);
+    doc.text(stat.value, x + 18, y + 19);
   });
 
   yPos += 2 * (statBoxHeight + statGap) + 12;
@@ -703,7 +779,6 @@ window.downloadPDFReport = async function(examId) {
   // ═══════════════════════════════════════════════════════════
 
   if (submitted.length > 0) {
-    // Section heading
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(30, 64, 175);
@@ -714,18 +789,23 @@ window.downloadPDFReport = async function(examId) {
     const tableData = topPerformers.map((attempt, idx) => {
       const name = getStudentName(attempt.user_id);
       const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
+      const score = attempt.total_score || 0;
+      const isPassed = score >= passingScore;
+      const status = isPassed ? '✓ Pass' : '✗ Fail';
+      
       return [
         idx + 1,
         name,
-        `${attempt.total_score || 0} / ${totalMarks}`,
+        `${score} / ${totalMarks}`,
         `${(attempt.accuracy || 0).toFixed(1)}%`,
-        timeTaken
+        timeTaken,
+        status
       ];
     });
 
     doc.autoTable({
       startY: yPos,
-      head: [['Rank', 'Student Name', 'Score', 'Accuracy', 'Time']],
+      head: [['Rank', 'Student Name', 'Score', 'Accuracy', 'Time', 'Status']],
       body: tableData,
       theme: 'striped',
       headStyles: { 
@@ -740,32 +820,41 @@ window.downloadPDFReport = async function(examId) {
         textColor: [51, 65, 85]
       },
       columnStyles: {
-        0: { cellWidth: 20, halign: 'center' },
-        1: { cellWidth: 70, halign: 'left' },
-        2: { cellWidth: 30, halign: 'center' },
-        3: { cellWidth: 30, halign: 'center' },
-        4: { cellWidth: 25, halign: 'center' }
+        0: { cellWidth: 15, halign: 'center' },
+        1: { cellWidth: 60, halign: 'left' },
+        2: { cellWidth: 25, halign: 'center' },
+        3: { cellWidth: 25, halign: 'center' },
+        4: { cellWidth: 20, halign: 'center' },
+        5: { cellWidth: 25, halign: 'center', fontStyle: 'bold' }
       },
       alternateRowStyles: { fillColor: [248, 250, 252] },
-      margin: { left: margin, right: margin }
+      margin: { left: margin, right: margin },
+      didParseCell: function(data) {
+        // Color code the Status column
+        if (data.column.index === 5) {
+          if (data.cell.text[0].includes('Pass')) {
+            data.cell.styles.textColor = [34, 197, 94]; // Green
+          } else {
+            data.cell.styles.textColor = [239, 68, 68]; // Red
+          }
+        }
+      }
     });
 
     yPos = doc.lastAutoTable.finalY + 12;
   }
 
   // ═══════════════════════════════════════════════════════════
-  // SCORE DISTRIBUTION
+  // SCORE DISTRIBUTION (if space available)
   // ═══════════════════════════════════════════════════════════
 
-  if (submitted.length > 0 && yPos < 220) {
-    // Section heading
+  if (submitted.length > 0 && yPos < 210) {
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(30, 64, 175);
     doc.text('SCORE DISTRIBUTION', margin, yPos);
     yPos += 8;
 
-    // Calculate distribution ranges
     const excellent = submitted.filter(a => (a.total_score / totalMarks) >= 0.9).length;
     const good = submitted.filter(a => (a.total_score / totalMarks) >= 0.7 && (a.total_score / totalMarks) < 0.9).length;
     const average = submitted.filter(a => (a.total_score / totalMarks) >= 0.5 && (a.total_score / totalMarks) < 0.7).length;
@@ -781,38 +870,38 @@ window.downloadPDFReport = async function(examId) {
     ];
 
     distribution.forEach(range => {
-      if (range.count > 0) {
+      if (range.count > 0 && yPos < 250) {
         const percentage = (range.count / submitted.length) * 100;
-        const barWidth = (percentage / 100) * (pageWidth - 2 * margin - 80);
+        const barWidth = (percentage / 100) * (pageWidth - 2 * margin - 90);
 
-        // Bar
         doc.setFillColor(...range.color);
         doc.roundedRect(margin, yPos - 4, barWidth, 6, 1, 1, 'F');
 
-        // Label
         doc.setFontSize(9);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(71, 85, 105);
-        doc.text(`${range.label}: ${range.count} student${range.count > 1 ? 's' : ''}`, margin + barWidth + 5, yPos);
+        doc.text(`${range.label}: ${range.count} (${percentage.toFixed(0)}%)`, margin + barWidth + 5, yPos);
 
-        yPos += 10;
+        yPos += 9;
       }
     });
-
-    yPos += 5;
   }
 
   // ═══════════════════════════════════════════════════════════
-  // ABSENT STUDENTS
+  // ABSENT STUDENTS (New page if needed)
   // ═══════════════════════════════════════════════════════════
 
   if (notAttempted.length > 0) {
-    if (yPos > 240) {
+    if (yPos > 235) {
       doc.addPage();
       yPos = 25;
+      
+      // Page border on new page
+      doc.setDrawColor(30, 64, 175);
+      doc.setLineWidth(2);
+      doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
     }
 
-    // Section heading
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(220, 38, 38);
@@ -824,44 +913,78 @@ window.downloadPDFReport = async function(examId) {
     doc.setTextColor(71, 85, 105);
 
     notAttempted.forEach((student, idx) => {
-      if (yPos > 275) {
+      if (yPos > 265) {
         doc.addPage();
         yPos = 25;
+        doc.setDrawColor(30, 64, 175);
+        doc.setLineWidth(2);
+        doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
       }
-      doc.text(`${idx + 1}. ${student.full_name}`, margin + 5, yPos);
+      doc.text(`${idx + 1}. ${student.full_name || student.user_email?.split('@')[0] || 'Student'}`, margin + 5, yPos);
       yPos += 6;
     });
   }
 
   // ═══════════════════════════════════════════════════════════
-  // FOOTER ON ALL PAGES
+  // SIGNATURE BLOCK (NEW!)
   // ═══════════════════════════════════════════════════════════
 
   const pageCount = doc.internal.getNumberOfPages();
+  doc.setPage(pageCount);
+
+  // Position signature block 50mm from bottom
+  const sigYPos = pageHeight - 50;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 64, 175);
+  doc.text('Verified & Approved By:', margin, sigYPos);
+
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(51, 65, 85);
+  doc.text(currentUser.user_metadata?.full_name || 'Teacher', margin, sigYPos + 10);
+
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text('Instructor', margin, sigYPos + 16);
+
+  // Signature line
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.5);
+  doc.line(pageWidth - margin - 60, sigYPos + 15, pageWidth - margin, sigYPos + 15);
+  doc.setFontSize(8);
+  doc.text('Signature', pageWidth - margin - 30, sigYPos + 20, { align: 'center' });
+
+  // ═══════════════════════════════════════════════════════════
+  // FOOTER ON ALL PAGES
+  // ═══════════════════════════════════════════════════════════
+
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
 
     // Footer line
     doc.setDrawColor(203, 213, 225);
-    doc.setLineWidth(0.3);
-    doc.line(margin, pageHeight - 20, pageWidth - margin, pageHeight - 20);
+    doc.setLineWidth(0.5);
+    doc.line(margin, pageHeight - 22, pageWidth - margin, pageHeight - 22);
 
     // Branding
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(30, 64, 175);
-    doc.text('Powered by Courage Library', pageWidth / 2, pageHeight - 13, { align: 'center' });
+    doc.text('Powered by Courage Library', pageWidth / 2, pageHeight - 15, { align: 'center' });
 
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
-    doc.text('www.couragelibrary.in', pageWidth / 2, pageHeight - 8, { align: 'center' });
+    doc.text('www.couragelibrary.in | Making Education Accessible', pageWidth / 2, pageHeight - 10, { align: 'center' });
 
-    // Page number (right)
+    // Page number
     doc.setFontSize(8);
-    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 12, { align: 'right' });
 
-    // Generated timestamp (left)
+    // Generated timestamp
     const timestamp = new Date().toLocaleString('en-IN', { 
       day: '2-digit', 
       month: 'short', 
@@ -869,7 +992,7 @@ window.downloadPDFReport = async function(examId) {
       hour: '2-digit',
       minute: '2-digit'
     });
-    doc.text(`Generated: ${timestamp}`, margin, pageHeight - 10);
+    doc.text(`Generated: ${timestamp}`, margin, pageHeight - 12);
   }
 
   // ═══════════════════════════════════════════════════════════
@@ -879,7 +1002,7 @@ window.downloadPDFReport = async function(examId) {
   const fileName = `${coachingData.name.replace(/\s+/g, '_')}_${examName.replace(/\s+/g, '_')}_Report.pdf`;
   doc.save(fileName);
 
-  showToast('PDF downloaded successfully!');
+  showToast('Professional report downloaded successfully!');
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
