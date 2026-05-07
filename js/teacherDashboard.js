@@ -81,9 +81,14 @@ async function init() {
 
   coachingData = coaching;
 
-  // Set header info
+  // Populate coaching info card
   document.getElementById('coachingName').textContent = coaching.name;
+  document.getElementById('coachingCity').innerHTML = `<i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>${coaching.city || 'India'}`;
   document.getElementById('teacherName').textContent = profile.full_name || 'Teacher';
+  
+  // Set join link
+  const joinUrl = `${window.location.origin}/c/${coaching.slug}`;
+  document.getElementById('joinLink').textContent = joinUrl;
 
   // Load dashboard data
   await loadDashboard();
@@ -152,6 +157,10 @@ async function loadExams() {
 function renderStats() {
   const totalStudents = allStudents.length;
   const totalExams = allExams.length;
+  
+  // Update coaching info card counts
+  document.getElementById('studentCount').innerHTML = `<i class="fas fa-users text-blue-600 mr-1"></i>${totalStudents} Students`;
+  document.getElementById('examCount').innerHTML = `<i class="fas fa-clipboard-list text-green-600 mr-1"></i>${totalExams} Exams`;
   
   // Calculate average score from all completed attempts
   let totalScore = 0;
@@ -681,40 +690,39 @@ window.downloadPDFReport = async function(examId) {
   yPos += 28;
 
   // ═══════════════════════════════════════════════════════════
-  // HELPER: Section Divider with DRAWN Icon
+  // HELPER: Draw Simple Icons
   // ═══════════════════════════════════════════════════════════
   
   function drawIcon(x, y, type) {
+    doc.setFillColor(255, 255, 255);
+    doc.setDrawColor(255, 255, 255);
+    
     switch(type) {
       case 'chart':
-        // Bar chart icon
-        doc.setFillColor(255, 255, 255);
-        doc.rect(x - 2, y - 1, 1, 3, 'F');
-        doc.rect(x, y - 2, 1, 4, 'F');
-        doc.rect(x + 2, y, 1, 2, 'F');
+        // Bar chart - 3 vertical bars
+        doc.rect(x - 2, y, 1, 2, 'F');
+        doc.rect(x - 0.5, y - 1, 1, 3, 'F');
+        doc.rect(x + 1, y + 0.5, 1, 1.5, 'F');
         break;
+        
       case 'trophy':
-        // Trophy icon
-        doc.setFillColor(255, 255, 255);
-        doc.circle(x, y - 1, 1.5, 'F');
-        doc.rect(x - 0.5, y, 1, 2, 'F');
+        // Trophy - simple cup shape
+        doc.circle(x, y - 0.5, 1.5, 'F');
+        doc.rect(x - 0.4, y + 0.5, 0.8, 1.5, 'F');
         doc.rect(x - 1.5, y + 1.5, 3, 0.5, 'F');
         break;
+        
       case 'users':
-        // People icon
-        doc.setFillColor(255, 255, 255);
-        doc.circle(x - 1, y - 1, 0.8, 'F');
-        doc.circle(x + 1, y - 1, 0.8, 'F');
-        doc.ellipse(x, y + 0.5, 2, 1.2, 'F');
+        // People - 2 heads + body
+        doc.circle(x - 1, y - 1, 0.7, 'F');
+        doc.circle(x + 1, y - 1, 0.7, 'F');
+        doc.rect(x - 2, y, 4, 1.5, 'F');
         break;
+        
       case 'warning':
-        // Triangle warning
-        doc.setFillColor(255, 255, 255);
-        doc.setLineWidth(0.3);
-        doc.line(x, y - 2, x - 1.5, y + 1);
-        doc.line(x, y - 2, x + 1.5, y + 1);
-        doc.line(x - 1.5, y + 1, x + 1.5, y + 1);
-        doc.circle(x, y, 0.3, 'F');
+        // Warning - exclamation mark
+        doc.rect(x - 0.3, y - 1.5, 0.6, 2, 'F');
+        doc.circle(x, y + 1.2, 0.4, 'F');
         break;
     }
   }
@@ -734,7 +742,7 @@ window.downloadPDFReport = async function(examId) {
       doc.setFillColor(59, 130, 246);
       doc.circle(margin + 8, yPosition + 5, 3.5, 'F');
       
-      // Draw icon
+      // Draw icon inside
       drawIcon(margin + 8, yPosition + 5, iconType);
     }
     
@@ -853,40 +861,36 @@ window.downloadPDFReport = async function(examId) {
     doc.setLineWidth(1.5);
     doc.circle(x + 10, y + statBoxHeight / 2, 5, 'FD');
     
-    // Draw icon inside circle based on stat type
+    // Draw simple icon inside circle
     doc.setFillColor(255, 255, 255);
-    doc.setDrawColor(255, 255, 255);
     const iconX = x + 10;
     const iconY = y + statBoxHeight / 2;
     
-    if (idx === 0) { // Total Students - people icon
-      doc.circle(iconX - 1.5, iconY - 1, 1, 'F');
-      doc.circle(iconX + 1.5, iconY - 1, 1, 'F');
-      doc.ellipse(iconX, iconY + 1, 2.5, 1.5, 'F');
+    if (idx === 0) { // Total Students - 2 circles (people)
+      doc.circle(iconX - 1, iconY - 0.5, 0.8, 'F');
+      doc.circle(iconX + 1, iconY - 0.5, 0.8, 'F');
+      doc.rect(iconX - 2, iconY + 0.5, 4, 1.2, 'F');
     } else if (idx === 1) { // Attempted - checkmark
-      doc.setLineWidth(1);
+      doc.setLineWidth(1.2);
+      doc.setDrawColor(255, 255, 255);
       doc.line(iconX - 1.5, iconY, iconX - 0.5, iconY + 1.5);
       doc.line(iconX - 0.5, iconY + 1.5, iconX + 2, iconY - 1.5);
     } else if (idx === 2) { // Absent - X mark
-      doc.setLineWidth(1);
+      doc.setLineWidth(1.2);
+      doc.setDrawColor(255, 255, 255);
       doc.line(iconX - 1.5, iconY - 1.5, iconX + 1.5, iconY + 1.5);
       doc.line(iconX + 1.5, iconY - 1.5, iconX - 1.5, iconY + 1.5);
-    } else if (idx === 3) { // Average Score - bar chart
-      doc.rect(iconX - 2, iconY + 1, 1, 1.5, 'F');
-      doc.rect(iconX - 0.5, iconY - 0.5, 1, 3, 'F');
-      doc.rect(iconX + 1, iconY, 1, 2.5, 'F');
-    } else if (idx === 4) { // Highest - star
-      for(let i = 0; i < 5; i++) {
-        const angle = (i * 72 - 90) * Math.PI / 180;
-        const px = iconX + 2 * Math.cos(angle);
-        const py = iconY + 2 * Math.sin(angle);
-        if (i === 0) doc.moveTo(px, py);
-        else doc.lineTo(px, py);
-      }
-      doc.fill();
-    } else if (idx === 5) { // Avg Accuracy - target/circle
-      doc.circle(iconX, iconY, 2, 'S');
-      doc.circle(iconX, iconY, 1, 'F');
+    } else if (idx === 3) { // Average Score - 3 bars
+      doc.rect(iconX - 2, iconY + 0.5, 1, 1.5, 'F');
+      doc.rect(iconX - 0.5, iconY - 0.5, 1, 2.5, 'F');
+      doc.rect(iconX + 1, iconY, 1, 2, 'F');
+    } else if (idx === 4) { // Highest - triangle (up arrow)
+      doc.triangle(iconX, iconY - 1.5, iconX - 1.5, iconY + 1, iconX + 1.5, iconY + 1, 'F');
+    } else if (idx === 5) { // Avg Accuracy - target
+      doc.setDrawColor(255, 255, 255);
+      doc.setLineWidth(1);
+      doc.circle(iconX, iconY, 1.8, 'S');
+      doc.circle(iconX, iconY, 0.8, 'F');
     }
 
     // Label
