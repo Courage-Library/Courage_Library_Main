@@ -595,42 +595,26 @@ window.downloadPDFReport = async function(examId) {
   // ENHANCED HEADER WITH BETTER LOGO
   // ═══════════════════════════════════════════════════════════
   
-  // Blue header background with gradient effect (simulated)
+  // Blue header background
   doc.setFillColor(30, 64, 175);
   doc.rect(0, 0, pageWidth, 60, 'F');
   
-  // Lighter blue overlay for gradient effect
+  // Lighter blue overlay for depth (simpler approach)
   doc.setFillColor(59, 130, 246);
-  doc.setGlobalAlpha(0.3);
-  doc.rect(0, 0, pageWidth, 30, 'F');
-  doc.setGlobalAlpha(1);
+  doc.rect(0, 0, pageWidth, 25, 'F');
 
   // ── ENHANCED COURAGE LIBRARY LOGO ──
   const logoX = 18;
   const logoY = 14;
   const logoSize = 22;
   
-  // Logo outer glow
-  doc.setFillColor(59, 130, 246);
-  doc.setGlobalAlpha(0.4);
-  doc.roundedRect(logoX - 1, logoY - 1, logoSize + 2, logoSize + 2, 5, 5, 'F');
-  doc.setGlobalAlpha(1);
-  
-  // Logo background - white rounded square
+  // Logo background - white rounded square (no glow)
   doc.setFillColor(255, 255, 255);
   doc.roundedRect(logoX, logoY, logoSize, logoSize, 4, 4, 'F');
   
-  // "CL" text with shadow effect
+  // "CL" text - clean and bold
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
-  
-  // Shadow
-  doc.setTextColor(100, 100, 100);
-  doc.setGlobalAlpha(0.3);
-  doc.text('CL', logoX + 5.5, logoY + 15.5);
-  doc.setGlobalAlpha(1);
-  
-  // Main text
   doc.setTextColor(30, 64, 175);
   doc.text('CL', logoX + 5, logoY + 15);
   
@@ -645,33 +629,18 @@ window.downloadPDFReport = async function(examId) {
   doc.setTextColor(220, 230, 255);
   doc.text('Making Education Accessible', logoX + logoSize + 6, logoY + 16);
 
-  // Decorative elements
+  // Decorative gold circle (top-right)
   doc.setFillColor(251, 191, 36);
   doc.circle(pageWidth - 15, 15, 6, 'F');
-  doc.setFillColor(255, 255, 255);
-  doc.setGlobalAlpha(0.3);
-  doc.circle(pageWidth - 15, 15, 4, 'F');
-  doc.setGlobalAlpha(1);
 
-  // White separator line with shadow
-  doc.setDrawColor(100, 100, 100);
-  doc.setGlobalAlpha(0.2);
-  doc.setLineWidth(1);
-  doc.line(margin, 58, pageWidth - margin, 58);
-  doc.setGlobalAlpha(1);
-  
+  // White separator line
   doc.setDrawColor(255, 255, 255);
   doc.setLineWidth(0.8);
   doc.line(margin, 57, pageWidth - margin, 57);
 
-  // Title with shadow
+  // Title - bold and clear
   doc.setFontSize(24);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(100, 100, 100);
-  doc.setGlobalAlpha(0.3);
-  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2 + 1, 29, { align: 'center' });
-  doc.setGlobalAlpha(1);
-  
   doc.setTextColor(255, 255, 255);
   doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 28, { align: 'center' });
 
@@ -1207,6 +1176,23 @@ function showToast(msg, type = 'success') {
   document.getElementById('toast-container').appendChild(toast);
   setTimeout(() => toast.remove(), 3500);
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// COPY JOIN LINK
+// ══════════════════════════════════════════════════════════════════════════════
+
+window.copyJoinLink = function() {
+  const link = document.getElementById('joinLink').textContent;
+  navigator.clipboard.writeText(link).then(() => {
+    showToast('Join link copied!');
+  }).catch(() => {
+    showToast('Failed to copy link', 'error');
+  });
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LOGOUT
+// ══════════════════════════════════════════════════════════════════════════════
 
 window.logout = async function() {
   if (!confirm('Logout from teacher portal?')) return;
