@@ -601,75 +601,41 @@ window.downloadPDFReport = async function(examId) {
   doc.rect(7, 7, pageWidth - 14, pageHeight - 14, 'S');
 
   // ═══════════════════════════════════════════════════════════
-  // ENHANCED HEADER WITH BETTER LOGO
+  // SIMPLE PROFESSIONAL HEADER (Coaching Focused)
   // ═══════════════════════════════════════════════════════════
   
-  // Blue header background
+  // Clean blue header
   doc.setFillColor(30, 64, 175);
-  doc.rect(0, 0, pageWidth, 60, 'F');
-  
-  // Lighter blue overlay for depth (simpler approach)
-  doc.setFillColor(59, 130, 246);
-  doc.rect(0, 0, pageWidth, 25, 'F');
-
-  // ── ENHANCED COURAGE LIBRARY LOGO ──
-  const logoX = 18;
-  const logoY = 14;
-  const logoSize = 22;
-  
-  // Logo background - white rounded square (no glow)
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(logoX, logoY, logoSize, logoSize, 4, 4, 'F');
-  
-  // "CL" text - clean and bold
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 64, 175);
-  doc.text('CL', logoX + 5, logoY + 15);
-  
-  // Brand text with better styling
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 255, 255);
-  doc.text('COURAGE LIBRARY', logoX + logoSize + 6, logoY + 10);
-  
-  doc.setFontSize(7);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(220, 230, 255);
-  doc.text('Making Education Accessible', logoX + logoSize + 6, logoY + 16);
-
-  // Decorative gold circle (top-right)
-  doc.setFillColor(251, 191, 36);
-  doc.circle(pageWidth - 15, 15, 6, 'F');
+  doc.rect(0, 0, pageWidth, 45, 'F');
 
   // White separator line
   doc.setDrawColor(255, 255, 255);
-  doc.setLineWidth(0.8);
-  doc.line(margin, 57, pageWidth - margin, 57);
+  doc.setLineWidth(0.5);
+  doc.line(margin, 43, pageWidth - margin, 43);
 
-  // Title - bold and clear
-  doc.setFontSize(24);
+  // Main title
+  doc.setFontSize(20);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 28, { align: 'center' });
+  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 15, { align: 'center' });
 
-  // Coaching name
-  doc.setFontSize(16);
+  // Coaching name - prominent
+  doc.setFontSize(17);
   doc.setFont('helvetica', 'bold');
-  doc.text(coachingData.name, pageWidth / 2, 41, { align: 'center' });
+  doc.text(coachingData.name, pageWidth / 2, 26, { align: 'center' });
 
-  // City & date
+  // City & date - smaller
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(220, 230, 255);
   const reportDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-  doc.text(`${coachingData.city || 'India'} | Report Generated: ${reportDate}`, pageWidth / 2, 51, { align: 'center' });
+  doc.text(`${coachingData.city || 'India'} | ${reportDate}`, pageWidth / 2, 37, { align: 'center' });
 
   // ═══════════════════════════════════════════════════════════
   // EXAM INFO BOX
   // ═══════════════════════════════════════════════════════════
   
-  let yPos = 65;
+  let yPos = 55;
 
   // Light blue background box
   doc.setFillColor(239, 246, 255);
@@ -1091,27 +1057,22 @@ window.downloadPDFReport = async function(examId) {
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
 
-    // Footer line
+    // Simple footer line
     doc.setDrawColor(203, 213, 225);
     doc.setLineWidth(0.5);
-    doc.line(margin, pageHeight - 22, pageWidth - margin, pageHeight - 22);
+    doc.line(margin, pageHeight - 18, pageWidth - margin, pageHeight - 18);
 
-    // Branding
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 64, 175);
-    doc.text('Powered by Courage Library', pageWidth / 2, pageHeight - 15, { align: 'center' });
-
+    // Coaching name
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
-    doc.text('www.couragelibrary.in | Making Education Accessible', pageWidth / 2, pageHeight - 10, { align: 'center' });
+    doc.text(coachingData.name, pageWidth / 2, pageHeight - 11, { align: 'center' });
 
-    // Page number
+    // Page number (right)
     doc.setFontSize(8);
-    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 12, { align: 'right' });
+    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 11, { align: 'right' });
 
-    // Generated timestamp
+    // Generated timestamp (left)
     const timestamp = new Date().toLocaleString('en-IN', { 
       day: '2-digit', 
       month: 'short', 
@@ -1119,7 +1080,7 @@ window.downloadPDFReport = async function(examId) {
       hour: '2-digit',
       minute: '2-digit'
     });
-    doc.text(`Generated: ${timestamp}`, margin, pageHeight - 12);
+    doc.text(`${timestamp}`, margin, pageHeight - 11);
   }
 
   // ═══════════════════════════════════════════════════════════
