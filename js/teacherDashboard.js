@@ -542,13 +542,17 @@ window.viewResults = async function(examId) {
 // PDF REPORT GENERATION — WORLD-CLASS PROFESSIONAL VERSION
 // ══════════════════════════════════════════════════════════════════════════════
 
+// ══════════════════════════════════════════════════════════════════════════════
+// PROFESSIONAL PDF REPORT - MODERN DESIGN
+// ══════════════════════════════════════════════════════════════════════════════
+
 window.downloadPDFReport = async function(examId) {
   const exam = allExams.find(e => e.id === examId);
   if (!exam) return;
 
-  showToast('Generating PDF report...');
+  showToast('Generating professional report...');
 
-  // Fetch all attempts for this exam
+  // Fetch data
   const { data: attempts, error } = await client
     .from('attempts')
     .select('user_id, total_score, accuracy, time_taken, submitted_at')
@@ -556,14 +560,14 @@ window.downloadPDFReport = async function(examId) {
     .order('total_score', { ascending: false });
 
   if (error) {
-    showToast('Failed to fetch data for PDF', 'error');
+    showToast('Failed to fetch data', 'error');
     return;
   }
 
   const submitted = attempts.filter(a => a.submitted_at);
   const notAttempted = allStudents.filter(s => !attempts.find(a => a.user_id === s.id));
 
-  // Generate PDF
+  // Initialize PDF
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
@@ -574,523 +578,284 @@ window.downloadPDFReport = async function(examId) {
 
   const pageWidth = doc.internal.pageSize.width;
   const pageHeight = doc.internal.pageSize.height;
-  const margin = 20;
+  const margin = 15;
 
-  // Calculate statistics
+  // Statistics
   const avgScore = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.total_score) || 0), 0) / submitted.length).toFixed(1) : 0;
-  const avgAcc = submitted.length ? (submitted.reduce((sum, a) => sum + (Number(a.accuracy) || 0), 0) / submitted.length).toFixed(1) : 0;
   const highest = submitted.length ? Math.max(...submitted.map(a => Number(a.total_score) || 0)) : 0;
-  const lowest = submitted.length ? Math.min(...submitted.map(a => Number(a.total_score) || 0)) : 0;
-  
-  // Pass/Fail calculation (40% passing criteria)
   const passingScore = totalMarks * 0.4;
   const passed = submitted.filter(a => a.total_score >= passingScore).length;
   const failed = submitted.filter(a => a.total_score < passingScore).length;
+  const passRate = submitted.length ? ((passed / submitted.length) * 100).toFixed(0) : 0;
 
   // ═══════════════════════════════════════════════════════════
-  // PAGE BORDER
+  // MODERN HEADER WITH GRADIENT EFFECT
   // ═══════════════════════════════════════════════════════════
   
-  doc.setDrawColor(30, 64, 175);
-  doc.setLineWidth(2);
-  doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
-
-  // Inner decorative line
-  doc.setDrawColor(59, 130, 246);
-  doc.setLineWidth(0.5);
-  doc.rect(7, 7, pageWidth - 14, pageHeight - 14, 'S');
-
-  // ═══════════════════════════════════════════════════════════
-  // SIMPLE PROFESSIONAL HEADER (Coaching Focused)
-  // ═══════════════════════════════════════════════════════════
-  
-  // Clean blue header
+  // Multi-layer header for depth
   doc.setFillColor(30, 64, 175);
-  doc.rect(0, 0, pageWidth, 45, 'F');
+  doc.rect(0, 0, pageWidth, 50, 'F');
+  
+  doc.setFillColor(59, 130, 246);
+  for (let i = 0; i < 20; i++) {
+    doc.setFillColor(30 + i * 1.5, 64 + i * 3, 175 + i * 0.4);
+    doc.rect(0, i * 2.5, pageWidth, 2.5, 'F');
+  }
 
-  // White separator line
-  doc.setDrawColor(255, 255, 255);
-  doc.setLineWidth(0.5);
-  doc.line(margin, 43, pageWidth - margin, 43);
-
-  // Main title
-  doc.setFontSize(20);
+  // Title
+  doc.setFontSize(24);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('EXAM PERFORMANCE REPORT', pageWidth / 2, 15, { align: 'center' });
+  doc.text('PERFORMANCE REPORT', pageWidth / 2, 20, { align: 'center' });
 
-  // Coaching name - prominent
-  doc.setFontSize(17);
-  doc.setFont('helvetica', 'bold');
-  doc.text(coachingData.name, pageWidth / 2, 26, { align: 'center' });
+  // Coaching name
+  doc.setFontSize(16);
+  doc.text(coachingData.name, pageWidth / 2, 32, { align: 'center' });
 
-  // City & date - smaller
+  // Date
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(220, 230, 255);
   const reportDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-  doc.text(`${coachingData.city || 'India'} | ${reportDate}`, pageWidth / 2, 37, { align: 'center' });
+  doc.text(`${coachingData.city || ''} | ${reportDate}`, pageWidth / 2, 43, { align: 'center' });
+
+  let yPos = 60;
 
   // ═══════════════════════════════════════════════════════════
-  // EXAM INFO BOX
+  // EXAM INFO - Colored Box
   // ═══════════════════════════════════════════════════════════
   
-  let yPos = 55;
-
-  // Light blue background box
-  doc.setFillColor(239, 246, 255);
+  doc.setFillColor(240, 249, 255);
   doc.roundedRect(margin, yPos, pageWidth - 2 * margin, 20, 3, 3, 'F');
+  
+  doc.setFillColor(59, 130, 246);
+  doc.roundedRect(margin, yPos, 4, 20, 3, 3, 'F');
 
-  // Exam name
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(30, 64, 175);
-  doc.text(examName, margin + 5, yPos + 7);
+  doc.text(examName, margin + 8, yPos + 8);
 
-  // Exam details
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(71, 85, 105);
-  doc.text(`Duration: ${duration} min  |  Total Marks: ${totalMarks}  |  Passing: ${passingScore.toFixed(0)} marks (40%)`, margin + 5, yPos + 14);
+  doc.text(`${duration} min  |  ${totalMarks} marks  |  Pass: ${passingScore.toFixed(0)} (40%)`, margin + 8, yPos + 15);
 
   yPos += 28;
 
   // ═══════════════════════════════════════════════════════════
-  // HELPER: Draw Simple Icons
+  // PERFORMANCE SUMMARY - 3 Big Cards
   // ═══════════════════════════════════════════════════════════
   
-  function drawIcon(x, y, type) {
-    doc.setFillColor(255, 255, 255);
-    doc.setDrawColor(255, 255, 255);
-    
-    switch(type) {
-      case 'chart':
-        // Bar chart - 3 vertical bars
-        doc.rect(x - 2, y, 1, 2, 'F');
-        doc.rect(x - 0.5, y - 1, 1, 3, 'F');
-        doc.rect(x + 1, y + 0.5, 1, 1.5, 'F');
-        break;
-        
-      case 'trophy':
-        // Trophy - simple cup shape
-        doc.circle(x, y - 0.5, 1.5, 'F');
-        doc.rect(x - 0.4, y + 0.5, 0.8, 1.5, 'F');
-        doc.rect(x - 1.5, y + 1.5, 3, 0.5, 'F');
-        break;
-        
-      case 'users':
-        // People - 2 heads + body
-        doc.circle(x - 1, y - 1, 0.7, 'F');
-        doc.circle(x + 1, y - 1, 0.7, 'F');
-        doc.rect(x - 2, y, 4, 1.5, 'F');
-        break;
-        
-      case 'warning':
-        // Warning - exclamation mark
-        doc.rect(x - 0.3, y - 1.5, 0.6, 2, 'F');
-        doc.circle(x, y + 1.2, 0.4, 'F');
-        break;
-    }
-  }
+  const cardWidth = (pageWidth - 2 * margin - 10) / 3;
+  const cardHeight = 28;
   
-  function addSectionDivider(yPosition, title, iconType) {
-    // Background bar
-    doc.setFillColor(248, 250, 252);
-    doc.rect(margin - 2, yPosition, pageWidth - 2 * margin + 4, 10, 'F');
-    
-    // Accent line (left)
-    doc.setFillColor(59, 130, 246);
-    doc.rect(margin - 2, yPosition, 4, 10, 'F');
-    
-    // Icon circle with drawn icon
-    if (iconType) {
-      // Circle background
-      doc.setFillColor(59, 130, 246);
-      doc.circle(margin + 8, yPosition + 5, 3.5, 'F');
-      
-      // Draw icon inside
-      drawIcon(margin + 8, yPosition + 5, iconType);
-    }
-    
-    // Title
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 64, 175);
-    doc.text(title, margin + (iconType ? 18 : 8), yPosition + 6.5);
-    
-    return yPosition + 14;
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  // CLASS PERFORMANCE SUMMARY
-  // ═══════════════════════════════════════════════════════════
-
-  yPos = addSectionDivider(yPos, 'CLASS PERFORMANCE', 'chart');
-
-  // Pass/Fail summary boxes
-  const summaryBoxWidth = (pageWidth - 2 * margin - 10) / 3;
-  const summaryBoxHeight = 22;
-
-  // Passed box (Green)
-  doc.setFillColor(236, 253, 245);
-  doc.roundedRect(margin, yPos, summaryBoxWidth, summaryBoxHeight, 3, 3, 'F');
-  doc.setFillColor(34, 197, 94);
-  doc.roundedRect(margin, yPos, 3, summaryBoxHeight, 3, 3, 'F');
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 116, 139);
-  doc.text('Passed', margin + 8, yPos + 8);
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(34, 197, 94);
-  doc.text(passed.toString(), margin + 8, yPos + 18);
-
-  // Failed box (Red)
-  doc.setFillColor(254, 242, 242);
-  doc.roundedRect(margin + summaryBoxWidth + 5, yPos, summaryBoxWidth, summaryBoxHeight, 3, 3, 'F');
-  doc.setFillColor(239, 68, 68);
-  doc.roundedRect(margin + summaryBoxWidth + 5, yPos, 3, summaryBoxHeight, 3, 3, 'F');
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 116, 139);
-  doc.text('Failed', margin + summaryBoxWidth + 13, yPos + 8);
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(239, 68, 68);
-  doc.text(failed.toString(), margin + summaryBoxWidth + 13, yPos + 18);
-
-  // Pass Percentage (Blue)
-  doc.setFillColor(239, 246, 255);
-  doc.roundedRect(margin + 2 * (summaryBoxWidth + 5), yPos, summaryBoxWidth, summaryBoxHeight, 3, 3, 'F');
-  doc.setFillColor(59, 130, 246);
-  doc.roundedRect(margin + 2 * (summaryBoxWidth + 5), yPos, 3, summaryBoxHeight, 3, 3, 'F');
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 116, 139);
-  doc.text('Pass Rate', margin + 2 * (summaryBoxWidth + 5) + 8, yPos + 8);
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(59, 130, 246);
-  const passRate = submitted.length ? ((passed / submitted.length) * 100).toFixed(0) : 0;
-  doc.text(`${passRate}%`, margin + 2 * (summaryBoxWidth + 5) + 8, yPos + 18);
-
-  yPos += summaryBoxHeight + 12;
-
-  // Decorative separator
-  doc.setDrawColor(203, 213, 225);
-  doc.setLineWidth(0.5);
-  doc.line(margin, yPos, pageWidth - margin, yPos);
-  yPos += 8;
-
-  // ═══════════════════════════════════════════════════════════
-  // DETAILED STATISTICS
-  // ═══════════════════════════════════════════════════════════
-
-  yPos = addSectionDivider(yPos, 'DETAILED STATISTICS', 'chart');
-
-  // Stats grid - 3 columns x 2 rows
-  const statBoxWidth = (pageWidth - 2 * margin - 10) / 3;
-  const statBoxHeight = 24;
-  const statGap = 5;
-
-  const stats = [
-    { label: 'Total Students', value: allStudents.length.toString(), color: [59, 130, 246], bgColor: [239, 246, 255] },
-    { label: 'Attempted', value: submitted.length.toString(), color: [34, 197, 94], bgColor: [240, 253, 244] },
-    { label: 'Absent', value: notAttempted.length.toString(), color: [239, 68, 68], bgColor: [254, 242, 242] },
-    { label: 'Average Score', value: `${avgScore} / ${totalMarks}`, color: [99, 102, 241], bgColor: [238, 242, 255] },
-    { label: 'Highest Score', value: highest.toString(), color: [16, 185, 129], bgColor: [236, 253, 245] },
-    { label: 'Avg Accuracy', value: `${avgAcc}%`, color: [168, 85, 247], bgColor: [250, 245, 255] }
+  const cards = [
+    { label: 'PASSED', value: passed, color: [34, 197, 94], bgColor: [240, 253, 244] },
+    { label: 'FAILED', value: failed, color: [239, 68, 68], bgColor: [254, 242, 242] },
+    { label: 'PASS RATE', value: `${passRate}%`, color: [59, 130, 246], bgColor: [239, 246, 255] }
   ];
 
-  // Draw enhanced stat boxes
-  stats.forEach((stat, idx) => {
-    const row = Math.floor(idx / 3);
-    const col = idx % 3;
-    const x = margin + col * (statBoxWidth + statGap);
-    const y = yPos + row * (statBoxHeight + statGap);
-
-    // Shadow effect
-    doc.setFillColor(200, 200, 200);
-    doc.roundedRect(x + 0.5, y + 0.5, statBoxWidth, statBoxHeight, 3, 3, 'F');
-
-    // Main box
-    doc.setFillColor(...stat.bgColor);
-    doc.roundedRect(x, y, statBoxWidth, statBoxHeight, 3, 3, 'F');
-
-    // Left accent bar
-    doc.setFillColor(...stat.color);
-    doc.roundedRect(x, y, 3, statBoxHeight, 3, 3, 'F');
-
-    // Icon circle with drawn icon
-    doc.setFillColor(...stat.color);
-    doc.setDrawColor(255, 255, 255);
-    doc.setLineWidth(1.5);
-    doc.circle(x + 10, y + statBoxHeight / 2, 5, 'FD');
+  cards.forEach((card, idx) => {
+    const x = margin + idx * (cardWidth + 5);
     
-    // Draw simple icon inside circle
-    doc.setFillColor(255, 255, 255);
-    const iconX = x + 10;
-    const iconY = y + statBoxHeight / 2;
+    // Card background
+    doc.setFillColor(...card.bgColor);
+    doc.roundedRect(x, yPos, cardWidth, cardHeight, 4, 4, 'F');
     
-    if (idx === 0) { // Total Students - 2 circles (people)
-      doc.circle(iconX - 1, iconY - 0.5, 0.8, 'F');
-      doc.circle(iconX + 1, iconY - 0.5, 0.8, 'F');
-      doc.rect(iconX - 2, iconY + 0.5, 4, 1.2, 'F');
-    } else if (idx === 1) { // Attempted - checkmark
-      doc.setLineWidth(1.2);
-      doc.setDrawColor(255, 255, 255);
-      doc.line(iconX - 1.5, iconY, iconX - 0.5, iconY + 1.5);
-      doc.line(iconX - 0.5, iconY + 1.5, iconX + 2, iconY - 1.5);
-    } else if (idx === 2) { // Absent - X mark
-      doc.setLineWidth(1.2);
-      doc.setDrawColor(255, 255, 255);
-      doc.line(iconX - 1.5, iconY - 1.5, iconX + 1.5, iconY + 1.5);
-      doc.line(iconX + 1.5, iconY - 1.5, iconX - 1.5, iconY + 1.5);
-    } else if (idx === 3) { // Average Score - 3 bars
-      doc.rect(iconX - 2, iconY + 0.5, 1, 1.5, 'F');
-      doc.rect(iconX - 0.5, iconY - 0.5, 1, 2.5, 'F');
-      doc.rect(iconX + 1, iconY, 1, 2, 'F');
-    } else if (idx === 4) { // Highest - triangle (up arrow)
-      doc.triangle(iconX, iconY - 1.5, iconX - 1.5, iconY + 1, iconX + 1.5, iconY + 1, 'F');
-    } else if (idx === 5) { // Avg Accuracy - target
-      doc.setDrawColor(255, 255, 255);
-      doc.setLineWidth(1);
-      doc.circle(iconX, iconY, 1.8, 'S');
-      doc.circle(iconX, iconY, 0.8, 'F');
-    }
-
+    // Left accent
+    doc.setFillColor(...card.color);
+    doc.roundedRect(x, yPos, 3, cardHeight, 4, 4, 'F');
+    
     // Label
     doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 116, 139);
-    doc.text(stat.label, x + 18, y + 10);
-
-    // Value
-    doc.setFontSize(15);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...stat.color);
-    doc.text(stat.value, x + 18, y + 19);
+    doc.setTextColor(100, 116, 139);
+    doc.text(card.label, x + 8, yPos + 10);
+    
+    // Value - BIG
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...card.color);
+    doc.text(card.value.toString(), x + 8, yPos + 22);
   });
 
-  yPos += 2 * (statBoxHeight + statGap) + 12;
+  yPos += cardHeight + 15;
 
   // ═══════════════════════════════════════════════════════════
-  // TOP PERFORMERS TABLE
+  // KEY METRICS - 6 Small Boxes in Grid
+  // ═══════════════════════════════════════════════════════════
+  
+  const metrics = [
+    { label: 'Total Students', value: allStudents.length, icon: '👥', color: [59, 130, 246] },
+    { label: 'Attempted', value: submitted.length, icon: '✓', color: [34, 197, 94] },
+    { label: 'Absent', value: notAttempted.length, icon: '✗', color: [239, 68, 68] },
+    { label: 'Average', value: `${avgScore}/${totalMarks}`, icon: '📊', color: [168, 85, 247] },
+    { label: 'Highest', value: highest, icon: '⭐', color: [251, 191, 36] },
+    { label: 'Lowest', value: submitted.length ? Math.min(...submitted.map(a => a.total_score)) : 0, icon: '📉', color: [249, 115, 22] }
+  ];
+
+  const metricWidth = (pageWidth - 2 * margin - 10) / 3;
+  const metricHeight = 18;
+
+  metrics.forEach((metric, idx) => {
+    const row = Math.floor(idx / 3);
+    const col = idx % 3;
+    const x = margin + col * (metricWidth + 5);
+    const y = yPos + row * (metricHeight + 5);
+    
+    // Box
+    doc.setFillColor(255, 255, 255);
+    doc.setDrawColor(...metric.color);
+    doc.setLineWidth(1.5);
+    doc.roundedRect(x, y, metricWidth, metricHeight, 3, 3, 'FD');
+    
+    // Icon circle
+    doc.setFillColor(...metric.color);
+    doc.circle(x + 7, y + metricHeight / 2, 4, 'F');
+    
+    // Label
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 116, 139);
+    doc.text(metric.label, x + 14, y + 8);
+    
+    // Value
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 41, 59);
+    doc.text(metric.value.toString(), x + 14, y + 14);
+  });
+
+  yPos += 2 * (metricHeight + 5) + 15;
+
+  // ═══════════════════════════════════════════════════════════
+  // TOP PERFORMERS TABLE - Modern Style
   // ═══════════════════════════════════════════════════════════
 
   if (submitted.length > 0) {
-    yPos = addSectionDivider(yPos, 'TOP PERFORMERS', 'trophy');
+    // Section header
+    doc.setFillColor(248, 250, 252);
+    doc.rect(margin, yPos, pageWidth - 2 * margin, 8, 'F');
+    doc.setFillColor(59, 130, 246);
+    doc.rect(margin, yPos, 3, 8, 'F');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 64, 175);
+    doc.text('TOP PERFORMERS', margin + 6, yPos + 5.5);
+    
+    yPos += 12;
 
-    const topPerformers = submitted.slice(0, Math.min(10, submitted.length));
+    const topPerformers = submitted.slice(0, 10);
     const tableData = topPerformers.map((attempt, idx) => {
       const name = getStudentName(attempt.user_id);
-      const timeTaken = attempt.time_taken ? `${Math.floor(attempt.time_taken / 60)} min` : '-';
-      const score = attempt.total_score || 0;
-      const isPassed = score >= passingScore;
-      const status = isPassed ? 'PASS' : 'FAIL';
-      
+      const isPassed = attempt.total_score >= passingScore;
       return [
         idx + 1,
         name,
-        `${score} / ${totalMarks}`,
+        `${attempt.total_score}/${totalMarks}`,
         `${(attempt.accuracy || 0).toFixed(1)}%`,
-        timeTaken,
-        status
+        isPassed ? 'PASS' : 'FAIL'
       ];
     });
 
     doc.autoTable({
       startY: yPos,
-      head: [['Rank', 'Student Name', 'Score', 'Accuracy', 'Time', 'Status']],
+      head: [['#', 'Student Name', 'Score', 'Accuracy', 'Status']],
       body: tableData,
-      theme: 'striped',
+      theme: 'grid',
       headStyles: { 
         fillColor: [30, 64, 175],
         textColor: [255, 255, 255],
         fontSize: 9,
         fontStyle: 'bold',
-        halign: 'center'
+        halign: 'center',
+        cellPadding: 3
       },
       bodyStyles: { 
         fontSize: 9,
-        textColor: [51, 65, 85]
+        textColor: [51, 65, 85],
+        cellPadding: 2.5
       },
       columnStyles: {
-        0: { cellWidth: 15, halign: 'center' },
-        1: { cellWidth: 60, halign: 'left' },
+        0: { cellWidth: 12, halign: 'center' },
+        1: { cellWidth: 70, halign: 'left' },
         2: { cellWidth: 25, halign: 'center' },
         3: { cellWidth: 25, halign: 'center' },
-        4: { cellWidth: 20, halign: 'center' },
-        5: { cellWidth: 25, halign: 'center', fontStyle: 'bold' }
+        4: { cellWidth: 25, halign: 'center', fontStyle: 'bold' }
       },
-      alternateRowStyles: { fillColor: [248, 250, 252] },
+      alternateRowStyles: { fillColor: [249, 250, 251] },
       margin: { left: margin, right: margin },
       didParseCell: function(data) {
-        // Color code the Status column
-        if (data.column.index === 5) {
+        if (data.column.index === 4) {
           if (data.cell.text[0].includes('PASS')) {
-            data.cell.styles.textColor = [34, 197, 94]; // Green
-            data.cell.styles.fontStyle = 'bold';
-          } else if (data.cell.text[0].includes('FAIL')) {
-            data.cell.styles.textColor = [239, 68, 68]; // Red
-            data.cell.styles.fontStyle = 'bold';
+            data.cell.styles.textColor = [34, 197, 94];
+            data.cell.styles.fillColor = [240, 253, 244];
+          } else {
+            data.cell.styles.textColor = [239, 68, 68];
+            data.cell.styles.fillColor = [254, 242, 242];
           }
         }
       }
     });
 
-    yPos = doc.lastAutoTable.finalY + 12;
+    yPos = doc.lastAutoTable.finalY + 10;
   }
 
   // ═══════════════════════════════════════════════════════════
-  // SCORE DISTRIBUTION (if space available)
+  // SIGNATURE
   // ═══════════════════════════════════════════════════════════
 
-  if (submitted.length > 0 && yPos < 210) {
-    yPos = addSectionDivider(yPos, 'SCORE DISTRIBUTION', 'chart');
-
-    const excellent = submitted.filter(a => (a.total_score / totalMarks) >= 0.9).length;
-    const good = submitted.filter(a => (a.total_score / totalMarks) >= 0.7 && (a.total_score / totalMarks) < 0.9).length;
-    const average = submitted.filter(a => (a.total_score / totalMarks) >= 0.5 && (a.total_score / totalMarks) < 0.7).length;
-    const belowAvg = submitted.filter(a => (a.total_score / totalMarks) >= 0.3 && (a.total_score / totalMarks) < 0.5).length;
-    const poor = submitted.filter(a => (a.total_score / totalMarks) < 0.3).length;
-
-    const distribution = [
-      { label: 'Excellent (90-100%)', count: excellent, color: [16, 185, 129] },
-      { label: 'Good (70-89%)', count: good, color: [59, 130, 246] },
-      { label: 'Average (50-69%)', count: average, color: [251, 191, 36] },
-      { label: 'Below Average (30-49%)', count: belowAvg, color: [249, 115, 22] },
-      { label: 'Poor (0-29%)', count: poor, color: [239, 68, 68] }
-    ];
-
-    distribution.forEach(range => {
-      if (range.count > 0 && yPos < 250) {
-        const percentage = (range.count / submitted.length) * 100;
-        const barWidth = (percentage / 100) * (pageWidth - 2 * margin - 90);
-
-        doc.setFillColor(...range.color);
-        doc.roundedRect(margin, yPos - 4, barWidth, 6, 1, 1, 'F');
-
-        doc.setFontSize(9);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(71, 85, 105);
-        doc.text(`${range.label}: ${range.count} (${percentage.toFixed(0)}%)`, margin + barWidth + 5, yPos);
-
-        yPos += 9;
-      }
-    });
+  if (yPos > pageHeight - 50) {
+    doc.addPage();
+    yPos = 20;
   }
 
-  // ═══════════════════════════════════════════════════════════
-  // ABSENT STUDENTS (New page if needed)
-  // ═══════════════════════════════════════════════════════════
-
-  if (notAttempted.length > 0) {
-    if (yPos > 235) {
-      doc.addPage();
-      yPos = 25;
-      
-      // Page border on new page
-      doc.setDrawColor(30, 64, 175);
-      doc.setLineWidth(2);
-      doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
-      doc.setDrawColor(59, 130, 246);
-      doc.setLineWidth(0.5);
-      doc.rect(7, 7, pageWidth - 14, pageHeight - 14, 'S');
-    }
-
-    yPos = addSectionDivider(yPos, `ABSENT STUDENTS (${notAttempted.length})`, 'warning');
-
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(71, 85, 105);
-
-    notAttempted.forEach((student, idx) => {
-      if (yPos > 265) {
-        doc.addPage();
-        yPos = 25;
-        doc.setDrawColor(30, 64, 175);
-        doc.setLineWidth(2);
-        doc.rect(5, 5, pageWidth - 10, pageHeight - 10, 'S');
-      }
-      doc.text(`${idx + 1}. ${student.full_name || student.user_email?.split('@')[0] || 'Student'}`, margin + 5, yPos);
-      yPos += 6;
-    });
-  }
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 64, 175);
+  doc.text('Verified By:', margin, yPos);
+  
+  doc.setFontSize(11);
+  doc.setTextColor(51, 65, 85);
+  doc.text(currentUser.user_metadata?.full_name || 'Teacher', margin, yPos + 8);
+  
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.5);
+  doc.line(pageWidth - margin - 50, yPos + 7, pageWidth - margin, yPos + 7);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text('Signature', pageWidth - margin - 25, yPos + 12, { align: 'center' });
 
   // ═══════════════════════════════════════════════════════════
-  // SIGNATURE BLOCK (NEW!)
+  // FOOTER (All Pages)
   // ═══════════════════════════════════════════════════════════
 
   const pageCount = doc.internal.getNumberOfPages();
-  doc.setPage(pageCount);
-
-  // Position signature block 50mm from bottom
-  const sigYPos = pageHeight - 50;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 64, 175);
-  doc.text('Verified & Approved By:', margin, sigYPos);
-
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(51, 65, 85);
-  doc.text(currentUser.user_metadata?.full_name || 'Teacher', margin, sigYPos + 10);
-
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(100, 116, 139);
-  doc.text('Instructor', margin, sigYPos + 16);
-
-  // Signature line
-  doc.setDrawColor(203, 213, 225);
-  doc.setLineWidth(0.5);
-  doc.line(pageWidth - margin - 60, sigYPos + 15, pageWidth - margin, sigYPos + 15);
-  doc.setFontSize(8);
-  doc.text('Signature', pageWidth - margin - 30, sigYPos + 20, { align: 'center' });
-
-  // ═══════════════════════════════════════════════════════════
-  // FOOTER ON ALL PAGES
-  // ═══════════════════════════════════════════════════════════
-
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
-
-    // Simple footer line
-    doc.setDrawColor(203, 213, 225);
-    doc.setLineWidth(0.5);
-    doc.line(margin, pageHeight - 18, pageWidth - margin, pageHeight - 18);
-
-    // Coaching name
+    
+    doc.setDrawColor(226, 232, 240);
+    doc.setLineWidth(0.3);
+    doc.line(margin, pageHeight - 15, pageWidth - margin, pageHeight - 15);
+    
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(100, 116, 139);
-    doc.text(coachingData.name, pageWidth / 2, pageHeight - 11, { align: 'center' });
-
-    // Page number (right)
-    doc.setFontSize(8);
-    doc.text(`Page ${i} of ${pageCount}`, pageWidth - margin, pageHeight - 11, { align: 'right' });
-
-    // Generated timestamp (left)
+    
     const timestamp = new Date().toLocaleString('en-IN', { 
-      day: '2-digit', 
-      month: 'short', 
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+      day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
     });
-    doc.text(`${timestamp}`, margin, pageHeight - 11);
+    doc.text(timestamp, margin, pageHeight - 9);
+    doc.text(coachingData.name, pageWidth / 2, pageHeight - 9, { align: 'center' });
+    doc.text(`Page ${i}/${pageCount}`, pageWidth - margin, pageHeight - 9, { align: 'right' });
   }
 
-  // ═══════════════════════════════════════════════════════════
-  // SAVE PDF
-  // ═══════════════════════════════════════════════════════════
-
+  // Save
   const fileName = `${coachingData.name.replace(/\s+/g, '_')}_${examName.replace(/\s+/g, '_')}_Report.pdf`;
   doc.save(fileName);
 
-  showToast('Professional report downloaded successfully!');
+  showToast('Professional report downloaded!');
 };
 
 // ══════════════════════════════════════════════════════════════════════════════
