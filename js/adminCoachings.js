@@ -13,12 +13,26 @@ const BASE_URL = "https://www.couragelibrary.in/c/";
 
 // ── Admin auth guard ──
 async function checkAdmin() {
-  const { data: { user } } = await client.auth.getUser();
-  if (!user) { window.location.href = "../index.html?checkAuth=1"; return false; }
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (!user) {
+    window.location.href = "../index.html?checkAuth=1";
+    return false;
+  }
   const { data: profile } = await client
-    .from("user_profiles").select("is_admin, role").eq("id", user.id).single();
-  const isAdmin = profile?.is_admin === true || profile?.role === "super_admin" || profile?.role === "admin";
-  if (!isAdmin) { window.location.href = "/"; return false; }
+    .from("user_profiles")
+    .select("is_admin, role")
+    .eq("id", user.id)
+    .single();
+  const isAdmin =
+    profile?.is_admin === true ||
+    profile?.role === "super_admin" ||
+    profile?.role === "admin";
+  if (!isAdmin) {
+    window.location.href = "/";
+    return false;
+  }
   return true;
 }
 
@@ -42,13 +56,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateLinkPreview(e.target.value.trim());
   });
 
-  document.getElementById("createCoachingBtn").addEventListener("click", createCoaching);
+  document
+    .getElementById("createCoachingBtn")
+    .addEventListener("click", createCoaching);
   loadCoachings();
 });
 
 function updateLinkPreview(slug) {
   const el = document.getElementById("linkPreview");
-  if (el) el.textContent = slug ? `${BASE_URL}${slug}` : `${BASE_URL}your-coaching-name`;
+  if (el)
+    el.textContent = slug
+      ? `${BASE_URL}${slug}`
+      : `${BASE_URL}your-coaching-name`;
 }
 
 // ── Toast ──
@@ -57,34 +76,89 @@ function showToast(message, type = "success") {
   if (!toast) {
     toast = document.createElement("div");
     toast.id = "adminToast";
-    toast.style.cssText = "position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;transition:opacity .3s,transform .3s;opacity:0;transform:translateY(8px);";
+    toast.style.cssText =
+      "position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;gap:8px;transition:opacity .3s,transform .3s;opacity:0;transform:translateY(8px);";
     document.body.appendChild(toast);
   }
   const S = {
     success: { bg: "#ecfdf5", color: "#065f46", border: "#6ee7b7", icon: "✅" },
-    error:   { bg: "#fef2f2", color: "#7f1d1d", border: "#fca5a5", icon: "❌" },
+    error: { bg: "#fef2f2", color: "#7f1d1d", border: "#fca5a5", icon: "❌" },
     warning: { bg: "#fffbeb", color: "#78350f", border: "#fcd34d", icon: "⚠️" },
   };
   const s = S[type] || S.success;
-  Object.assign(toast.style, { background: s.bg, color: s.color, border: `1px solid ${s.border}` });
+  Object.assign(toast.style, {
+    background: s.bg,
+    color: s.color,
+    border: `1px solid ${s.border}`,
+  });
   toast.innerHTML = `${s.icon} ${message}`;
-  toast.style.opacity = "1"; toast.style.transform = "translateY(0)";
+  toast.style.opacity = "1";
+  toast.style.transform = "translateY(0)";
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translateY(8px)"; }, 3500);
+  toast._t = setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(8px)";
+  }, 3500);
+}
+
+async function uploadCoachingLogo(slug) {
+  const fileInput = document.getElementById("coachingLogo");
+
+  if (!fileInput.files.length) {
+    return null;
+  }
+
+  const file = fileInput.files[0];
+
+  const fileExt = file.name.split(".").pop();
+
+  const filePath = `${slug}/logo.${fileExt}`;
+
+  const { error } = await client.storage
+    .from("coachings")
+    .upload(filePath, file, {
+      upsert: true,
+    });
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  const { data } = client.storage.from("coachings").getPublicUrl(filePath);
+
+  return data.publicUrl;
 }
 
 // ── Create Coaching Center ──
 async function createCoaching() {
-  const name          = document.getElementById("coachingName").value.trim();
-  const slug          = document.getElementById("coachingSlug").value.trim().toLowerCase();
-  const city          = document.getElementById("coachingCity").value.trim();
+  const name = document.getElementById("coachingName").value.trim();
+  const slug = document
+    .getElementById("coachingSlug")
+    .value.trim()
+    .toLowerCase();
+  const city = document.getElementById("coachingCity").value.trim();
   const contact_email = document.getElementById("coachingEmail").value.trim();
   const contact_phone = document.getElementById("coachingPhone").value.trim();
-  const primary_color = document.getElementById("coachingColor").value || "#1a56db";
+  const primary_color =
+    document.getElementById("coachingColor").value || "#1a56db";
+  const logo_url = await uploadCoachingLogo(slug);
 
-  if (!name) { showToast("Coaching center name is required.", "error"); return; }
-  if (!slug) { showToast("Slug is required.", "error"); return; }
-  if (!/^[a-z0-9\-]+$/.test(slug)) { showToast("Slug can only contain lowercase letters, numbers, and hyphens.", "error"); return; }
+  if (!name) {
+    showToast("Coaching center name is required.", "error");
+    return;
+  }
+  if (!slug) {
+    showToast("Slug is required.", "error");
+    return;
+  }
+  if (!/^[a-z0-9\-]+$/.test(slug)) {
+    showToast(
+      "Slug can only contain lowercase letters, numbers, and hyphens.",
+      "error",
+    );
+    return;
+  }
 
   const btn = document.getElementById("createCoachingBtn");
   btn.disabled = true;
@@ -92,7 +166,17 @@ async function createCoaching() {
 
   const { data, error } = await client
     .from("coaching_centers")
-    .insert([{ name, slug, city, contact_email, contact_phone, primary_color }])
+    .insert([
+      {
+        name,
+        slug,
+        city,
+        contact_email,
+        contact_phone,
+        primary_color,
+        logo_url,
+      },
+    ])
     .select()
     .single();
 
@@ -101,17 +185,30 @@ async function createCoaching() {
 
   if (error) {
     if (error.code === "23505") {
-      showToast(`Slug "${slug}" is already taken. Choose a different one.`, "error");
+      showToast(
+        `Slug "${slug}" is already taken. Choose a different one.`,
+        "error",
+      );
     } else {
       showToast(error.message, "error");
     }
     return;
   }
 
-  showToast(`"${name}" created! Share this link with their students:`, "success");
+  showToast(
+    `"${name}" created! Share this link with their students:`,
+    "success",
+  );
 
   // Clear form
-  ["coachingName","coachingSlug","coachingCity","coachingEmail","coachingPhone"].forEach(id => {
+  [
+    "coachingName",
+    "coachingSlug",
+    "coachingCity",
+    "coachingEmail",
+    "coachingPhone",
+    "coachingLogo",
+  ].forEach((id) => {
     document.getElementById(id).value = "";
   });
   document.getElementById("coachingColor").value = "#1a56db";
@@ -126,13 +223,18 @@ async function loadCoachings() {
 
   const { data, error } = await client
     .from("coaching_centers")
-    .select(`
+    .select(
+      `
       id, name, slug, city, contact_email, contact_phone,
       primary_color, is_active, created_at
-    `)
+    `,
+    )
     .order("created_at", { ascending: false });
 
-  if (error) { list.innerHTML = `<p class="text-red-500 text-sm">${error.message}</p>`; return; }
+  if (error) {
+    list.innerHTML = `<p class="text-red-500 text-sm">${error.message}</p>`;
+    return;
+  }
 
   // Get student counts per coaching
   const { data: studentCounts } = await client
@@ -141,11 +243,14 @@ async function loadCoachings() {
     .not("coaching_id", "is", null);
 
   const countMap = {};
-  (studentCounts || []).forEach(p => {
+  (studentCounts || []).forEach((p) => {
     countMap[p.coaching_id] = (countMap[p.coaching_id] || 0) + 1;
   });
 
-  allCoachings = (data || []).map(c => ({ ...c, student_count: countMap[c.id] || 0 }));
+  allCoachings = (data || []).map((c) => ({
+    ...c,
+    student_count: countMap[c.id] || 0,
+  }));
   renderCoachings(allCoachings);
 }
 
@@ -163,17 +268,18 @@ function renderCoachings(data) {
   }
 
   list.innerHTML = "";
-  data.forEach(c => {
+  data.forEach((c) => {
     const joinLink = `${BASE_URL}${c.slug}`;
     const div = document.createElement("div");
-    div.className = "glass p-5 shadow border-l-4 hover:scale-[1.01] transition-transform duration-200";
+    div.className =
+      "glass p-5 shadow border-l-4 hover:scale-[1.01] transition-transform duration-200";
     div.style.borderLeftColor = c.primary_color || "#1a56db";
     div.innerHTML = `
       <div class="flex items-start justify-between gap-3">
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-1">
             <h3 class="text-base font-bold text-blue-700">${c.name}</h3>
-            <span class="text-xs px-2 py-0.5 rounded-full font-semibold ${c.is_active ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}">
+            <span class="text-xs px-2 py-0.5 rounded-full font-semibold ${c.is_active ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}">
               ${c.is_active ? "Active" : "Inactive"}
             </span>
           </div>
@@ -209,8 +315,8 @@ function renderCoachings(data) {
             <i class="fas fa-chalkboard-teacher mr-1"></i>Teacher Invite
           </button>
           <button onclick="toggleCoachingStatus('${c.id}', ${c.is_active}, '${c.name}')"
-            class="text-xs px-3 py-1.5 rounded-lg font-semibold transition ${c.is_active ? 'text-amber-600 hover:bg-amber-50' : 'text-green-600 hover:bg-green-50'}">
-            <i class="fas fa-${c.is_active ? 'pause' : 'play'} mr-1"></i>${c.is_active ? 'Deactivate' : 'Activate'}
+            class="text-xs px-3 py-1.5 rounded-lg font-semibold transition ${c.is_active ? "text-amber-600 hover:bg-amber-50" : "text-green-600 hover:bg-green-50"}">
+            <i class="fas fa-${c.is_active ? "pause" : "play"} mr-1"></i>${c.is_active ? "Deactivate" : "Activate"}
           </button>
           <button onclick="deleteCoaching('${c.id}', '${c.name.replace(/'/g, "\\'")}', ${c.student_count})"
             class="text-red-400 hover:text-red-600 text-xs px-3 py-1.5 rounded-lg hover:bg-red-50 transition">
@@ -223,42 +329,52 @@ function renderCoachings(data) {
 }
 
 // ── Copy join link ──
-window.copyLink = function(link) {
-  navigator.clipboard.writeText(link).then(() => {
-    showToast("Join link copied to clipboard!", "success");
-  }).catch(() => {
-    showToast("Could not copy. Please copy manually.", "warning");
-  });
+window.copyLink = function (link) {
+  navigator.clipboard
+    .writeText(link)
+    .then(() => {
+      showToast("Join link copied to clipboard!", "success");
+    })
+    .catch(() => {
+      showToast("Could not copy. Please copy manually.", "warning");
+    });
 };
 
 // ── Toggle active status ──
-window.toggleCoachingStatus = async function(id, currentStatus, name) {
+window.toggleCoachingStatus = async function (id, currentStatus, name) {
   const newStatus = !currentStatus;
   const { error } = await client
     .from("coaching_centers")
     .update({ is_active: newStatus })
     .eq("id", id);
 
-  if (error) { showToast(error.message, "error"); return; }
+  if (error) {
+    showToast(error.message, "error");
+    return;
+  }
   showToast(`"${name}" ${newStatus ? "activated" : "deactivated"}.`, "success");
   loadCoachings();
 };
 
 // ── Delete coaching center ──
-window.deleteCoaching = async function(id, name, studentCount) {
+window.deleteCoaching = async function (id, name, studentCount) {
   if (studentCount > 0) {
     const confirmed = confirm(
       `⚠️ "${name}" has ${studentCount} student(s) linked to it.\n\n` +
-      `Deleting will unlink all their accounts (coaching_id set to null).\n\n` +
-      `Their exam data is preserved. Are you sure?`
+        `Deleting will unlink all their accounts (coaching_id set to null).\n\n` +
+        `Their exam data is preserved. Are you sure?`,
     );
     if (!confirmed) return;
   } else {
-    if (!confirm(`Delete coaching center "${name}"? This cannot be undone.`)) return;
+    if (!confirm(`Delete coaching center "${name}"? This cannot be undone.`))
+      return;
   }
 
   const { error } = await client.from("coaching_centers").delete().eq("id", id);
-  if (error) { showToast(error.message, "error"); return; }
+  if (error) {
+    showToast(error.message, "error");
+    return;
+  }
   showToast(`"${name}" deleted.`, "success");
   loadCoachings();
 };
@@ -267,26 +383,31 @@ window.deleteCoaching = async function(id, name, studentCount) {
 // TEACHER INVITE GENERATOR
 // ══════════════════════════════════════════════════════════════════════════════
 
-window.generateTeacherInvite = async function(coachingId, coachingName) {
-  if (!confirm(`Generate a new teacher invite link for "${coachingName}"?`)) return;
+window.generateTeacherInvite = async function (coachingId, coachingName) {
+  if (!confirm(`Generate a new teacher invite link for "${coachingName}"?`))
+    return;
 
   // Generate random 8-character code
   const code = Math.random().toString(36).substring(2, 10).toUpperCase();
 
-  const { data: { user } } = await client.auth.getUser();
-  
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+
   const { data, error } = await client
-    .from('teacher_invites')
-    .insert([{
-      coaching_id: coachingId,
-      invite_code: code,
-      created_by: user?.id
-    }])
+    .from("teacher_invites")
+    .insert([
+      {
+        coaching_id: coachingId,
+        invite_code: code,
+        created_by: user?.id,
+      },
+    ])
     .select()
     .single();
 
   if (error) {
-    showToast('Failed to generate invite: ' + error.message, 'error');
+    showToast("Failed to generate invite: " + error.message, "error");
     return;
   }
 
@@ -297,7 +418,7 @@ window.generateTeacherInvite = async function(coachingId, coachingName) {
 function showInviteLinkModal(invite, coachingName) {
   const inviteURL = `${window.location.origin}/coaching/teacher-invite.html?code=${invite.invite_code}`;
 
-  const modal = document.createElement('div');
+  const modal = document.createElement("div");
   modal.style.cssText = `
     position: fixed;
     inset: 0;
@@ -352,8 +473,8 @@ function showInviteLinkModal(invite, coachingName) {
   document.body.appendChild(modal);
 }
 
-window.copyInviteLink = function(url) {
+window.copyInviteLink = function (url) {
   navigator.clipboard.writeText(url).then(() => {
-    showToast('Invite link copied to clipboard!');
+    showToast("Invite link copied to clipboard!");
   });
 };
