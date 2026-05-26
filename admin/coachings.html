@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +11,64 @@
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    body { background: #f8faff; min-height: 100vh; }
+    body {
+      background: #f8faff;
+      min-height: 100vh;
+    }
+
     .glass {
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
       backdrop-filter: blur(12px);
       border-radius: 1.5rem;
-      border: 1px solid rgba(200,200,255,0.12);
+      border: 1px solid rgba(200, 200, 255, 0.12);
     }
-    .ripple { position: relative; overflow: hidden; }
+
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
     .ripple:after {
-      content:'';display:block;position:absolute;border-radius:50%;
-      width:100%;height:100%;top:0;left:0;pointer-events:none;
-      background:rgba(59,130,246,0.2);opacity:0;
-      transition:opacity .6s,transform .6s;transform:scale(.5);
+      content: '';
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background: rgba(59, 130, 246, 0.2);
+      opacity: 0;
+      transition: opacity .6s, transform .6s;
+      transform: scale(.5);
     }
-    .ripple:active:after { opacity:1;transform:scale(1.2);transition:0s; }
-    .fade-in { animation: fadeIn 0.8s ease-in; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    .ripple:active:after {
+      opacity: 1;
+      transform: scale(1.2);
+      transition: 0s;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col text-gray-900">
 
   <!-- NAV -->
@@ -41,7 +80,8 @@
         <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold ml-1">Admin</span>
       </a>
       <div class="flex items-center gap-3">
-        <a href="/admin/categories.html" class="text-sm text-gray-600 hover:text-blue-600 hidden md:block">Categories</a>
+        <a href="/admin/categories.html"
+          class="text-sm text-gray-600 hover:text-blue-600 hidden md:block">Categories</a>
         <a href="/admin/patterns.html" class="text-sm text-gray-600 hover:text-blue-600 hidden md:block">Patterns</a>
         <a href="/admin/sections.html" class="text-sm text-gray-600 hover:text-blue-600 hidden md:block">Sections</a>
         <a href="/admin/questions.html" class="text-sm text-gray-600 hover:text-blue-600 hidden md:block">Questions</a>
@@ -59,7 +99,8 @@
       <!-- Page Heading -->
       <div class="text-center mb-10">
         <h1 class="text-4xl font-extrabold text-blue-700">Coaching Centers</h1>
-        <p class="text-gray-500 mt-2">Manage B2B coaching partnerships. Each center gets a unique join link for their students.</p>
+        <p class="text-gray-500 mt-2">Manage B2B coaching partnerships. Each center gets a unique join link for their
+          students.</p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-10">
@@ -125,6 +166,21 @@
                 class="w-full p-3 mt-1 rounded-xl bg-white border border-blue-100 focus:ring-2 focus:ring-blue-400 outline-none text-sm">
             </div>
 
+            <!-- Coaching Logo Upload -->
+            <div>
+              <label class="text-sm font-medium text-gray-600">
+                Coaching Logo
+                <span class="text-gray-400">(Optional)</span>
+              </label>
+
+              <input id="coachingLogo" type="file" accept="image/*"
+                class="w-full mt-2 text-sm border border-blue-100 rounded-xl p-2 bg-white">
+
+              <p class="text-xs text-gray-400 mt-1">
+                JPG, PNG or WebP recommended
+              </p>
+            </div>
+
             <button id="createCoachingBtn"
               class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition ripple flex items-center gap-2 font-semibold">
               <i class="fas fa-plus-circle"></i>
@@ -152,24 +208,29 @@
         </h3>
         <div class="grid md:grid-cols-3 gap-4 text-sm text-gray-600">
           <div class="flex items-start gap-3">
-            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <span
+              class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
             <div>
               <p class="font-semibold text-gray-700">Create the coaching center</p>
               <p class="text-xs mt-0.5">A unique join link is generated for them.</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <span
+              class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
             <div>
               <p class="font-semibold text-gray-700">Share link with coaching</p>
-              <p class="text-xs mt-0.5">They share it with their students. Students sign up through it — auto-linked.</p>
+              <p class="text-xs mt-0.5">They share it with their students. Students sign up through it — auto-linked.
+              </p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <span class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <span
+              class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
             <div>
               <p class="font-semibold text-gray-700">Schedule their exams</p>
-              <p class="text-xs mt-0.5">Create categories, patterns, questions tagged to their coaching_id. Only their students see it.</p>
+              <p class="text-xs mt-0.5">Create categories, patterns, questions tagged to their coaching_id. Only their
+                students see it.</p>
             </div>
           </div>
         </div>
@@ -186,4 +247,5 @@
 
   <script src="/js/adminCoachings.js"></script>
 </body>
+
 </html>

@@ -12,7 +12,7 @@ const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let currentUser = null;
 let coachingProfile = null;
 let userProfile = null;
-let coachingExamIds = [];   // used for realtime filter
+let coachingExamIds = []; // used for realtime filter
 let realtimeChannel = null;
 let lbRefreshDebounce = null;
 let statsRefreshDebounce = null;
@@ -23,8 +23,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function initDashboard() {
-  const { data: { user } } = await client.auth.getUser();
-  if (!user) { window.location.href = "/index.html?action=login"; return; }
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  if (!user) {
+    window.location.href = "/index.html?action=login";
+    return;
+  }
   currentUser = user;
 
   const { data: profile } = await client
@@ -33,10 +38,16 @@ async function initDashboard() {
     .eq("id", user.id)
     .single();
 
-  if (!profile) { window.location.href = "/index.html"; return; }
+  if (!profile) {
+    window.location.href = "/index.html";
+    return;
+  }
   userProfile = profile;
 
-  if (!profile.coaching_id) { window.location.href = "/mock/dashboard.html"; return; }
+  if (!profile.coaching_id) {
+    window.location.href = "/mock/dashboard.html";
+    return;
+  }
 
   const { data: coaching } = await client
     .from("coaching_centers")
@@ -44,7 +55,10 @@ async function initDashboard() {
     .eq("id", profile.coaching_id)
     .single();
 
-  if (!coaching) { showError("Your coaching center is currently inactive."); return; }
+  if (!coaching) {
+    showError("Your coaching center is currently inactive.");
+    return;
+  }
   coachingProfile = coaching;
 
   applyBranding(coaching);
@@ -79,20 +93,33 @@ function applyBranding(coaching) {
   const color = coaching.primary_color || "#1a56db";
   const name = coaching.name;
 
-  document.querySelectorAll(".coaching-name").forEach(el => el.textContent = name);
+  document
+    .querySelectorAll(".coaching-name")
+    .forEach((el) => (el.textContent = name));
   document.title = `Dashboard | ${name}`;
 
   const hero = document.getElementById("heroBanner");
-  if (hero) hero.style.background = `linear-gradient(135deg, ${color} 0%, ${shiftHex(color, -25)} 100%)`;
+  if (hero)
+    hero.style.background = `linear-gradient(135deg, ${color} 0%, ${shiftHex(color, -25)} 100%)`;
 
   const examIcon = document.getElementById("examIconWrap");
-  if (examIcon) { examIcon.style.background = color + "18"; examIcon.querySelector("i").style.color = color; }
-
-  if (coaching.logo_url) {
-    document.querySelectorAll(".coaching-logo").forEach(el => {
-      el.src = coaching.logo_url; el.style.display = "block";
-    });
+  if (examIcon) {
+    examIcon.style.background = color + "18";
+    examIcon.querySelector("i").style.color = color;
   }
+
+  document.querySelectorAll(".coaching-logo").forEach((el) => {
+    if (coaching.logo_url) {
+      el.src = coaching.logo_url;
+    } else {
+      el.src =
+        "https://ui-avatars.com/api/?name=" +
+        encodeURIComponent(coaching.name) +
+        "&background=1a56db&color=fff&bold=true";
+    }
+
+    el.style.display = "block";
+  });
 
   if (coaching.city) setText("coachingCity", `📍 ${coaching.city}`);
 }
@@ -103,13 +130,17 @@ function applyBranding(coaching) {
 async function subscribeToLive(coachingId) {
   // We need exam IDs to filter
   const { data: exams } = await client
-    .from("scheduled_exams").select("id").eq("coaching_id", coachingId);
-  coachingExamIds = (exams || []).map(e => e.id);
+    .from("scheduled_exams")
+    .select("id")
+    .eq("coaching_id", coachingId);
+  coachingExamIds = (exams || []).map((e) => e.id);
 
   if (!coachingExamIds.length) return;
 
   // Unsubscribe any prior channel
-  if (realtimeChannel) { await client.removeChannel(realtimeChannel); }
+  if (realtimeChannel) {
+    await client.removeChannel(realtimeChannel);
+  }
 
   realtimeChannel = client
     .channel("dashboard-live-" + coachingId)
@@ -133,27 +164,36 @@ async function subscribeToLive(coachingId) {
 
         // If it's our own submission, refresh stats & results
         if (row.user_id === currentUser.id) {
-          debouncedRefresh(() => {
-            loadRecentResults(currentUser.id, coachingProfile.id);
-            loadStudentStats(currentUser.id, coachingProfile.id);
-          }, statsRefreshDebounce, 800);
+          debouncedRefresh(
+            () => {
+              loadRecentResults(currentUser.id, coachingProfile.id);
+              loadStudentStats(currentUser.id, coachingProfile.id);
+            },
+            statsRefreshDebounce,
+            800,
+          );
         }
 
         // Always refresh leaderboard (someone's score changed)
-        debouncedRefresh(() => {
-          loadLeaderboardPreview(coachingProfile.id);
-        }, lbRefreshDebounce, 1200);
+        debouncedRefresh(
+          () => {
+            loadLeaderboardPreview(coachingProfile.id);
+          },
+          lbRefreshDebounce,
+          1200,
+        );
 
         // Push live ticker message
         const name = await getDisplayName(row.user_id);
-        const scoreStr = row.total_score !== null ? ` · ${row.total_score} pts` : "";
+        const scoreStr =
+          row.total_score !== null ? ` · ${row.total_score} pts` : "";
         const isMe = row.user_id === currentUser.id;
         const msg = isMe
           ? `✅ You just submitted an exam${scoreStr}`
           : `🎯 ${name} submitted an exam${scoreStr} — leaderboard updated`;
 
         if (window.pushTickerEvent) window.pushTickerEvent(msg);
-      }
+      },
     )
     .on(
       "postgres_changes",
@@ -164,8 +204,9 @@ async function subscribeToLive(coachingId) {
         if (row.user_id === currentUser.id) return; // don't announce own start
 
         const name = await getDisplayName(row.user_id);
-        if (window.pushTickerEvent) window.pushTickerEvent(`📝 ${name} started an exam`);
-      }
+        if (window.pushTickerEvent)
+          window.pushTickerEvent(`📝 ${name} started an exam`);
+      },
     )
     .subscribe();
 }
@@ -174,7 +215,11 @@ async function subscribeToLive(coachingId) {
 const nameCache = {};
 async function getDisplayName(userId) {
   if (nameCache[userId]) return nameCache[userId];
-  const { data } = await client.from("user_profiles").select("full_name").eq("id", userId).single();
+  const { data } = await client
+    .from("user_profiles")
+    .select("full_name")
+    .eq("id", userId)
+    .single();
   const name = data?.full_name?.split(" ")[0] || "A student";
   nameCache[userId] = name;
   return name;
@@ -192,17 +237,22 @@ async function loadUpcomingExams(coachingId) {
 
   const { data: exams, error } = await client
     .from("scheduled_exams")
-    .select(`
+    .select(
+      `
       id, mode, schedule_type, day_of_week, is_active,
       start_datetime, end_datetime, attempt_limit,
       exam_patterns!pattern_id ( pattern_name, duration_minutes, total_questions, negative_marking ),
       exam_categories ( name )
-    `)
+    `,
+    )
     .eq("coaching_id", coachingId)
     .eq("is_active", true)
     .order("start_datetime", { ascending: true });
 
-  if (error) { container.innerHTML = errorHTML(error.message); return; }
+  if (error) {
+    container.innerHTML = errorHTML(error.message);
+    return;
+  }
 
   if (!exams || exams.length === 0) {
     container.innerHTML = `
@@ -214,15 +264,17 @@ async function loadUpcomingExams(coachingId) {
     return;
   }
 
-  const examIds = exams.map(e => e.id);
+  const examIds = exams.map((e) => e.id);
   const { data: attempts } = await client
     .from("attempts")
-    .select("id, scheduled_exam_id, submitted_at, started_at, total_score, accuracy")
+    .select(
+      "id, scheduled_exam_id, submitted_at, started_at, total_score, accuracy",
+    )
     .eq("user_id", currentUser.id)
     .in("scheduled_exam_id", examIds);
 
   const attemptMap = {};
-  (attempts || []).forEach(a => {
+  (attempts || []).forEach((a) => {
     if (!attemptMap[a.scheduled_exam_id]) attemptMap[a.scheduled_exam_id] = [];
     attemptMap[a.scheduled_exam_id].push(a);
   });
@@ -237,21 +289,23 @@ async function loadUpcomingExams(coachingId) {
 // ── Build exam card ──
 function buildExamCard(exam, myAttempts, index) {
   const pattern = exam.exam_patterns || {};
-  const completed = myAttempts.filter(a => a.submitted_at);
-  const incomplete = myAttempts.find(a => !a.submitted_at);
+  const completed = myAttempts.filter((a) => a.submitted_at);
+  const incomplete = myAttempts.find((a) => !a.submitted_at);
   const now = new Date();
   const color = coachingProfile?.primary_color || "#1a56db";
 
-  const isExpired  = exam.end_datetime && new Date(exam.end_datetime) < now;
+  const isExpired = exam.end_datetime && new Date(exam.end_datetime) < now;
   const notStarted = exam.start_datetime && new Date(exam.start_datetime) > now;
-  const limitReached = exam.attempt_limit && completed.length >= exam.attempt_limit;
-  const alreadyDone  = completed.length > 0;
-  const lastAttempt  = completed[completed.length - 1];
-  const negVal = pattern.negative_marking > 0 ? `-${pattern.negative_marking}` : "None";
+  const limitReached =
+    exam.attempt_limit && completed.length >= exam.attempt_limit;
+  const alreadyDone = completed.length > 0;
+  const lastAttempt = completed[completed.length - 1];
+  const negVal =
+    pattern.negative_marking > 0 ? `-${pattern.negative_marking}` : "None";
 
   let stripeColor = color;
-  let badgeHtml   = "";
-  let btnHtml     = "";
+  let badgeHtml = "";
+  let btnHtml = "";
   let resultStrip = "";
 
   if (isExpired) {
@@ -259,7 +313,12 @@ function buildExamCard(exam, myAttempts, index) {
     badgeHtml = badge("Expired", "#dc2626", "#fef2f2");
     btnHtml = disabledBtn("fa-lock", "Expired", "#9ca3af");
   } else if (notStarted) {
-    const startStr = new Date(exam.start_datetime).toLocaleString("en-IN", { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" });
+    const startStr = new Date(exam.start_datetime).toLocaleString("en-IN", {
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     stripeColor = "#f59e0b";
     badgeHtml = badge("Upcoming", "#d97706", "#fffbeb");
     btnHtml = disabledBtn("fa-clock", `Starts ${startStr}`, "#f59e0b");
@@ -346,10 +405,12 @@ async function loadRecentResults(userId, coachingId) {
 
   const { data, error } = await client
     .from("attempts")
-    .select(`
+    .select(
+      `
       id, total_score, accuracy, submitted_at,
       scheduled_exams!inner ( coaching_id, exam_patterns!pattern_id ( pattern_name ) )
-    `)
+    `,
+    )
     .eq("user_id", userId)
     .eq("scheduled_exams.coaching_id", coachingId)
     .not("submitted_at", "is", null)
@@ -365,18 +426,23 @@ async function loadRecentResults(userId, coachingId) {
   }
 
   setText("statAttempts", data.length);
-  const avgAcc = data.reduce((s, a) => s + Number(a.accuracy || 0), 0) / data.length;
+  const avgAcc =
+    data.reduce((s, a) => s + Number(a.accuracy || 0), 0) / data.length;
   setText("statAvgScore", avgAcc.toFixed(1) + "%");
-  setText("statBestScore", Math.max(...data.map(a => a.total_score || 0)));
+  setText("statBestScore", Math.max(...data.map((a) => a.total_score || 0)));
 
   container.innerHTML = "";
-  data.forEach(attempt => {
+  data.forEach((attempt) => {
     const acc = Number(attempt.accuracy || 0);
     const accColor = acc >= 80 ? "#059669" : acc >= 60 ? "#d97706" : "#dc2626";
-    const accBg    = acc >= 80 ? "#f0fdf4" : acc >= 60 ? "#fffbeb" : "#fef2f2";
-    const name = attempt.scheduled_exams?.exam_patterns?.pattern_name || "Mock Test";
+    const accBg = acc >= 80 ? "#f0fdf4" : acc >= 60 ? "#fffbeb" : "#fef2f2";
+    const name =
+      attempt.scheduled_exams?.exam_patterns?.pattern_name || "Mock Test";
     const date = attempt.submitted_at
-      ? new Date(attempt.submitted_at).toLocaleDateString("en-IN", { day:"numeric", month:"short" })
+      ? new Date(attempt.submitted_at).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+        })
       : "—";
 
     const row = document.createElement("div");
@@ -401,14 +467,16 @@ async function loadLeaderboardPreview(coachingId) {
   const container = document.getElementById("leaderboardPreview");
 
   const { data: examIds } = await client
-    .from("scheduled_exams").select("id").eq("coaching_id", coachingId);
+    .from("scheduled_exams")
+    .select("id")
+    .eq("coaching_id", coachingId);
 
   if (!examIds?.length) {
     container.innerHTML = `<p style="font-size:12px;color:var(--text-3);text-align:center;padding:12px 0;font-weight:600">No exams yet.</p>`;
     return;
   }
 
-  const ids = examIds.map(e => e.id);
+  const ids = examIds.map((e) => e.id);
 
   const { data: attempts } = await client
     .from("attempts")
@@ -423,7 +491,7 @@ async function loadLeaderboardPreview(coachingId) {
   }
 
   const userBest = {};
-  attempts.forEach(a => {
+  attempts.forEach((a) => {
     if (!userBest[a.user_id] || a.total_score > userBest[a.user_id].score) {
       userBest[a.user_id] = { score: a.total_score || 0 };
     }
@@ -436,10 +504,15 @@ async function loadLeaderboardPreview(coachingId) {
   const { data: profiles } = await client
     .from("user_profiles")
     .select("id, full_name")
-    .in("id", sorted.map(([id]) => id));
+    .in(
+      "id",
+      sorted.map(([id]) => id),
+    );
 
   const nameMap = {};
-  (profiles || []).forEach(p => { nameMap[p.id] = p.full_name || "Student"; });
+  (profiles || []).forEach((p) => {
+    nameMap[p.id] = p.full_name || "Student";
+  });
 
   // My rank
   const myIdx = sorted.findIndex(([id]) => id === currentUser.id);
@@ -462,13 +535,20 @@ async function loadLeaderboardPreview(coachingId) {
   sorted.forEach(([userId, stats], i) => {
     const name = nameMap[userId] || "Student";
     const isMe = userId === currentUser.id;
-    const initials = name.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
-    const avatarBg = isMe ? color : `hsl(${(userId.charCodeAt(0)*53 + userId.charCodeAt(1)*37) % 360},55%,52%)`;
+    const initials = name
+      .split(" ")
+      .map((w) => w[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+    const avatarBg = isMe
+      ? color
+      : `hsl(${(userId.charCodeAt(0) * 53 + userId.charCodeAt(1) * 37) % 360},55%,52%)`;
 
     const row = document.createElement("div");
     row.className = `lb-row${isMe ? " is-me" : ""}`;
     row.innerHTML = `
-      <span class="lb-rank">${medals[i] || `#${i+1}`}</span>
+      <span class="lb-rank">${medals[i] || `#${i + 1}`}</span>
       <div class="lb-avatar" style="background:${avatarBg}">${initials}</div>
       <span class="lb-name">${name}${isMe ? ' <span style="font-size:10px;color:var(--brand)">(You)</span>' : ""}</span>
       <span class="lb-score">${stats.score}</span>`;
@@ -478,13 +558,16 @@ async function loadLeaderboardPreview(coachingId) {
 
 // ── Load student aggregate stats ──
 async function loadStudentStats(userId, coachingId) {
-  setText("statStreak", userProfile?.current_streak ? `${userProfile.current_streak}d` : "0d");
+  setText(
+    "statStreak",
+    userProfile?.current_streak ? `${userProfile.current_streak}d` : "0d",
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
 //  Start / Resume Exam — WITH PASSKEY SYSTEM
 // ─────────────────────────────────────────────────────────────
-window.startExam = async function(examId, btn) {
+window.startExam = async function (examId, btn) {
   btn.disabled = true;
   btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Preparing…`;
 
@@ -492,15 +575,18 @@ window.startExam = async function(examId, btn) {
     // ── Fetch exam to check if passkey is required ──
     const { data: examCheck } = await client
       .from("scheduled_exams")
-      .select(`
+      .select(
+        `
         id, is_active, start_datetime, end_datetime, attempt_limit, passkey,
         exam_patterns!pattern_id( id, pattern_name, duration_minutes ),
         coaching_id
-      `)
+      `,
+      )
       .eq("id", examId)
       .single();
 
-    if (!examCheck?.is_active) throw new Error("This exam is no longer available.");
+    if (!examCheck?.is_active)
+      throw new Error("This exam is no longer available.");
 
     const now = new Date();
     if (examCheck.start_datetime && new Date(examCheck.start_datetime) > now)
@@ -515,12 +601,16 @@ window.startExam = async function(examId, btn) {
       .eq("user_id", currentUser.id)
       .eq("scheduled_exam_id", examId);
 
-    const incomplete = (existingAttempts || []).find(a => !a.submitted_at);
+    const incomplete = (existingAttempts || []).find((a) => !a.submitted_at);
     if (incomplete) {
-      const maxMs = (examCheck.exam_patterns?.duration_minutes || 60) * 60 * 1000 * 1.5;
+      const maxMs =
+        (examCheck.exam_patterns?.duration_minutes || 60) * 60 * 1000 * 1.5;
       if (Date.now() - new Date(incomplete.started_at).getTime() <= maxMs) {
         const { data: aqCheck } = await client
-          .from("attempt_questions").select("id").eq("attempt_id", incomplete.id).limit(1);
+          .from("attempt_questions")
+          .select("id")
+          .eq("attempt_id", incomplete.id)
+          .limit(1);
         if (aqCheck?.length > 0) {
           // Resume existing attempt — no passkey needed
           window.location.href = `/coaching/exam.html?attempt=${incomplete.id}`;
@@ -532,7 +622,9 @@ window.startExam = async function(examId, btn) {
 
     // ── Check attempt limit ──
     if (examCheck.attempt_limit) {
-      const done = (existingAttempts || []).filter(a => a.submitted_at).length;
+      const done = (existingAttempts || []).filter(
+        (a) => a.submitted_at,
+      ).length;
       if (done >= examCheck.attempt_limit)
         throw new Error(`Attempt limit reached (${examCheck.attempt_limit}).`);
     }
@@ -547,13 +639,12 @@ window.startExam = async function(examId, btn) {
       // No passkey required — call edge function with null passkey
       await verifyAndStartExam(examId, null, btn);
     }
-
   } catch (err) {
     console.error("startExam error:", err);
     btn.disabled = false;
     const color = coachingProfile?.primary_color || "#1a56db";
     btn.innerHTML = `<i class="fas fa-play"></i> Start Exam`;
-    btn.style.background = `linear-gradient(135deg,${color},${shiftHex(color,-20)})`;
+    btn.style.background = `linear-gradient(135deg,${color},${shiftHex(color, -20)})`;
     alert("Error: " + err.message);
   }
 };
@@ -732,7 +823,7 @@ function showPasskeyModal(examId, examData, originalBtn) {
     originalBtn.disabled = false;
     const color = coachingProfile?.primary_color || "#1a56db";
     originalBtn.innerHTML = `<i class="fas fa-play"></i> Start Exam`;
-    originalBtn.style.background = `linear-gradient(135deg,${color},${shiftHex(color,-20)})`;
+    originalBtn.style.background = `linear-gradient(135deg,${color},${shiftHex(color, -20)})`;
   });
 
   // Submit button
@@ -769,7 +860,9 @@ function showPasskeyModal(examId, examData, originalBtn) {
 
 // ── Call Edge Function to Verify Passkey + Create Attempt ──
 async function verifyAndStartExam(examId, passkey, btn) {
-  const { data: { session } } = await client.auth.getSession();
+  const {
+    data: { session },
+  } = await client.auth.getSession();
   if (!session) throw new Error("Authentication required");
 
   const response = await fetch(
@@ -778,10 +871,10 @@ async function verifyAndStartExam(examId, passkey, btn) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${session.access_token}`
+        Authorization: `Bearer ${session.access_token}`,
       },
-      body: JSON.stringify({ exam_id: examId, passkey })
-    }
+      body: JSON.stringify({ exam_id: examId, passkey }),
+    },
   );
 
   const result = await response.json();
@@ -794,13 +887,13 @@ async function verifyAndStartExam(examId, passkey, btn) {
   window.location.href = `/coaching/exam.html?attempt=${result.attempt_id}`;
 }
 
-window.resumeExam = function(attemptId, btn) {
+window.resumeExam = function (attemptId, btn) {
   btn.disabled = true;
   btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Loading…`;
   window.location.href = `/coaching/exam.html?attempt=${attemptId}`;
 };
 
-window.logout = async function() {
+window.logout = async function () {
   if (realtimeChannel) await client.removeChannel(realtimeChannel);
   await client.auth.signOut();
   window.location.href = "/index.html";
@@ -814,12 +907,14 @@ function setText(id, val) {
 
 function shiftHex(hex, amount) {
   try {
-    const num = parseInt(hex.replace("#",""), 16);
+    const num = parseInt(hex.replace("#", ""), 16);
     const r = Math.min(255, Math.max(0, (num >> 16) + amount));
-    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xFF) + amount));
-    const b = Math.min(255, Math.max(0, (num & 0xFF) + amount));
+    const g = Math.min(255, Math.max(0, ((num >> 8) & 0xff) + amount));
+    const b = Math.min(255, Math.max(0, (num & 0xff) + amount));
     return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
-  } catch { return hex; }
+  } catch {
+    return hex;
+  }
 }
 
 function errorHTML(msg) {
