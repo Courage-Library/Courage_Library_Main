@@ -588,11 +588,23 @@ window.startExam = async function (examId, btn) {
     if (!examCheck?.is_active)
       throw new Error("This exam is no longer available.");
 
-    const now = new Date();
-    if (examCheck.start_datetime && new Date(examCheck.start_datetime) > now)
+    const nowMs = Date.now();
+
+    const startMs = examCheck.start_datetime
+      ? new Date(examCheck.start_datetime.replace(" ", "T")).getTime()
+      : 0;
+
+    const endMs = examCheck.end_datetime
+      ? new Date(examCheck.end_datetime.replace(" ", "T")).getTime()
+      : 0;
+
+    if (startMs > nowMs) {
       throw new Error("This exam hasn't started yet.");
-    if (examCheck.end_datetime && new Date(examCheck.end_datetime) < now)
+    }
+
+    if (endMs && endMs < nowMs) {
       throw new Error("This exam has expired.");
+    }
 
     // ── Check for existing incomplete attempt (resume scenario) ──
     const { data: existingAttempts } = await client
