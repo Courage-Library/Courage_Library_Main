@@ -1026,7 +1026,7 @@ async function loadAvailableExams() {
       </a>
 
       <a 
-        href="/mock/leaderboard.html?exam=${exam.id}" 
+        href="/mock/leaderboard.html?attempt=${lastAttemptId}" 
         class="btn-view-result"
         style="
           flex:1;
