@@ -889,6 +889,12 @@ async function verifyAndStartExam(examId, passkey, btn) {
     },
   );
 
+  console.log("RAW RESPONSE STATUS:", response.status);
+
+  const result = await response.json();
+
+  console.log("RAW RESPONSE:", result);
+
   const result = await response.json();
 
   if (!response.ok || !result.success) {
