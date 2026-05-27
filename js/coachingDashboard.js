@@ -895,8 +895,6 @@ async function verifyAndStartExam(examId, passkey, btn) {
 
   console.log("RAW RESPONSE:", result);
 
-  const result = await response.json();
-
   if (!response.ok || !result.success) {
     throw new Error(result.error || "Failed to start exam");
   }
