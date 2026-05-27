@@ -444,24 +444,24 @@ function getMockNumber(launchDate, dayOfWeek) {
 const SCHEDULE_DATA = {
   "SSC GD": {
     rows: [
-      ["Monday",    "General Awareness",  "20",  "40",  "20m", false],
-      ["Tuesday",   "Reasoning",          "20",  "40",  "20m", false],
-      ["Wednesday", "Quant Aptitude",     "20",  "40",  "20m", false],
-      ["Thursday",  "English Grammar",    "20",  "40",  "20m", false],
-      ["Friday",    "Hindi",              "20",  "40",  "20m", false],
-      ["Saturday",  "Mixed (All 5)",      "50",  "100", "30m", false],
-      ["Sunday",    "Full Mock Test",     "100", "200", "60m", true],
+      ["Monday", "General Awareness", "20", "40", "20m", false],
+      ["Tuesday", "Reasoning", "20", "40", "20m", false],
+      ["Wednesday", "Quant Aptitude", "20", "40", "20m", false],
+      ["Thursday", "English Grammar", "20", "40", "20m", false],
+      ["Friday", "Hindi", "20", "40", "20m", false],
+      ["Saturday", "Mixed (All 5)", "50", "100", "30m", false],
+      ["Sunday", "Full Mock Test", "100", "200", "60m", true],
     ],
   },
   "UP Police Constable": {
     rows: [
-      ["Monday",    "Hindi",                        "37",  "74",  "25m", false],
-      ["Tuesday",   "General Knowledge",            "38",  "76",  "25m", false],
-      ["Wednesday", "Numerical Ability",            "25",  "50",  "35m", false],
-      ["Thursday",  "Mental Aptitude",              "50",  "100", "40m", false],
-      ["Friday",    "Mental Aptitude + Numerical",  "50",  "100", "40m", false],
-      ["Saturday",  "Mixed — All 4 Subjects",       "75",  "150", "60m", false],
-      ["Sunday",    "Full Mock Test",               "150", "300", "120m", true],
+      ["Monday", "Hindi", "37", "74", "25m", false],
+      ["Tuesday", "General Knowledge", "38", "76", "25m", false],
+      ["Wednesday", "Numerical Ability", "25", "50", "35m", false],
+      ["Thursday", "Mental Aptitude", "50", "100", "40m", false],
+      ["Friday", "Mental Aptitude + Numerical", "50", "100", "40m", false],
+      ["Saturday", "Mixed — All 4 Subjects", "75", "150", "60m", false],
+      ["Sunday", "Full Mock Test", "150", "300", "120m", true],
     ],
   },
 };
@@ -470,9 +470,10 @@ function injectScheduleInfoPopup(categoryName) {
   // Remove existing so it re-renders with correct category data
   document.getElementById("schedInfoOverlay")?.remove();
 
-  const key = Object.keys(SCHEDULE_DATA).find(k =>
-    (categoryName || "").toUpperCase().includes(k.toUpperCase())
-  ) || "SSC GD";
+  const key =
+    Object.keys(SCHEDULE_DATA).find((k) =>
+      (categoryName || "").toUpperCase().includes(k.toUpperCase()),
+    ) || "SSC GD";
 
   const { rows } = SCHEDULE_DATA[key];
 
@@ -504,23 +505,27 @@ function injectScheduleInfoPopup(categoryName) {
                 </tr>
               </thead>
               <tbody>
-                ${rows.map(([day, subj, q, marks, time, highlight], i) => `
+                ${rows
+                  .map(
+                    ([day, subj, q, marks, time, highlight], i) => `
                   <tr style="background:${highlight ? "#fff7ed" : i % 2 === 0 ? "#fff" : "#f8faff"};border-bottom:1px solid #f1f5f9">
                     <td style="padding:7px 12px;font-weight:700;color:${highlight ? "#c2410c" : "#0f172a"}">${day}</td>
                     <td style="padding:7px 12px;color:#374151">${subj}</td>
                     <td style="padding:7px 12px;text-align:center;font-weight:700;color:#1d4ed8">${q}</td>
                     <td style="padding:7px 12px;text-align:center;font-weight:700;color:#059669">${marks}</td>
                     <td style="padding:7px 12px;text-align:center;color:#64748b">${time}</td>
-                  </tr>`).join("")}
+                  </tr>`,
+                  )
+                  .join("")}
               </tbody>
             </table>
           </div>
         </div>
         <div style="display:flex;gap:10px;padding:0 20px 20px;">
-          <a href="${key.includes('UP') ? '/mock/up-police.html' : '/mock/ssc-gd.html'}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0f6ff;border:1px solid #bfdbfe;color:#1a56db;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#f0f6ff'">
+          <a href="${key.includes("UP") ? "/mock/up-police.html" : "/mock/ssc-gd.html"}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0f6ff;border:1px solid #bfdbfe;color:#1a56db;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#f0f6ff'">
             <i class="fas fa-layer-group"></i> View Series
           </a>
-          <a href="${key.includes('UP') ? '/mock/up-police.html' : '/mock/ssc-gd.html'}#schedule" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0fff4;border:1px solid #bbf7d0;color:#065f46;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fff4'">
+          <a href="${key.includes("UP") ? "/mock/up-police.html" : "/mock/ssc-gd.html"}#schedule" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0fff4;border:1px solid #bbf7d0;color:#065f46;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fff4'">
             <i class="fas fa-info-circle"></i> Know More
           </a>
         </div>
@@ -619,12 +624,11 @@ async function loadExploreSeries(enrolledCategoryIds, container) {
   const { data: allCategories } = await client
     .from("exam_categories")
     .select("id, name")
-    .is("coaching_id", null)           // ← only own platform categories
+    .is("coaching_id", null) // ← only own platform categories
     .order("created_at", { ascending: false });
 
-  const unenrolledSeries = (allCategories || []).filter(c =>
-    !enrolledCategoryIds.includes(c.id) &&
-    c.name !== "DEMO"
+  const unenrolledSeries = (allCategories || []).filter(
+    (c) => !enrolledCategoryIds.includes(c.id) && c.name !== "DEMO",
   );
 
   if (unenrolledSeries.length === 0) return;
@@ -666,7 +670,8 @@ async function loadExploreSeries(enrolledCategoryIds, container) {
 
   // ── 3. Section header — pulse dot inside pill ─────────────────────────
   const exploreHeader = document.createElement("div");
-  exploreHeader.style = "grid-column:1/-1;margin-top:32px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;";
+  exploreHeader.style =
+    "grid-column:1/-1;margin-top:32px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px;";
   exploreHeader.innerHTML = `
     <div style="display:flex;align-items:center;gap:8px;min-width:0">
       <span style="width:4px;height:20px;border-radius:99px;background:linear-gradient(180deg,#f59e0b,#f97316);display:inline-block;flex-shrink:0"></span>
@@ -681,16 +686,17 @@ async function loadExploreSeries(enrolledCategoryIds, container) {
 
   // ── 4. Series page slug map — add new entries as new series pages are created ──
   const SERIES_SLUG = {
-    "SSC GD":    "/mock/ssc-gd.html",
-    "SSC CGL":   "/mock/ssc-cgl.html",
+    "SSC GD": "/mock/ssc-gd.html",
+    "SSC CGL": "/mock/ssc-cgl.html",
     "UP Police Constable": "/mock/up-police.html",
   };
 
   // ── 5. Explore cards — clicking opens the series info page ──────────────
-  unenrolledSeries.forEach(series => {
-    const seriesUrl = Object.entries(SERIES_SLUG).find(([key]) =>
-      series.name.toUpperCase().includes(key.toUpperCase())
-    )?.[1] || "/mock-test-series.html";
+  unenrolledSeries.forEach((series) => {
+    const seriesUrl =
+      Object.entries(SERIES_SLUG).find(([key]) =>
+        series.name.toUpperCase().includes(key.toUpperCase()),
+      )?.[1] || "/mock-test-series.html";
 
     const card = document.createElement("div");
     card.className = "exam-card";
@@ -736,8 +742,11 @@ async function loadExploreSeries(enrolledCategoryIds, container) {
 }
 
 // ─── Enroll from Dashboard (kept for legacy/future use) ──────────────────────
-window.enrollFromDashboard = async function(categoryId, seriesName, btn) {
-  if (!_currentUser) { showGuestAuthPrompt(); return; }
+window.enrollFromDashboard = async function (categoryId, seriesName, btn) {
+  if (!_currentUser) {
+    showGuestAuthPrompt();
+    return;
+  }
   btn.disabled = true;
   btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-1"></i> Enrolling...`;
   const { error } = await client
@@ -766,7 +775,7 @@ async function loadAvailableExams() {
       .from("user_exam_enrollments")
       .select("category_id")
       .eq("user_id", user.id);
-    enrolledCategoryIds = (enrollments || []).map(e => e.category_id);
+    enrolledCategoryIds = (enrollments || []).map((e) => e.category_id);
   }
 
   // Step 2 — declare container FIRST before any usage
@@ -776,11 +785,11 @@ async function loadAvailableExams() {
 
   // Step 3 — now safe to use container for empty state
   // AFTER — show banner first, then show browse CTA below it
-if (user && enrolledCategoryIds.length === 0) {
-  await loadExploreSeries(enrolledCategoryIds, container);
-  const emptyDiv = document.createElement("div");
-  emptyDiv.style = "grid-column:1/-1";
-  emptyDiv.innerHTML = `
+  if (user && enrolledCategoryIds.length === 0) {
+    await loadExploreSeries(enrolledCategoryIds, container);
+    const emptyDiv = document.createElement("div");
+    emptyDiv.style = "grid-column:1/-1";
+    emptyDiv.innerHTML = `
     <div class="empty-box">
       <div class="empty-ico"><i class="fas fa-layer-group"></i></div>
       <h3>No Series Enrolled</h3>
@@ -789,21 +798,23 @@ if (user && enrolledCategoryIds.length === 0) {
         Browse Series →
       </a>
     </div>`;
-  container.appendChild(emptyDiv);
-  return;
-}
+    container.appendChild(emptyDiv);
+    return;
+  }
 
   // Step 4 — real query with real select string + enrollment filter
   let query = client
     .from("scheduled_exams")
-    .select(`
+    .select(
+      `
       id, mode, availability_type, is_active,
       start_datetime, end_datetime, is_premium, attempt_limit,
       schedule_type, day_of_week, exam_type, launch_date, category_id,
       language,
       exam_patterns ( pattern_name, duration_minutes, negative_marking, total_questions ),
       exam_categories ( name )
-    `)
+    `,
+    )
     .eq("is_active", true);
 
   // Only filter by enrollment if user is logged in
@@ -935,17 +946,21 @@ if (user && enrolledCategoryIds.length === 0) {
     const alreadyDone = completedAttempts.length > 0;
     const isLive = isToday && windowOpen;
     const dayLabel = DAY_LABELS[exam.day_of_week] || exam.day_of_week;
-    const subjectName = exam.active_section 
-  || (exam.exam_type === "daily_sectional" ? SUBJECT_NAMES[exam.day_of_week] : null)
-  || pattern.pattern_name 
-  || "Mock Test";
+    const subjectName =
+      exam.active_section ||
+      (exam.exam_type === "daily_sectional"
+        ? SUBJECT_NAMES[exam.day_of_week]
+        : null) ||
+      pattern.pattern_name ||
+      "Mock Test";
     const subjectIcon = SUBJECT_ICONS[exam.day_of_week] || "fas fa-file-alt";
     const categoryName = exam.exam_categories?.name || "";
     const mockLabel = mockNumber ? `${mockNumber}` : "";
     // Only prepend category for daily_sectional — mixed/mock pattern_name already has context
-    const cardTitle = categoryName && exam.exam_type === "daily_sectional"
-      ? `${categoryName} - ${subjectName}`
-      : subjectName;
+    const cardTitle =
+      categoryName && exam.exam_type === "daily_sectional"
+        ? `${categoryName} - ${subjectName}`
+        : subjectName;
     const negVal =
       pattern.negative_marking != null
         ? `-${pattern.negative_marking}`
@@ -991,7 +1006,39 @@ if (user && enrolledCategoryIds.length === 0) {
           : "";
       availHtml = `<div class="exam-avail ok"><span class="avail-dot" style="background:#10b981"></span>Completed today ✓${scoreText}</div>`;
       const viewResultBtn = lastAttemptId
-        ? `<a href="/mock/result.html?attempt=${lastAttemptId}" class="btn-view-result"><i class="fas fa-chart-bar"></i> View Result & Explanations</a>`
+        ? `
+    <div style="
+      display:flex;
+      gap:8px;
+      width:100%;
+    ">
+      <a 
+        href="/mock/result.html?attempt=${lastAttemptId}" 
+        class="btn-view-result"
+        style="
+          flex:1;
+          margin-top:0;
+          text-align:center;
+        "
+      >
+        <i class="fas fa-chart-bar"></i>
+        View Result
+      </a>
+
+      <a 
+        href="/mock/leaderboard.html?exam=${exam.id}" 
+        class="btn-view-result"
+        style="
+          flex:1;
+          margin-top:0;
+          text-align:center;
+        "
+      >
+        <i class="fas fa-trophy"></i>
+        View Rank
+      </a>
+    </div>
+  `
         : "";
       btnHtml = `<div style="display:flex;flex-direction:column;gap:7px;width:100%">
         <button class="btn-start-exam disabled-btn" disabled style="background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7;"><i class="fas fa-check-circle mr-1"></i> Completed${completedScore !== null ? ` · ${completedScore}/${totalPossible}` : ""}</button>
@@ -1082,14 +1129,14 @@ if (user && enrolledCategoryIds.length === 0) {
 
   // FIND and REPLACE the entire today exams block with this:
 
-const todayExams = dailyExams.filter((e) => e.day_of_week === todayName);
-const scheduledExams = dailyExams.filter((e) => e.day_of_week !== todayName);
+  const todayExams = dailyExams.filter((e) => e.day_of_week === todayName);
+  const scheduledExams = dailyExams.filter((e) => e.day_of_week !== todayName);
 
-// ── SECTION 1: Today's Test ──
-if (todayExams.length > 0) {
-  const sec = document.createElement("div");
-  sec.style = "grid-column:1/-1;";
-  sec.innerHTML = `
+  // ── SECTION 1: Today's Test ──
+  if (todayExams.length > 0) {
+    const sec = document.createElement("div");
+    sec.style = "grid-column:1/-1;";
+    sec.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <div style="display:flex;align-items:center;gap:10px">
         <span style="width:4px;height:20px;border-radius:99px;background:linear-gradient(180deg,#1a56db,#60a5fa);display:inline-block;flex-shrink:0"></span>
@@ -1097,15 +1144,15 @@ if (todayExams.length > 0) {
       </div>
       <span style="font-size:.72rem;font-weight:600;color:#94a3b8">${windowOpen ? "✓ Open · 5:00 AM – 11:59 PM" : "Opens at 5:00 AM"}</span>
     </div>`;
-  container.appendChild(sec);
+    container.appendChild(sec);
 
-  // ← No todayWrapper — cards go directly into container grid
-  todayExams.forEach((exam, i) => {
-    const card = buildDailyCard(exam, i);
-    container.appendChild(card);
-    setTimeout(() => startCountdown(`cd-${exam.id}`, getClosingMs, true), 50);
-  });
-}
+    // ← No todayWrapper — cards go directly into container grid
+    todayExams.forEach((exam, i) => {
+      const card = buildDailyCard(exam, i);
+      container.appendChild(card);
+      setTimeout(() => startCountdown(`cd-${exam.id}`, getClosingMs, true), 50);
+    });
+  }
 
   // ── SECTION 2: Scheduled Mock Tests ──
   if (scheduledExams.length > 0) {
@@ -1290,7 +1337,9 @@ function pickQuestionsForSection(allQuestions, section, seenMap) {
   const needed = section.question_count || 0;
   if (needed === 0) return [];
 
-  const pool = allQuestions.filter((q) => q.section_name === section.section_name);
+  const pool = allQuestions.filter(
+    (q) => q.section_name === section.section_name,
+  );
   if (pool.length === 0) {
     console.warn(`No questions for section: ${section.section_name}`);
     return [];
@@ -1663,7 +1712,8 @@ function renderRecentAttempts(attempts, isGuest = false) {
       const isDaily = se.schedule_type === "daily_auto";
       const catName = se.exam_categories?.name || "";
       const isSSCGD = se.category_id === "4183570e-eeec-4fe9-8ab6-77e6e83a3ecf";
-      const name = isSSCGD && se.active_section && catName
+      const name =
+        isSSCGD && se.active_section && catName
           ? `${catName} - ${se.active_section}`
           : se.exam_patterns?.pattern_name || "Mock";
       const date = a.submitted_at
@@ -1689,7 +1739,8 @@ function renderRecentAttempts(attempts, isGuest = false) {
       const isDaily = se.schedule_type === "daily_auto";
       const catName = se.exam_categories?.name || "";
       const isSSCGD = se.category_id === "4183570e-eeec-4fe9-8ab6-77e6e83a3ecf";
-      const name = isSSCGD && se.active_section && catName
+      const name =
+        isSSCGD && se.active_section && catName
           ? `${catName} - ${se.active_section}`
           : se.exam_patterns?.pattern_name || "Mock";
       const date = a.submitted_at
