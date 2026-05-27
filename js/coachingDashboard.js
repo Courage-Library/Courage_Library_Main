@@ -322,10 +322,6 @@ function buildExamCard(exam, myAttempts, index) {
     stripeColor = "#f59e0b";
     badgeHtml = badge("Upcoming", "#d97706", "#fffbeb");
     btnHtml = disabledBtn("fa-clock", `Starts ${startStr}`, "#f59e0b");
-  } else if (limitReached) {
-    stripeColor = "#9ca3af";
-    badgeHtml = badge("Limit Reached", "#6b7280", "#f3f4f6");
-    btnHtml = disabledBtn("fa-ban", "Limit Reached", "#9ca3af");
   } else if (alreadyDone && !incomplete) {
     stripeColor = "#10b981";
     badgeHtml = badge("✓ Completed", "#059669", "#f0fdf4");
@@ -337,10 +333,53 @@ function buildExamCard(exam, myAttempts, index) {
         <span class="acc">${acc}% accuracy</span>
       </div>`;
     btnHtml = `
-      <button disabled class="btn" style="background:#f0fdf4;color:#059669;border:1px solid #bbf7d0;cursor:default">
-        <i class="fas fa-check-circle"></i> Completed
-      </button>
-      ${lastAttempt ? `<a href="/coaching/result.html?attempt=${lastAttempt.id}" class="btn btn-ghost" style="text-decoration:none"><i class="fas fa-chart-bar"></i> View Result & Analysis</a>` : ""}`;
+  <button disabled class="btn" style="
+    background:#ecfdf5;
+    color:#059669;
+    border:1px solid #bbf7d0;
+    cursor:default;
+    font-weight:800;
+  ">
+    <i class="fas fa-check-circle"></i>
+    Completed • ${lastAttempt.total_score ?? 0}/${pattern.total_questions ?? 0}
+  </button>
+
+  <div style="
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+  ">
+    <a 
+      href="/coaching/result.html?attempt=${lastAttempt.id}" 
+      class="btn btn-ghost"
+      style="
+        flex:1;
+        text-decoration:none;
+        margin-top:0;
+      "
+    >
+      <i class="fas fa-chart-bar"></i>
+      View Result
+    </a>
+
+    <a 
+      href="/coaching/leaderboard.html?exam=${exam.id}" 
+      class="btn btn-ghost"
+      style="
+        flex:1;
+        text-decoration:none;
+        margin-top:0;
+      "
+    >
+      <i class="fas fa-trophy"></i>
+      View Rank
+    </a>
+  </div>
+`;
+  } else if (limitReached) {
+    stripeColor = "#9ca3af";
+    badgeHtml = badge("Limit Reached", "#6b7280", "#f3f4f6");
+    btnHtml = disabledBtn("fa-ban", "Limit Reached", "#9ca3af");
   } else if (incomplete) {
     stripeColor = "#3b82f6";
     badgeHtml = `<span class="exam-badge" style="background:#eff6ff;color:#2563eb;animation:pulse 1.5s infinite">
