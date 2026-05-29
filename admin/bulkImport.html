@@ -347,13 +347,16 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: rgba(15,23,42,0.72);
+      background: rgba(15, 23, 42, 0.72);
       backdrop-filter: blur(4px);
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
-    #examPreviewModal.open { display: flex; }
+
+    #examPreviewModal.open {
+      display: flex;
+    }
 
     .exam-modal-box {
       background: #f1f5fb;
@@ -364,12 +367,12 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
     }
 
     .exam-modal-header {
-      background: linear-gradient(135deg,#1a56db,#6366f1);
-      color:#fff;
+      background: linear-gradient(135deg, #1a56db, #6366f1);
+      color: #fff;
       padding: 16px 20px;
       display: flex;
       align-items: center;
@@ -391,7 +394,7 @@
       border-radius: 16px;
       border: 1px solid #e2e8f0;
       padding: 22px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
     }
 
     .exam-q-text {
@@ -486,8 +489,17 @@
       color: #374151;
       transition: all .15s;
     }
-    .ep-nav-btn:hover:not(:disabled) { background: #f1f5fb; border-color: #1a56db; color: #1a56db; }
-    .ep-nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+    .ep-nav-btn:hover:not(:disabled) {
+      background: #f1f5fb;
+      border-color: #1a56db;
+      color: #1a56db;
+    }
+
+    .ep-nav-btn:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+    }
 
     .ep-counter {
       font-family: 'Sora', sans-serif;
@@ -497,13 +509,42 @@
     }
 
     .diff-badge {
-      font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .05em
     }
-    .diff-easy{background:#dcfce7;color:#15803d}
-    .diff-medium{background:#fef3c7;color:#92400e}
-    .diff-hard{background:#fee2e2;color:#b91c1c}
-    .diff-default{background:#e0e7ff;color:#3730a3}
-    .lang-badge{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:999px;background:#f1f5f9;color:#475569}
+
+    .diff-easy {
+      background: #dcfce7;
+      color: #15803d
+    }
+
+    .diff-medium {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .diff-hard {
+      background: #fee2e2;
+      color: #b91c1c
+    }
+
+    .diff-default {
+      background: #e0e7ff;
+      color: #3730a3
+    }
+
+    .lang-badge {
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475569
+    }
   </style>
 </head>
 
@@ -913,7 +954,8 @@
           <div class="bg-gray-900 rounded-xl p-3">
             <p class="text-xs text-gray-400 font-mono font-bold mb-1">Expected columns:</p>
             <p class="text-xs text-green-400 font-mono leading-relaxed">question_text, options, options_type,
-              correct_answer, difficulty, topic, explanation, category_id, pattern_section_id, section_name, question_image, pyq_year,
+              correct_answer, difficulty, topic, explanation, category_id, pattern_section_id, section_name,
+              question_image, pyq_year,
               pyq_source, is_active, language</p>
           </div>
 
@@ -958,7 +1000,8 @@
           </div>
 
           <div id="importSection" class="hidden">
-            <div class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
+            <div
+              class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between gap-4 flex-wrap">
               <div>
                 <p class="text-sm font-bold text-green-800">Ready to import!</p>
                 <p class="text-xs text-green-600 mt-0.5" id="importReadyLabel"></p>
@@ -1045,9 +1088,13 @@
         .eq("id", user.id)
         .single();
 
-      const isAdmin = profile?.is_admin === true || profile?.role === "super_admin";
-      if (!isAdmin) {
+      // Bulk import page access: super_admin OR bulk_import_manager OR is_admin
+      const allowedRoles = ["super_admin", "bulk_import_manager", "content_manager"];
+      const hasAccess = allowedRoles.includes(profile?.role) || profile?.is_admin === true;
+
+      if (!hasAccess) {
         window.location.href = "/mock/dashboard.html";
+        return;
       }
     })();
 
@@ -1724,7 +1771,7 @@ Paste your questions below this line:`;
           pyq_year: r.pyq_year ? parseInt(r.pyq_year) : null,
           pyq_source: r.pyq_source?.trim() || null,
           is_active: r.is_active?.toString().toLowerCase() !== "false",
-          language: ["english","hindi"].includes(r.language?.trim().toLowerCase()) ? r.language.trim().toLowerCase() : "english",
+          language: ["english", "hindi"].includes(r.language?.trim().toLowerCase()) ? r.language.trim().toLowerCase() : "english",
         }));
 
         const { error } = await db.from("questions").insert(batch);
@@ -1793,7 +1840,7 @@ Paste your questions below this line:`;
 
       // Parse options
       let opts = {};
-      try { opts = JSON.parse(r.options); } catch {}
+      try { opts = JSON.parse(r.options); } catch { }
 
       // Difficulty badge
       const diff = (r.difficulty || "").toLowerCase();
@@ -1861,12 +1908,12 @@ Paste your questions below this line:`;
     }
 
     // Close modal on backdrop click
-    document.getElementById("examPreviewModal").addEventListener("click", function(e) {
+    document.getElementById("examPreviewModal").addEventListener("click", function (e) {
       if (e.target === this) closeExamPreview();
     });
 
     // Keyboard nav
-    document.addEventListener("keydown", function(e) {
+    document.addEventListener("keydown", function (e) {
       if (!document.getElementById("examPreviewModal").classList.contains("open")) return;
       if (e.key === "ArrowRight" || e.key === "ArrowDown") epNavigate(1);
       if (e.key === "ArrowLeft" || e.key === "ArrowUp") epNavigate(-1);
@@ -1875,9 +1922,9 @@ Paste your questions below this line:`;
 
     function loadSampleCsv() {
       document.getElementById("csvInput").value =
-        `question_text,options,options_type,correct_answer,difficulty,explanation,category_id,pattern_section_id,question_image,pyq_year,pyq_source,is_active
-"What is the capital of India?","{""A"":""Mumbai"",""B"":""New Delhi"",""C"":""Chennai"",""D"":""Kolkata""}",text,B,easy,"New Delhi is the capital of India since 1911.",REPLACE_CATEGORY_UUID,REPLACE_SECTION_UUID,"","","",true
-"Who wrote Jana Gana Mana?","{""A"":""Bankim Chandra"",""B"":""Rabindranath Tagore"",""C"":""Sarojini Naidu"",""D"":""Mahatma Gandhi""}",text,B,easy,"Rabindranath Tagore wrote Jana Gana Mana in 1911.",REPLACE_CATEGORY_UUID,REPLACE_SECTION_UUID,"","","",true`;
+        `question_text,options,options_type,correct_answer,difficulty,topic,explanation,category_id,pattern_section_id,section_name,question_image,pyq_year,pyq_source,is_active,language
+"What is the capital of India?","{""A"":""Mumbai"",""B"":""New Delhi"",""C"":""Chennai"",""D"":""Kolkata""}",text,B,easy,"Indian Geography","New Delhi became the capital of India in 1911 during British rule.",REPLACE_CATEGORY_UUID,REPLACE_SECTION_UUID,"General Awareness","",,"","",true,english
+"Who wrote the national anthem Jana Gana Mana?","{""A"":""Bankim Chandra Chattopadhyay"",""B"":""Rabindranath Tagore"",""C"":""Sarojini Naidu"",""D"":""Mohandas Karamchand Gandhi""}",text,B,easy,"Indian History","Rabindranath Tagore wrote Jana Gana Mana in 1911. It was first sung at the Calcutta Session of the Indian National Congress.",REPLACE_CATEGORY_UUID,REPLACE_SECTION_UUID,"General Awareness","",,"","",true,english`;
     }
 
     function setLanguage(lang) {
