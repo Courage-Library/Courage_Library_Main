@@ -1851,6 +1851,452 @@
     <!-- BODY -->
     <div class="dash-body">
 
+      <!-- ══════════════════════════════════════════
+           CURRENT AFFAIRS — matches dashboard design system
+      ══════════════════════════════════════════ -->
+      <style>
+        .ca-tag {
+          flex-shrink: 0;
+          font-size: .58rem;
+          font-weight: 800;
+          letter-spacing: .04em;
+          text-transform: uppercase;
+          border-radius: 100px;
+          padding: 4px 10px;
+          white-space: nowrap;
+          background: #f1f5f9;
+          color: #475569;
+        }
+        .ca-tag.health { background: #fee2e2; color: #991b1b; }
+        .ca-tag.finance { background: #d1fae5; color: #059669; }
+        .ca-tag.politics { background: #fef3c7; color: #b45309; }
+        .ca-tag.tech { background: #e0e7ff; color: #4338ca; }
+        .ca-tag.world { background: #dbeafe; color: #1e40af; }
+        .ca-tag.defense { background: #ffe4d6; color: #c2410c; }
+        .ca-tag.state { background: #dcfce7; color: #166534; }
+        .ca-tag.economy { background: #fef9c3; color: #a16207; }
+        .ca-tag.environment { background: #dcfce7; color: #15803d; }
+        .ca-tag.science { background: #e0e7ff; color: #3730a3; }
+        .ca-tag.judiciary { background: #f3e8ff; color: #7e22ce; }
+        .ca-tag.national { background: #dbeafe; color: #0369a1; }
+
+        .ca-date-pill-wrap { position: relative; }
+        .ca-date-pill {
+          display: flex; align-items: center; gap: 6px;
+          background: #f7f9ff; border: 1px solid #e8edf5; border-radius: 100px;
+          padding: 7px 14px 7px 12px; cursor: pointer;
+          font-size: .78rem; font-weight: 700; color: #475569;
+          transition: all .15s;
+        }
+        .ca-date-pill:hover, .ca-date-pill.ca-today-active {
+          border-color: #93c5fd; background: #eff6ff; color: #1d4ed8;
+        }
+
+        .ca-card {
+          background: #fff; border-radius: 18px; border: 1px solid #e2e8f4;
+          box-shadow: 0 2px 10px rgba(15, 23, 42, .07); overflow: hidden;
+        }
+        .ca-item {
+          display: flex; align-items: center; gap: 12px;
+          padding: 14px 18px; border-bottom: 1px solid #eef1f6; transition: background .12s;
+        }
+        .ca-item:last-child { border-bottom: none; }
+        .ca-item:hover { background: #f8faff; }
+        .ca-item-body { flex: 1; min-width: 0; }
+        .ca-item-title {
+          font-size: .87rem; font-weight: 700; color: #0f172a;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;
+        }
+        .ca-item-desc {
+          font-size: .76rem; color: #94a3b8;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .ca-see-all-btn {
+          display: block; width: 100%; padding: 13px; text-align: center;
+          font-size: .84rem; font-weight: 800; color: #1a56db;
+          background: none; border: none; border-top: 1px solid #eef1f6; cursor: pointer;
+          font-family: 'Nunito', sans-serif; transition: background .15s;
+        }
+        .ca-see-all-btn:hover { background: #eff6ff; }
+
+        .ca-skel-row { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid #eef1f6; }
+        .ca-skel-body { flex: 1; }
+        .ca-skel-title { height: 11px; width: 65%; margin-bottom: 8px; }
+        .ca-skel-desc { height: 9px; width: 80%; }
+        .ca-skel-tag { width: 56px; height: 20px; border-radius: 100px; }
+
+        .ca-modal-overlay {
+          display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, .55);
+          z-index: 1000; align-items: flex-start; justify-content: center;
+          padding: 40px 16px; overflow-y: auto; backdrop-filter: blur(2px);
+        }
+        .ca-modal-overlay.active { display: flex; }
+        .ca-modal {
+          background: #fff; border-radius: 20px; max-width: 640px; width: 100%;
+          box-shadow: 0 24px 64px rgba(15, 23, 42, .25); animation: fadeUp .25s ease both;
+          max-height: calc(100vh - 80px); display: flex; flex-direction: column;
+        }
+        .ca-modal-header {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 18px 22px; border-bottom: 1px solid #e2e8f4; flex-shrink: 0;
+        }
+        .ca-modal-title { font-family: 'Sora', sans-serif; font-size: 1.02rem; font-weight: 800; color: #0f172a; }
+        .ca-modal-close {
+          width: 32px; height: 32px; border-radius: 9px; border: none; background: #f1f5f9;
+          color: #64748b; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+          transition: background .15s;
+        }
+        .ca-modal-close:hover { background: #e2e8f0; color: #0f172a; }
+        .ca-modal-body { padding: 18px 22px 22px; overflow-y: auto; }
+
+        .ca-detail-item {
+          background: #fff; border: 1px solid #e2e8f4; border-radius: 16px;
+          padding: 16px 18px; margin-bottom: 12px;
+        }
+        .ca-detail-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+        .ca-detail-date { font-size: .68rem; color: #94a3b8; font-weight: 600; }
+        .ca-detail-title { font-size: .92rem; font-weight: 800; color: #0f172a; line-height: 1.35; margin-bottom: 10px; }
+        .ca-detail-points { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .ca-detail-points li { display: flex; gap: 8px; font-size: .8rem; color: #475569; line-height: 1.5; }
+        .ca-detail-points li::before {
+          content: ''; width: 5px; height: 5px; border-radius: 50%;
+          background: #1a56db; flex-shrink: 0; margin-top: 7px;
+        }
+        .ca-detail-points li.ca-section-label {
+          font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+          color: #94a3b8; margin-top: 6px;
+        }
+        .ca-detail-points li.ca-section-label::before { display: none; }
+
+        .ca-cal-popover {
+          display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 280px;
+          background: #fff; border: 1px solid #e2e8f4; border-radius: 16px;
+          box-shadow: 0 12px 36px rgba(15, 23, 42, .18); z-index: 1100; overflow: hidden;
+        }
+        .ca-cal-popover.ca-open { display: block; }
+        .ca-cal-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid #eef1f6; }
+        .ca-cal-month { font-family: 'Sora', sans-serif; font-size: .85rem; font-weight: 800; color: #0f172a; }
+        .ca-cal-nav {
+          background: none; border: none; cursor: pointer; width: 28px; height: 28px; border-radius: 7px;
+          display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1rem; transition: all .12s;
+        }
+        .ca-cal-nav:hover { background: #f1f5f9; color: #0f172a; }
+        .ca-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: 10px 12px; }
+        .ca-cal-dow { text-align: center; font-size: .62rem; font-weight: 800; color: #94a3b8; padding: 4px 0; }
+        .ca-cal-day {
+          aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+          font-size: .78rem; font-weight: 600; border-radius: 8px; cursor: pointer; color: #475569; transition: all .1s;
+        }
+        .ca-cal-day:hover:not(.ca-empty):not(.ca-future) { background: #eff6ff; color: #1d4ed8; }
+        .ca-cal-day.ca-selected { background: #1a56db; color: #fff; font-weight: 800; }
+        .ca-cal-day.ca-today { outline: 2px solid #1a56db; outline-offset: -2px; }
+        .ca-cal-day.ca-empty { cursor: default; }
+        .ca-cal-day.ca-future { color: #e2e8f0; cursor: not-allowed; }
+        .ca-cal-footer { border-top: 1px solid #eef1f6; padding: 10px 12px; }
+        .ca-cal-today-btn {
+          width: 100%; padding: 8px; font-size: .78rem; font-weight: 700; border-radius: 8px;
+          border: 1px solid #e2e8f4; background: #f7f9ff; color: #475569; cursor: pointer; transition: background .12s;
+        }
+        .ca-cal-today-btn:hover { background: #eff6ff; color: #1d4ed8; border-color: #93c5fd; }
+
+        .ca-error-box { padding: 24px; text-align: center; }
+        .ca-error-box h3 { font-size: .9rem; font-weight: 800; color: #dc2626; margin-bottom: 4px; }
+        .ca-error-box p { font-size: .78rem; color: #94a3b8; margin-bottom: 12px; }
+        .ca-retry-btn {
+          display: inline-flex; align-items: center; gap: 6px; background: #1a56db; color: #fff; border: none;
+          border-radius: 10px; padding: 8px 16px; font-size: .8rem; font-weight: 700; cursor: pointer;
+        }
+      </style>
+
+      <div class="fade-in" style="margin-top:32px">
+        <div class="sec-row">
+          <div class="sec-title">
+            <span class="sec-bar" style="background:linear-gradient(180deg,#0d9488,#2dd4bf)"></span>
+            Today's Current Affairs
+          </div>
+          <div class="ca-date-pill-wrap">
+            <button class="ca-date-pill ca-today-active" id="ca-date-pill-btn" onclick="caToggleCalendar(event)" aria-label="Select date">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="2.5" width="14" height="12.5" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M1 6h14" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 1v3M11 1v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              <span id="ca-date-pill-label">Today</span>
+              <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
+                <path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="ca-cal-popover" id="ca-cal-popover" onclick="event.stopPropagation()">
+              <div class="ca-cal-header">
+                <button class="ca-cal-nav" id="ca-cal-prev" onclick="caCalShift(-1, event)">&#8249;</button>
+                <span class="ca-cal-month" id="ca-cal-month-label"></span>
+                <button class="ca-cal-nav" id="ca-cal-next" onclick="caCalShift(1, event)">&#8250;</button>
+              </div>
+              <div class="ca-cal-grid" id="ca-cal-grid"></div>
+              <div class="ca-cal-footer">
+                <button class="ca-cal-today-btn" onclick="caSelectToday()">Jump to Today</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ca-card" id="ca-card">
+          <div id="ca-list">
+            <div class="ca-skel-row"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+            <div class="ca-skel-row"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+            <div class="ca-skel-row"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+            <div class="ca-skel-row" style="border:none"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+          </div>
+          <button class="ca-see-all-btn" onclick="caOpenModal()">View All Stories &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Current Affairs modal (full list) -->
+      <div class="ca-modal-overlay" id="ca-modal-overlay" onclick="caCloseModal()">
+        <div class="ca-modal" onclick="event.stopPropagation()">
+          <div class="ca-modal-header">
+            <div class="ca-modal-title">Current Affairs &mdash; <span id="ca-modal-date-label">Today</span></div>
+            <button class="ca-modal-close" onclick="caCloseModal()">&times;</button>
+          </div>
+          <div class="ca-modal-body" id="ca-modal-body"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const CA_BASE_URL = "https://courage-library-news-feed.pages.dev/date";
+          const CA_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+          const CA_DAYS_SHORT = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+          const CA_CAT_MAP = {
+            "state-affairs": ["state", "State Affairs"], economy: ["economy", "Economy"],
+            science: ["science", "Science & Tech"], environment: ["environment", "Environment"],
+            polity: ["politics", "Polity"], "defense-security": ["defense", "Defence"],
+            international: ["world", "World"], "government-schemes": ["finance", "Gov. Schemes"],
+            health: ["health", "Health"], technology: ["tech", "Technology"], finance: ["finance", "Finance"],
+            judiciary: ["judiciary", "Judiciary"], national: ["national", "National"],
+          };
+
+          const _caNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+          let caActiveDate = { d: _caNow.getDate(), m: _caNow.getMonth() + 1, y: _caNow.getFullYear() };
+          let caCalView = { m: caActiveDate.m, y: caActiveDate.y };
+          let caAllItems = [];
+
+          function caBuildUrl(d, m, y) {
+            return `${CA_BASE_URL}/${String(d).padStart(2,"0")}${String(m).padStart(2,"0")}${y}.json`;
+          }
+          function caEsc(str) {
+            return String(str ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+          }
+          function caCatInfo(raw) {
+            if (!raw) return ["", "General"];
+            const key = raw.toLowerCase().replace(/\s+/g, "-");
+            return CA_CAT_MAP[key] || ["", raw.replace(/-/g, " ")];
+          }
+          function caTagHtml(category) {
+            const [cls, label] = caCatInfo(category);
+            return `<span class="ca-tag ${cls}">${label}</span>`;
+          }
+          function caFmtDate(iso) {
+            try { return new Date(iso).toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }); }
+            catch { return ""; }
+          }
+          function caExtractFromObject(val) {
+            if (Array.isArray(val)) return val.map(i => String(i).trim()).filter(s => s.length > 3).slice(0, 6);
+            if (val && typeof val === "object") {
+              if (val.summary !== undefined) return caExtractFromObject(val.summary);
+              const bullets = [];
+              for (const [key, items] of Object.entries(val)) {
+                const label = key.charAt(0).toUpperCase() + key.slice(1);
+                if (Array.isArray(items)) {
+                  if (items.length) bullets.push(`${label}:`);
+                  for (const item of items) { const t = String(item).trim(); if (t.length > 3) bullets.push(t); }
+                } else if (typeof items === "string" && items.trim().length > 3) {
+                  bullets.push(`${label}: ${items.trim()}`);
+                }
+              }
+              return bullets.slice(0, 8);
+            }
+            return null;
+          }
+          function caParseJsonFence(raw) {
+            const m = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+            if (!m) return null;
+            try { return caExtractFromObject(JSON.parse(m[1].trim())); } catch { return null; }
+          }
+          function caParsePlainText(summary) {
+            const bullets = [];
+            for (const line of summary.split("\n")) {
+              const trimmed = line.replace(/^\s*\*\s*/, "").trim();
+              if (trimmed && line.trim().startsWith("*") && trimmed.length > 10) bullets.push(trimmed);
+            }
+            if (bullets.length) return bullets.slice(0, 6);
+            return summary.split(/\.\s+/).filter(s => s.length > 20).slice(0, 5);
+          }
+          function caParseBullets(summary) {
+            if (!summary) return [];
+            if (typeof summary !== "string") return caExtractFromObject(summary) ?? [];
+            return caParseJsonFence(summary) ?? caParsePlainText(summary);
+          }
+          function caShortDesc(summary) {
+            if (!summary) return "";
+            const bullets = caParseBullets(summary);
+            if (bullets.length) return bullets[0].replace(/^[^:]+:\s*/, "").trim();
+            return String(summary).substring(0, 100).trim();
+          }
+
+          function caRenderList(items) {
+            const preview = items.slice(0, 5);
+            document.getElementById("ca-list").innerHTML = preview.map(item => `
+              <div class="ca-item">
+                <div class="ca-item-body">
+                  <div class="ca-item-title">${caEsc(item.title)}</div>
+                  <div class="ca-item-desc">${caEsc(caShortDesc(item.summary))}</div>
+                </div>
+                ${caTagHtml(item.primaryCategory)}
+              </div>
+            `).join("");
+          }
+
+          function caRenderModal(items) {
+            document.getElementById("ca-modal-body").innerHTML = items.map(item => {
+              const bullets = caParseBullets(item.summary);
+              const [cls, label] = caCatInfo(item.primaryCategory);
+              return `
+                <div class="ca-detail-item">
+                  <div class="ca-detail-meta">
+                    <span class="ca-tag ${cls}">${label}</span>
+                    <span class="ca-detail-date">${caFmtDate(item.date)}</span>
+                  </div>
+                  <div class="ca-detail-title">${caEsc(item.title)}</div>
+                  <ul class="ca-detail-points">
+                    ${bullets.map(b => {
+                      const isHeader = /^[^.!?]{3,40}:\s*$/.test(b);
+                      return `<li class="${isHeader ? "ca-section-label" : ""}">${caEsc(b)}</li>`;
+                    }).join("")}
+                  </ul>
+                </div>
+              `;
+            }).join("");
+          }
+
+          function caRenderError() {
+            document.getElementById("ca-list").innerHTML = `
+              <div class="ca-error-box">
+                <h3>Couldn't load stories</h3>
+                <p>Please check your connection and try again.</p>
+                <button class="ca-retry-btn" onclick="caLoadData()">&#8635; Retry</button>
+              </div>`;
+          }
+
+          async function caLoadData() {
+            document.getElementById("ca-list").innerHTML = `
+              <div class="ca-skel-row"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+              <div class="ca-skel-row"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+              <div class="ca-skel-row" style="border:none"><div class="ca-skel-body"><div class="skel ca-skel-title"></div><div class="skel ca-skel-desc"></div></div><div class="skel ca-skel-tag"></div></div>
+            `;
+            try {
+              const res = await fetch(caBuildUrl(caActiveDate.d, caActiveDate.m, caActiveDate.y), { cache: "no-store" });
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              let data = await res.json();
+              if (!Array.isArray(data)) data = data.items || data.data || data.feed || [];
+              if (!data.length) throw new Error("empty");
+              caAllItems = data;
+            } catch (err) {
+              console.warn("Current affairs fetch failed:", err.message);
+              caAllItems = [];
+              caRenderError();
+              return;
+            }
+            caRenderList(caAllItems);
+            caRenderModal(caAllItems);
+          }
+          window.caLoadData = caLoadData;
+
+          window.caOpenModal = function () {
+            document.getElementById("ca-modal-overlay").classList.add("active");
+            document.body.style.overflow = "hidden";
+          };
+          window.caCloseModal = function () {
+            document.getElementById("ca-modal-overlay").classList.remove("active");
+            document.body.style.overflow = "";
+          };
+
+          /* ── Calendar ── */
+          window.caToggleCalendar = function (e) {
+            e.stopPropagation();
+            const pop = document.getElementById("ca-cal-popover");
+            if (pop.classList.contains("ca-open")) { pop.classList.remove("ca-open"); return; }
+            caCalView = { m: caActiveDate.m, y: caActiveDate.y };
+            caRenderCalGrid();
+            pop.classList.add("ca-open");
+          };
+          window.caCalShift = function (delta, e) {
+            e.stopPropagation();
+            caCalView.m += delta;
+            if (caCalView.m > 12) { caCalView.m = 1; caCalView.y++; }
+            if (caCalView.m < 1) { caCalView.m = 12; caCalView.y--; }
+            caRenderCalGrid();
+          };
+          function caRenderCalGrid() {
+            const { m, y } = caCalView;
+            document.getElementById("ca-cal-month-label").textContent = `${CA_MONTHS[m-1]} ${y}`;
+            const todayRef = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+            const isCurrentMonth = y === todayRef.getFullYear() && m === todayRef.getMonth() + 1;
+            const nextBtn = document.getElementById("ca-cal-next");
+            nextBtn.style.opacity = isCurrentMonth ? "0.25" : "1";
+            nextBtn.style.pointerEvents = isCurrentMonth ? "none" : "";
+
+            const firstDow = new Date(y, m - 1, 1).getDay();
+            const daysInMonth = new Date(y, m, 0).getDate();
+            let html = CA_DAYS_SHORT.map(d => `<div class="ca-cal-dow">${d}</div>`).join("");
+            for (let i = 0; i < firstDow; i++) html += `<div class="ca-cal-day ca-empty"></div>`;
+            for (let day = 1; day <= daysInMonth; day++) {
+              const isToday = day === todayRef.getDate() && m === todayRef.getMonth() + 1 && y === todayRef.getFullYear();
+              const isSel = day === caActiveDate.d && m === caActiveDate.m && y === caActiveDate.y;
+              const isFuture = y > todayRef.getFullYear() ||
+                (y === todayRef.getFullYear() && m > todayRef.getMonth() + 1) ||
+                (y === todayRef.getFullYear() && m === todayRef.getMonth() + 1 && day > todayRef.getDate());
+              const cls = ["ca-cal-day", isToday ? "ca-today" : "", isSel ? "ca-selected" : "", isFuture ? "ca-future" : ""].filter(Boolean).join(" ");
+              const click = isFuture ? "" : `onclick="caPickDate(${day},${m},${y})"`;
+              html += `<div class="${cls}" ${click}>${day}</div>`;
+            }
+            document.getElementById("ca-cal-grid").innerHTML = html;
+          }
+          window.caPickDate = function (d, m, y) {
+            caActiveDate = { d, m, y };
+            caUpdatePillLabel();
+            document.getElementById("ca-cal-popover").classList.remove("ca-open");
+            caLoadData();
+          };
+          window.caSelectToday = function () {
+            const t = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+            caPickDate(t.getDate(), t.getMonth() + 1, t.getFullYear());
+            caCalView = { m: caActiveDate.m, y: caActiveDate.y };
+          };
+          function caFmtDisplayDate(d, m, y) {
+            return `${String(d).padStart(2,"0")} ${CA_MONTHS[m-1].slice(0,3)} ${y}`;
+          }
+          function caUpdatePillLabel() {
+            const t = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+            const isToday = caActiveDate.d === t.getDate() && caActiveDate.m === t.getMonth() + 1 && caActiveDate.y === t.getFullYear();
+            const label = isToday ? "Today" : caFmtDisplayDate(caActiveDate.d, caActiveDate.m, caActiveDate.y);
+            document.getElementById("ca-date-pill-label").textContent = label;
+            document.getElementById("ca-modal-date-label").textContent = label;
+            document.getElementById("ca-date-pill-btn").classList.toggle("ca-today-active", isToday);
+          }
+
+          document.addEventListener("click", () => {
+            document.getElementById("ca-cal-popover")?.classList.remove("ca-open");
+          });
+
+          document.addEventListener("DOMContentLoaded", () => {
+            caUpdatePillLabel();
+            caLoadData();
+          });
+        })();
+      </script>
+
+
       <!-- ── Exam Sections — rendered by JS into examList ── -->
       <div class="fade-in d5" style="margin-bottom:36px">
         <div id="examList" class="exam-grid">
@@ -1906,7 +2352,6 @@
           </div>
         </div>
       </div>
-
 
       <!-- CL Coins — SaaS-level banner -->
       <style>
