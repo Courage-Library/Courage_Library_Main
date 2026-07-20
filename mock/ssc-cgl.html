@@ -1268,6 +1268,55 @@
                 margin: -24px auto 0;
             }
         }
+
+        .old-price {
+            position: relative;
+            color: rgba(255, 255, 255, .75);
+            margin-right: .4rem;
+        }
+
+        .old-price::after {
+            content: "";
+            position: absolute;
+            left: -2px;
+            right: -2px;
+            top: 50%;
+            height: 1.5px;
+            background: rgba(255, 255, 255, .95);
+            transform: rotate(-8deg);
+        }
+
+        .free-price {
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .old-price-card {
+            position: relative;
+            font-size: 1.15rem;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-right: .45rem;
+            vertical-align: middle;
+        }
+
+        .old-price-card::after {
+            content: "";
+            position: absolute;
+            left: -2px;
+            right: -2px;
+            top: 52%;
+            height: 1px;
+            background: #94a3b8;
+            transform: rotate(-8deg);
+        }
+
+        .current-price-card {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--green);
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -1371,17 +1420,18 @@
             <div class="hero-badge"><span class="live-dot"></span><svg width="10" height="10" viewBox="0 0 24 24"
                     fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>ACTIVE · SSC · Free Forever</div>
+                </svg>ACTIVE · SSC · Launch Offer</div>
             <h1>SSC CGL Tier I<br /><span style="color:#7dd3fc;">Mock Test Series</span></h1>
-            <p class="hero-sub">Daily sectional tests + Sunday full mocks. 4 subjects, real Tier I pattern, −0.5
-                negative marking, live leaderboard. 7 tests every week. 100% free.</p>
+            <p class="hero-sub">Daily sectional tests, Friday & Saturday mixed practice, and Sunday full mocks. Practice
+                all four SSC CGL Tier-I subjects with real exam pattern, live leaderboard, and detailed performance
+                analysis.</p>
             <div class="hero-pills">
                 <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
                         <line x1="8" y1="2" x2="8" y2="6" />
                         <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>7 tests/week</span>
+                    </svg>Daily + Mixed + Full Mock</span>
                 <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>4 subjects · Tier I</span>
@@ -1392,7 +1442,10 @@
                 <span class="hero-pill"><svg width="10" height="10" viewBox="0 0 24 24">
                         <line x1="12" y1="1" x2="12" y2="23" />
                         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>₹0 forever</span>
+                        <span class="old-price">₹799</span>
+
+                        <span class="free-price">₹0</span>
+                </svg></span>
             </div>
             <div class="hero-ctas">
                 <button id="hero-enroll-btn" class="btn-primary" onclick="handleEnroll()"
@@ -1401,7 +1454,7 @@
                         stroke-linejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
-                    </svg>Enroll Free</button>
+                    </svg>Claim Early Access</button>
                 <a href="#schedule" class="btn-outline"
                     style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:#bae6fd;font-size:.88rem;">View
                     Schedule</a>
@@ -1460,11 +1513,20 @@
                     <p style="font-size:.86rem;color:#475569;line-height:1.8;margin-bottom:1.5rem;">This series builds
                         that sharpness through daily, structured practice. Each test is calibrated to Tier I difficulty
                         — not easier, not harder. The goal is that exam day feels like just another test.</p>
+                    <p style="font-size:.86rem;color:#475569;line-height:1.8;margin-bottom:1.5rem;">The weekly schedule
+                        is designed to build concepts through daily sectional tests, strengthen topic integration with
+                        mixed practice on Friday and Saturday, and simulate the real SSC CGL Tier-I examination every
+                        Sunday through a full-length mock.</p>
                     <div class="feat-list">
                         <div class="feat-item">
                             <div class="feat-check"><svg viewBox="0 0 24 24">
                                     <polyline points="20 6 9 17 4 12" />
                                 </svg></div><span>4 subjects — Quant, Reasoning, English, General Awareness</span>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-check"><svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg></div><span>Daily sectionals + weekend mixed tests + weekly full mock</span>
                         </div>
                         <div class="feat-item">
                             <div class="feat-check"><svg viewBox="0 0 24 24">
@@ -1521,15 +1583,15 @@
                                     <td style="font-weight:600;">Quantitative Aptitude</td>
                                     <td style="text-align:center;">25</td>
                                     <td style="text-align:center;">50</td>
-                                    <td style="text-align:center;">25 min</td>
+                                    <td style="text-align:center;">15 min</td>
                                 </tr>
                                 <tr>
                                     <td><span class="day-chip" style="background:#ede9fe;color:#5b21b6;">Tuesday</span>
                                     </td>
-                                    <td style="font-weight:600;">General Intelligence</td>
+                                    <td style="font-weight:600;">General Intelligence & Reasoning</td>
                                     <td style="text-align:center;">25</td>
                                     <td style="text-align:center;">50</td>
-                                    <td style="text-align:center;">20 min</td>
+                                    <td style="text-align:center;">15 min</td>
                                 </tr>
                                 <tr>
                                     <td><span class="day-chip"
@@ -1537,7 +1599,7 @@
                                     <td style="font-weight:600;">English Comprehension</td>
                                     <td style="text-align:center;">25</td>
                                     <td style="text-align:center;">50</td>
-                                    <td style="text-align:center;">20 min</td>
+                                    <td style="text-align:center;">15 min</td>
                                 </tr>
                                 <tr>
                                     <td><span class="day-chip" style="background:#fef3c7;color:#92400e;">Thursday</span>
@@ -1545,28 +1607,28 @@
                                     <td style="font-weight:600;">General Awareness</td>
                                     <td style="text-align:center;">25</td>
                                     <td style="text-align:center;">50</td>
-                                    <td style="text-align:center;">20 min</td>
+                                    <td style="text-align:center;">15 min</td>
                                 </tr>
                                 <tr>
                                     <td><span class="day-chip" style="background:#fee2e2;color:#991b1b;">Friday</span>
                                     </td>
-                                    <td style="font-weight:600;">Quant + English</td>
-                                    <td style="text-align:center;">50</td>
-                                    <td style="text-align:center;">100</td>
-                                    <td style="text-align:center;">40 min</td>
+                                    <td style="font-weight:600;">Mixed — Quant + Reasoning</td>
+                                    <td style="text-align:center;">40</td>
+                                    <td style="text-align:center;">80</td>
+                                    <td style="text-align:center;">25 min</td>
                                 </tr>
                                 <tr>
                                     <td><span class="day-chip" style="background:#f3e8ff;color:#6b21a8;">Saturday</span>
                                     </td>
-                                    <td style="font-weight:600;">Mixed — All 4 Subjects</td>
-                                    <td style="text-align:center;">60</td>
-                                    <td style="text-align:center;">120</td>
-                                    <td style="text-align:center;">45 min</td>
+                                    <td style="font-weight:600;">Mixed — English + General Awareness</td>
+                                    <td style="text-align:center;">40</td>
+                                    <td style="text-align:center;">80</td>
+                                    <td style="text-align:center;">25 min</td>
                                 </tr>
                                 <tr class="sunday-row">
                                     <td><span class="day-chip"
                                             style="background:#fce7f3;color:#9d174d;font-weight:800;">Sunday</span></td>
-                                    <td style="font-weight:800;">Full Mock Test</td>
+                                    <td style="font-weight:800;">Full Mock — All 4 Subjects</td>
                                     <td style="text-align:center;font-weight:700;">100</td>
                                     <td style="text-align:center;font-weight:700;">200</td>
                                     <td style="text-align:center;font-weight:700;">60 min</td>
@@ -1711,8 +1773,14 @@
                                     · 4 subjects</div>
                             </div>
                         </div>
-                        <div class="enroll-price">₹0</div>
-                        <div class="enroll-price-sub">Free forever · No card required</div>
+                        <div class="enroll-price">
+                            <span class="old-price-card">₹799</span>
+                            <span class="current-price-card">₹0</span>
+                        </div>
+
+                        <div class="enroll-price-sub">
+                            ⭐ Launch Offer · Free for Early Users
+                        </div>
                         <hr class="enroll-divider" />
                         <div class="enroll-meta">
                             <div class="enroll-meta-row"><svg viewBox="0 0 24 24">
@@ -1749,7 +1817,7 @@
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />
                                 <polyline points="12 5 19 12 12 19" />
-                            </svg>Enroll Free</button>
+                            </svg>Claim Early Access</button>
                         <p style="font-size:.68rem;color:var(--muted);text-align:center;margin-top:.65rem;">No payment ·
                             No expiry · Cancel anytime</p>
                     </div>
@@ -1801,7 +1869,7 @@
                         stroke-linecap="round" stroke-linejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12" />
                         <polyline points="12 5 19 12 12 19" />
-                    </svg>Enroll Free — SSC CGL Series</button>
+                    </svg>Claim Early Access — SSC CGL Series</button>
             </div>
         </div>
     </div>
@@ -1810,7 +1878,7 @@
             fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />
-        </svg>Enroll Free — SSC CGL</button>
+        </svg>Claim Early Access — SSC CGL</button>
 
     <div id="auth-overlay"
         style="position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;"
@@ -1899,7 +1967,7 @@
         document.addEventListener('DOMContentLoaded', () => { waitForSupabase(async () => { const { createClient } = supabase; client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY); const { data: { session } } = await client.auth.getSession(); if (session?.user) { currentUser = session.user; updateNavUser(); await loadEnrollment(); } client.auth.onAuthStateChange(async (e, s) => { if (e === 'SIGNED_IN' && s?.user) { currentUser = s.user; updateNavUser(); closeAuth(); await loadEnrollment(); if (pendingEnroll) { pendingEnroll = false; await doEnroll(); } } if (e === 'SIGNED_OUT') { currentUser = null; enrolled = false; updateNavGuest(); updateEnrollBtn(); } }); await loadCategory(); }); });
         async function loadCategory() { if (!client) return; const { data } = await client.from('exam_categories').select('id').eq('name', SERIES_NAME).single(); if (data) categoryId = data.id; }
         async function loadEnrollment() { if (!client || !currentUser || !categoryId) return; const { data } = await client.from('user_exam_enrollments').select('id').eq('user_id', currentUser.id).eq('category_id', categoryId).single(); enrolled = !!data; updateEnrollBtn(); }
-        function updateEnrollBtn() { const btns = ['hero-enroll-btn', 'enroll-btn', 'stickyCta']; btns.forEach(id => { const b = document.getElementById(id); if (!b) return; if (enrolled) { b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Enrolled — Go to Dashboard`; b.onclick = () => window.location.href = '/mock/dashboard.html'; } else { b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Enroll Free`; b.onclick = handleEnroll; } }); }
+        function updateEnrollBtn() { const btns = ['hero-enroll-btn', 'enroll-btn', 'stickyCta']; btns.forEach(id => { const b = document.getElementById(id); if (!b) return; if (enrolled) { b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Enrolled — Go to Dashboard`; b.onclick = () => window.location.href = '/mock/dashboard.html'; } else { b.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Claim Early Access`; b.onclick = handleEnroll; } }); }
         async function handleEnroll() { if (enrolled) { window.location.href = '/mock/dashboard.html'; return; } if (!currentUser) { pendingEnroll = true; openAuth('signup'); return; } await doEnroll(); }
         async function doEnroll() { if (!categoryId) { showToast('Could not load series. Please refresh.'); return; } const { error } = await client.from('user_exam_enrollments').insert({ user_id: currentUser.id, category_id: categoryId }); if (error && error.code !== '23505') { showToast('Could not enroll. Please try again.'); return; } enrolled = true; updateEnrollBtn(); showToast('Enrolled! Head to your dashboard to start today\'s test.'); }
         function toggleMenu() { const h = document.getElementById('mob-menu-btn'); const m = document.getElementById('mob-menu'); h.classList.toggle('open'); m.classList.toggle('open'); }

@@ -464,6 +464,18 @@ const SCHEDULE_DATA = {
       ["Sunday", "Full Mock Test", "150", "300", "120m", true],
     ],
   },
+  "SSC CGL": {
+    link: "/mock/ssc-cgl.html",
+    rows: [
+      ["Monday", "General Intelligence & Reasoning", "25", "50", "15m", false],
+      ["Tuesday", "General Awareness", "25", "50", "15m", false],
+      ["Wednesday", "Quantitative Aptitude", "25", "50", "15m", false],
+      ["Thursday", "English Comprehension", "25", "50", "15m", false],
+      ["Friday", "Mixed (Reasoning + Quant)", "40", "80", "25m", false],
+      ["Saturday", "Mixed (GA + English)", "40", "80", "25m", false],
+      ["Sunday", "Full Mock Test", "100", "200", "60m", true],
+    ],
+  },
 };
 
 function injectScheduleInfoPopup(categoryName) {
@@ -475,7 +487,7 @@ function injectScheduleInfoPopup(categoryName) {
       (categoryName || "").toUpperCase().includes(k.toUpperCase()),
     ) || "SSC GD";
 
-  const { rows } = SCHEDULE_DATA[key];
+  const { rows, link } = SCHEDULE_DATA[key];
 
   const overlay = document.createElement("div");
   overlay.id = "schedInfoOverlay";
@@ -522,10 +534,10 @@ function injectScheduleInfoPopup(categoryName) {
           </div>
         </div>
         <div style="display:flex;gap:10px;padding:0 20px 20px;">
-          <a href="${key.includes("UP") ? "/mock/up-police.html" : "/mock/ssc-gd.html"}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0f6ff;border:1px solid #bfdbfe;color:#1a56db;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#f0f6ff'">
+          <a href="${link}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0f6ff;border:1px solid #bfdbfe;color:#1a56db;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#f0f6ff'">
             <i class="fas fa-layer-group"></i> View Series
           </a>
-          <a href="${key.includes("UP") ? "/mock/up-police.html" : "/mock/ssc-gd.html"}#schedule" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0fff4;border:1px solid #bbf7d0;color:#065f46;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fff4'">
+          <a href="${link}#schedule" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f0fff4;border:1px solid #bbf7d0;color:#065f46;font-size:.78rem;font-weight:700;text-decoration:none;" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background='#f0fff4'">
             <i class="fas fa-info-circle"></i> Know More
           </a>
         </div>
@@ -1154,31 +1166,270 @@ async function loadAvailableExams() {
     });
   }
 
-  // ── SECTION 2: Scheduled Mock Tests ──
-  if (scheduledExams.length > 0) {
-    const sec = document.createElement("div");
-    sec.style =
-      "grid-column:1/-1;margin-top:32px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;";
-    sec.innerHTML = `
+// ── SECTION 2: Coming Up Next ─────────────────────────────────────────────
+if (scheduledExams.length > 0) {
+  const weekDays = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+  ];
+
+  const labels = {
+    monday: "Mon",
+    tuesday: "Tue",
+    wednesday: "Wed",
+    thursday: "Thu",
+    friday: "Fri",
+    saturday: "Sat",
+    sunday: "Sun",
+  };
+
+  // Current day
+  const today = new Date()
+    .toLocaleDateString("en-US", { weekday: "long" })
+    .toLowerCase();
+
+  const todayIndex = weekDays.indexOf(today);
+
+  // Exclude today's tab (already shown in Today's Mock Test)
+  const upcomingDays = [
+    ...weekDays.slice(todayIndex + 1),
+    ...weekDays.slice(0, todayIndex),
+  ];
+
+  const section = document.createElement("div");
+  section.style = "grid-column:1/-1;margin-top:32px;";
+
+  section.innerHTML = `
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+      gap:10px;
+    ">
       <div style="display:flex;align-items:center;gap:10px">
-        <span style="width:4px;height:20px;border-radius:99px;background:linear-gradient(180deg,#6366f1,#818cf8);display:inline-block;flex-shrink:0"></span>
-        <span style="font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a">Scheduled Mock Tests</span>
+        <span style="
+          width:4px;
+          height:20px;
+          border-radius:99px;
+          background:linear-gradient(180deg,#6366f1,#818cf8);
+        "></span>
+
+        <span style="
+          font-family:'Sora',sans-serif;
+          font-size:1.05rem;
+          font-weight:800;
+          color:#0f172a;
+        ">
+          Coming Up Next
+        </span>
       </div>
-      <span style="font-size:.72rem;font-weight:600;color:#94a3b8">Available on their respective days</span>`;
-    container.appendChild(sec);
-    scheduledExams.forEach((exam, i) => {
-      container.appendChild(buildDailyCard(exam, i));
-      setTimeout(
-        () =>
-          startCountdown(
-            `cd-${exam.id}`,
-            () => getOpeningMs(exam.day_of_week),
-            false,
-          ),
-        50,
-      );
+
+      <span style="
+        font-size:.75rem;
+        color:#94a3b8;
+      ">
+        Select a day
+      </span>
+    </div>
+
+    <div id="week-tabs"
+     style="
+        display:grid;
+        grid-template-columns:repeat(6,1fr);
+        gap:14px;
+        margin-bottom:22px;
+     ">
+</div>
+
+    <div
+      id="week-content"
+      style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));
+        gap:20px;
+      ">
+    </div>
+  `;
+
+  container.appendChild(section);
+
+  const tabs = section.querySelector("#week-tabs");
+  const responsiveStyle = document.createElement("style");
+
+responsiveStyle.textContent = `
+@media (max-width:768px){
+
+    #week-tabs{
+        grid-template-columns:repeat(3,1fr)!important;
+        gap:12px!important;
+    }
+
+    #week-content{
+        grid-template-columns:1fr!important;
+    }
+
+    .week-day-btn{
+        min-width:0!important;
+        height:88px!important;
+    }
+
+}
+`;
+
+document.head.appendChild(responsiveStyle);
+  const content = section.querySelector("#week-content");
+
+  tabs.style.webkitOverflowScrolling = "touch";
+
+  function renderDay(day) {
+
+    content.innerHTML = "";
+
+    tabs.querySelectorAll(".day-btn").forEach(btn=>{
+
+    btn.style.background="#fff";
+    btn.style.color="#64748b";
+    btn.style.transform="translateY(0)";
+    btn.style.boxShadow="0 6px 18px rgba(15,23,42,.06)";
+
+});
+
+    const active = tabs.querySelector(`[data-day="${day}"]`);
+
+    if (active) {
+      active.style.background =
+"linear-gradient(135deg,#4f46e5,#6366f1)";
+
+active.style.color = "#fff";
+
+active.style.transform = "translateY(-2px)";
+
+active.style.boxShadow =
+"0 14px 28px rgba(79,70,229,.28)";
+    }
+
+    const exams = scheduledExams.filter(
+      e => e.day_of_week === day
+    );
+
+    if (exams.length === 0) {
+
+      content.innerHTML = `
+        <div style="
+          grid-column:1/-1;
+          background:#fff;
+          border-radius:18px;
+          padding:28px;
+          text-align:center;
+          color:#94a3b8;
+          box-shadow:0 4px 14px rgba(15,23,42,.06);
+        ">
+          <i class="fa-regular fa-calendar-xmark"
+             style="font-size:32px;margin-bottom:12px;"></i>
+
+          <div style="font-weight:600">
+            No mock tests scheduled for ${labels[day]}.
+          </div>
+        </div>
+      `;
+
+      return;
+    }
+
+    exams.forEach((exam, i) => {
+
+      content.appendChild(buildDailyCard(exam, i));
+
+      setTimeout(() => {
+
+        startCountdown(
+          `cd-${exam.id}`,
+          () => getOpeningMs(exam.day_of_week),
+          false
+        );
+
+      }, 50);
+
     });
+
   }
+
+  upcomingDays.forEach(day => {
+
+    const count = scheduledExams.filter(
+      e => e.day_of_week === day
+    ).length;
+
+    const btn = document.createElement("button");
+
+btn.className = "day-btn week-day-btn";
+
+btn.dataset.day = day;
+
+btn.style = `
+border:none;
+background:#fff;
+border-radius:18px;
+height:96px;
+cursor:pointer;
+transition:all .25s ease;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:10px;
+box-shadow:0 6px 18px rgba(15,23,42,.06);
+color:#64748b;
+`;
+
+btn.innerHTML = `
+<div style="
+font-size:1rem;
+font-weight:700;
+font-family:'Sora',sans-serif;
+">
+${labels[day]}
+</div>
+
+<i class="fa-solid fa-calendar-days"
+style="
+font-size:21px;
+opacity:.9;
+"></i>
+`;
+
+btn.onmouseenter = () => {
+
+    if(btn.style.background !== "linear-gradient(135deg, rgb(79, 70, 229), rgb(99, 102, 241))"){
+        btn.style.transform="translateY(-2px)";
+    }
+
+};
+
+btn.onmouseleave = () => {
+
+    if(btn.style.background !== "linear-gradient(135deg, rgb(79, 70, 229), rgb(99, 102, 241))"){
+        btn.style.transform="translateY(0)";
+    }
+
+};
+
+btn.onclick = () => renderDay(day);
+
+tabs.appendChild(btn);
+
+  });
+
+  // Open the first upcoming day automatically
+  renderDay(upcomingDays[0]);
+}
 
   // ── SECTION 3: Other Mock Tests ──
   if (manualExams.length > 0) {
