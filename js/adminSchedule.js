@@ -23,6 +23,11 @@ const PATTERN_IDS = {
   agni_friday:  'a99448c3-be67-47e9-ab47-ff2663f8ded7',
   agni_mixed:   '27cf51e8-a9a7-42b2-bbeb-aab7aeadf84b',
   agni_mock:    'f1b63d19-ea80-4687-a659-f2855357c310',
+
+  cgl_daily:   "2f436036-dbc7-46e7-80b7-1053a90ffb9d",
+  cgl_friday:  "f8593b82-34ee-4490-9a26-1acf91a0e450",
+  cgl_mixed:   "8288f372-e72a-4165-85f7-597b138f6859",
+  cgl_mock:    "81c617a0-de2c-4e77-9f41-837565e44b1b",
 };
 
 const DAILY_SCHEDULE = [
@@ -55,10 +60,91 @@ const AGNIVEER_DAILY_SCHEDULE = [
   { day: "sunday",    label: "Sunday",    subject: "Full Mock Test",    exam_type: "full_mock",       pattern_key: "agni_mock",   active_section: null,                questions: 50, duration: 60, language: "both" },
 ];
 
+const CGL_DAILY_SCHEDULE = [
+  {
+    day: "monday",
+    label: "Monday",
+    subject: "Quantitative Aptitude",
+    exam_type: "daily_sectional",
+    pattern_key: "cgl_daily",
+    active_section: "Quantitative Aptitude",
+    questions: 25,
+    duration: 15,
+    language: "both"
+  },
+  {
+    day: "tuesday",
+    label: "Tuesday",
+    subject: "Reasoning",
+    exam_type: "daily_sectional",
+    pattern_key: "cgl_daily",
+    active_section: "Reasoning",
+    questions: 25,
+    duration: 15,
+    language: "both"
+  },
+  {
+    day: "wednesday",
+    label: "Wednesday",
+    subject: "English",
+    exam_type: "daily_sectional",
+    pattern_key: "cgl_daily",
+    active_section: "English",
+    questions: 25,
+    duration: 15,
+    language: "both"
+  },
+  {
+    day: "thursday",
+    label: "Thursday",
+    subject: "General Awareness",
+    exam_type: "daily_sectional",
+    pattern_key: "cgl_daily",
+    active_section: "General Awareness",
+    questions: 25,
+    duration: 15,
+    language: "both"
+  },
+  {
+    day: "friday",
+    label: "Friday",
+    subject: "Quant + Reasoning",
+    exam_type: "mixed",
+    pattern_key: "cgl_friday",
+    active_section: null,
+    questions: 40,
+    duration: 25,
+    language: "both"
+  },
+  {
+    day: "saturday",
+    label: "Saturday",
+    subject: "English + General Awareness",
+    exam_type: "mixed",
+    pattern_key: "cgl_mixed",
+    active_section: null,
+    questions: 40,
+    duration: 25,
+    language: "both"
+  },
+  {
+    day: "sunday",
+    label: "Sunday",
+    subject: "Full Mock Test",
+    exam_type: "full_mock",
+    pattern_key: "cgl_mock",
+    active_section: null,
+    questions: 100,
+    duration: 60,
+    language: "both"
+  }
+];
+
 // Returns the correct schedule config based on selected category name
 async function getScheduleConfig(categoryId) {
   const { data } = await client.from("exam_categories").select("name").eq("id", categoryId).single();
   const name = (data?.name || "").toLowerCase();
+  if (name.includes("ssc cgl")) return CGL_DAILY_SCHEDULE;
   if (name.includes("up police") || name.includes("upp")) return UPP_DAILY_SCHEDULE;
   if (name.includes("agniveer") || name.includes("army")) return AGNIVEER_DAILY_SCHEDULE;
   return DAILY_SCHEDULE;
