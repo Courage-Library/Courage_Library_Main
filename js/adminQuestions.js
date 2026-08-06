@@ -36,21 +36,90 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!ok) return;
   await loadCategories();
   await loadSectionFilterOptions();
+  await loadCategoryFilterOptions();
+  await loadPatternFilterOptions();
   setupCategoryListener();
   setupPatternListener();
   loadQuestions();
   switchOptionsType("text");
 });
 
-// Populate the section filter dropdown with all sections
-async function loadSectionFilterOptions() {
+// Populate the category filter dropdown with all categories
+async function loadCategoryFilterOptions() {
   const { data } = await client
-    .from("pattern_sections")
-    .select("id, section_name")
-    .order("section_name", { ascending: true });
+    .from("exam_categories")
+    .select("id, name")
+    .order("name", { ascending: true });
+
+  const select = document.getElementById("qCategoryFilter");
+  if (!select || !data) return;
+  data.forEach((cat) => {
+    select.innerHTML += `<option value="${cat.id}">${cat.name}</option>`;
+  });
+}
+
+// Populate the pattern filter dropdown.
+// If categoryId is passed, only that category's patterns are shown (used for cascading).
+async function loadPatternFilterOptions(categoryId = "") {
+  let query = client
+    .from("exam_patterns")
+    .select("id, pattern_name")
+    .order("pattern_name", { ascending: true });
+
+  if (categoryId) query = query.eq("category_id", categoryId);
+
+  const { data } = await query;
+
+  const select = document.getElementById("qPatternFilter");
+  if (!select || !data) return;
+  select.innerHTML = `<option value="">All Patterns</option>`;
+  data.forEach((p) => {
+    select.innerHTML += `<option value="${p.id}">${p.pattern_name}</option>`;
+  });
+}
+
+// Populate the section filter dropdown.
+// - patternId given -> only that pattern's sections
+// - else categoryId given -> only sections under that category's patterns
+// - else -> all sections (used on initial page load / full reset)
+async function loadSectionFilterOptions(categoryId = "", patternId = "") {
+  let data = null;
+
+  if (patternId) {
+    const res = await client
+      .from("pattern_sections")
+      .select("id, section_name")
+      .eq("pattern_id", patternId)
+      .order("section_name", { ascending: true });
+    data = res.data;
+  } else if (categoryId) {
+    const { data: patterns } = await client
+      .from("exam_patterns")
+      .select("id")
+      .eq("category_id", categoryId);
+    const patternIds = (patterns || []).map((p) => p.id);
+    if (patternIds.length) {
+      const res = await client
+        .from("pattern_sections")
+        .select("id, section_name")
+        .in("pattern_id", patternIds)
+        .order("section_name", { ascending: true });
+      data = res.data;
+    } else {
+      data = [];
+    }
+  } else {
+    const res = await client
+      .from("pattern_sections")
+      .select("id, section_name")
+      .order("section_name", { ascending: true });
+    data = res.data;
+  }
 
   const select = document.getElementById("qSectionFilter");
   if (!select || !data) return;
+
+  select.innerHTML = `<option value="">All Sections</option>`;
 
   // Trim all names first, then deduplicate
   const seen = new Set();
@@ -402,6 +471,8 @@ let filterState = {
   pyq: "", // "pyq" | "" (all)
   section: "", // pattern_section_id
   language: "",
+  category: "", // category_id
+  pattern: "", // pattern_id
 };
 
 // Called on page load and after any filter change
@@ -439,6 +510,26 @@ async function loadQuestions(resetPage = true) {
   // Search filter — Supabase ilike for partial match
   if (filterState.search.trim()) {
     query = query.ilike("question_text", `%${filterState.search.trim()}%`);
+  }
+
+  // Category filter — questions table has category_id directly
+  if (filterState.category) {
+    query = query.eq("category_id", filterState.category);
+  }
+
+  // Pattern filter — resolve to that pattern's section IDs, then filter
+  if (filterState.pattern) {
+    const { data: patternSectionIds } = await client
+      .from("pattern_sections")
+      .select("id")
+      .eq("pattern_id", filterState.pattern);
+    const ids = (patternSectionIds || []).map((s) => s.id);
+    if (ids.length) {
+      query = query.in("pattern_section_id", ids);
+    } else {
+      // Pattern has no sections — force empty result set
+      query = query.eq("pattern_section_id", "00000000-0000-0000-0000-000000000000");
+    }
   }
 
   // Difficulty filter
@@ -673,18 +764,45 @@ function onSectionFilter(val) {
   loadQuestions(true);
 }
 
-function resetFilters() {
+async function onCategoryFilter(val) {
+  filterState.category = val;
+  // Pattern + Section filters cascade off category — reset both and reload their options
+  filterState.pattern = "";
+  filterState.section = "";
+  document.getElementById("qPatternFilter").value = "";
+  document.getElementById("qSectionFilter").value = "";
+  await loadPatternFilterOptions(val);
+  await loadSectionFilterOptions(val, "");
+  loadQuestions(true);
+}
+
+async function onPatternFilter(val) {
+  filterState.pattern = val;
+  // Section filter narrows further to just this pattern's sections (or back to category-level list)
+  filterState.section = "";
+  document.getElementById("qSectionFilter").value = "";
+  await loadSectionFilterOptions(filterState.category, val);
+  loadQuestions(true);
+}
+
+async function resetFilters() {
   filterState = {
     search: "",
     difficulty: "",
     pyq: "",
     section: "",
     language: "",
+    category: "",
+    pattern: "",
   };
   document.getElementById("qSearchInput").value = "";
   document.getElementById("qDiffFilter").value = "";
   document.getElementById("qPyqFilter").value = "";
   document.getElementById("qSectionFilter").value = "";
+  document.getElementById("qCategoryFilter").value = "";
+  document.getElementById("qPatternFilter").value = "";
+  await loadPatternFilterOptions(); // reload full pattern list (no category)
+  await loadSectionFilterOptions(); // reload full section list (no category/pattern)
   const qLangFilter = document.getElementById("qLangFilter");
   if (qLangFilter) qLangFilter.value = "";
   loadQuestions(true);
