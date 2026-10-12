@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founding Member बनें | Courage Library — Early Access</title>
+  <meta name="description" content="Mock देते हो, पर marks नहीं बढ़ते? Courage Library बताएगा आप कहाँ गलती कर रहे हो और उसे ठीक कैसे करना है। SSC aspirants के लिए Founding Member early access — free." />
+  <link rel="canonical" href="https://couragelibrary.in/early-access" />
+  <meta property="og:title" content="Courage Library — Founding Member Early Access" />
+  <meta property="og:description" content="Score काफी नहीं। हम बताते हैं गलती कहाँ है और उसे ठीक कैसे करना है। पहले 1,000 students के लिए free Pro access." />
+  <meta property="og:image" content="https://couragelibrary.in/images/logo.png" />
+  <meta property="og:url" content="https://couragelibrary.in/early-access" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+
+  <!-- Fonts: Inter + Noto Sans Devanagari (Hindi) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind (same CDN as the rest of the site) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#1E40AF',
+            gold: '#F59E0B',
+            emerald: { DEFAULT: '#10B981' },
+            ink: '#0F172A',
+            ice: '#F8FAFF'
+          },
+          fontFamily: {
+            sans: ['Inter', '"Noto Sans Devanagari"', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Supabase client (reuses the site's existing public client config) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabaseClient.js"></script>
+
+  <!-- Google Analytics (same property as index.html) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDZDTH2P22"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-HDZDTH2P22');</script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-tap-highlight-color: transparent; }
+    .field { width: 100%; border: 1px solid #CBD5E1; border-radius: 0.75rem; padding: 0.75rem 0.9rem; font-size: 1rem; background: #fff; color: #0F172A; outline: none; transition: border-color .15s, box-shadow .15s; }
+    .field:focus { border-color: #1E40AF; box-shadow: 0 0 0 3px rgba(30, 64, 175, .15); }
+    .field.invalid { border-color: #DC2626; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  </style>
+</head>
+
+<body class="bg-ice text-ink font-sans antialiased">
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/images/logo.png" alt="Courage Library" class="w-8 h-8 rounded-lg" width="32" height="32" />
+        <span class="font-bold text-lg text-ink">Courage Library</span>
+      </a>
+      <a href="#join" class="bg-navy hover:bg-blue-800 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
+        Early Access
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-50 to-ice -z-10"></div>
+      <div class="max-w-6xl mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 text-xs font-semibold px-3 py-1.5 rounded-full">
+            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+            जल्द आ रहा है · Founding Members के लिए Early Access
+          </span>
+          <h1 class="mt-5 text-3xl md:text-5xl font-extrabold leading-tight">
+            Mock देते हो,<br />पर <span class="text-navy">marks नहीं बढ़ते?</span>
+          </h1>
+          <p class="mt-5 text-lg md:text-xl text-slate-700 leading-relaxed">
+            Courage Library बताएगा <strong>आप कहाँ गलती कर रहे हो</strong> — और उसे <strong>ठीक कैसे करना है।</strong>
+          </p>
+          <p class="mt-2 text-sm text-slate-500">Not just a score. A diagnosis. Built for SSC aspirants.</p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="#join" class="text-center bg-navy hover:bg-blue-800 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-blue-900/10 transition">
+              Founding Member बनें — Free
+            </a>
+            <a href="#how" class="text-center bg-white border border-slate-300 hover:border-navy text-ink font-semibold px-6 py-3.5 rounded-xl transition">
+              कैसे काम करता है?
+            </a>
+          </div>
+
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 111.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>Kanpur library · Since Aug 2024</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 111.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>No spam</li>
+            <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 111.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>SSC CGL · CHSL · MTS</li>
+          </ul>
+        </div>
+
+        <!-- Founder video (set CONFIG.youtubeVideoId below) / fallback card -->
+        <div>
+          <div id="video-wrap" class="hidden aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-slate-900"></div>
+          <div id="founder-card" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 md:p-8">
+            <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Founder की बात</p>
+            <p class="mt-4 text-lg leading-relaxed text-slate-800">
+              “मैंने अपनी library में रोज़ देखा — students दिन-रात मेहनत करते हैं, mock पर mock देते हैं, फिर भी कुछ marks से पीछे रह जाते हैं। वजह मेहनत की कमी नहीं, <strong>सही दिशा की कमी</strong> है। Courage Library इसी के लिए बना है।”
+            </p>
+            <div class="mt-6 flex items-center gap-3">
+              <img src="/images/logo.png" alt="" class="w-11 h-11 rounded-full border border-slate-200" width="44" height="44" />
+              <div>
+                <p class="font-semibold">Jan Mohammad</p>
+                <p class="text-sm text-slate-500">Founder, Courage Library · Kanpur</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section id="how" class="py-16 md:py-20 bg-white border-y border-slate-200">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-center">Mock से Mastery तक — एक loop</h2>
+        <p class="mt-3 text-center text-slate-600">Score देखकर रुकना नहीं। हर गलती से सीखना।</p>
+
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="rounded-2xl border border-slate-200 p-6 bg-ice">
+            <div class="w-10 h-10 rounded-xl bg-navy text-white font-bold flex items-center justify-center">1</div>
+            <h3 class="mt-4 font-bold text-lg">Mock दो</h3>
+            <p class="mt-2 text-slate-600 text-sm leading-relaxed">असली exam जैसा secure test — timer, sections, सब कुछ।</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-6 bg-ice">
+            <div class="w-10 h-10 rounded-xl bg-navy text-white font-bold flex items-center justify-center">2</div>
+            <h3 class="mt-4 font-bold text-lg">गलती पकड़ो</h3>
+            <p class="mt-2 text-slate-600 text-sm leading-relaxed">कौन से topic में marks जा रहे हैं — साफ़ diagnosis।</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-6 bg-ice">
+            <div class="w-10 h-10 rounded-xl bg-navy text-white font-bold flex items-center justify-center">3</div>
+            <h3 class="mt-4 font-bold text-lg">Topic सीखो</h3>
+            <p class="mt-2 text-slate-600 text-sm leading-relaxed">गलत सवाल से सीधे उसी topic की पढ़ाई — “Learn More”।</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-6 bg-ice">
+            <div class="w-10 h-10 rounded-xl bg-emerald text-white font-bold flex items-center justify-center">4</div>
+            <h3 class="mt-4 font-bold text-lg">दोबारा मत दोहराओ</h3>
+            <p class="mt-2 text-slate-600 text-sm leading-relaxed">Mistake Vault आपकी गलतियों को revision plan में बदलता है।</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOUNDING MEMBER BENEFITS ============ -->
+    <section class="py-16 md:py-20">
+      <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="text-gold font-semibold text-sm uppercase tracking-wider">Founding Members</span>
+          <h2 class="mt-2 text-2xl md:text-3xl font-bold">सिर्फ पहले <span class="text-navy">1,000 students</span> के लिए</h2>
+          <p class="mt-4 text-slate-600 leading-relaxed">Platform सबसे पहले आप इस्तेमाल करेंगे, और आपकी feedback से ये बेहतर बनेगा। बदले में आपको मिलेगा:</p>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex gap-3 bg-white rounded-xl border border-slate-200 p-4">
+            <span class="text-gold text-xl" aria-hidden="true">★</span>
+            <span><strong>Pro access free</strong> — <span data-config="proFreeDuration"></span></span>
+          </li>
+          <li class="flex gap-3 bg-white rounded-xl border border-slate-200 p-4">
+            <span class="text-gold text-xl" aria-hidden="true">★</span>
+            <span><strong>Founding Member badge</strong> आपकी profile पर</span>
+          </li>
+          <li class="flex gap-3 bg-white rounded-xl border border-slate-200 p-4">
+            <span class="text-gold text-xl" aria-hidden="true">★</span>
+            <span><strong>Lifetime discount</strong> जब paid plans शुरू होंगे</span>
+          </li>
+          <li class="flex gap-3 bg-white rounded-xl border border-slate-200 p-4">
+            <span class="text-gold text-xl" aria-hidden="true">★</span>
+            <span>Founder के साथ <strong>direct feedback group</strong></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ FORM ============ -->
+    <section id="join" class="py-16 md:py-20 bg-white border-y border-slate-200">
+      <div class="max-w-xl mx-auto px-4">
+
+        <!-- Form state -->
+        <div id="form-panel">
+          <h2 class="text-2xl md:text-3xl font-bold text-center">Founding Member बनें</h2>
+          <p class="mt-2 text-center text-slate-600">30 सेकंड लगेंगे। बिल्कुल free।</p>
+
+          <form id="ea-form" class="mt-8 space-y-4" novalidate>
+            <!-- honeypot (bots fill this, humans never see it) -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div>
+              <label for="full_name" class="block text-sm font-semibold mb-1.5">आपका नाम / Full name *</label>
+              <input id="full_name" name="full_name" type="text" maxlength="80" autocomplete="name" class="field" placeholder="जैसे: Rahul Kumar" required />
+            </div>
+
+            <div>
+              <label for="mobile" class="block text-sm font-semibold mb-1.5">Mobile number (WhatsApp) *</label>
+              <div class="flex">
+                <span class="inline-flex items-center px-3 border border-r-0 border-slate-300 rounded-l-xl bg-slate-50 text-slate-600 text-sm">+91</span>
+                <input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national" class="field !rounded-l-none" placeholder="10 अंकों का नंबर" required />
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-semibold mb-1.5">Email <span class="font-normal text-slate-500">(optional)</span></label>
+              <input id="email" name="email" type="email" maxlength="120" autocomplete="email" class="field" placeholder="you@example.com" />
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="target_exam" class="block text-sm font-semibold mb-1.5">Target exam *</label>
+                <select id="target_exam" name="target_exam" class="field" required>
+                  <option value="">चुनें</option>
+                  <option value="SSC_CGL">SSC CGL</option>
+                  <option value="SSC_CHSL">SSC CHSL</option>
+                  <option value="SSC_MTS">SSC MTS</option>
+                  <option value="SSC_GD">SSC GD</option>
+                  <option value="SSC_CPO">SSC CPO</option>
+                  <option value="SSC_STENO">SSC Stenographer</option>
+                  <option value="RAILWAY">Railway (RRB)</option>
+                  <option value="BANKING">Banking</option>
+                  <option value="POLICE">Police</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="attempt" class="block text-sm font-semibold mb-1.5">कौन सा attempt? *</label>
+                <select id="attempt" name="attempt" class="field" required>
+                  <option value="">चुनें</option>
+                  <option value="NOT_STARTED">अभी शुरू कर रहा/रही हूँ</option>
+                  <option value="FIRST">पहला attempt</option>
+                  <option value="SECOND">दूसरा attempt</option>
+                  <option value="THIRD_PLUS">तीसरा या ज़्यादा</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="prep_mode" class="block text-sm font-semibold mb-1.5">तैयारी कैसे करते हो? *</label>
+                <select id="prep_mode" name="prep_mode" class="field" required>
+                  <option value="">चुनें</option>
+                  <option value="SELF_STUDY">Self study (घर पर)</option>
+                  <option value="LIBRARY">Library में</option>
+                  <option value="COACHING">Coaching</option>
+                  <option value="ONLINE">Online course / YouTube</option>
+                </select>
+              </div>
+              <div>
+                <label for="city" class="block text-sm font-semibold mb-1.5">शहर / City *</label>
+                <input id="city" name="city" type="text" maxlength="60" autocomplete="address-level2" class="field" placeholder="जैसे: Kanpur" required />
+              </div>
+            </div>
+
+            <div>
+              <label for="biggest_problem" class="block text-sm font-semibold mb-1.5">सबसे बड़ी परेशानी क्या है? *</label>
+              <select id="biggest_problem" name="biggest_problem" class="field" required>
+                <option value="">चुनें</option>
+                <option value="MARKS_NOT_IMPROVING">Mock देता हूँ, पर marks नहीं बढ़ते</option>
+                <option value="REPEAT_MISTAKES">एक जैसी गलतियाँ बार-बार</option>
+                <option value="NO_STRATEGY">पता नहीं क्या और कैसे पढ़ूँ</option>
+                <option value="TIME_MANAGEMENT">Exam में time कम पड़ता है</option>
+                <option value="WEAK_SUBJECT">कोई एक subject बहुत weak है</option>
+                <option value="NO_TIME">Job/college के साथ पढ़ने का time नहीं</option>
+                <option value="OTHER">कुछ और</option>
+              </select>
+            </div>
+
+            <label class="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+              <input id="consent" name="consent" type="checkbox" class="mt-1 w-4 h-4 accent-blue-800" required />
+              <span>
+                मैं सहमत हूँ कि Courage Library मेरी जानकारी <strong>सिर्फ early access, platform updates और मेरी तैयारी से जुड़े messages</strong> (WhatsApp/SMS/Email) के लिए इस्तेमाल करे।
+                <a href="/privacy-policy.html" target="_blank" class="text-navy underline">Privacy Policy</a>
+              </span>
+            </label>
+
+            <p id="form-error" class="hidden text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-3 py-2" role="alert"></p>
+
+            <button id="submit-btn" type="submit" class="w-full bg-navy hover:bg-blue-800 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-lg py-3.5 rounded-xl transition">
+              Founding Member बनें — Free
+            </button>
+
+            <p class="text-center text-xs text-slate-500">🔒 आपका data बेचा या share नहीं किया जाएगा। No spam.</p>
+          </form>
+        </div>
+
+        <!-- Thank-you state -->
+        <div id="success-panel" class="hidden text-center" aria-live="polite">
+          <div class="w-16 h-16 mx-auto rounded-full bg-emerald-100 flex items-center justify-center">
+            <svg class="w-9 h-9 text-emerald" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 111.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <h2 id="success-title" class="mt-5 text-2xl md:text-3xl font-bold">आप list में हैं! 🎉</h2>
+          <p class="mt-3 text-slate-600">Waitlist में आपका नंबर</p>
+          <p class="mt-1 text-5xl font-extrabold text-navy">#<span id="position">—</span></p>
+
+          <div class="mt-8 text-left bg-ice border border-slate-200 rounded-2xl p-5">
+            <p class="font-semibold">आगे आएँ — दोस्तों को invite करें</p>
+            <p class="mt-1 text-sm text-slate-600">आपके link से जितने दोस्त जुड़ेंगे, आपको उतना पहले access मिलेगा।</p>
+            <div class="mt-4 flex gap-2">
+              <input id="ref-link" type="text" readonly class="field text-sm" aria-label="Your referral link" />
+              <button id="copy-btn" type="button" class="shrink-0 bg-white border border-slate-300 hover:border-navy font-semibold text-sm px-4 rounded-xl transition">Copy</button>
+            </div>
+            <a id="wa-share" href="#" target="_blank" rel="noopener noreferrer" class="mt-3 flex items-center justify-center gap-2 w-full bg-[#25D366] hover:brightness-95 text-white font-semibold py-3 rounded-xl transition">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.8 11.9 11.9 0 004.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 001.8-1.3 2.3 2.3 0 00.2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+              WhatsApp पर share करें
+            </a>
+          </div>
+
+          <div class="mt-6 grid sm:grid-cols-2 gap-3">
+            <a id="tg-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden bg-[#229ED9] hover:brightness-95 text-white font-semibold py-3 rounded-xl transition">Telegram channel join करें</a>
+            <a id="wa-channel-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden bg-ink hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition">WhatsApp channel follow करें</a>
+          </div>
+
+          <p class="mt-6 text-sm text-slate-500">Access मिलते ही हम आपको WhatsApp पर बताएँगे।</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRUST ============ -->
+    <section class="py-16 md:py-20">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-center">हम असली हैं — और आपके बीच हैं</h2>
+        <div class="mt-10 grid md:grid-cols-3 gap-5">
+          <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <h3 class="font-bold text-lg">Physical library, Kanpur</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">August 2024 से चल रही Courage Library — जहाँ रोज़ aspirants पढ़ते हैं। Platform उन्हीं के साथ बना है।</p>
+            <a id="maps-link" href="#" target="_blank" rel="noopener noreferrer" class="hidden mt-3 inline-block text-sm font-semibold text-navy underline">Google Maps पर देखें</a>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <h3 class="font-bold text-lg">आपका data, आपका</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">हम आपका नंबर या जानकारी किसी को नहीं बेचते। सिर्फ early access और तैयारी से जुड़े updates।</p>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <h3 class="font-bold text-lg">सीधे बात करें</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">कोई सवाल? हमें WhatsApp पर message करें।</p>
+            <a href="https://wa.me/918467864390" target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-sm font-semibold text-navy underline">WhatsApp पर chat करें</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="pb-16 md:pb-20">
+      <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-center">अक्सर पूछे जाने वाले सवाल</h2>
+        <div class="mt-8 space-y-3">
+          <details class="bg-white rounded-xl border border-slate-200 p-5">
+            <summary class="font-semibold cursor-pointer">क्या ये सच में free है?</summary>
+            <p class="mt-3 text-sm text-slate-600">हाँ। Founding Members को Pro access free मिलेगा (<span data-config="proFreeDuration"></span>)। कोई card या payment नहीं माँगा जाएगा।</p>
+          </details>
+          <details class="bg-white rounded-xl border border-slate-200 p-5">
+            <summary class="font-semibold cursor-pointer">Access कब मिलेगा?</summary>
+            <p class="mt-3 text-sm text-slate-600">हम छोटे-छोटे groups में access खोलेंगे ताकि सब कुछ smooth चले। आपकी बारी आते ही WhatsApp पर message आएगा। जितने ज़्यादा दोस्त invite करेंगे, उतना पहले।</p>
+          </details>
+          <details class="bg-white rounded-xl border border-slate-200 p-5">
+            <summary class="font-semibold cursor-pointer">कौन से exams के लिए है?</summary>
+            <p class="mt-3 text-sm text-slate-600">शुरुआत SSC (CGL, CHSL, MTS) से। Railway, Banking, Police और बाकी exams एक-एक करके जुड़ेंगे।</p>
+          </details>
+          <details class="bg-white rounded-xl border border-slate-200 p-5">
+            <summary class="font-semibold cursor-pointer">मेरे data का क्या होगा?</summary>
+            <p class="mt-3 text-sm text-slate-600">सिर्फ early access और आपकी तैयारी से जुड़े updates के लिए। किसी third party को बेचा या दिया नहीं जाएगा। हटवाने के लिए WhatsApp पर message करें।</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-ink text-slate-400 py-8">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+      <p>© <span id="year"></span> Courage Library · Kanpur · Learn Smarter. Prepare Independently.</p>
+      <nav class="flex gap-4">
+        <a href="/privacy-policy.html" class="hover:text-white">Privacy</a>
+        <a href="/terms.html" class="hover:text-white">Terms</a>
+        <a href="/contact.html" class="hover:text-white">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    /* =====================================================================
+       CONFIG — edit these values only
+       ===================================================================== */
+    const CONFIG = {
+      siteUrl: 'https://couragelibrary.in',
+      proFreeDuration: '6 महीने',      // e.g. '6 महीने' or '3 महीने'
+      youtubeVideoId: '',              // founder video ID, e.g. 'dQw4w9WgXcQ' (leave '' to show the quote card)
+      telegramUrl: '',                 // e.g. 'https://t.me/yourchannel'
+      whatsappChannelUrl: '',          // e.g. 'https://whatsapp.com/channel/XXXX'
+      mapsUrl: ''                      // Google Maps link of the library
+    };
+
+    (function () {
+      'use strict';
+
+      // ---------- helpers ----------
+      const $ = (id) => document.getElementById(id);
+      const safeGet = (store, k) => { try { return window[store].getItem(k); } catch (e) { return null; } };
+      const safeSet = (store, k, v) => { try { window[store].setItem(k, v); } catch (e) { /* ignore */ } };
+      const clean = (v, max) => (v || '').toString().trim().slice(0, max);
+
+      // ---------- config into page ----------
+      document.querySelectorAll('[data-config="proFreeDuration"]').forEach(el => { el.textContent = CONFIG.proFreeDuration; });
+      $('year').textContent = new Date().getFullYear();
+
+      if (/^[A-Za-z0-9_-]{6,20}$/.test(CONFIG.youtubeVideoId)) {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + CONFIG.youtubeVideoId + '?rel=0';
+        iframe.title = 'Courage Library — Founder video';
+        iframe.className = 'w-full h-full';
+        iframe.loading = 'lazy';
+        iframe.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        $('video-wrap').appendChild(iframe);
+        $('video-wrap').classList.remove('hidden');
+        $('founder-card').classList.add('mt-5');
+      }
+      const showLink = (id, url) => { if (/^https:\/\//.test(url)) { $(id).href = url; $(id).classList.remove('hidden'); } };
+      showLink('tg-link', CONFIG.telegramUrl);
+      showLink('wa-channel-link', CONFIG.whatsappChannelUrl);
+      showLink('maps-link', CONFIG.mapsUrl);
+
+      // ---------- capture ?ref= and UTM params (kept for this visit) ----------
+      const params = new URLSearchParams(window.location.search);
+      const refParam = (params.get('ref') || '').toUpperCase();
+      if (/^[A-F0-9]{8}$/.test(refParam)) safeSet('sessionStorage', 'cl_ea_ref', refParam);
+      ['utm_source', 'utm_medium', 'utm_campaign'].forEach(k => {
+        const v = params.get(k);
+        if (v) safeSet('sessionStorage', 'cl_ea_' + k, clean(v, 100));
+      });
+
+      // ---------- form ----------
+      const form = $('ea-form');
+      const btn = $('submit-btn');
+      const errBox = $('form-error');
+
+      const ERRORS = {
+        CONSENT_REQUIRED: 'आगे बढ़ने के लिए सहमति (checkbox) ज़रूरी है।',
+        INVALID_MOBILE: 'कृपया सही 10 अंकों का mobile number डालें।',
+        INVALID_INPUT: 'कुछ जानकारी सही नहीं है। कृपया form दोबारा check करें।',
+        RATE_LIMITED: 'बहुत ज़्यादा कोशिशें हो गईं। कृपया थोड़ी देर बाद try करें।',
+        NETWORK: 'Connection में दिक्कत है। Internet check करके दोबारा try करें।'
+      };
+
+      function showError(msg, fieldId) {
+        errBox.textContent = msg;
+        errBox.classList.remove('hidden');
+        if (fieldId) { const f = $(fieldId); f.classList.add('invalid'); f.focus(); }
+      }
+      function clearErrors() {
+        errBox.classList.add('hidden');
+        form.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+      }
+
+      $('mobile').addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+      });
+
+      function validate(d) {
+        if (d.full_name.length < 2) return ['कृपया अपना नाम लिखें।', 'full_name'];
+        if (!/^[6-9][0-9]{9}$/.test(d.mobile)) return [ERRORS.INVALID_MOBILE, 'mobile'];
+        if (d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return ['Email सही नहीं है (या खाली छोड़ दें)।', 'email'];
+        if (!d.target_exam) return ['Target exam चुनें।', 'target_exam'];
+        if (!d.attempt) return ['Attempt चुनें।', 'attempt'];
+        if (!d.prep_mode) return ['तैयारी का तरीका चुनें।', 'prep_mode'];
+        if (d.city.length < 2) return ['अपना शहर लिखें।', 'city'];
+        if (!d.biggest_problem) return ['अपनी सबसे बड़ी परेशानी चुनें।', 'biggest_problem'];
+        if (!d.consent) return [ERRORS.CONSENT_REQUIRED, 'consent'];
+        return null;
+      }
+
+      function showSuccess(position, code, isExisting) {
+        $('form-panel').classList.add('hidden');
+        $('success-panel').classList.remove('hidden');
+        $('success-title').textContent = isExisting ? 'आप पहले से list में हैं! 👍' : 'आप list में हैं! 🎉';
+        $('position').textContent = String(position);
+
+        const link = CONFIG.siteUrl + '/early-access?ref=' + encodeURIComponent(code) + '&utm_source=referral&utm_medium=whatsapp';
+        $('ref-link').value = link;
+        const msg = 'मैं Courage Library का Founding Member बन गया/गई हूँ 🎯\n' +
+                    'Mock देते हो पर marks नहीं बढ़ते? ये बताएगा गलती कहाँ है और उसे ठीक कैसे करना है।\n' +
+                    'पहले 1,000 students के लिए free — यहाँ join करो:\n' + link;
+        $('wa-share').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+        $('success-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      $('copy-btn').addEventListener('click', async () => {
+        const input = $('ref-link');
+        try { await navigator.clipboard.writeText(input.value); }
+        catch (e) { input.select(); try { document.execCommand('copy'); } catch (e2) { /* ignore */ } }
+        $('copy-btn').textContent = 'Copied ✓';
+        setTimeout(() => { $('copy-btn').textContent = 'Copy'; }, 2000);
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors();
+
+        // Honeypot: silently stop bots
+        if ($('website').value) return;
+
+        const d = {
+          full_name: clean($('full_name').value, 80),
+          mobile: clean($('mobile').value, 10),
+          email: clean($('email').value, 120).toLowerCase(),
+          target_exam: $('target_exam').value,
+          attempt: $('attempt').value,
+          prep_mode: $('prep_mode').value,
+          city: clean($('city').value, 60),
+          biggest_problem: $('biggest_problem').value,
+          consent: $('consent').checked
+        };
+
+        const invalid = validate(d);
+        if (invalid) { showError(invalid[0], invalid[1]); return; }
+
+        if (!window.client || typeof window.client.rpc !== 'function') {
+          showError(ERRORS.NETWORK);
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Submit हो रहा है…';
+
+        try {
+          const { data, error } = await window.client.rpc('join_early_access', {
+            p_full_name: d.full_name,
+            p_mobile: d.mobile,
+            p_email: d.email || null,
+            p_target_exam: d.target_exam,
+            p_attempt: d.attempt,
+            p_prep_mode: d.prep_mode,
+            p_biggest_problem: d.biggest_problem,
+            p_city: d.city,
+            p_consent: d.consent,
+            p_referred_by: safeGet('sessionStorage', 'cl_ea_ref'),
+            p_utm_source: safeGet('sessionStorage', 'cl_ea_utm_source'),
+            p_utm_medium: safeGet('sessionStorage', 'cl_ea_utm_medium'),
+            p_utm_campaign: safeGet('sessionStorage', 'cl_ea_utm_campaign')
+          });
+
+          if (error) throw error;
+
+          if (data && (data.status === 'created' || data.status === 'exists')) {
+            if (typeof gtag === 'function') {
+              gtag('event', data.status === 'created' ? 'early_access_signup' : 'early_access_repeat', {
+                target_exam: d.target_exam,
+                source: safeGet('sessionStorage', 'cl_ea_utm_source') || 'direct'
+              });
+            }
+            showSuccess(data.position, data.referral_code, data.status === 'exists');
+            return;
+          }
+
+          const code = data && data.code;
+          showError(ERRORS[code] || ERRORS.INVALID_INPUT, code === 'INVALID_MOBILE' ? 'mobile' : (code === 'CONSENT_REQUIRED' ? 'consent' : null));
+        } catch (err) {
+          showError(ERRORS.NETWORK);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Founding Member बनें — Free';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
